@@ -67,9 +67,8 @@ ul {
 }
 .content-width {
     max-width: 1920px;
-    width: 110%;
+    width: 100%;
     margin-left: auto;
-    margin-left: -10%;
 }
 .theme-btn {
     background: var(--primary_color);
