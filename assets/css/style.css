@@ -1027,20 +1027,16 @@ body .body-overlay {
     margin-bottom: 0;
 }
 .portfolio-items .portfolio-item .portfolio-item-inner {
-    width: 1240px;
-    height: 700px;
+
+  height: 450px;
     overflow: hidden;
     border-radius: 30px;
     position: relative;
     margin-bottom: 30px;
 }
 .portfolio-items .portfolio-item.portfolio-full .portfolio-item-inner {
-  width: 1240px;
-  height: 700px;
-    overflow: hidden;
-    border-radius: 50px;
-    position: relative;
-    margin-bottom: 80px;
+
+  height: 450px;
 }
 .portfolio-items .portfolio-item .portfolio-item-inner img {
     display: block;
