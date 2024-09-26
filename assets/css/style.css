@@ -66,7 +66,7 @@ ul {
     padding: 0;
 }
 .content-width {
-    max-width: 1920px;
+    max-width: 95%;
     width: 100%;
     margin-left: auto;
 }
@@ -1027,16 +1027,14 @@ body .body-overlay {
     margin-bottom: 0;
 }
 .portfolio-items .portfolio-item .portfolio-item-inner {
-
-  height: 450px;
+    height: 370px;
     overflow: hidden;
     border-radius: 30px;
     position: relative;
     margin-bottom: 30px;
 }
 .portfolio-items .portfolio-item.portfolio-full .portfolio-item-inner {
-
-  height: 450px;
+    height: 410px;
 }
 .portfolio-items .portfolio-item .portfolio-item-inner img {
     display: block;
