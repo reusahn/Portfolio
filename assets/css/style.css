@@ -850,7 +850,7 @@ body .body-overlay {
 }
 .about-area .about-content p {
     line-height: 30px;
-    max-width: 610px;
+    max-width: 100%;
 }
 
 
