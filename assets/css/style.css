@@ -933,8 +933,8 @@ body .body-overlay {
     border-radius: 20px;
     transition: .3s;
     position: relative;
-    padding: 44px 48px 41px 48px;
-    margin-bottom: 10px;
+    padding: 20px 48px 16px 48px;
+    margin-bottom: 16px;
 }
 .services-items .service-item:last-child {
     margin-bottom: 0;
@@ -943,10 +943,10 @@ body .body-overlay {
     font-size: 24px;
     font-weight: 300;
     margin-bottom: 8px;
-    color: #fff;
+    color: #ffffff;
 }
 .services-items .service-item h2 a {
-    color: #fff;
+    color: #ffffff;
     transition: .3s;
 }
 .services-items .service-item:hover {
@@ -957,7 +957,7 @@ body .body-overlay {
 }
 .services-items .service-item p {
     font-size: 14px;
-    color: #999999;
+    color: #ffffff;
     margin-bottom: 30px;
 }
 .services-items .service-item .projects {
