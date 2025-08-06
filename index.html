@@ -1,1154 +1,688 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jonghoon Ahn</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jonghoon Ahn</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #000;
+      color: #f0f0f0;
+      line-height: 1.7;
+    }
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #fff;
+      /*border-top: 1px solid #333;*/
+      padding-top: 30px;
+    }
+    .item h3 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #f0f0f0;
+    }
+    .item p {
+      font-size: 0.95rem;
+      font-style: italic;
+      color: #888;
+      margin-top: 5px;
+    }
+    p {
+      font-size: 1rem;
+      color: #ccc;
+    }
+    .item p {
+      font-size: 0.95rem;
+      font-style: italic;
+      color: #888;
+      margin-top: 5px;
+    }
+    p {
+      font-size: 1rem;
+      color: #ccc;
+    }
+    .nav {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 0.9rem;
+      z-index: 1000;
+    }
+    .nav a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: #888;
+    }
+    .nav a:hover {
+      color: #fff;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .item {
+      border-top: 1px solid #333;
+      padding-top: 20px;
+    }
+    .item2 {
+      border-top: 0px solid #333;
+      padding-top: 10px;
+    }
+    .item3 {
+      border-top: 0px solid #333;
+      padding-top: 20px;
+    }
+    .item img, .item video, .item iframe {
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    iframe {
+      aspect-ratio: 16 / 9;
+    }
+    footer {
+      margin-top: 100px;
+      padding-top: 80px;
+      border-top: 1px solid #333;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    ul li {
+      margin-bottom: 8px;
+      color: #999;
+    }
 
-    <link rel="icon" type="image/x-icon" href="./assets/images/favicon.png">
+    :root { color-scheme: light dark; }
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background: #f9f9f9;
+      color: #111;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #111; color: #eee; }
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 20px 80px;
+    }
+    h1 { font-size: 3rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 10px; }
+    p { font-size: 1rem; opacity: 0.8; line-height: 1.7; }
+    .nav {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 0.9rem;
+      z-index: 1000;
+    }
+    .nav a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: inherit;
+      opacity: 0.6;
+    }
+    .nav a:hover { opacity: 1; }
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-top: 100px;
+      /*border-top: 1px solid #ccc; */
+      padding-top: 30px;
+    }
+    @media (prefers-color-scheme: dark) {
+    h2 {/* border-top: 1px solid #444;*/ }
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .item {
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .item { border-top: 1px solid #444; }
+    }
+    .item img, .item video, .item iframe {
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
 
-     <script src="https://kit.fontawesome.com/35f007481c.js" crossorigin="anonymous"></script>
+    .item3 img, .item3 video, .item3 iframe {
+      width: 20%;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    iframe { aspect-ratio: 16 / 9; }
+    footer {
+      margin-top: 100px;
+      padding-top: 80px;
+      border-top: 1px solid #ccc;
+    }
+    @media (prefers-color-scheme: dark) {
+      footer { border-top: 1px solid #444; }
+    }
+    ul {
+      padding-left: 20px;
+    }
+    ul li {
+      margin-bottom: 8px;
+    }
+    .description {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 50px;
+    }
+    .image-text-block {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      align-items: flex-start;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+    }
+    .image-text-block img {
+      width: 40%;
+      max-width: 400px;
+      border-radius: 8px;
+      margin-top: 55px;
+    }
 
+    .image-text-block .text {
+      flex: 1;
+      min-width: 250px;
+      font-size: 0.95rem;
+      color: #aaa;
+    }
+    .top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+  gap: 20px;
+}
 
+.top-header .left h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+}
 
-    <!-- Font g-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+.top-header .left p {
+  font-size: 1rem;
+  color: #aaa;
+  margin: 5px 0 0 0;
+}
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="./assets/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="./assets/css/animate.min.css">
-    <link rel="stylesheet" href="./assets/css/smooth-scrollbar.css">
-    <link rel="stylesheet" href="./assets/css/lightbox.min.css">
-
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/responsive.css">
-
+.top-header .right {
+  text-align: right;
+  font-size: 0.95rem;
+  color: #999;
+  line-height: 1.6;
+}
+  </style>
 </head>
-<body class="home1-page">
+<body>
+  <div class="nav">
+    <a href="#film">Film</a>
+    <a href="#interactive">Interactive Art</a>
+    <a href="#media">Media Art</a>
+    <a href="#xr">XR</a>
+    <a href="#vfx">3D/VFX</a>
+    <a href="#about">About</a>
+    <a href="#news">News</a>
+  </div>
+  <div class="container">
+    <!--
+    <h1>Jonghoon Ahn</h1>
+    <p>Filmmaker · Creative Technologist · Media Artist</p> -->
 
-   <!--  <video class="body-overlay" muted autoplay loop>
-        <source src="./assets/images/video1.mp4" type="video/mp4">
-    </video> -->
-
-    <!-- Preloader -->
-    <div class="page-loader">
-        <div class="bounceball"></div>
-    </div>
-
-    <span class="icon-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </span>
-
-    <!-- Side Menu Bar -->
-    <div class="responsive-sidebar-menu">
-        <div class="overlay"></div>
-
-
-        <div class="sidebar-menu-inner">
-            <div class="menu-wrap">
-                <p>Menu</p>
-                <ul class="menu scroll-nav-responsive d-flex">
-                    <li>
-                        <a class="scroll-to" href="#home">
-                            <i class="las la-home"></i> <span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#about">
-                            <i class="lar la-user"></i> <span>About</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#resume">
-                            <i class="las la-briefcase"></i> <span>Resume</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#skills">
-                            <i class="las la-shapes"></i> <span>Skills</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#services">
-                            <i class="las la-stream"></i> <span>Awards</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#articles">
-                            <i class="las la-grip-vertical"></i> <span>Articles</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#portfolio">
-                            <i class="fa-solid fa-person"></i> <span>AI Human</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#portfolio2">
-                            <i class="fa-regular fa-hand-point-up"></i> <span>Interactive</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#portfolio3">
-                          <i class="fa-solid fa-film"></i> <span>Film</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#portfolio4">
-                            <i class="fa-solid fa-vr-cardboard"></i> <span>Virtual Reality</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="scroll-to" href="#projects">
-                            <i class="fa-solid fa-list-ul"></i> <span>Projects</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-
-
-            <div class="sidebar-social">
-                <p>Social</p>
-                <ul class="social-links d-flex align-items-center">
-                    <!-- <li>
-                        <a href=""><i class="lab la-twitter"></i></a>
-                    </li>
-                    <li>
-                        <a href=""><i class="lab la-dribbble"></i></a>
-                    </li>-->
-                    <li>
-                        <a href="https://www.instagram.com/nondone.studio"><i class="lab la-instagram"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <ul class="menu scroll-nav d-flex">
-        <li>
-            <a class="scroll-to" href="#home">
-                <span>Home</span> <i class="las la-home"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#about">
-                <span>About</span> <i class="lar la-user"></i>
-            </a>
-        </li>
-
-        <li>
-            <a class="scroll-to" href="#resume">
-                <span>Resume</span> <i class="las la-briefcase"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#skills">
-                <span>Skills</span> <i class="las la-shapes"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#services">
-                <span>Awards</span> <i class="las la-stream"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#articles">
-                <span>Articles</span> <i class="las la-grip-vertical"></i>
-            </a>
-        </li>
-
-        <li>
-            <a class="scroll-to" href="#portfolio">
-                <span>AI Human</span> <i class="fa-solid fa-person"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#portfolio2">
-                <span>Interactive</span> <i class="fa-regular fa-hand-point-up"></i>
-            </a>
-        </li>
-
-        <li>
-            <a class="scroll-to" href="#portfolio3">
-                <span>Film</span> <i class="fa-solid fa-film"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#portfolio4">
-                <span>Virtual Reality</span> <i class="fa-solid fa-vr-cardboard"></i>
-            </a>
-        </li>
-        <li>
-            <a class="scroll-to" href="#projects">
-                <span>Projects</span> <i class="fa-solid fa-list-ul"></i>
-            </a>
-        </li>
-    </ul>
-
-<!--
-    <div class="left-sidebar">
-      <div style="text-align: center;" class="sidebar-header d-flex align-items-center justify-content-between">
-        <span style="text-align: center;">Film Director & New Media Art</span>
-          <span class="designation">Film Director & New Media Art</span>
+    <div class="image-text-block">
+      <div class="text">
+        <h1>Jonghoon Ahn</h1>
+        <h3 style="margin-top: 0px;">Filmmaker · Creative Technologist · Media Artist</h3>
+        <p style="margin-top: 40px;">Calarts Art&Tech MFA25</p>
+        <p style="margin-top: -20px;">2025 Art Korea Lab Co-Project</p>
+        <p style="margin-top: -20px;">2024 Finalist Sundance Ignite x Adobe Fellowship</p>
       </div>
-        <div class="sidebar-header d-flex align-items-center justify-content-between">
-            <img src="./assets/images/logo2.png" alt="Logo">
-        </div>
-
-
-        <img class="me" src="./assets/images/me.jpg" alt="Me">
-        <h2 class="email">reusahn@gmail.com</h2>
-        <h2 class="address">Base in Los Angeles, CA</h2>
-      <p class="copyright">&copy; 2022 Drake. All Rights Reserved</p>
-        <ul class="social-profile d-flex align-items-center flex-wrap justify-content-center">
-            <li>
-                <a href=""><i class="lab la-twitter"></i></a>
-            </li>
-            <li>
-                <a href=""><i class="lab la-dribbble"></i></a>
-            </li>
-            <li>
-                <a href=""><i class="lab la-instagram"></i></a>
-            </li>
-            <li>
-                <a href=""><i class="lab la-github"></i></a>
-            </li>
-        </ul>
-        <a href="#" class="theme-btn">
-            <i class="las la-envelope"></i> Hire Me!
-        </a>
-    </div>-->
-
-    <main class="drake-main">
-        <div id="smooth-wrapper">
-            <div id="smooth-content">
-
-
-                <!-- Hero Section -->
-                <section class="hero-section page-section scroll-to-page" id="home">
-
-                    <div class="custom-container">
-                        <div class="hero-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-home"></i> Introduce
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom">Jonghoon Ahn </h1>
-                                <h4 style="font-size: 40px;  margin-top: -25px; margin-bottom: 60px;" class="scroll-animation" data-animation="fade_from_bottom"> <span> New Media Artist& Film Director </span> </h4>
-                            </div>
-                            <p class="scroll-animation" data-animation="fade_from_bottom">Jonghoon is a new media artist and film director who combines film and interactive XR elements to explore the boundary between reality and virtuality. His experimental films and XR engage audiences through participation and technology, often addressing themes of social inequality.</p>
-                            <p class="scroll-animation" data-animation="fade_from_bottom">안종훈은 뉴미디어를 주로 활용하는 미디어 아티스트로, 관객의 참여와 상호작용을 통해 작품을 완성한다. 현실과 가상의 경계를 넘나드는 실감형 콘텐츠로, 관객의 행동을 데이터화하여 이를 라이브 액션과 3D 애니메이션을 혼합한 실험적인 형식으로 표현한다. 동작 인식과 특정 제스처에 반응하는 인터랙션을 통해 관객은 작품의 일부가 되며, 안종훈은 이러한 과정을 통해 관객이 작품 속에서 경험하는 신비로움과 낯선 감정을 중요시한다.</p>
-
-
-                            <a href="#portfolio"
-                                class="go-to-project-btn scroll-to scroll-animation"
-                                data-animation="rotate_up">
-                                <img src="./assets/images/round-text.png" alt="Rounded Text">
-                                <i class="las la-arrow-down"></i>
-                            </a>
-
-<!--
-                            <div class="facts d-flex">
-                                <div class="left scroll-animation" data-animation="fade_from_left">
-                                    <h1>10+</h1>
-                                    <p>Years of <br>Experience</p>
-                                </div>
-                                <div class="right scroll-animation" data-animation="fade_from_right">
-                                    <h1>182+</h1>
-                                    <p>projects completed on <br>15 countries</p>
-                                </div>
-                            </div>
-                          -->
-                        </div>
-                    </div>
-                </section>
-
-
-
-                <!-- About Section -->
-                <section class="about-area page-section scroll-to-page" id="about">
-                    <div class="custom-container">
-                        <div class="about-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="lar la-user"></i> About
-                                </h4>
-                              <!--  <h1 class="scroll-animation" data-animation="fade_from_bottom">Jonghoon Ahn<br></h1> -->
-                                  <h4 style="margin-top: -20px; margin-bottom: 30px;"class="scroll-animation" data-animation="fade_from_bottom">  Based in <span> Los Angeles and South Korea</span></h4>
-                            </div>
-
-                            <div class="section-header">
-
-                              <div>
-
-                          <p class="scroll-animation" data-animation="fade_from_bottom">Jonghoon Ahn is a media artist who primarily utilizes new media, completing his works through audience participation and interaction. His immersive content transcends the boundaries between reality and virtuality by dataifying audience actions and expressing them in an experimental format that blends live action with 3D animation. Through interaction that responds to motion recognition and specific gestures, the audience becomes part of the artwork. An Jong-hoon values the sense of mystery and unfamiliar emotions that the audience experiences within the work through this process.
-
-
-                          <p class="scroll-animation" data-animation="fade_from_bottom">He creates worlds that combine reality-based data visualization with generative art, allowing the audience to feel a blend of emotions between the real and the virtual. He produces experimental films from the perspective of anti-American hegemonic styles, implementing his journey to find his own "Crest Line" through cinematic montage techniques. He views film as an extension of media art and merges art and cinema in an experimental manner that encourages audience participation.</p>
-
-                              <p class="scroll-animation" data-animation="fade_from_bottom">Based on the idea that "technology is a moment," he provides opportunities for people who cannot enjoy or overlook the rapidly developing and replacing technologies to appreciate the beauty of technology through art. He particularly criticizes narcissists who cause social inequality and seeks to alleviate inequalities resulting from technological advancements. Defining himself as a "mutant born in a narcissist nurturing ground," he aims to heal the wounds caused by narcissists through technology and art. After creating AI humans, he demonstrates the potential for humans to ultimately be healed by their creations through interactions between artificial intelligence and humans.</p>
-                          </div>
-
-
-                            <p class="scroll-animation" data-animation="fade_from_bottom">안종훈은 뉴미디어를 주로 활용하는 미디어 아티스트로, 관객의 참여와 상호작용을 통해 작품을
-완성한다. 현실과 가상의 경계를 넘나드는 실감형 콘텐츠로, 관객의 행동을 데이터화하여 이를 라이브
-액션과 3D 애니메이션을 혼합한 실험적인 형식으로 표현한다. 동작 인식과 특정 제스처에 반응하는
-인터랙션을 통해 관객은 작품의 일부가 되며, 안종훈은 이러한 과정을 통해 관객이 작품 속에서
-경험하는 신비로움과 낯선 감정을 중요시한다. 특히 현실 기반의 데이터 시각화와 생성적 예술을
-결합한 세계를 창조하며, 그 속에서 관객은 현실과 가상 사이에서 혼재된 감정을 느낀다. 반미국 지배
-양식에 대한 시각으로 실험 영화를 제작하며, 자신의 "Crest Line"을 찾는 여정을 영화적 몽타주
-기법을 통해 구현한다. 영화 또한 미디어 아트의 확장으로 보고, 관객의 참여를 이끌어내는 실험적인
-방식으로 예술과 영화를 융합시킨다.</p> </div>
-<div>
-<p class="scroll-animation" data-animation="fade_from_bottom">"기술은 순간"이라는 생각을 바탕으로 빠르게 발전하고 교체되는 기술 속에서, 그 순간을 즐기지
-못하고 지나치는 사람들에게 예술을 통해 기술의 아름다움을 느낄 수 있는 기회를 제공한다. 특히
-사회적 불평등을 초래하는 나르시시스트들에 대해 비판하고 기술의 발전에 따른 불평등을 해소한다.
-스스로를 "나르시시스트 육성소에서 태어난 돌연변이"로 정의하며, 나르시시스트들로 인한 상처를
-기술과 예술을 통해 회복시키고자 한다. AI 인간을 제작한 뒤 인공지능과 인간 간의 상호작용을 통해
-결국 인간이 자신들의 창조물로부터 치유받을 수 있는 가능성을 보여준다.</p>
-<br>
-                        </div>
-
-
-
-                      </div>
-                      <div style="padding:50.5% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1011882979?h=c0905ae0c6&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="안종훈"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
-
-                    </div>
-
-
-                </section>
-
-                <!-- Resume Section -->
-               <section class="resume-area page-section scroll-to-page" id="resume">
-                    <div class="custom-container">
-                        <div class="resume-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-briefcase"></i> Resume
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom"><span>Education</span></h1>
-                            </div>
-
-                            <div class="resume-timeline">
-
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2023 - 2025</span>
-                                    <h2>Master of Fine Arts, California Institute of the Arts, Valencia, US</h2>
-                                    <p>Art and Technology</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2018 - 2022</span>
-                                    <h2>Bachelor of Fine Arts, Kookmin University, Seoul, Korea</h2>
-                                    <p>Entertainment Design</p>
-                                </div>
-                            </div>
-
-                            <div style="margin-top:50px;" class="section-header">
-
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom"><span>Experience</span></h1>
-                            </div>
-
-                            <div class="resume-timeline">
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                  <span class="date">2024 - Current</span>
-                                  <h2>XR Software developer in RedFlight AI, Korea</h2>
-                                  <p>Unity 3d Developer</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2023 - 2025</span>
-                                    <h2>Teaching Assistant in California Institute of the Arts, Valencia, US</h2>
-                                    <p>Art and Technology</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2021</span>
-                                    <h2>Internship at LYL corporation for Music Video Production, Korea</h2>
-                                    <p>Directing Team and Camera Team</p>
-                                </div>
-                                <div class="item scroll-animation" data-animation="fade_from_right">
-                                    <span class="date">2019 - 2022</span>
-                                    <h2>Undergraduate Researcher, Entertainment Design Kookmin University, Korea</h2>
-                                    <p>Coding Director and Team Leader</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </section>
-
-
-             <!-- Skills Section -->
-                 <section class="skills-area page-section scroll-to-page" id="skills">
-                    <div class="custom-container">
-                        <div class="skills-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-shapes"></i> my skills
-                                </h4>
-                                <h4 style="margin-bottom: 40px;" class="scroll-animation" data-animation="fade_from_bottom">Programming</h4>
-                            </div>
-
-                            <div class="row skills text-center">
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_left">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <!-- <img src="./assets/images/figma.png" alt="Figma">-->
-                                            <h1 class="percent">100%</h1>
-                                        </div>
-                                        <p class="name">C, C++, C#</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <h1 class="percent">80%</h1>
-                                        </div>
-                                        <p class="name">JAVA</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_top">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <h1 class="percent">60%</h1>
-                                        </div>
-                                        <p class="name">PYTHON</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_right">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <h1 class="percent">90%</h1>
-                                        </div>
-                                        <p class="name">Web base</p>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="section-header">
-
-                                <h4 style="margin-bottom: 40px;" class="scroll-animation" data-animation="fade_from_bottom">Realtime Engine</h4>
-                            </div>
-
-                            <div class="row skills text-center">
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_left">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <!-- <img src="./assets/images/figma.png" alt="Figma">-->
-                                            <h1 class="percent">100%</h1>
-                                        </div>
-                                        <p class="name">Unity 3D</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <h1 class="percent">80%</h1>
-                                        </div>
-                                        <p class="name">Unreal Engine</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="section-header">
-
-                                <h4 style="margin-bottom: 40px;" class="scroll-animation" data-animation="fade_from_bottom">3D & VFX</h4>
-                            </div>
-
-                            <div class="row skills text-center">
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_left">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <!-- <img src="./assets/images/figma.png" alt="Figma">-->
-                                            <h1 class="percent">90%</h1>
-                                        </div>
-                                        <p class="name">MAYA</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <h1 class="percent">80%</h1>
-                                        </div>
-                                        <p class="name">Cinema 4D</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <h1 class="percent">75%</h1>
-                                        </div>
-                                        <p class="name">Substance Painter</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <h1 class="percent">70%</h1>
-                                        </div>
-                                        <p class="name">Zbrush</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="section-header">
-
-                                <h4 style="margin-bottom: 40px;" class="scroll-animation" data-animation="fade_from_bottom">Film</h4>
-                            </div>
-
-                            <div class="row skills text-center">
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_left">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <!-- <img src="./assets/images/figma.png" alt="Figma">-->
-                                            <h1 class="percent">90%</h1>
-                                        </div>
-                                        <p class="name">Screenwriting</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <h1 class="percent">80%</h1>
-                                        </div>
-                                        <p class="name">Camera and Gaffer</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 scroll-animation" data-animation="fade_from_bottom">
-                                    <div class="skill">
-                                        <div class="skill-inner">
-                                            <h1 class="percent">95%</h1>
-                                        </div>
-                                        <p class="name">Color Grading</p>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </section>
-
-
-                <!-- Awards -->
-              <section class="services-area page-section scroll-to-page" id="services">
-                    <div class="custom-container">
-                        <div class="services-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-stream"></i> Awards
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom"><span>Awards and Grants</span></h1>
-                            </div>
-
-                            <div class="services-items">
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <h4 style="font-size : 18px; color:#ffffff;">2024 Super Lookie, Art Korea Lab, Seoul, Korea</h4>
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <h4 style="font-size : 18px; color:#ffffff;">2024 Semi Finalist, Flickers’ Rhode Island Film Festival, US</h4>
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <h4 style="font-size : 18px; color:#ffffff;">2024 Finalist, Sundance Ignite X Adobe Fellowship, US</h4>
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <h4 style="font-size : 18px; color:#ffffff;">2024 Silver Award, Independent Shorts Awards in Jan, US</h4>
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <h4 style="font-size : 18px; color:#ffffff;">2024 Award of Merit, Accolade Global Film Festival , US</h4>
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <h4 style="font-size : 18px; color:#ffffff;">2023 Honorable Mention, Daegu Media Art Competition, Korea</h4>
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <h4 style="font-size : 18px; color:#ffffff;">2023 “The Cave Contest May Section” Selection, Seoul, Korea</h4>
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <h4 style="font-size : 18px; color:#ffffff;">2022 Third place Art Division, The 42nd Daegu Art Exhibition, Korea</h4>
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <h4 style="font-size : 18px; color:#ffffff;">2019 First place, Kookmin University 16th “Chohyungjeon”, Team Team X Design</h4>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Article -->
-                <section class="services-area page-section scroll-to-page" id="articles">
-                    <div class="custom-container">
-                        <div class="services-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-stream"></i> Articles
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom"><span>Articles</span></h1>
-                            </div>
-
-                            <div class="services-items">
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <h4 style="font-size : 18px; color:#ffffff;">2024 Magazine of Minhwa &nbsp;&nbsp; <A href = "https://www.minhwatown.co.kr/news/articleView.html?idxno=57294" target = "링크 방법" > Web </A> </h4>
-                                </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                    <h4 style="font-size : 18px; color:#ffffff;">2024 Voyage LA &nbsp;&nbsp; <A href = "https://voyagela.com/interview/conversations-with-jonghoon-ahn/" target = "링크 방법" > Web </A> </h4>
-                              </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                  <h4 style="font-size : 18px; color:#ffffff;">2024 Independent Shorts Award &nbsp;&nbsp; <A href = "https://independentshortsawards.com/2024/01/15/non-done-record/" target = "링크 방법" > Web </A> </h4>
-                              </div>
-                                <div class="service-item scroll-animation" data-animation="fade_from_bottom">
-                                  <h4 style="font-size : 18px; color:#ffffff;">2023 Article from Mail-ilbo &nbsp;&nbsp; <A href = "https://www.imaeil.com/page/view/2023102610192087838" target = "링크 방법" > Web </A> </h4>
-                              </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </section>
-
-
-
-
-
-
-
-                <!-- Portfolio Section1 -->
-                <section class="portfolio-area page-section scroll-to-page" id="portfolio">
-                    <div class="custom-container">
-                        <div class="portfolio-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="las la-grip-vertical"></i> portfolio
-                                </h4>
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom"><span><b>AI Human</b></span></h1>
-                            </div>
-
-                            <div class="row portfolio-items">
-
-                              <!-- AI Human -->
-                                <div class="col-md-12 scroll-animation" data-animation="fade_from_bottom">
-                                  <!-- 포폴1 -->
-                                    <div class="portfolio-item portfolio-full">
-
-                                        <br>
-                                        <h5 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">1. Choi Jung Hoon AI Human</h5> <h6 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">- Research Project in California Institute of the Arts</h6> <br>
-                                        <div class="portfolio-item-inner">
-
-                                          <a href="./assets/images/p1.png" data-lightbox="example-1">
-                                        <picture>
-                                              <source srcset="./assets/images/p1_m.png" media="(max-width: 500px)" />
-
-                                                    <img src="./assets/images/p1.png" alt="Portfolio">
-                                            </picture>
-
-
-                                        </a>
-
-                                        </div>
-
-                                         <A href = "https://vimeo.com/933305770/b3cef8f513" target = "링크 방법" > VIDEO </A>
-                                         <h6 style="color:#FFFFFF">잔나비 밴드의 보컬 최정훈의 데이터로 제작한 AI Human. LLM 모델에 목소리, 성격, 외형, 인적사항을 대입한 뒤 최정훈 외형의 디지털 휴먼에 융합하여 관객과 마이크를 통해 소통한다.</h6>
-<h6 style="color:#FFFFFF">An AI human is created using data from Choi Jung-hoon, the vocalist of the band Jannabi. After integrating his voice, personality, appearance, and personal information into a language model (LLM), it transforms into a digital human with Choi Jung-hoon's appearance and communicates with the audience through a microphone.</h6>
-
-
-                                    <!-- 포폴2 -->
-                                    <br>
-                                    <div class="portfolio-item portfolio-full">
-
-                                        <br>
-                                        <br>
-                                        <h5 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">2. Seon-ah's Family</h5> <h6 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">- Liveaction and 3D Animation, 8min, 2025</h6> <br>
-                                        <div class="portfolio-item-inner">
-
-                                          <a href="./assets/images/p2.png" data-lightbox="example-1">
-                                        <picture>
-                                              <source srcset="./assets/images/p2_m.png" media="(max-width: 500px)" />
-
-                                                    <img src="./assets/images/p2.png" alt="Portfolio">
-                                            </picture>
-
-
-                                        </a>
-
-                                        </div>
-
-                                         <A href = "https://vimeo.com/978148055/5c36eaa295" target = "링크 방법" > VIDEO </A>
-                                         <h6 style="color:#FFFFFF">‘선아의 가족’은 선아라는 AI 가상인간의 가족 이야기를 영화로 풀어내고, 라이브액션과 함께 가상인간
-                                           선아와 상호작용할 수 있는 인터랙티브 미디어 아트가 동시에 진행된다.</h6>
-                                           <h6 style="color:#FFFFFF">'Seon-ah's Family' tells the story of the family of an AI virtual human named Seon-ah through a movie. In addition to live-action footage, interactive media art allows users to interact with the virtual human Seon-ah simultaneously.</h6>
-
-                                           <!-- 포폴3 -->
-                                           <br>
-                                           <div class="portfolio-item portfolio-full">
-
-                                               <br>
-                                               <br>
-                                               <h5 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">3. Nature Human</h5> <h6 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">- Interactive Media Art, KUAA Group Show, Janet Oh Gallery, 2024</h6> <br>
-                                               <div class="portfolio-item-inner">
-
-                                                 <a href="./assets/images/p3.png" data-lightbox="example-1">
-                                               <picture>
-                                                     <source srcset="./assets/images/p3_m.png" media="(max-width: 500px)" />
-
-                                                           <img src="./assets/images/p3.png" alt="Portfolio">
-                                                   </picture>
-
-
-                                               </a>
-
-                                               </div>
-
-                                                <A href = "https://vimeo.com/1011865855/65bd1e5650" target = "링크 방법" > VIDEO </A>
-                                                <h6 style="color:#FFFFFF">포스트 휴머니즘, 디스토피아적인 인간의 생존, 자연과의 융합에 기반한 가상인간. 관객은 2050년
-                                                  에반겔린과 소통할 수 있으며, 에반겔린은 인간이 자연과의 융합을 선택하게 된 과정을 소개해준다.</h6>
-                                                  <h6 style="color:#FFFFFF">'Post-humanism, dystopian human survival, and virtual humans merged with nature. In 2050, the audience can communicate with Evangeline,
-                                                     who introduces the process through which humans chose to merge with nature.</h6>
-
-                                                  <!-- 포폴4 -->
-                                                  <br>
-                                                  <div class="portfolio-item portfolio-full">
-
-                                                      <br>
-                                                      <br>
-                                                      <h5 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">4. Gang Se Hwang AI Docent</h5> <h6 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">- Interactive Contents, Gyeonggi Museum, 2022</h6> <br>
-                                                      <div class="portfolio-item-inner">
-
-                                                        <a href="./assets/images/p4.png" data-lightbox="example-1">
-                                                      <picture>
-                                                            <source srcset="./assets/images/p4_m.png" media="(max-width: 500px)" />
-
-                                                                  <img src="./assets/images/p4.png" alt="Portfolio">
-                                                          </picture>
-
-
-                                                      </a>
-
-                                                      </div>
-
-                                                       <A href = "https://vimeo.com/1011866123/8336cf2a0c" target = "링크 방법" > VIDEO </A>
-                                                       <h6 style="color:#FFFFFF">김홍도의 스승인 강세황을 AI 인간으로 되살리는 작업. 강세황은 경기도 박물관의 도슨트가 되어
-                                                         관객에게 역사 소개와 사진을 함께 찍어주는 이벤트를 전달한다.</h6>
-                                                         <h6 style="color:#FFFFFF">A project to revive Gang Se-hwang, Kim Hong-do's teacher, as an AI human. Kang Se-hwang has become a docent at the Gyeonggi-do Museum. We offer an event where the audience can learn about history and take photos.</h6>
-
-
-                                </div>
-
-
-                </section>
-
-
-                <!-- Portfolio Section 2-->
-                <section class="portfolio-area page-section scroll-to-page" id="portfolio2">
-                    <div class="custom-container">
-                        <div class="portfolio-content content-width">
-                            <div class="section-header">
-
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom"><span><b>Interactive</b></span></h1>
-                            </div>
-
-                            <div class="row portfolio-items">
-
-                              <!-- Interactive -->
-                                <div class="col-md-12 scroll-animation" data-animation="fade_from_bottom">
-                                  <!-- 포폴1 -->
-                                    <div class="portfolio-item portfolio-full">
-
-                                        <br>
-                                        <h5 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">1. To Eternity</h5> <h6 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">- Interactive Media Art, Yakangjeondang, National Asia Culture Center, 2020</h6> <br>
-                                        <div class="portfolio-item-inner">
-
-                                          <a href="./assets/images/p5.png" data-lightbox="example-1">
-                                        <picture>
-                                              <source srcset="./assets/images/p5_m.png" media="(max-width: 500px)" />
-
-                                                    <img src="./assets/images/p5.png" alt="Portfolio">
-                                            </picture>
-
-
-                                        </a>
-
-                                        </div>
-
-                                         <A href = "https://vimeo.com/685168519/2686c77e43" target = "링크 방법" > VIDEO </A>
-                                         <h6 style="color:#FFFFFF">1948년 5월 18일에 일어났던 민주항쟁 운동을 촬영했던 사진들이 관객의 사진 위로 실시간 모자이크화
-                                           된다. 관객의 헌화하는 자세를 인식하고 사진이 완성되는 광주민주화운동을 추모하는 디지털 헌화대 작품.</h6>
-                <h6 style="color:#FFFFFF">Photos taken during the democratic uprising on May 18, 1948, are transformed into a real-time mosaic overlaying the audience's own photos. Additionally, a digital wreath stand commemorates the Gwangju Democratization Movement by recognizing the audience's wreath-laying gestures and completing the photograph.</h6>
-
-
-                                    <!-- 포폴2 -->
-                                    <br>
-                                    <div class="portfolio-item portfolio-full">
-
-                                        <br>
-                                        <br>
-                                        <h5 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">2. Jemulpo Photo Booth</h5> <h6 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">- Interactive Contents, Incheon Metropolitan Museum, 2022</h6> <br>
-                                        <div class="portfolio-item-inner">
-
-                                          <a href="./assets/images/p6.png" data-lightbox="example-1">
-                                        <picture>
-                                              <source srcset="./assets/images/p6_m.png" media="(max-width: 500px)" />
-
-                                                    <img src="./assets/images/p6.png" alt="Portfolio">
-                                            </picture>
-
-
-                                        </a>
-
-                                        </div>
-
-                                         <A href = "https://vimeo.com/1011870114/e6a92f4ef4" target = "링크 방법" > VIDEO </A>
-                                         <h6 style="color:#FFFFFF">관객들의 사진이 제물포 당시의 신여성 잡지 스타일로 변환되어 액자에 실시간으로 전시된다.</h6>
-                                           <h6 style="color:#FFFFFF">Photos taken by the audience are transformed in real time into the "Sin Yeo Seong" magazine style of the Jemulpo era and displayed within frames.</h6>
-
-                                           <!-- 포폴3 -->
-                                           <br>
-                                           <div class="portfolio-item portfolio-full">
-
-                                               <br>
-                                               <br>
-                                               <h5 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">3. Fall of Minds</h5> <h6 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">- Interactive Media Art, Pangyo PAMEUS Mall, Gangbuk Samsung Hospital, Incheon Metropolitan Museum, 2022</h6> <br>
-                                               <div class="portfolio-item-inner">
-
-                                                 <a href="./assets/images/p7.png" data-lightbox="example-1">
-                                               <picture>
-                                                     <source srcset="./assets/images/p7_m.png" media="(max-width: 500px)" />
-
-                                                           <img src="./assets/images/p7.png" alt="Portfolio">
-                                                   </picture>
-
-
-                                               </a>
-
-                                               </div>
-
-                                                <A href = "https://vimeo.com/666368634/6bb1e585c9" target = "링크 방법" > VIDEO </A>
-                                                <h6 style="color:#FFFFFF">공간의 소음을 변수로 받아드려 구름 형태의 폭포 속도와 다채로움에 영향을 준다.</h6>
-                                                  <h6 style="color:#FFFFFF">'Ambient noise in the space is used as a variable, influencing the speed and vibrancy of the cloud-shaped waterfall.</h6>
-
-                                                  <!-- 포폴4 -->
-                                                  <br>
-                                                  <div class="portfolio-item portfolio-full">
-
-                                                      <br>
-                                                      <br>
-                                                      <h5 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">4. Silhak Dance</h5> <h6 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">- Interactive Contents, Gyeonggi-do Silhak Museum, 2019</h6> <br>
-                                                      <div class="portfolio-item-inner">
-
-                                                        <a href="./assets/images/p8.png" data-lightbox="example-1">
-                                                      <picture>
-                                                            <source srcset="./assets/images/p8_m.png" media="(max-width: 500px)" />
-
-                                                                  <img src="./assets/images/p8.png" alt="Portfolio">
-                                                          </picture>
-
-
-                                                      </a>
-
-                                                      </div>
-
-                                                       <A href = "https://vimeo.com/666366919/507e60e6ca" target = "링크 방법" > VIDEO </A>
-                                                       <h6 style="color:#FFFFFF">관객의 몸동작을 따라하는 김육 선생님 캐릭터. 김육 선생님이 한문시를 건드렸을 때 한국어로 번역이되어 화면에 등장한다.</h6>
-                                                         <h6 style="color:#FFFFFF">A character of Teacher Kim Yuk who mimics the audience's body movements. When Teacher Kim Yuk interacts with a classical Chinese poem, it is translated into Korean and appears on the screen.</h6>
-
-
-                                </div>
-
-
-                </section>
-
-
-                <!-- Portfolio Section 3-->
-                <section class="portfolio-area page-section scroll-to-page" id="portfolio3">
-                    <div class="custom-container">
-                        <div class="portfolio-content content-width">
-                            <div class="section-header">
-
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom"><span><b>Film</b></span></h1>
-                            </div>
-
-                            <div class="row portfolio-items">
-
-                              <!-- Interactive -->
-                                <div class="col-md-12 scroll-animation" data-animation="fade_from_bottom">
-                                  <!-- 포폴1 -->
-                                    <div class="portfolio-item portfolio-full">
-
-                                        <br>
-                                        <h5 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">1. Non-Done Record</h5> <h6 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">- Short Film, 8min 40sec, 2024</h6> <br>
-                                        <div class="portfolio-item-inner">
-
-                                          <a href="./assets/images/p9.png" data-lightbox="example-1">
-                                        <picture>
-                                              <source srcset="./assets/images/p9_m.png" media="(max-width: 500px)" />
-
-                                                    <img src="./assets/images/p9.png" alt="Portfolio">
-                                            </picture>
-
-
-                                        </a>
-
-                                        </div>
-                                        <h6 style="color:#FFFFFF"> 2024 Semi Finalist, Flickers’ Rhode Island Film Festival, US<br>
-2024 Finalist, Sundance Ignite X Adobe Fellowship, US<br>
-2024 Silver Award, Independent Shorts Awards in Jan, US<br>
-2024 Award of Merit, Accolade Global Film Festival , US </h6> <br>
-                                         <!--<A href = "https://vimeo.com/685168519/2686c77e43" target = "링크 방법" > VIDEO </A> -->
-                                         <h6 style="color:#FFFFFF">영화감독을 꿈꾸는 청년, 상대적으로 자신보다 우월한 사람을 만나게 되며 꿈을 위해 다시 노력한다. 하지만
-                                           상대적인 박탈감을 느끼고 자신의 인생을 스스로 마감하고 만다. 죽어가는 그의 의식들이 영화로 완성되어
-                                           무의미한 공간에서 미완성의 기록들이 되풀이 된다.</h6>
-                <h6 style="color:#FFFFFF">A young man aspiring to become a film director meets someone who is relatively superior to him and redoubles his efforts to achieve his dream. However, he feels a sense of relative deprivation and decides to end his own life. His fading consciousness is transformed into a film, and incomplete records endlessly repeat themselves in a meaningless space.</h6>
-
-
-                                    <!-- 포폴2 -->
-                                    <br>
-                                    <div class="portfolio-item portfolio-full">
-
-                                        <br>
-                                        <br>
-                                        <h5 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">2. Whisper</h5> <h6 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">- Short Animation Film, 5min, 2025</h6> <br>
-                                        <div class="portfolio-item-inner">
-
-                                          <a href="./assets/images/p10.png" data-lightbox="example-1">
-                                        <picture>
-                                              <source srcset="./assets/images/p10_m.png" media="(max-width: 500px)" />
-
-                                                    <img src="./assets/images/p10.png" alt="Portfolio">
-                                            </picture>
-
-
-                                        </a>
-
-                                        </div>
-
-                                         <A href = "https://vimeo.com/952781329/cf97cbd47b" target = "링크 방법" > VIDEO </A>
-                                         <h6 style="color:#FFFFFF">망망대해의 뗏목 위에서 의식을 되찾는 유선. 노인이 정체 모를 고기를 먹고 있자 배가 고팠던 유선은 이 고기를
-먹어야 할지 고민한다. 망망대해에서 유선은 무사히 탈출할 수 있을까.</h6>
-                                           <h6 style="color:#FFFFFF">Yuseon regains consciousness on a raft in the boundless ocean. While the old man is eating unidentified fish, the hungry Yuseon contemplates whether she should eat this fish. Can Yuseon escape safely from the vast ocean?</h6>
-
-                                           <!-- 포폴3 -->
-                                           <br>
-                                           <div class="portfolio-item portfolio-full">
-
-                                               <br>
-                                               <br>
-                                               <h5 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">3. City Diary</h5> <h6 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">- Short Film, 18min, 2019</h6> <br>
-                                               <div class="portfolio-item-inner">
-
-                                                 <a href="./assets/images/p11.png" data-lightbox="example-1">
-                                               <picture>
-                                                     <source srcset="./assets/images/p11_m.png" media="(max-width: 500px)" />
-
-                                                           <img src="./assets/images/p11.png" alt="Portfolio">
-                                                   </picture>
-
-
-                                               </a>
-
-                                               </div>
-
-                                                <h6 style="color:#FFFFFF">민해는 학원 선생님인 엄마와 가정 주부인 아빠와 함께 도시로 이사를 오게 되었다.
-매일 하루를 같이 보내던 아빠가 일을 구하게 되자 민해는 깊은 고민과 슬픈 감정에 휩싸인다.</h6>
-                                                  <h6 style="color:#FFFFFF">Minhae moved to the city with his mother, who is a private academy teacher, and his father, who is a homemaker. When his father, who used to spend every day with him, found a job, Minhae was engulfed in deep worries and sad emotions.</h6>
-
-
-
-                                </div>
-
-
-                </section>
-
-
-                <!-- Portfolio Section 4-->
-                <section class="portfolio-area page-section scroll-to-page" id="portfolio4">
-                    <div class="custom-container">
-                        <div class="portfolio-content content-width">
-                            <div class="section-header">
-
-                                <h1 class="scroll-animation" data-animation="fade_from_bottom"><span><b>Virtual Reality</b></span></h1>
-                            </div>
-
-                            <div class="row portfolio-items">
-
-                              <!-- vr -->
-                                <div class="col-md-12 scroll-animation" data-animation="fade_from_bottom">
-                                  <!-- 포폴1 -->
-                                    <div class="portfolio-item portfolio-full">
-
-                                        <br>
-                                        <h5 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">1. NARCI</h5> <h6 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">- VR Contents, The Cave Seoul, 2023</h6> <br>
-                                        <div class="portfolio-item-inner">
-
-                                          <a href="./assets/images/p12.png" data-lightbox="example-1">
-                                        <picture>
-                                              <source srcset="./assets/images/p12_m.png" media="(max-width: 500px)" />
-
-                                                    <img src="./assets/images/p12.png" alt="Portfolio">
-                                            </picture>
-
-
-                                        </a>
-
-                                        </div>
-
-                                         <A href = "https://vimeo.com/1011881596/2770ac3b29" target = "링크 방법" > VIDEO </A>
-                                         <h6 style="color:#FFFFFF">관객은 나르시시스트들과 조우하며, 나르시시스트들에게 받은 상처를 해소한다.</h6>
-                <h6 style="color:#FFFFFF">The audience encounters narcissists and heals the wounds they have received from them.</h6>
-
-
-                                    <!-- 포폴2 -->
-                                    <br>
-                                    <div class="portfolio-item portfolio-full">
-
-                                        <br>
-                                        <br>
-                                        <h5 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">2. Fineo: Translated Universe</h5> <h6 style="color:#FFFFFF" class="scroll-animation" data-animation="fade_from_bottom">- Interactive Contents, Kookmin University, 2019</h6> <br>
-                                        <div class="portfolio-item-inner">
-
-
-                                            <a href="./assets/images/p13.png" data-lightbox="example-1">
-                                          <picture>
-                                                <source srcset="./assets/images/p13_m.png" media="(max-width: 500px)" />
-
-                                                      <img src="./assets/images/p13.png" alt="Portfolio">
-                                              </picture>
-
-
-                                          </a>
-
-                                        </div>
-
-                                         <A href = "https://vimeo.com/666371092/5759d8c3ae" target = "링크 방법" > VIDEO </A>
-                                         <h6 style="color:#FFFFFF">원소들의 정보를 하모노그래프 함수에 대입하여 새로운 주기율표를 구성한 뒤, 새로운 세계관을 제작.
-별자리와 주기율표를 활용하여 완성한 새로운 Data Visualization.</h6>
-                                       <h6 style="color:#FFFFFF">By inputting the information of elements into a harmonograph function to construct a new periodic table, a new worldview was created. A novel data visualization was completed utilizing constellations and the periodic table.</h6>
-
-
-
-
-                </section>
-
-
-                <!-- Project Section -->
-                <section class="about-area page-section scroll-to-page" id="projects">
-                    <div class="custom-container">
-                        <div class="about-content content-width">
-                            <div class="section-header">
-                                <h4 class="subtitle scroll-animation" data-animation="fade_from_bottom">
-                                    <i class="lar la-user"></i> Project
-                                </h4>
-                              <!--  <h1 class="scroll-animation" data-animation="fade_from_bottom">Jonghoon Ahn<br></h1> -->
-                                  <h4 style="margin-top: -20px; margin-bottom: 20px;"class="scroll-animation" data-animation="fade_from_bottom"> <span>Film and MV</span></h4>
-                            </div>
-
-                            <div class="section-header">
-
-                              <div>
-
-                          <p class="scroll-animation" data-animation="fade_from_bottom">
-2024 “Non-done Record”, Short Film, Director <br>
-2023 “Chair Girl”, Art Film, Assistant Director.<br>
-2023 “Jung Kyumin x DINDIN Similiar”, Music Video, Producer<br>
-2021 “PARKMOONCHI x Young K of Day6 What a Wonderful Word”,<br>
-Music Video, Camera Team<br>
-2021 “Kwon Jin Ah Our Method”, Music Video, Directing and Camera Team<br>
-2021 “Sleep”, Short Film, Assistant Director.<br>
-2019 “City Diary”, Short Film, Director<br>
-
+      <img src="./assets/images/profile2.jpg" alt="Film Project 1 Still">
+
+    </div>
+
+
+
+
+
+
+<h2 id="film" >Film</h2>
+<div class="grid" >
+  <div class="item" style="border-top: 0px solid #333; padding-top: 0px;">
+    <a href="detail_pages/film_1.html">
+      <h3>Non-Done Record</h3>
+      <img src="./assets/images/film1.jpg" alt="Film Project 1" />
+    </a>
+    <p>A young aspiring filmmaker meets someone seemingly superior, which reignites his drive to pursue his dreams. However, overwhelmed by feelings of inferiority and disillusionment, he chooses to end his life. In his final moments, his fading consciousness is reconstructed as a completed film, where unfinished memories loop meaninglessly in an undefined space.</p>
+  </div>
+  <div class="item" style="border-top: 0px solid #333; padding-top: 0px;">
+    <a href="detail_pages/film_2.html">
+      <h3>Urban Diary</h3>
+      <img src="./assets/images/film2.jpg" alt="Film Project 2" />
+    </a>
+    <p>When a high school girl is left alone in her apartment after her stay-at-home father returns to work, her quiet routine unravels into a haunting meditation on absence, loneliness, and the fragile rhythms of family life in the city.</p>
+  </div>
+  <div class="item" style="border-top: 0px solid #333; padding-top: 0px;">
+    <a href="detail_pages/film_3.html">
+      <h3>Like Mother</h3>
+      <img src="./assets/images/film3.jpg" alt="Film Project 3" />
+    </a>
+    <p>After delivering a eulogy at the funeral of her estranged mother, Jeongeum boards a subway home only to enter a surreal space where time bends and her mother appears once more. In this liminal journey between guilt and grief, can Jeongeum find the courage to forgive?</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/film_4.html">
+      <h3>Where is My Cloud</h3>
+      <img src="./assets/images/film4.jpg" alt="Film Project 4" />
+    </a>
+    <p>After losing eight years of memories when a social media account is suddenly erased, a filmmaker retraces past and imagined journeys across Korea—through clouds, coastlines, and silence—to explore how memory, voice, and identity can exist beyond the digital archive.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/film_5.html">
+      <h3>Mysomania</h3>
+      <img src="./assets/images/film5.jpg" alt="Film Project 5" />
+    </a>
+    <p>Three strangers awaken on a drifting raft, with no memory of how they got there. As they share mysterious meat to survive, silence unravels their darkest guilt — and those who try to justify their past begin to vanish, one by one.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/film_6.html">
+      <h3>Berdua Saja</h3>
+      <img src="./assets/images/film6.jpg" alt="Film Project 6" />
+    </a>
+    <p>A man living a cockroach-like existence accidentally kills someone and checks into a mysterious inn for those planning to die. But in this eerie space where death is expected, what he finds instead may change everything.</p>
   </div>
 
-  <h4 style="margin-top: 40px; margin-bottom: 20px;"class="scroll-animation" data-animation="fade_from_bottom"> <span>Solo Exhibitons</span></h4>
+  <div class="item">
+    <a href="detail_pages/film_7.html">
+      <h3>Jannabi Boy</h3>
+      <img src="./assets/images/film7_1.jpg" alt="Film Project 7" />
+    </a>
+    <p>When an AI band named BANDAI begins replicating the sound of the beloved group Jannabi, the real band vanishes to protect their identity. A young fan, Jonghoon, builds a robot suit and performs as “Jannabi Boy,” fooling the world — until BANDAI contacts him, threatening to expose his secret unless he sings their AI-generated song instead of his own. Torn between loyalty and survival, he must choose: authenticity or adaptation.</p>
+  </div>
+    <!--
+  <div class="item">
+    <a href="detail_pages/film_8.html">
+      <h3>Film Project 8</h3>
+      <img src="film8.jpg" alt="Film Project 8" />
+    </a>
+    <p>Description of project 8 in Film.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/film_9.html">
+      <h3>Film Project 9</h3>
+      <img src="film9.jpg" alt="Film Project 9" />
+    </a>
+    <p>Description of project 9 in Film.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/film_10.html">
+      <h3>Film Project 10</h3>
+      <img src="film10.jpg" alt="Film Project 10" />
+    </a>
+    <p>Description of project 10 in Film.</p>
+  </div>
+-->
 </div>
 
-<div class="section-header">
-
-<div>
-
-<p class="scroll-animation" data-animation="fade_from_bottom">
-2023 Sun and Moon and Five Peaks, SW Gallery, Daegu, Korea<br>
-2023 NARCI, The Cave Seoul, Seoul, Korea<br>
-2022 Sound Alive in Falls, SW Gallery, Daegu, Korea<br>
+<h2 id="interactive">Interactive Art</h2>
+<div class="grid">
+  <div class="item">
+    <a href="detail_pages/interactive_1.html">
+      <h3>To Eternity</h3>
+      <img src="./assets/images/interactive1.jpg" alt="Interactive Art Project 1" />
+    </a>
+    <p>To Eternity is an interactive media art installation commemorating the Gwangju Democratization Movement of May 18, 1980.
+Archival photographs taken during the 1980 uprising are algorithmically mosaicked in real time over the viewer’s image.
+  </div>
+  <div class="item">
+    <a href="detail_pages/interactive_2.html">
+      <h3>Gang Se-hwang AI Docent</h3>
+      <img src="./assets/images/interactive2.jpg" alt="Interactive Art Project 2" />
+    </a>
+    <p>Gang Se-hwang AI Docent is an interactive media installation that digitally revives the historical figure Gang Se-hwang—renowned painter and mentor to Kim Hong-do—as an AI human.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/interactive_3.html">
+      <h3>Jemulpo Photo Studio</h3>
+      <img src="./assets/images/interactive3.jpg" alt="Interactive Art Project 3" />
+    </a>
+    <p>Jemulpo Photo Studio is an interactive media installation that transforms visitors’ portraits into stylized magazine covers inspired by the “New Women” aesthetic of early Jemulpo (modern-day Incheon) during the colonial period.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/interactive_4.html">
+      <h3>AI ZOO</h3>
+      <img src="./assets/images/interactive4.jpg" alt="Interactive Art Project 4" />
+    </a>
+    <p>AI ZOO is a mixed media installation that metaphorically frames artificial intelligence—both as a human creation and a product of technology—within the conceptual space of a "zoo."
+Inside a large transparent acrylic sphere, balloons of varying sizes represent the diffusion and training models of AI, visualizing its internal learning processes.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/interactive_5.html">
+      <h3>Directed By AI</h3>
+      <img src="./assets/images/interactive5.jpg" alt="Interactive Art Project 5" />
+    </a>
+    <p>Directed By AI is a collaborative film and media installation co-directed by Jonghoon Ahn and an AI system trained to develop narrative structure, characters, and visuals.
+Based on Ahn’s personal facial data, the project reconstructs his mother and sister as virtual beings, generating a new fictional family.</p>
+  </div>
+  <!--
+  <div class="item">
+    <a href="detail_pages/interactive_6.html">
+      <h3>Riviving Picasso</h3>
+      <img src="./assets/images/interactive6.jpg" alt="Interactive Art Project 6" />
+    </a>
+    <p>Description of project 6 in Interactive Art.</p>
+  </div>
+-->
+  <div class="item">
+    <a href="detail_pages/interactive_7.html">
+      <h3>Silhak Dance</h3>
+      <img src="./assets/images/interactive7.jpg" alt="Interactive Art Project 7" />
+    </a>
+    <p>Silhak Dance is an interactive media installation featuring a digital character of Kim Yuk, a leading scholar of the Silhak (Practical Learning) movement.
+The virtual Kim Yuk mimics the audience’s body movements in real time, creating a playful and educational dance interaction.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/interactive_8.html">
+      <h3>Track 6</h3>
+      <img src="./assets/images/interactive8.jpg" alt="Interactive Art Project 8" />
+    </a>
+    <p>Track 6 is an interactive virtual dance installation where audiences can move freely to six different music tracks while being immersed in geometric graphics.
+Using a Kinect sensor, the system captures participants’ full-body movements in real time and maps them into a virtual space where the laws of physics are intentionally distorted.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/interactive_9.html">
+      <h3>AI Choi Jung Hoon</h3>
+      <img src="./assets/images/interactive9.jpg" alt="Interactive Art Project 9" />
+    </a>
+    <p>This research-based installation explores the reconstruction of Choi Jung-hoon, the lead vocalist of the Korean band JANNABI, as an AI-generated digital human.
+Utilizing large language models (LLMs), the system is trained on Choi’s voice, personality traits, appearance, and public data. These elements are integrated into a real-time digital avatar that visually resembles him.</p>
+  </div>
+<!--
+  <div class="item">
+    <a href="detail_pages/interactive_10.html">
+      <h3>Memo Reve</h3>
+      <img src="./assets/images/interactive10.jpg" alt="Interactive Art Project 10" />
+    </a>
+    <p>Description of project 10 in Interactive Art.</p>
+  </div>
+-->
 </div>
 
-<h4 style="margin-top: 40px; margin-bottom: 20px;"class="scroll-animation" data-animation="fade_from_bottom"> <span>Group Exhibitons and Project</span></h4>
+<h2 id="media">Media Art</h2>
+<div class="grid">
+  <div class="item">
+    <a href="detail_pages/media_1.html">
+      <h3>Myeongdong Day</h3>
+      <img src="media1.jpg" alt="Media Art Project 1" />
+    </a>
+    <p>Description of project 1 in Media Art.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/media_2.html">
+      <h3>Dream of Salmon</h3>
+      <img src="media2.jpg" alt="Media Art Project 2" />
+    </a>
+    <p>Description of project 2 in Media Art.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/media_3.html">
+      <h3>Fall of Minds</h3>
+      <img src="media3.jpg" alt="Media Art Project 3" />
+    </a>
+    <p>Description of project 2 in Media Art.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/media_4.html">
+      <h3>Nature Human</h3>
+      <img src="media4.jpg" alt="Media Art Project 4" />
+    </a>
+    <p>Description of project 3 in Media Art.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/media_5.html">
+      <h3>Seon-A’s Family</h3>
+      <img src="media5.jpg" alt="Media Art Project 5" />
+    </a>
+    <p>Description of project 4 in Media Art.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/media_6.html">
+      <h3>Ilwol Obong</h3>
+      <img src="media6.jpg" alt="Media Art Project 6" />
+    </a>
+    <p>Description of project 5 in Media Art.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/media_7.html">
+      <h3>The Life of Songhakdo</h3>
+      <img src="media7.jpg" alt="Media Art Project 7" />
+    </a>
+    <p>Description of project 6 in Media Art.</p>
+  </div>
+
+  <div class="item">
+    <a href="detail_pages/media_7.html">
+      <h3>The Nature of Manpasikjeok</h3>
+      <img src="media7.jpg" alt="Media Art Project 7" />
+    </a>
+    <p>Description of project 7 in Media Art.</p>
+  </div>
+  <!--
+  <div class="item">
+    <a href="detail_pages/media_8.html">
+      <h3>Media Art Project 8</h3>
+      <img src="media8.jpg" alt="Media Art Project 8" />
+    </a>
+    <p>Description of project 8 in Media Art.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/media_9.html">
+      <h3>Media Art Project 9</h3>
+      <img src="media9.jpg" alt="Media Art Project 9" />
+    </a>
+    <p>Description of project 9 in Media Art.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/media_10.html">
+      <h3>Media Art Project 10</h3>
+      <img src="media10.jpg" alt="Media Art Project 10" />
+    </a>
+    <p>Description of project 10 in Media Art.</p>
+  </div>
+-->
 </div>
 
-<div class="section-header">
-
-<div>
-
-<p class="scroll-animation" data-animation="fade_from_bottom">
-2024 “Nature Human” KUAA Exhibiton, Janet Oh Gallery, Seoul<br>
-2024 “Yaloo Solo Exhibition”, Gyeonggi Museum of Art, Technical Assistant<br>
-2024 “Nature Pulse, Cyano Photo Booth”, Calarts Expo 2024, US<br>
-2022 “Sound Alive in Falls”, Daegu Art Exhibition, South Korea<br>
-2022 “Gang Se-hwang AI Docent”, Gyeonggi Museum, South Korea<br>
-2022 “Jemulpo Photo Studio”, Incheon City Museum, South Korea<br>
-2021 “Interactive Smart Fashion”, CRC Group, South Korea<br>
-2021 “Relative Human”, Feature Film, Indespace, South Korea<br>
-2021 “Translated Universe”, Gangbuk Samsung Hospital, South Korea<br>
-2021 “Cloud Falls”, Gangbuk Samsung Hospital, South Korea<br>
-2021 “Fall of Minds”, PAMEUS Mall in Pangyo, South Korea<br>
-2021 “Reviving Picasso”, Jeongeup Museum of Art, South Korea<br>
-2020 “To Eternity”, National Asian Cultural Center Yakwang JeonDang<br>
-2020 “Virtual Fitting Room”, CRC Group, South Korea<br>
-2019 “City Diary”, Kookmin University's 16th Sculpture Exhibition “SEFF”<br>
-2019 “Track 6”, Kookmin University's 16th Sculpture Exhibition “Clean Lab”<br>
-2019 “With the Past : Silhak Dance”, Gyeongggi-do Silhak Museum<br>
-
+<h2 id="xr">XR</h2>
+<div class="grid">
+  <div class="item">
+    <a href="detail_pages/xr_1.html">
+      <h3>Fineo</h3>
+      <img src="xr1.jpg" alt="XR Project 1" />
+    </a>
+    <p>Description of project 1 in XR.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/xr_2.html">
+      <h3>NARCI</h3>
+      <img src="xr2.jpg" alt="XR Project 2" />
+    </a>
+    <p>Description of project 2 in XR.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/xr_3.html">
+      <h3>Be Narci</h3>
+      <img src="xr3.jpg" alt="XR Project 3" />
+    </a>
+    <p>Description of project 3 in XR.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/xr_4.html">
+      <h3>RedFlight</h3>
+      <img src="xr4.jpg" alt="XR Project 4" />
+    </a>
+    <p>Description of project 4 in XR.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/xr_5.html">
+      <h3>Graffiti Freedom</h3>
+      <img src="xr5.jpg" alt="XR Project 5" />
+    </a>
+    <p>Description of project 5 in XR.</p>
+  </div>
+  <!--
+  <div class="item">
+    <a href="detail_pages/xr_6.html">
+      <h3>XR Project 6</h3>
+      <img src="xr6.jpg" alt="XR Project 6" />
+    </a>
+    <p>Description of project 6 in XR.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/xr_7.html">
+      <h3>XR Project 7</h3>
+      <img src="xr7.jpg" alt="XR Project 7" />
+    </a>
+    <p>Description of project 7 in XR.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/xr_8.html">
+      <h3>XR Project 8</h3>
+      <img src="xr8.jpg" alt="XR Project 8" />
+    </a>
+    <p>Description of project 8 in XR.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/xr_9.html">
+      <h3>XR Project 9</h3>
+      <img src="xr9.jpg" alt="XR Project 9" />
+    </a>
+    <p>Description of project 9 in XR.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/xr_10.html">
+      <h3>XR Project 10</h3>
+      <img src="xr10.jpg" alt="XR Project 10" />
+    </a>
+    <p>Description of project 10 in XR.</p>
+  </div>
+-->
 </div>
 
+<h2 id="vfx">3D / VFX</h2>
+<div class="grid">
+  <div class="item">
+    <a href="detail_pages/vfx_1.html">
+      <h3>Yaloo and Sininho</h3>
+      <img src="vfx1.jpg" alt="3D / VFX Project 1" />
+    </a>
+    <p>Description of project 1 in 3D / VFX.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/vfx_2.html">
+      <h3>Gang Sae Hwang</h3>
+      <img src="vfx2.jpg" alt="3D / VFX Project 2" />
+    </a>
+    <p>Description of project 2 in 3D / VFX.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/vfx_3.html">
+      <h3>Now Next</h3>
+      <img src="vfx3.jpg" alt="3D / VFX Project 3" />
+    </a>
+    <p>Description of project 3 in 3D / VFX.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/vfx_4.html">
+      <h3>Fluid Ocean</h3>
+      <img src="vfx4.jpg" alt="3D / VFX Project 4" />
+    </a>
+    <p>Description of project 4 in 3D / VFX.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/vfx_5.html">
+      <h3>Nature Pulse</h3>
+      <img src="vfx5.jpg" alt="3D / VFX Project 5" />
+    </a>
+    <p>Description of project 5 in 3D / VFX.</p>
+  </div>
+  <!--
+  <div class="item">
+    <a href="detail_pages/vfx_6.html">
+      <h3>3D / VFX Project 6</h3>
+      <img src="vfx6.jpg" alt="3D / VFX Project 6" />
+    </a>
+    <p>Description of project 6 in 3D / VFX.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/vfx_7.html">
+      <h3>3D / VFX Project 7</h3>
+      <img src="vfx7.jpg" alt="3D / VFX Project 7" />
+    </a>
+    <p>Description of project 7 in 3D / VFX.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/vfx_8.html">
+      <h3>3D / VFX Project 8</h3>
+      <img src="vfx8.jpg" alt="3D / VFX Project 8" />
+    </a>
+    <p>Description of project 8 in 3D / VFX.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/vfx_9.html">
+      <h3>3D / VFX Project 9</h3>
+      <img src="vfx9.jpg" alt="3D / VFX Project 9" />
+    </a>
+    <p>Description of project 9 in 3D / VFX.</p>
+  </div>
+  <div class="item">
+    <a href="detail_pages/vfx_10.html">
+      <h3>3D / VFX Project 10</h3>
+      <img src="vfx10.jpg" alt="3D / VFX Project 10" />
+    </a>
+    <p>Description of project 10 in 3D / VFX.</p>
+  </div>
+-->
+</div>
 
-
-
-
-
-                </section>
-
-
-
-            </div>
-        </div>
-    </main>
-
-
-    <script src="./assets/js/jquery.js"></script>
-    <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/owl.carousel.js"></script>
-    <script src="./assets/js/gsap.min.js"></script>
-    <script src="./assets/js/ScrollTrigger.min.js"></script>
-    <script src="./assets/js/ScrollToPlugin.min.js"></script>
-    <script src="./assets/js/lightbox.min.js"></script>
-
-    <script src="./assets/js/main.js"></script>
-    <script src="./assets/js/ajax-form.js"></script>
+<footer>
+    <h2 id="about">About</h2>
+    <p>Jonghoon Ahn is a media artist and filmmaker working at the intersection of XR, film, and interactive technologies. His work centers on silence, trauma, and invisible systems, blending participation with immersive storytelling.</p>
+    <h2 id="news">News</h2>
+    <ul>
+      <li><strong>Aug 2025</strong> – Selected for <em>Project Involve 2026</em>.</li>
+      <li><strong>Jul 2025</strong> – <em>AI ZOO</em> selected for MIT Museum 'Mind Control'.</li>
+      <li><strong>May 2025</strong> – <em>The Silence We Share</em> submitted to Sundance.</li>
+      <li><strong>Mar 2025</strong> – Myeongdong Media Art screening (JoongAng).</li>
+      <li><strong>Feb 2025</strong> – Interview in XR Magazine: “Beyond the Wall.”</li>
+    </ul>
+  </footer>
+  </div>
 </body>
-
-<style>
-
-  @media (max-width: 5000px) {
-    .landscape {
-      display: block;
-    }
-    .portrait {
-      display: none;
-    }
-  }
-  @media (max-width: 500px) {
-    .landscape {
-      display: none;
-    }
-    .portrait {
-      display: block;
-    }
-  }
-</style>
-
-
 </html>
