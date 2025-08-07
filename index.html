@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jonghoon Ahn</title>
   <style>
+  @media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
     body {
       margin: 0;
       font-family: 'Helvetica Neue', sans-serif;
@@ -196,7 +201,7 @@
       flex-direction: row;
       gap: 30px;
       align-items: flex-start;
-      margin-top: -20px;
+      margin-top: -30px;
       margin-bottom: 10px;
       flex-wrap: wrap;
     }
@@ -204,7 +209,7 @@
       width: 95%;
       max-width: 400px;
       border-radius: 8px;
-      margin-top: 65px;
+      margin-top: 55px;
     }
 
     .image-text-block .text {
@@ -276,8 +281,8 @@
     <a href="#media">Media Art</a>
     <a href="#xr">XR</a>
     <a href="#vfx">3D/VFX</a>
-    <a href="#about">About</a>
-    <a href="#news">News</a>
+    <a href="#about" class="hide-on-mobile">About</a>
+    <a href="#news" class="hide-on-mobile">News</a>
   </div>
   <div class="container">
     <!--
@@ -746,7 +751,7 @@ Grounded in research on AI memory, generative video, and the ethics of digital e
     <a href="https://independentshortsawards.com/2024/01/15/non-done-record/" target="_blank">[Link]</a>
   </li>
   <li>
-    <strong>Voyager LA</strong>
+    <strong>VoyageLA</strong>
     <a href="https://voyagela.com/interview/conversations-with-jonghoon-ahn/" target="_blank">[Link]</a>
   </li>
   <li>
