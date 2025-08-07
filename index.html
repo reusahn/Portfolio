@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jonghoon Ahn</title>
+
+
+
   <style>
   @media (max-width: 768px) {
   .hide-on-mobile {
@@ -62,6 +65,7 @@
       font-size: 0.9rem;
       z-index: 1000;
     }
+    /*
     .nav a {
       margin-left: 15px;
       text-decoration: none;
@@ -70,6 +74,10 @@
     .nav a:hover {
       color: #fff;
     }
+    .nav a.active {
+  font-weight: bold;
+  color: #fff;
+  }*/
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -142,6 +150,12 @@
       opacity: 0.6;
     }
     .nav a:hover { opacity: 1; }
+
+    .nav a.active {
+      font-weight: bold;
+      opacity: 1;
+      color: #fff;
+    }
     h2 {
       font-size: 2rem;
       font-weight: 600;
@@ -276,12 +290,13 @@
   </style>
 </head>
 <body>
+
   <div class="nav">
     <a href="#film">Film</a>
-    <a href="#interactive">Interactive Art</a>
+    <a href="#interactive" >Interactive Art</a>
     <a href="#media">Media Art</a>
     <a href="#xr">XR</a>
-    <a href="#vfx">3D/VFX</a>
+    <a href="#vfx" >3D/VFX</a>
     <a href="#about" class="hide-on-mobile">About</a>
     <a href="#news" class="hide-on-mobile">News</a>
   </div>
@@ -306,9 +321,11 @@
 
 
 
-
-<h2 id="film" >Film</h2>
+  <section id="film">
+<h2>Film</h2>
 <div class="grid" >
+
+
   <div class="item" style="border-top: 1px solid #333; padding-top: 0px;">
     <a href="detail_pages/film_1.html">
       <h3>Non-Done Record</h3>
@@ -383,8 +400,9 @@
   </div>
 -->
 </div>
-
-<h2 id="interactive">Interactive Art</h2>
+</section>
+<section id="interactive">
+<h2>Interactive Art</h2>
 <div class="grid">
   <div class="item">
     <a href="detail_pages/interactive_1.html">
@@ -469,8 +487,9 @@ The work visualizes the presence and gestures of passersby as shimmering pointil
   </div>
 
 </div>
-
-<h2 id="media">Media Art</h2>
+</section>
+<section id="media">
+<h2>Media Art</h2>
 <div class="grid">
   <div class="item">
     <a href="detail_pages/media_1.html">
@@ -558,8 +577,9 @@ Set in the year 2050, the work invites audiences to engage in dialogue with Evan
   </div>
 -->
 </div>
-
-<h2 id="xr">XR</h2>
+</section>
+<section id="xr">
+<h2>XR</h2>
 <div class="grid">
   <div class="item">
     <a href="detail_pages/xr_1.html">
@@ -639,8 +659,9 @@ Players must solve puzzles and engage in real-time conversations with an in-game
   </div>
 -->
 </div>
-
-<h2 id="vfx">3D / VFX</h2>
+</section>
+<section id="vfx">
+<h2>3D / VFX</h2>
 <div class="grid">
   <div class="item">
     <a href="detail_pages/vfx_1.html">
@@ -725,9 +746,10 @@ Developed with Maya, Houdini, Unity, and Unreal Engine.  </div>
   </div>
 -->
 </div>
-
+</section>
 <footer>
-    <h2 id="about">About</h2>
+  <section id="about">
+    <h2>About</h2>
     <p>Jonghoon Ahn is a filmmaker and media artist working at the intersection of film, extended reality, and digital performance. Based between Los Angeles and Seoul, he explores the boundaries between reality and virtuality through immersive storytelling, motion capture, and AI-generated humans. His work reflects on silence, trauma, and structural violence—often experienced but unspoken—especially within diasporic Korean communities and high-pressure educational systems.
 <br><br>
 Ahn earned his MFA in Art and Technology at the California Institute of the Arts, where he directed experimental films and installations that center audience participation. His short film Non-done Record, a finalist for the Sundance Ignite Fellowship, follows a young man collapsing under societal expectations.
@@ -735,9 +757,11 @@ Ahn earned his MFA in Art and Technology at the California Institute of the Arts
 His current project, Where is My Cloud, was born after the sudden deletion of a social media account erased eight years of digital memories. In response, the filmmaker retraces both real and imagined journeys across Korea—through clouds, coastlines, and silence—seeking not lost data, but a new sense of future. The cloud becomes a metaphor not for storage, but for emotion, voice, and presence. Through poetic narration, sensory landscapes, and digital loss, the film explores how memory, identity, and communication can exist beyond the archive.
 <br><br>
 Grounded in research on AI memory, generative video, and the ethics of digital embodiment, Where is My Cloud reimagines digital storytelling as an emotional and philosophical medium—offering a cinematic reflection on the fragility of presence in a world of disappearing records.</p>
-<a href="https://drive.google.com/file/d/1YxbZ8emtI0f35daycBG8Q9aRUZ_kbQEs/view?usp=sharing" target="_blank" class="resume-link">View Resume / CV</a>
+<a href="https://drive.google.com/file/d/1Y_98b3ZQHWYZa4cWlg4qEh_wYFqX-Bov/view?usp=sharing" target="_blank" class="resume-link">View Resume / CV</a>
 <p>Contact - Email : reusahn@gmail.com</p>
-    <h2 id="news">News</h2>
+</section>
+  <section id="news">
+    <h2>News</h2>
     <ul class="news-list">
   <li>
     <strong>AI Symposium</strong>
@@ -764,7 +788,31 @@ Grounded in research on AI memory, generative video, and the ethics of digital e
     <a href="https://www.imaeil.com/page/view/2023102610192087838" target="_blank">[Link]</a>
   </li>
 </ul>
+</section>
   </footer>
   </div>
+  <script>
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".nav a");
+
+  window.addEventListener("scroll", () => {
+    let current = "";
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= sectionTop - sectionHeight / 3) {
+        current = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === `#${current}`) {
+        link.classList.add("active");
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
