@@ -800,7 +800,7 @@ Grounded in research on AI memory, generative video, and the ethics of digital e
     sections.forEach((section) => {
       const sectionTop = section.offsetTop;
       const sectionHeight = section.clientHeight;
-      if (pageYOffset >= sectionTop - sectionHeight / 3) {
+      if (pageYOffset >= sectionTop - 50) {
         current = section.getAttribute("id");
       }
     });
