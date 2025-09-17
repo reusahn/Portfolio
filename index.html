@@ -286,6 +286,25 @@
 .news-list a:hover {
   color: #fff;
 }
+.project-title {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 제목과 아이콘 사이 간격 */
+}
+
+.project-title h3 {
+  margin: 0;
+  font-size: 1.2em;
+  margin-bottom: 1rem;
+}
+
+.tech-icons img {
+  width: 23px;
+  height: auto;
+  opacity: 1;
+  margin-left: 5px;
+  margin-bottom: 1rem;
+}
 
   </style>
 </head>
@@ -391,14 +410,7 @@
       <img src="film9.jpg" alt="Film Project 9" />
     </a>
     <p>Description of project 9 in Film.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/film_10.html">
-      <h3>Film Project 10</h3>
-      <img src="film10.jpg" alt="Film Project 10" />
-    </a>
-    <p>Description of project 10 in Film.</p>
-  </div>
+
 -->
 </div>
 </section>
@@ -407,7 +419,13 @@
 <div class="grid">
   <div class="item">
     <a href="detail_pages/interactive_1.html">
+      <div class="project-title">
       <h3>To Eternity</h3>
+        <div style="margin-left: 13em;" class="tech-icons">
+          <img src="./assets/images/unity.png" alt="Unity" title="Unity">
+          </div>
+
+      </div>
       <img src="./assets/images/interactive1.jpg" alt="Interactive Art Project 1" />
     </a>
     <p>To Eternity is an interactive media art installation commemorating the Gwangju Democratization Movement of May 18, 1980.
@@ -415,14 +433,30 @@ Archival photographs taken during the 1980 uprising are algorithmically mosaicke
   </div>
   <div class="item">
     <a href="detail_pages/interactive_2.html">
-      <h3>Gang Se-hwang AI Docent</h3>
+      <div class="project-title">
+      <h3>AI Gang Se-hwang</h3>
+      <div style="margin-left: 6em;" class="tech-icons">
+        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
+        </div>
+        <div class="tech-icons">
+        <img src="./assets/images/maya.png" alt="Maya" title="Maya">
+      </div>
+      </div>
       <img src="./assets/images/interactive2.jpg" alt="Interactive Art Project 2" />
     </a>
     <p>Gang Se-hwang AI Docent is an interactive media installation that digitally revives the historical figure Gang Se-hwang—renowned painter and mentor to Kim Hong-do—as an AI human.</p>
   </div>
   <div class="item">
     <a href="detail_pages/interactive_3.html">
+      <div class="project-title">
       <h3>Jemulpo Photo Studio</h3>
+      <div style="margin-left: 4em;" class="tech-icons">
+        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
+        </div>
+        <div class="tech-icons">
+        <img src="./assets/images/opencv.png" alt="Maya" title="Maya">
+      </div>
+    </div>
       <img src="./assets/images/interactive3.jpg" alt="Interactive Art Project 3" />
     </a>
     <p>Jemulpo Photo Studio is an interactive media installation that transforms visitors’ portraits into stylized magazine covers inspired by the “New Women” aesthetic of early Jemulpo (modern-day Incheon) during the colonial period.</p>
@@ -492,14 +526,14 @@ The work visualizes the presence and gestures of passersby as shimmering pointil
 <section id="media">
 <h2>Media Art</h2>
 <div class="grid">
-  <!--
+
   <div class="item">
     <a href="detail_pages/media_1.html">
       <h3>Myeongdong Day</h3>
       <img src="./assets/images/media1.jpg" alt="Media Art Project 1" />
     </a>
     <p>This project is part of the 2025 Art Korea Lab Media Artist Incubation Program and will be screened on the Media Wall of Shinsegae Department Store in Myeongdong.</p>
-  </div>-->
+  </div>
   <div class="item">
     <a href="detail_pages/media_2.html">
       <h3>Dream of Salmon</h3>
