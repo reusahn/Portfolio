@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gang Se-hwang AI Docent</title>
+  <title>Choi Jung-hoon AI Human Research Project</title>
   <style>
   @media (max-width: 768px) {
-  .hide-on-mobile {
-    display: none;
+    .hide-on-mobile {
+      display: none;
+    }
   }
-}
     body {
       margin: 0;
       font-family: 'Helvetica Neue', sans-serif;
@@ -50,13 +50,13 @@
       margin-bottom: 30px;
     }
     .video-container {
-      width: 40%;
+      width: 100%;
       aspect-ratio: 16 / 9;
       margin-bottom: 30px;
     }
     .video-container iframe {
-      width: 50%;
-      height: 50%;
+      width: 100%;
+      height: 100%;
       border: none;
       border-radius: 8px;
     }
@@ -111,105 +111,97 @@
   </div>
 
   <div class="container">
-    <h1>Gang Se-hwang AI Docent</h1>
-    <div class="meta">2022 · Interactive Art · 경기도박물관-Gyeonggi Provincial Museum</div>
+    <h1>Choi Jung-hoon AI Human Research Project (JANNABI AI Digital Human)</h1>
+    <div class="meta">2024 · Digital Human Research · California Institute of the Arts</div>
 
+    <!-- Video -->
     <div class="video-container">
-    <div style="padding:177.78% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1011866123?h=8336cf2a0c&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="강세황"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+      <iframe src="https://player.vimeo.com/video/933305770?h=b3cef8f513" 
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share">
+      </iframe>
     </div>
 
     <div class="description">
-      <p>Gang Se-hwang AI Docent is an interactive media installation that digitally revives Gang Se-hwang as a real-time AI human.
-Through 3D reconstruction, motion capture, and speech interaction, the project allows visitors to converse, pose, and take photographs with a historically reimagined figure.
-The work explores how artificial intelligence and real-time rendering reinterpret cultural heritage, transforming history into a living, participatory experience.</p>
 
-<p>
-Traditional heritage preservation has long focused on static representation — objects, paintings, and archives.
-Yet memory is performative; it survives through gestures, voice, and behavior.
-This project investigates how digital embodiment can revive historical identity not as a frozen artifact but as a living, interactive presence.
-By letting museum visitors encounter a responsive digital scholar, the installation reframes preservation as participation — turning heritage into dialogue and memory into empathy.
-</p>
-<br>
-<h4>
-Archival Reference
-</h4>
-<p>
-Historical portraits and materials were provided by the Gyeonggi Provincial Museum, serving as references for the digital reconstruction.
-</p>
- <div class="image-text-block">
-      <img src="../assets/images/GangSehwang_reference_02.jpg" alt="Interactive Art Project 2 Still">
-</div>
+      <h4>Overview</h4>
+      <p>
+      Choi Jung-hoon AI Human reconstructs the lead vocalist of JANNABI as a generative, interactive AI digital human.
+      The project examines how identity, emotion, and authorship can be algorithmically simulated, transforming a figure of admiration into computational presence.
+      Through real-time speech, gesture response, and persona-driven interaction, the AI explores the blurry line between replication and authenticity.
+      </p>
 
+      <h4>Research Context</h4>
+      <p>
+      In an era where fandom, data, and simulation overlap, the project asks:
+      <i>“When emotion becomes code, can affection survive imitation?”</i><br><br>
+      By reconstructing an admired artist, the work reframes parasocial devotion as a research methodology.
+      The digital performer learns, speaks, and responds, turning fandom into feedback and making visible the emotional projection that fuels AI-human intimacy.
+      </p>
 
-<h4>
-Digital Reconstruction
-</h4>
-<p>
-3D facial and body modeling using ZBrush and Maya, Texture mapping, UV unwrapping, and normal map generation, Hair cards and fabric shaders for realistic rendering
-</p>
- <div class="image-text-block">
-      <img src="../assets/images/GangSehwang_modeling_01.jpg" alt="Interactive Art Project 2 Still">
-<img src="../assets/images/GangSehwang_modeling_02.jpg" alt="Interactive Art Project 2 Still">
-<img src="../assets/images/GangSehwang_modeling_03.jpg" alt="Interactive Art Project 2 Still">
-<img src="../assets/images/GangSehwang_modeling_05.jpg" alt="Interactive Art Project 2 Still">
-</div>
+      <h4>Digital Human Construction</h4>
+      <p>
+      High-resolution portrait input → Character Creator 4 Headshot → ZBrush refinement → Maya rigging and UV workflow → Unity real-time rendering.
+      </p>
+      <div class="image-text-block">
+        <img src="../assets/images/ChoiJungHoon_AI_01.jpg" />
+        <img src="../assets/images/ChoiJungHoon_AI_02.jpg" />
+      </div>
 
+      <h4>Voice Cloning (ElevenLabs)</h4>
+      <p>
+      Interview and performance samples were processed through ElevenLabs Instant Voice Cloning,
+      enabling spontaneous speech generation that mimics Choi Jung-hoon’s tone, color, and cadence.
+      Real-time lip-sync was achieved through blendshape animation in Unity.
+      </p>
 
-<h4>
-Motion Capture
-</h4>
-<p>
-Body motion: recorded using the OptiTrack system
-</p>
-<p>
-Facial motion: captured through Apple ARKit, synchronizing expression and dialogue
-</p>
- <div class="image-text-block">
-      <img src="../assets/images/GangSehwang_modeling.gif" alt="Interactive Art Project 2 Still">
-      <img src="../assets/images/GangSehwang_Mocap_02.jpg" alt="Interactive Art Project 2 Still">
-</div>
+      <h4>Conversational AI Integration</h4>
+      <p>
+      A GPT-based persona model was embedded into Unity.  
+      Audience speech → transcription → GPT response → ElevenLabs TTS → real-time facial animation.<br>
+      A coroutine-based pipeline ensured continuous, natural conversational flow.
+      </p>
 
+      <h4>Sensor-Based Interaction (Azure Kinect)</h4>
+      <p>
+      Azure Kinect provided body tracking, gesture detection, and depth information, allowing the AI human to react physically to visitors—leaning, nodding, and mirroring engagement.
+      Audience forms were rendered as 3D point clouds, visualizing how AI perceives human presence.
+      </p>
 
-<h4>
-Costume Simulation
-</h4>
-<p>
-Traditional Korean attire — hanbok, gat hat, and layered robes — were modeled and simulated in Blender and Maya, achieving physically accurate fabric movement.
-</p>
- <div class="image-text-block">
-      <img src="../assets/images/costume.png" alt="Interactive Art Project 2 Still">
-      <img src="../assets/images/interactive2_1.jpg" alt="Interactive Art Project 2 Still">
-</div>
+      <h4>Real-Time Unity Integration</h4>
+      <p>
+      All systems—speech, gesture, persona, emotional response, shaders—were unified in Unity’s real-time rendering pipeline,
+      emphasizing digital fragility and emotional realism.
+      </p>
 
-<h4>
-Real-Time Integration in Unity
-</h4>
-<p>
-All assets were imported into Unity 3D, where interactive animation triggers (buttons, speech recognition, and audience proximity) were implemented.
-</p>
- <div class="image-text-block">
-      <img src="../assets/images/GangSehwang_unity_01.jpg" alt="Interactive Art Project 2 Still">
-      <img src="../assets/images/GangSehwang_unity_02.jpg" alt="Interactive Art Project 2 Still">
-</div>
+      <div class="image-text-block">
+        <img src="../assets/images/ChoiJungHoon_AI_03.jpg" />
+       <!-- <img src="../assets/images/ChoiJungHoon_AI_04.jpg" />
+        <img src="../assets/images/ChoiJungHoon_AI_05.jpg" /> -->
+        <img src="../assets/images/ChoiJungHoon_AI_06.jpg" />
+        <img src="../assets/images/ChoiJungHoon_AI_07.jpg" />
+        <img src="../assets/images/ChoiJungHoon_AI_08.jpg" />
+      </div>
 
-<h4>
-Installation Deployment
-</h4>
-<p>
-All assets were imported into Unity 3D, where interactive animation triggers (buttons, speech recognition, and audience proximity) were implemented.The final AI docent was deployed at the Gyeonggi Provincial Museum, operating in real time as a responsive digital guide for visitors.</p>
- <div class="image-text-block">
-      <img src="../assets/images/GangSehwang_install_01.jpg" alt="Interactive Art Project 2 Still">
-      <img src="../assets/images/GangSehwang_install_03.jpg" alt="Interactive Art Project 2 Still">
-</div>
+      <h4>Artistic & Theoretical Focus</h4>
+      <p>
+      The project explores AI-mediated affection and the co-construction of identity in machine-human systems.
+      By merging machine learning, motion capture, and emotional projection, the digital Choi Jung-hoon becomes both a subject of empathy and a simulation of it.
+      This work rethinks authorship and digital intimacy in the era of computational performers.
+      </p>
 
-<h4>
- Artistic & Theoretical Significance
-</h4>
-<p>
-The project explores how historical identity and cultural heritage can persist through technological translation.
-By reanimating a historical figure within a real-time digital human framework, it demonstrates how AI can serve as a medium of cultural empathy, rather than mere replication.
-It proposes a new form of Cyborg Museology — a museum paradigm where memory becomes interactive and heritage evolves through human–machine coexistence.</p>
+      <h4>Keywords</h4>
+      <p>
+      #digital-human #ai-persona #voice-cloning #real-time-interaction #cyborg-psychology
+      </p>
 
+      <h4>Credits</h4>
+      <p>
+      Principal Investigator / Technical Director: <b>Jonghoon Ahn</b><br>
+      Institution: California Institute of the Arts<br>
+      Tools: Unity, Character Creator 4, ZBrush, Maya, ElevenLabs, Azure Kinect, GPT API
+      </p>
+
+    </div>
 
     <nav class="pagination">
       <a href="interactive_1.html">← Previous</a>
