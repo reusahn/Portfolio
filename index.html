@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jonghoon Ahn — TA · Filmmaker · Media Artist</title>
+  <link rel="icon" href="./assets/images/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&family=Noto+Sans+KR:wght@700;900&display=swap" rel="stylesheet">
@@ -612,7 +613,7 @@
       </div>
 
       <a href="https://drive.google.com/file/d/1Y_98b3ZQHWYZa4cWlg4qEh_wYFqX-Bov/view?usp=sharing" target="_blank" class="cta-link">View Resume / CV ↗</a><br>
-      <a href="/cdn-cgi/l/email-protection#2a424545444b42444946455f4e6a4d474b434604494547" class="cta-link"><span class="__cf_email__" data-cfemail="ddb5b2b2b3bcb5b3beb1b2a8b99dbab0bcb4b1f3beb2b0">[email&#160;protected]</span> ↗</a><br>
+      <a href="#" class="cta-link" id="emailLink1">hoonahncloud [at] gmail.com ↗</a><br>
       <a href="https://github.com/reusahn/Unity-Unreal-Interaction-Research/tree/main" target="_blank" class="cta-link">GitHub Research ↗</a>
     </div>
   </div>
@@ -640,7 +641,7 @@
     <span style="color:#2a2a2a;">TA · Filmmaker · Media Artist</span>
   </div>
   <div class="foot-r">
-    <a href="/cdn-cgi/l/email-protection#acc4c3c3c2cdc4c2cfc0c3d9c8eccbc1cdc5c082cfc3c1"><span class="__cf_email__" data-cfemail="8de5e2e2e3ece5e3eee1e2f8e9cdeae0ece4e1a3eee2e0">[email&#160;protected]</span></a>
+    <a href="#" id="emailLink2">hoonahncloud [at] gmail.com</a>
   </div>
 </footer>
 
@@ -671,6 +672,15 @@
     secIds.forEach(id => { const el=document.getElementById(id); if(el && scrollY>=el.offsetTop-140) active=id; });
     navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href')==='#'+active));
   });
+
+  /* EMAIL — assembled by JS to avoid Cloudflare obfuscation */
+  (function(){
+    var u='hoonahncloud',d='gmail.com',e=u+'@'+d;
+    var l1=document.getElementById('emailLink1');
+    var l2=document.getElementById('emailLink2');
+    if(l1){ l1.href='mailto:'+e; l1.textContent=e+' ↗'; }
+    if(l2){ l2.href='mailto:'+e; l2.textContent=e; }
+  })();
 
   /* SCROLL REVEAL */
   const io = new IntersectionObserver((entries) => {
