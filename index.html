@@ -6,11 +6,9 @@
   <title>Jonghoon Ahn — TA · Filmmaker · Media Artist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&family=Noto+Sans+KR:wght@700;900&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&family=Noto+Sans+KR:wght@700;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --bg: #080808;
       --surface: #111;
@@ -23,266 +21,137 @@
       --font-mono: 'Space Mono', monospace;
       --font-body: 'DM Sans', sans-serif;
     }
-
     html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-body);
-      font-weight: 300;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-weight:300; line-height:1.6; overflow-x:hidden; }
 
-    /* CURSOR */
-    #cur { width:8px; height:8px; background:var(--accent); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:transform .15s; }
-    #curR { width:34px; height:34px; border:1px solid rgba(232,255,71,.35); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .2s,height .2s,border-color .2s; }
+    /* CURSOR — desktop only */
+    #cur,#curR { display:none; }
+    @media(hover:hover){
+      #cur { display:block; width:8px; height:8px; background:var(--accent); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:transform .15s; }
+      #curR { display:block; width:34px; height:34px; border:1px solid rgba(232,255,71,.35); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .2s,height .2s; }
+    }
 
     /* NAV */
-    nav {
-      position: fixed; top:0; left:0; right:0; z-index:200;
-      display: flex; justify-content:space-between; align-items:center;
-      padding: 22px 48px;
-      transition: background .4s, backdrop-filter .4s, border-color .4s;
-      border-bottom: 1px solid transparent;
-    }
-    nav.stuck {
-      background: rgba(8,8,8,.88);
-      backdrop-filter: blur(20px);
-      border-color: var(--border);
-    }
-    .nav-logo {
-      font-family: var(--font-mono); font-size:.72rem;
-      letter-spacing:.18em; color:var(--accent); text-decoration:none;
-    }
+    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:flex-end; align-items:center; padding:22px 48px; transition:background .4s,border-color .4s; border-bottom:1px solid transparent; }
+    nav.stuck { background:rgba(8,8,8,.92); backdrop-filter:blur(20px); border-color:var(--border); }
     .nav-links { display:flex; gap:28px; list-style:none; }
-    .nav-links a {
-      font-family:var(--font-mono); font-size:.8rem; letter-spacing:.1em;
-      text-transform:uppercase; color:var(--muted); text-decoration:none;
-      transition:color .2s; position:relative;
-    }
-    .nav-links a::after {
-      content:''; position:absolute; bottom:-3px; left:0;
-      width:0; height:1px; background:var(--accent); transition:width .3s;
-    }
+    .nav-links a { font-family:var(--font-mono); font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; position:relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1px; background:var(--accent); transition:width .3s; }
     .nav-links a:hover, .nav-links a.active { color:var(--text); }
     .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
-    @media(max-width:768px){ .nav-links{display:none;} nav{padding:18px 24px;} }
+    /* Mobile nav — hamburger */
+    .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+    .nav-toggle span { width:24px; height:1px; background:var(--text); transition:all .3s; }
+    @media(max-width:768px){
+      nav { padding:18px 24px; }
+      .nav-toggle { display:flex; }
+      .nav-links { display:none; flex-direction:column; gap:0; position:fixed; top:0; right:0; bottom:0; width:70vw; max-width:280px; background:rgba(8,8,8,.97); backdrop-filter:blur(20px); padding:80px 32px 32px; border-left:1px solid var(--border); }
+      .nav-links.open { display:flex; }
+      .nav-links a { font-size:1.1rem; padding:14px 0; border-bottom:1px solid var(--border); }
+      .nav-links a::after { display:none; }
+    }
 
     /* HERO */
-    #hero {
-      position:relative; width:100%; height:100vh;
-      display:flex; align-items:flex-end; overflow:hidden;
-    }
+    #hero { position:relative; width:100%; height:100vh; display:flex; align-items:flex-end; overflow:hidden; }
     .hero-bg { position:absolute; inset:0; z-index:0; }
-    .hero-bg video { width:100%; height:100%; object-fit:cover; opacity:.5; }
-    .hero-bg-fallback {
-      position:absolute; inset:0;
-      background: radial-gradient(ellipse at 70% 40%, #1c1c1c 0%, #080808 65%);
-    }
-    .hero-grain {
-      position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.45;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 180px 180px; mix-blend-mode: overlay;
-    }
+    .hero-bg-inner { position:absolute; inset:0; overflow:hidden; z-index:1; }
+    .hero-bg-inner iframe { position:absolute; top:50%; left:50%; width:177.78vh; min-width:100%; height:56.25vw; min-height:100%; transform:translate(-50%,-50%); opacity:.5; pointer-events:none; }
+    .hero-bg-fallback { position:absolute; inset:0; z-index:0; background:radial-gradient(ellipse at 70% 40%, #1c1c1c 0%, #080808 65%); }
+    .hero-grain { position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.4; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size:180px 180px; mix-blend-mode:overlay; }
     .hero-fade-b { position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(to top, var(--bg) 0%, rgba(8,8,8,.5) 35%, transparent 65%); }
     .hero-fade-l { position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(to right, rgba(8,8,8,.8) 0%, transparent 55%); }
-    .hero-scan {
-      position:absolute; inset:0; z-index:3; pointer-events:none;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.06) 3px, rgba(0,0,0,.06) 4px);
-    }
-    .hero-content {
-      position:relative; z-index:5;
-      padding: 0 48px 80px; max-width: 860px;
-    }
-    .hero-eyebrow {
-      font-family:var(--font-mono); font-size:.9rem; letter-spacing:.18em;
-      text-transform:uppercase; color:var(--accent); margin-bottom:18px;
-      opacity:0; animation:fadeUp .7s ease .2s forwards;
-    }
-    .hero-name {
-      font-family:'Bebas Neue', sans-serif; font-size:clamp(5rem,13vw,12rem);
-      font-weight:400; line-height:.9; letter-spacing:.04em; margin-bottom:32px;
-      opacity:0; animation:fadeUp .7s ease .4s forwards;
-    }
+    .hero-scan { position:absolute; inset:0; z-index:3; pointer-events:none; background:repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.05) 3px, rgba(0,0,0,.05) 4px); }
+    .hero-content { position:relative; z-index:5; padding:0 48px 80px; max-width:860px; }
+    .hero-eyebrow { font-family:var(--font-mono); font-size:.9rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:18px; opacity:0; animation:fadeUp .7s ease .2s forwards; }
+    .hero-name { font-family:'Bebas Neue', sans-serif; font-size:clamp(5rem,13vw,12rem); font-weight:400; line-height:.9; letter-spacing:.04em; margin-bottom:32px; opacity:0; animation:fadeUp .7s ease .4s forwards; }
     .hero-name em { display:block; color:var(--accent); font-style:normal; }
-    .hero-sub {
-      font-size:.95rem; color:rgba(240,237,232,.55); max-width:420px;
-      margin-bottom:44px; line-height:1.7;
-      opacity:0; animation:fadeUp .7s ease .6s forwards;
-    }
-    .hero-pills {
-      display:flex; gap:10px; flex-wrap:wrap;
-      opacity:0; animation:fadeUp .7s ease .8s forwards;
-    }
-    .hero-pill {
-      font-family:var(--font-mono); font-size:.75rem; letter-spacing:.12em;
-      text-transform:uppercase; padding:8px 16px;
-      border:1px solid var(--border); color:rgba(240,237,232,.75);
-    }
-    .hero-scroll {
-      position:absolute; right:48px; bottom:48px; z-index:5;
-      display:flex; flex-direction:column; align-items:center; gap:10px;
-      opacity:0; animation:fadeIn 1s ease 1.2s forwards;
-    }
-    .hero-scroll span {
-      font-family:var(--font-mono); font-size:.55rem; letter-spacing:.2em;
-      text-transform:uppercase; color:var(--muted); writing-mode:vertical-rl;
-    }
+    .hero-sub { font-size:1rem; color:rgba(240,237,232,.6); max-width:480px; margin-bottom:44px; line-height:1.75; opacity:0; animation:fadeUp .7s ease .6s forwards; }
+    .hero-pills { display:flex; gap:10px; flex-wrap:wrap; opacity:0; animation:fadeUp .7s ease .8s forwards; }
+    .hero-pill { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; padding:8px 16px; border:1px solid var(--border); color:rgba(240,237,232,.75); }
+    .hero-scroll { position:absolute; right:48px; bottom:48px; z-index:5; display:flex; flex-direction:column; align-items:center; gap:10px; opacity:0; animation:fadeIn 1s ease 1.2s forwards; }
+    .hero-scroll span { font-family:var(--font-mono); font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); writing-mode:vertical-rl; }
     .scroll-bar { width:1px; height:56px; background:var(--border); position:relative; overflow:hidden; }
-    .scroll-bar::after {
-      content:''; position:absolute; top:-100%; left:0; width:100%; height:100%;
-      background:var(--accent); animation:scrollDrop 2.2s ease infinite;
+    .scroll-bar::after { content:''; position:absolute; top:-100%; left:0; width:100%; height:100%; background:var(--accent); animation:scrollDrop 2.2s ease infinite; }
+
+    /* Mobile hero */
+    @media(max-width:768px){
+      .hero-content { padding:0 24px 60px; }
+      .hero-eyebrow { font-size:.7rem; }
+      .hero-sub { font-size:.9rem; }
+      .hero-pill { font-size:.65rem; padding:6px 12px; }
+      .hero-scroll { display:none; }
     }
+
     @keyframes scrollDrop { 0%{top:-100%} 100%{top:200%} }
     @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
     @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
     /* SECTIONS */
     .wrap { max-width:1380px; margin:0 auto; padding:120px 48px; }
-    @media(max-width:768px){ .wrap{padding:80px 24px;} }
-    .sec-head {
-      display:flex; align-items:baseline; justify-content:space-between;
-      border-bottom:1px solid var(--border); padding-bottom:18px; margin-bottom:52px;
-    }
+    @media(max-width:768px){ .wrap{ padding:72px 20px; } }
+    .sec-head { display:flex; align-items:baseline; justify-content:space-between; border-bottom:1px solid var(--border); padding-bottom:18px; margin-bottom:52px; }
     .sec-num { font-family:var(--font-mono); font-size:.6rem; color:var(--accent); letter-spacing:.16em; }
     .sec-title { font-family:var(--font-display); font-size:clamp(1.6rem,2.8vw,2.5rem); font-weight:700; letter-spacing:-.025em; }
 
     /* GRID */
     .grid { display:grid; grid-template-columns:repeat(12,1fr); gap:2px; }
     .s12{grid-column:span 12} .s8{grid-column:span 8} .s7{grid-column:span 7}
-    .s6{grid-column:span 6} .s5{grid-column:span 5} .s4{grid-column:span 4}
-    .s3{grid-column:span 3}
-    @media(max-width:900px){
-      .s8,.s7,.s6,.s5,.s4,.s3{grid-column:span 12}
-    }
-    @media(min-width:901px) and (max-width:1100px){
-      .s8{grid-column:span 7} .s4{grid-column:span 5} .s3{grid-column:span 6}
-    }
+    .s6{grid-column:span 6} .s5{grid-column:span 5} .s4{grid-column:span 4} .s3{grid-column:span 3}
+    @media(max-width:600px){ .s12,.s8,.s7,.s6,.s5,.s4,.s3{grid-column:span 12} }
+    @media(min-width:601px) and (max-width:900px){ .s8,.s7{grid-column:span 12} .s6,.s5{grid-column:span 6} .s4,.s3{grid-column:span 6} }
+    @media(min-width:901px) and (max-width:1100px){ .s8{grid-column:span 7} .s4{grid-column:span 5} .s3{grid-column:span 6} }
 
     /* CARD */
-    .card {
-      position:relative; overflow:hidden; background:var(--surface);
-      display:block; text-decoration:none; color:inherit; cursor:pointer;
-    }
+    .card { position:relative; overflow:hidden; background:var(--surface); display:block; text-decoration:none; color:inherit; cursor:pointer; }
     .card-media { position:relative; width:100%; overflow:hidden; aspect-ratio:16/10; }
-    .card-media img,
-    .card-media video {
-      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
-    }
-    .card-media img {
-      transition: transform .7s cubic-bezier(.25,.46,.45,.94), filter .4s;
-      filter:brightness(.7) saturate(.75); z-index:1;
-    }
-    .card-media video { opacity:0; z-index:2; transition:opacity .3s ease .1s; }
-    .card:hover .card-media img { transform:scale(1.04); filter:brightness(.5) saturate(.5); }
-    .card:hover .card-media video { opacity:1; }
-    .card-no-img {
-      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-      font-family:var(--font-mono); font-size:.58rem; letter-spacing:.12em;
-      color:var(--muted); background:var(--surface2); z-index:0;
-    }
-    .card-arrow {
-      position:absolute; top:16px; right:16px; z-index:5;
-      width:34px; height:34px; border:1px solid var(--accent);
-      display:flex; align-items:center; justify-content:center;
-      color:var(--accent); font-size:.95rem;
-      opacity:0; transform:translate(6px,-6px);
-      transition:opacity .25s, transform .25s;
-    }
+    .card-media img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; transition:transform .7s cubic-bezier(.25,.46,.45,.94), filter .4s; filter:brightness(.7) saturate(.75); z-index:1; }
+    .card:hover .card-media img { transform:scale(1.04); filter:brightness(.88) saturate(1); }
+    .card-no-img { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:.58rem; letter-spacing:.12em; color:var(--muted); background:var(--surface2); z-index:0; }
+    .card-arrow { position:absolute; top:16px; right:16px; z-index:5; width:34px; height:34px; border:1px solid var(--accent); display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:.95rem; opacity:0; transform:translate(6px,-6px); transition:opacity .25s,transform .25s; }
     .card:hover .card-arrow { opacity:1; transform:none; }
-    .card-vid-badge {
-      position:absolute; bottom:14px; left:14px; z-index:5;
-      font-family:var(--font-mono); font-size:.52rem; letter-spacing:.14em;
-      text-transform:uppercase; background:rgba(0,0,0,.75);
-      border:1px solid var(--border); padding:4px 10px; color:var(--muted);
-      display:flex; align-items:center; gap:6px;
-      transition:color .2s, border-color .2s;
-    }
-    .card-vid-badge .dot {
-      width:5px; height:5px; border-radius:50%; background:var(--muted);
-      transition:background .2s;
-    }
-    .card:hover .card-vid-badge { color:var(--accent); border-color:rgba(232,255,71,.3); }
-    .card:hover .card-vid-badge .dot { background:var(--accent); animation:pulse 1s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
     .card-info { padding:18px 22px 22px; }
-    .card-cat {
-      font-family:var(--font-mono); font-size:.7rem; letter-spacing:.14em;
-      text-transform:uppercase; color:var(--accent); margin-bottom:8px;
-    }
-    .card-title {
-      font-family:var(--font-display); font-size:1.2rem; font-weight:600;
-      margin-bottom:8px; transition:color .2s;
-    }
+    .card-cat { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+    .card-title { font-family:var(--font-display); font-size:1.2rem; font-weight:600; margin-bottom:8px; transition:color .2s; }
     .card:hover .card-title { color:var(--accent); }
-    .card-desc {
-      font-size:.92rem; color:rgba(240,237,232,.65); line-height:1.6;
-      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
-    }
+    .card-desc { font-size:.92rem; color:rgba(240,237,232,.65); line-height:1.6; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
     .card-tags { display:flex; gap:6px; margin-top:14px; flex-wrap:wrap; }
-    .tag {
-      font-family:var(--font-mono); font-size:.65rem; letter-spacing:.08em;
-      text-transform:uppercase; padding:4px 10px; border:1px solid var(--border); color:var(--muted);
-    }
+    .tag { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.08em; text-transform:uppercase; padding:4px 10px; border:1px solid var(--border); color:var(--muted); }
 
     /* ABOUT */
     .about-wrap { display:grid; grid-template-columns:1fr 1.7fr; gap:80px; align-items:start; }
     @media(max-width:768px){ .about-wrap{grid-template-columns:1fr;gap:48px;} }
     .about-img-col { position:relative; }
     .about-img-col img { width:100%; aspect-ratio:3/4; object-fit:cover; filter:grayscale(15%) contrast(1.05); display:block; }
-    .about-label {
-      position:absolute; bottom:22px; left:-18px;
-      background:var(--accent); color:#000;
-      font-family:'Noto Sans KR', sans-serif; font-size:.72rem; font-weight:700; letter-spacing:.08em;
-      text-transform:uppercase; padding:7px 16px;
-    }
+    .about-label { position:absolute; bottom:22px; left:-18px; background:var(--accent); color:#000; font-family:'Noto Sans KR',sans-serif; font-size:.72rem; font-weight:700; letter-spacing:.08em; padding:7px 16px; }
+    @media(max-width:768px){ .about-label{ left:0; } }
     .about-txt h3 { font-family:var(--font-display); font-size:1.7rem; font-weight:700; letter-spacing:-.02em; margin-bottom:22px; }
     .about-txt p { font-size:1.05rem; color:rgba(240,237,232,.6); line-height:1.8; margin-bottom:14px; }
     .about-sub-label { font-family:var(--font-mono); font-size:.85rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
-    .awards { margin-top:38px; border-top:1px solid var(--border); padding-top:28px; }
-    .award { display:flex; justify-content:space-between; align-items:baseline; padding:11px 0; border-bottom:1px solid var(--border); }
+    .awards { margin-top:32px; border-top:1px solid var(--border); padding-top:28px; }
+    .award { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:11px 0; border-bottom:1px solid var(--border); }
     .award-n { font-size:1rem; }
-    .award-y { font-family:var(--font-mono); font-size:.75rem; color:var(--muted); letter-spacing:.1em; }
-    .cta-link {
-      display:inline-flex; align-items:center; gap:10px; margin-top:28px;
-      font-family:var(--font-mono); font-size:.9rem; letter-spacing:.1em;
-      text-transform:uppercase; color:var(--text); text-decoration:none;
-      border-bottom:1px solid var(--border); padding-bottom:3px;
-      transition:color .2s, border-color .2s;
-    }
-    .cta-link + .cta-link { margin-top:14px; }
+    .award-y { font-family:var(--font-mono); font-size:.75rem; color:var(--muted); letter-spacing:.1em; white-space:nowrap; }
+    .cta-link { display:inline-flex; align-items:center; gap:10px; margin-top:28px; font-family:var(--font-mono); font-size:.9rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text); text-decoration:none; border-bottom:1px solid var(--border); padding-bottom:3px; transition:color .2s,border-color .2s; }
+    .cta-link+.cta-link { margin-top:14px; }
     .cta-link:hover { color:var(--accent); border-color:var(--accent); }
 
     /* NEWS */
     .news-ul { list-style:none; }
-    .news-row {
-      display:flex; align-items:center; justify-content:space-between;
-      padding:18px 0; border-bottom:1px solid var(--border);
-      transition:padding-left .25s ease;
-    }
+    .news-row { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 0; border-bottom:1px solid var(--border); transition:padding-left .25s; }
     .news-row:hover { padding-left:12px; }
     .news-n { font-family:var(--font-display); font-size:.92rem; font-weight:600; }
-    .news-a {
-      font-family:var(--font-mono); font-size:.58rem; letter-spacing:.14em;
-      text-transform:uppercase; color:var(--muted); text-decoration:none;
-      border:1px solid var(--border); padding:5px 12px;
-      transition:all .2s; white-space:nowrap;
-    }
+    .news-a { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; border:1px solid var(--border); padding:6px 14px; transition:all .2s; white-space:nowrap; }
     .news-a:hover { color:#000; background:var(--accent); border-color:var(--accent); }
 
     /* FOOTER */
-    footer {
-      border-top:1px solid var(--border); padding:44px 48px;
-      display:flex; justify-content:space-between; align-items:center;
-      flex-wrap:wrap; gap:16px;
-    }
-    .foot-l { font-family:var(--font-mono); font-size:.6rem; letter-spacing:.1em; color:var(--muted); line-height:1.8; }
-    .foot-r a { font-family:var(--font-mono); font-size:.6rem; letter-spacing:.12em; color:var(--muted); text-decoration:none; transition:color .2s; }
+    footer { border-top:1px solid var(--border); padding:44px 48px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+    @media(max-width:768px){ footer{ padding:32px 20px; } }
+    .foot-l { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.1em; color:var(--muted); line-height:1.8; }
+    .foot-r a { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.12em; color:var(--muted); text-decoration:none; transition:color .2s; }
     .foot-r a:hover { color:var(--accent); }
 
     /* REVEAL */
-    .r { opacity:0; transform:translateY(36px); transition:opacity .65s ease, transform .65s ease; }
+    .r { opacity:0; transform:translateY(36px); transition:opacity .65s ease,transform .65s ease; }
     .r.on { opacity:1; transform:none; }
   </style>
 </head>
@@ -293,8 +162,10 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <span></span>
-  <ul class="nav-links">
+  <div class="nav-toggle" id="navToggle">
+    <span></span><span></span><span></span>
+  </div>
+  <ul class="nav-links" id="navLinks">
     <li><a href="#interactive">Interactive</a></li>
     <li><a href="#film">Film</a></li>
     <li><a href="#media">Media Art</a></li>
@@ -307,30 +178,24 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg">
-    <!--
-    ═══════════════════════════════════════════════════════
-    HERO VIDEO — replace src with your showreel path/URL:
-      <source src="./assets/videos/showreel.mp4" type="video/mp4">
-    Recommended: MP4 H.264, 1920×1080, muted loop, ~30s
-    ═══════════════════════════════════════════════════════
-    -->
-    <video id="heroVideo" autoplay muted loop playsinline poster="./assets/images/film1.jpg"
-           onerror="this.style.display='none'">
-      <source src="./assets/videos/showreel.mp4" type="video/mp4"> 
-    </video>
+    <div class="hero-bg-inner">
+      <iframe src="https://player.vimeo.com/video/1179518036?h=000a01b959&badge=0&autopause=0&player_id=0&app_id=58479&background=1&autoplay=1&loop=1&muted=1"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        title="showreel">
+      </iframe>
+    </div>
     <div class="hero-bg-fallback"></div>
   </div>
   <div class="hero-grain"></div>
   <div class="hero-fade-b"></div>
   <div class="hero-fade-l"></div>
   <div class="hero-scan"></div>
-
   <div class="hero-content">
     <div class="hero-eyebrow">// Software Engineer · Filmmaker · Technical Artist</div>
     <h1 class="hero-name">Jonghoon<br><em>Ahn</em></h1>
-    <p class="hero-sub">
-      An AI researcher, Technical Artist, and filmmaker who creates and researches work for those marginalized by technology and the age of AI.
-    </p>
+    <p class="hero-sub">An AI researcher, Technical Artist, and filmmaker who creates and researches work for those marginalized by technology and the age of AI.</p>
     <div class="hero-pills">
       <span class="hero-pill">CalArts MFA '25</span>
       <span class="hero-pill">LA · Seoul</span>
@@ -351,12 +216,7 @@
   <div class="grid">
 
     <a href="detail_pages/interactive_1.html" class="card s8 r">
-      <div class="card-media">
-        <img src="./assets/images/interactive1.jpg" alt="To Eternity">
-        <video muted loop preload="none"><source src="./assets/videos/interactive1_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">To Eternity</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/interactive1.jpg" alt="To Eternity"><div class="card-no-img">To Eternity</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Interactive Installation</div>
@@ -367,12 +227,7 @@
     </a>
 
     <a href="detail_pages/interactive_2.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/interactive2.jpg" alt="AI Gang Se-hwang">
-        <video muted loop preload="none"><source src="./assets/videos/interactive2_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">AI Gang Se-hwang</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/interactive2.jpg" alt="AI Gang Se-hwang"><div class="card-no-img">AI Gang Se-hwang</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">AI · Digital Human</div>
@@ -383,12 +238,7 @@
     </a>
 
     <a href="detail_pages/interactive_3.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/interactive3.jpg" alt="Jemulpo Photo Studio">
-        <video muted loop preload="none"><source src="./assets/videos/interactive3_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Jemulpo Photo Studio</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/interactive3.jpg" alt="Jemulpo Photo Studio"><div class="card-no-img">Jemulpo Photo Studio</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Computer Vision · Style Transfer</div>
@@ -399,12 +249,7 @@
     </a>
 
     <a href="detail_pages/interactive_5.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/interactive5.jpg" alt="Directed By AI">
-        <video muted loop preload="none"><source src="./assets/videos/interactive5_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Directed By AI</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/interactive5.jpg" alt="Directed By AI"><div class="card-no-img">Directed By AI</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Film · AI Co-Director</div>
@@ -415,12 +260,7 @@
     </a>
 
     <a href="detail_pages/interactive_4.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/interactive4.jpg" alt="AI ZOO">
-        <video muted loop preload="none"><source src="./assets/videos/interactive4_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">AI ZOO</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/interactive4.jpg" alt="AI ZOO"><div class="card-no-img">AI ZOO</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Mixed Media Installation</div>
@@ -431,12 +271,7 @@
     </a>
 
     <a href="detail_pages/interactive_7.html" class="card s6 r">
-      <div class="card-media">
-        <img src="./assets/images/interactive7.jpg" alt="Silhak Dance">
-        <video muted loop preload="none"><source src="./assets/videos/interactive7_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Silhak Dance</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/interactive7.jpg" alt="Silhak Dance"><div class="card-no-img">Silhak Dance</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Motion Capture · Real-time</div>
@@ -447,12 +282,7 @@
     </a>
 
     <a href="detail_pages/interactive_8.html" class="card s3 r">
-      <div class="card-media">
-        <img src="./assets/images/interactive8.jpg" alt="Track 6">
-        <video muted loop preload="none"><source src="./assets/videos/interactive8_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Track 6</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/interactive8.jpg" alt="Track 6"><div class="card-no-img">Track 6</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Kinect · Dance</div>
@@ -463,12 +293,7 @@
     </a>
 
     <a href="detail_pages/interactive_10.html" class="card s3 r">
-      <div class="card-media">
-        <img src="./assets/images/interactive10_2.jpg" alt="Beads Wall">
-        <video muted loop preload="none"><source src="./assets/videos/interactive10_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Beads Wall</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/interactive10_2.jpg" alt="Beads Wall"><div class="card-no-img">Beads Wall</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Generative · Participatory</div>
@@ -479,12 +304,7 @@
     </a>
 
     <a href="detail_pages/interactive_9.html" class="card s6 r">
-      <div class="card-media">
-        <img src="./assets/images/interactive9.jpg" alt="AI Choi Jung Hoon">
-        <video muted loop preload="none"><source src="./assets/videos/interactive9_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">AI Choi Jung Hoon</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/interactive9.jpg" alt="AI Choi Jung Hoon"><div class="card-no-img">AI Choi Jung Hoon</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">LLM · Real-time Avatar</div>
@@ -503,12 +323,7 @@
   <div class="grid">
 
     <a href="detail_pages/film_1.html" class="card s6 r">
-      <div class="card-media">
-        <img src="./assets/images/film1.jpg" alt="Non-Done Record">
-        <video muted loop preload="none"><source src="./assets/videos/film1_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Non-Done Record</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/film1.jpg" alt="Non-Done Record"><div class="card-no-img">Non-Done Record</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Short Film · Sundance Ignite Finalist 2024</div>
@@ -518,12 +333,7 @@
     </a>
 
     <a href="detail_pages/film_4.html" class="card s6 r">
-      <div class="card-media">
-        <img src="./assets/images/film4.jpg" alt="Where is My Cloud">
-        <video muted loop preload="none"><source src="./assets/videos/film4_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Where is My Cloud</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/film4.jpg" alt="Where is My Cloud"><div class="card-no-img">Where is My Cloud</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Documentary · Experimental</div>
@@ -533,12 +343,7 @@
     </a>
 
     <a href="detail_pages/film_2.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/film2.jpg" alt="Urban Diary">
-        <video muted loop preload="none"><source src="./assets/videos/film2_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Urban Diary</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/film2.jpg" alt="Urban Diary"><div class="card-no-img">Urban Diary</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Short Film</div>
@@ -548,12 +353,7 @@
     </a>
 
     <a href="detail_pages/film_3.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/film3.jpg" alt="Like Mother">
-        <video muted loop preload="none"><source src="./assets/videos/film3_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Like Mother</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/film3.jpg" alt="Like Mother"><div class="card-no-img">Like Mother</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Short Film</div>
@@ -563,12 +363,7 @@
     </a>
 
     <a href="detail_pages/film_5.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/film5.jpg" alt="Mythomania">
-        <video muted loop preload="none"><source src="./assets/videos/film5_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Mythomania</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/film5.jpg" alt="Mythomania"><div class="card-no-img">Mythomania</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Short Film</div>
@@ -578,12 +373,7 @@
     </a>
 
     <a href="detail_pages/film_6.html" class="card s6 r">
-      <div class="card-media">
-        <img src="./assets/images/film6.jpg" alt="Berdua Saja">
-        <video muted loop preload="none"><source src="./assets/videos/film6_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Berdua Saja</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/film6.jpg" alt="Berdua Saja"><div class="card-no-img">Berdua Saja</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Short Film</div>
@@ -601,12 +391,7 @@
   <div class="grid">
 
     <a href="detail_pages/media_1.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/media1.jpg" alt="DADA Myeongdong">
-        <video muted loop preload="none"><source src="./assets/videos/media1_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">DADA Myeongdong</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/media1.jpg" alt="DADA Myeongdong"><div class="card-no-img">DADA Myeongdong</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Media Wall · Art Korea Lab 2025</div>
@@ -617,12 +402,7 @@
     </a>
 
     <a href="detail_pages/media_2.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/media2.jpg" alt="Dream of Salmon">
-        <video muted loop preload="none"><source src="./assets/videos/media2_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Dream of Salmon</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/media2.jpg" alt="Dream of Salmon"><div class="card-no-img">Dream of Salmon</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Generative Media</div>
@@ -633,12 +413,7 @@
     </a>
 
     <a href="detail_pages/media_3.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/media3.jpg" alt="Fall of Minds">
-        <video muted loop preload="none"><source src="./assets/videos/media3_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Fall of Minds</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/media3.jpg" alt="Fall of Minds"><div class="card-no-img">Fall of Minds</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Sound-Reactive Installation</div>
@@ -649,28 +424,18 @@
     </a>
 
     <a href="detail_pages/media_4.html" class="card s7 r">
-      <div class="card-media">
-        <img src="./assets/images/media4.jpg" alt="The Nature of Manpasikjeok">
-        <video muted loop preload="none"><source src="./assets/videos/media4_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">The Nature of Manpasikjeok</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/media4.jpg" alt="The Nature of Manpasikjeok"><div class="card-no-img">The Nature of Manpasikjeok</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Public Media Art · Daegu</div>
         <div class="card-title">The Nature of Manpasikjeok</div>
-        <div class="card-desc">Ancient Korean legend reinterpreted—wind and sound generatively visualized to symbolically protect the city from disaster.</div>
+        <div class="card-desc">Ancient Korean legend reinterpreted—wind and sound generatively visualized to symbolically protect the city.</div>
         <div class="card-tags"><span class="tag">Unity</span></div>
       </div>
     </a>
 
     <a href="detail_pages/media_5.html" class="card s5 r">
-      <div class="card-media">
-        <img src="./assets/images/media5.jpg" alt="Seon-a's Family">
-        <video muted loop preload="none"><source src="./assets/videos/media5_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Seon-a's Family</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/media5.jpg" alt="Seon-a's Family"><div class="card-no-img">Seon-a's Family</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Narrative Media Art</div>
@@ -681,12 +446,7 @@
     </a>
 
     <a href="detail_pages/media_7.html" class="card s6 r">
-      <div class="card-media">
-        <img src="./assets/images/media7.jpg" alt="Nature Human">
-        <video muted loop preload="none"><source src="./assets/videos/media7_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Nature Human</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/media7.jpg" alt="Nature Human"><div class="card-no-img">Nature Human</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Posthumanism · 2050</div>
@@ -705,12 +465,7 @@
   <div class="grid">
 
     <a href="detail_pages/xr_1.html" class="card s8 r">
-      <div class="card-media">
-        <img src="./assets/images/xr1.jpg" alt="Fineo">
-        <video muted loop preload="none"><source src="./assets/videos/xr1_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Fineo, Translated Universe</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/xr1.jpg" alt="Fineo"><div class="card-no-img">Fineo, Translated Universe</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">VR · Grand Prize — KMU Exhibition</div>
@@ -721,12 +476,7 @@
     </a>
 
     <a href="detail_pages/xr_4.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/xr4.jpg" alt="Escape Metro">
-        <video muted loop preload="none"><source src="./assets/videos/xr4_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Escape Metro</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/xr4.jpg" alt="Escape Metro"><div class="card-no-img">Escape Metro</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">VR Escape Game · AI NPC</div>
@@ -737,12 +487,7 @@
     </a>
 
     <a href="detail_pages/xr_2.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/xr2.jpg" alt="NARCI">
-        <video muted loop preload="none"><source src="./assets/videos/xr2_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">NARCI</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/xr2.jpg" alt="NARCI"><div class="card-no-img">NARCI</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">VR · Psychology</div>
@@ -753,12 +498,7 @@
     </a>
 
     <a href="detail_pages/xr_3.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/xr3.jpg" alt="Be Narci">
-        <video muted loop preload="none"><source src="./assets/videos/xr3_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Be NARCI</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/xr3.jpg" alt="Be Narci"><div class="card-no-img">Be NARCI</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">VR · Role Reversal</div>
@@ -769,12 +509,7 @@
     </a>
 
     <a href="detail_pages/xr_5.html" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/xr5.jpg" alt="Graffiti Freedom">
-        <video muted loop preload="none"><source src="./assets/videos/xr5_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">Graffiti Freedom</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/xr5.jpg" alt="Graffiti Freedom"><div class="card-no-img">Graffiti Freedom</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">VR · Public Space</div>
@@ -793,12 +528,7 @@
   <div class="grid">
 
     <a href="detail_pages/vfx_1.html" class="card s8 r">
-      <div class="card-media">
-        <img src="./assets/images/vfx2.jpg" alt="FX Portfolio">
-        <video muted loop preload="none"><source src="./assets/videos/vfx1_preview.mp4" type="video/mp4"></video>
-        <div class="card-no-img">FX Portfolio</div>
-        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/vfx2.jpg" alt="FX Portfolio"><div class="card-no-img">FX Portfolio</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Digital Humans · Simulation · Real-time VFX</div>
@@ -809,10 +539,7 @@
     </a>
 
     <a href="https://github.com/reusahn/Unity-Unreal-Interaction-Research/tree/main" target="_blank" class="card s4 r">
-      <div class="card-media">
-        <img src="./assets/images/research.jpg" alt="Research">
-        <div class="card-no-img">Research / GitHub</div>
-      </div>
+      <div class="card-media"><img src="./assets/images/research.jpg" alt="Research"><div class="card-no-img">Research / GitHub</div></div>
       <div class="card-arrow">↗</div>
       <div class="card-info">
         <div class="card-cat">Research · Open Source</div>
@@ -839,13 +566,13 @@
       <p>He works across film, XR, and digital performance using motion capture, digital humans, real-time engines, and generative image technologies to create work where audiences move beyond passive spectatorship.</p>
       <p>Currently serving as Technical Director on Academy Award–nominated animator Erick Oh's game project, and on media artist Yaloo's digital human projects (featured in Hyperallergic). His feature screenplay was selected as a school-nominated submission for the 2025 Academy Nicholl Fellowships and shortlisted for the CJ &amp; TIFF K-Story Fund.</p>
 
-      <div class="awards" style="margin-top:32px;">
+      <div class="awards">
         <div class="about-sub-label">Education</div>
         <div class="award"><span class="award-n">MFA, Art and Technology — California Institute of the Arts</span><span class="award-y">2025</span></div>
         <div class="award"><span class="award-n">BFA, Entertainment Design — Kookmin University, Seoul</span><span class="award-y">2022</span></div>
       </div>
 
-      <div class="awards" style="margin-top:32px;">
+      <div class="awards">
         <div class="about-sub-label">Selected Filmography</div>
         <div class="award"><span class="award-n">The Way To Be Oneself — Experimental AI Film, Director</span><span class="award-y">2025</span></div>
         <div class="award"><span class="award-n">Mythomania — 3D Animated Short, Director</span><span class="award-y">2025</span></div>
@@ -857,7 +584,7 @@
         <div class="award"><span class="award-n">Urban Diary — Short Film, Director</span><span class="award-y">2019</span></div>
       </div>
 
-      <div class="awards" style="margin-top:32px;">
+      <div class="awards">
         <div class="about-sub-label">Selected Honors &amp; Programs</div>
         <div class="award"><span class="award-n">Academy Nicholl Fellowships — School-Nominated Submission</span><span class="award-y">2025</span></div>
         <div class="award"><span class="award-n">CJ &amp; TIFF K-Story Fund — Shortlist</span><span class="award-y">2025</span></div>
@@ -870,7 +597,7 @@
         <div class="award"><span class="award-n">Art Korea Lab Super Testbed — Lab Participant</span><span class="award-y">2024–25</span></div>
       </div>
 
-      <div class="awards" style="margin-top:32px;">
+      <div class="awards">
         <div class="about-sub-label">Selected Exhibitions &amp; Collaborations</div>
         <div class="award"><span class="award-n">서서울미술관 '신인호 랜딩' — Metahuman Animator</span><span class="award-y">2026</span></div>
         <div class="award"><span class="award-n">Encore Creative Festival, Ohio — Dream of Salmon</span><span class="award-y">2025</span></div>
@@ -885,7 +612,7 @@
       </div>
 
       <a href="https://drive.google.com/file/d/1Y_98b3ZQHWYZa4cWlg4qEh_wYFqX-Bov/view?usp=sharing" target="_blank" class="cta-link">View Resume / CV ↗</a><br>
-      <a href="mailto:hoonahncloud@gmail.com" class="cta-link">hoonahncloud@gmail.com ↗</a><br>
+      <a href="/cdn-cgi/l/email-protection#2a424545444b42444946455f4e6a4d474b434604494547" class="cta-link"><span class="__cf_email__" data-cfemail="ddb5b2b2b3bcb5b3beb1b2a8b99dbab0bcb4b1f3beb2b0">[email&#160;protected]</span> ↗</a><br>
       <a href="https://github.com/reusahn/Unity-Unreal-Interaction-Research/tree/main" target="_blank" class="cta-link">GitHub Research ↗</a>
     </div>
   </div>
@@ -913,40 +640,36 @@
     <span style="color:#2a2a2a;">TA · Filmmaker · Media Artist</span>
   </div>
   <div class="foot-r">
-    <a href="mailto:hoonahncloud@gmail.com">hoonahncloud@gmail.com</a>
+    <a href="/cdn-cgi/l/email-protection#acc4c3c3c2cdc4c2cfc0c3d9c8eccbc1cdc5c082cfc3c1"><span class="__cf_email__" data-cfemail="8de5e2e2e3ece5e3eee1e2f8e9cdeae0ece4e1a3eee2e0">[email&#160;protected]</span></a>
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   /* CURSOR */
   const cur = document.getElementById('cur');
   const curR = document.getElementById('curR');
-  let mx=0, my=0, rx=0, ry=0;
+  let mx=0,my=0,rx=0,ry=0;
   document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cur.style.left = mx + 'px';
-    cur.style.top  = my + 'px';
+    mx=e.clientX; my=e.clientY;
+    cur.style.left=mx+'px'; cur.style.top=my+'px';
   });
-  (function raf(){
-    rx += (mx - rx) * .1;
-    ry += (my - ry) * .1;
-    curR.style.left = rx + 'px';
-    curR.style.top  = ry + 'px';
-    requestAnimationFrame(raf);
-  })();
+  (function raf(){ rx+=(mx-rx)*.1; ry+=(my-ry)*.1; curR.style.left=rx+'px'; curR.style.top=ry+'px'; requestAnimationFrame(raf); })();
 
-  /* NAV sticky + active */
-  const nav  = document.getElementById('nav');
+  /* MOBILE NAV TOGGLE */
+  const toggle = document.getElementById('navToggle');
+  const links  = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  /* NAV STICKY + ACTIVE */
+  const nav = document.getElementById('nav');
   const navAs = document.querySelectorAll('.nav-links a');
   const secIds = ['interactive','film','media','xr','vfx','about','news'];
   window.addEventListener('scroll', () => {
     nav.classList.toggle('stuck', scrollY > 50);
     let active = '';
-    secIds.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && scrollY >= el.offsetTop - 140) active = id;
-    });
-    navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active));
+    secIds.forEach(id => { const el=document.getElementById(id); if(el && scrollY>=el.offsetTop-140) active=id; });
+    navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href')==='#'+active));
   });
 
   /* SCROLL REVEAL */
@@ -959,31 +682,7 @@
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.r').forEach(el => io.observe(el));
-
-  /*
-  ═══════════════════════════════════════════════════════════════
-  CARD VIDEO HOVER PREVIEW
-  How it works:
-    - Each card has <video preload="none"> with a <source> pointing
-      to a short preview clip (e.g. ./assets/videos/film1_preview.mp4)
-    - On mouseenter: video.load() then video.play()
-    - On mouseleave: video.pause(), reset to 0
-    - If the file doesn't exist, browser fails silently — img stays visible
-    - The "Preview" badge pulses green when video is playing
-
-  To add your videos:
-    1. Export 5–15 sec clips for each project
-    2. Name them matching the <source src> in each card (e.g. film1_preview.mp4)
-    3. Place in ./assets/videos/
-    4. Done — hover will automatically show the clip
-  ═════════════════════════════════════════════
-  */
-  document.querySelectorAll('.card').forEach(card => {
-    const vid = card.querySelector('video');
-    if (!vid) return;
-    card.addEventListener('mouseenter', () => { vid.load(); vid.play().catch(()=>{}); });
-    card.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
-  });
 </script>
+<script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 </html>
