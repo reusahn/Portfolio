@@ -3,983 +3,987 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jonghoon Ahn</title>
-  <link rel="icon" href="./assets/images/favicon.png" type="image/png">
-
-
+  <title>Jonghoon Ahn — TA · Filmmaker · Media Artist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&family=Noto+Sans+KR:wght@700;900&display=swap" rel="stylesheet">
 
   <style>
-  @media (max-width: 768px) {
-  .hide-on-mobile {
-    display: none;
-  }
-}
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #000;
-      color: #f0f0f0;
-      line-height: 1.7;
-    }
-    h1 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-    h2 {
-      font-size: 2rem;
-      font-weight: 600;
-      color: #fff;
-      /*border-top: 1px solid #333;*/
-      padding-top: 30px;
-    }
-    .item h3 {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #f0f0f0;
-    }
-    .item p {
-      font-size: 0.95rem;
-      font-style: italic;
-      color: #888;
-      margin-top: 5px;
-    }
-    p {
-      font-size: 1rem;
-      color: #ccc;
-    }
-    .item p {
-      font-size: 0.95rem;
-      font-style: italic;
-      color: #888;
-      margin-top: 5px;
-    }
-    p {
-      font-size: 1rem;
-      color: #ccc;
-    }
-    .nav {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 0.9rem;
-      z-index: 1000;
-    }
-    /*
-    .nav a {
-      margin-left: 15px;
-      text-decoration: none;
-      color: #888;
-    }
-    .nav a:hover {
-      color: #fff;
-    }
-    .nav a.active {
-  font-weight: bold;
-  color: #fff;
-  }*/
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
-    .item {
-      border-top: 1px solid #333;
-      padding-top: 20px;
-    }
-    .item2 {
-      border-top: 0px solid #333;
-      padding-top: 10px;
-    }
-    .item3 {
-      border-top: 0px solid #333;
-      padding-top: 20px;
-    }
-    .item img, .item video, .item iframe {
-      width: 100%;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-    iframe {
-      aspect-ratio: 16 / 9;
-    }
-    footer {
-      margin-top: 50px;
-      padding-top: 80px;
-      border-top: 1px solid #333;
-    }
-    ul {
-      padding-left: 20px;
-    }
-    ul li {
-      margin-bottom: 8px;
-      color: #999;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080808;
+      --surface: #111;
+      --surface2: #161616;
+      --border: rgba(255,255,255,0.07);
+      --text: #f0ede8;
+      --muted: #555;
+      --accent: #e8ff47;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --font-body: 'DM Sans', sans-serif;
     }
 
-    :root { color-scheme: light dark; }
+    html { scroll-behavior: smooth; }
     body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background: #f9f9f9;
-      color: #111;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-weight: 300;
       line-height: 1.6;
-      scroll-behavior: smooth;
-    }
-    @media (prefers-color-scheme: dark) {
-      body { background: #111; color: #eee; }
-    }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 100px 20px 80px;
-    }
-    h1 { font-size: 3rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 10px; }
-    p { font-size: 1rem; opacity: 0.8; line-height: 1.7; }
-    .nav {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 0.9rem;
-      z-index: 1000;
-    }
-    .nav a {
-      margin-left: 15px;
-      text-decoration: none;
-      color: inherit;
-      opacity: 0.6;
-    }
-    .nav a:hover { opacity: 1; }
-
-    .nav a.active {
-      font-weight: bold;
-      opacity: 1;
-      color: #fff;
-    }
-    h2 {
-      font-size: 2rem;
-      font-weight: 600;
-      margin-top: 100px;
-      /*border-top: 1px solid #ccc; */
-      padding-top: 30px;
-    }
-    @media (prefers-color-scheme: dark) {
-    h2 {/* border-top: 1px solid #444;*/ }
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
-    .item {
-      border-top: 1px solid #ccc;
-      padding-top: 20px;
-    }
-    @media (prefers-color-scheme: dark) {
-      .item { border-top: 1px solid #444; }
-    }
-    .item img, .item video, .item iframe {
-      width: 100%;
-      border-radius: 8px;
-      margin-top: 10px;
+      overflow-x: hidden;
     }
 
-    .item3 img, .item3 video, .item3 iframe {
-      width: 20%;
-      border-radius: 8px;
-      margin-top: 10px;
+    /* CURSOR */
+    #cur { width:8px; height:8px; background:var(--accent); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:transform .15s; }
+    #curR { width:34px; height:34px; border:1px solid rgba(232,255,71,.35); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .2s,height .2s,border-color .2s; }
+
+    /* NAV */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:200;
+      display: flex; justify-content:space-between; align-items:center;
+      padding: 22px 48px;
+      transition: background .4s, backdrop-filter .4s, border-color .4s;
+      border-bottom: 1px solid transparent;
     }
-    iframe { aspect-ratio: 16 / 9; }
+    nav.stuck {
+      background: rgba(8,8,8,.88);
+      backdrop-filter: blur(20px);
+      border-color: var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-mono); font-size:.72rem;
+      letter-spacing:.18em; color:var(--accent); text-decoration:none;
+    }
+    .nav-links { display:flex; gap:28px; list-style:none; }
+    .nav-links a {
+      font-family:var(--font-mono); font-size:.8rem; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--muted); text-decoration:none;
+      transition:color .2s; position:relative;
+    }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:-3px; left:0;
+      width:0; height:1px; background:var(--accent); transition:width .3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color:var(--text); }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+    @media(max-width:768px){ .nav-links{display:none;} nav{padding:18px 24px;} }
+
+    /* HERO */
+    #hero {
+      position:relative; width:100%; height:100vh;
+      display:flex; align-items:flex-end; overflow:hidden;
+    }
+    .hero-bg { position:absolute; inset:0; z-index:0; }
+    .hero-bg video { width:100%; height:100%; object-fit:cover; opacity:.5; }
+    .hero-bg-fallback {
+      position:absolute; inset:0;
+      background: radial-gradient(ellipse at 70% 40%, #1c1c1c 0%, #080808 65%);
+    }
+    .hero-grain {
+      position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.45;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px; mix-blend-mode: overlay;
+    }
+    .hero-fade-b { position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(to top, var(--bg) 0%, rgba(8,8,8,.5) 35%, transparent 65%); }
+    .hero-fade-l { position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(to right, rgba(8,8,8,.8) 0%, transparent 55%); }
+    .hero-scan {
+      position:absolute; inset:0; z-index:3; pointer-events:none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.06) 3px, rgba(0,0,0,.06) 4px);
+    }
+    .hero-content {
+      position:relative; z-index:5;
+      padding: 0 48px 80px; max-width: 860px;
+    }
+    .hero-eyebrow {
+      font-family:var(--font-mono); font-size:.9rem; letter-spacing:.18em;
+      text-transform:uppercase; color:var(--accent); margin-bottom:18px;
+      opacity:0; animation:fadeUp .7s ease .2s forwards;
+    }
+    .hero-name {
+      font-family:'Bebas Neue', sans-serif; font-size:clamp(5rem,13vw,12rem);
+      font-weight:400; line-height:.9; letter-spacing:.04em; margin-bottom:32px;
+      opacity:0; animation:fadeUp .7s ease .4s forwards;
+    }
+    .hero-name em { display:block; color:var(--accent); font-style:normal; }
+    .hero-sub {
+      font-size:.95rem; color:rgba(240,237,232,.55); max-width:420px;
+      margin-bottom:44px; line-height:1.7;
+      opacity:0; animation:fadeUp .7s ease .6s forwards;
+    }
+    .hero-pills {
+      display:flex; gap:10px; flex-wrap:wrap;
+      opacity:0; animation:fadeUp .7s ease .8s forwards;
+    }
+    .hero-pill {
+      font-family:var(--font-mono); font-size:.75rem; letter-spacing:.12em;
+      text-transform:uppercase; padding:8px 16px;
+      border:1px solid var(--border); color:rgba(240,237,232,.75);
+    }
+    .hero-scroll {
+      position:absolute; right:48px; bottom:48px; z-index:5;
+      display:flex; flex-direction:column; align-items:center; gap:10px;
+      opacity:0; animation:fadeIn 1s ease 1.2s forwards;
+    }
+    .hero-scroll span {
+      font-family:var(--font-mono); font-size:.55rem; letter-spacing:.2em;
+      text-transform:uppercase; color:var(--muted); writing-mode:vertical-rl;
+    }
+    .scroll-bar { width:1px; height:56px; background:var(--border); position:relative; overflow:hidden; }
+    .scroll-bar::after {
+      content:''; position:absolute; top:-100%; left:0; width:100%; height:100%;
+      background:var(--accent); animation:scrollDrop 2.2s ease infinite;
+    }
+    @keyframes scrollDrop { 0%{top:-100%} 100%{top:200%} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    /* SECTIONS */
+    .wrap { max-width:1380px; margin:0 auto; padding:120px 48px; }
+    @media(max-width:768px){ .wrap{padding:80px 24px;} }
+    .sec-head {
+      display:flex; align-items:baseline; justify-content:space-between;
+      border-bottom:1px solid var(--border); padding-bottom:18px; margin-bottom:52px;
+    }
+    .sec-num { font-family:var(--font-mono); font-size:.6rem; color:var(--accent); letter-spacing:.16em; }
+    .sec-title { font-family:var(--font-display); font-size:clamp(1.6rem,2.8vw,2.5rem); font-weight:700; letter-spacing:-.025em; }
+
+    /* GRID */
+    .grid { display:grid; grid-template-columns:repeat(12,1fr); gap:2px; }
+    .s12{grid-column:span 12} .s8{grid-column:span 8} .s7{grid-column:span 7}
+    .s6{grid-column:span 6} .s5{grid-column:span 5} .s4{grid-column:span 4}
+    .s3{grid-column:span 3}
+    @media(max-width:900px){
+      .s8,.s7,.s6,.s5,.s4,.s3{grid-column:span 12}
+    }
+    @media(min-width:901px) and (max-width:1100px){
+      .s8{grid-column:span 7} .s4{grid-column:span 5} .s3{grid-column:span 6}
+    }
+
+    /* CARD */
+    .card {
+      position:relative; overflow:hidden; background:var(--surface);
+      display:block; text-decoration:none; color:inherit; cursor:pointer;
+    }
+    .card-media { position:relative; width:100%; overflow:hidden; aspect-ratio:16/10; }
+    .card-media img,
+    .card-media video {
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+    }
+    .card-media img {
+      transition: transform .7s cubic-bezier(.25,.46,.45,.94), filter .4s;
+      filter:brightness(.7) saturate(.75); z-index:1;
+    }
+    .card-media video { opacity:0; z-index:2; transition:opacity .3s ease .1s; }
+    .card:hover .card-media img { transform:scale(1.04); filter:brightness(.5) saturate(.5); }
+    .card:hover .card-media video { opacity:1; }
+    .card-no-img {
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      font-family:var(--font-mono); font-size:.58rem; letter-spacing:.12em;
+      color:var(--muted); background:var(--surface2); z-index:0;
+    }
+    .card-arrow {
+      position:absolute; top:16px; right:16px; z-index:5;
+      width:34px; height:34px; border:1px solid var(--accent);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--accent); font-size:.95rem;
+      opacity:0; transform:translate(6px,-6px);
+      transition:opacity .25s, transform .25s;
+    }
+    .card:hover .card-arrow { opacity:1; transform:none; }
+    .card-vid-badge {
+      position:absolute; bottom:14px; left:14px; z-index:5;
+      font-family:var(--font-mono); font-size:.52rem; letter-spacing:.14em;
+      text-transform:uppercase; background:rgba(0,0,0,.75);
+      border:1px solid var(--border); padding:4px 10px; color:var(--muted);
+      display:flex; align-items:center; gap:6px;
+      transition:color .2s, border-color .2s;
+    }
+    .card-vid-badge .dot {
+      width:5px; height:5px; border-radius:50%; background:var(--muted);
+      transition:background .2s;
+    }
+    .card:hover .card-vid-badge { color:var(--accent); border-color:rgba(232,255,71,.3); }
+    .card:hover .card-vid-badge .dot { background:var(--accent); animation:pulse 1s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .card-info { padding:18px 22px 22px; }
+    .card-cat {
+      font-family:var(--font-mono); font-size:.7rem; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--accent); margin-bottom:8px;
+    }
+    .card-title {
+      font-family:var(--font-display); font-size:1.2rem; font-weight:600;
+      margin-bottom:8px; transition:color .2s;
+    }
+    .card:hover .card-title { color:var(--accent); }
+    .card-desc {
+      font-size:.92rem; color:rgba(240,237,232,.65); line-height:1.6;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+    }
+    .card-tags { display:flex; gap:6px; margin-top:14px; flex-wrap:wrap; }
+    .tag {
+      font-family:var(--font-mono); font-size:.65rem; letter-spacing:.08em;
+      text-transform:uppercase; padding:4px 10px; border:1px solid var(--border); color:var(--muted);
+    }
+
+    /* ABOUT */
+    .about-wrap { display:grid; grid-template-columns:1fr 1.7fr; gap:80px; align-items:start; }
+    @media(max-width:768px){ .about-wrap{grid-template-columns:1fr;gap:48px;} }
+    .about-img-col { position:relative; }
+    .about-img-col img { width:100%; aspect-ratio:3/4; object-fit:cover; filter:grayscale(15%) contrast(1.05); display:block; }
+    .about-label {
+      position:absolute; bottom:22px; left:-18px;
+      background:var(--accent); color:#000;
+      font-family:'Noto Sans KR', sans-serif; font-size:.72rem; font-weight:700; letter-spacing:.08em;
+      text-transform:uppercase; padding:7px 16px;
+    }
+    .about-txt h3 { font-family:var(--font-display); font-size:1.7rem; font-weight:700; letter-spacing:-.02em; margin-bottom:22px; }
+    .about-txt p { font-size:1.05rem; color:rgba(240,237,232,.6); line-height:1.8; margin-bottom:14px; }
+    .about-sub-label { font-family:var(--font-mono); font-size:.85rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+    .awards { margin-top:38px; border-top:1px solid var(--border); padding-top:28px; }
+    .award { display:flex; justify-content:space-between; align-items:baseline; padding:11px 0; border-bottom:1px solid var(--border); }
+    .award-n { font-size:1rem; }
+    .award-y { font-family:var(--font-mono); font-size:.75rem; color:var(--muted); letter-spacing:.1em; }
+    .cta-link {
+      display:inline-flex; align-items:center; gap:10px; margin-top:28px;
+      font-family:var(--font-mono); font-size:.9rem; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--text); text-decoration:none;
+      border-bottom:1px solid var(--border); padding-bottom:3px;
+      transition:color .2s, border-color .2s;
+    }
+    .cta-link + .cta-link { margin-top:14px; }
+    .cta-link:hover { color:var(--accent); border-color:var(--accent); }
+
+    /* NEWS */
+    .news-ul { list-style:none; }
+    .news-row {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:18px 0; border-bottom:1px solid var(--border);
+      transition:padding-left .25s ease;
+    }
+    .news-row:hover { padding-left:12px; }
+    .news-n { font-family:var(--font-display); font-size:.92rem; font-weight:600; }
+    .news-a {
+      font-family:var(--font-mono); font-size:.58rem; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--muted); text-decoration:none;
+      border:1px solid var(--border); padding:5px 12px;
+      transition:all .2s; white-space:nowrap;
+    }
+    .news-a:hover { color:#000; background:var(--accent); border-color:var(--accent); }
+
+    /* FOOTER */
     footer {
-      margin-top: 100px;
-      padding-top: 80px;
-      border-top: 1px solid #ccc;
+      border-top:1px solid var(--border); padding:44px 48px;
+      display:flex; justify-content:space-between; align-items:center;
+      flex-wrap:wrap; gap:16px;
     }
-    @media (prefers-color-scheme: dark) {
-      footer { border-top: 1px solid #444; }
-    }
-    ul {
-      padding-left: 20px;
-    }
-    ul li {
-      margin-bottom: 8px;
-    }
-    .description {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 50px;
-    }
-    .image-text-block {
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
-      align-items: flex-start;
-      margin-top: -40px;
-      margin-bottom: 0px;
-      flex-wrap: wrap;
-    }
-    .image-text-block img {
-      width: 95%;
-      max-width: 400px;
-      border-radius: 8px;
-      margin-top: 55px;
-      margin-bottom: 0px;
-    }
+    .foot-l { font-family:var(--font-mono); font-size:.6rem; letter-spacing:.1em; color:var(--muted); line-height:1.8; }
+    .foot-r a { font-family:var(--font-mono); font-size:.6rem; letter-spacing:.12em; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .foot-r a:hover { color:var(--accent); }
 
-    .image-text-block .text {
-      flex: 1;
-      min-width: 250px;
-      font-size: 0.95rem;
-      color: #aaa;
-    }
-    .top-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  margin-bottom: 60px;
-  gap: 20px;
-}
-
-.top-header .left h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 0;
-  color: #fff;
-}
-
-.top-header .left p {
-  font-size: 1rem;
-  color: #aaa;
-  margin: 5px 0 0 0;
-}
-
-.top-header .right {
-  text-align: right;
-  font-size: 0.95rem;
-  color: #999;
-  line-height: 1.6;
-}
-.resume-link {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 18px;
-  border: 1px solid #888;
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: 0.3s;
-}
-
-.resume-link:hover {
-  background: #fff;
-  color: #000;
-}
-.news-list a {
-  margin-left: 8px;
-  font-size: 0.85rem;
-  color: #888;
-  text-decoration: none;
-}
-
-.news-list a:hover {
-  color: #fff;
-}
-.project-title {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* 제목과 아이콘 사이 간격 */
-}
-
-.project-title h3 {
-  margin: 0;
-  font-size: 1.2em;
-  margin-bottom: 1rem;
-}
-
-.tech-icons img {
-  width: 23px;
-  height: auto;
-  opacity: 1;
-  margin-left: 5px;
-  margin-bottom: 1rem;
-}
-
+    /* REVEAL */
+    .r { opacity:0; transform:translateY(36px); transition:opacity .65s ease, transform .65s ease; }
+    .r.on { opacity:1; transform:none; }
   </style>
 </head>
 <body>
 
-  <div class="nav">
-    <a href="#film">Film</a>
-    <a href="#interactive" >Interactive Art</a>
-    <a href="#media">Media Art</a>
-    <a href="#xr">XR</a>
-    <a href="#vfx" >3D/VFX</a>
-    <a href="#about" class="hide-on-mobile">About</a>
-    <a href="#news" class="hide-on-mobile">News</a>
-  </div>
-  <div class="container">
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <span></span>
+  <ul class="nav-links">
+    <li><a href="#interactive">Interactive</a></li>
+    <li><a href="#film">Film</a></li>
+    <li><a href="#media">Media Art</a></li>
+    <li><a href="#xr">XR · Game</a></li>
+    <li><a href="#vfx">3D / VFX</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
     <!--
-    <h1>Jonghoon Ahn</h1>
-    <p>Filmmaker · Creative Technologist · Media Artist</p> -->
+    ═══════════════════════════════════════════════════════
+    HERO VIDEO — replace src with your showreel path/URL:
+      <source src="./assets/videos/showreel.mp4" type="video/mp4">
+    Recommended: MP4 H.264, 1920×1080, muted loop, ~30s
+    ═══════════════════════════════════════════════════════
+    -->
+    <video id="heroVideo" autoplay muted loop playsinline poster="./assets/images/film1.jpg"
+           onerror="this.style.display='none'">
+      <source src="./assets/videos/showreel.mp4" type="video/mp4"> 
+    </video>
+    <div class="hero-bg-fallback"></div>
+  </div>
+  <div class="hero-grain"></div>
+  <div class="hero-fade-b"></div>
+  <div class="hero-fade-l"></div>
+  <div class="hero-scan"></div>
 
-    <div class="image-text-block">
-      <div class="text">
-        <h1>Jonghoon Ahn</h1>
-        <h3 style="margin-top: 0px;">Software Engineer · Filmmaker · Technical Director</h3>
-        <p style="margin-top: 40px;">Calarts Art&Tech MFA25</p>
-        <p style="margin-top: -11px;">2025 Art Korea Lab Co-Project</p>
-        <p style="margin-top: -11px;">2024 Finalist Sundance Ignite Fellowship</p>
-      </div>
-      <img src="./assets/images/profile2.jpg" alt="Film Project 1 Still">
-
+  <div class="hero-content">
+    <div class="hero-eyebrow">// Software Engineer · Filmmaker · Technical Artist</div>
+    <h1 class="hero-name">Jonghoon<br><em>Ahn</em></h1>
+    <p class="hero-sub">
+      An AI researcher, Technical Artist, and filmmaker who creates and researches work for those marginalized by technology and the age of AI.
+    </p>
+    <div class="hero-pills">
+      <span class="hero-pill">CalArts MFA '25</span>
+      <span class="hero-pill">LA · Seoul</span>
+      <span class="hero-pill">Sundance Ignite Finalist '24</span>
+      <span class="hero-pill">Nicholl Fellowship Entrant '25</span>
+      <span class="hero-pill">CJ &amp; TIFF K-Story Fund Shortlist '25</span>
     </div>
-
-
-
-
-
-<section id="interactive">
-<h2>Interactive Art</h2>
-<div class="grid">
-  <div class="item">
-    <a href="detail_pages/interactive_1.html">
-      <div class="project-title">
-      <h3>To Eternity</h3>
-        <div style="margin-left: 13em;" class="tech-icons">
-          <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-          </div>
-
-      </div>
-      <img src="./assets/images/interactive1.jpg" alt="Interactive Art Project 1" />
-    </a>
-    <p>To Eternity is an interactive media art installation commemorating the Gwangju Democratization Movement of May 18, 1980.
-Archival photographs taken during the 1980 uprising are algorithmically mosaicked in real time over the viewer’s image.
   </div>
-  <div class="item">
-    <a href="detail_pages/interactive_2.html">
-      <div class="project-title">
-      <h3>AI Gang Se-hwang</h3>
-      <div style="margin-left: 6em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-        <div class="tech-icons">
-        <img src="./assets/images/maya.png" alt="Maya" title="Maya">
-      </div>
-      </div>
-      <img src="./assets/images/interactive2.jpg" alt="Interactive Art Project 2" />
-    </a>
-    <p>Gang Se-hwang AI Docent is an interactive media installation that digitally revives the historical figure Gang Se-hwang—renowned painter and mentor to Kim Hong-do—as an AI human.</p>
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+    <span>Scroll</span>
   </div>
-  <div class="item">
-    <a href="detail_pages/interactive_3.html">
-      <div class="project-title">
-      <h3>Jemulpo Photo Studio</h3>
-      <div style="margin-left: 4em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-        <div class="tech-icons">
-        <img src="./assets/images/opencv.png" alt="Maya" title="Maya">
+</section>
+
+<!-- INTERACTIVE -->
+<div class="wrap" id="interactive">
+  <div class="sec-head r"><span class="sec-num">01 —</span><h2 class="sec-title">Interactive Art</h2></div>
+  <div class="grid">
+
+    <a href="detail_pages/interactive_1.html" class="card s8 r">
+      <div class="card-media">
+        <img src="./assets/images/interactive1.jpg" alt="To Eternity">
+        <video muted loop preload="none"><source src="./assets/videos/interactive1_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">To Eternity</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
       </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Interactive Installation</div>
+        <div class="card-title">To Eternity</div>
+        <div class="card-desc">Archival photographs from the Gwangju Democratization Movement algorithmically mosaicked in real time over the viewer's live image.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">Computer Vision</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/interactive_2.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/interactive2.jpg" alt="AI Gang Se-hwang">
+        <video muted loop preload="none"><source src="./assets/videos/interactive2_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">AI Gang Se-hwang</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">AI · Digital Human</div>
+        <div class="card-title">AI Gang Se-hwang</div>
+        <div class="card-desc">Historical painter revived as an interactive AI docent blending 18th century scholarship with real-time conversation.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">Maya</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/interactive_3.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/interactive3.jpg" alt="Jemulpo Photo Studio">
+        <video muted loop preload="none"><source src="./assets/videos/interactive3_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Jemulpo Photo Studio</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Computer Vision · Style Transfer</div>
+        <div class="card-title">Jemulpo Photo Studio</div>
+        <div class="card-desc">Visitor portraits transformed into colonial-era magazine covers inspired by the "New Women" aesthetic of early Incheon.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">OpenCV</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/interactive_5.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/interactive5.jpg" alt="Directed By AI">
+        <video muted loop preload="none"><source src="./assets/videos/interactive5_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Directed By AI</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Film · AI Co-Director</div>
+        <div class="card-title">Directed By AI</div>
+        <div class="card-desc">Co-directed with an AI system using personal facial data to reconstruct virtual family members as fictional beings.</div>
+        <div class="card-tags"><span class="tag">Unreal</span><span class="tag">Diffusion</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/interactive_4.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/interactive4.jpg" alt="AI ZOO">
+        <video muted loop preload="none"><source src="./assets/videos/interactive4_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">AI ZOO</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Mixed Media Installation</div>
+        <div class="card-title">AI ZOO</div>
+        <div class="card-desc">Balloons inside an acrylic sphere represent AI's diffusion and training models—inner workings made tangible.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">ChatGPT</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/interactive_7.html" class="card s6 r">
+      <div class="card-media">
+        <img src="./assets/images/interactive7.jpg" alt="Silhak Dance">
+        <video muted loop preload="none"><source src="./assets/videos/interactive7_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Silhak Dance</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Motion Capture · Real-time</div>
+        <div class="card-title">Silhak Dance</div>
+        <div class="card-desc">Digital scholar Kim Yuk mirrors the audience's body movements—playful educational body interaction.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">Pose Detection</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/interactive_8.html" class="card s3 r">
+      <div class="card-media">
+        <img src="./assets/images/interactive8.jpg" alt="Track 6">
+        <video muted loop preload="none"><source src="./assets/videos/interactive8_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Track 6</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Kinect · Dance</div>
+        <div class="card-title">Track 6</div>
+        <div class="card-desc">Full-body Kinect dance inside six distorted geometric physics worlds.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">Kinect</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/interactive_10.html" class="card s3 r">
+      <div class="card-media">
+        <img src="./assets/images/interactive10_2.jpg" alt="Beads Wall">
+        <video muted loop preload="none"><source src="./assets/videos/interactive10_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Beads Wall</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Generative · Participatory</div>
+        <div class="card-title">Beads Wall</div>
+        <div class="card-desc">Human motion as pointillist bead compositions—silhouettes dissolve into vibrant shimmering patterns.</div>
+        <div class="card-tags"><span class="tag">Unity</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/interactive_9.html" class="card s6 r">
+      <div class="card-media">
+        <img src="./assets/images/interactive9.jpg" alt="AI Choi Jung Hoon">
+        <video muted loop preload="none"><source src="./assets/videos/interactive9_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">AI Choi Jung Hoon</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">LLM · Real-time Avatar</div>
+        <div class="card-title">AI Choi Jung Hoon</div>
+        <div class="card-desc">JANNABI vocalist reconstructed as a real-time AI avatar via LLMs—voice, personality, and appearance integrated.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">GPT</span><span class="tag">TTS</span></div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- FILM -->
+<div class="wrap" id="film">
+  <div class="sec-head r"><span class="sec-num">02 —</span><h2 class="sec-title">Film</h2></div>
+  <div class="grid">
+
+    <a href="detail_pages/film_1.html" class="card s6 r">
+      <div class="card-media">
+        <img src="./assets/images/film1.jpg" alt="Non-Done Record">
+        <video muted loop preload="none"><source src="./assets/videos/film1_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Non-Done Record</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Short Film · Sundance Ignite Finalist 2024</div>
+        <div class="card-title">Non-Done Record</div>
+        <div class="card-desc">A young filmmaker's fading consciousness reconstructed as a completed film—unfinished memories looping in undefined space.</div>
+      </div>
+    </a>
+
+    <a href="detail_pages/film_4.html" class="card s6 r">
+      <div class="card-media">
+        <img src="./assets/images/film4.jpg" alt="Where is My Cloud">
+        <video muted loop preload="none"><source src="./assets/videos/film4_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Where is My Cloud</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Documentary · Experimental</div>
+        <div class="card-title">Where is My Cloud</div>
+        <div class="card-desc">Eight years of digital memories erased. A filmmaker retraces imagined journeys across Korea—seeking not lost data, but a new sense of future.</div>
+      </div>
+    </a>
+
+    <a href="detail_pages/film_2.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/film2.jpg" alt="Urban Diary">
+        <video muted loop preload="none"><source src="./assets/videos/film2_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Urban Diary</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Short Film</div>
+        <div class="card-title">Urban Diary</div>
+        <div class="card-desc">A high school girl alone in her apartment—a meditation on absence and city life rhythms.</div>
+      </div>
+    </a>
+
+    <a href="detail_pages/film_3.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/film3.jpg" alt="Like Mother">
+        <video muted loop preload="none"><source src="./assets/videos/film3_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Like Mother</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Short Film</div>
+        <div class="card-title">Like Mother</div>
+        <div class="card-desc">A surreal subway journey between guilt and grief—an estranged mother appears once more.</div>
+      </div>
+    </a>
+
+    <a href="detail_pages/film_5.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/film5.jpg" alt="Mythomania">
+        <video muted loop preload="none"><source src="./assets/videos/film5_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Mythomania</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Short Film</div>
+        <div class="card-title">Mythomania</div>
+        <div class="card-desc">Three strangers on a drifting raft—silence unravels their darkest guilt one by one.</div>
+      </div>
+    </a>
+
+    <a href="detail_pages/film_6.html" class="card s6 r">
+      <div class="card-media">
+        <img src="./assets/images/film6.jpg" alt="Berdua Saja">
+        <video muted loop preload="none"><source src="./assets/videos/film6_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Berdua Saja</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Short Film</div>
+        <div class="card-title">Berdua Saja</div>
+        <div class="card-desc">A man checking into a mysterious inn for those planning to die—finding something unexpected instead.</div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- MEDIA ART -->
+<div class="wrap" id="media">
+  <div class="sec-head r"><span class="sec-num">03 —</span><h2 class="sec-title">Media Art</h2></div>
+  <div class="grid">
+
+    <a href="detail_pages/media_1.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/media1.jpg" alt="DADA Myeongdong">
+        <video muted loop preload="none"><source src="./assets/videos/media1_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">DADA Myeongdong</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Media Wall · Art Korea Lab 2025</div>
+        <div class="card-title">DADA Myeongdong</div>
+        <div class="card-desc">Screened on the Shinsegae Myeongdong Media Wall as part of the 2025 Art Korea Lab incubation program.</div>
+        <div class="card-tags"><span class="tag">Blender</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/media_2.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/media2.jpg" alt="Dream of Salmon">
+        <video muted loop preload="none"><source src="./assets/videos/media2_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Dream of Salmon</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Generative Media</div>
+        <div class="card-title">Dream of Salmon</div>
+        <div class="card-desc">Luminous hand-shaped fish drifting through darkness—the dreamlike migration of memory, loss, and rebirth.</div>
+        <div class="card-tags"><span class="tag">Unreal</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/media_3.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/media3.jpg" alt="Fall of Minds">
+        <video muted loop preload="none"><source src="./assets/videos/media3_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Fall of Minds</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Sound-Reactive Installation</div>
+        <div class="card-title">Fall of Minds</div>
+        <div class="card-desc">Ambient noise visualized as a generative waterfall—soundscape shaping movement and density in real time.</div>
+        <div class="card-tags"><span class="tag">Unity</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/media_4.html" class="card s7 r">
+      <div class="card-media">
+        <img src="./assets/images/media4.jpg" alt="The Nature of Manpasikjeok">
+        <video muted loop preload="none"><source src="./assets/videos/media4_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">The Nature of Manpasikjeok</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Public Media Art · Daegu</div>
+        <div class="card-title">The Nature of Manpasikjeok</div>
+        <div class="card-desc">Ancient Korean legend reinterpreted—wind and sound generatively visualized to symbolically protect the city from disaster.</div>
+        <div class="card-tags"><span class="tag">Unity</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/media_5.html" class="card s5 r">
+      <div class="card-media">
+        <img src="./assets/images/media5.jpg" alt="Seon-a's Family">
+        <video muted loop preload="none"><source src="./assets/videos/media5_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Seon-a's Family</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Narrative Media Art</div>
+        <div class="card-title">Seon-a's Family</div>
+        <div class="card-desc">Familial conflict and reconciliation through diffusion models, LLMs, and digital human technology.</div>
+        <div class="card-tags"><span class="tag">Unreal</span><span class="tag">LLM</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/media_7.html" class="card s6 r">
+      <div class="card-media">
+        <img src="./assets/images/media7.jpg" alt="Nature Human">
+        <video muted loop preload="none"><source src="./assets/videos/media7_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Nature Human</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Posthumanism · 2050</div>
+        <div class="card-title">Nature Human</div>
+        <div class="card-desc">Virtual human Evangeline narrates humanity's decision to merge with nature in the face of ecological collapse.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">Digital Human</span></div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- XR -->
+<div class="wrap" id="xr">
+  <div class="sec-head r"><span class="sec-num">04 —</span><h2 class="sec-title">XR · Game</h2></div>
+  <div class="grid">
+
+    <a href="detail_pages/xr_1.html" class="card s8 r">
+      <div class="card-media">
+        <img src="./assets/images/xr1.jpg" alt="Fineo">
+        <video muted loop preload="none"><source src="./assets/videos/xr1_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Fineo, Translated Universe</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">VR · Grand Prize — KMU Exhibition</div>
+        <div class="card-title">Fineo, Translated Universe</div>
+        <div class="card-desc">Periodic table mapped through harmonograph-based functions—a new visual logic for elemental data in VR.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">VR</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/xr_4.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/xr4.jpg" alt="Escape Metro">
+        <video muted loop preload="none"><source src="./assets/videos/xr4_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Escape Metro</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">VR Escape Game · AI NPC</div>
+        <div class="card-title">Escape Metro</div>
+        <div class="card-desc">Surreal VR escape game with real-time ChatGPT-powered NPC conversations to navigate entrapment.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">ChatGPT</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/xr_2.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/xr2.jpg" alt="NARCI">
+        <video muted loop preload="none"><source src="./assets/videos/xr2_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">NARCI</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">VR · Psychology</div>
+        <div class="card-title">NARCI</div>
+        <div class="card-desc">Inside an elevator, encounters with narcissistic figures progressively erode the viewer's self-esteem.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">VR</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/xr_3.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/xr3.jpg" alt="Be Narci">
+        <video muted loop preload="none"><source src="./assets/videos/xr3_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Be NARCI</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">VR · Role Reversal</div>
+        <div class="card-title">Be NARCI</div>
+        <div class="card-desc">Play the narcissist—transform graceful human figures into scrap metal and reflect on ego elevation.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">VR</span></div>
+      </div>
+    </a>
+
+    <a href="detail_pages/xr_5.html" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/xr5.jpg" alt="Graffiti Freedom">
+        <video muted loop preload="none"><source src="./assets/videos/xr5_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">Graffiti Freedom</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">VR · Public Space</div>
+        <div class="card-title">Graffiti Freedom</div>
+        <div class="card-desc">Spray graffiti freely inside a virtual subway—reclaiming public space without real-world consequence.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">VR</span></div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- VFX -->
+<div class="wrap" id="vfx">
+  <div class="sec-head r"><span class="sec-num">05 —</span><h2 class="sec-title">3D / VFX</h2></div>
+  <div class="grid">
+
+    <a href="detail_pages/vfx_1.html" class="card s8 r">
+      <div class="card-media">
+        <img src="./assets/images/vfx2.jpg" alt="FX Portfolio">
+        <video muted loop preload="none"><source src="./assets/videos/vfx1_preview.mp4" type="video/mp4"></video>
+        <div class="card-no-img">FX Portfolio</div>
+        <div class="card-vid-badge"><span class="dot"></span>Preview</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Digital Humans · Simulation · Real-time VFX</div>
+        <div class="card-title">FX Portfolio 1</div>
+        <div class="card-desc">Digital humans, fluid and smoke simulations, and real-time visual effects across Maya, Houdini, Unity, and Unreal Engine.</div>
+        <div class="card-tags"><span class="tag">Maya</span><span class="tag">Houdini</span><span class="tag">Unity</span><span class="tag">Unreal</span></div>
+      </div>
+    </a>
+
+    <a href="https://github.com/reusahn/Unity-Unreal-Interaction-Research/tree/main" target="_blank" class="card s4 r">
+      <div class="card-media">
+        <img src="./assets/images/research.jpg" alt="Research">
+        <div class="card-no-img">Research / GitHub</div>
+      </div>
+      <div class="card-arrow">↗</div>
+      <div class="card-info">
+        <div class="card-cat">Research · Open Source</div>
+        <div class="card-title">Unity–Unreal Interfacing Research</div>
+        <div class="card-desc">Human–machine interfacing, immersive visualization, and digital embodiment through Unity and Unreal Engine.</div>
+        <div class="card-tags"><span class="tag">Unity</span><span class="tag">Unreal</span><span class="tag">GitHub</span></div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="wrap" id="about">
+  <div class="sec-head r"><span class="sec-num">06 —</span><h2 class="sec-title">About</h2></div>
+  <div class="about-wrap">
+    <div class="about-img-col r">
+      <img src="./assets/images/profile2.jpg" alt="Jonghoon Ahn" onerror="this.style.background='#161616';this.removeAttribute('src')">
+      <div class="about-label">Jonghoon Ahn — 안종훈</div>
     </div>
-      <img src="./assets/images/interactive3.jpg" alt="Interactive Art Project 3" />
-    </a>
-    <p>Jemulpo Photo Studio is an interactive media installation that transforms visitors’ portraits into stylized magazine covers inspired by the “New Women” aesthetic of early Jemulpo (modern-day Incheon) during the colonial period.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/interactive_4.html">
-      <div class="project-title">
-      <h3>AI ZOO</h3>
-      <div style="margin-left: 13em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-        <div class="tech-icons">
-        <img src="./assets/images/chatgpt.png" alt="Maya" title="Maya">
+    <div class="about-txt r">
+      <h3>Writer-Director · Technical Artist · Media Artist</h3>
+      <p>Jonghoon Ahn is a filmmaker, screenwriter, and media artist based in Los Angeles and Seoul. His work explores silence, emotional repression, and social systems that fail to protect individuals—told through minimal dialogue, long takes, and restrained visual language.</p>
+      <p>He works across film, XR, and digital performance using motion capture, digital humans, real-time engines, and generative image technologies to create work where audiences move beyond passive spectatorship.</p>
+      <p>Currently serving as Technical Director on Academy Award–nominated animator Erick Oh's game project, and on media artist Yaloo's digital human projects (featured in Hyperallergic). His feature screenplay was selected as a school-nominated submission for the 2025 Academy Nicholl Fellowships and shortlisted for the CJ &amp; TIFF K-Story Fund.</p>
+
+      <div class="awards" style="margin-top:32px;">
+        <div class="about-sub-label">Education</div>
+        <div class="award"><span class="award-n">MFA, Art and Technology — California Institute of the Arts</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n">BFA, Entertainment Design — Kookmin University, Seoul</span><span class="award-y">2022</span></div>
       </div>
+
+      <div class="awards" style="margin-top:32px;">
+        <div class="about-sub-label">Selected Filmography</div>
+        <div class="award"><span class="award-n">The Way To Be Oneself — Experimental AI Film, Director</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n">Mythomania — 3D Animated Short, Director</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n">Where Is My Cloud — Experimental Documentary, Director</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n">Non-done Record — Short Film, Director</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n">Like Mother — Experimental Short Film, Director</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n">Similar — Music Video (Jung Kyumin × DINDIN), Producer &amp; Gaffer</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n">NARCI — VR Film, Director</span><span class="award-y">2023</span></div>
+        <div class="award"><span class="award-n">Urban Diary — Short Film, Director</span><span class="award-y">2019</span></div>
+      </div>
+
+      <div class="awards" style="margin-top:32px;">
+        <div class="about-sub-label">Selected Honors &amp; Programs</div>
+        <div class="award"><span class="award-n">Academy Nicholl Fellowships — School-Nominated Submission</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n">CJ &amp; TIFF K-Story Fund — Shortlist</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n">Best Script Nominee — Asian Film Festival Los Angeles</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n">Gold Award, Best Short Script — Independent Shorts Awards</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n">Sundance Ignite × Adobe Fellowship — Finalist</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n">Television Academy Foundation (SFX &amp; New Media) — Finalist</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n">Silver Award, Best Student Male Director — Independent Shorts Awards</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n">Flickers' Rhode Island International Film Festival — Semi-finalist</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n">Art Korea Lab Super Testbed — Lab Participant</span><span class="award-y">2024–25</span></div>
+      </div>
+
+      <div class="awards" style="margin-top:32px;">
+        <div class="about-sub-label">Selected Exhibitions &amp; Collaborations</div>
+        <div class="award"><span class="award-n">서서울미술관 '신인호 랜딩' — Metahuman Animator</span><span class="award-y">2026</span></div>
+        <div class="award"><span class="award-n">Encore Creative Festival, Ohio — Dream of Salmon</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n">LA Rip Space 'Shininho Docking' — Metahuman Animation Asst.</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n">송은미술대상 Yaloo '신인호 월드 투어' — Metahuman Animation Asst.</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n">신세계백화점 미디어월 '다다명동' — Art Korea Lab</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n">SF 836M Yaloo Residency 'Shininho Destiny' — Metahuman Asst.</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n">KOTE Gallery Seoul 'Gather and Scatter' — 선아의 가족</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n">경기도미술관 '강세황 AI 도슨트' — Technical Director</span><span class="award-y">2022</span></div>
+        <div class="award"><span class="award-n">인천시립박물관 '제물포 사진관' — Technical Director</span><span class="award-y">2022</span></div>
+        <div class="award"><span class="award-n">국립아시아문화전당 'To Eternity' — Coding Director</span><span class="award-y">2020</span></div>
+      </div>
+
+      <a href="https://drive.google.com/file/d/1Y_98b3ZQHWYZa4cWlg4qEh_wYFqX-Bov/view?usp=sharing" target="_blank" class="cta-link">View Resume / CV ↗</a><br>
+      <a href="mailto:hoonahncloud@gmail.com" class="cta-link">hoonahncloud@gmail.com ↗</a><br>
+      <a href="https://github.com/reusahn/Unity-Unreal-Interaction-Research/tree/main" target="_blank" class="cta-link">GitHub Research ↗</a>
     </div>
-      <img src="./assets/images/interactive4.jpg" alt="Interactive Art Project 4" />
-    </a>
-    <p>AI ZOO is a mixed media installation that metaphorically frames artificial intelligence—both as a human creation and a product of technology—within the conceptual space of a "zoo."
-Inside a large transparent acrylic sphere, balloons of varying sizes represent the diffusion and training models of AI, visualizing its internal learning processes.</p>
   </div>
-  <div class="item">
-    <a href="detail_pages/interactive_5.html">
-      <div class="project-title">
-      <h3>Directed By AI</h3>
-      <div style="margin-left: 11em;" class="tech-icons">
-        <img src="./assets/images/unreal2.png" alt="Unity" title="Unity">
-        </div>
-      </div>
-      <img src="./assets/images/interactive5.jpg" alt="Interactive Art Project 5" />
-    </a>
-    <p>Directed By AI is a collaborative film and media installation co-directed by Jonghoon Ahn and an AI system trained to develop narrative structure, characters, and visuals.
-Based on Ahn’s personal facial data, the project reconstructs his mother and sister as virtual beings, generating a new fictional family.</p>
-  </div>
-  <!--
-  <div class="item">
-    <a href="detail_pages/interactive_6.html">
-      <h3>Riviving Picasso</h3>
-      <img src="./assets/images/interactive6.jpg" alt="Interactive Art Project 6" />
-    </a>
-    <p>Description of project 6 in Interactive Art.</p>
-  </div>
--->
-  <div class="item">
-    <a href="detail_pages/interactive_7.html">
-      <div class="project-title">
-      <h3>Silhak Dance</h3>
-      <div style="margin-left: 11.8em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-      </div>
-      <img src="./assets/images/interactive7.jpg" alt="Interactive Art Project 7" />
-    </a>
-    <p>Silhak Dance is an interactive media installation featuring a digital character of Kim Yuk, a leading scholar of the Silhak (Practical Learning) movement.
-The virtual Kim Yuk mimics the audience’s body movements in real time, creating a playful and educational dance interaction.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/interactive_8.html">
-      <div class="project-title">
-      <h3>Track 6</h3>
-      <div style="margin-left: 15em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-      </div>
-      <img src="./assets/images/interactive8.jpg" alt="Interactive Art Project 8" />
-    </a>
-    <p>Track 6 is an interactive virtual dance installation where audiences can move freely to six different music tracks while being immersed in geometric graphics.
-Using a Kinect sensor, the system captures participants’ full-body movements in real time and maps them into a virtual space where the laws of physics are intentionally distorted.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/interactive_9.html">
-        <div class="project-title">
-      <h3>AI Choi Jung Hoon</h3>
-      <div style="margin-left: 6em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-        <div class="tech-icons">
-        <img src="./assets/images/chatgpt.png" alt="Maya" title="Maya">
-      </div>
-    </div>
-      <img src="./assets/images/interactive9.jpg" alt="Interactive Art Project 9" />
-    </a>
-    <p>This research-based installation explores the reconstruction of Choi Jung-hoon, the lead vocalist of the Korean band JANNABI, as an AI-generated digital human.
-Utilizing large language models (LLMs), the system is trained on Choi’s voice, personality traits, appearance, and public data. These elements are integrated into a real-time digital avatar that visually resembles him.</p>
-  </div>
-
-  <div class="item">
-    <a href="detail_pages/interactive_10.html">
-      <div class="project-title">
-      <h3>Beads Wall</h3>
-      <div style="margin-left: 13em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-        </div>
-      <img src="./assets/images/interactive10_2.jpg" alt="Interactive Art Project 10" />
-    </a>
-    <p>Beads Wall is a media installation that transforms human motion into abstract compositions made of colorful beads, rendered in real time on a large digital wall.
-
-The work visualizes the presence and gestures of passersby as shimmering pointillist silhouettes—where movement becomes material, and the human form dissolves into vibrant patterns.</p>
-  </div>
-
 </div>
-</section>
 
-<section id="xr">
-<h2>XR · Game</h2>
-<div class="grid">
-  <div class="item">
-    <a href="detail_pages/xr_1.html">
-        <div class="project-title">
-      <h3>Fineo, Translated Universe</h3>
-      <div style="margin-left:4.2em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-        </div>
-      <img src="./assets/images/xr1.jpg" alt="XR Project 1" />
-    </a>
-    <p>Fineo, Translated Universe VR is a virtual reality project that received the Grand Prize at the 16th Kookmin University Art & Design Exhibition. The work reconstructs the periodic table by mapping elemental data through harmonograph-based functions, generating a new system of visual logic.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/xr_2.html">
-      <div class="project-title">
-      <h3>NARCI</h3>
-      <div style="margin-left:16em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-        </div>
-      <img src="./assets/images/xr2.jpg" alt="XR Project 2" />
-    </a>
-    <p>NARCI is an immersive VR experience that places the viewer inside an elevator, where they come face-to-face with various narcissistic figures.
-Through disorienting encounters and gaslighting-like dialogue, the viewer’s self-esteem begins to erode—mirroring the psychological manipulation of toxic relationships.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/xr_3.html">
-      <div class="project-title">
-      <h3>Be Narci</h3>
-      <div style="margin-left:14.5em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-        </div>
-      <img src="./assets/images/xr3.jpg" alt="XR Project 3" />
-    </a>
-    <p>Be NARCI places the viewer in the role of a narcissist—transforming graceful, artistic, and free-moving human-like figures into statues or heaps of scrap metal through sheer will.
-
-As participants exercise control over others’ freedom and form, they are invited to reflect on how narcissistic ego elevation often comes at the cost of diminishing someone else's self-worth.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/xr_4.html">
-      <div class="project-title">
-      <h3>Escape Metro</h3>
-      <div style="margin-left:11.2em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-        </div>
-      <img src="./assets/images/xr4.jpg" alt="XR Project 4" />
-    </a>
-    <p>Escape Metro is a surreal VR escape game set in an uncanny subway system.
-
-Players must solve puzzles and engage in real-time conversations with an in-game AI—powered by ChatGPT—to navigate the disorienting space and uncover the hidden logic of their entrapment.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/xr_5.html">
-        <div class="project-title">
-      <h3>Graffiti Freedom</h3>
-      <div style="margin-left:10em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-        </div>
-      <img src="./assets/images/xr5.jpg" alt="XR Project 5" />
-    </a>
-    <p>Graffiti Freedom is a VR experience that allows players to spray graffiti freely inside a virtual subway station—reclaiming public space without violating real-world laws.</p>
-  </div>
-  <!--
-  <div class="item">
-    <a href="detail_pages/xr_6.html">
-      <h3>XR Project 6</h3>
-      <img src="xr6.jpg" alt="XR Project 6" />
-    </a>
-    <p>Description of project 6 in XR.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/xr_7.html">
-      <h3>XR Project 7</h3>
-      <img src="xr7.jpg" alt="XR Project 7" />
-    </a>
-    <p>Description of project 7 in XR.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/xr_8.html">
-      <h3>XR Project 8</h3>
-      <img src="xr8.jpg" alt="XR Project 8" />
-    </a>
-    <p>Description of project 8 in XR.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/xr_9.html">
-      <h3>XR Project 9</h3>
-      <img src="xr9.jpg" alt="XR Project 9" />
-    </a>
-    <p>Description of project 9 in XR.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/xr_10.html">
-      <h3>XR Project 10</h3>
-      <img src="xr10.jpg" alt="XR Project 10" />
-    </a>
-    <p>Description of project 10 in XR.</p>
-  </div>
--->
+<!-- NEWS -->
+<div class="wrap" style="padding-top:0;" id="news">
+  <div class="sec-head r"><span class="sec-num">07 —</span><h2 class="sec-title">Press · News</h2></div>
+  <ul class="news-ul">
+    <li class="news-row r"><span class="news-n">Asian Film Festival</span><a href="https://asianfilmfestival.us/south-korea-the-silence-we-share-%e9%9f%a9%e5%9b%bd%e5%89%a7%e6%9c%ac/" target="_blank" class="news-a">Read ↗</a></li>
+    <li class="news-row r"><span class="news-n">IMDB — Jonghoon Ahn</span><a href="https://www.imdb.com/name/nm17746174/" target="_blank" class="news-a">View ↗</a></li>
+    <li class="news-row r"><span class="news-n">Shinsegae Media Wall — Myeongdong</span><a href="https://www.yna.co.kr/view/AKR20250929031900005" target="_blank" class="news-a">Read ↗</a></li>
+    <li class="news-row r"><span class="news-n">CalArts AI Symposium — Unbound</span><a href="https://calarts.edu/unbound/speakers" target="_blank" class="news-a">View ↗</a></li>
+    <li class="news-row r"><span class="news-n">Project Archive — Generated Cinema</span><a href="https://projectarchive.art.calarts.edu/project/generated-cinema/" target="_blank" class="news-a">View ↗</a></li>
+    <li class="news-row r"><span class="news-n">Independent Shorts Awards</span><a href="https://independentshortsawards.com/2024/01/15/non-done-record/" target="_blank" class="news-a">Read ↗</a></li>
+    <li class="news-row r"><span class="news-n">VoyageLA Interview</span><a href="https://voyagela.com/interview/conversations-with-jonghoon-ahn/" target="_blank" class="news-a">Read ↗</a></li>
+    <li class="news-row r"><span class="news-n">Maeil Newspaper</span><a href="https://www.imaeil.com/page/view/2023102610192087838" target="_blank" class="news-a">Read ↗</a></li>
+  </ul>
 </div>
-</section>
 
-
-  <section id="film">
-<h2>Film</h2>
-<div class="grid" >
-
-
-  <div class="item" style="border-top: 1px solid #333; padding-top: 0px;">
-    <a href="detail_pages/film_1.html">
-      <h3>Non-Done Record</h3>
-      <img src="./assets/images/film1.jpg" alt="Film Project 1" />
-    </a>
-    <p>A young aspiring filmmaker meets someone seemingly superior, which reignites his drive to pursue his dreams. However, overwhelmed by feelings of inferiority and disillusionment, he chooses to end his life. In his final moments, his fading consciousness is reconstructed as a completed film, where unfinished memories loop meaninglessly in an undefined space.</p>
-  </div>
-  <div class="item" style="border-top: 1px solid #333; padding-top: 0px;">
-    <a href="detail_pages/film_2.html">
-      <h3>Urban Diary</h3>
-      <img src="./assets/images/film2.jpg" alt="Film Project 2" />
-    </a>
-    <p>When a high school girl is left alone in her apartment after her stay-at-home father returns to work, her quiet routine unravels into a haunting meditation on absence, loneliness, and the fragile rhythms of family life in the city.</p>
-  </div>
-  <div class="item" style="border-top: 1px solid #333; padding-top: 0px;">
-    <a href="detail_pages/film_3.html">
-      <h3>Like Mother</h3>
-      <img src="./assets/images/film3.jpg" alt="Film Project 3" />
-    </a>
-    <p>After delivering a eulogy at the funeral of her estranged mother, Jeongeum boards a subway home only to enter a surreal space where time bends and her mother appears once more. In this liminal journey between guilt and grief, can Jeongeum find the courage to forgive?</p>
-  </div>
-
-  <div class="item">
-    <a href="detail_pages/film_4.html">
-      <h3>Where is My Cloud</h3>
-      <img src="./assets/images/film4.jpg" alt="Film Project 4" />
-    </a>
-    <p>After losing eight years of memories when a social media account is suddenly erased, a filmmaker retraces past and imagined journeys across Korea—through clouds, coastlines, and silence—to explore how memory, voice, and identity can exist beyond the digital archive.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/film_5.html">
-      <h3>Mythomania</h3>
-      <img src="./assets/images/film5.jpg" alt="Film Project 5" />
-    </a>
-    <p>Three strangers awaken on a drifting raft, with no memory of how they got there. As they share mysterious meat to survive, silence unravels their darkest guilt — and those who try to justify their past begin to vanish, one by one.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/film_6.html">
-      <h3>Berdua Saja</h3>
-      <img src="./assets/images/film6.jpg" alt="Film Project 6" />
-    </a>
-    <p>A man living a cockroach-like existence accidentally kills someone and checks into a mysterious inn for those planning to die. But in this eerie space where death is expected, what he finds instead may change everything.</p>
-  </div>
-<!--
-  <div class="item">
-    <a href="detail_pages/film_7.html">
-      <h3>Jannabi Boy</h3>
-      <img src="./assets/images/film7_1.jpg" alt="Film Project 7" />
-    </a>
-    <p>When an AI band named BANDAI begins replicating the sound of the beloved group Jannabi, the real band vanishes to protect their identity. A young fan, Jonghoon, builds a robot suit and performs as “Jannabi Boy,” fooling the world — until BANDAI contacts him, threatening to expose his secret unless he sings their AI-generated song instead of his own. Torn between loyalty and survival, he must choose: authenticity or adaptation.</p>
-  </div>
--->
-    <!--
-  <div class="item">
-    <a href="detail_pages/film_8.html">
-      <h3>Film Project 8</h3>
-      <img src="film8.jpg" alt="Film Project 8" />
-    </a>
-    <p>Description of project 8 in Film.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/film_9.html">
-      <h3>Film Project 9</h3>
-      <img src="film9.jpg" alt="Film Project 9" />
-    </a>
-    <p>Description of project 9 in Film.</p>
-
--->
-</div>
-</section>
-
-
-
-
-
-<section id="media">
-<h2>Media Art</h2>
-<div class="grid">
-
-  <div class="item">
-    <a href="detail_pages/media_1.html">
-      <div class="project-title">
-      <h3>DADA Myeongdong</h3>
-      <div style="margin-left: 8em;" class="tech-icons">
-        <img src="./assets/images/blender.png" alt="Unity" title="Unity">
-        </div>
-        </div>
-      <img src="./assets/images/media1.jpg" alt="Media Art Project 1" />
-    </a>
-    <p>This project is part of the 2025 Art Korea Lab Media Artist Incubation Program and will be screened on the Media Wall of Shinsegae Department Store in Myeongdong.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/media_2.html">
-      <div class="project-title">
-      <h3>Dream of Salmon</h3>
-      <div style="margin-left: 9.5em;" class="tech-icons">
-        <img src="./assets/images/unreal2.png" alt="Unity" title="Unity">
-        </div>
-      </div>
-      <img src="./assets/images/media2.jpg" alt="Media Art Project 2" />
-    </a>
-    <p>As luminous hand-shaped fish drift through darkness, they gather, disperse, and dissolve—echoing the dreamlike migration of memory, loss, and rebirth beneath the surface of perception.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/media_3.html">
-      <div class="project-title">
-      <h3>Fall of Minds</h3>
-      <div style="margin-left: 12em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-        </div>
-      <img src="./assets/images/media3.jpg" alt="Media Art Project 3" />
-    </a>
-    <p>Fall of Minds is an interactive media art installation that visualizes ambient noise as a generative force. The surrounding soundscape becomes a variable—shaping the movement, density, and complexity of a cascading cloud-like waterfall projected in real time.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/media_4.html">
-      <div class="project-title">
-      <h3>The Nature of Manpasikjeok</h3>
-      <div style="margin-left: 3.2em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-        </div>
-      <img src="./assets/images/media4.jpg" alt="Media Art Project 4" />
-    </a>
-    <p>The Nature of Manpasikjeok reinterprets the ancient Korean legend of the magical flute said to calm disasters and bring prosperity. Visualizing wind and sound through generative media, the work evokes the mythic role of Manpasikjeok in protecting the city—symbolically warding off wildfires and floods to bless Daegu and its citizens with peace and fortune.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/media_5.html">
-      <div class="project-title">
-      <h3>Seon-a’s Family</h3>
-      <div style="margin-left: 10.2em;" class="tech-icons">
-        <img src="./assets/images/unreal2.png" alt="Unity" title="Unity">
-        </div>
-      </div>
-      <img src="./assets/images/media5.jpg" alt="Media Art Project 5" />
-    </a>
-    <p>Seon-a’s Family is a storytelling-based media art piece that explores familial conflict and reconciliation through advanced technologies.
-
-By integrating diffusion models, large language models (LLMs), and digital human technologies, Seon-a’s journey unfolds across multiple layers of time and space—transcending linear narrative conventions.</p>
-  </div>
-  <!--
-  <div class="item">
-    <a href="detail_pages/media_6.html">
-      <h3>Ilwol Obong</h3>
-      <img src="./assets/images/media6.jpg" alt="Media Art Project 6" />
-    </a>
-    <p>Description of project 5 in Media Art.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/media_7.html">
-      <h3>The Life of Songhakdo</h3>
-      <img src="./assets/images/media7.jpg" alt="Media Art Project 7" />
-    </a>
-    <p>Description of project 6 in Media Art.</p>
-  </div>
--->
-  <div class="item">
-    <a href="detail_pages/media_7.html">
-        <div class="project-title">
-      <h3>Nature Human</h3>
-      <div style="margin-left: 11em;" class="tech-icons">
-        <img src="./assets/images/unity.png" alt="Unity" title="Unity">
-        </div>
-        </div>
-      <img src="./assets/images/media7.jpg" alt="Media Art Project 7" />
-    </a>
-    <p>Nature Human is an interactive media art installation that explores posthumanism and dystopian survival through the lens of a virtual human named Evangeline.
-
-Set in the year 2050, the work invites audiences to engage in dialogue with Evangeline, a being who narrates humanity’s decision to merge with nature in the face of ecological collapse.</p>
-  </div>
-  <!--
-  <div class="item">
-    <a href="detail_pages/media_8.html">
-      <h3>Media Art Project 8</h3>
-      <img src="media8.jpg" alt="Media Art Project 8" />
-    </a>
-    <p>Description of project 8 in Media Art.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/media_9.html">
-      <h3>Media Art Project 9</h3>
-      <img src="media9.jpg" alt="Media Art Project 9" />
-    </a>
-    <p>Description of project 9 in Media Art.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/media_10.html">
-      <h3>Media Art Project 10</h3>
-      <img src="media10.jpg" alt="Media Art Project 10" />
-    </a>
-    <p>Description of project 10 in Media Art.</p>
-  </div>
--->
-</div>
-</section>
-
-<section id="vfx">
-<h2>3D / VFX</h2>
-<div class="grid">
-  <div class="item">
-    <a href="detail_pages/vfx_1.html">
-      <h3>FX Portfolio1</h3>
-      <img src="./assets/images/vfx2.jpg" alt="3D / VFX Project 1" />
-    </a>
-    <p>This FX portfolio piece showcases work built using digital humans, fluid and smoke simulations, and real-time visual effects.
-
-Developed with Maya, Houdini, Unity, and Unreal Engine. </p> </div>
-<!--
-<div class="grid">
-  <div class="item">
-    <a href="detail_pages/vfx_1.html">
-      <h3>Yaloo and Sininho</h3>
-      <img src="./assets/images/vfx1.jpg" alt="3D / VFX Project 1" />
-    </a>
-    <p>Description of project 1 in 3D / VFX.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/vfx_2.html">
-      <h3>Gang Sae Hwang</h3>
-      <img src="./assets/images/vfx2.jpg" alt="3D / VFX Project 2" />
-    </a>
-    <p>Description of project 2 in 3D / VFX.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/vfx_3.html">
-      <h3>Now Next</h3>
-      <img src="./assets/images/vfx3.jpg" alt="3D / VFX Project 3" />
-    </a>
-    <p>Description of project 3 in 3D / VFX.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/vfx_4.html">
-      <h3>Fluid Ocean</h3>
-      <img src="./assets/images/vfx4.jpg" alt="3D / VFX Project 4" />
-    </a>
-    <p>Description of project 4 in 3D / VFX.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/vfx_5.html">
-      <h3>Nature Pulse</h3>
-      <img src="./assets/images/vfx5.jpg" alt="3D / VFX Project 5" />
-    </a>
-    <p>Description of project 5 in 3D / VFX.</p>
-  </div>
-  <!--
-  <div class="item">
-    <a href="detail_pages/vfx_6.html">
-      <h3>3D / VFX Project 6</h3>
-      <img src="vfx6.jpg" alt="3D / VFX Project 6" />
-    </a>
-    <p>Description of project 6 in 3D / VFX.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/vfx_7.html">
-      <h3>3D / VFX Project 7</h3>
-      <img src="vfx7.jpg" alt="3D / VFX Project 7" />
-    </a>
-    <p>Description of project 7 in 3D / VFX.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/vfx_8.html">
-      <h3>3D / VFX Project 8</h3>
-      <img src="vfx8.jpg" alt="3D / VFX Project 8" />
-    </a>
-    <p>Description of project 8 in 3D / VFX.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/vfx_9.html">
-      <h3>3D / VFX Project 9</h3>
-      <img src="vfx9.jpg" alt="3D / VFX Project 9" />
-    </a>
-    <p>Description of project 9 in 3D / VFX.</p>
-  </div>
-  <div class="item">
-    <a href="detail_pages/vfx_10.html">
-      <h3>3D / VFX Project 10</h3>
-      <img src="vfx10.jpg" alt="3D / VFX Project 10" />
-    </a>
-    <p>Description of project 10 in 3D / VFX.</p>
-  </div>
--->
-</div>
-</section>
-
-<section id="about">
-<h2>Research/Github</h2>
-<div class="grid">
-  <div class="item">
-    <a href="https://github.com/reusahn/Unity-Unreal-Interaction-Research/tree/main">
-      <h3>Unity–Unreal Interfacing Research</h3>
-      <img src="./assets/images/research.jpg" alt="3D / VFX Project 1" />
-    </a>
-    <p>A curated collection of research-based projects and prototypes exploring
-human–machine interfacing, immersive visualization, and digital embodiment
-through Unity and Unreal Engine.
-
-Each work merges artistic inquiry with technical experimentation,
-bridging motion, emotion, and data into new forms of interactive expression.</p> </div>
-</div>
-</section>
+<!-- FOOTER -->
 <footer>
-  <section id="about">
-    <h2>About</h2>
-    <p>Jonghoon Ahn is a filmmaker and media artist working at the intersection of film, extended reality, and digital performance. Based between Los Angeles and Seoul, he explores the boundaries between reality and virtuality through immersive storytelling, motion capture, and AI-generated humans. His work reflects on silence, trauma, and structural violence—often experienced but unspoken—especially within diasporic Korean communities and high-pressure educational systems.
-<br><br>
-Ahn earned his MFA in Art and Technology at the California Institute of the Arts, where he directed experimental films and installations that center audience participation. His short film Non-done Record, a finalist for the Sundance Ignite Fellowship, follows a young man collapsing under societal expectations.
-<br><br>
-His current project, Where is My Cloud, was born after the sudden deletion of a social media account erased eight years of digital memories. In response, the filmmaker retraces both real and imagined journeys across Korea—through clouds, coastlines, and silence—seeking not lost data, but a new sense of future. The cloud becomes a metaphor not for storage, but for emotion, voice, and presence. Through poetic narration, sensory landscapes, and digital loss, the film explores how memory, identity, and communication can exist beyond the archive.
-<br><br>
-Grounded in research on AI memory, generative video, and the ethics of digital embodiment, Where is My Cloud reimagines digital storytelling as an emotional and philosophical medium—offering a cinematic reflection on the fragility of presence in a world of disappearing records.</p>
-<a href="https://drive.google.com/file/d/1Y_98b3ZQHWYZa4cWlg4qEh_wYFqX-Bov/view?usp=sharing" target="_blank" class="resume-link">View Resume / CV</a>
-<p>Contact - Email : reusahn@gmail.com</p>
-</section>
-  <section id="news">
-    <h2>News</h2>
-    <ul class="news-list">
-      <li>
-        <strong>Asianfilmfestival</strong>
-        <a href="https://asianfilmfestival.us/south-korea-the-silence-we-share-%e9%9f%a9%e5%9b%bd%e5%89%a7%e6%9c%ac/" target="_blank">[Link]</a>
-      </li>
-      <li>
-        <strong>IMDB Jonghoon Ahn</strong>
-        <a href="https://www.imdb.com/name/nm17746174/?ref_=nv_sr_srsg_0_tt_0_nm_8_in_0_q_jonghoon%2520ahn" target="_blank">[Link]</a>
-      </li>
-      <li>
-        <strong>Media Wall of Shinsegae Department Store</strong>
-        <a href="https://www.yna.co.kr/view/AKR20250929031900005" target="_blank">[Link]</a>
-      </li>
-  <li>
-    <strong>AI Symposium</strong>
-    <a href="https://calarts.edu/unbound/speakers" target="_blank">[Link]</a>
-  </li>
-  <li>
-    <strong>Project Archive</strong>
-    <a href="https://projectarchive.art.calarts.edu/project/generated-cinema/" target="_blank">[Link]</a>
-  </li>
-  <li>
-    <strong>Independent Shorts Awards</strong>
-    <a href="https://independentshortsawards.com/2024/01/15/non-done-record/" target="_blank">[Link]</a>
-  </li>
-  <li>
-    <strong>VoyageLA</strong>
-    <a href="https://voyagela.com/interview/conversations-with-jonghoon-ahn/" target="_blank">[Link]</a>
-  </li>
-  <li>
-    <strong>Wolseong Pharmacy</strong>
-    <a href="https://www.wonjutoday.co.kr/news/articleView.html?idxno=201271" target="_blank">[Link]</a>
-  </li>
-  <li>
-    <strong>Maeil Newspaper</strong>
-    <a href="https://www.imaeil.com/page/view/2023102610192087838" target="_blank">[Link]</a>
-  </li>
-</ul>
-</section>
-  </footer>
+  <div class="foot-l">
+    © 2025 Jonghoon Ahn — 안종훈<br>
+    <span style="color:#2a2a2a;">TA · Filmmaker · Media Artist</span>
   </div>
-  <script>
-  const sections = document.querySelectorAll("section");
-  const navLinks = document.querySelectorAll(".nav a");
+  <div class="foot-r">
+    <a href="mailto:hoonahncloud@gmail.com">hoonahncloud@gmail.com</a>
+  </div>
+</footer>
 
-  window.addEventListener("scroll", () => {
-    let current = "";
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-      if (pageYOffset >= sectionTop - 50) {
-        current = section.getAttribute("id");
+<script>
+  /* CURSOR */
+  const cur = document.getElementById('cur');
+  const curR = document.getElementById('curR');
+  let mx=0, my=0, rx=0, ry=0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cur.style.left = mx + 'px';
+    cur.style.top  = my + 'px';
+  });
+  (function raf(){
+    rx += (mx - rx) * .1;
+    ry += (my - ry) * .1;
+    curR.style.left = rx + 'px';
+    curR.style.top  = ry + 'px';
+    requestAnimationFrame(raf);
+  })();
+
+  /* NAV sticky + active */
+  const nav  = document.getElementById('nav');
+  const navAs = document.querySelectorAll('.nav-links a');
+  const secIds = ['interactive','film','media','xr','vfx','about','news'];
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('stuck', scrollY > 50);
+    let active = '';
+    secIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && scrollY >= el.offsetTop - 140) active = id;
+    });
+    navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active));
+  });
+
+  /* SCROLL REVEAL */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('on'), i * 55);
+        io.unobserve(e.target);
       }
     });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
 
-    navLinks.forEach((link) => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === `#${current}`) {
-        link.classList.add("active");
-      }
-    });
+  /*
+  ═══════════════════════════════════════════════════════════════
+  CARD VIDEO HOVER PREVIEW
+  How it works:
+    - Each card has <video preload="none"> with a <source> pointing
+      to a short preview clip (e.g. ./assets/videos/film1_preview.mp4)
+    - On mouseenter: video.load() then video.play()
+    - On mouseleave: video.pause(), reset to 0
+    - If the file doesn't exist, browser fails silently — img stays visible
+    - The "Preview" badge pulses green when video is playing
+
+  To add your videos:
+    1. Export 5–15 sec clips for each project
+    2. Name them matching the <source src> in each card (e.g. film1_preview.mp4)
+    3. Place in ./assets/videos/
+    4. Done — hover will automatically show the clip
+  ═════════════════════════════════════════════
+  */
+  document.querySelectorAll('.card').forEach(card => {
+    const vid = card.querySelector('video');
+    if (!vid) return;
+    card.addEventListener('mouseenter', () => { vid.load(); vid.play().catch(()=>{}); });
+    card.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
   });
 </script>
-
 </body>
 </html>
