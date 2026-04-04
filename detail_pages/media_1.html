@@ -3,170 +3,198 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DaDa Myeongdong</title>
+  <title>DADA Myeongdong — Jonghoon Ahn</title>
+  <link rel="icon" href="../assets/images/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <style>
-  @media (max-width: 768px) {
-  .hide-on-mobile {
-    display: none;
-  }
-}
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background: #000;
-      color: #f0f0f0;
-      line-height: 1.7;
-      padding: 60px 20px;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080808;
+      --surface: #111;
+      --border: rgba(255,255,255,0.07);
+      --text: #f0ede8;
+      --muted: #555;
+      --accent: #e8ff47;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --font-body: 'DM Sans', sans-serif;
     }
-    .nav {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 0.9rem;
-      z-index: 1000;
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-weight:300; line-height:1.6; overflow-x:hidden; }
+
+    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:22px 48px; background:rgba(8,8,8,.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+    .nav-back { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-back:hover { color:var(--accent); }
+    .nav-links { display:flex; gap:24px; list-style:none; }
+    .nav-links a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+    .nav-toggle span { width:24px; height:1px; background:var(--text); }
+    @media(max-width:768px){
+      nav { padding:18px 24px; }
+      .nav-toggle { display:flex; }
+      .nav-links { display:none; flex-direction:column; position:fixed; top:0; right:0; bottom:0; width:70vw; max-width:280px; background:rgba(8,8,8,.97); backdrop-filter:blur(20px); padding:80px 32px 32px; border-left:1px solid var(--border); gap:0; }
+      .nav-links.open { display:flex; }
+      .nav-links a { font-size:1rem; padding:14px 0; border-bottom:1px solid var(--border); }
     }
-    .nav a {
-      margin-left: 15px;
-      text-decoration: none;
-      color: #888;
-    }
-    .nav a:hover {
-      color: #fff;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-    .meta {
-      font-size: 0.95rem;
-      color: #999;
-      font-style: italic;
-      margin-bottom: 30px;
-    }
-    .video-container {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      margin-bottom: 30px;
-    }
-    .video-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 8px;
-    }
-    .video-container img{
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      margin-bottom: 30px;
-    }
-    .description {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 50px;
-    }
-    .image-text-block {
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
-      align-items: flex-start;
-      margin-bottom: 60px;
-      flex-wrap: wrap;
-    }
-    .image-text-block img {
-      width: 100%;
-      max-width: 400px;
-      border-radius: 8px;
-    }
-    .image-text-block .text {
-      flex: 1;
-      min-width: 250px;
-      font-size: 0.95rem;
-      color: #aaa;
-    }
-    nav.pagination {
-      margin-top: 60px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.95rem;
-    }
-    nav.pagination a {
-      color: #888;
-      text-decoration: none;
-    }
-    nav.pagination a:hover {
-      color: #fff;
-    }
+
+    .detail-hero { padding:120px 48px 0; max-width:1200px; margin:0 auto; }
+    @media(max-width:768px){ .detail-hero{ padding:100px 24px 0; } }
+    .detail-cat { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+    .detail-title { font-family:'Bebas Neue', sans-serif; font-size:clamp(3.5rem,8vw,7rem); font-weight:400; letter-spacing:.04em; line-height:.9; margin-bottom:24px; }
+    .detail-meta { display:flex; gap:32px; flex-wrap:wrap; padding:20px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:48px; }
+    .detail-meta-item { display:flex; flex-direction:column; gap:4px; }
+    .detail-meta-label { font-family:var(--font-mono); font-size:.58rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
+    .detail-meta-value { font-size:.9rem; color:var(--text); }
+
+    /* MAIN IMAGE */
+    .detail-banner { max-width:1200px; margin:0 auto; padding:0 48px 60px; }
+    @media(max-width:768px){ .detail-banner{ padding:0 24px 48px; } }
+    .detail-banner img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; filter:brightness(.9); }
+
+    .detail-content { max-width:1200px; margin:0 auto; padding:0 48px 60px; }
+    @media(max-width:768px){ .detail-content{ padding:0 24px 48px; } }
+
+    .detail-body { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-bottom:60px; }
+    @media(max-width:768px){ .detail-body{ grid-template-columns:1fr; gap:32px; } }
+    .detail-desc { font-size:1.05rem; color:rgba(240,237,232,.75); line-height:1.8; }
+    .detail-desc p { margin-bottom:16px; }
+    .detail-desc p:last-child { margin-bottom:0; }
+
+    /* WIDE IMAGES — ultrawide media wall ratio */
+    .wide-img-wrap { margin-bottom:2px; overflow:hidden; }
+    .wide-img-wrap img { width:100%; display:block; object-fit:cover; filter:brightness(.88); transition:filter .3s; }
+    .wide-img-wrap img:hover { filter:brightness(1); }
+
+    /* PRESS LINKS */
+    .press-section { margin-bottom:60px; }
+    .press-label { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+    .press-item { display:flex; align-items:center; justify-content:space-between; padding:16px 0; border-bottom:1px solid var(--border); transition:padding-left .2s; }
+    .press-item:hover { padding-left:10px; }
+    .press-name { font-family:var(--font-display); font-size:.92rem; font-weight:600; }
+    .press-link { font-family:var(--font-mono); font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; border:1px solid var(--border); padding:5px 12px; transition:all .2s; white-space:nowrap; }
+    .press-link:hover { color:#000; background:var(--accent); border-color:var(--accent); }
+
+    .detail-nav { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:32px; max-width:1200px; margin:0 auto; padding-left:48px; padding-right:48px; padding-bottom:80px; }
+    @media(max-width:768px){ .detail-nav{ padding-left:24px; padding-right:24px; } }
+    .detail-nav a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .detail-nav a:hover { color:var(--accent); }
+    .detail-nav .back { color:var(--text); }
+
+    .r { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+    .r.on { opacity:1; transform:none; }
   </style>
 </head>
 <body>
-  <div class="nav">
-    <a href="../index.html#film">Film</a>
-    <a href="../index.html#interactive">Interactive Art</a>
-    <a href="../index.html#media">Media Art</a>
-    <a href="../index.html#xr">XR</a>
-    <a href="../index.html#vfx">3D/VFX</a>
-    <a href="../index.html#about" class="hide-on-mobile">About</a>
-    <a href="../index.html#news" class="hide-on-mobile">News</a>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html#interactive">Interactive</a></li>
+    <li><a href="../index.html#film">Film</a></li>
+    <li><a href="../index.html#media">Media Art</a></li>
+    <li><a href="../index.html#xr">XR · Game</a></li>
+    <li><a href="../index.html#vfx">3D / VFX</a></li>
+    <li><a href="../index.html#about">About</a></li>
+  </ul>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-cat r">Media Art · Shinsegae Department Store, Myeongdong · 2025</div>
+  <h1 class="detail-title r">DADA<br>Myeongdong</h1>
+  <div class="detail-meta r">
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Year</span>
+      <span class="detail-meta-value">2025</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Type</span>
+      <span class="detail-meta-value">Media Wall Art</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Venue</span>
+      <span class="detail-meta-value">Shinsegae Myeongdong Media Wall</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Program</span>
+      <span class="detail-meta-value">Art Korea Lab Incubation 2025</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Role</span>
+      <span class="detail-meta-value">Director · Artist</span>
+    </div>
   </div>
+</div>
 
-  <div class="container">
-    <h1>DaDa Myeongdong</h1>
-    <div class="meta">2025 · Media Art · 명동신세계백화점-Shinsegae Department Store, Myeongdong</div>
+<!-- MAIN IMAGE -->
+<div class="detail-banner r">
+  <img src="../assets/images/media1.jpg" alt="DADA Myeongdong">
+</div>
 
-    <div class="video-container">
-        <img src="../assets/images/media1.jpg" alt="Film Project 3 Still">
+<!-- CONTENT -->
+<div class="detail-content">
+  <div class="detail-body r">
+    <div class="detail-desc">
+      <p>DADA Myeongdong is a media art piece presented as part of the 2025 Art Korea Lab Media Artist Incubation Program. The work is screened on the Media Wall of Shinsegae Department Store in Myeongdong, one of Seoul's most iconic urban districts.</p>
+      <p>The piece reimagines a single day in Myeongdong through three symbolic layers — morning, night, and dawn — unfolding like a virtual show window. With subtle shifts in light, sound, and texture, the screen becomes a stage where the everyday rhythms of the city gently emerge and fade.</p>
     </div>
-
-      <div class="description">
-      <p>DaDa Myeongdong is a media art piece presented as part of the 2025 Art Korea Lab Media Artist Incubation Program. The work is screened on the Media Wall of Shinsegae Department Store in Myeongdong, one of Seoul’s most iconic urban districts.
-
-The piece reimagines a single day in Myeongdong through three symbolic layers—morning, night, and dawn—unfolding like a virtual show window. With subtle shifts in light, sound, and texture, the screen becomes a stage where the everyday rhythms of the city gently emerge and fade.</p>
-     <p>Because Myeongdong has long been a crossroads of cultures and a gathering place for locals and international tourists, I titled the work DaDa Myeongdong and approached it as a playful re-composition of the district’s chaotic energy. The piece translates the site’s unique sense of mobility into media art: commuters and tourists are represented through shifting colors and elongated trail effects, allowing their movements to linger in the space like afterimages. At night, the work highlights the atmosphere of Korean street food culture—one of Myeongdong’s most recognizable experiences—turning the Media Wall into a glowing advertisement for the district’s culinary identity. Through these layered transitions, DaDa Myeongdong captures the flow, memory, and cultural texture of a place constantly in motion.</p>
+    <div class="detail-desc">
+      <p>Because Myeongdong has long been a crossroads of cultures and a gathering place for locals and international tourists, I titled the work DADA Myeongdong and approached it as a playful re-composition of the district's chaotic energy.</p>
+      <p>The piece translates the site's unique sense of mobility into media art: commuters and tourists are represented through shifting colors and elongated trail effects, allowing their movements to linger in the space like afterimages. At night, the work highlights the atmosphere of Korean street food culture — one of Myeongdong's most recognizable experiences — turning the Media Wall into a glowing advertisement for the district's culinary identity.</p>
     </div>
-
-
-    <div style="width:100%; aspect-ratio:3974/1468; overflow:hidden;">
-        <img src="../assets/images/M1.jpg" alt="Film Project 3 Still" style="width:100%; height:100%; object-fit:cover;">
-    </div>
-
-    <div style="width:100%; aspect-ratio:3974/1468; overflow:hidden;">
-        <img src="../assets/images/M2.jpg" alt="Film Project 3 Still" style="width:100%; height:100%; object-fit:cover;">
-    </div>
-
-    <div style="width:100%; aspect-ratio:3974/1468; overflow:hidden;">
-        <img src="../assets/images/M3.jpg" alt="Film Project 3 Still" style="width:100%; height:100%; object-fit:cover;">
-    </div>
-
-
-    <ul class="news-list">
-      <li>
-        <strong>Article for Media Wall of Shinsegae Department Store1</strong>
-        <a href="https://www.yna.co.kr/view/AKR20250929031900005" target="_blank">[Link]</a>
-      </li>
-      <li>
-        <strong>Article Media Wall of Shinsegae Department Store2</strong>
-        <a href="https://www.ajunews.com/view/20250929172906633" target="_blank">[Link]</a>
-      </li>
-    </ul>
-  <!--  <div class="image-text-block">
-      <img src="../images/media1.jpg" alt="Media Art Project 1 Still">
-      <div class="text">
-        <p>This still captures a pivotal moment where the project’s tone and theme converge. It reveals the emotional depth and visual language unique to this work.</p>
-      </div>
-    </div>
-  -->
-
-    <nav class="pagination">
-      <span></span>
-      <a href="../index.html">Back to Portfolio</a>
-      <a href="media_2.html">Next →</a>
-    </nav>
   </div>
+</div>
+
+<!-- WIDE MEDIA WALL IMAGES -->
+<div class="wide-img-wrap r">
+  <img src="../assets/images/M1.jpg" alt="DADA Myeongdong — Morning">
+</div>
+<div class="wide-img-wrap r">
+  <img src="../assets/images/M2.jpg" alt="DADA Myeongdong — Night">
+</div>
+<div class="wide-img-wrap r" style="margin-bottom:60px;">
+  <img src="../assets/images/M3.jpg" alt="DADA Myeongdong — Dawn">
+</div>
+
+<!-- PRESS -->
+<div class="detail-content" style="padding-top:0;">
+  <div class="press-section r">
+    <div class="press-label">Press</div>
+    <div class="press-item">
+      <span class="press-name">Yonhap News — Shinsegae Media Wall</span>
+      <a href="https://www.yna.co.kr/view/AKR20250929031900005" target="_blank" class="press-link">Read ↗</a>
+    </div>
+    <div class="press-item">
+      <span class="press-name">Aju News — Shinsegae Media Wall</span>
+      <a href="https://www.ajunews.com/view/20250929172906633" target="_blank" class="press-link">Read ↗</a>
+    </div>
+  </div>
+</div>
+
+<div class="detail-nav r">
+  <span></span>
+  <a href="../index.html" class="back">All Work</a>
+  <a href="media_2.html">Next →</a>
+</div>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('on'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+</script>
 </body>
 </html>
