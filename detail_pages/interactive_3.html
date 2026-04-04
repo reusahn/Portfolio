@@ -3,242 +3,254 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jemulpo Photo Studio</title>
+  <title>Jemulpo Photo Studio — Jonghoon Ahn</title>
+  <link rel="icon" href="../assets/images/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <style>
-  @media (max-width: 768px) {
-  .hide-on-mobile {
-    display: none;
-  }
-}
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background: #000;
-      color: #f0f0f0;
-      line-height: 1.7;
-      padding: 60px 20px;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080808;
+      --surface: #111;
+      --border: rgba(255,255,255,0.07);
+      --text: #f0ede8;
+      --muted: #555;
+      --accent: #e8ff47;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --font-body: 'DM Sans', sans-serif;
     }
-    .nav {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 0.9rem;
-      z-index: 1000;
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-weight:300; line-height:1.6; overflow-x:hidden; }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:22px 48px; background:rgba(8,8,8,.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+    .nav-back { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-back:hover { color:var(--accent); }
+    .nav-links { display:flex; gap:24px; list-style:none; }
+    .nav-links a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+    .nav-toggle span { width:24px; height:1px; background:var(--text); }
+    @media(max-width:768px){
+      nav { padding:18px 24px; }
+      .nav-toggle { display:flex; }
+      .nav-links { display:none; flex-direction:column; position:fixed; top:0; right:0; bottom:0; width:70vw; max-width:280px; background:rgba(8,8,8,.97); backdrop-filter:blur(20px); padding:80px 32px 32px; border-left:1px solid var(--border); gap:0; }
+      .nav-links.open { display:flex; }
+      .nav-links a { font-size:1rem; padding:14px 0; border-bottom:1px solid var(--border); }
     }
-    .nav a {
-      margin-left: 15px;
-      text-decoration: none;
-      color: #888;
-    }
-    .nav a:hover {
-      color: #fff;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-    .meta {
-      font-size: 0.95rem;
-      color: #999;
-      font-style: italic;
-      margin-bottom: 30px;
-    }
-    .video-container {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      margin-bottom: 30px;
-    }
-    .video-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 8px;
-    }
-    .description {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 50px;
-    }
-    .image-text-block {
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
-      align-items: flex-start;
-      margin-bottom: 60px;
-      flex-wrap: wrap;
-    }
-    .image-text-block img {
-      width: 100%;
-      max-width: 400px;
-      border-radius: 8px;
-    }
-    .image-text-block .text {
-      flex: 1;
-      min-width: 250px;
-      font-size: 0.95rem;
-      color: #aaa;
-    }
-    nav.pagination {
-      margin-top: 60px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.95rem;
-    }
-    nav.pagination a {
-      color: #888;
-      text-decoration: none;
-    }
-    nav.pagination a:hover {
-      color: #fff;
-    }
+
+    /* HERO */
+    .detail-hero { padding:120px 48px 0; max-width:1200px; margin:0 auto; }
+    @media(max-width:768px){ .detail-hero{ padding:100px 24px 0; } }
+    .detail-cat { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+    .detail-title { font-family:'Bebas Neue', sans-serif; font-size:clamp(3rem,7vw,6.5rem); font-weight:400; letter-spacing:.04em; line-height:.9; margin-bottom:24px; }
+    .detail-meta { display:flex; gap:32px; flex-wrap:wrap; padding:20px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:48px; }
+    .detail-meta-item { display:flex; flex-direction:column; gap:4px; }
+    .detail-meta-label { font-family:var(--font-mono); font-size:.58rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
+    .detail-meta-value { font-size:.9rem; color:var(--text); }
+
+    /* VIDEO */
+    .detail-video { max-width:1200px; margin:0 auto; padding:0 48px 60px; }
+    @media(max-width:768px){ .detail-video{ padding:0 24px 48px; } }
+    .video-wrap { position:relative; padding:56.25% 0 0 0; background:var(--surface); }
+    .video-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
+
+    /* CONTENT */
+    .detail-content { max-width:1200px; margin:0 auto; padding:0 48px 120px; }
+    @media(max-width:768px){ .detail-content{ padding:0 24px 80px; } }
+
+    .detail-body { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-bottom:60px; }
+    @media(max-width:768px){ .detail-body{ grid-template-columns:1fr; gap:32px; } }
+    .detail-desc { font-size:1.05rem; color:rgba(240,237,232,.75); line-height:1.8; }
+    .detail-desc p { margin-bottom:16px; }
+    .detail-desc p:last-child { margin-bottom:0; }
+
+    /* TECH SPECS */
+    .tech-section { margin-bottom:60px; }
+    .tech-label { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:24px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+    .tech-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+    @media(max-width:600px){ .tech-grid{ grid-template-columns:1fr; } }
+    .tech-block { background:var(--surface); padding:24px 28px; }
+    .tech-block-title { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
+    .tech-block p { font-size:.88rem; color:rgba(240,237,232,.65); line-height:1.75; }
+    .tech-stack { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+    .tech-tag { font-family:var(--font-mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; padding:4px 10px; border:1px solid var(--border); color:var(--muted); }
+
+    /* IMAGES */
+    .detail-images { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:2px; }
+    .detail-images img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; filter:brightness(.85); transition:filter .3s; }
+    .detail-images img:hover { filter:brightness(1); }
+    .detail-images .full { grid-column:span 2; }
+    @media(max-width:600px){ .detail-images{ grid-template-columns:1fr; } .detail-images .full{ grid-column:span 1; } }
+    .full-img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; filter:brightness(.85); margin-bottom:2px; transition:filter .3s; }
+    .full-img:hover { filter:brightness(1); }
+
+    /* PAGINATION */
+    .detail-nav { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:32px; margin-top:60px; }
+    .detail-nav a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .detail-nav a:hover { color:var(--accent); }
+    .detail-nav .back { color:var(--text); }
+
+    /* REVEAL */
+    .r { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+    .r.on { opacity:1; transform:none; }
   </style>
 </head>
 <body>
-  <div class="nav">
-    <a href="../index.html#film">Film</a>
-    <a href="../index.html#interactive">Interactive Art</a>
-    <a href="../index.html#media">Media Art</a>
-    <a href="../index.html#xr">XR</a>
-    <a href="../index.html#vfx">3D/VFX</a>
-    <a href="../index.html#about" class="hide-on-mobile">About</a>
-    <a href="../index.html#news" class="hide-on-mobile">News</a>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html#interactive">Interactive</a></li>
+    <li><a href="../index.html#film">Film</a></li>
+    <li><a href="../index.html#media">Media Art</a></li>
+    <li><a href="../index.html#xr">XR · Game</a></li>
+    <li><a href="../index.html#vfx">3D / VFX</a></li>
+    <li><a href="../index.html#about">About</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<div class="detail-hero">
+  <div class="detail-cat r">Interactive Installation · Incheon Metropolitan Museum, 2022</div>
+  <h1 class="detail-title r">Jemulpo<br>Photo Studio</h1>
+  <div class="detail-meta r">
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Year</span>
+      <span class="detail-meta-value">2022</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Type</span>
+      <span class="detail-meta-value">Interactive Media Installation</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Venue</span>
+      <span class="detail-meta-value">Incheon Metropolitan Museum</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Role</span>
+      <span class="detail-meta-value">Technical Director</span>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div class="detail-video r">
+  <div class="video-wrap">
+    <iframe src="https://player.vimeo.com/video/1011870114?h=e6a92f4ef4&badge=0&autopause=0&player_id=0&app_id=58479"
+      frameborder="0"
+      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      title="Jemulpo Photo Studio">
+    </iframe>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="detail-content">
+
+  <!-- SYNOPSIS -->
+  <div class="detail-body r">
+    <div class="detail-desc">
+      <p>Jemulpo Photo Studio is an interactive media installation that reimagines the aesthetics of early Korean "New Women" (Shin Yeosung) magazine culture from the colonial era. Visitors' portraits are captured in real time and transformed through AI-based face swapping and neural style transfer, producing reinterpreted covers that blend modern identity with early 20th-century visual modernity.</p>
+    </div>
+    <div class="detail-desc">
+      <p>Each portrait — stylized in the vibrant, liberated tone of Jemulpo's early photo studios — is automatically framed, displayed, and archived in real time on a virtual wall, turning the gallery into a living archive of self-modernization and historical reinterpretation.</p>
+      <p>This project investigates how historical aesthetics can be reactivated through AI and real-time media art, creating a space where visitors can temporarily inhabit a reimagined past.</p>
+    </div>
   </div>
 
-  <div class="container">
-    <h1>Jemulpo Photo Studio</h1>
-    <div class="meta">2022 · Interactive Art · 인천시립박물관-Incheon Metropolitan Museum</div>
+  <!-- TECH SPECS -->
+  <div class="tech-section r">
+    <div class="tech-label">Technical Overview</div>
+    <div class="tech-grid">
 
-    <div class="video-container">
-      <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1011870114?h=e6a92f4ef4&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="제물포 사진관"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+      <div class="tech-block">
+        <div class="tech-block-title">Stack</div>
+        <div class="tech-stack">
+          <span class="tech-tag">Unity</span>
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">OpenCV</span>
+          <span class="tech-tag">AR Foundation</span>
+          <span class="tech-tag">Unity Barracuda</span>
+          <span class="tech-tag">NVIDIA RTX 4070 Super</span>
+          <span class="tech-tag">TCP Server</span>
+        </div>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-block-title">Face Capture & Detection</div>
+        <p>Real-time facial detection using OpenCV DNN models integrated in Unity. Detection region extended to include hair and head area via post-processing on facial landmarks, ensuring style transformation affects the full portrait.</p>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-block-title">Face Swap & Style Mapping</div>
+        <p>Custom face-swap system merging visitor features with pre-designed 1920s "New Women" portrait references. Style filters layered through custom shader-based watercolor and pointillist noise blending, referencing early magazine printing textures.</p>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-block-title">Segmentation & Background Replacement</div>
+        <p>Unity Barracuda-based person segmentation separates subjects from background. Backdrop replaced with vintage magazine-style layouts dynamically mapped to color palettes extracted from 1920s Korean publications.</p>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-block-title">Archiving & Exhibition Display</div>
+        <p>Generated portraits sent via TCP connection to an external display wall, appearing in a looping slideshow simulating a virtual photo gallery. All portraits auto-saved in timestamped folders for archival and curatorial review.</p>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-block-title">Artistic Significance</div>
+        <p>The live archiving process reflects on photography's role as both documentation and performance — turning spectators into participants of a digitally reconstructed modern history, exploring the interplay between gender, modernization, and visual media.</p>
+      </div>
+
     </div>
-
-     <p>
-Jemulpo Photo Studio is an interactive media installation that reimagines the aesthetics of early Korean “Shin Yeosung” magazine culture from the colonial era.
-Visitors’ portraits are captured in real time and transformed through AI-based face swapping and neural style transfer,
-producing reinterpreted covers that blend modern identity with early 20th-century visual modernity.
-
-Each portrait—stylized in the vibrant, liberated tone of Jemulpo’s early photo studios—is automatically framed, displayed, and archived in real time on a virtual wall,
-turning the gallery into a living archive of self-modernization and historical reinterpretation.
-</p>
-
-
-<h4>
-Engine: Unity<br>
-Framework: AR Foundation · OpenCV for Unity<br>
-Software: Photoshop · After Effects (graphic composition)<br>
-Languages: C# · Python<br>
-AI Frameworks: Unity Barracuda (segmentation) · OpenCV (face detection & swap)<br>
-Hardware: PC (NVIDIA RTX 4070 Super) · Tabelt Cam Camera · Display Monitors<br>
-Networking: TCP Server for live data and image archiving<br>
-</h4>
-
-<h4>
-Pipeline
-</h4>
-<p>
-Face Capture & Detection<br>
-Real-time facial detection using OpenCV DNN models integrated in Unity.<br>
-Extended detection region to include hair and head area via post-processing on facial landmarks, ensuring style transformation affects full portrait.<br>
-</p>
-<p>
-Face Swap & Style Mapping<br>
-Implemented a custom face-swap system merging visitor features with pre-designed 1920s “Shin Yeosung” portrait references.<br>
-Style filters layered through custom shader-based watercolor and pointillist noise blending, referencing early magazine printing textures.<br>
-</p>
-<p>
-Face Swap & Style Mapping<br>
-Implemented a custom face-swap system merging visitor features with pre-designed 1920s “New Women” portrait references.<br>
-Style filters layered through custom shader-based watercolor and pointillist noise blending, referencing early magazine printing textures.<br>
-</p>
-<p>
-Segmentation & Background Replacement<br>
-Applied Unity Barracuda-based person segmentation to separate subjects from background.<br>
-Replaced the backdrop with vintage magazine-style layouts dynamically mapped to color palettes extracted from 1920s Korean publications.<br>
-</p>
-<p>
-Archiving & Exhibition Display<br>
-Generated portraits sent via TCP connection to an external display wall,<br>
-where results appeared in a looping slideshow simulating a virtual photo gallery.<br>
-All portraits auto-saved in timestamped folders for archival record and curatorial review.<br>
-</p>
-
-<h4>
- Artistic & Theoretical Significance
-</h4>
-<p>
-This project investigates how historical aesthetics can be reactivated through AI and real-time media art.
-By merging colonial-era “New Women” imagery with contemporary digital interfaces,
-the installation creates a space where visitors can temporarily inhabit a reimagined past,
-exploring the interplay between gender, modernization, and visual media.<br>
-
-The live archiving process reflects on photography’s role as both documentation and performance—
-turning spectators into participants of a digitally reconstructed modern history.
-</p>
-
-
-
-
-
-    <div class="image-text-block">
-      <img src="../assets/images/interactive3_1.jpg" alt="Interactive Art Project 3 Still">
-      <img src="../assets/images/interactive3_2.jpg" alt="Interactive Art Project 3 Still">
-
-      <!--
-      <div class="text">
-        <p>This still captures a pivotal moment where the project’s tone and theme converge. It reveals the emotional depth and visual language unique to this work.</p>
-      </div>-->
-    </div>
-
-
-
-<div style="width:100%; aspect-ratio:1920/1080; overflow:hidden;">
-    <img src="../assets/images/g2.png"
-         alt="Interactive Art Project 1 Still"
-         style="width:100%; height:100%; object-fit:cover;">
-</div>
-
-<div style="width:100%; aspect-ratio:1920/1080; overflow:hidden;">
-    <img src="../assets/images/g3.png"
-         alt="Interactive Art Project 1 Still"
-         style="width:100%; height:100%; object-fit:cover;">
-</div>
-
-<div style="width:100%; aspect-ratio:1920/1080; overflow:hidden;">
-    <img src="../assets/images/g4.png"
-         alt="Interactive Art Project 1 Still"
-         style="width:100%; height:100%; object-fit:cover;">
-</div>
-
-<div style="width:100%; aspect-ratio:1920/1080; overflow:hidden;">
-    <img src="../assets/images/g6.png"
-         alt="Interactive Art Project 1 Still"
-         style="width:100%; height:100%; object-fit:cover;">
-</div>
-
-<div style="width:100%; aspect-ratio:1920/1080; overflow:hidden;">
-    <img src="../assets/images/g7.png"
-         alt="Interactive Art Project 1 Still"
-         style="width:100%; height:100%; object-fit:cover;">
-</div>
-
-<div style="width:100%; aspect-ratio:1920/1080; overflow:hidden;">
-    <img src="../assets/images/g8.png"
-         alt="Interactive Art Project 1 Still"
-         style="width:100%; height:100%; object-fit:cover;">
-</div>
-
-
-    <nav class="pagination">
-      <a href="interactive_2.html">← Previous</a>
-      <a href="../index.html">Back to Portfolio</a>
-      <a href="interactive_4.html">Next →</a>
-    </nav>
   </div>
+
+  <!-- PREVIEW IMAGES -->
+  <div class="detail-images r">
+    <img src="../assets/images/interactive3_1.jpg" alt="Jemulpo Photo Studio">
+    <img src="../assets/images/interactive3_2.jpg" alt="Jemulpo Photo Studio">
+  </div>
+
+  <!-- INSTALLATION IMAGES -->
+  <img src="../assets/images/g2.png" alt="Jemulpo Photo Studio Installation" class="full-img r">
+  <img src="../assets/images/g3.png" alt="Jemulpo Photo Studio Installation" class="full-img r">
+  <div class="detail-images r">
+    <img src="../assets/images/g4.png" alt="Jemulpo Photo Studio Installation">
+    <img src="../assets/images/g6.png" alt="Jemulpo Photo Studio Installation">
+    <img src="../assets/images/g7.png" alt="Jemulpo Photo Studio Installation">
+    <img src="../assets/images/g8.png" alt="Jemulpo Photo Studio Installation">
+  </div>
+
+  <!-- PAGINATION -->
+  <div class="detail-nav r">
+    <a href="interactive_2.html">← Previous</a>
+    <a href="../index.html" class="back">All Work</a>
+    <a href="interactive_4.html">Next →</a>
+  </div>
+</div>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('on'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+</script>
+<script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 </html>

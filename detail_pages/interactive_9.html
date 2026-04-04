@@ -3,211 +3,285 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Choi Jung-hoon AI Human Research Project</title>
+  <title>AI Choi Jung-hoon — Jonghoon Ahn</title>
+  <link rel="icon" href="../assets/images/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <style>
-  @media (max-width: 768px) {
-    .hide-on-mobile {
-      display: none;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080808;
+      --surface: #111;
+      --border: rgba(255,255,255,0.07);
+      --text: #f0ede8;
+      --muted: #555;
+      --accent: #e8ff47;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --font-body: 'DM Sans', sans-serif;
     }
-  }
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background: #000;
-      color: #f0f0f0;
-      line-height: 1.7;
-      padding: 60px 20px;
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-weight:300; line-height:1.6; overflow-x:hidden; }
+
+    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:22px 48px; background:rgba(8,8,8,.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+    .nav-back { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-back:hover { color:var(--accent); }
+    .nav-links { display:flex; gap:24px; list-style:none; }
+    .nav-links a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+    .nav-toggle span { width:24px; height:1px; background:var(--text); }
+    @media(max-width:768px){
+      nav { padding:18px 24px; }
+      .nav-toggle { display:flex; }
+      .nav-links { display:none; flex-direction:column; position:fixed; top:0; right:0; bottom:0; width:70vw; max-width:280px; background:rgba(8,8,8,.97); backdrop-filter:blur(20px); padding:80px 32px 32px; border-left:1px solid var(--border); gap:0; }
+      .nav-links.open { display:flex; }
+      .nav-links a { font-size:1rem; padding:14px 0; border-bottom:1px solid var(--border); }
     }
-    .nav {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 0.9rem;
-      z-index: 1000;
-    }
-    .nav a {
-      margin-left: 15px;
-      text-decoration: none;
-      color: #888;
-    }
-    .nav a:hover {
-      color: #fff;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-    .meta {
-      font-size: 0.95rem;
-      color: #999;
-      font-style: italic;
-      margin-bottom: 30px;
-    }
-    .video-container {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      margin-bottom: 30px;
-    }
-    .video-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 8px;
-    }
-    .description {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 50px;
-    }
-    .image-text-block {
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
-      align-items: flex-start;
-      margin-bottom: 60px;
-      flex-wrap: wrap;
-    }
-    .image-text-block img {
-      width: 100%;
-      max-width: 400px;
-      border-radius: 8px;
-    }
-    .image-text-block .text {
-      flex: 1;
-      min-width: 250px;
-      font-size: 0.95rem;
-      color: #aaa;
-    }
-    nav.pagination {
-      margin-top: 60px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.95rem;
-    }
-    nav.pagination a {
-      color: #888;
-      text-decoration: none;
-    }
-    nav.pagination a:hover {
-      color: #fff;
-    }
+
+    .detail-hero { padding:120px 48px 0; max-width:1200px; margin:0 auto; }
+    @media(max-width:768px){ .detail-hero{ padding:100px 24px 0; } }
+    .detail-cat { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+    .detail-title { font-family:'Bebas Neue', sans-serif; font-size:clamp(3rem,7vw,6.5rem); font-weight:400; letter-spacing:.04em; line-height:.9; margin-bottom:24px; }
+    .detail-meta { display:flex; gap:32px; flex-wrap:wrap; padding:20px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:48px; }
+    .detail-meta-item { display:flex; flex-direction:column; gap:4px; }
+    .detail-meta-label { font-family:var(--font-mono); font-size:.58rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
+    .detail-meta-value { font-size:.9rem; color:var(--text); }
+
+    .detail-video { max-width:1200px; margin:0 auto; padding:0 48px 60px; }
+    @media(max-width:768px){ .detail-video{ padding:0 24px 48px; } }
+    .video-wrap { position:relative; padding:56.25% 0 0 0; background:var(--surface); }
+    .video-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
+
+    .detail-content { max-width:1200px; margin:0 auto; padding:0 48px 120px; }
+    @media(max-width:768px){ .detail-content{ padding:0 24px 80px; } }
+
+    .detail-body { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-bottom:60px; }
+    @media(max-width:768px){ .detail-body{ grid-template-columns:1fr; gap:32px; } }
+    .detail-desc { font-size:1.05rem; color:rgba(240,237,232,.75); line-height:1.8; }
+    .detail-desc p { margin-bottom:16px; }
+    .detail-desc p:last-child { margin-bottom:0; }
+    .detail-desc em { color:rgba(240,237,232,.9); font-style:italic; }
+
+    /* TECH GRID */
+    .tech-section { margin-bottom:60px; }
+    .tech-label { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+    .tech-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+    @media(max-width:600px){ .tech-grid{ grid-template-columns:1fr; } }
+    .tech-block { background:var(--surface); padding:24px 28px; }
+    .tech-block-title { font-family:var(--font-display); font-size:1rem; font-weight:700; margin-bottom:12px; }
+    .tech-block p { font-size:.88rem; color:rgba(240,237,232,.65); line-height:1.75; }
+    .tech-stack { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+    .tech-tag { font-family:var(--font-mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; padding:4px 10px; border:1px solid var(--border); color:var(--muted); }
+
+    /* PIPELINE */
+    .pipeline { background:var(--surface); border-left:2px solid var(--accent); padding:20px 28px; margin-bottom:2px; font-family:var(--font-mono); font-size:.8rem; color:rgba(240,237,232,.7); letter-spacing:.04em; line-height:2; }
+
+    /* IMAGES */
+    .img-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:2px; }
+    .img-grid-2 img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; filter:brightness(.85); transition:filter .3s; }
+    .img-grid-2 img:hover { filter:brightness(1); }
+    .img-grid-4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:2px; margin-bottom:60px; }
+    .img-grid-4 img { width:100%; aspect-ratio:1; object-fit:cover; display:block; filter:brightness(.85); transition:filter .3s; }
+    .img-grid-4 img:hover { filter:brightness(1); }
+    @media(max-width:768px){ .img-grid-4{ grid-template-columns:1fr 1fr; } .img-grid-2{ grid-template-columns:1fr; } }
+
+    /* CREDITS */
+    .credits { background:var(--surface); padding:28px; margin-bottom:60px; }
+    .credits-title { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+    .credits p { font-size:.88rem; color:rgba(240,237,232,.6); line-height:1.8; }
+
+    /* KEYWORDS */
+    .keywords { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:60px; }
+    .kw { font-family:var(--font-mono); font-size:.6rem; letter-spacing:.1em; padding:5px 12px; border:1px solid var(--border); color:var(--muted); }
+
+    .detail-nav { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:32px; }
+    .detail-nav a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .detail-nav a:hover { color:var(--accent); }
+    .detail-nav .back { color:var(--text); }
+
+    .r { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+    .r.on { opacity:1; transform:none; }
   </style>
 </head>
 <body>
-  <div class="nav">
-    <a href="../index.html#film">Film</a>
-    <a href="../index.html#interactive">Interactive Art</a>
-    <a href="../index.html#media">Media Art</a>
-    <a href="../index.html#xr">XR</a>
-    <a href="../index.html#vfx">3D/VFX</a>
-    <a href="../index.html#about" class="hide-on-mobile">About</a>
-    <a href="../index.html#news" class="hide-on-mobile">News</a>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html#interactive">Interactive</a></li>
+    <li><a href="../index.html#film">Film</a></li>
+    <li><a href="../index.html#media">Media Art</a></li>
+    <li><a href="../index.html#xr">XR · Game</a></li>
+    <li><a href="../index.html#vfx">3D / VFX</a></li>
+    <li><a href="../index.html#about">About</a></li>
+  </ul>
+</nav>
+
+<div class="detail-hero">
+  <div class="detail-cat r">Digital Human Research · California Institute of the Arts, 2024</div>
+  <h1 class="detail-title r">AI Choi<br>Jung-hoon</h1>
+  <div class="detail-meta r">
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Year</span>
+      <span class="detail-meta-value">2024</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Type</span>
+      <span class="detail-meta-value">AI Digital Human Research</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Subject</span>
+      <span class="detail-meta-value">JANNABI — Lead Vocalist</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Role</span>
+      <span class="detail-meta-value">Principal Investigator · Technical Director</span>
+    </div>
+  </div>
+</div>
+
+<div class="detail-video r">
+  <div class="video-wrap">
+    <iframe src="https://player.vimeo.com/video/933305770?h=b3cef8f513"
+      frameborder="0"
+      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+      title="AI Choi Jung-hoon">
+    </iframe>
+  </div>
+</div>
+
+<div class="detail-content">
+
+  <!-- OVERVIEW -->
+  <div class="detail-body r">
+    <div class="detail-desc">
+      <p>This project reconstructs the lead vocalist of JANNABI as a generative, interactive AI digital human. It examines how identity, emotion, and authorship can be algorithmically simulated, transforming a figure of admiration into computational presence.</p>
+      <p>Through real-time speech, gesture response, and persona-driven interaction, the AI explores the blurry line between replication and authenticity.</p>
+    </div>
+    <div class="detail-desc">
+      <p>In an era where fandom, data, and simulation overlap, the project asks: <em>"When emotion becomes code, can affection survive imitation?"</em></p>
+      <p>By reconstructing an admired artist, the work reframes parasocial devotion as a research methodology. The digital performer learns, speaks, and responds — turning fandom into feedback and making visible the emotional projection that fuels AI-human intimacy.</p>
+    </div>
   </div>
 
-  <div class="container">
-    <h1>Choi Jung-hoon AI Human Research Project (JANNABI AI Digital Human)</h1>
-    <div class="meta">2024 · Digital Human Research · California Institute of the Arts</div>
-
-    <!-- Video -->
-    <div class="video-container">
-      <iframe src="https://player.vimeo.com/video/933305770?h=b3cef8f513" 
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share">
-      </iframe>
-    </div>
-
-    <div class="description">
-
-      <h4>Overview</h4>
-      <p>
-      Choi Jung-hoon AI Human reconstructs the lead vocalist of JANNABI as a generative, interactive AI digital human.
-      The project examines how identity, emotion, and authorship can be algorithmically simulated, transforming a figure of admiration into computational presence.
-      Through real-time speech, gesture response, and persona-driven interaction, the AI explores the blurry line between replication and authenticity.
-      </p>
-
-      <h4>Research Context</h4>
-      <p>
-      In an era where fandom, data, and simulation overlap, the project asks:
-      <i>“When emotion becomes code, can affection survive imitation?”</i><br><br>
-      By reconstructing an admired artist, the work reframes parasocial devotion as a research methodology.
-      The digital performer learns, speaks, and responds, turning fandom into feedback and making visible the emotional projection that fuels AI-human intimacy.
-      </p>
-
-      <h4>Digital Human Construction</h4>
-      <p>
-      High-resolution portrait input → Character Creator 4 Headshot → ZBrush refinement → Maya rigging and UV workflow → Unity real-time rendering.
-      </p>
-      <div class="image-text-block">
-        <img src="../assets/images/ChoiJungHoon_AI_01.jpg" />
-        <img src="../assets/images/ChoiJungHoon_AI_02.jpg" />
-      </div>
-
-      <h4>Voice Cloning (ElevenLabs)</h4>
-      <p>
-      Interview and performance samples were processed through ElevenLabs Instant Voice Cloning,
-      enabling spontaneous speech generation that mimics Choi Jung-hoon’s tone, color, and cadence.
-      Real-time lip-sync was achieved through blendshape animation in Unity.
-      </p>
-
-      <h4>Conversational AI Integration</h4>
-      <p>
-      A GPT-based persona model was embedded into Unity.  
-      Audience speech → transcription → GPT response → ElevenLabs TTS → real-time facial animation.<br>
-      A coroutine-based pipeline ensured continuous, natural conversational flow.
-      </p>
-
-      <h4>Sensor-Based Interaction (Azure Kinect)</h4>
-      <p>
-      Azure Kinect provided body tracking, gesture detection, and depth information, allowing the AI human to react physically to visitors—leaning, nodding, and mirroring engagement.
-      Audience forms were rendered as 3D point clouds, visualizing how AI perceives human presence.
-      </p>
-
-      <h4>Real-Time Unity Integration</h4>
-      <p>
-      All systems—speech, gesture, persona, emotional response, shaders—were unified in Unity’s real-time rendering pipeline,
-      emphasizing digital fragility and emotional realism.
-      </p>
-
-      <div class="image-text-block">
-        <img src="../assets/images/ChoiJungHoon_AI_03.jpg" />
-        <!-- <img src="./media/ChoiJungHoon_AI_04.jpg" />
-        <img src="../assets/images/ChoiJungHoon_AI_05.jpg" />-->
-        <img src="../assets/images/ChoiJungHoon_AI_06.jpg" />
-        <img src="../assets/images/ChoiJungHoon_AI_07.jpg" />
-        <img src="../assets/images/ChoiJungHoon_AI_08.jpg" />
-      </div>
-
-      <h4>Artistic & Theoretical Focus</h4>
-      <p>
-      The project explores AI-mediated affection and the co-construction of identity in machine-human systems.
-      By merging machine learning, motion capture, and emotional projection, the digital Choi Jung-hoon becomes both a subject of empathy and a simulation of it.
-      This work rethinks authorship and digital intimacy in the era of computational performers.
-      </p>
-
-      <h4>Keywords</h4>
-      <p>
-      #digital-human #ai-persona #voice-cloning #real-time-interaction #cyborg-psychology
-      </p>
-
-      <h4>Credits</h4>
-      <p>
-      Principal Investigator / Technical Director: <b>Jonghoon Ahn</b><br>
-      Institution: California Institute of the Arts<br>
-      Tools: Unity, Character Creator 4, ZBrush, Maya, ElevenLabs, Azure Kinect, GPT API
-      </p>
-
-    </div>
-
-    <nav class="pagination">
-      <a href="interactive_1.html">← Previous</a>
-      <a href="../index.html">Back to Portfolio</a>
-      <a href="interactive_3.html">Next →</a>
-    </nav>
+  <!-- CONSTRUCTION IMAGES -->
+  <div class="img-grid-2 r" style="margin-bottom:2px;">
+    <img src="../assets/images/ChoiJungHoon_AI_01.jpg" alt="Digital Human Construction">
+    <img src="../assets/images/ChoiJungHoon_AI_02.jpg" alt="Digital Human Construction">
   </div>
+
+  <!-- TECHNICAL PIPELINE -->
+  <div class="tech-section r">
+    <div class="tech-label">Technical Pipeline</div>
+
+    <div class="pipeline">
+      High-res portrait → Character Creator 4 Headshot → ZBrush refinement → Maya rigging & UV → Unity real-time rendering
+    </div>
+
+    <div class="tech-grid" style="margin-top:2px;">
+      <div class="tech-block">
+        <div class="tech-block-title">Digital Human Construction</div>
+        <p>High-resolution portrait input processed through Character Creator 4 Headshot, refined in ZBrush, rigged and UV-unwrapped in Maya, then integrated into Unity for real-time rendering.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">Character Creator 4</span>
+          <span class="tech-tag">ZBrush</span>
+          <span class="tech-tag">Maya</span>
+          <span class="tech-tag">Unity</span>
+        </div>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-block-title">Voice Cloning</div>
+        <p>Interview and performance samples processed through ElevenLabs Instant Voice Cloning, enabling spontaneous speech generation that mimics tone, color, and cadence. Real-time lip-sync achieved through blendshape animation.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">ElevenLabs</span>
+          <span class="tech-tag">Blendshape</span>
+        </div>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-block-title">Conversational AI Integration</div>
+        <p>GPT-based persona model embedded into Unity. Audience speech → transcription → GPT response → ElevenLabs TTS → real-time facial animation. A coroutine-based pipeline ensures continuous, natural conversational flow.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">GPT API</span>
+          <span class="tech-tag">TTS</span>
+          <span class="tech-tag">Unity</span>
+        </div>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-block-title">Sensor-Based Interaction</div>
+        <p>Azure Kinect provides body tracking, gesture detection, and depth information, allowing the AI human to react physically to visitors — leaning, nodding, and mirroring engagement. Audience forms rendered as 3D point clouds.</p>
+        <div class="tech-stack">
+          <span class="tech-tag">Azure Kinect</span>
+          <span class="tech-tag">Point Cloud</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MORE IMAGES -->
+  <div class="img-grid-4 r">
+    <img src="../assets/images/ChoiJungHoon_AI_03.jpg" alt="AI Choi Jung-hoon">
+    <img src="../assets/images/ChoiJungHoon_AI_06.jpg" alt="AI Choi Jung-hoon">
+    <img src="../assets/images/ChoiJungHoon_AI_07.jpg" alt="AI Choi Jung-hoon">
+    <img src="../assets/images/ChoiJungHoon_AI_08.jpg" alt="AI Choi Jung-hoon">
+  </div>
+
+  <!-- ARTISTIC FOCUS -->
+  <div class="detail-body r">
+    <div class="detail-desc">
+      <p>The project explores AI-mediated affection and the co-construction of identity in machine-human systems. By merging machine learning, motion capture, and emotional projection, the digital Choi Jung-hoon becomes both a subject of empathy and a simulation of it.</p>
+    </div>
+    <div class="detail-desc">
+      <p>This work rethinks authorship and digital intimacy in the era of computational performers — questioning what it means to know, love, or lose someone who was never entirely human.</p>
+    </div>
+  </div>
+
+  <!-- KEYWORDS -->
+  <div class="keywords r">
+    <span class="kw">Digital Human</span>
+    <span class="kw">AI Persona</span>
+    <span class="kw">Voice Cloning</span>
+    <span class="kw">Real-time Interaction</span>
+    <span class="kw">Cyborg Psychology</span>
+    <span class="kw">Parasocial AI</span>
+  </div>
+
+  <!-- CREDITS -->
+  <div class="credits r">
+    <div class="credits-title">Credits</div>
+    <p>Principal Investigator / Technical Director: <strong style="color:var(--text);">Jonghoon Ahn</strong><br>
+    Institution: California Institute of the Arts<br>
+    Tools: Unity · Character Creator 4 · ZBrush · Maya · ElevenLabs · Azure Kinect · GPT API</p>
+  </div>
+
+  <div class="detail-nav r">
+    <a href="interactive_8.html">← Previous</a>
+    <a href="../index.html" class="back">All Work</a>
+    <a href="interactive_10.html">Next →</a>
+  </div>
+</div>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('on'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+</script>
+<script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 </html>

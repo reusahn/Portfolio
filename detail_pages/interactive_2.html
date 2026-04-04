@@ -3,219 +3,272 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gang Se-hwang AI Docent</title>
+  <title>AI Gang Se-hwang — Jonghoon Ahn</title>
+  <link rel="icon" href="../assets/images/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <style>
-  @media (max-width: 768px) {
-  .hide-on-mobile {
-    display: none;
-  }
-}
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background: #000;
-      color: #f0f0f0;
-      line-height: 1.7;
-      padding: 60px 20px;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080808;
+      --surface: #111;
+      --border: rgba(255,255,255,0.07);
+      --text: #f0ede8;
+      --muted: #555;
+      --accent: #e8ff47;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --font-body: 'DM Sans', sans-serif;
     }
-    .nav {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 0.9rem;
-      z-index: 1000;
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-weight:300; line-height:1.6; overflow-x:hidden; }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:22px 48px; background:rgba(8,8,8,.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+    .nav-back { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-back:hover { color:var(--accent); }
+    .nav-links { display:flex; gap:24px; list-style:none; }
+    .nav-links a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+    .nav-toggle span { width:24px; height:1px; background:var(--text); }
+    @media(max-width:768px){
+      nav { padding:18px 24px; }
+      .nav-toggle { display:flex; }
+      .nav-links { display:none; flex-direction:column; position:fixed; top:0; right:0; bottom:0; width:70vw; max-width:280px; background:rgba(8,8,8,.97); backdrop-filter:blur(20px); padding:80px 32px 32px; border-left:1px solid var(--border); gap:0; }
+      .nav-links.open { display:flex; }
+      .nav-links a { font-size:1rem; padding:14px 0; border-bottom:1px solid var(--border); }
     }
-    .nav a {
-      margin-left: 15px;
-      text-decoration: none;
-      color: #888;
-    }
-    .nav a:hover {
-      color: #fff;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-    .meta {
-      font-size: 0.95rem;
-      color: #999;
-      font-style: italic;
-      margin-bottom: 30px;
-    }
-    .video-container {
-      width: 40%;
-      aspect-ratio: 16 / 9;
-      margin-bottom: 30px;
-    }
-    .video-container iframe {
-      width: 50%;
-      height: 50%;
-      border: none;
-      border-radius: 8px;
-    }
-    .description {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 50px;
-    }
-    .image-text-block {
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
-      align-items: flex-start;
-      margin-bottom: 60px;
-      flex-wrap: wrap;
-    }
-    .image-text-block img {
-      width: 100%;
-      max-width: 400px;
-      border-radius: 8px;
-    }
-    .image-text-block .text {
-      flex: 1;
-      min-width: 250px;
-      font-size: 0.95rem;
-      color: #aaa;
-    }
-    nav.pagination {
-      margin-top: 60px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.95rem;
-    }
-    nav.pagination a {
-      color: #888;
-      text-decoration: none;
-    }
-    nav.pagination a:hover {
-      color: #fff;
-    }
+
+    /* HERO */
+    .detail-hero { padding:120px 48px 0; max-width:1200px; margin:0 auto; }
+    @media(max-width:768px){ .detail-hero{ padding:100px 24px 0; } }
+    .detail-cat { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+    .detail-title { font-family:'Bebas Neue', sans-serif; font-size:clamp(3rem,7vw,6.5rem); font-weight:400; letter-spacing:.04em; line-height:.9; margin-bottom:24px; }
+    .detail-meta { display:flex; gap:32px; flex-wrap:wrap; padding:20px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:48px; }
+    .detail-meta-item { display:flex; flex-direction:column; gap:4px; }
+    .detail-meta-label { font-family:var(--font-mono); font-size:.58rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
+    .detail-meta-value { font-size:.9rem; color:var(--text); }
+
+    /* VIDEO — portrait ratio */
+    .detail-video { max-width:1200px; margin:0 auto; padding:0 48px 60px; display:grid; grid-template-columns:1fr 2fr; gap:2px; align-items:start; }
+    @media(max-width:768px){ .detail-video{ grid-template-columns:1fr; padding:0 24px 48px; } }
+    .video-wrap-portrait { position:relative; padding:177.78% 0 0 0; background:var(--surface); }
+    .video-wrap-portrait iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
+    .video-side { padding:32px 28px; background:var(--surface); display:flex; flex-direction:column; justify-content:center; }
+    .video-side p { font-size:1rem; color:rgba(240,237,232,.7); line-height:1.8; margin-bottom:16px; }
+    .video-side p:last-child { margin-bottom:0; }
+
+    /* CONTENT */
+    .detail-content { max-width:1200px; margin:0 auto; padding:0 48px 120px; }
+    @media(max-width:768px){ .detail-content{ padding:0 24px 80px; } }
+
+    .detail-body { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-bottom:60px; }
+    @media(max-width:768px){ .detail-body{ grid-template-columns:1fr; gap:32px; } }
+    .detail-desc { font-size:1.05rem; color:rgba(240,237,232,.75); line-height:1.8; }
+    .detail-desc p { margin-bottom:16px; }
+    .detail-desc p:last-child { margin-bottom:0; }
+
+    /* PROCESS SECTIONS */
+    .process-section { margin-bottom:60px; }
+    .process-label { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+    .process-body { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+    @media(max-width:600px){ .process-body{ grid-template-columns:1fr; } }
+    .process-body.three { grid-template-columns:1fr 1fr 1fr; }
+    @media(max-width:768px){ .process-body.three{ grid-template-columns:1fr 1fr; } }
+    @media(max-width:480px){ .process-body.three{ grid-template-columns:1fr; } }
+    .process-body.four { grid-template-columns:1fr 1fr 1fr 1fr; }
+    @media(max-width:900px){ .process-body.four{ grid-template-columns:1fr 1fr; } }
+    @media(max-width:480px){ .process-body.four{ grid-column:1fr; } }
+    .process-img { width:100%; aspect-ratio:5/3; object-fit:cover; display:block; filter:brightness(.85); transition:filter .3s; }
+    .process-img.portrait { aspect-ratio:3/4; }
+    .process-img:hover { filter:brightness(1); }
+    .process-note { background:var(--surface); padding:24px 28px; }
+    .process-note p { font-size:.9rem; color:rgba(240,237,232,.65); line-height:1.75; }
+
+    /* FULL WIDTH IMAGE */
+    .full-img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; filter:brightness(.85); margin-bottom:2px; transition:filter .3s; }
+    .full-img:hover { filter:brightness(1); }
+
+    /* PAGINATION */
+    .detail-nav { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:32px; margin-top:60px; }
+    .detail-nav a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .detail-nav a:hover { color:var(--accent); }
+    .detail-nav .back { color:var(--text); }
+
+    /* REVEAL */
+    .r { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+    .r.on { opacity:1; transform:none; }
   </style>
 </head>
 <body>
-  <div class="nav">
-    <a href="../index.html#film">Film</a>
-    <a href="../index.html#interactive">Interactive Art</a>
-    <a href="../index.html#media">Media Art</a>
-    <a href="../index.html#xr">XR</a>
-    <a href="../index.html#vfx">3D/VFX</a>
-    <a href="../index.html#about" class="hide-on-mobile">About</a>
-    <a href="../index.html#news" class="hide-on-mobile">News</a>
-  </div>
 
-  <div class="container">
-    <h1>Gang Se-hwang AI Docent</h1>
-    <div class="meta">2022 · Interactive Art · 경기도박물관-Gyeonggi Provincial Museum</div>
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html#interactive">Interactive</a></li>
+    <li><a href="../index.html#film">Film</a></li>
+    <li><a href="../index.html#media">Media Art</a></li>
+    <li><a href="../index.html#xr">XR · Game</a></li>
+    <li><a href="../index.html#vfx">3D / VFX</a></li>
+    <li><a href="../index.html#about">About</a></li>
+  </ul>
+</nav>
 
-    <div class="video-container">
-    <div style="padding:177.78% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1011866123?h=8336cf2a0c&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="강세황"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+<!-- HEADER -->
+<div class="detail-hero">
+  <div class="detail-cat r">Interactive Installation · Gyeonggi Provincial Museum, 2022</div>
+  <h1 class="detail-title r">AI Gang<br>Se-hwang<br>Docent</h1>
+  <div class="detail-meta r">
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Year</span>
+      <span class="detail-meta-value">2022</span>
     </div>
-
-    <div class="description">
-      <p>Gang Se-hwang AI Docent is an interactive media installation that digitally revives Gang Se-hwang as a real-time AI human.
-Through 3D reconstruction, motion capture, and speech interaction, the project allows visitors to converse, pose, and take photographs with a historically reimagined figure.
-The work explores how artificial intelligence and real-time rendering reinterpret cultural heritage, transforming history into a living, participatory experience.</p>
-
-<p>
-Traditional heritage preservation has long focused on static representation — objects, paintings, and archives.
-Yet memory is performative; it survives through gestures, voice, and behavior.
-This project investigates how digital embodiment can revive historical identity not as a frozen artifact but as a living, interactive presence.
-By letting museum visitors encounter a responsive digital scholar, the installation reframes preservation as participation — turning heritage into dialogue and memory into empathy.
-</p>
-<br>
-<h4>
-Archival Reference
-</h4>
-<p>
-Historical portraits and materials were provided by the Gyeonggi Provincial Museum, serving as references for the digital reconstruction.
-</p>
- <div class="image-text-block">
-      <img src="../assets/images/GangSehwang_reference_02.jpg" alt="Interactive Art Project 2 Still">
-</div>
-
-
-<h4>
-Digital Reconstruction
-</h4>
-<p>
-3D facial and body modeling using ZBrush and Maya, Texture mapping, UV unwrapping, and normal map generation, Hair cards and fabric shaders for realistic rendering
-</p>
- <div class="image-text-block">
-      <img src="../assets/images/GangSehwang_modeling_01.jpg" alt="Interactive Art Project 2 Still">
-<img src="../assets/images/GangSehwang_modeling_02.jpg" alt="Interactive Art Project 2 Still">
-<img src="../assets/images/GangSehwang_modeling_03.jpg" alt="Interactive Art Project 2 Still">
-<img src="../assets/images/GangSehwang_modeling_05.jpg" alt="Interactive Art Project 2 Still">
-</div>
-
-
-<h4>
-Motion Capture
-</h4>
-<p>
-Body motion: recorded using the OptiTrack system
-</p>
-<p>
-Facial motion: captured through Apple ARKit, synchronizing expression and dialogue
-</p>
- <div class="image-text-block">
-      <img src="../assets/images/GangSehwang_modeling.gif" alt="Interactive Art Project 2 Still">
-      <img src="../assets/images/GangSehwang_Mocap_02.jpg" alt="Interactive Art Project 2 Still">
-</div>
-
-
-<h4>
-Costume Simulation
-</h4>
-<p>
-Traditional Korean attire — hanbok, gat hat, and layered robes — were modeled and simulated in Blender and Maya, achieving physically accurate fabric movement.
-</p>
- <div class="image-text-block">
-      <img src="../assets/images/costume.png" alt="Interactive Art Project 2 Still">
-      <img src="../assets/images/interactive2_1.jpg" alt="Interactive Art Project 2 Still">
-</div>
-
-<h4>
-Real-Time Integration in Unity
-</h4>
-<p>
-All assets were imported into Unity 3D, where interactive animation triggers (buttons, speech recognition, and audience proximity) were implemented.
-</p>
- <div class="image-text-block">
-      <img src="../assets/images/GangSehwang_unity_01.jpg" alt="Interactive Art Project 2 Still">
-      <img src="../assets/images/GangSehwang_unity_02.jpg" alt="Interactive Art Project 2 Still">
-</div>
-
-<h4>
-Installation Deployment
-</h4>
-<p>
-All assets were imported into Unity 3D, where interactive animation triggers (buttons, speech recognition, and audience proximity) were implemented.The final AI docent was deployed at the Gyeonggi Provincial Museum, operating in real time as a responsive digital guide for visitors.</p>
- <div class="image-text-block">
-      <img src="../assets/images/GangSehwang_install_01.jpg" alt="Interactive Art Project 2 Still">
-      <img src="../assets/images/GangSehwang_install_03.jpg" alt="Interactive Art Project 2 Still">
-</div>
-
-<h4>
- Artistic & Theoretical Significance
-</h4>
-<p>
-The project explores how historical identity and cultural heritage can persist through technological translation.
-By reanimating a historical figure within a real-time digital human framework, it demonstrates how AI can serve as a medium of cultural empathy, rather than mere replication.
-It proposes a new form of Cyborg Museology — a museum paradigm where memory becomes interactive and heritage evolves through human–machine coexistence.</p>
-
-
-    <nav class="pagination">
-      <a href="interactive_1.html">← Previous</a>
-      <a href="../index.html">Back to Portfolio</a>
-      <a href="interactive_3.html">Next →</a>
-    </nav>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Type</span>
+      <span class="detail-meta-value">Interactive AI Installation</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Venue</span>
+      <span class="detail-meta-value">Gyeonggi Provincial Museum</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Role</span>
+      <span class="detail-meta-value">Technical Director</span>
+    </div>
   </div>
+</div>
+
+<!-- VIDEO + SYNOPSIS -->
+<div class="detail-video r">
+  <div class="video-wrap-portrait">
+    <iframe src="https://player.vimeo.com/video/1011866123?h=8336cf2a0c&badge=0&autopause=0&player_id=0&app_id=58479"
+      frameborder="0"
+      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      title="AI Gang Se-hwang">
+    </iframe>
+  </div>
+  <div class="video-side">
+    <p>Gang Se-hwang AI Docent is an interactive media installation that digitally revives Gang Se-hwang — renowned painter and mentor to Kim Hong-do — as a real-time AI human. Through 3D reconstruction, motion capture, and speech interaction, visitors can converse, pose, and take photographs with a historically reimagined figure.</p>
+    <p>Traditional heritage preservation has long focused on static representation. Yet memory is performative — it survives through gestures, voice, and behavior. This project investigates how digital embodiment can revive historical identity not as a frozen artifact but as a living, interactive presence.</p>
+    <p>By letting museum visitors encounter a responsive digital scholar, the installation reframes preservation as participation — turning heritage into dialogue and memory into empathy.</p>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="detail-content">
+
+  <!-- ARCHIVAL REFERENCE -->
+  <div class="process-section r">
+    <div class="process-label">Archival Reference</div>
+    <div class="process-body">
+      <img src="../assets/images/GangSehwang_reference_02.jpg" alt="Gang Se-hwang Historical Reference" class="process-img">
+      <div class="process-note">
+        <p>Historical portraits and materials were provided by the Gyeonggi Provincial Museum, serving as primary references for digital reconstruction. The team studied original ink paintings, written records, and academic research on Gang Se-hwang's physical characteristics and mannerisms.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIGITAL RECONSTRUCTION -->
+  <div class="process-section r">
+    <div class="process-label">Digital Reconstruction</div>
+    <div class="process-body four">
+      <img src="../assets/images/GangSehwang_modeling_01.jpg" alt="3D Modeling" class="process-img">
+      <img src="../assets/images/GangSehwang_modeling_02.jpg" alt="3D Modeling" class="process-img">
+      <img src="../assets/images/GangSehwang_modeling_03.jpg" alt="3D Modeling" class="process-img">
+      <img src="../assets/images/GangSehwang_modeling_05.jpg" alt="3D Modeling" class="process-img">
+    </div>
+    <div class="process-note" style="margin-top:2px;">
+      <p>3D facial and body modeling using ZBrush and Maya. Texture mapping, UV unwrapping, and normal map generation. Hair cards and fabric shaders for physically accurate rendering.</p>
+    </div>
+  </div>
+
+  <!-- MOTION CAPTURE -->
+  <div class="process-section r">
+    <div class="process-label">Motion Capture</div>
+    <div class="process-body">
+      <img src="../assets/images/GangSehwang_modeling.gif" alt="Motion Capture" class="process-img">
+      <img src="../assets/images/GangSehwang_Mocap_02.jpg" alt="Motion Capture" class="process-img">
+    </div>
+    <div class="process-note" style="margin-top:2px;">
+      <p>Body motion recorded using the OptiTrack system. Facial motion captured through Apple ARKit, synchronizing expression and dialogue in real time.</p>
+    </div>
+  </div>
+
+  <!-- COSTUME SIMULATION -->
+  <div class="process-section r">
+    <div class="process-label">Costume Simulation</div>
+    <div class="process-body">
+      <img src="../assets/images/costume.png" alt="Costume Simulation" class="process-img">
+      <img src="../assets/images/interactive2_1.jpg" alt="Costume Result" class="process-img">
+    </div>
+    <div class="process-note" style="margin-top:2px;">
+      <p>Traditional Korean attire — hanbok, gat hat, and layered robes — modeled and simulated in Blender and Maya, achieving physically accurate fabric movement and draping.</p>
+    </div>
+  </div>
+
+  <!-- UNITY INTEGRATION -->
+  <div class="process-section r">
+    <div class="process-label">Real-Time Integration in Unity</div>
+    <div class="process-body">
+      <img src="../assets/images/GangSehwang_unity_01.jpg" alt="Unity Integration" class="process-img">
+      <img src="../assets/images/GangSehwang_unity_02.jpg" alt="Unity Integration" class="process-img">
+    </div>
+    <div class="process-note" style="margin-top:2px;">
+      <p>All assets imported into Unity 3D, where interactive animation triggers — buttons, speech recognition, and audience proximity detection — were implemented for real-time responsiveness.</p>
+    </div>
+  </div>
+
+  <!-- INSTALLATION -->
+  <div class="process-section r">
+    <div class="process-label">Installation Deployment</div>
+    <div class="process-body">
+      <img src="../assets/images/GangSehwang_install_01.jpg" alt="Museum Installation" class="process-img">
+      <img src="../assets/images/GangSehwang_install_03.jpg" alt="Museum Installation" class="process-img">
+    </div>
+    <div class="process-note" style="margin-top:2px;">
+      <p>The final AI docent was deployed at the Gyeonggi Provincial Museum, operating in real time as a responsive digital guide. Visitors could engage in conversation, request demonstrations, and pose for commemorative photographs with the digital Gang Se-hwang.</p>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="detail-body r">
+    <div class="detail-desc">
+      <p>The project explores how historical identity and cultural heritage can persist through technological translation. By reanimating a historical figure within a real-time digital human framework, it demonstrates how AI can serve as a medium of cultural empathy rather than mere replication.</p>
+    </div>
+    <div class="detail-desc">
+      <p>It proposes a new form of Cyborg Museology — a museum paradigm where memory becomes interactive and heritage evolves through human–machine coexistence.</p>
+    </div>
+  </div>
+
+  <!-- PAGINATION -->
+  <div class="detail-nav r">
+    <a href="interactive_1.html">← Previous</a>
+    <a href="../index.html" class="back">All Work</a>
+    <a href="interactive_3.html">Next →</a>
+  </div>
+</div>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('on'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+</script>
+<script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 </html>

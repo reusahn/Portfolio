@@ -3,137 +3,187 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Urban Diary</title>
+  <title>Urban Diary — Jonghoon Ahn</title>
+  <link rel="icon" href="../assets/images/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <style>
-  @media (max-width: 768px) {
-  .hide-on-mobile {
-    display: none;
-  }
-}
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background: #000;
-      color: #f0f0f0;
-      line-height: 1.7;
-      padding: 60px 20px;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080808;
+      --surface: #111;
+      --border: rgba(255,255,255,0.07);
+      --text: #f0ede8;
+      --muted: #555;
+      --accent: #e8ff47;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --font-body: 'DM Sans', sans-serif;
     }
-    .nav {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 0.9rem;
-      z-index: 1000;
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-weight:300; line-height:1.6; overflow-x:hidden; }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:22px 48px; background:rgba(8,8,8,.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+    .nav-back { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-back:hover { color:var(--accent); }
+    .nav-links { display:flex; gap:24px; list-style:none; }
+    .nav-links a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+    .nav-toggle span { width:24px; height:1px; background:var(--text); }
+    @media(max-width:768px){
+      nav { padding:18px 24px; }
+      .nav-toggle { display:flex; }
+      .nav-links { display:none; flex-direction:column; position:fixed; top:0; right:0; bottom:0; width:70vw; max-width:280px; background:rgba(8,8,8,.97); backdrop-filter:blur(20px); padding:80px 32px 32px; border-left:1px solid var(--border); gap:0; }
+      .nav-links.open { display:flex; }
+      .nav-links a { font-size:1rem; padding:14px 0; border-bottom:1px solid var(--border); }
     }
-    .nav a {
-      margin-left: 15px;
-      text-decoration: none;
-      color: #888;
-    }
-    .nav a:hover {
-      color: #fff;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-    .meta {
-      font-size: 0.95rem;
-      color: #999;
-      font-style: italic;
-      margin-bottom: 30px;
-    }
-    .video-container {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      margin-bottom: 30px;
-    }
-    .video-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 8px;
-    }
-    .description {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 50px;
-    }
-    .image-text-block {
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
-      align-items: flex-start;
-      margin-bottom: 60px;
-      flex-wrap: wrap;
-    }
-    .image-text-block img {
-      width: 100%;
-      max-width: 400px;
-      border-radius: 8px;
-    }
-    .image-text-block .text {
-      flex: 1;
-      min-width: 250px;
-      font-size: 0.95rem;
-      color: #aaa;
-    }
-    nav.pagination {
-      margin-top: 60px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.95rem;
-    }
-    nav.pagination a {
-      color: #888;
-      text-decoration: none;
-    }
-    nav.pagination a:hover {
-      color: #fff;
-    }
+
+    /* HERO */
+    .detail-hero { padding:120px 48px 0; max-width:1200px; margin:0 auto; }
+    @media(max-width:768px){ .detail-hero{ padding:100px 24px 0; } }
+    .detail-cat { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+    .detail-title { font-family:'Bebas Neue', sans-serif; font-size:clamp(3.5rem,8vw,7rem); font-weight:400; letter-spacing:.04em; line-height:.9; margin-bottom:24px; }
+    .detail-meta { display:flex; gap:32px; flex-wrap:wrap; padding:20px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:48px; }
+    .detail-meta-item { display:flex; flex-direction:column; gap:4px; }
+    .detail-meta-label { font-family:var(--font-mono); font-size:.58rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
+    .detail-meta-value { font-size:.9rem; color:var(--text); }
+
+    /* VIDEO */
+    .detail-video { max-width:1200px; margin:0 auto; padding:0 48px 60px; }
+    @media(max-width:768px){ .detail-video{ padding:0 24px 48px; } }
+    .video-wrap { position:relative; padding:56.25% 0 0 0; background:var(--surface); }
+    .video-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
+
+    /* PASSWORD NOTE */
+    .password-note { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.12em; color:var(--muted); margin-top:12px; }
+    .password-note span { color:var(--accent); }
+
+    /* CONTENT */
+    .detail-content { max-width:1200px; margin:0 auto; padding:0 48px 120px; }
+    @media(max-width:768px){ .detail-content{ padding:0 24px 80px; } }
+
+    .detail-body { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-bottom:60px; }
+    @media(max-width:768px){ .detail-body{ grid-template-columns:1fr; gap:32px; } }
+
+    .detail-desc { font-size:1.05rem; color:rgba(240,237,232,.75); line-height:1.8; }
+    .detail-desc p { margin-bottom:16px; }
+    .detail-desc p:last-child { margin-bottom:0; }
+
+    /* IMAGES */
+    .detail-images { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:60px; }
+    .detail-images img { width:100%; aspect-ratio:16/10; object-fit:cover; display:block; filter:brightness(.85); transition:filter .3s; }
+    .detail-images img:hover { filter:brightness(1); }
+    .detail-images .full { grid-column:span 2; }
+    @media(max-width:600px){ .detail-images{ grid-template-columns:1fr; } .detail-images .full{ grid-column:span 1; } }
+
+    /* PAGINATION */
+    .detail-nav { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:32px; }
+    .detail-nav a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .detail-nav a:hover { color:var(--accent); }
+    .detail-nav .back { color:var(--text); }
+
+    /* REVEAL */
+    .r { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+    .r.on { opacity:1; transform:none; }
   </style>
 </head>
 <body>
-  <div class="nav">
-    <a href="../index.html#film">Film</a>
-    <a href="../index.html#interactive">Interactive Art</a>
-    <a href="../index.html#media">Media Art</a>
-    <a href="../index.html#xr">XR</a>
-    <a href="../index.html#vfx">3D/VFX</a>
-    <a href="../index.html#about" class="hide-on-mobile">About</a>
-    <a href="../index.html#news" class="hide-on-mobile">News</a>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html#interactive">Interactive</a></li>
+    <li><a href="../index.html#film">Film</a></li>
+    <li><a href="../index.html#media">Media Art</a></li>
+    <li><a href="../index.html#xr">XR · Game</a></li>
+    <li><a href="../index.html#vfx">3D / VFX</a></li>
+    <li><a href="../index.html#about">About</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<div class="detail-hero">
+  <div class="detail-cat r">Film</div>
+  <h1 class="detail-title r">Urban<br>Diary</h1>
+  <div class="detail-meta r">
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Year</span>
+      <span class="detail-meta-value">2019</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Type</span>
+      <span class="detail-meta-value">Live Action Short Film</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Runtime</span>
+      <span class="detail-meta-value">18 min</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Role</span>
+      <span class="detail-meta-value">Director</span>
+    </div>
   </div>
+</div>
 
-  <div class="container">
-    <h1>Urban Diary</h1>
-    <div class="meta">2019 · Live Action Film · 18min</div>
+<!-- VIDEO -->
+<div class="detail-video r">
+  <div class="video-wrap">
+    <iframe src="https://player.vimeo.com/video/1105078838?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+      frameborder="0"
+      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      title="Urban Diary">
+    </iframe>
+  </div>
+  <p class="password-note">Password: <span>urbandiary</span></p>
+</div>
 
-  <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1105078838?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Urban Diary"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
-
-    <div class="description">
-      <p>Password : urbandiary</p>
-
+<!-- CONTENT -->
+<div class="detail-content">
+  <div class="detail-body r">
+    <div class="detail-desc">
       <p>When a high school girl is left alone in her apartment after her stay-at-home father returns to work, her quiet routine unravels into a haunting meditation on absence, loneliness, and the fragile rhythms of family life in the city.</p>
     </div>
-
-    <div class="image-text-block">
-      <img src="../assets/images/film2_2.jpg" alt="Film Project 2 Still">
-      <div class="text">
-        <p>Urban Diary is an 18-minute and 28-second short film that Jonghoon and Kosan directed, based on a poem written by the high school student character, Min-hae. The story quietly observes the rhythms of a family’s daily life in the city: a stay-at-home father, a mother who teaches at a private after-school academy, and their teenage daughter, Min-hae. One day, when the father begins working again, Min-hae is left alone at home—a shift that quietly unveils her fear of abandonment and the weight of loneliness. The film transforms Min-hae’s written poem into moving images, interpreting her emotional landscape where absence feels like death, and a quiet house becomes a place haunted by what is no longer present. Through subtle gestures and mundane routines, the film explores grief, routine, and the fragility of family connection in modern urban life.</p>
-      </div>
+    <div class="detail-desc">
+      <p>Urban Diary is an 18-minute short film co-directed by Jonghoon and Kosan, based on a poem written by the high school student character, Min-hae. The story quietly observes the rhythms of a family's daily life in the city: a stay-at-home father, a mother who teaches at a private academy, and their teenage daughter.</p>
+      <p>One day, when the father begins working again, Min-hae is left alone at home—a shift that quietly unveils her fear of abandonment and the weight of loneliness. The film transforms Min-hae's poem into moving images, where absence feels like death, and a quiet house becomes haunted by what is no longer present.</p>
     </div>
-
-    <nav class="pagination">
-      <a href="film_1.html">← Previous</a>
-      <a href="../index.html">Back to Portfolio</a>
-      <a href="film_3.html">Next →</a>
-    </nav>
   </div>
+
+  <!-- IMAGES -->
+  <div class="detail-images r">
+    <img src="../assets/images/film2_2.jpg" alt="Urban Diary Still 1">
+  </div>
+
+  <!-- PAGINATION -->
+  <div class="detail-nav r">
+    <a href="film_1.html">← Previous</a>
+    <a href="../index.html" class="back">All Work</a>
+    <a href="film_3.html">Next →</a>
+  </div>
+</div>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('on'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+</script>
+<script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 </html>
