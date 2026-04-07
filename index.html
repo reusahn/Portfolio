@@ -172,7 +172,7 @@
     <li><a href="#xr" data-en="XR · Game" data-kr="XR · 게임">XR · Game</a></li>
     <li><a href="#vfx" data-en="3D / VFX" data-kr="3D / VFX">3D / VFX</a></li>
     <li><a href="#about" data-en="About" data-kr="소개">About</a></li>
-    <li><button class="lang-btn" id="langBtn" onclick="toggleLang()">KR</button></li>
+    <li><button class="lang-btn" id="langBtn">KR</button></li>
   </ul>
 </nav>
 
@@ -651,7 +651,7 @@
   const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
   toggle.addEventListener('click',()=>links.classList.toggle('open'));
   links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
-  document.getElementById('langBtn').addEventListener('click',()=>links.classList.remove('open'));
+  document.getElementById('langBtn').addEventListener('click',()=>{toggleLang();links.classList.remove('open');});
 
   /* NAV STICKY + ACTIVE */
   const nav=document.getElementById('nav'),navAs=document.querySelectorAll('.nav-links a[href^="#"]');
