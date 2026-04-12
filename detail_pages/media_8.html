@@ -3,132 +3,327 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Media Art Project 8</title>
+  <title>Shininho – Digital Human — Jonghoon Ahn</title>
+  <link rel="icon" href="../assets/images/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background: #000;
-      color: #f0f0f0;
-      line-height: 1.7;
-      padding: 60px 20px;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080808; --surface: #111; --surface2: #161616;
+      --border: rgba(255,255,255,0.07); --text: #f0ede8; --muted: #555; --accent: #e8ff47;
+      --font-display: 'Syne', sans-serif; --font-mono: 'Space Mono', monospace;
+      --font-body: 'DM Sans', sans-serif;
     }
-    .nav {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 0.9rem;
-      z-index: 1000;
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-weight:300; line-height:1.6; overflow-x:hidden; }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:22px 48px; background:rgba(8,8,8,.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+    .nav-back { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-back:hover { color:var(--accent); }
+    .nav-links { display:flex; gap:24px; list-style:none; }
+    .nav-links a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+    .nav-toggle span { width:24px; height:1px; background:var(--text); }
+    @media(max-width:768px){
+      nav { padding:18px 24px; }
+      .nav-toggle { display:flex; }
+      .nav-links { display:none; flex-direction:column; position:fixed; top:0; right:0; bottom:0; width:70vw; max-width:280px; background:rgba(8,8,8,.97); backdrop-filter:blur(20px); padding:80px 32px 32px; border-left:1px solid var(--border); gap:0; }
+      .nav-links.open { display:flex; }
+      .nav-links a { font-size:1rem; padding:14px 0; border-bottom:1px solid var(--border); }
     }
-    .nav a {
-      margin-left: 15px;
-      text-decoration: none;
-      color: #888;
-    }
-    .nav a:hover {
-      color: #fff;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-    .meta {
-      font-size: 0.95rem;
-      color: #999;
-      font-style: italic;
-      margin-bottom: 30px;
-    }
-    .video-container {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      margin-bottom: 30px;
-    }
-    .video-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 8px;
-    }
-    .description {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 50px;
-    }
-    .image-text-block {
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
-      align-items: flex-start;
-      margin-bottom: 60px;
-      flex-wrap: wrap;
-    }
-    .image-text-block img {
-      width: 100%;
-      max-width: 400px;
-      border-radius: 8px;
-    }
-    .image-text-block .text {
-      flex: 1;
-      min-width: 250px;
-      font-size: 0.95rem;
-      color: #aaa;
-    }
-    nav.pagination {
-      margin-top: 60px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.95rem;
-    }
-    nav.pagination a {
-      color: #888;
-      text-decoration: none;
-    }
-    nav.pagination a:hover {
-      color: #fff;
-    }
+
+    /* HERO */
+    .detail-hero { padding:120px 48px 0; max-width:1200px; margin:0 auto; }
+    @media(max-width:768px){ .detail-hero{ padding:100px 24px 0; } }
+    .detail-cat { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+    .detail-title { font-family:'Bebas Neue', sans-serif; font-size:clamp(3rem,7vw,6.5rem); font-weight:400; letter-spacing:.04em; line-height:.9; margin-bottom:24px; }
+    .detail-meta { display:flex; gap:32px; flex-wrap:wrap; padding:20px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:48px; }
+    .detail-meta-item { display:flex; flex-direction:column; gap:4px; }
+    .detail-meta-label { font-family:var(--font-mono); font-size:.58rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
+    .detail-meta-value { font-size:.9rem; color:var(--text); }
+
+    /* BANNER */
+    .detail-banner { max-width:1200px; margin:0 auto; padding:0 48px 60px; }
+    @media(max-width:768px){ .detail-banner{ padding:0 24px 48px; } }
+    .detail-banner img { width:100%; display:block; object-fit:cover; filter:brightness(.9); }
+
+    /* CONTENT */
+    .detail-content { max-width:1200px; margin:0 auto; padding:0 48px 120px; }
+    @media(max-width:768px){ .detail-content{ padding:0 24px 80px; } }
+
+    .sec-label { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+
+    .detail-body { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-bottom:60px; }
+    @media(max-width:768px){ .detail-body{ grid-template-columns:1fr; gap:32px; } }
+    .detail-desc { font-size:1.05rem; color:rgba(240,237,232,.75); line-height:1.8; }
+    .detail-desc p { margin-bottom:16px; }
+    .detail-desc p:last-child { margin-bottom:0; }
+
+    /* PIPELINE STEPS */
+    .pipeline-step { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:2px; }
+    @media(max-width:768px){ .pipeline-step{ grid-template-columns:1fr; } }
+    .pipeline-img { overflow:hidden; }
+    .pipeline-img img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; filter:brightness(.85); transition:filter .3s; }
+    .pipeline-img img:hover { filter:brightness(1); }
+    .pipeline-img.tall img { aspect-ratio:3/4; }
+    .pipeline-info { background:var(--surface); padding:36px; display:flex; flex-direction:column; justify-content:center; }
+    .pipeline-num { font-family:var(--font-mono); font-size:.6rem; color:var(--accent); letter-spacing:.15em; margin-bottom:12px; }
+    .pipeline-title { font-family:var(--font-display); font-size:1.3rem; font-weight:700; margin-bottom:16px; }
+    .pipeline-desc { font-size:.95rem; color:rgba(240,237,232,.65); line-height:1.8; }
+    .pipeline-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:20px; }
+    .ptag { font-family:var(--font-mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; padding:5px 12px; border:1px solid var(--border); color:var(--muted); }
+
+    /* TECH GRID */
+    .tech-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; margin-bottom:60px; }
+    @media(max-width:768px){ .tech-grid{ grid-template-columns:1fr; } }
+    .tech-block { background:var(--surface); padding:24px 28px; }
+    .tech-block-icon { font-family:var(--font-mono); font-size:.6rem; color:var(--accent); letter-spacing:.14em; margin-bottom:10px; }
+    .tech-block-title { font-family:var(--font-display); font-size:1rem; font-weight:700; margin-bottom:10px; }
+    .tech-block p { font-size:.85rem; color:rgba(240,237,232,.6); line-height:1.7; }
+
+    /* DUAL IMAGES */
+    .dual-img { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:2px; }
+    .dual-img img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; filter:brightness(.85); transition:filter .3s; }
+    .dual-img img:hover { filter:brightness(1); }
+    @media(max-width:600px){ .dual-img{ grid-template-columns:1fr; } }
+
+    /* FULL IMG */
+    .full-img { width:100%; display:block; object-fit:cover; filter:brightness(.85); margin-bottom:2px; transition:filter .3s; }
+    .full-img:hover { filter:brightness(1); }
+
+    /* COLLAB */
+    .collab-block { background:var(--surface); border-left:3px solid var(--accent); padding:24px 32px; margin-bottom:60px; }
+    .collab-block p { font-size:.95rem; color:rgba(240,237,232,.7); line-height:1.8; }
+    .collab-block a { color:var(--accent); text-decoration:none; }
+    .collab-block a:hover { text-decoration:underline; }
+
+    /* DIVIDER */
+    hr { border:none; border-top:1px solid var(--border); margin:60px 0; }
+
+    /* PAGINATION */
+    .detail-nav { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:32px; margin-top:60px; }
+    .detail-nav a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .detail-nav a:hover { color:var(--accent); }
+    .detail-nav .back { color:var(--text); }
+
+    .r { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+    .r.on { opacity:1; transform:none; }
   </style>
 </head>
 <body>
-  <div class="nav">
-    <a href="../index.html#film">Film</a>
-    <a href="../index.html#interactive">Interactive Art</a>
-    <a href="../index.html#media">Media Art</a>
-    <a href="../index.html#xr">XR</a>
-    <a href="../index.html#vfx">3D/VFX</a>
-    <a href="../index.html#about">About</a>
-    <a href="../index.html#news">News</a>
+
+<nav>
+  <a href="../index.html" class="nav-back">← Portfolio</a>
+  <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html#interactive">Interactive</a></li>
+    <li><a href="../index.html#film">Film</a></li>
+    <li><a href="../index.html#media">Media Art</a></li>
+    <li><a href="../index.html#xr">XR · Game</a></li>
+    <li><a href="../index.html#vfx">3D / VFX</a></li>
+    <li><a href="../index.html#about">About</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<div class="detail-hero">
+  <div class="detail-cat r">Digital Human · Unreal Engine 5 · Maya · 2024–2026</div>
+  <h1 class="detail-title r">Shininho<br>Digital Human</h1>
+  <div class="detail-meta r">
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Year</span>
+      <span class="detail-meta-value">2024–2026</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Type</span>
+      <span class="detail-meta-value">Digital Human · Real-time Character</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Engine</span>
+      <span class="detail-meta-value">Unreal Engine 5 · Maya · MetaHuman</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Collaboration</span>
+      <span class="detail-meta-value">Yaloo (@yalooreality)</span>
+    </div>
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">Role</span>
+      <span class="detail-meta-value">Technical Artist · Pipeline Lead</span>
+    </div>
+  </div>
+</div>
+
+<!-- BANNER -->
+<div class="detail-banner r">
+  <img src="../assets/images/Sinne2.jpg" alt="Shininho Digital Human" style="aspect-ratio:3974/1468;">
+</div>
+
+<!-- CONTENT -->
+<div class="detail-content">
+
+  <!-- OVERVIEW -->
+  <div class="sec-label r">Overview</div>
+  <div class="detail-body r">
+    <div class="detail-desc">
+      <p>Shininho is a digital human reconstruction project that revives media artist Yaloo's grandmother through volumetric scanning, MetaHuman-based rigging, and AI-driven gesture animation — exhibited across multiple international venues including Songeun Art Award, LA Rip Space, SF 836M, and West Seoul Museum of Art.</p>
+      <p>The project explores how affection, grief, and presence can be translated into computational form. Subtle gestures — breathing, blinking, weight shifts — were synthesized to simulate traces of life that no longer exist in the physical world.</p>
+    </div>
+    <div class="detail-desc">
+      <p>As Technical Artist and Pipeline Lead, I was responsible for the full character pipeline: volumetric scan processing, Maya rigging and UV workflow, MetaHuman integration, UE5 Sequencer cinematics, Blueprint-driven interaction systems, and real-time performance optimization across multiple exhibition environments.</p>
+      <p>The pipeline was designed to be reproducible and scalable — documentation and asset conventions were maintained throughout to support future iterations of the project.</p>
+    </div>
   </div>
 
-  <div class="container">
-    <h1>Media Art Project 8</h1>
-    <div class="meta">2025 · Media Art · Duration Varies</div>
+  <hr class="r">
 
-    <div class="video-container">
-      <iframe src="https://player.vimeo.com/video/123456789" allowfullscreen></iframe>
+  <!-- PIPELINE -->
+  <div class="sec-label r">Production Pipeline</div>
+
+  <!-- STEP 1 -->
+  <div class="pipeline-step r">
+    <div class="pipeline-img">
+      <img src="../assets/images/sin2.jpg" alt="Volumetric Capture">
     </div>
-
-    <div class="description">
-      <p>This project explores themes related to media art. It invites reflection through minimalist expression and layered imagery, touching on emotion and perception.</p>
-    </div>
-
-    <div class="image-text-block">
-      <img src="../images/media8.jpg" alt="Media Art Project 8 Still">
-      <div class="text">
-        <p>This still captures a pivotal moment where the project’s tone and theme converge. It reveals the emotional depth and visual language unique to this work.</p>
+    <div class="pipeline-info">
+      <div class="pipeline-num">01 — CAPTURE</div>
+      <div class="pipeline-title">Volumetric Scanning & Geometry Processing</div>
+      <p class="pipeline-desc">Full-body 4K textured scan captured with synchronized multi-camera arrays, recording geometry and albedo simultaneously. Raw mesh data was cleaned, retopologized, and optimized in Maya to meet real-time polygon budgets while preserving surface detail for hero-distance rendering.</p>
+      <div class="pipeline-tags">
+        <span class="ptag">Volumetric Studio</span>
+        <span class="ptag">Maya</span>
+        <span class="ptag">Retopology</span>
+        <span class="ptag">LOD Setup</span>
       </div>
     </div>
-
-    <nav class="pagination">
-      <a href="media_7.html">← Previous</a>
-      <a href="../index.html">Back to Portfolio</a>
-      <a href="media_9.html">Next →</a>
-    </nav>
   </div>
+
+  <!-- STEP 2 -->
+  <div class="pipeline-step r">
+    <div class="pipeline-info">
+      <div class="pipeline-num">02 — RIGGING</div>
+      <div class="pipeline-title">Maya Rigging & Facial Blendshape Setup</div>
+      <p class="pipeline-desc">The character was rigged in Maya with a full-body skeleton, then refined with custom joint orientations for UE5 compatibility. Facial animation was driven by 64 ARKit-compatible blendshapes built with Faceit, enabling both performance capture playback and procedural gesture synthesis. Control Rig in UE5 was used for runtime adjustments and IK solutions.</p>
+      <div class="pipeline-tags">
+        <span class="ptag">Maya Rigging</span>
+        <span class="ptag">Blendshapes × 64</span>
+        <span class="ptag">ARKit</span>
+        <span class="ptag">UE5 Control Rig</span>
+        <span class="ptag">Faceit</span>
+      </div>
+    </div>
+    <div class="pipeline-img">
+      <img src="../assets/images/sin3.png" alt="Rigging & Facial Setup">
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="pipeline-step r">
+    <div class="pipeline-img">
+      <img src="../assets/images/sin4.jpg" alt="Material & Shader Work">
+    </div>
+    <div class="pipeline-info">
+      <div class="pipeline-num">03 — MATERIALS</div>
+      <div class="pipeline-title">Texture Pipeline & Shader Refinement</div>
+      <p class="pipeline-desc">Textures were processed in Photoshop and Substance Painter — removing scan artifacts, baking normal maps, and generating roughness / metallic channels for PBR workflow. UE5 shaders were custom-built to simulate organic subsurface scattering and translucency on skin, hair cards, and fabric, maintaining visual fidelity across varying exhibition lighting conditions.</p>
+      <div class="pipeline-tags">
+        <span class="ptag">Substance Painter</span>
+        <span class="ptag">Photoshop</span>
+        <span class="ptag">UE5 Material Editor</span>
+        <span class="ptag">Subsurface Scattering</span>
+        <span class="ptag">PBR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="pipeline-step r">
+    <div class="pipeline-img">
+      <img src="../assets/images/sin5.png" alt="UE5 Real-time Rendering">
+    </div>
+    <div class="pipeline-info">
+      <div class="pipeline-num">04 — REAL-TIME</div>
+      <div class="pipeline-title">UE5 Sequencer & Blueprint Integration</div>
+      <p class="pipeline-desc">Cinematic sequences were authored in UE5 Sequencer — camera animation, lighting transitions, and character animation tracks were composited for exhibition playback. Blueprint visual scripting drove interactive trigger systems, loop logic, and audience-responsive behavior. Lumen and Nanite were leveraged for high-fidelity real-time rendering without baked lighting.</p>
+      <div class="pipeline-tags">
+        <span class="ptag">UE5 Sequencer</span>
+        <span class="ptag">Blueprints</span>
+        <span class="ptag">Lumen</span>
+        <span class="ptag">Nanite</span>
+        <span class="ptag">MetaHuman</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="pipeline-step r">
+    <div class="pipeline-img">
+      <img src="../assets/images/sin6.png" alt="Performance Optimization">
+    </div>
+    <div class="pipeline-info">
+      <div class="pipeline-num">05 — OPTIMIZATION</div>
+      <div class="pipeline-title">Performance Profiling & Platform Optimization</div>
+      <p class="pipeline-desc">GPU, CPU, and memory budgets were profiled using UE5's Unreal Insights and RenderDoc across exhibition hardware configurations. LOD chains were set for the character mesh, with custom distance-based material switching. Draw call counts and texture streaming were tuned per-venue to ensure stable 60fps playback in gallery environments ranging from single-display to multi-screen projection setups.</p>
+      <div class="pipeline-tags">
+        <span class="ptag">Unreal Insights</span>
+        <span class="ptag">RenderDoc</span>
+        <span class="ptag">LOD Chains</span>
+        <span class="ptag">GPU Profiling</span>
+        <span class="ptag">Texture Streaming</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="r">
+
+  <!-- TECH OVERVIEW -->
+  <div class="sec-label r">Technical Scope</div>
+  <div class="tech-grid r">
+    <div class="tech-block">
+      <div class="tech-block-icon">// Maya</div>
+      <div class="tech-block-title">Character Pipeline</div>
+      <p>Full-body skeleton rigging, joint orientation, UV layout, blend shape setup, and export pipeline to UE5 via FBX with maintained naming conventions and asset integrity.</p>
+    </div>
+    <div class="tech-block">
+      <div class="tech-block-icon">// Unreal Engine 5</div>
+      <div class="tech-block-title">Real-time Systems</div>
+      <p>MetaHuman integration, Control Rig runtime IK, Sequencer-driven cinematics, Blueprint interaction logic, Lumen global illumination, and Nanite virtualized geometry.</p>
+    </div>
+    <div class="tech-block">
+      <div class="tech-block-icon">// Pipeline</div>
+      <div class="tech-block-title">Documentation & Workflow</div>
+      <p>Asset naming conventions, performance budgets, and technical documentation maintained throughout. Python scripts written for batch export and texture validation in Maya.</p>
+    </div>
+  </div>
+
+  <!-- COLLAB -->
+  <div class="collab-block r">
+    <p>Collaboration with media artist <a href="https://www.instagram.com/p/DEmYLfmy9NC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">Yaloo (@yalooreality)</a> — exhibited at Songeun Art Award, LA Rip Space, SF 836M Residency, and West Seoul Museum of Art (2024–2026).</p>
+  </div>
+
+  <!-- NAV -->
+  <div class="detail-nav r">
+    <a href="media_7.html">← Previous</a>
+    <a href="../index.html" class="back">All Work</a>
+    <span></span>
+  </div>
+
+</div>
+
+<script>
+  const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
+  toggle.addEventListener('click',()=>links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*60);io.unobserve(e.target);}
+    });
+  },{threshold:0.05});
+  document.querySelectorAll('.r').forEach(el=>io.observe(el));
+</script>
 </body>
 </html>
