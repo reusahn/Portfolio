@@ -60,7 +60,7 @@ body{
 }
 .sidebar-brand{padding:28px 24px 20px;border-bottom:1px solid var(--sb-border);}
 .brand-label{font-family:var(--ff-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#6A6660;margin-bottom:8px;}
-.brand-name{font-family:var(--ff-head);font-size:18px;font-weight:800;letter-spacing:-.02em;color:#FAFAF8;line-height:1;}
+.brand-name{font-family:var(--ff-head);font-size:15px;font-weight:800;letter-spacing:-.02em;color:#FAFAF8;line-height:1;}
 .brand-name span{color:var(--sb-accent);}
 .sidebar-project{padding:16px 24px;border-bottom:1px solid var(--sb-border);}
 .sidebar-proj-label{font-family:var(--ff-mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:#5A5652;margin-bottom:6px;}
@@ -164,21 +164,21 @@ body{
 }
 /* INT = 아웃라인, EXT = 채움 (모두 흑백) */
 .ti{background:transparent;color:var(--fg2);border-color:var(--line2);}
-.te{background:var(--fg);color:var(--bg);border-color:var(--fg);}
-/* 주간 = 회색 아웃라인, 야간 = 진한 회색 채움 */
+.te{background:transparent;color:var(--fg);border-color:var(--fg);font-weight:700;}
+/* 주간 = 회색 아웃라인, 야간 = 흰배경 진한 테두리 */
 .td{background:transparent;color:var(--fg3);border-color:var(--line2);}
-.tn{background:var(--fg2);color:#FFFFFF;border-color:var(--fg2);}
+.tn{background:transparent;color:var(--fg);border-color:var(--fg);font-weight:700;}
 
 .cast-pill{
   font-family:var(--ff-mono);font-size:11px;font-weight:500;
   padding:2px 8px;border:1.5px solid var(--fg);
-  color:var(--fg);display:inline-block;white-space:nowrap;
+  color:var(--fg);display:inline-block;
   background:transparent;
 }
 .crew-pill{
   font-family:var(--ff-mono);font-size:11px;
   padding:2px 8px;border:1.5px solid var(--line2);
-  color:var(--fg3);display:inline-block;white-space:nowrap;
+  color:var(--fg3);display:inline-block;
 }
 
 /* ══════════════════════════════════════
@@ -232,25 +232,31 @@ body{
 }
 .scene-table{
   width:100%;border-collapse:collapse;
-  font-size:14px;              /* ↑ 테이블 폰트 크게 */
+  font-size:14px;
   min-width:760px;
+  table-layout:fixed;
 }
 .scene-table th{
   font-family:var(--ff-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--fg3);padding:10px 14px;font-weight:500;
   background:var(--bg2);
-  border-bottom:2px solid var(--fg);  /* 헤더↔바디 구분선 굵게 */
+  border-bottom:2px solid var(--fg);
   text-align:left;
   border-right:1px solid var(--line);
+  overflow:hidden;
 }
 .scene-table th:last-child{border-right:none;}
 .scene-table td{
   padding:11px 14px;
   border-bottom:1px solid var(--line);
-  border-right:1px solid var(--line);   /* 세로 구분선 */
+  border-right:1px solid var(--line);
   vertical-align:middle;
+  word-break:break-word;
+  white-space:normal;
+  overflow-wrap:break-word;
 }
 .scene-table td:last-child{border-right:none;}
+.scene-table td.dur-text,.scene-table td.pg-text,.scene-table td.time-cell-td{white-space:nowrap!important;word-break:keep-all!important;}
 
 /* 홀/짝 행 구분으로 가시성 향상 */
 .scene-row:nth-child(4n+1) td,
@@ -279,15 +285,16 @@ body{
 }
 .scene-title{color:var(--fg);font-weight:400;font-size:14px;line-height:1.4;}
 .scene-note{font-family:var(--ff-mono);font-size:10px;color:var(--fg3);margin-top:3px;line-height:1.4;}
-.loc-text{font-family:var(--ff-mono);font-size:11px;color:var(--fg2);white-space:nowrap;}
-.dur-text,.pg-text{font-family:var(--ff-mono);font-size:12px;font-weight:500;color:var(--fg2);white-space:nowrap;text-align:right;}
+.loc-text{font-family:var(--ff-mono);font-size:11px;color:var(--fg2);word-break:break-word;}
+.dur-text,.pg-text{font-family:var(--ff-mono);font-size:12px;font-weight:500;color:var(--fg2);white-space:nowrap;text-align:right;overflow:visible;}
 
 .pills-wrap{display:flex;flex-wrap:wrap;gap:4px;}
+.scene-title-cell{white-space:normal;}
 .row-acts{display:flex;gap:4px;opacity:0;transition:opacity .1s;}
 .scene-row:hover .row-acts,.break-row:hover .row-acts{opacity:1;}
 .time-cell{
   font-family:var(--ff-mono);font-size:12px;font-weight:500;
-  color:var(--fg);white-space:nowrap;
+  color:var(--fg);white-space:nowrap;letter-spacing:0;word-spacing:0;
 }
 .time-sep{color:var(--fg3);margin:0 3px;}
 .time-na{font-family:var(--ff-mono);font-size:11px;color:var(--fg4);}
@@ -380,7 +387,7 @@ body{
 /* ══════════════════════════════════════
    SCENE LIST TABLE
 ══════════════════════════════════════ */
-.sl-table{width:100%;border-collapse:collapse;font-size:14px;}
+.sl-table{width:100%;border-collapse:collapse;font-size:14px;table-layout:fixed;}
 .sl-table th{
   font-family:var(--ff-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--fg3);padding:10px 14px;font-weight:500;
@@ -394,6 +401,8 @@ body{
   border-bottom:1px solid var(--line);
   border-right:1px solid var(--line);
   vertical-align:top;
+  word-break:break-word;
+  white-space:normal;
 }
 .sl-table td:last-child{border-right:none;}
 .sl-row:nth-child(4n+1) td,.sl-row:nth-child(4n+3) td{background:var(--bg);}
@@ -472,6 +481,22 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
 .notice-dismiss:hover{color:var(--fg);}
 
 /* ══════════════════════════════════════
+   EQUIPMENT TABLE
+══════════════════════════════════════ */
+.equip-table{width:100%;border-collapse:collapse;font-size:14px;}
+.equip-table th{font-family:var(--ff-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg3);padding:10px 14px;font-weight:500;background:var(--bg2);border:1.5px solid var(--line);border-bottom:2px solid var(--fg);text-align:left;}
+.equip-table td{padding:11px 14px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);vertical-align:middle;}
+.equip-table td:last-child{border-right:none;}
+.equip-row:nth-child(even) td{background:var(--bg2);}
+.equip-row:hover td{background:#E8E8E8!important;}
+.equip-row:hover .equip-acts{opacity:1;}
+.equip-acts{display:flex;gap:4px;opacity:0;transition:opacity .1s;}
+.equip-name{font-weight:600;color:var(--fg);font-size:14px;}
+.equip-cat{font-family:var(--ff-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border:1.5px solid var(--line2);color:var(--fg3);}
+.equip-qty{font-family:var(--ff-mono);font-size:13px;font-weight:600;color:var(--fg);text-align:center;}
+.equip-scenes{font-family:var(--ff-mono);font-size:10px;color:var(--fg3);}
+
+/* ══════════════════════════════════════
    TOAST
 ══════════════════════════════════════ */
 .toast{
@@ -531,17 +556,7 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
     <input class="sidebar-proj-input" id="projName" placeholder="프로젝트 제목 입력" oninput="saveDB()"/>
   </div>
 
-  <div class="sidebar-phase">
-    <div class="phase-row">
-      <span class="phase-dot" id="phaseDot"></span>
-      <span class="phase-text" id="phaseText">메인 촬영</span>
-    </div>
-    <select class="phase-sel" id="phaseSelect" onchange="updatePhase();saveDB()">
-      <option value="pre">▷ 프리 프로덕션으로 변경</option>
-      <option value="shoot" selected>▷ 메인 촬영으로 변경</option>
-      <option value="post">▷ 포스트로 변경</option>
-    </select>
-  </div>
+  <div style="display:none"><select id="phaseSelect"><option value="shoot" selected></option></select><span id="phaseDot"></span><span id="phaseText"></span></div>
 
   <nav class="sidebar-nav">
     <div class="nav-section-label">Views</div>
@@ -557,12 +572,15 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
     <div class="nav-item" onclick="switchTab('scenelist',this)" data-tab="scenelist">
       <span class="nav-icon">≡</span> 씬 리스트
     </div>
+    <div class="nav-item" onclick="switchTab('equipment',this)" data-tab="equipment">
+      <span class="nav-icon">⚙</span> 장비 리스트
+    </div>
   </nav>
 
   <div class="sidebar-stats">
     <div class="sb-stat"><div class="sb-stat-val" id="stScenes">0</div><div class="sb-stat-lbl">Scenes</div></div>
+    <div class="sb-stat"><div class="sb-stat-val" id="stCuts">0</div><div class="sb-stat-lbl">Cuts</div></div>
     <div class="sb-stat"><div class="sb-stat-val" id="stDays">0</div><div class="sb-stat-lbl">Days</div></div>
-    <div class="sb-stat"><div class="sb-stat-val" id="stPages">0</div><div class="sb-stat-lbl">Pages</div></div>
     <div class="sb-stat"><div class="sb-stat-val" id="stCast">0</div><div class="sb-stat-lbl">Cast</div></div>
     <div class="sb-stat"><div class="sb-stat-val" id="stCrew">0</div><div class="sb-stat-lbl">Crew</div></div>
     <div class="sb-stat"><div class="sb-stat-val" id="stLocs">0</div><div class="sb-stat-lbl">Locs</div></div>
@@ -584,9 +602,6 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
   <!-- TOPBAR -->
   <div class="topbar no-print">
     <div class="topbar-title" id="topbarTitle">촬영 스케줄</div>
-    <div class="topbar-right">
-      <button class="btn btn-primary" id="topAddBtn" onclick="handleTopAdd()">+ 씬 추가</button>
-    </div>
   </div>
 
   <!-- CONTENT -->
@@ -595,8 +610,7 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
     <!-- NOTICE -->
     <div class="notice-bar no-print" id="noticeBar">
       <span class="notice-text">
-        💾 데이터는 <b>이 브라우저에만</b> 저장됩니다.
-        팀 공유·백업 시 <b>JSON 백업</b> 버튼으로 파일을 저장하고, 불러올 때는 <b>JSON 불러오기</b>를 사용하세요.
+        데이터는 저장되지 않으니까 공유나 백업 시 <b>JSON 백업</b> 버튼으로 파일을 저장하고, 불러올 때는 <b>JSON 불러오기</b>를 사용하세요.
       </span>
       <span class="notice-dismiss" onclick="document.getElementById('noticeBar').style.display='none'">닫기</span>
     </div>
@@ -605,6 +619,7 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
     <div id="tab-schedule" class="tab-panel active">
       <div class="toolbar no-print">
         <button class="btn" onclick="openDayModal()">+ 촬영일</button>
+        <button class="btn btn-primary" onclick="openSceneModal()">+ 씬 추가</button>
         <button class="btn" onclick="openBreakModal()">+ 시간 블록</button>
         <div class="toolbar-spacer"></div>
         <input class="search-inp" id="sceneSearch" placeholder="검색..." oninput="renderSchedule()"/>
@@ -652,6 +667,27 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
       <div id="scenelistContent"></div>
     </div>
 
+    <!-- EQUIPMENT TAB -->
+    <div id="tab-equipment" class="tab-panel">
+      <div class="toolbar no-print">
+        <button class="btn btn-primary" onclick="openEquipModal()">+ 장비 추가</button>
+        <div class="toolbar-spacer"></div>
+        <div class="flt-group" id="equipDayF" style="margin-right:6px;">
+          <button class="flt on" onclick="setEDayF('all',this)">전체 일자</button>
+        </div>
+        <div class="flt-group" id="equipF">
+          <button class="flt on" onclick="setEF('all',this)">전체</button>
+          <button class="flt" onclick="setEF('카메라',this)">카메라</button>
+          <button class="flt" onclick="setEF('카메라 액세서리',this)">액세서리</button>
+          <button class="flt" onclick="setEF('조명',this)">조명</button>
+          <button class="flt" onclick="setEF('렌즈',this)">렌즈</button>
+          <button class="flt" onclick="setEF('특수장비',this)">특수장비</button>
+          <button class="flt" onclick="setEF('소품',this)">소품</button>
+        </div>
+      </div>
+      <div id="equipContent"></div>
+    </div>
+
   </div><!-- /content -->
 </main>
 </div><!-- /shell -->
@@ -679,7 +715,8 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
         <div class="form-full"><label class="form-lbl">촬영 장소</label><select class="form-inp" id="fSLoc"></select></div>
         <div class="form-full"><label class="form-lbl">출연진 (복수 선택)</label><div class="loc-checks" id="fSCast"></div></div>
         <div class="form-full"><label class="form-lbl">스태프 배정 (복수 선택)</label><div class="loc-checks" id="fSCrew"></div></div>
-        <div class="form-full"><label class="form-lbl">메모</label><textarea class="form-inp" id="fSNotes" placeholder="특수 장비, 주의사항 등"></textarea></div>
+        <div class="form-full"><label class="form-lbl">필요 장비 (쉼표 구분)</label><input class="form-inp" id="fSEquip" placeholder="예: 핸드헬드 리그, 소형 LED 패널"/></div>
+        <div class="form-full"><label class="form-lbl">메모</label><textarea class="form-inp" id="fSNotes" placeholder="촬영 주의사항 등"></textarea></div>
       </div>
     </div>
     <div class="modal-footer">
@@ -799,6 +836,41 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
   </div>
 </div>
 
+<!-- EQUIPMENT MODAL -->
+<div class="overlay" id="equipModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="equipMTitle">장비 추가</div>
+      <span class="modal-close" onclick="closeM('equipModal')">✕ 닫기</span>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-full"><label class="form-lbl">장비명</label><input class="form-inp" id="fEName" placeholder="예: Sony FX3 / 소형 LED 패널"/></div>
+        <div><label class="form-lbl">카테고리</label>
+          <select class="form-inp" id="fECat">
+            <option>카메라</option>
+            <option>카메라 액세서리</option>
+            <option>렌즈</option>
+            <option>조명</option>
+            <option>음향</option>
+            <option>특수장비</option>
+            <option>소품</option>
+            <option>기타</option>
+          </select>
+        </div>
+        <div><label class="form-lbl">수량</label><input class="form-inp" id="fEQty" type="number" min="1" placeholder="1"/></div>
+        <div class="form-full"><label class="form-lbl">사용 씬 (씬 번호, 쉼표 구분)</label><input class="form-inp" id="fEScenes" placeholder="예: 1,2,5"/></div>
+        <div class="form-full"><label class="form-lbl">메모</label><textarea class="form-inp" id="fENotes" placeholder="용도, 렌탈 여부, 주의사항 등"></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="eDelBtn" style="display:none;margin-right:auto" onclick="deleteEquipM()">삭제</button>
+      <button class="btn" onclick="closeM('equipModal')">취소</button>
+      <button class="btn btn-primary" onclick="saveEquip()">저장</button>
+    </div>
+  </div>
+</div>
+
 <!-- PDF MODAL -->
 <div class="overlay" id="pdfModal">
   <div class="modal" style="max-width:440px;">
@@ -815,6 +887,7 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
           <label style="display:flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:11px;cursor:pointer;"><input type="checkbox" class="pdf-section-chk" value="locations" checked/> 촬영 장소</label>
           <label style="display:flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:11px;cursor:pointer;"><input type="checkbox" class="pdf-section-chk" value="people" checked/> 출연진 / 스태프</label>
           <label style="display:flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:11px;cursor:pointer;"><input type="checkbox" class="pdf-section-chk" value="scenelist" checked/> 씬 리스트</label>
+          <label style="display:flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:11px;cursor:pointer;"><input type="checkbox" class="pdf-section-chk" value="equipment" checked/> 장비 리스트</label>
         </div>
         <label class="form-lbl" style="margin-bottom:6px;display:block;">촬영일 선택 (스케줄 포함 시)</label>
         <div class="pdf-day-list" id="pdfDayList"></div>
@@ -834,54 +907,73 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
    SAMPLE DATA — new example (indie short film)
 ═══════════════════════════════════════════════ */
 const SAMPLE = {
-  projectName: '파도가 오기 전에',
-  phase: 'shoot',
+  projectName: '아무 말이 없었다',
+  phase: 'pre',
   days: [
-    {id:'d1',date:'2026-06-02',locIds:['l1','l2'],callTime:'06:30',firstShot:'07:00',sunrise:'05:18',sunset:'19:52',weather:'맑음',temp:'24°C / 최저 17°C',notes:'해뜨기 전 매직아워 씬 포함'},
-    {id:'d2',date:'2026-06-03',locIds:['l3'],callTime:'10:00',firstShot:'10:30',sunrise:'05:17',sunset:'19:53',weather:'흐림 후 맑음',temp:'21°C / 최저 15°C',notes:'실내 장면 위주'},
-    {id:'d3',date:'2026-06-05',locIds:['l1','l4'],callTime:'16:00',firstShot:'16:30',sunrise:'05:15',sunset:'19:55',weather:'맑음',temp:'26°C / 최저 19°C',notes:'골든아워 + 야간 씬'}
+    {id:'d1',date:'2026-08-10',locIds:['l1','l2'],callTime:'18:00',firstShot:'19:00',sunrise:'05:45',sunset:'19:30',weather:'맑음',temp:'28°C / 최저 22°C',notes:'야간 촬영 전체. 조명 장비 셋업 2시간 필요'},
+    {id:'d2',date:'2026-08-11',locIds:['l3'],callTime:'10:00',firstShot:'11:00',sunrise:'05:46',sunset:'19:29',weather:'맑음',temp:'30°C / 최저 23°C',notes:'실내 전용 촬영일. 방 전체 세트 드레싱 필요'},
+    {id:'d3',date:'2026-08-12',locIds:['l1','l4'],callTime:'19:00',firstShot:'20:00',sunrise:'05:47',sunset:'19:28',weather:'구름 조금',temp:'27°C / 최저 21°C',notes:'야외 야간 + 세트 야간. 안전 요원 필수'}
   ],
   scenes: [
-    {id:'s1',dayId:'d1',sceneNum:'1',title:'해변 — 유진, 새벽 파도 앞에 혼자 서 있다',type:'EXT',timeOfDay:'주간',duration:30,pages:1.5,cuts:14,locId:'l1',cast:'유진',crew:'이감독,정촬영',notes:'매직아워. 드론 컷 필요. 예비 인서트 3컷'},
-    {id:'s2',dayId:'d1',sceneNum:'2',title:'해변 — 현우가 뒤에서 다가온다',type:'EXT',timeOfDay:'주간',duration:20,pages:1,cuts:8,locId:'l1',cast:'유진,현우',crew:'이감독,정촬영',notes:'역광 실루엣 처리'},
-    {id:'s3',dayId:'d1',sceneNum:'4',title:'카페 테라스 — 두 사람, 처음으로 대화',type:'EXT',timeOfDay:'주간',duration:45,pages:2.5,cuts:22,locId:'l2',cast:'유진,현우',crew:'이감독,정촬영,박조감독',notes:'핸드헬드. 자연광 디퓨저 준비'},
-    {id:'s4',dayId:'d2',sceneNum:'6',title:'유진의 방 — 일기를 쓴다',type:'INT',timeOfDay:'주간',duration:25,pages:1,cuts:10,locId:'l3',cast:'유진',crew:'이감독,정촬영',notes:'클로즈업 위주. 손 인서트 별도'},
-    {id:'s5',dayId:'d2',sceneNum:'7',title:'유진의 방 — 전화를 받는다, 표정 변화',type:'INT',timeOfDay:'주간',duration:15,pages:0.75,cuts:7,locId:'l3',cast:'유진',crew:'이감독',notes:'리액션 클로즈업 여러 테이크'},
-    {id:'s6',dayId:'d2',sceneNum:'9',title:'복도 — 현우가 문 앞에서 망설인다',type:'INT',timeOfDay:'야간',duration:20,pages:1,cuts:8,locId:'l3',cast:'현우',crew:'이감독,정촬영',notes:'저조도. 소형 LED 패널 사용'},
-    {id:'s7',dayId:'d3',sceneNum:'11',title:'해변 — 석양, 두 사람이 마지막으로 걷는다',type:'EXT',timeOfDay:'주간',duration:40,pages:2,cuts:18,locId:'l1',cast:'유진,현우',crew:'이감독,정촬영',notes:'골든아워 시간 엄수. 스테디캠'},
-    {id:'s8',dayId:'d3',sceneNum:'13',title:'방파제 끝 — 유진, 혼자 남겨진다',type:'EXT',timeOfDay:'야간',duration:35,pages:1.5,cuts:12,locId:'l4',cast:'유진',crew:'이감독,정촬영,박조감독',notes:'야간 조명 장비 필요. 안전 요원 대기'}
+    {id:'s1',dayId:'d1',sceneNum:'1',title:'혜미의 방 문 앞 — 셀린, 자물쇠를 열고 들어온다',type:'INT',timeOfDay:'야간',duration:20,pages:1,cuts:8,locId:'l2',cast:'셀린,혜미',crew:'감독,촬영감독,조감독',equip:'소형 LED 패널,핸드헬드 리그',notes:'셀린 POV 핸드헬드. 노란 빛 방 내부 노출 유지'},
+    {id:'s2',dayId:'d1',sceneNum:'2',title:'혜미의 방 — 셀린, 혜미의 팔 칼자국을 센다',type:'INT',timeOfDay:'야간',duration:35,pages:2,cuts:14,locId:'l2',cast:'셀린,혜미',crew:'감독,촬영감독,조감독',equip:'소형 LED 패널,클로즈업 렌즈(100mm)',notes:'셀린이 사탕 씹으며 혜미를 위협. 녹슨 못 프롭 필요'},
+    {id:'s3',dayId:'d1',sceneNum:'3',title:'혜미의 방 밖 — 혜미, 준과 눈이 마주친다',type:'INT',timeOfDay:'야간',duration:10,pages:0.5,cuts:5,locId:'l3',cast:'혜미,준',crew:'감독,촬영감독',equip:'클로즈업 렌즈(100mm)',notes:'창문을 통한 시선. 인서트 컷 위주'},
+    {id:'s4',dayId:'d2',sceneNum:'4',title:'혜미의 방 — 커튼·옷으로 밧줄을 만든다',type:'INT',timeOfDay:'야간',duration:25,pages:1.5,cuts:10,locId:'l2',cast:'혜미',crew:'감독,촬영감독',equip:'와이드렌즈(24mm),소형 LED 패널',notes:'풀샷 고정 카메라. 행동 디테일. 밧줄 프롭 사전 제작 필요'},
+    {id:'s5',dayId:'d2',sceneNum:'5',title:'집 밖 — 후디를 입은 준이 위로 끌어당겨진다',type:'EXT',timeOfDay:'야간',duration:20,pages:1,cuts:8,locId:'l1',cast:'준',crew:'감독,촬영감독,스턴트코디',equip:'로우앵글 리그,와이어 장비',notes:'로우앵글 → 하이앵글 이동. 슈퍼맨/십자가 이미지. 와이어 안전 확인'},
+    {id:'s6',dayId:'d2',sceneNum:'6',title:'혜미의 방 — 준이 창문으로 들어온다, 두 사람의 조용한 춤',type:'INT',timeOfDay:'야간',duration:45,pages:2.5,cuts:18,locId:'l2',cast:'혜미,준',crew:'감독,촬영감독,조감독',equip:'소형 LED 패널,와이드렌즈(24mm)',notes:'풀샷 고정. 모방 댄스 시퀀스. 무음 연출. 종이·샤프 프롭'},
+    {id:'s7',dayId:'d3',sceneNum:'7',title:'혜미의 방 — 혜미, 창문에서 뛰어내린다',type:'INT',timeOfDay:'야간',duration:30,pages:2,cuts:12,locId:'l2',cast:'혜미',crew:'감독,촬영감독,스턴트코디,안전요원',equip:'고정 삼각대,소형 LED 패널',notes:'풀샷 고정. 뛰어내리는 소리 없음. 3분 정적 유지. 스턴트 조율 필수'},
+    {id:'s8',dayId:'d3',sceneNum:'8',title:'혜미의 방 — 셀린이 돌아와 방을 정리한다, 타이틀',type:'INT',timeOfDay:'야간',duration:40,pages:2,cuts:6,locId:'l2',cast:'셀린',crew:'감독,촬영감독',equip:'고정 삼각대,소형 LED 패널',notes:'고정 롱 테이크. 3분 이상 정적. 타이틀 인서트. 대니 웃음소리 O.S.'}
   ],
   breaks: [
-    {id:'b1',dayId:'d1',type:'식사',label:'아침 식사 및 장비 세팅',duration:40,locId:''},
-    {id:'b2',dayId:'d1',type:'이동',label:'해변 → 카페 테라스 이동',duration:20,locId:''},
-    {id:'b3',dayId:'d2',type:'식사',label:'점심 식사',duration:60,locId:''},
-    {id:'b4',dayId:'d3',type:'준비',label:'야간 조명 셋업',duration:45,locId:'l4'}
+    {id:'b1',dayId:'d1',type:'준비',label:'조명 장비 셋업 및 세트 드레싱',duration:120,locId:'l2'},
+    {id:'b2',dayId:'d2',type:'식사',label:'점심 식사',duration:60,locId:''},
+    {id:'b3',dayId:'d3',type:'준비',label:'야외 와이어 장비 셋업 + 안전 점검',duration:90,locId:'l1'}
   ],
   locations: [
-    {id:'l1',name:'인천 을왕리 해수욕장',addr:'인천광역시 중구 용유동 을왕리',type:'야외 로케이션',perm:'완료',contact:'인천시청 촬영 허가팀 032-440-0000',notes:'드론 촬영 별도 허가 완료. 주차 50대 가능'},
-    {id:'l2',name:'해변 카페 테라스 — Wave Side',addr:'인천 중구 용유동 해안로 21',type:'실내 로케이션',perm:'완료',contact:'카페 사장 / 010-7788-2233',notes:'촬영 가능 시간 07:00~22:00. 손님 없는 시간대 예약 완료'},
-    {id:'l3',name:'촬영용 원룸 세트 (연희동)',addr:'서울시 서대문구 연희로 15길 3층',type:'실내 로케이션',perm:'완료',contact:'임대인 이씨 / 010-3344-5566',notes:'엘리베이터 없음. 장비 이동 인력 필요'},
-    {id:'l4',name:'인천항 방파제',addr:'인천광역시 중구 항동 인천항 외항',type:'야외 로케이션',perm:'진행 중',contact:'인천지방해양수산청 032-880-0000',notes:'야간 출입 허가 신청 중. 안전 요원 필수'}
+    {id:'l1',name:'주택 외부 마당 (로케이션)',addr:'서울시 마포구 합정동 일대',type:'야외 로케이션',perm:'진행 중',contact:'장소 섭외 담당 / 010-0000-0000',notes:'야간 외부 촬영. 이웃 소음 민원 주의. 주차 3대 가능'},
+    {id:'l2',name:'혜미의 방 — 실내 세트',addr:'서울시 성동구 스튜디오 단지',type:'스튜디오',perm:'완료',contact:'스튜디오 담당 / 010-1111-2222',notes:'방 1칸 전용. 창문·커튼 세트 드레싱 필요. 엘리베이터 있음'},
+    {id:'l3',name:'주택 외부 창문 앵글',addr:'서울시 마포구 합정동 일대 (l1 동일)',type:'야외 로케이션',perm:'진행 중',contact:'장소 섭외 담당 / 010-0000-0000',notes:'창문 로우앵글 전용. l1과 동일 장소'},
+    {id:'l4',name:'준의 집 외부',addr:'서울시 마포구 합정동 일대 (l1 인근)',type:'야외 로케이션',perm:'진행 중',contact:'장소 섭외 담당 / 010-0000-0000',notes:'야간 외부. 와이어 장비 셋업 공간 필요'}
   ],
   people: [
-    {id:'p1',name:'유진',cat:'cast',role:'주연 (20대 여성)',contact:'에이전시 블루웨이브 / 02-555-1234',notes:'물 씬 가능 여부 확인 완료'},
-    {id:'p2',name:'현우',cat:'cast',role:'주연 (20대 남성)',contact:'에이전시 블루웨이브 / 02-555-1234',notes:''},
-    {id:'p3',name:'이감독',cat:'crew',role:'감독',contact:'010-2200-1100',notes:''},
-    {id:'p4',name:'정촬영',cat:'crew',role:'촬영감독 (DP)',contact:'010-3300-2200',notes:'드론 오퍼레이터 겸임'},
-    {id:'p5',name:'박조감독',cat:'crew',role:'1st AD / 조감독',contact:'010-4400-3300',notes:'콜시트 배포 담당'},
-    {id:'p6',name:'최사운드',cat:'crew',role:'사운드 믹서',contact:'010-5500-4400',notes:'붐 오퍼레이터 별도 섭외 필요'}
+    {id:'p1',name:'혜미',cat:'cast',role:'주연 (18세 여, 한국인 유학생)',contact:'캐스팅 디렉터 / 010-2200-1100',notes:'자해 표현 씬 포함 — 사전 심리 케어 필수'},
+    {id:'p2',name:'셀린',cat:'cast',role:'조연 (33세 여, 유학원 관리인)',contact:'캐스팅 디렉터 / 010-2200-1100',notes:'터키계 캐릭터. 영어·한국어 혼용 대사'},
+    {id:'p3',name:'준',cat:'cast',role:'조연 (9세 남, 한국인 초등학생)',contact:'아역 에이전시 / 02-333-4444',notes:'아역 — 와이어 씬 포함. 보호자 동반 필수. 야간 촬영 허가 확인'},
+    {id:'p4',name:'대니',cat:'cast',role:'단역 (15세 남, 웃음 억제 불가)',contact:'캐스팅 디렉터 / 010-2200-1100',notes:'O.S. 웃음소리 위주. 짧은 출연'},
+    {id:'p5',name:'감독',cat:'crew',role:'감독',contact:'010-5500-1100',notes:''},
+    {id:'p6',name:'촬영감독',cat:'crew',role:'촬영감독 (DP)',contact:'010-5500-2200',notes:'핸드헬드 + 고정 삼각대 병행'},
+    {id:'p7',name:'조감독',cat:'crew',role:'1st AD / 조감독',contact:'010-5500-3300',notes:'콜시트 배포 담당'},
+    {id:'p8',name:'스턴트코디',cat:'crew',role:'스턴트 코디네이터',contact:'010-5500-4400',notes:'씬 5·7 와이어 및 낙하 담당'}
+  ],
+  equipment: [
+    {id:'e1',name:'Sony FX3',cat:'카메라',qty:1,assignedScenes:'s1,s2,s3,s4,s5,s6,s7,s8',notes:'메인 카메라'},
+    {id:'e2',name:'핸드헬드 리그',cat:'카메라 액세서리',qty:1,assignedScenes:'s1,s2',notes:'씬 1·2 핸드헬드 전용'},
+    {id:'e3',name:'고정 삼각대',cat:'카메라 액세서리',qty:1,assignedScenes:'s4,s6,s7,s8',notes:'풀샷 고정 촬영용'},
+    {id:'e4',name:'로우앵글 리그',cat:'카메라 액세서리',qty:1,assignedScenes:'s5',notes:'씬 5 전용. 지면 10cm 이하'},
+    {id:'e5',name:'소형 LED 패널 (Aputure MC)',cat:'조명',qty:4,assignedScenes:'s1,s2,s4,s6,s7,s8',notes:'노란 따뜻한 빛. 방 내부 키 라이트'},
+    {id:'e6',name:'클로즈업 렌즈 100mm',cat:'렌즈',qty:1,assignedScenes:'s2,s3',notes:'팔 클로즈업·창문 시선 인서트'},
+    {id:'e7',name:'와이드렌즈 24mm',cat:'렌즈',qty:1,assignedScenes:'s4,s5,s6',notes:'공간감 강조'},
+    {id:'e8',name:'와이어 장비 (3m)',cat:'특수장비',qty:1,assignedScenes:'s5,s7',notes:'준 리프팅 + 혜미 낙하 씬. 스턴트 코디 전담'},
+    {id:'e9',name:'녹슨 못 (프롭)',cat:'소품',qty:3,assignedScenes:'s2,s4,s7,s8',notes:'실제 날카롭지 않게 처리 필수'},
+    {id:'e10',name:'밧줄/커튼 천 (프롭)',cat:'소품',qty:1,assignedScenes:'s4,s5,s6,s7',notes:'사전 제작. 강도 테스트 필요'},
+    {id:'e11',name:'종이·뭉뚝한 샤프 (프롭)',cat:'소품',qty:5,assignedScenes:'s6,s8',notes:'혜미·준 필기 장면'},
+    {id:'e12',name:'사탕 봉지 (프롭)',cat:'소품',qty:2,assignedScenes:'s2',notes:'셀린 사탕 씹는 씬. 와그작 소리 중요'}
   ]
 };
 
 /* ═══════════════════════════════════════════════
    STATE
+/* ═══════════════════════════════════════════════
+   STATE
 ═══════════════════════════════════════════════ */
-const SCHEMA_VER = 2;
+const SCHEMA_VER = 3;
 let db = JSON.parse(JSON.stringify(SAMPLE));
 let filters = {type:'all', time:'all'};
 let pfilt = 'all';
+let efilt = 'all';
+let edayFilt = 'all';
 let currentTab = 'schedule';
-let editIds = {scene:null, loc:null, person:null, day:null, brk:null};
+let editIds = {scene:null, loc:null, person:null, day:null, brk:null, equip:null};
 
 /* ═══════════════════════════════════════════════
    STORAGE
@@ -889,6 +981,7 @@ let editIds = {scene:null, loc:null, person:null, day:null, brk:null};
 function saveDB() {
   db.projectName = document.getElementById('projName').value;
   db.phase = document.getElementById('phaseSelect').value;
+  if (!db.equipment) db.equipment = [];
   localStorage.setItem('pp_v2', JSON.stringify(db));
 }
 function loadDB() {
@@ -897,6 +990,7 @@ function loadDB() {
     try {
       db = JSON.parse(saved);
       if (!db.breaks) db.breaks = [];
+      if (!db.equipment) db.equipment = [];
       document.getElementById('projName').value = db.projectName || '';
       if (db.phase) { document.getElementById('phaseSelect').value = db.phase; updatePhase(); }
       showToast('데이터 불러옴');
@@ -914,7 +1008,7 @@ function loadSampleData() {
 function resetAllData() {
   if (!confirm('모든 데이터를 삭제합니다. 복구 불가합니다. 계속할까요?')) return;
   localStorage.removeItem('pp_v2');
-  db = {days:[],scenes:[],breaks:[],locations:[],people:[]};
+  db = {days:[],scenes:[],breaks:[],locations:[],people:[],equipment:[]};
   document.getElementById('projName').value = '';
   saveDB(); renderAll(); showToast('초기화 완료');
 }
@@ -941,10 +1035,10 @@ function pills(str, cls) {
    STATS + PHASE
 ═══════════════════════════════════════════════ */
 function updateStats() {
-  document.getElementById('stScenes').textContent = db.scenes.length;
+  const uniqueSceneNums = new Set(db.scenes.map(s=>s.sceneNum.trim()));
+  document.getElementById('stScenes').textContent = uniqueSceneNums.size;
   document.getElementById('stDays').textContent = db.days.length;
-  const tp = db.scenes.reduce((a,s)=>a+(s.pages||0),0);
-  document.getElementById('stPages').textContent = tp%1===0?tp:tp.toFixed(1);
+  document.getElementById('stCuts').textContent = db.scenes.length;
   document.getElementById('stCast').textContent = db.people.filter(p=>p.cat==='cast').length;
   document.getElementById('stCrew').textContent = db.people.filter(p=>p.cat==='crew').length;
   document.getElementById('stLocs').textContent = db.locations.length;
@@ -960,8 +1054,8 @@ function updatePhase() {
 /* ═══════════════════════════════════════════════
    TAB SWITCHING
 ═══════════════════════════════════════════════ */
-const tabTitles = {schedule:'촬영 스케줄',locations:'촬영 장소',people:'출연진 / 스태프',scenelist:'씬 리스트'};
-const tabAddLabels = {schedule:'+ 씬 추가',locations:'+ 장소 추가',people:'+ 인원 추가',scenelist:'+ 씬 추가'};
+const tabTitles = {schedule:'촬영 스케줄',locations:'촬영 장소',people:'출연진 / 스태프',scenelist:'씬 리스트',equipment:'장비 리스트'};
+const tabAddLabels = {schedule:'+ 씬 추가',locations:'+ 장소 추가',people:'+ 인원 추가',scenelist:'+ 씬 추가',equipment:'+ 장비 추가'};
 function switchTab(name, el) {
   currentTab = name;
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
@@ -975,6 +1069,7 @@ function handleTopAdd() {
   if (currentTab==='schedule') openSceneModal();
   else if (currentTab==='locations') openLocModal();
   else if (currentTab==='people') openPersonModal();
+  else if (currentTab==='equipment') openEquipModal();
   else openSceneModal();
 }
 
@@ -1075,15 +1170,16 @@ function renderSchedule() {
         <thead><tr>
           <th style="width:22px" class="no-print"></th>
           <th style="width:58px">Scene</th>
-          <th style="width:110px">Time</th>
+          <th style="width:46px">cut</th>
+          <th style="width:140px">Time</th>
           <th>내용</th>
           <th style="width:100px">구분</th>
-          <th style="width:150px">출연진</th>
-          <th style="width:100px">장소</th>
-          <th style="width:46px">min</th>
-          <th style="width:30px">pp</th>
-          <th style="width:30px">cut</th>
-          <th style="width:50px" class="no-print"></th>
+          <th style="width:100px">출연진</th>
+          <th style="width:80px">장소</th>
+          <th style="width:120px">장비</th>
+          <th style="width:40px">min</th>
+          <th style="width:46px">pp</th>
+          <th style="width:80px" class="no-print"></th>
         </tr></thead><tbody id="tbody-${day.id}">`;
 
       items.forEach(item => {
@@ -1098,17 +1194,18 @@ function renderSchedule() {
             <tr class="scene-row" data-id="${s.id}" data-kind="scene" onclick="toggleDetail('${s.id}')">
               <td class="no-print" onclick="event.stopPropagation()" style="padding:0 4px;"><span class="drag-handle">⠿</span></td>
               <td><span class="scene-num">${s.sceneNum}</span></td>
-              <td>${timeHtml}</td>
+              <td class="pg-text" style="white-space:nowrap;">${s.cuts||''}</td>
+              <td style="white-space:nowrap;">${timeHtml}</td>
               <td class="scene-title-cell">
                 <div class="scene-title">${s.title}</div>
                 ${s.notes?`<div class="scene-note">${s.notes}</div>`:''}
               </td>
-              <td><span class="tag ${tagCls(s.type)}">${s.type}</span>&thinsp;<span class="tag ${tagCls(s.timeOfDay)}">${s.timeOfDay}</span></td>
+              <td style="white-space:nowrap;""><span class="tag ${tagCls(s.type)}">${s.type}</span>&thinsp;<span class="tag ${tagCls(s.timeOfDay)}">${s.timeOfDay}</span></td>
               <td><div class="pills-wrap">${pills(s.cast,'cast-pill')}</div></td>
               <td><span class="loc-text">${locName(s.locId)}</span></td>
-              <td class="dur-text">${s.duration||''}</td>
-              <td class="pg-text">${s.pages||''}</td>
-              <td class="pg-text">${s.cuts||''}</td>
+              <td><span style="font-family:var(--ff-mono);font-size:10px;color:var(--fg3);">${s.equip||''}</span></td>
+              <td class="dur-text" style="white-space:nowrap;">${s.duration||''}</td>
+              <td class="pg-text" style="white-space:nowrap;">${s.pages||''}</td>
               <td class="no-print"><div class="row-acts"><button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();openSceneModal('${s.id}')">편집</button></div></td>
             </tr>
             <tr class="detail-row" id="detail-${s.id}">
@@ -1132,13 +1229,16 @@ function renderSchedule() {
           html += `
             <tr class="break-row" data-id="${bk.id}" data-kind="break">
               <td class="no-print" onclick="event.stopPropagation()" style="padding:0 4px;"><span class="drag-handle">⠿</span></td>
-              <td><span class="break-type-badge">${bk.type}</span></td>
-              <td>${timeHtml}</td>
-              <td colspan="7" style="color:var(--fg2);">
+              <td colspan="2"><span class="break-type-badge">${bk.type}</span></td>
+              <td style="white-space:nowrap;">${t&&bk.duration?`<span class="time-cell">${t.start}<span class="time-sep">→</span>${t.end}</span>`:''}</td>
+              <td colspan="3" style="color:var(--fg2);">
                 <span style="font-weight:500;">${bk.label||bk.type}</span>
                 ${bk.duration?`<span style="font-family:var(--ff-mono);font-size:9px;color:var(--fg3);margin-left:8px;">(${bk.duration}분)</span>`:''}
-                ${bk.locId?`<span style="font-family:var(--ff-mono);font-size:9px;color:var(--fg3);margin-left:6px;">· ${locName(bk.locId)}</span>`:''}
               </td>
+              <td><span class="loc-text">${bk.locId?locName(bk.locId):''}</span></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td class="no-print"><div class="row-acts"><button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();openBreakModal('${bk.id}')">편집</button></div></td>
             </tr>`;
         }
@@ -1187,15 +1287,15 @@ function renderSceneList() {
   let html = `<div class="tbl-wrap" style="border:1px solid var(--line);"><table class="sl-table">
     <thead><tr>
       <th style="width:58px">Scene</th>
+      <th style="width:46px">cut</th>
       <th>내용</th>
       <th style="width:90px">구분</th>
-      <th style="width:140px">출연진</th>
+      <th style="width:100px">출연진</th>
       <th style="width:100px">장소</th>
       <th style="width:80px">촬영일</th>
       <th style="width:46px">min</th>
-      <th style="width:30px">pp</th>
-      <th style="width:30px">cut</th>
-      <th style="width:50px" class="no-print"></th>
+      <th style="width:70px">pp</th>
+      <th style="width:80px" class="no-print"></th>
     </tr></thead><tbody>`;
   if (!allScenes.length) {
     html += `<tr><td colspan="10" style="text-align:center;padding:28px;font-family:var(--ff-mono);font-size:11px;color:var(--fg3);">씬이 없습니다</td></tr>`;
@@ -1207,6 +1307,7 @@ function renderSceneList() {
     html += `
       <tr class="sl-row" data-id="${s.id}" onclick="toggleSlDetail('${s.id}')">
         <td><span class="sl-num">${s.sceneNum}</span></td>
+        <td class="pg-text">${s.cuts||''}</td>
         <td class="scene-title-cell">
           <div class="scene-title">${s.title}</div>
           ${s.notes?`<div class="scene-note">${s.notes}</div>`:''}
@@ -1217,7 +1318,6 @@ function renderSceneList() {
         <td class="sl-day">${dayStr}</td>
         <td class="dur-text">${s.duration||''}</td>
         <td class="pg-text">${s.pages||''}</td>
-        <td class="pg-text">${s.cuts||''}</td>
         <td class="no-print"><div class="sl-acts"><button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();openSceneModal('${s.id}')">편집</button></div></td>
       </tr>
       <tr class="detail-row" id="sl-detail-${s.id}">
@@ -1296,7 +1396,143 @@ function renderPeople() {
   }).join('')}</div>`;
 }
 
-function renderAll() { updateStats(); renderSchedule(); renderLocations(); renderPeople(); renderSceneList(); }
+function renderAll() { updateStats(); renderSchedule(); renderLocations(); renderPeople(); renderSceneList(); renderEquipment(); }
+
+/* ═══════════════════════════════════════════════
+   EQUIPMENT FILTER
+═══════════════════════════════════════════════ */
+function setEF(val, btn) {
+  efilt = val;
+  document.getElementById('equipF').querySelectorAll('.flt').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on'); renderEquipment();
+}
+
+function setEDayF(val, btn) {
+  edayFilt = val;
+  document.getElementById('equipDayF').querySelectorAll('.flt').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on'); renderEquipment();
+}
+
+/* ═══════════════════════════════════════════════
+   EQUIPMENT RENDER
+═══════════════════════════════════════════════ */
+function renderEquipment() {
+  if (!db.equipment) db.equipment = [];
+
+  /* Day 필터 버튼 동적 생성 */
+  const dayFBar = document.getElementById('equipDayF');
+  if (dayFBar) {
+    const sorted = [...db.days].sort((a,b)=>a.date.localeCompare(b.date));
+    const dn = ['일','월','화','수','목','금','토'];
+    let dayBtns = `<button class="flt${edayFilt==='all'?' on':''}" onclick="setEDayF('all',this)">전체 일자</button>`;
+    sorted.forEach((day, di) => {
+      const dd = new Date(day.date);
+      const label = `Day ${di+1} (${dd.getMonth()+1}/${dd.getDate()})`;
+      dayBtns += `<button class="flt${edayFilt===day.id?' on':''}" onclick="setEDayF('${day.id}',this)">${label}</button>`;
+    });
+    dayFBar.innerHTML = dayBtns;
+  }
+
+  /* Day 필터 적용 — 해당 Day의 씬들에 사용된 장비만 */
+  let visibleEquipIds = null;
+  if (edayFilt !== 'all') {
+    /* 해당 day의 씬 번호 수집 */
+    const daySceneNums = new Set(
+      db.scenes.filter(s => s.dayId === edayFilt).map(s => s.sceneNum.trim())
+    );
+    /* 씬 번호가 겹치는 장비 ID 수집 */
+    visibleEquipIds = new Set(
+      db.equipment.filter(e => {
+        const assigned = (e.assignedScenes||'').split(',').map(x=>x.trim()).filter(Boolean);
+        return assigned.some(n => daySceneNums.has(n));
+      }).map(e => e.id)
+    );
+  }
+
+  let equip = db.equipment;
+  if (visibleEquipIds) equip = equip.filter(e => visibleEquipIds.has(e.id));
+  if (efilt !== 'all') equip = equip.filter(e => e.cat === efilt);
+
+  const el = document.getElementById('equipContent');
+  if (!equip.length) {
+    el.innerHTML = '<div class="empty-state">' + (edayFilt!=='all' ? '해당 촬영일에 배정된 장비가 없습니다' : '장비를 추가해주세요') + '</div>';
+    return;
+  }
+
+  const cats = [...new Set(equip.map(e=>e.cat))];
+  let html = `<div class="tbl-wrap" style="border:2px solid var(--fg);"><table class="equip-table">
+    <thead><tr>
+      <th style="width:220px">장비명</th>
+      <th style="width:130px">카테고리</th>
+      <th style="width:50px">수량</th>
+      <th>사용 씬</th>
+      <th style="width:180px">메모</th>
+      <th style="width:60px" class="no-print"></th>
+    </tr></thead><tbody>`;
+
+  cats.forEach(cat => {
+    const items = equip.filter(e=>e.cat===cat);
+    html += `<tr><td colspan="6" style="background:var(--bg2);padding:8px 14px;font-family:var(--ff-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);border-bottom:1px solid var(--line);border-top:1.5px solid var(--line2);">${cat}</td></tr>`;
+    items.forEach(e => {
+      const sceneNums = (e.assignedScenes||'').split(',').map(x=>x.trim()).filter(Boolean);
+      /* Day 필터 중이면 해당 Day 씬만 하이라이트 */
+      const daySceneNums = edayFilt !== 'all'
+        ? new Set(db.scenes.filter(s=>s.dayId===edayFilt).map(s=>s.sceneNum.trim()))
+        : null;
+      const scenePills = sceneNums.map(n => {
+        const active = !daySceneNums || daySceneNums.has(n);
+        return `<span style="font-family:var(--ff-mono);font-size:10px;padding:1px 6px;border:1px solid ${active?'var(--fg)':'var(--line)'};color:${active?'var(--fg)':'var(--fg4)'};margin-right:3px;background:${active?'transparent':'var(--bg2)'};">씬 ${n}</span>`;
+      }).join('');
+      html += `<tr class="equip-row" data-id="${e.id}">
+        <td><span class="equip-name">${e.name}</span></td>
+        <td><span class="equip-cat">${e.cat}</span></td>
+        <td><span class="equip-qty">${e.qty||1}</span></td>
+        <td><div class="pills-wrap">${scenePills||'<span style="color:var(--fg4);font-size:11px;">미배정</span>'}</div></td>
+        <td><span style="font-size:12px;color:var(--fg3);">${e.notes||''}</span></td>
+        <td class="no-print"><div class="equip-acts"><button class="btn btn-sm btn-ghost" onclick="openEquipModal('${e.id}')">편집</button></div></td>
+      </tr>`;
+    });
+  });
+  html += `</tbody></table></div>`;
+  el.innerHTML = html;
+}
+
+/* ═══════════════════════════════════════════════
+   EQUIPMENT CRUD
+═══════════════════════════════════════════════ */
+function openEquipModal(id) {
+  editIds.equip = id||null;
+  if (!db.equipment) db.equipment = [];
+  const e = id ? db.equipment.find(x=>x.id===id) : null;
+  document.getElementById('equipMTitle').textContent = e?'장비 편집':'장비 추가';
+  document.getElementById('eDelBtn').style.display = e?'block':'none';
+  document.getElementById('fEName').value = e?.name||'';
+  document.getElementById('fECat').value = e?.cat||'카메라';
+  document.getElementById('fEQty').value = e?.qty||1;
+  document.getElementById('fEScenes').value = e?.assignedScenes||'';
+  document.getElementById('fENotes').value = e?.notes||'';
+  document.getElementById('equipModal').classList.add('open');
+}
+function saveEquip() {
+  if (!db.equipment) db.equipment = [];
+  const name = document.getElementById('fEName').value.trim();
+  if (!name) return;
+  const data = {
+    name,
+    cat: document.getElementById('fECat').value,
+    qty: +document.getElementById('fEQty').value||1,
+    assignedScenes: document.getElementById('fEScenes').value.trim(),
+    notes: document.getElementById('fENotes').value
+  };
+  if (editIds.equip) Object.assign(db.equipment.find(x=>x.id===editIds.equip), data);
+  else db.equipment.push({id:uid(),...data});
+  closeM('equipModal'); renderAll(); saveDB(); showToast('장비 저장됨');
+}
+function deleteEquipM() {
+  if (!editIds.equip) return;
+  db.equipment = db.equipment.filter(x=>x.id!==editIds.equip);
+  closeM('equipModal'); renderAll(); saveDB(); showToast('장비 삭제됨');
+}
 
 /* ═══════════════════════════════════════════════
    SELECTS HELPERS
@@ -1338,6 +1574,7 @@ function openSceneModal(id) {
   document.getElementById('fSPages').value = s?.pages||'';
   document.getElementById('fSCuts').value = s?.cuts||'';
   document.getElementById('fSNotes').value = s?.notes||'';
+  document.getElementById('fSEquip').value = s?.equip||'';
   const selCast = (s?.cast||'').split(',').map(x=>x.trim()).filter(Boolean);
   const selCrew = (s?.crew||'').split(',').map(x=>x.trim()).filter(Boolean);
   document.getElementById('fSCast').innerHTML =
@@ -1354,7 +1591,7 @@ function saveScene() {
   if (!num||!title) return;
   const cast = [...document.querySelectorAll('#fSCast input:checked')].map(e=>e.value).join(',');
   const crew = [...document.querySelectorAll('#fSCrew input:checked')].map(e=>e.value).join(',');
-  const data = {sceneNum:num,title,dayId:document.getElementById('fSDay').value,type:document.getElementById('fSType').value,timeOfDay:document.getElementById('fSTime').value,duration:+document.getElementById('fSDur').value||0,pages:+document.getElementById('fSPages').value||0,cuts:+document.getElementById('fSCuts').value||0,locId:document.getElementById('fSLoc').value,cast,crew,notes:document.getElementById('fSNotes').value};
+  const data = {sceneNum:num,title,dayId:document.getElementById('fSDay').value,type:document.getElementById('fSType').value,timeOfDay:document.getElementById('fSTime').value,duration:+document.getElementById('fSDur').value||0,pages:+document.getElementById('fSPages').value||0,cuts:+document.getElementById('fSCuts').value||0,locId:document.getElementById('fSLoc').value,cast,crew,equip:document.getElementById('fSEquip').value,notes:document.getElementById('fSNotes').value};
   if (editIds.scene) Object.assign(db.scenes.find(x=>x.id===editIds.scene), data);
   else db.scenes.push({id:uid(),...data});
   closeM('sceneModal'); renderAll(); saveDB(); showToast('씬 저장됨');
@@ -1520,80 +1757,57 @@ function buildPdfHTML(sections, selDayIds){
   const dn=['일','월','화','수','목','금','토'];
   const projName=document.getElementById('projName').value||'PreProduction';
 
+  // A4 portrait: 210mm total, margin 12mm each side = 186mm content ≈ 703px @96dpi
   const css=`
     *{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;color:#111;background:#fff;padding:0;}
-
-    /* ── 문서 헤더 ── */
-    .doc-title{font-size:18px;font-weight:700;margin-bottom:4px;}
-    .doc-meta{font-size:9px;color:#888;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #111;}
-
-    /* ── 섹션 제목 ── */
-    .sec-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-      margin:20px 0 8px;padding-bottom:5px;border-bottom:2px solid #111;}
-
-    /* ── 촬영일 헤더 ── */
-    .day-block{margin-bottom:16px;}
-    .day-hdr{padding:7px 0;border-top:2px solid #111;border-bottom:1px solid #CCC;}
-    .day-hdr-inner{display:table;width:100%;}
-    .day-hdr-left{display:table-cell;vertical-align:middle;}
-    .day-hdr-right{display:table-cell;vertical-align:middle;text-align:right;white-space:nowrap;}
-    .day-num{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-right:8px;}
-    .day-date-txt{font-size:13px;font-weight:700;color:#111;}
-    .day-badge{font-size:10px;font-weight:700;color:#111;margin-left:8px;}
-    .day-dur{font-size:9px;color:#888;}
-    .day-meta{font-size:10px;font-weight:700;color:#111;padding:4px 0 6px;border-bottom:1px solid #E0E0E0;}
-
-    /* ── 씬 테이블 — table-layout:fixed 로 넘침 방지 ── */
-    .scene-tbl{width:100%;border-collapse:collapse;font-size:10px;table-layout:fixed;}
-    .scene-tbl th{font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:#888;
-      padding:5px 6px;font-weight:600;border-bottom:1.5px solid #333;text-align:left;overflow:hidden;}
-    .scene-tbl td{padding:5px 6px;border-bottom:1px solid #E8E8E8;vertical-align:middle;
-      overflow:hidden;word-break:break-word;}
+    body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:9.5px;color:#111;background:#fff;}
+    .doc-title{font-size:15px;font-weight:700;margin-bottom:3px;}
+    .doc-meta{font-size:8px;color:#888;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid #111;}
+    .sec-title{font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:16px 0 7px;padding-bottom:5px;border-bottom:2px solid #111;}
+    .day-block{margin-bottom:14px;}
+    .day-hdr-tbl{width:100%;border-collapse:collapse;}
+    .day-hdr-tbl td{padding:6px 0;border-top:2px solid #111;border-bottom:1px solid #CCC;vertical-align:middle;}
+    .day-num{font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-right:7px;}
+    .day-date-txt{font-size:11px;font-weight:700;color:#111;}
+    .day-badge{font-size:9px;font-weight:700;color:#111;margin-left:7px;}
+    .day-locs{font-size:8.5px;font-weight:700;color:#111;margin-left:7px;}
+    .day-dur{font-size:8px;color:#888;text-align:right;white-space:nowrap;padding-right:4px;}
+    .day-meta{font-size:9px;font-weight:700;color:#111;padding:3px 0 5px;border-bottom:1px solid #E0E0E0;}
+    .scene-tbl{width:100%;border-collapse:collapse;font-size:9px;table-layout:fixed;}
+    .scene-tbl th{font-size:7px;letter-spacing:.08em;text-transform:uppercase;color:#888;padding:4px 5px;font-weight:600;border-bottom:1.5px solid #333;text-align:left;overflow:hidden;}
+    .scene-tbl td{padding:4px 5px;border-bottom:1px solid #E8E8E8;vertical-align:middle;overflow:hidden;word-break:break-word;}
     .scene-tbl tr:nth-child(even) td{background:#F8F8F8;}
     .scene-tbl tr{page-break-inside:avoid;}
-    .bk-row td{background:#F4F4F4!important;color:#666;font-style:italic;}
-    .bk-type{font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:#888;}
-
-    /* ── 태그 ── */
-    .tag{font-size:8px;padding:1px 4px;border:1px solid #999;color:#555;
-      display:inline;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;}
+    .bk-row td{background:#F0F0F0!important;color:#666;font-style:italic;}
+    .tag{font-size:7px;padding:1px 3px;border:1px solid #999;color:#555;display:inline;letter-spacing:.03em;text-transform:uppercase;}
     .te{border-color:#333;color:#111;font-weight:700;}
     .tn{border-color:#333;color:#111;font-weight:700;}
-
-    /* ── 장소 ── */
-    .loc-wrap{width:100%;border-collapse:collapse;table-layout:fixed;}
-    .loc-cell{width:33.33%;vertical-align:top;padding:8px 10px 12px 0;
-      border-bottom:1px solid #E0E0E0;overflow:hidden;}
-    .loc-name{font-size:12px;font-weight:700;margin-bottom:2px;}
-    .loc-addr{font-size:9px;color:#666;margin-bottom:4px;}
-    .loc-status{font-size:9px;color:#555;margin-bottom:2px;}
-    .loc-info{font-size:9px;color:#777;margin-top:2px;line-height:1.4;}
-
-    /* ── 인원 ── */
-    .ppl-wrap{width:100%;border-collapse:collapse;table-layout:fixed;}
-    .ppl-cell{width:25%;vertical-align:top;padding:8px 10px 10px 0;
-      border-bottom:1px solid #E0E0E0;overflow:hidden;}
-    .ppl-name{font-size:12px;font-weight:700;margin-bottom:2px;}
-    .ppl-role{font-size:10px;color:#555;}
-    .ppl-info{font-size:9px;color:#888;margin-top:2px;line-height:1.4;}
-    .sub-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#666;
-      font-weight:600;margin:12px 0 5px;padding-bottom:3px;border-bottom:1px solid #CCC;}
-
-    /* ── 씬리스트 테이블 ── */
-    .sl-tbl{width:100%;border-collapse:collapse;font-size:10px;table-layout:fixed;}
-    .sl-tbl th{font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:#888;
-      padding:5px 6px;font-weight:600;border-bottom:1.5px solid #333;text-align:left;}
-    .sl-tbl td{padding:5px 6px;border-bottom:1px solid #E8E8E8;vertical-align:top;
-      overflow:hidden;word-break:break-word;}
+    .loc-tbl{width:100%;border-collapse:collapse;table-layout:fixed;}
+    .loc-cell{width:50%;vertical-align:top;padding:7px 8px 10px 0;border-bottom:1px solid #E0E0E0;overflow:hidden;}
+    .loc-name{font-size:11px;font-weight:700;margin-bottom:2px;}
+    .loc-addr{font-size:8px;color:#666;margin-bottom:3px;}
+    .loc-info{font-size:8px;color:#777;margin-top:2px;line-height:1.4;}
+    .ppl-tbl{width:100%;border-collapse:collapse;table-layout:fixed;}
+    .ppl-cell{width:33.33%;vertical-align:top;padding:7px 8px 9px 0;border-bottom:1px solid #E0E0E0;overflow:hidden;}
+    .ppl-name{font-size:11px;font-weight:700;margin-bottom:2px;}
+    .ppl-role{font-size:9px;color:#555;}
+    .ppl-info{font-size:8px;color:#888;margin-top:2px;line-height:1.4;}
+    .sub-lbl{font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:#666;font-weight:700;margin:10px 0 5px;padding-bottom:3px;border-bottom:1px solid #CCC;}
+    .sl-tbl{width:100%;border-collapse:collapse;font-size:9px;table-layout:fixed;}
+    .sl-tbl th{font-size:7px;letter-spacing:.08em;text-transform:uppercase;color:#888;padding:4px 5px;font-weight:600;border-bottom:1.5px solid #333;text-align:left;}
+    .sl-tbl td{padding:4px 5px;border-bottom:1px solid #E8E8E8;vertical-align:top;overflow:hidden;word-break:break-word;}
     .sl-tbl tr:nth-child(even) td{background:#F8F8F8;}
     .sl-tbl tr{page-break-inside:avoid;}
-
+    .eq-tbl{width:100%;border-collapse:collapse;font-size:9px;table-layout:fixed;}
+    .eq-tbl th{font-size:7px;letter-spacing:.08em;text-transform:uppercase;color:#888;padding:4px 5px;font-weight:600;border-bottom:1.5px solid #333;text-align:left;}
+    .eq-tbl td{padding:4px 5px;border-bottom:1px solid #E8E8E8;vertical-align:middle;overflow:hidden;}
+    .eq-tbl tr:nth-child(even) td{background:#F8F8F8;}
+    .eq-cat-row td{background:#EFEFEF!important;font-size:7px;letter-spacing:.1em;text-transform:uppercase;color:#555;font-weight:700;padding:3px 5px;}
     .page-break{page-break-before:always;}
   `;
 
   let body=`<div class="doc-title">PreProduction — ${projName}</div>
-<div class="doc-meta">PDF 생성: ${new Date().toLocaleDateString('ko-KR')} · 선택 섹션: ${sections.join(', ')}</div>`;
+<div class="doc-meta">PDF 생성: ${new Date().toLocaleDateString('ko-KR')} · ${sections.join(' · ')}</div>`;
 
   /* ── 촬영 스케줄 ── */
   if(sections.includes('schedule')){
@@ -1610,46 +1824,38 @@ function buildPdfHTML(sections, selDayIds){
       const totStr=totMin>0?(Math.floor(totMin/60)>0?`${Math.floor(totMin/60)}h ${totMin%60}m`:`${totMin%60}m`):'';
 
       body+=`<div class="day-block">
-<div class="day-hdr">
-  <div class="day-hdr-inner">
-    <div class="day-hdr-left">
-      <span class="day-num">Day ${di+1}</span>
-      <span class="day-date-txt">${dateStr}</span>
-      ${day.callTime?`<span class="day-badge">Call ${day.callTime}</span>`:''}
-      ${day.firstShot?`<span class="day-badge">First ${day.firstShot}</span>`:''}
-      ${dayLocs?`<span style="font-size:9px;color:#555;margin-left:6px;">${dayLocs}</span>`:''}
-    </div>
-    <div class="day-hdr-right"><span class="day-dur">${totStr}</span></div>
-  </div>
-</div>`;
+<table class="day-hdr-tbl"><tr>
+  <td><span class="day-num">Day ${di+1}</span><span class="day-date-txt">${dateStr}</span>${day.callTime?`<span class="day-badge">Call ${day.callTime}</span>`:''}${day.firstShot?`<span class="day-badge">First ${day.firstShot}</span>`:''}${dayLocs?`<span class="day-locs">${dayLocs}</span>`:''}</td>
+  <td class="day-dur">${totStr}&nbsp;</td>
+</tr></table>`;
       if(day.weather||day.temp||day.sunrise||day.sunset){
         body+=`<div class="day-meta">${[day.sunrise?'↑'+day.sunrise:'',day.sunset?'↓'+day.sunset:'',day.weather,day.temp].filter(Boolean).join(' · ')}</div>`;
       }
       body+=`<table class="scene-tbl"><thead><tr>
         <th style="width:5%">씬</th>
         <th style="width:9%">시각</th>
-        <th style="width:28%">내용</th>
-        <th style="width:9%">구분</th>
-        <th style="width:18%">출연진</th>
-        <th style="width:16%">장소</th>
+        <th style="width:24%">내용</th>
+        <th style="width:8%">구분</th>
+        <th style="width:14%">출연진</th>
+        <th style="width:14%">장비</th>
+        <th style="width:13%">장소</th>
         <th style="width:5%">min</th>
-        <th style="width:5%">pp</th>
-        <th style="width:5%">컷</th>
+        <th style="width:4%">pp</th>
+        <th style="width:4%">컷</th>
       </tr></thead><tbody>`;
       items.forEach(item=>{
         if(item._k==='scene'){
           const s=item;
           const t=tm?tm[s.id]:null;
           const timeStr=t&&s.duration?`${t.start}→${t.end}`:'';
-          const tagType=s.type==='EXT'?'tag te':'tag';
-          const tagTime=s.timeOfDay==='야간'?'tag tn':'tag';
           body+=`<tr>
             <td style="font-weight:700;">${s.sceneNum}</td>
-            <td style="font-family:monospace;font-size:9px;">${timeStr}</td>
-            <td>${s.title}${s.notes?`<br><span style="font-size:8px;color:#888;">${s.notes}</span>`:''}</td>
-            <td><span class="${tagType}">${s.type}</span> <span class="${tagTime}">${s.timeOfDay}</span></td>
-            <td style="font-size:9px;">${s.cast||'—'}</td>
-            <td style="font-size:9px;">${locName(s.locId)}</td>
+            <td style="font-family:monospace;font-size:8px;">${timeStr}</td>
+            <td>${s.title}${s.notes?`<br><span style="font-size:7px;color:#888;">${s.notes}</span>`:''}</td>
+            <td><span class="tag ${s.type==='EXT'?'te':''}">${s.type}</span> <span class="tag ${s.timeOfDay==='야간'?'tn':''}">${s.timeOfDay}</span></td>
+            <td style="font-size:8px;">${s.cast||'—'}</td>
+            <td style="font-size:8px;color:#555;">${s.equip||'—'}</td>
+            <td style="font-size:8px;">${locName(s.locId)}</td>
             <td style="text-align:right;">${s.duration||''}</td>
             <td style="text-align:right;">${s.pages||''}</td>
             <td style="text-align:right;">${s.cuts||''}</td>
@@ -1659,9 +1865,9 @@ function buildPdfHTML(sections, selDayIds){
           const t=tm?tm[bk.id]:null;
           const timeStr=t&&bk.duration?`${t.start}→${t.end}`:'';
           body+=`<tr class="bk-row">
-            <td><span class="bk-type">${bk.type}</span></td>
-            <td style="font-family:monospace;font-size:9px;">${timeStr}</td>
-            <td colspan="7">${bk.label||bk.type}${bk.duration?` (${bk.duration}분)`:''}</td>
+            <td style="font-size:7px;text-transform:uppercase;">${bk.type}</td>
+            <td style="font-family:monospace;font-size:8px;">${timeStr}</td>
+            <td colspan="8">${bk.label||bk.type}${bk.duration?` (${bk.duration}분)`:''}</td>
           </tr>`;
         }
       });
@@ -1671,29 +1877,25 @@ function buildPdfHTML(sections, selDayIds){
 
   /* ── 촬영 장소 ── */
   if(sections.includes('locations')){
-    const pb=sections.includes('schedule')?'class="sec-title page-break"':'class="sec-title"';
+    const pb=sections[0]!=='locations'?'class="sec-title page-break"':'class="sec-title"';
     body+=`<div ${pb}>촬영 장소</div>`;
-    // 3열 table 레이아웃
     const locs=db.locations;
     const rows=[];
-    for(let i=0;i<locs.length;i+=3) rows.push(locs.slice(i,i+3));
-    body+=`<table class="loc-wrap">`;
+    for(let i=0;i<locs.length;i+=2) rows.push(locs.slice(i,i+2));
+    body+=`<table class="loc-tbl">`;
     rows.forEach(row=>{
       body+=`<tr>`;
       row.forEach(l=>{
         const cnt=db.scenes.filter(s=>s.locId===l.id).length;
-        const permCls=l.perm==='완료'?'':l.perm==='진행 중'?'wip':'no';
-        const badgeStyle=l.perm==='완료'?'border-color:#111;color:#111;':l.perm==='진행 중'?'border-color:#666;color:#555;':'border-color:#AAA;color:#888;';
-      body+=`<td class="loc-cell ${permCls}">
+        body+=`<td class="loc-cell">
           <div class="loc-name">${l.name}</div>
           <div class="loc-addr">${l.addr||''}</div>
-          <div class="loc-status">${l.type} · 허가 ${l.perm} · 배정 씬 ${cnt}개</div>
+          <div class="loc-info">${l.type} · 허가 ${l.perm} · 씬 ${cnt}개</div>
           ${l.contact?`<div class="loc-info">${l.contact}</div>`:''}
           ${l.notes?`<div class="loc-info">${l.notes}</div>`:''}
         </td>`;
       });
-      // 빈 칸 채우기
-      for(let i=row.length;i<3;i++) body+=`<td class="loc-cell" style="border:none;"></td>`;
+      if(row.length<2) body+=`<td class="loc-cell" style="border:none;"></td>`;
       body+=`</tr>`;
     });
     body+=`</table>`;
@@ -1701,79 +1903,75 @@ function buildPdfHTML(sections, selDayIds){
 
   /* ── 출연진 / 스태프 ── */
   if(sections.includes('people')){
-    const prevSecs=sections.filter(s=>s!=='people'&&s!=='scenelist');
-    const pb=prevSecs.length>0?'class="sec-title page-break"':'class="sec-title"';
+    const pb=sections[0]!=='people'?'class="sec-title page-break"':'class="sec-title"';
     body+=`<div ${pb}>출연진 / 스태프</div>`;
     const cast=db.people.filter(p=>p.cat==='cast');
     const crew=db.people.filter(p=>p.cat==='crew');
-    const renderPplTable=(people,isCrew)=>{
-      if(!people.length) return '';
+    const pplTable=(people)=>{
       const rows=[];
-      for(let i=0;i<people.length;i+=4) rows.push(people.slice(i,i+4));
-      let t=`<table class="ppl-wrap">`;
+      for(let i=0;i<people.length;i+=3) rows.push(people.slice(i,i+3));
+      let t=`<table class="ppl-tbl">`;
       rows.forEach(row=>{
         t+=`<tr>`;
         row.forEach(p=>{
-          const cnt=db.scenes.filter(s=>(isCrew?(s.crew||''):(s.cast||'')).includes(p.name)).length;
-          t+=`<td class="ppl-cell ${isCrew?'crew':''}">
-            <div class="ppl-name">${p.name}</div>
-            <div class="ppl-role">${p.role}</div>
-            ${cnt?`<div class="ppl-info">배정 씬 ${cnt}개</div>`:''}
-            ${p.contact?`<div class="ppl-info">${p.contact}</div>`:''}
-            ${p.notes?`<div class="ppl-info">${p.notes}</div>`:''}
-          </td>`;
+          const cnt=db.scenes.filter(s=>(s.cast||'').includes(p.name)||(s.crew||'').includes(p.name)).length;
+          t+=`<td class="ppl-cell"><div class="ppl-name">${p.name}</div><div class="ppl-role">${p.role}</div>${cnt?`<div class="ppl-info">씬 ${cnt}개</div>`:''}${p.contact?`<div class="ppl-info">${p.contact}</div>`:''}${p.notes?`<div class="ppl-info">${p.notes}</div>`:''}</td>`;
         });
-        for(let i=row.length;i<4;i++) t+=`<td class="ppl-cell" style="border:none;"></td>`;
+        for(let i=row.length;i<3;i++) t+=`<td class="ppl-cell" style="border:none;"></td>`;
         t+=`</tr>`;
       });
-      t+=`</table>`;
-      return t;
+      return t+`</table>`;
     };
-    if(cast.length){
-      body+=`<div class="sub-lbl">출연진</div>`;
-      body+=renderPplTable(cast,false);
-    }
-    if(crew.length){
-      body+=`<div class="sub-lbl">스태프</div>`;
-      body+=renderPplTable(crew,true);
-    }
+    if(cast.length){ body+=`<div class="sub-lbl">출연진</div>`+pplTable(cast); }
+    if(crew.length){ body+=`<div class="sub-lbl">스태프</div>`+pplTable(crew); }
   }
 
   /* ── 씬 리스트 ── */
   if(sections.includes('scenelist')){
-    const prevSecs=sections.filter(s=>s!=='scenelist');
-    const pb=prevSecs.length>0?'class="sec-title page-break"':'class="sec-title"';
+    const pb=sections[0]!=='scenelist'?'class="sec-title page-break"':'class="sec-title"';
     body+=`<div ${pb}>씬 리스트</div>`;
-    const allScenes=[...db.scenes].sort((a,b)=>{
-      const na=parseFloat(a.sceneNum)||0,nb=parseFloat(b.sceneNum)||0;
-      return na!==nb?na-nb:a.sceneNum.localeCompare(b.sceneNum);
-    });
+    const allScenes=[...db.scenes].sort((a,b)=>{const na=parseFloat(a.sceneNum)||0,nb=parseFloat(b.sceneNum)||0;return na!==nb?na-nb:a.sceneNum.localeCompare(b.sceneNum);});
     body+=`<table class="sl-tbl"><thead><tr>
-      <th style="width:6%">씬</th>
-      <th style="width:32%">내용</th>
-      <th style="width:10%">구분</th>
-      <th style="width:20%">출연진</th>
-      <th style="width:16%">장소</th>
-      <th style="width:9%">촬영일</th>
-      <th style="width:3.5%">pp</th>
-      <th style="width:3.5%">컷</th>
+      <th style="width:5%">씬</th><th style="width:28%">내용</th><th style="width:8%">구분</th>
+      <th style="width:14%">출연진</th><th style="width:16%">장비</th><th style="width:14%">장소</th>
+      <th style="width:8%">촬영일</th><th style="width:3.5%">pp</th><th style="width:3.5%">컷</th>
     </tr></thead><tbody>`;
     allScenes.forEach(s=>{
       const day=db.days.find(d=>d.id===s.dayId);
       let dayStr='—';
       if(day){const dd=new Date(day.date);dayStr=`${dd.getMonth()+1}/${dd.getDate()}(${dn[dd.getDay()]})`;}
-      const tagType=s.type==='EXT'?'tag te':'tag';
-      const tagTime=s.timeOfDay==='야간'?'tag tn':'tag';
       body+=`<tr>
         <td style="font-weight:700;">${s.sceneNum}</td>
-        <td>${s.title}${s.notes?`<br><span style="font-size:8px;color:#888;">${s.notes}</span>`:''}</td>
-        <td><span class="${tagType}">${s.type}</span> <span class="${tagTime}">${s.timeOfDay}</span></td>
-        <td style="font-size:9px;">${s.cast||'—'}</td>
-        <td style="font-size:9px;">${locName(s.locId)}</td>
-        <td style="font-size:9px;">${dayStr}</td>
+        <td>${s.title}${s.notes?`<br><span style="font-size:7px;color:#888;">${s.notes}</span>`:''}</td>
+        <td><span class="tag ${s.type==='EXT'?'te':''}">${s.type}</span> <span class="tag ${s.timeOfDay==='야간'?'tn':''}">${s.timeOfDay}</span></td>
+        <td style="font-size:8px;">${s.cast||'—'}</td>
+        <td style="font-size:8px;color:#555;">${s.equip||'—'}</td>
+        <td style="font-size:8px;">${locName(s.locId)}</td>
+        <td style="font-size:8px;">${dayStr}</td>
         <td style="text-align:right;">${s.pages||''}</td>
         <td style="text-align:right;">${s.cuts||''}</td>
       </tr>`;
+    });
+    body+=`</tbody></table>`;
+  }
+
+  /* ── 장비 리스트 ── */
+  if(sections.includes('equipment')){
+    if (!db.equipment) db.equipment = [];
+    const pb=sections[0]!=='equipment'?'class="sec-title page-break"':'class="sec-title"';
+    body+=`<div ${pb}>장비 리스트</div>`;
+    const cats=[...new Set(db.equipment.map(e=>e.cat))];
+    body+=`<table class="eq-tbl"><thead><tr>
+      <th style="width:28%">장비명</th><th style="width:16%">카테고리</th>
+      <th style="width:6%">수량</th><th style="width:30%">사용 씬</th><th style="width:20%">메모</th>
+    </tr></thead><tbody>`;
+    cats.forEach(cat=>{
+      body+=`<tr class="eq-cat-row"><td colspan="5">${cat}</td></tr>`;
+      db.equipment.filter(e=>e.cat===cat).forEach(e=>{
+        const sceneNums=(e.assignedScenes||'').split(',').map(x=>x.trim()).filter(Boolean);
+        const sceneStr=sceneNums.map(n=>`씬 ${n}`).join(', ')||'미배정';
+        body+=`<tr><td style="font-weight:700;">${e.name}</td><td>${e.cat}</td><td style="text-align:center;">${e.qty||1}</td><td style="font-size:8px;">${sceneStr}</td><td style="font-size:8px;color:#666;">${e.notes||''}</td></tr>`;
+      });
     });
     body+=`</tbody></table>`;
   }
@@ -1790,28 +1988,38 @@ function downloadPDF(){
   const projName=document.getElementById('projName').value||'PreProduction';
   showToast('PDF 생성 중...');
 
+  /* 스크롤 위치 저장 후 최상단으로 이동 — html2canvas 스크롤 오프셋 버그 방지 */
+  const prevScrollX = window.scrollX;
+  const prevScrollY = window.scrollY;
+  window.scrollTo(0, 0);
+
   const fullHTML=buildPdfHTML(sections,selDayIds);
 
   const opt={
-    margin:[8,8,8,8],
+    margin:[12,12,12,12],
     filename:`${projName}_schedule.pdf`,
     image:{type:'jpeg',quality:0.97},
     html2canvas:{
       scale:2,
       useCORS:true,
       logging:false,
-      backgroundColor:'#ffffff'
+      backgroundColor:'#ffffff',
+      scrollX:0,
+      scrollY:0
     },
-    jsPDF:{unit:'mm',format:'a4',orientation:'landscape'},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
     pagebreak:{
       mode:['css','legacy'],
-      avoid:['.day-block','.loc-cell','.ppl-cell','tr']
+      avoid:['.day-block','.loc-cell','.ppl-cell','tr','.eq-cat-row']
     }
   };
 
   html2pdf().set(opt).from(fullHTML,'string').save().then(()=>{
+    /* 스크롤 위치 복원 */
+    window.scrollTo(prevScrollX, prevScrollY);
     showToast('PDF 저장 완료!');
   }).catch(err=>{
+    window.scrollTo(prevScrollX, prevScrollY);
     console.error('PDF 오류:',err);
     showToast('PDF 생성 실패');
   });
@@ -1827,11 +2035,15 @@ function migrateData(data) {
     (data.breaks||[]).forEach((b,i)=>{ if(b._order==null) b._order=(data.scenes||[]).length*2+i*2+1; });
     v=2;
   }
+  if (v<3) {
+    if (!data.equipment) data.equipment=[];
+    v=3;
+  }
   data._version=v; return data;
 }
 function exportJSON() {
   const proj = document.getElementById('projName').value||'PreProduction';
-  const payload = {_version:SCHEMA_VER,projectName:proj,phase:document.getElementById('phaseSelect').value,days:db.days,scenes:db.scenes,breaks:db.breaks||[],locations:db.locations,people:db.people,exportedAt:new Date().toISOString()};
+  const payload = {_version:SCHEMA_VER,projectName:proj,phase:document.getElementById('phaseSelect').value,days:db.days,scenes:db.scenes,breaks:db.breaks||[],locations:db.locations,people:db.people,equipment:db.equipment||[],exportedAt:new Date().toISOString()};
   const blob = new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href=url; a.download=`${proj}_preproduction.json`; a.click();
@@ -1848,7 +2060,7 @@ function importJSON(input) {
       if (fv > SCHEMA_VER) { alert(`더 최신 버전(v${fv})의 파일입니다. 현재 앱(v${SCHEMA_VER})에서는 열 수 없습니다.`); input.value=''; return; }
       if (fv < SCHEMA_VER) data = migrateData(data);
       if (!confirm(`"${data.projectName||'(제목 없음)'}" — 현재 데이터를 덮어씌웁니다. 계속할까요?`)) return;
-      db.days=data.days; db.scenes=data.scenes; db.breaks=data.breaks||[]; db.locations=data.locations; db.people=data.people;
+      db.days=data.days; db.scenes=data.scenes; db.breaks=data.breaks||[]; db.locations=data.locations; db.people=data.people; db.equipment=data.equipment||[];
       if (data.projectName) document.getElementById('projName').value=data.projectName;
       if (data.phase) { document.getElementById('phaseSelect').value=data.phase; updatePhase(); }
       saveDB(); renderAll(); showToast('불러오기 완료');
