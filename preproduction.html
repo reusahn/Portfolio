@@ -704,9 +704,9 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div><label class="form-lbl">씬 번호</label><input class="form-inp" id="fSNum" placeholder="예: 12A"/></div>
+        <div><label class="form-lbl">씬 번호 <span style="color:#AA2222;">*</span></label><input class="form-inp" id="fSNum" placeholder="예: 12A"/></div>
         <div><label class="form-lbl">촬영일</label><select class="form-inp" id="fSDay"></select></div>
-        <div class="form-full"><label class="form-lbl">씬 제목 / 내용</label><input class="form-inp" id="fSTitle" placeholder="장소 — 상황 설명"/></div>
+        <div class="form-full"><label class="form-lbl">씬 제목 / 내용 <span style="color:#AA2222;">*</span></label><input class="form-inp" id="fSTitle" placeholder="장소 — 상황 설명"/></div>
         <div><label class="form-lbl">INT / EXT</label><select class="form-inp" id="fSType"><option>INT</option><option>EXT</option></select></div>
         <div><label class="form-lbl">시간대</label><select class="form-inp" id="fSTime"><option>주간</option><option>야간</option></select></div>
         <div><label class="form-lbl">예상 시간 (분)</label><input class="form-inp" id="fSDur" type="number" min="5" placeholder="45"/></div>
@@ -738,8 +738,8 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
       <div class="form-grid">
         <div><label class="form-lbl">촬영일</label><select class="form-inp" id="fBDay"></select></div>
         <div><label class="form-lbl">종류</label><select class="form-inp" id="fBType"><option>이동</option><option>식사</option><option>휴식</option><option>준비</option><option>기타</option></select></div>
-        <div class="form-full"><label class="form-lbl">내용</label><input class="form-inp" id="fBLabel" placeholder="예: 점심 / 이동 — 스튜디오 A → B"/></div>
-        <div><label class="form-lbl">소요 시간 (분)</label><input class="form-inp" id="fBDur" type="number" min="1" placeholder="30"/></div>
+        <div class="form-full"><label class="form-lbl">내용 <span style="color:#AA2222;">*</span></label><input class="form-inp" id="fBLabel" placeholder="예: 점심 / 이동 — 스튜디오 A → B"/></div>
+        <div><label class="form-lbl">소요 시간 (분) <span style="color:#AA2222;">*</span></label><input class="form-inp" id="fBDur" type="number" min="1" placeholder="30"/></div>
         <div><label class="form-lbl">장소 (선택)</label><select class="form-inp" id="fBLoc"><option value="">—</option></select></div>
       </div>
     </div>
@@ -760,7 +760,7 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div><label class="form-lbl">날짜</label><input class="form-inp" id="fDDate" type="date"/></div>
+        <div><label class="form-lbl">날짜 <span style="color:#AA2222;">*</span></label><input class="form-inp" id="fDDate" type="date"/></div>
         <div>
           <label class="form-lbl">콜 타임</label>
           <input class="form-inp" id="fDCall" type="time"/>
@@ -946,18 +946,18 @@ const SAMPLE = {
     {id:'p8',name:'스턴트코디',cat:'crew',role:'스턴트 코디네이터',contact:'010-5500-4400',notes:'씬 5·7 와이어 및 낙하 담당'}
   ],
   equipment: [
-    {id:'e1',name:'Sony FX3',cat:'카메라',qty:1,assignedScenes:'s1,s2,s3,s4,s5,s6,s7,s8',notes:'메인 카메라'},
-    {id:'e2',name:'핸드헬드 리그',cat:'카메라 액세서리',qty:1,assignedScenes:'s1,s2',notes:'씬 1·2 핸드헬드 전용'},
-    {id:'e3',name:'고정 삼각대',cat:'카메라 액세서리',qty:1,assignedScenes:'s4,s6,s7,s8',notes:'풀샷 고정 촬영용'},
-    {id:'e4',name:'로우앵글 리그',cat:'카메라 액세서리',qty:1,assignedScenes:'s5',notes:'씬 5 전용. 지면 10cm 이하'},
-    {id:'e5',name:'소형 LED 패널 (Aputure MC)',cat:'조명',qty:4,assignedScenes:'s1,s2,s4,s6,s7,s8',notes:'노란 따뜻한 빛. 방 내부 키 라이트'},
-    {id:'e6',name:'클로즈업 렌즈 100mm',cat:'렌즈',qty:1,assignedScenes:'s2,s3',notes:'팔 클로즈업·창문 시선 인서트'},
-    {id:'e7',name:'와이드렌즈 24mm',cat:'렌즈',qty:1,assignedScenes:'s4,s5,s6',notes:'공간감 강조'},
-    {id:'e8',name:'와이어 장비 (3m)',cat:'특수장비',qty:1,assignedScenes:'s5,s7',notes:'준 리프팅 + 혜미 낙하 씬. 스턴트 코디 전담'},
-    {id:'e9',name:'녹슨 못 (프롭)',cat:'소품',qty:3,assignedScenes:'s2,s4,s7,s8',notes:'실제 날카롭지 않게 처리 필수'},
-    {id:'e10',name:'밧줄/커튼 천 (프롭)',cat:'소품',qty:1,assignedScenes:'s4,s5,s6,s7',notes:'사전 제작. 강도 테스트 필요'},
-    {id:'e11',name:'종이·뭉뚝한 샤프 (프롭)',cat:'소품',qty:5,assignedScenes:'s6,s8',notes:'혜미·준 필기 장면'},
-    {id:'e12',name:'사탕 봉지 (프롭)',cat:'소품',qty:2,assignedScenes:'s2',notes:'셀린 사탕 씹는 씬. 와그작 소리 중요'}
+    {id:'e1',name:'Sony FX3',cat:'카메라',qty:1,assignedScenes:'1,2,3,4,5,6,7,8',notes:'메인 카메라'},
+    {id:'e2',name:'핸드헬드 리그',cat:'카메라 액세서리',qty:1,assignedScenes:'1,2',notes:'씬 1·2 핸드헬드 전용'},
+    {id:'e3',name:'고정 삼각대',cat:'카메라 액세서리',qty:1,assignedScenes:'4,6,7,8',notes:'풀샷 고정 촬영용'},
+    {id:'e4',name:'로우앵글 리그',cat:'카메라 액세서리',qty:1,assignedScenes:'5',notes:'씬 5 전용. 지면 10cm 이하'},
+    {id:'e5',name:'소형 LED 패널 (Aputure MC)',cat:'조명',qty:4,assignedScenes:'1,2,4,6,7,8',notes:'노란 따뜻한 빛. 방 내부 키 라이트'},
+    {id:'e6',name:'클로즈업 렌즈 100mm',cat:'렌즈',qty:1,assignedScenes:'2,3',notes:'팔 클로즈업·창문 시선 인서트'},
+    {id:'e7',name:'와이드렌즈 24mm',cat:'렌즈',qty:1,assignedScenes:'4,5,6',notes:'공간감 강조'},
+    {id:'e8',name:'와이어 장비 (3m)',cat:'특수장비',qty:1,assignedScenes:'5,7',notes:'준 리프팅 + 혜미 낙하 씬. 스턴트 코디 전담'},
+    {id:'e9',name:'녹슨 못 (프롭)',cat:'소품',qty:3,assignedScenes:'2,4,7,8',notes:'실제 날카롭지 않게 처리 필수'},
+    {id:'e10',name:'밧줄/커튼 천 (프롭)',cat:'소품',qty:1,assignedScenes:'4,5,6,7',notes:'사전 제작. 강도 테스트 필요'},
+    {id:'e11',name:'종이·뭉뚝한 샤프 (프롭)',cat:'소품',qty:5,assignedScenes:'6,8',notes:'혜미·준 필기 장면'},
+    {id:'e12',name:'사탕 봉지 (프롭)',cat:'소품',qty:2,assignedScenes:'2',notes:'셀린 사탕 씹는 씬. 와그작 소리 중요'}
   ]
 };
 
@@ -1063,7 +1063,8 @@ function switchTab(name, el) {
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('topbarTitle').textContent = tabTitles[name];
-  document.getElementById('topAddBtn').textContent = tabAddLabels[name];
+  const topBtn = document.getElementById('topAddBtn');
+  if (topBtn) topBtn.textContent = tabAddLabels[name];
 }
 function handleTopAdd() {
   if (currentTab==='schedule') openSceneModal();
@@ -1173,7 +1174,7 @@ function renderSchedule() {
           <th style="width:46px">cut</th>
           <th style="width:140px">Time</th>
           <th>내용</th>
-          <th style="width:100px">구분</th>
+          <th style="width:130px;text-align:center;">구분</th>
           <th style="width:100px">출연진</th>
           <th style="width:80px">장소</th>
           <th style="width:120px">장비</th>
@@ -1200,7 +1201,7 @@ function renderSchedule() {
                 <div class="scene-title">${s.title}</div>
                 ${s.notes?`<div class="scene-note">${s.notes}</div>`:''}
               </td>
-              <td style="white-space:nowrap;""><span class="tag ${tagCls(s.type)}">${s.type}</span>&thinsp;<span class="tag ${tagCls(s.timeOfDay)}">${s.timeOfDay}</span></td>
+              <td style="white-space:nowrap;text-align:center;"><span class="tag ${tagCls(s.type)}">${s.type}</span>&thinsp;<span class="tag ${tagCls(s.timeOfDay)}">${s.timeOfDay}</span></td>
               <td><div class="pills-wrap">${pills(s.cast,'cast-pill')}</div></td>
               <td><span class="loc-text">${locName(s.locId)}</span></td>
               <td><span style="font-family:var(--ff-mono);font-size:10px;color:var(--fg3);">${s.equip||''}</span></td>
@@ -1398,6 +1399,29 @@ function renderPeople() {
 
 function renderAll() { updateStats(); renderSchedule(); renderLocations(); renderPeople(); renderSceneList(); renderEquipment(); }
 
+/* 장비 탭 → 씬 리스트로 점프 */
+function jumpToScene(sceneNum) {
+  /* 씬 리스트 탭으로 전환 */
+  const navEl = document.querySelector('.nav-item[data-tab="scenelist"]');
+  switchTab('scenelist', navEl);
+  /* 해당 씬 행 하이라이트 */
+  setTimeout(() => {
+    const rows = document.querySelectorAll('.sl-row');
+    rows.forEach(row => {
+      const numEl = row.querySelector('.sl-num');
+      if (numEl && numEl.textContent.trim() === String(sceneNum)) {
+        row.scrollIntoView({behavior:'smooth', block:'center'});
+        row.style.outline = '2px solid var(--fg)';
+        row.style.background = '#E8E8E8';
+        setTimeout(() => {
+          row.style.outline = '';
+          row.style.background = '';
+        }, 2000);
+      }
+    });
+  }, 100);
+}
+
 /* ═══════════════════════════════════════════════
    EQUIPMENT FILTER
 ═══════════════════════════════════════════════ */
@@ -1481,7 +1505,7 @@ function renderEquipment() {
         : null;
       const scenePills = sceneNums.map(n => {
         const active = !daySceneNums || daySceneNums.has(n);
-        return `<span style="font-family:var(--ff-mono);font-size:10px;padding:1px 6px;border:1px solid ${active?'var(--fg)':'var(--line)'};color:${active?'var(--fg)':'var(--fg4)'};margin-right:3px;background:${active?'transparent':'var(--bg2)'};">씬 ${n}</span>`;
+        return `<span onclick="jumpToScene('${n}')" style="cursor:pointer;font-family:var(--ff-mono);font-size:10px;padding:1px 6px;border:1px solid ${active?'var(--fg)':'var(--line)'};color:${active?'var(--fg)':'var(--fg4)'};margin-right:3px;background:${active?'transparent':'var(--bg2)'};">${n}</span>`;
       }).join('');
       html += `<tr class="equip-row" data-id="${e.id}">
         <td><span class="equip-name">${e.name}</span></td>
@@ -1588,7 +1612,8 @@ function openSceneModal(id) {
 function saveScene() {
   const num = document.getElementById('fSNum').value.trim();
   const title = document.getElementById('fSTitle').value.trim();
-  if (!num||!title) return;
+  if (!num) { showToast('⚠ 씬 번호를 입력해주세요'); document.getElementById('fSNum').focus(); return; }
+  if (!title) { showToast('⚠ 씬 제목을 입력해주세요'); document.getElementById('fSTitle').focus(); return; }
   const cast = [...document.querySelectorAll('#fSCast input:checked')].map(e=>e.value).join(',');
   const crew = [...document.querySelectorAll('#fSCrew input:checked')].map(e=>e.value).join(',');
   const data = {sceneNum:num,title,dayId:document.getElementById('fSDay').value,type:document.getElementById('fSType').value,timeOfDay:document.getElementById('fSTime').value,duration:+document.getElementById('fSDur').value||0,pages:+document.getElementById('fSPages').value||0,cuts:+document.getElementById('fSCuts').value||0,locId:document.getElementById('fSLoc').value,cast,crew,equip:document.getElementById('fSEquip').value,notes:document.getElementById('fSNotes').value};
@@ -1620,7 +1645,11 @@ function openBreakModal(id) {
 }
 function saveBreak() {
   if (!db.breaks) db.breaks = [];
-  const data = {dayId:document.getElementById('fBDay').value,type:document.getElementById('fBType').value,label:document.getElementById('fBLabel').value,duration:+document.getElementById('fBDur').value||0,locId:document.getElementById('fBLoc').value||''};
+  const bLabel = document.getElementById('fBLabel').value.trim();
+  const bDur = document.getElementById('fBDur').value;
+  if (!bLabel) { showToast('⚠ 내용을 입력해주세요'); document.getElementById('fBLabel').focus(); return; }
+  if (!bDur) { showToast('⚠ 소요 시간을 입력해주세요'); document.getElementById('fBDur').focus(); return; }
+  const data = {dayId:document.getElementById('fBDay').value,type:document.getElementById('fBType').value,label:bLabel,duration:+bDur||0,locId:document.getElementById('fBLoc').value||''};
   if (editIds.brk) Object.assign(db.breaks.find(x=>x.id===editIds.brk), data);
   else db.breaks.push({id:uid(),...data});
   closeM('breakModal'); renderAll(); saveDB(); showToast('시간 블록 저장됨');
@@ -1653,7 +1682,7 @@ function openDayModal(id) {
 }
 function saveDay() {
   const date = document.getElementById('fDDate').value;
-  if (!date) return;
+  if (!date) { showToast('⚠ 날짜를 선택해주세요'); document.getElementById('fDDate').focus(); return; }
   const data = {date,locIds:getCheckedLocs(),callTime:document.getElementById('fDCall').value,firstShot:document.getElementById('fDFirst').value,sunrise:document.getElementById('fDSunrise').value,sunset:document.getElementById('fDSunset').value,weather:document.getElementById('fDWeather').value,temp:document.getElementById('fDTemp').value,notes:document.getElementById('fDNotes').value};
   if (editIds.day) Object.assign(db.days.find(x=>x.id===editIds.day), data);
   else db.days.push({id:uid(),...data});
