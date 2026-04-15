@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>PreProduction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Azeret+Mono:wght@300;400;500&family=Epilogue:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  /* ── 완전 흑백 그레이스케일 팔레트 ── */
+  --bg:  #FFFFFF;
+  --bg2: #F5F5F5;
+  --bg3: #EBEBEB;
+  --fg:  #111111;
+  --fg2: #333333;
+  --fg3: #666666;
+  --fg4: #999999;
+  --line:  #DDDDDD;
+  --line2: #BBBBBB;
+  --line3: #888888;
+  /* 사이드바 전용 (그대로 유지) */
+  --sb-bg:#141412;
+  --sb-border:#2A2927;
+  --sb-accent:#C8A96E;
+  /* 폰트 */
+  --ff-head:'Syne',sans-serif;
+  --ff-mono:'Azeret Mono',monospace;
+  --ff-body:'Epilogue','Helvetica Neue',sans-serif;
+}
+
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--ff-body);
+  background:var(--bg);
+  color:var(--fg);
+  font-size:15px;          /* ↑ base 크게 */
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--line2);}
+
+/* ══════════════════════════════════════
+   SIDEBAR — 기존 디자인 완전 유지
+══════════════════════════════════════ */
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh;}
+
+.sidebar{
+  background:var(--sb-bg);color:#FAFAF8;
+  display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  border-right:1px solid var(--sb-border);
+}
+.sidebar-brand{padding:28px 24px 20px;border-bottom:1px solid var(--sb-border);}
+.brand-label{font-family:var(--ff-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#6A6660;margin-bottom:8px;}
+.brand-name{font-family:var(--ff-head);font-size:18px;font-weight:800;letter-spacing:-.02em;color:#FAFAF8;line-height:1;}
+.brand-name span{color:var(--sb-accent);}
+.sidebar-project{padding:16px 24px;border-bottom:1px solid var(--sb-border);}
+.sidebar-proj-label{font-family:var(--ff-mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:#5A5652;margin-bottom:6px;}
+.sidebar-proj-input{
+  font-family:var(--ff-body);font-style:italic;font-weight:300;font-size:13px;
+  background:transparent;border:none;color:#D4D0CB;outline:none;width:100%;
+  border-bottom:1px solid var(--sb-border);padding-bottom:4px;
+}
+.sidebar-proj-input:focus{border-bottom-color:#6A6660;}
+.sidebar-proj-input::placeholder{color:#3A3835;}
+.sidebar-phase{padding:12px 24px;border-bottom:1px solid var(--sb-border);}
+.phase-row{display:flex;align-items:center;gap:6px;}
+.phase-dot{width:6px;height:6px;border-radius:50%;background:var(--sb-accent);flex-shrink:0;}
+.phase-text{font-family:var(--ff-mono);font-size:10px;letter-spacing:.06em;color:var(--sb-accent);}
+.phase-sel{font-family:var(--ff-mono);font-size:9px;background:transparent;border:none;color:#5A5652;outline:none;cursor:pointer;margin-top:6px;width:100%;}
+.phase-sel option{background:var(--sb-bg);color:#D4D0CB;}
+.sidebar-nav{padding:20px 0;flex:1;}
+.nav-section-label{font-family:var(--ff-mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:#3A3835;padding:0 24px;margin-bottom:8px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 24px;cursor:pointer;font-family:var(--ff-mono);font-size:11px;letter-spacing:.04em;color:#6A6660;transition:all .12s;border-left:2px solid transparent;}
+.nav-item:hover{color:#BCBAB6;background:rgba(255,255,255,.02);}
+.nav-item.active{color:#FAFAF8;border-left-color:var(--sb-accent);background:rgba(200,169,110,.06);}
+.nav-icon{font-size:12px;width:16px;text-align:center;opacity:.7;}
+.sidebar-stats{padding:16px 24px;border-top:1px solid var(--sb-border);display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.sb-stat{text-align:center;}
+.sb-stat-val{font-family:var(--ff-head);font-size:18px;font-weight:700;color:#FAFAF8;line-height:1;}
+.sb-stat-lbl{font-family:var(--ff-mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#4A4845;margin-top:2px;}
+.sidebar-actions{padding:16px 24px;border-top:1px solid var(--sb-border);display:flex;flex-direction:column;gap:6px;}
+.sb-btn{font-family:var(--ff-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border:1px solid var(--sb-border);background:transparent;color:#6A6660;cursor:pointer;transition:all .12s;text-align:left;width:100%;}
+.sb-btn:hover{border-color:#4A4845;color:#BCBAB6;}
+.sb-btn-accent{border-color:rgba(200,169,110,.3);color:var(--sb-accent);}
+.sb-btn-accent:hover{border-color:var(--sb-accent);background:rgba(200,169,110,.06);}
+.sb-btn-danger{color:#7A4040;}
+.sb-btn-danger:hover{border-color:#7A4040;color:#C06060;}
+
+/* ══════════════════════════════════════
+   MAIN LAYOUT
+══════════════════════════════════════ */
+.main{display:flex;flex-direction:column;min-height:100vh;}
+
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 36px;
+  border-bottom:2px solid var(--fg);    /* 굵은 검정 하단선 */
+  background:var(--bg);
+  position:sticky;top:0;z-index:10;
+}
+.topbar-title{
+  font-family:var(--ff-head);font-size:18px;font-weight:700;
+  letter-spacing:.02em;text-transform:uppercase;color:var(--fg);
+}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+
+.content{padding:32px 36px;flex:1;}
+
+/* ══════════════════════════════════════
+   BUTTONS — 흑백 위주
+══════════════════════════════════════ */
+.btn{
+  font-family:var(--ff-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  padding:9px 18px;border:1.5px solid var(--line2);background:var(--bg);
+  color:var(--fg2);cursor:pointer;transition:all .1s;white-space:nowrap;
+}
+.btn:hover{border-color:var(--fg);color:var(--fg);}
+.btn-primary{background:var(--fg);color:var(--bg);border-color:var(--fg);}
+.btn-primary:hover{background:var(--fg2);border-color:var(--fg2);}
+.btn-sm{font-size:10px;padding:6px 12px;}
+.btn-danger{color:#AA2222;border-color:#DDAAAA;}
+.btn-danger:hover{border-color:#AA2222;}
+.btn-ghost{border-color:transparent;color:var(--fg3);}
+.btn-ghost:hover{border-color:var(--line);color:var(--fg);}
+
+/* ══════════════════════════════════════
+   TOOLBAR
+══════════════════════════════════════ */
+.toolbar{display:flex;align-items:center;gap:8px;margin-bottom:22px;flex-wrap:wrap;}
+.toolbar-spacer{flex:1;}
+.search-inp{
+  font-family:var(--ff-mono);font-size:12px;
+  padding:8px 14px;border:1.5px solid var(--line);background:var(--bg);
+  color:var(--fg);outline:none;width:200px;
+}
+.search-inp:focus{border-color:var(--fg2);}
+.search-inp::placeholder{color:var(--fg4);}
+.flt-group{display:flex;}
+.flt{
+  font-family:var(--ff-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  padding:7px 14px;border:1.5px solid var(--line);background:var(--bg);
+  color:var(--fg3);cursor:pointer;margin-left:-1.5px;transition:all .1s;
+}
+.flt:first-child{margin-left:0;}
+.flt.on{background:var(--fg);color:var(--bg);border-color:var(--fg);z-index:1;position:relative;}
+.flt:hover:not(.on){color:var(--fg);border-color:var(--line2);}
+
+/* ══════════════════════════════════════
+   TAGS & PILLS
+══════════════════════════════════════ */
+.tag{
+  font-family:var(--ff-mono);font-size:10px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 8px;border:1.5px solid;white-space:nowrap;display:inline-block;
+}
+/* INT = 아웃라인, EXT = 채움 (모두 흑백) */
+.ti{background:transparent;color:var(--fg2);border-color:var(--line2);}
+.te{background:var(--fg);color:var(--bg);border-color:var(--fg);}
+/* 주간 = 회색 아웃라인, 야간 = 진한 회색 채움 */
+.td{background:transparent;color:var(--fg3);border-color:var(--line2);}
+.tn{background:var(--fg2);color:#FFFFFF;border-color:var(--fg2);}
+
+.cast-pill{
+  font-family:var(--ff-mono);font-size:11px;font-weight:500;
+  padding:2px 8px;border:1.5px solid var(--fg);
+  color:var(--fg);display:inline-block;white-space:nowrap;
+  background:transparent;
+}
+.crew-pill{
+  font-family:var(--ff-mono);font-size:11px;
+  padding:2px 8px;border:1.5px solid var(--line2);
+  color:var(--fg3);display:inline-block;white-space:nowrap;
+}
+
+/* ══════════════════════════════════════
+   DAY BLOCK — 흰 배경 + 굵은 선
+══════════════════════════════════════ */
+.day-section{margin-bottom:44px;}
+.day-hdr{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:14px 18px;
+  background:var(--bg);
+  border:2px solid var(--fg);    /* 검정 테두리 */
+  border-bottom:none;            /* 테이블과 이어짐 */
+}
+.day-num{
+  font-family:var(--ff-mono);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--fg3);min-width:52px;
+}
+.day-date{
+  font-family:var(--ff-head);font-size:18px;font-weight:700;
+  color:var(--fg);letter-spacing:-.01em;
+}
+.day-badge{
+  font-family:var(--ff-mono);font-size:10px;letter-spacing:.06em;
+  padding:3px 10px;border:1.5px solid var(--line2);color:var(--fg3);background:var(--bg);
+}
+.day-call{
+  font-family:var(--ff-mono);font-size:10px;font-weight:500;
+  padding:3px 10px;border:1.5px solid var(--fg2);color:var(--fg);background:var(--bg);
+}
+.day-loc-pill{
+  font-family:var(--ff-mono);font-size:10px;
+  padding:3px 10px;border:1.5px solid var(--line);color:var(--fg3);
+}
+.day-dur{font-family:var(--ff-mono);font-size:11px;font-weight:500;color:var(--fg2);margin-left:auto;}
+
+.day-meta{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:8px 18px;background:var(--bg2);
+  border:2px solid var(--fg);border-top:1px solid var(--line);border-bottom:none;
+}
+.meta-item{font-family:var(--ff-mono);font-size:10px;color:var(--fg3);letter-spacing:.04em;}
+.meta-sep{color:var(--line2);}
+
+/* ══════════════════════════════════════
+   TABLE — 가시성 최우선
+══════════════════════════════════════ */
+.tbl-wrap{
+  border:2px solid var(--fg);   /* 굵은 외곽 */
+  border-top:none;
+  overflow-x:auto;
+}
+.scene-table{
+  width:100%;border-collapse:collapse;
+  font-size:14px;              /* ↑ 테이블 폰트 크게 */
+  min-width:760px;
+}
+.scene-table th{
+  font-family:var(--ff-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--fg3);padding:10px 14px;font-weight:500;
+  background:var(--bg2);
+  border-bottom:2px solid var(--fg);  /* 헤더↔바디 구분선 굵게 */
+  text-align:left;
+  border-right:1px solid var(--line);
+}
+.scene-table th:last-child{border-right:none;}
+.scene-table td{
+  padding:11px 14px;
+  border-bottom:1px solid var(--line);
+  border-right:1px solid var(--line);   /* 세로 구분선 */
+  vertical-align:middle;
+}
+.scene-table td:last-child{border-right:none;}
+
+/* 홀/짝 행 구분으로 가시성 향상 */
+.scene-row:nth-child(4n+1) td,
+.scene-row:nth-child(4n+3) td{background:var(--bg);}
+.scene-row:nth-child(4n) td,
+.scene-row:nth-child(4n+2) td{background:var(--bg2);}
+.scene-row{cursor:pointer;transition:background .08s;}
+.scene-row:hover td{background:#E8E8E8!important;outline:2px solid var(--fg2);}
+
+.break-row td{
+  font-family:var(--ff-mono);font-size:12px;color:var(--fg3);
+  padding:8px 14px!important;
+  border-bottom:1px solid var(--line);
+  background:var(--bg3)!important;
+  border-top:1px dashed var(--line2);
+}
+.break-row:hover td{background:var(--bg2)!important;}
+.break-type-badge{
+  font-family:var(--ff-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 7px;border:1.5px solid var(--fg3);color:var(--fg3);
+}
+
+.scene-num{
+  font-family:var(--ff-mono);font-weight:600;font-size:14px;
+  color:var(--fg);white-space:nowrap;
+}
+.scene-title{color:var(--fg);font-weight:400;font-size:14px;line-height:1.4;}
+.scene-note{font-family:var(--ff-mono);font-size:10px;color:var(--fg3);margin-top:3px;line-height:1.4;}
+.loc-text{font-family:var(--ff-mono);font-size:11px;color:var(--fg2);white-space:nowrap;}
+.dur-text,.pg-text{font-family:var(--ff-mono);font-size:12px;font-weight:500;color:var(--fg2);white-space:nowrap;text-align:right;}
+
+.pills-wrap{display:flex;flex-wrap:wrap;gap:4px;}
+.row-acts{display:flex;gap:4px;opacity:0;transition:opacity .1s;}
+.scene-row:hover .row-acts,.break-row:hover .row-acts{opacity:1;}
+.time-cell{
+  font-family:var(--ff-mono);font-size:12px;font-weight:500;
+  color:var(--fg);white-space:nowrap;
+}
+.time-sep{color:var(--fg3);margin:0 3px;}
+.time-na{font-family:var(--ff-mono);font-size:11px;color:var(--fg4);}
+
+.drag-handle{cursor:grab;color:var(--line2);font-size:14px;user-select:none;line-height:1;}
+.drag-handle:active{cursor:grabbing;}
+.sortable-ghost td{background:#E0E0E0!important;opacity:.7;}
+
+/* ─── DETAIL ROW ─── */
+.detail-row{display:none;background:var(--bg2);}
+.detail-row.open{display:table-row;}
+.detail-cell{
+  padding:16px 18px!important;
+  border-bottom:1px solid var(--line)!important;
+  border-top:1px solid var(--line2)!important;
+}
+.detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;}
+.d-lbl{
+  font-family:var(--ff-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--fg3);margin-bottom:4px;border-bottom:1px solid var(--line);padding-bottom:3px;
+}
+.d-val{font-size:13px;color:var(--fg);line-height:1.4;margin-top:3px;}
+
+/* ─── EMPTY ─── */
+.empty-state{
+  text-align:center;padding:48px 20px;
+  font-family:var(--ff-mono);font-size:13px;color:var(--fg3);
+  letter-spacing:.06em;border:2px dashed var(--line2);
+}
+
+/* ══════════════════════════════════════
+   LOCATION CARDS
+══════════════════════════════════════ */
+.loc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--line);}
+.loc-card{
+  background:var(--bg);
+  padding:22px 24px;
+  border-left:4px solid var(--fg);    /* 왼쪽 굵은 선 */
+  position:relative;
+  transition:background .1s;
+}
+.loc-card:hover{background:var(--bg2);}
+/* 허가 상태를 왼쪽 컬러 라인으로 구분 — 흑백 두께만 다르게 */
+.loc-card.perm-ok{border-left-color:var(--fg);}      /* 완료=검정 */
+.loc-card.perm-wip{border-left-color:var(--fg3);}    /* 진행=회색 */
+.loc-card.perm-no{border-left-color:var(--line2);}   /* 미신청=연한 */
+
+.loc-name{font-family:var(--ff-head);font-size:17px;font-weight:600;margin-bottom:4px;color:var(--fg);}
+.loc-addr{font-family:var(--ff-mono);font-size:11px;color:var(--fg3);margin-bottom:12px;}
+.loc-badges{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;}
+.loc-type-tag{
+  font-family:var(--ff-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 8px;border:1.5px solid var(--line2);color:var(--fg3);
+}
+.perm-tag{
+  font-family:var(--ff-mono);font-size:9px;letter-spacing:.06em;padding:3px 8px;
+  border:1.5px solid;display:inline-block;
+}
+.perm-ok{border-color:var(--fg);color:var(--fg);}
+.perm-wip{border-color:var(--fg3);color:var(--fg3);}
+.perm-no{border-color:var(--line2);color:var(--fg4);}
+.loc-scenes{font-family:var(--ff-mono);font-size:11px;color:var(--fg3);margin-bottom:5px;}
+.loc-contact{font-family:var(--ff-mono);font-size:12px;color:var(--fg2);margin-top:4px;}
+.loc-notes{font-family:var(--ff-mono);font-size:11px;color:var(--fg3);margin-top:4px;line-height:1.5;}
+.card-acts{display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
+
+/* ══════════════════════════════════════
+   PEOPLE GRID
+══════════════════════════════════════ */
+.people-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--line);}
+.person-card{background:var(--bg);padding:20px 22px;transition:background .1s;}
+.person-card:hover{background:var(--bg2);}
+.person-header{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.avatar{
+  width:42px;height:42px;
+  border:2px solid var(--fg);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--ff-mono);font-size:12px;font-weight:600;color:var(--fg);
+  flex-shrink:0;background:var(--bg2);
+}
+.person-name{font-family:var(--ff-head);font-size:16px;font-weight:600;color:var(--fg);}
+.person-role{font-family:var(--ff-mono);font-size:11px;color:var(--fg3);letter-spacing:.04em;margin-top:1px;}
+.person-type{
+  font-family:var(--ff-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border:1.5px solid var(--fg);color:var(--fg);
+  display:inline-block;margin-bottom:8px;
+}
+.person-meta{font-family:var(--ff-mono);font-size:11px;color:var(--fg3);margin-top:3px;line-height:1.4;}
+
+/* ══════════════════════════════════════
+   SCENE LIST TABLE
+══════════════════════════════════════ */
+.sl-table{width:100%;border-collapse:collapse;font-size:14px;}
+.sl-table th{
+  font-family:var(--ff-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--fg3);padding:10px 14px;font-weight:500;
+  background:var(--bg2);
+  border:1.5px solid var(--line);
+  border-bottom:2px solid var(--fg);
+  text-align:left;
+}
+.sl-table td{
+  padding:11px 14px;
+  border-bottom:1px solid var(--line);
+  border-right:1px solid var(--line);
+  vertical-align:top;
+}
+.sl-table td:last-child{border-right:none;}
+.sl-row:nth-child(4n+1) td,.sl-row:nth-child(4n+3) td{background:var(--bg);}
+.sl-row:nth-child(4n) td,.sl-row:nth-child(4n+2) td{background:var(--bg2);}
+.sl-row{cursor:pointer;transition:background .08s;}
+.sl-row:hover td{background:#E8E8E8!important;}
+.sl-row:hover .sl-acts{opacity:1;}
+.sl-acts{display:flex;gap:3px;opacity:0;transition:opacity .1s;}
+.sl-num{font-family:var(--ff-mono);font-weight:600;font-size:14px;color:var(--fg);white-space:nowrap;}
+.sl-day{font-family:var(--ff-mono);font-size:11px;color:var(--fg3);white-space:nowrap;}
+
+/* ══════════════════════════════════════
+   MODAL
+══════════════════════════════════════ */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;align-items:center;justify-content:center;backdrop-filter:blur(2px);}
+.overlay.open{display:flex;}
+.modal{
+  background:var(--bg);border:2px solid var(--fg);
+  width:94%;max-width:600px;max-height:92vh;overflow-y:auto;
+}
+.modal-header{
+  padding:22px 28px 18px;border-bottom:1.5px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.modal-title{font-family:var(--ff-head);font-size:18px;font-weight:700;color:var(--fg);}
+.modal-close{font-family:var(--ff-mono);font-size:10px;color:var(--fg3);cursor:pointer;padding:5px 10px;border:1.5px solid var(--line);}
+.modal-close:hover{color:var(--fg);border-color:var(--fg2);}
+.modal-body{padding:22px 28px;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;}
+.form-full{grid-column:1/-1;}
+.form-lbl{
+  font-family:var(--ff-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--fg3);margin-bottom:6px;display:block;
+}
+.form-inp{
+  width:100%;font-family:var(--ff-body);font-size:14px;
+  background:var(--bg2);border:1.5px solid var(--line);
+  color:var(--fg);padding:9px 12px;outline:none;transition:border-color .1s;
+}
+.form-inp:focus{border-color:var(--fg2);background:var(--bg);}
+select.form-inp{cursor:pointer;}
+textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
+.form-hint{font-family:var(--ff-mono);font-size:9px;color:var(--fg4);margin-top:4px;}
+.modal-footer{
+  padding:16px 28px 22px;border-top:1.5px solid var(--line);
+  display:flex;align-items:center;gap:10px;justify-content:flex-end;
+}
+.loc-checks{
+  background:var(--bg2);border:1.5px solid var(--line);
+  padding:12px 14px;max-height:150px;overflow-y:auto;
+  display:flex;flex-direction:column;gap:8px;
+}
+.chk-item{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--fg);cursor:pointer;}
+.chk-item input{cursor:pointer;accent-color:var(--fg);width:14px;height:14px;}
+
+/* ─── PDF MODAL ─── */
+.pdf-section-list{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+.pdf-section-item{display:flex;align-items:center;gap:10px;font-family:var(--ff-mono);font-size:12px;color:var(--fg);cursor:pointer;}
+.pdf-day-list{background:var(--bg2);border:1.5px solid var(--line);padding:12px 14px;max-height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;}
+.pdf-day-item{display:flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:11px;color:var(--fg);cursor:pointer;}
+.pdf-check-all{display:flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:12px;font-weight:500;cursor:pointer;margin-bottom:10px;}
+
+/* ══════════════════════════════════════
+   NOTICE BAR
+══════════════════════════════════════ */
+.notice-bar{
+  background:var(--bg2);border:1.5px solid var(--line2);
+  border-left:3px solid var(--fg);
+  padding:13px 18px;margin-bottom:24px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  flex-wrap:wrap;
+}
+.notice-text{font-family:var(--ff-mono);font-size:11px;color:var(--fg3);letter-spacing:.02em;flex:1;}
+.notice-text b{color:var(--fg2);}
+.notice-dismiss{font-family:var(--ff-mono);font-size:10px;color:var(--fg3);cursor:pointer;padding:4px 10px;border:1.5px solid var(--line);white-space:nowrap;}
+.notice-dismiss:hover{color:var(--fg);}
+
+/* ══════════════════════════════════════
+   TOAST
+══════════════════════════════════════ */
+.toast{
+  position:fixed;bottom:28px;right:28px;
+  background:var(--fg);color:var(--bg);
+  font-family:var(--ff-mono);font-size:11px;letter-spacing:.06em;
+  padding:11px 18px;z-index:999;
+  opacity:0;transition:opacity .2s,transform .2s;
+  transform:translateY(8px);pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateY(0);}
+
+/* ══════════════════════════════════════
+   TAB PANELS
+══════════════════════════════════════ */
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ══════════════════════════════════════
+   PRINT
+══════════════════════════════════════ */
+@media print{
+  .no-print{display:none!important;}
+  .shell{display:block;}
+  .sidebar{display:none!important;}
+  .main{display:block;}
+  .topbar{display:none!important;}
+  .content{padding:0;}
+  body{background:#fff;font-size:11px;}
+  .tab-panel{display:block!important;}
+  .tab-panel + .tab-panel{page-break-before:always;}
+  .toolbar,.card-acts,.row-acts,.sl-acts,.detail-row,.notice-bar{display:none!important;}
+  .tbl-wrap{overflow:visible!important;border:1px solid #999;}
+  .scene-table,.sl-table{min-width:unset!important;font-size:9px!important;}
+  .scene-table td,.sl-table td{padding:5px 8px!important;}
+  .scene-row,.break-row,.sl-row,.loc-card,.person-card,.day-section{page-break-inside:avoid!important;}
+  tr{page-break-inside:avoid!important;}
+  thead{display:table-header-group;}
+  .day-hdr{border:1px solid #999!important;}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+}
+</style>
+</head>
+<body>
+<div id="app-root">
+<div class="shell">
+
+<!-- ─── SIDEBAR ─── -->
+<aside class="sidebar no-print">
+  <div class="sidebar-brand">
+    <div class="brand-label">Film Scheduling</div>
+    <div class="brand-name">Pre<span>Production</span></div>
+  </div>
+
+  <div class="sidebar-project">
+    <div class="sidebar-proj-label">Project</div>
+    <input class="sidebar-proj-input" id="projName" placeholder="프로젝트 제목 입력" oninput="saveDB()"/>
+  </div>
+
+  <div class="sidebar-phase">
+    <div class="phase-row">
+      <span class="phase-dot" id="phaseDot"></span>
+      <span class="phase-text" id="phaseText">메인 촬영</span>
+    </div>
+    <select class="phase-sel" id="phaseSelect" onchange="updatePhase();saveDB()">
+      <option value="pre">▷ 프리 프로덕션으로 변경</option>
+      <option value="shoot" selected>▷ 메인 촬영으로 변경</option>
+      <option value="post">▷ 포스트로 변경</option>
+    </select>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Views</div>
+    <div class="nav-item active" onclick="switchTab('schedule',this)" data-tab="schedule">
+      <span class="nav-icon">▤</span> 촬영 스케줄
+    </div>
+    <div class="nav-item" onclick="switchTab('locations',this)" data-tab="locations">
+      <span class="nav-icon">◎</span> 촬영 장소
+    </div>
+    <div class="nav-item" onclick="switchTab('people',this)" data-tab="people">
+      <span class="nav-icon">◉</span> 출연진 / 스태프
+    </div>
+    <div class="nav-item" onclick="switchTab('scenelist',this)" data-tab="scenelist">
+      <span class="nav-icon">≡</span> 씬 리스트
+    </div>
+  </nav>
+
+  <div class="sidebar-stats">
+    <div class="sb-stat"><div class="sb-stat-val" id="stScenes">0</div><div class="sb-stat-lbl">Scenes</div></div>
+    <div class="sb-stat"><div class="sb-stat-val" id="stDays">0</div><div class="sb-stat-lbl">Days</div></div>
+    <div class="sb-stat"><div class="sb-stat-val" id="stPages">0</div><div class="sb-stat-lbl">Pages</div></div>
+    <div class="sb-stat"><div class="sb-stat-val" id="stCast">0</div><div class="sb-stat-lbl">Cast</div></div>
+    <div class="sb-stat"><div class="sb-stat-val" id="stCrew">0</div><div class="sb-stat-lbl">Crew</div></div>
+    <div class="sb-stat"><div class="sb-stat-val" id="stLocs">0</div><div class="sb-stat-lbl">Locs</div></div>
+  </div>
+
+  <div class="sidebar-actions">
+    <button class="sb-btn sb-btn-accent" onclick="openPdfModal()">↓ PDF Export</button>
+    <button class="sb-btn" onclick="exportJSON()">↑ JSON 백업</button>
+    <button class="sb-btn" onclick="document.getElementById('importInput').click()">↓ JSON 불러오기</button>
+    <input type="file" id="importInput" accept=".json" style="display:none" onchange="importJSON(this)"/>
+    <button class="sb-btn" onclick="loadSampleData()">예시 데이터</button>
+    <button class="sb-btn sb-btn-danger" onclick="resetAllData()">초기화</button>
+  </div>
+</aside>
+
+<!-- ─── MAIN ─── -->
+<main class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar no-print">
+    <div class="topbar-title" id="topbarTitle">촬영 스케줄</div>
+    <div class="topbar-right">
+      <button class="btn btn-primary" id="topAddBtn" onclick="handleTopAdd()">+ 씬 추가</button>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- NOTICE -->
+    <div class="notice-bar no-print" id="noticeBar">
+      <span class="notice-text">
+        💾 데이터는 <b>이 브라우저에만</b> 저장됩니다.
+        팀 공유·백업 시 <b>JSON 백업</b> 버튼으로 파일을 저장하고, 불러올 때는 <b>JSON 불러오기</b>를 사용하세요.
+      </span>
+      <span class="notice-dismiss" onclick="document.getElementById('noticeBar').style.display='none'">닫기</span>
+    </div>
+
+    <!-- SCHEDULE TAB -->
+    <div id="tab-schedule" class="tab-panel active">
+      <div class="toolbar no-print">
+        <button class="btn" onclick="openDayModal()">+ 촬영일</button>
+        <button class="btn" onclick="openBreakModal()">+ 시간 블록</button>
+        <div class="toolbar-spacer"></div>
+        <input class="search-inp" id="sceneSearch" placeholder="검색..." oninput="renderSchedule()"/>
+        <div class="flt-group" id="typeF">
+          <button class="flt on" onclick="setF('type','all',this)">All</button>
+          <button class="flt" onclick="setF('type','INT',this)">INT</button>
+          <button class="flt" onclick="setF('type','EXT',this)">EXT</button>
+        </div>
+        <div class="flt-group" id="timeF">
+          <button class="flt on" onclick="setF('time','all',this)">All</button>
+          <button class="flt" onclick="setF('time','주간',this)">Day</button>
+          <button class="flt" onclick="setF('time','야간',this)">Night</button>
+        </div>
+      </div>
+      <div id="scheduleContent"></div>
+    </div>
+
+    <!-- LOCATIONS TAB -->
+    <div id="tab-locations" class="tab-panel">
+      <div class="toolbar no-print">
+        <button class="btn btn-primary" onclick="openLocModal()">+ 장소 추가</button>
+      </div>
+      <div id="locsContent"></div>
+    </div>
+
+    <!-- PEOPLE TAB -->
+    <div id="tab-people" class="tab-panel">
+      <div class="toolbar no-print">
+        <button class="btn btn-primary" onclick="openPersonModal()">+ 인원 추가</button>
+        <div class="toolbar-spacer"></div>
+        <div class="flt-group" id="peopleF">
+          <button class="flt on" onclick="setPF('all',this)">All</button>
+          <button class="flt" onclick="setPF('cast',this)">출연진</button>
+          <button class="flt" onclick="setPF('crew',this)">스태프</button>
+        </div>
+      </div>
+      <div id="peopleContent"></div>
+    </div>
+
+    <!-- SCENE LIST TAB -->
+    <div id="tab-scenelist" class="tab-panel">
+      <div class="toolbar no-print">
+        <button class="btn btn-primary" onclick="openSceneModal()">+ 씬 추가</button>
+      </div>
+      <div id="scenelistContent"></div>
+    </div>
+
+  </div><!-- /content -->
+</main>
+</div><!-- /shell -->
+</div><!-- /app-root -->
+
+<!-- ─── MODALS ─── -->
+
+<!-- SCENE MODAL -->
+<div class="overlay" id="sceneModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="sceneMTitle">씬 추가</div>
+      <span class="modal-close" onclick="closeM('sceneModal')">✕ 닫기</span>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div><label class="form-lbl">씬 번호</label><input class="form-inp" id="fSNum" placeholder="예: 12A"/></div>
+        <div><label class="form-lbl">촬영일</label><select class="form-inp" id="fSDay"></select></div>
+        <div class="form-full"><label class="form-lbl">씬 제목 / 내용</label><input class="form-inp" id="fSTitle" placeholder="장소 — 상황 설명"/></div>
+        <div><label class="form-lbl">INT / EXT</label><select class="form-inp" id="fSType"><option>INT</option><option>EXT</option></select></div>
+        <div><label class="form-lbl">시간대</label><select class="form-inp" id="fSTime"><option>주간</option><option>야간</option></select></div>
+        <div><label class="form-lbl">예상 시간 (분)</label><input class="form-inp" id="fSDur" type="number" min="5" placeholder="45"/></div>
+        <div><label class="form-lbl">페이지 수</label><input class="form-inp" id="fSPages" type="number" step="0.25" min="0.25" placeholder="2.5"/></div>
+        <div><label class="form-lbl">컷 수</label><input class="form-inp" id="fSCuts" type="number" min="1" placeholder="20"/></div>
+        <div class="form-full"><label class="form-lbl">촬영 장소</label><select class="form-inp" id="fSLoc"></select></div>
+        <div class="form-full"><label class="form-lbl">출연진 (복수 선택)</label><div class="loc-checks" id="fSCast"></div></div>
+        <div class="form-full"><label class="form-lbl">스태프 배정 (복수 선택)</label><div class="loc-checks" id="fSCrew"></div></div>
+        <div class="form-full"><label class="form-lbl">메모</label><textarea class="form-inp" id="fSNotes" placeholder="특수 장비, 주의사항 등"></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="sDelBtn" style="display:none;margin-right:auto" onclick="deleteSceneM()">삭제</button>
+      <button class="btn" onclick="closeM('sceneModal')">취소</button>
+      <button class="btn btn-primary" onclick="saveScene()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK MODAL -->
+<div class="overlay" id="breakModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="breakMTitle">시간 블록 추가</div>
+      <span class="modal-close" onclick="closeM('breakModal')">✕ 닫기</span>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div><label class="form-lbl">촬영일</label><select class="form-inp" id="fBDay"></select></div>
+        <div><label class="form-lbl">종류</label><select class="form-inp" id="fBType"><option>이동</option><option>식사</option><option>휴식</option><option>준비</option><option>기타</option></select></div>
+        <div class="form-full"><label class="form-lbl">내용</label><input class="form-inp" id="fBLabel" placeholder="예: 점심 / 이동 — 스튜디오 A → B"/></div>
+        <div><label class="form-lbl">소요 시간 (분)</label><input class="form-inp" id="fBDur" type="number" min="1" placeholder="30"/></div>
+        <div><label class="form-lbl">장소 (선택)</label><select class="form-inp" id="fBLoc"><option value="">—</option></select></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="bDelBtn" style="display:none;margin-right:auto" onclick="deleteBreakM()">삭제</button>
+      <button class="btn" onclick="closeM('breakModal')">취소</button>
+      <button class="btn btn-primary" onclick="saveBreak()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- DAY MODAL -->
+<div class="overlay" id="dayModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="dayMTitle">촬영일 추가</div>
+      <span class="modal-close" onclick="closeM('dayModal')">✕ 닫기</span>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div><label class="form-lbl">날짜</label><input class="form-inp" id="fDDate" type="date"/></div>
+        <div>
+          <label class="form-lbl">콜 타임</label>
+          <input class="form-inp" id="fDCall" type="time"/>
+          <div class="form-hint">전체 크루 집합 시각</div>
+        </div>
+        <div>
+          <label class="form-lbl">첫 촬영 시각</label>
+          <input class="form-inp" id="fDFirst" type="time"/>
+          <div class="form-hint">미입력 시 콜타임 기준</div>
+        </div>
+        <div><label class="form-lbl">일출</label><input class="form-inp" id="fDSunrise" type="time"/></div>
+        <div><label class="form-lbl">일몰</label><input class="form-inp" id="fDSunset" type="time"/></div>
+        <div><label class="form-lbl">날씨</label><input class="form-inp" id="fDWeather" placeholder="맑음 / 흐림 / 비"/></div>
+        <div><label class="form-lbl">기온</label><input class="form-inp" id="fDTemp" placeholder="22°C / 최저 14°C"/></div>
+        <div class="form-full"><label class="form-lbl">촬영 장소 (복수)</label><div class="loc-checks" id="fDLocs"></div></div>
+        <div class="form-full"><label class="form-lbl">메모</label><input class="form-inp" id="fDNotes" placeholder="특이사항 등"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="dDelBtn" style="display:none;margin-right:auto" onclick="deleteDayM()">삭제</button>
+      <button class="btn" onclick="closeM('dayModal')">취소</button>
+      <button class="btn btn-primary" id="dSaveBtn" onclick="saveDay()">추가</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOC MODAL -->
+<div class="overlay" id="locModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="locMTitle">촬영 장소 추가</div>
+      <span class="modal-close" onclick="closeM('locModal')">✕ 닫기</span>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-full"><label class="form-lbl">장소명</label><input class="form-inp" id="fLName" placeholder="스튜디오 / 외부 장소명"/></div>
+        <div class="form-full"><label class="form-lbl">주소</label><input class="form-inp" id="fLAddr" placeholder="상세 주소"/></div>
+        <div><label class="form-lbl">장소 유형</label><select class="form-inp" id="fLType"><option>스튜디오</option><option>실내 로케이션</option><option>야외 로케이션</option></select></div>
+        <div><label class="form-lbl">허가 여부</label><select class="form-inp" id="fLPerm"><option>완료</option><option>진행 중</option><option>미신청</option></select></div>
+        <div class="form-full"><label class="form-lbl">담당자 / 연락처</label><input class="form-inp" id="fLContact" placeholder="이름 / 전화번호"/></div>
+        <div class="form-full"><label class="form-lbl">메모</label><textarea class="form-inp" id="fLNotes" placeholder="주차, 소음, 시간 제한 등"></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="lDelBtn" style="display:none;margin-right:auto" onclick="deleteLocM()">삭제</button>
+      <button class="btn" onclick="closeM('locModal')">취소</button>
+      <button class="btn btn-primary" onclick="saveLoc()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- PERSON MODAL -->
+<div class="overlay" id="personModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="personMTitle">인원 추가</div>
+      <span class="modal-close" onclick="closeM('personModal')">✕ 닫기</span>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div><label class="form-lbl">이름</label><input class="form-inp" id="fPName" placeholder="이름"/></div>
+        <div><label class="form-lbl">구분</label><select class="form-inp" id="fPCat"><option value="cast">출연진</option><option value="crew">스태프</option></select></div>
+        <div><label class="form-lbl">역할 / 직책</label><input class="form-inp" id="fPRole" placeholder="주연 / 촬영감독"/></div>
+        <div><label class="form-lbl">연락처</label><input class="form-inp" id="fPContact" placeholder="010-0000-0000"/></div>
+        <div class="form-full"><label class="form-lbl">메모</label><input class="form-inp" id="fPNotes" placeholder="에이전시, 특이사항"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="pDelBtn" style="display:none;margin-right:auto" onclick="deletePersonM()">삭제</button>
+      <button class="btn" onclick="closeM('personModal')">취소</button>
+      <button class="btn btn-primary" onclick="savePerson()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- PDF MODAL -->
+<div class="overlay" id="pdfModal">
+  <div class="modal" style="max-width:440px;">
+    <div class="modal-header">
+      <div class="modal-title">PDF 다운로드</div>
+      <span class="modal-close" onclick="closeM('pdfModal')">✕ 닫기</span>
+    </div>
+    <div class="modal-body">
+      <div style="margin-bottom:14px;">
+        <label class="form-lbl" style="margin-bottom:8px;display:block;">포함할 섹션 선택</label>
+        <label class="pdf-check-all"><input type="checkbox" id="pdfChkAll" onchange="toggleAllPdfSections(this.checked)"/> 전체 선택</label>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+          <label style="display:flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:11px;cursor:pointer;"><input type="checkbox" class="pdf-section-chk" value="schedule" checked/> 촬영 스케줄</label>
+          <label style="display:flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:11px;cursor:pointer;"><input type="checkbox" class="pdf-section-chk" value="locations" checked/> 촬영 장소</label>
+          <label style="display:flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:11px;cursor:pointer;"><input type="checkbox" class="pdf-section-chk" value="people" checked/> 출연진 / 스태프</label>
+          <label style="display:flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:11px;cursor:pointer;"><input type="checkbox" class="pdf-section-chk" value="scenelist" checked/> 씬 리스트</label>
+        </div>
+        <label class="form-lbl" style="margin-bottom:6px;display:block;">촬영일 선택 (스케줄 포함 시)</label>
+        <div class="pdf-day-list" id="pdfDayList"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeM('pdfModal')">취소</button>
+      <button class="btn btn-primary" onclick="downloadPDF()">PDF 생성</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════
+   SAMPLE DATA — new example (indie short film)
+═══════════════════════════════════════════════ */
+const SAMPLE = {
+  projectName: '파도가 오기 전에',
+  phase: 'shoot',
+  days: [
+    {id:'d1',date:'2026-06-02',locIds:['l1','l2'],callTime:'06:30',firstShot:'07:00',sunrise:'05:18',sunset:'19:52',weather:'맑음',temp:'24°C / 최저 17°C',notes:'해뜨기 전 매직아워 씬 포함'},
+    {id:'d2',date:'2026-06-03',locIds:['l3'],callTime:'10:00',firstShot:'10:30',sunrise:'05:17',sunset:'19:53',weather:'흐림 후 맑음',temp:'21°C / 최저 15°C',notes:'실내 장면 위주'},
+    {id:'d3',date:'2026-06-05',locIds:['l1','l4'],callTime:'16:00',firstShot:'16:30',sunrise:'05:15',sunset:'19:55',weather:'맑음',temp:'26°C / 최저 19°C',notes:'골든아워 + 야간 씬'}
+  ],
+  scenes: [
+    {id:'s1',dayId:'d1',sceneNum:'1',title:'해변 — 유진, 새벽 파도 앞에 혼자 서 있다',type:'EXT',timeOfDay:'주간',duration:30,pages:1.5,cuts:14,locId:'l1',cast:'유진',crew:'이감독,정촬영',notes:'매직아워. 드론 컷 필요. 예비 인서트 3컷'},
+    {id:'s2',dayId:'d1',sceneNum:'2',title:'해변 — 현우가 뒤에서 다가온다',type:'EXT',timeOfDay:'주간',duration:20,pages:1,cuts:8,locId:'l1',cast:'유진,현우',crew:'이감독,정촬영',notes:'역광 실루엣 처리'},
+    {id:'s3',dayId:'d1',sceneNum:'4',title:'카페 테라스 — 두 사람, 처음으로 대화',type:'EXT',timeOfDay:'주간',duration:45,pages:2.5,cuts:22,locId:'l2',cast:'유진,현우',crew:'이감독,정촬영,박조감독',notes:'핸드헬드. 자연광 디퓨저 준비'},
+    {id:'s4',dayId:'d2',sceneNum:'6',title:'유진의 방 — 일기를 쓴다',type:'INT',timeOfDay:'주간',duration:25,pages:1,cuts:10,locId:'l3',cast:'유진',crew:'이감독,정촬영',notes:'클로즈업 위주. 손 인서트 별도'},
+    {id:'s5',dayId:'d2',sceneNum:'7',title:'유진의 방 — 전화를 받는다, 표정 변화',type:'INT',timeOfDay:'주간',duration:15,pages:0.75,cuts:7,locId:'l3',cast:'유진',crew:'이감독',notes:'리액션 클로즈업 여러 테이크'},
+    {id:'s6',dayId:'d2',sceneNum:'9',title:'복도 — 현우가 문 앞에서 망설인다',type:'INT',timeOfDay:'야간',duration:20,pages:1,cuts:8,locId:'l3',cast:'현우',crew:'이감독,정촬영',notes:'저조도. 소형 LED 패널 사용'},
+    {id:'s7',dayId:'d3',sceneNum:'11',title:'해변 — 석양, 두 사람이 마지막으로 걷는다',type:'EXT',timeOfDay:'주간',duration:40,pages:2,cuts:18,locId:'l1',cast:'유진,현우',crew:'이감독,정촬영',notes:'골든아워 시간 엄수. 스테디캠'},
+    {id:'s8',dayId:'d3',sceneNum:'13',title:'방파제 끝 — 유진, 혼자 남겨진다',type:'EXT',timeOfDay:'야간',duration:35,pages:1.5,cuts:12,locId:'l4',cast:'유진',crew:'이감독,정촬영,박조감독',notes:'야간 조명 장비 필요. 안전 요원 대기'}
+  ],
+  breaks: [
+    {id:'b1',dayId:'d1',type:'식사',label:'아침 식사 및 장비 세팅',duration:40,locId:''},
+    {id:'b2',dayId:'d1',type:'이동',label:'해변 → 카페 테라스 이동',duration:20,locId:''},
+    {id:'b3',dayId:'d2',type:'식사',label:'점심 식사',duration:60,locId:''},
+    {id:'b4',dayId:'d3',type:'준비',label:'야간 조명 셋업',duration:45,locId:'l4'}
+  ],
+  locations: [
+    {id:'l1',name:'인천 을왕리 해수욕장',addr:'인천광역시 중구 용유동 을왕리',type:'야외 로케이션',perm:'완료',contact:'인천시청 촬영 허가팀 032-440-0000',notes:'드론 촬영 별도 허가 완료. 주차 50대 가능'},
+    {id:'l2',name:'해변 카페 테라스 — Wave Side',addr:'인천 중구 용유동 해안로 21',type:'실내 로케이션',perm:'완료',contact:'카페 사장 / 010-7788-2233',notes:'촬영 가능 시간 07:00~22:00. 손님 없는 시간대 예약 완료'},
+    {id:'l3',name:'촬영용 원룸 세트 (연희동)',addr:'서울시 서대문구 연희로 15길 3층',type:'실내 로케이션',perm:'완료',contact:'임대인 이씨 / 010-3344-5566',notes:'엘리베이터 없음. 장비 이동 인력 필요'},
+    {id:'l4',name:'인천항 방파제',addr:'인천광역시 중구 항동 인천항 외항',type:'야외 로케이션',perm:'진행 중',contact:'인천지방해양수산청 032-880-0000',notes:'야간 출입 허가 신청 중. 안전 요원 필수'}
+  ],
+  people: [
+    {id:'p1',name:'유진',cat:'cast',role:'주연 (20대 여성)',contact:'에이전시 블루웨이브 / 02-555-1234',notes:'물 씬 가능 여부 확인 완료'},
+    {id:'p2',name:'현우',cat:'cast',role:'주연 (20대 남성)',contact:'에이전시 블루웨이브 / 02-555-1234',notes:''},
+    {id:'p3',name:'이감독',cat:'crew',role:'감독',contact:'010-2200-1100',notes:''},
+    {id:'p4',name:'정촬영',cat:'crew',role:'촬영감독 (DP)',contact:'010-3300-2200',notes:'드론 오퍼레이터 겸임'},
+    {id:'p5',name:'박조감독',cat:'crew',role:'1st AD / 조감독',contact:'010-4400-3300',notes:'콜시트 배포 담당'},
+    {id:'p6',name:'최사운드',cat:'crew',role:'사운드 믹서',contact:'010-5500-4400',notes:'붐 오퍼레이터 별도 섭외 필요'}
+  ]
+};
+
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
+const SCHEMA_VER = 2;
+let db = JSON.parse(JSON.stringify(SAMPLE));
+let filters = {type:'all', time:'all'};
+let pfilt = 'all';
+let currentTab = 'schedule';
+let editIds = {scene:null, loc:null, person:null, day:null, brk:null};
+
+/* ═══════════════════════════════════════════════
+   STORAGE
+═══════════════════════════════════════════════ */
+function saveDB() {
+  db.projectName = document.getElementById('projName').value;
+  db.phase = document.getElementById('phaseSelect').value;
+  localStorage.setItem('pp_v2', JSON.stringify(db));
+}
+function loadDB() {
+  const saved = localStorage.getItem('pp_v2');
+  if (saved) {
+    try {
+      db = JSON.parse(saved);
+      if (!db.breaks) db.breaks = [];
+      document.getElementById('projName').value = db.projectName || '';
+      if (db.phase) { document.getElementById('phaseSelect').value = db.phase; updatePhase(); }
+      showToast('데이터 불러옴');
+    } catch(e) {}
+  } else {
+    document.getElementById('projName').value = SAMPLE.projectName;
+  }
+  renderAll();
+}
+function loadSampleData() {
+  if (!confirm('예시 데이터를 불러오면 현재 데이터가 사라집니다. 계속할까요?')) return;
+  localStorage.removeItem('pp_v2');
+  location.reload();
+}
+function resetAllData() {
+  if (!confirm('모든 데이터를 삭제합니다. 복구 불가합니다. 계속할까요?')) return;
+  localStorage.removeItem('pp_v2');
+  db = {days:[],scenes:[],breaks:[],locations:[],people:[]};
+  document.getElementById('projName').value = '';
+  saveDB(); renderAll(); showToast('초기화 완료');
+}
+window.addEventListener('load', loadDB);
+
+/* ═══════════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════════ */
+function uid() { return '_' + Math.random().toString(36).slice(2,9); }
+function locName(id) { const l = db.locations.find(x=>x.id===id); return l ? l.name : '—'; }
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2000);
+}
+function tagCls(v) { return {INT:'ti',EXT:'te',주간:'td',야간:'tn'}[v]||'ti'; }
+function pills(str, cls) {
+  return str
+    ? str.split(',').map(s=>`<span class="${cls}">${s.trim()}</span>`).join('')
+    : '<span style="font-family:var(--ff-mono);font-size:9px;color:var(--fg3);">—</span>';
+}
+
+/* ═══════════════════════════════════════════════
+   STATS + PHASE
+═══════════════════════════════════════════════ */
+function updateStats() {
+  document.getElementById('stScenes').textContent = db.scenes.length;
+  document.getElementById('stDays').textContent = db.days.length;
+  const tp = db.scenes.reduce((a,s)=>a+(s.pages||0),0);
+  document.getElementById('stPages').textContent = tp%1===0?tp:tp.toFixed(1);
+  document.getElementById('stCast').textContent = db.people.filter(p=>p.cat==='cast').length;
+  document.getElementById('stCrew').textContent = db.people.filter(p=>p.cat==='crew').length;
+  document.getElementById('stLocs').textContent = db.locations.length;
+}
+function updatePhase() {
+  const v = document.getElementById('phaseSelect').value;
+  const map = {pre:'프리 프로덕션',shoot:'메인 촬영',post:'포스트 프로덕션'};
+  const dotColors = {pre:'#C8A96E',shoot:'#6EA896',post:'#9E8AE0'};
+  document.getElementById('phaseText').textContent = map[v];
+  document.getElementById('phaseDot').style.background = dotColors[v];
+}
+
+/* ═══════════════════════════════════════════════
+   TAB SWITCHING
+═══════════════════════════════════════════════ */
+const tabTitles = {schedule:'촬영 스케줄',locations:'촬영 장소',people:'출연진 / 스태프',scenelist:'씬 리스트'};
+const tabAddLabels = {schedule:'+ 씬 추가',locations:'+ 장소 추가',people:'+ 인원 추가',scenelist:'+ 씬 추가'};
+function switchTab(name, el) {
+  currentTab = name;
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('topbarTitle').textContent = tabTitles[name];
+  document.getElementById('topAddBtn').textContent = tabAddLabels[name];
+}
+function handleTopAdd() {
+  if (currentTab==='schedule') openSceneModal();
+  else if (currentTab==='locations') openLocModal();
+  else if (currentTab==='people') openPersonModal();
+  else openSceneModal();
+}
+
+/* ═══════════════════════════════════════════════
+   FILTERS
+═══════════════════════════════════════════════ */
+function setF(grp, val, btn) {
+  filters[grp] = val;
+  document.getElementById(grp==='type'?'typeF':'timeF').querySelectorAll('.flt').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on'); renderSchedule();
+}
+function setPF(val, btn) {
+  pfilt = val;
+  document.getElementById('peopleF').querySelectorAll('.flt').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on'); renderPeople();
+}
+
+/* ═══════════════════════════════════════════════
+   TIME CALC
+═══════════════════════════════════════════════ */
+function calcTimeMap(day, items) {
+  const base = day.firstShot || day.callTime;
+  if (!base) return null;
+  const [h,m] = base.split(':').map(Number);
+  let cur = h*60+m;
+  const map = {};
+  items.forEach(item => {
+    const s = cur, e = cur + (item.duration||0);
+    cur = e;
+    const fmt = n => `${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;
+    map[item.id] = {start:fmt(s), end:fmt(e)};
+  });
+  return map;
+}
+
+/* ═══════════════════════════════════════════════
+   SCHEDULE
+═══════════════════════════════════════════════ */
+function getDayItems(dayId) {
+  const scenes = db.scenes.filter(s=>s.dayId===dayId);
+  const breaks = (db.breaks||[]).filter(b=>b.dayId===dayId);
+  scenes.forEach((s,i)=>{ if(s._order==null) s._order=i*2; });
+  breaks.forEach((b,i)=>{ if(b._order==null) b._order=scenes.length*2+i*2+1; });
+  const all = [...scenes.map(s=>({...s,_k:'scene'})), ...breaks.map(b=>({...b,_k:'break'}))];
+  all.sort((a,b)=>(a._order??0)-(b._order??0));
+  return all;
+}
+
+function renderSchedule() {
+  const q = (document.getElementById('sceneSearch').value||'').toLowerCase();
+  const sorted = [...db.days].sort((a,b)=>a.date.localeCompare(b.date));
+  const dn = ['일','월','화','수','목','금','토'];
+  let html = '';
+
+  sorted.forEach((day, di) => {
+    const items = getDayItems(day.id);
+    const scenes = items.filter(x=>x._k==='scene');
+    const breaks = items.filter(x=>x._k==='break');
+    const tm = calcTimeMap(day, items);
+
+    let visIds = new Set(scenes.map(s=>s.id));
+    if (filters.type !== 'all') visIds = new Set(scenes.filter(s=>s.type===filters.type).map(s=>s.id));
+    if (filters.time !== 'all') visIds = new Set([...visIds].filter(id=>{ const s=scenes.find(x=>x.id===id); return s&&s.timeOfDay===filters.time; }));
+    if (q) visIds = new Set([...visIds].filter(id=>{ const s=scenes.find(x=>x.id===id); return s&&(s.title.toLowerCase().includes(q)||s.sceneNum.toLowerCase().includes(q)||(s.cast||'').toLowerCase().includes(q)); }));
+
+    const tot = items.reduce((a,x)=>a+(x.duration||0),0);
+    const durStr = tot>0 ? (Math.floor(tot/60)>0?`${Math.floor(tot/60)}h ${tot%60}m`:`${tot%60}m`) : '';
+    const dd = new Date(day.date);
+    const dateStr = `${dd.getFullYear()}.${String(dd.getMonth()+1).padStart(2,'0')}.${String(dd.getDate()).padStart(2,'0')} (${dn[dd.getDay()]})`;
+    const dayLocs = (day.locIds||[]).map(id=>locName(id)).filter(n=>n!=='—');
+
+    html += `<div class="day-section" data-dayid="${day.id}">
+      <div class="day-hdr">
+        <span class="day-num">Day ${di+1}</span>
+        <span class="day-date">${dateStr}</span>
+        ${day.callTime?`<span class="day-call">Call ${day.callTime}</span>`:''}
+        ${day.firstShot?`<span class="day-badge">First ${day.firstShot}</span>`:''}
+        ${dayLocs.map(n=>`<span class="day-loc-pill">${n}</span>`).join('')}
+        ${durStr?`<span class="day-dur">${durStr}</span>`:''}
+        <button class="btn btn-sm no-print" style="margin-left:4px;" onclick="openDayModal('${day.id}')">편집</button>
+      </div>`;
+
+    const hasWeather = day.sunrise||day.sunset||day.weather||day.temp;
+    if (hasWeather) {
+      html += `<div class="day-meta">`;
+      if (day.sunrise) html += `<span class="meta-item">↑${day.sunrise}</span><span class="meta-sep">·</span>`;
+      if (day.sunset) html += `<span class="meta-item">↓${day.sunset}</span><span class="meta-sep">·</span>`;
+      if (day.weather) html += `<span class="meta-item">${day.weather}</span>`;
+      if (day.temp) html += `<span class="meta-sep">·</span><span class="meta-item">${day.temp}</span>`;
+      html += `</div>`;
+    }
+
+    const hasVisible = items.some(x=>x._k==='break'||visIds.has(x.id));
+    if (!hasVisible) {
+      html += `<div class="empty-state" style="border-top:none;">씬이 없습니다</div>`;
+    } else {
+      html += `<div class="tbl-wrap"><table class="scene-table">
+        <thead><tr>
+          <th style="width:22px" class="no-print"></th>
+          <th style="width:58px">Scene</th>
+          <th style="width:110px">Time</th>
+          <th>내용</th>
+          <th style="width:100px">구분</th>
+          <th style="width:150px">출연진</th>
+          <th style="width:100px">장소</th>
+          <th style="width:46px">min</th>
+          <th style="width:30px">pp</th>
+          <th style="width:30px">cut</th>
+          <th style="width:50px" class="no-print"></th>
+        </tr></thead><tbody id="tbody-${day.id}">`;
+
+      items.forEach(item => {
+        if (item._k === 'scene') {
+          const s = item;
+          if (!visIds.has(s.id)) return;
+          const t = tm ? tm[s.id] : null;
+          const timeHtml = t && s.duration
+            ? `<span class="time-cell">${t.start}<span class="time-sep">→</span>${t.end}</span>`
+            : `<span class="time-na">—</span>`;
+          html += `
+            <tr class="scene-row" data-id="${s.id}" data-kind="scene" onclick="toggleDetail('${s.id}')">
+              <td class="no-print" onclick="event.stopPropagation()" style="padding:0 4px;"><span class="drag-handle">⠿</span></td>
+              <td><span class="scene-num">${s.sceneNum}</span></td>
+              <td>${timeHtml}</td>
+              <td class="scene-title-cell">
+                <div class="scene-title">${s.title}</div>
+                ${s.notes?`<div class="scene-note">${s.notes}</div>`:''}
+              </td>
+              <td><span class="tag ${tagCls(s.type)}">${s.type}</span>&thinsp;<span class="tag ${tagCls(s.timeOfDay)}">${s.timeOfDay}</span></td>
+              <td><div class="pills-wrap">${pills(s.cast,'cast-pill')}</div></td>
+              <td><span class="loc-text">${locName(s.locId)}</span></td>
+              <td class="dur-text">${s.duration||''}</td>
+              <td class="pg-text">${s.pages||''}</td>
+              <td class="pg-text">${s.cuts||''}</td>
+              <td class="no-print"><div class="row-acts"><button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();openSceneModal('${s.id}')">편집</button></div></td>
+            </tr>
+            <tr class="detail-row" id="detail-${s.id}">
+              <td class="detail-cell" colspan="11">
+                <div class="detail-grid">
+                  <div><div class="d-lbl">시작</div><div class="d-val">${t&&s.duration?t.start:'—'}</div></div>
+                  <div><div class="d-lbl">종료</div><div class="d-val">${t&&s.duration?t.end:'—'}</div></div>
+                  <div><div class="d-lbl">출연진</div><div class="d-val">${s.cast||'—'}</div></div>
+                  <div><div class="d-lbl">스태프</div><div class="d-val">${s.crew||'—'}</div></div>
+                  <div><div class="d-lbl">메모</div><div class="d-val">${s.notes||'—'}</div></div>
+                  <div><div class="d-lbl">장소</div><div class="d-val">${locName(s.locId)}</div></div>
+                </div>
+              </td>
+            </tr>`;
+        } else {
+          const bk = item;
+          const t = tm ? tm[bk.id] : null;
+          const timeHtml = t && bk.duration
+            ? `<span class="time-cell">${t.start}<span class="time-sep">→</span>${t.end}</span>`
+            : `<span class="time-na">—</span>`;
+          html += `
+            <tr class="break-row" data-id="${bk.id}" data-kind="break">
+              <td class="no-print" onclick="event.stopPropagation()" style="padding:0 4px;"><span class="drag-handle">⠿</span></td>
+              <td><span class="break-type-badge">${bk.type}</span></td>
+              <td>${timeHtml}</td>
+              <td colspan="7" style="color:var(--fg2);">
+                <span style="font-weight:500;">${bk.label||bk.type}</span>
+                ${bk.duration?`<span style="font-family:var(--ff-mono);font-size:9px;color:var(--fg3);margin-left:8px;">(${bk.duration}분)</span>`:''}
+                ${bk.locId?`<span style="font-family:var(--ff-mono);font-size:9px;color:var(--fg3);margin-left:6px;">· ${locName(bk.locId)}</span>`:''}
+              </td>
+              <td class="no-print"><div class="row-acts"><button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();openBreakModal('${bk.id}')">편집</button></div></td>
+            </tr>`;
+        }
+      });
+      html += `</tbody></table></div>`;
+    }
+    html += `</div>`;
+  });
+
+  document.getElementById('scheduleContent').innerHTML = html || '<div class="empty-state">촬영일을 추가해주세요</div>';
+
+  const isFiltered = filters.type!=='all'||filters.time!=='all'||(document.getElementById('sceneSearch').value||'');
+  if (!isFiltered) {
+    sorted.forEach(day => {
+      const tbody = document.getElementById(`tbody-${day.id}`);
+      if (!tbody) return;
+      Sortable.create(tbody, {
+        animation:140, handle:'.drag-handle', ghostClass:'sortable-ghost',
+        filter:'.detail-row',
+        onEnd() {
+          [...tbody.querySelectorAll('tr[data-kind]')].forEach((row,idx) => {
+            const {id, kind} = row.dataset;
+            if (kind==='scene') { const s=db.scenes.find(x=>x.id===id); if(s) s._order=idx; }
+            else { const b=(db.breaks||[]).find(x=>x.id===id); if(b) b._order=idx; }
+          });
+          saveDB(); renderSchedule();
+        }
+      });
+    });
+  }
+}
+function toggleDetail(id) {
+  const r = document.getElementById('detail-'+id);
+  if (r) r.classList.toggle('open');
+}
+
+/* ═══════════════════════════════════════════════
+   SCENE LIST
+═══════════════════════════════════════════════ */
+function renderSceneList() {
+  const dn = ['일','월','화','수','목','금','토'];
+  const allScenes = [...db.scenes].sort((a,b)=>{
+    const na=parseFloat(a.sceneNum)||0, nb=parseFloat(b.sceneNum)||0;
+    return na!==nb?na-nb:a.sceneNum.localeCompare(b.sceneNum);
+  });
+  let html = `<div class="tbl-wrap" style="border:1px solid var(--line);"><table class="sl-table">
+    <thead><tr>
+      <th style="width:58px">Scene</th>
+      <th>내용</th>
+      <th style="width:90px">구분</th>
+      <th style="width:140px">출연진</th>
+      <th style="width:100px">장소</th>
+      <th style="width:80px">촬영일</th>
+      <th style="width:46px">min</th>
+      <th style="width:30px">pp</th>
+      <th style="width:30px">cut</th>
+      <th style="width:50px" class="no-print"></th>
+    </tr></thead><tbody>`;
+  if (!allScenes.length) {
+    html += `<tr><td colspan="10" style="text-align:center;padding:28px;font-family:var(--ff-mono);font-size:11px;color:var(--fg3);">씬이 없습니다</td></tr>`;
+  }
+  allScenes.forEach(s => {
+    const day = db.days.find(d=>d.id===s.dayId);
+    let dayStr = '—';
+    if (day) { const dd=new Date(day.date); dayStr=`${dd.getMonth()+1}/${dd.getDate()}(${dn[dd.getDay()]})`; }
+    html += `
+      <tr class="sl-row" data-id="${s.id}" onclick="toggleSlDetail('${s.id}')">
+        <td><span class="sl-num">${s.sceneNum}</span></td>
+        <td class="scene-title-cell">
+          <div class="scene-title">${s.title}</div>
+          ${s.notes?`<div class="scene-note">${s.notes}</div>`:''}
+        </td>
+        <td><span class="tag ${tagCls(s.type)}">${s.type}</span>&thinsp;<span class="tag ${tagCls(s.timeOfDay)}">${s.timeOfDay}</span></td>
+        <td><div class="pills-wrap">${pills(s.cast,'cast-pill')}</div></td>
+        <td><span class="loc-text">${locName(s.locId)}</span></td>
+        <td class="sl-day">${dayStr}</td>
+        <td class="dur-text">${s.duration||''}</td>
+        <td class="pg-text">${s.pages||''}</td>
+        <td class="pg-text">${s.cuts||''}</td>
+        <td class="no-print"><div class="sl-acts"><button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();openSceneModal('${s.id}')">편집</button></div></td>
+      </tr>
+      <tr class="detail-row" id="sl-detail-${s.id}">
+        <td class="detail-cell" colspan="10">
+          <div class="detail-grid">
+            <div><div class="d-lbl">출연진</div><div class="d-val">${pills(s.cast,'cast-pill')}</div></div>
+            <div><div class="d-lbl">스태프</div><div class="d-val">${pills(s.crew,'crew-pill')}</div></div>
+            <div><div class="d-lbl">장소</div><div class="d-val">${locName(s.locId)}</div></div>
+            <div><div class="d-lbl">메모</div><div class="d-val">${s.notes||'—'}</div></div>
+          </div>
+        </td>
+      </tr>`;
+  });
+  html += `</tbody></table></div>`;
+  document.getElementById('scenelistContent').innerHTML = html;
+}
+function toggleSlDetail(id) {
+  const r = document.getElementById('sl-detail-'+id);
+  if (r) r.classList.toggle('open');
+}
+
+/* ═══════════════════════════════════════════════
+   LOCATIONS
+═══════════════════════════════════════════════ */
+function renderLocations() {
+  const el = document.getElementById('locsContent');
+  if (!db.locations.length) { el.innerHTML='<div class="empty-state">장소를 추가해주세요</div>'; return; }
+  const permCls = {'완료':'perm-ok','진행 중':'perm-wip','미신청':'perm-no'};
+  el.innerHTML = `<div class="loc-grid">${db.locations.map(l => {
+    const cnt = db.scenes.filter(s=>s.locId===l.id).length;
+    const pc = permCls[l.perm]||'perm-no';
+    return `<div class="loc-card ${pc}">
+      <div class="loc-badges">
+        <span class="loc-type-tag">${l.type}</span>
+        <span class="perm-tag ${pc}">허가 ${l.perm}</span>
+      </div>
+      <div class="loc-name">${l.name}</div>
+      <div class="loc-addr">${l.addr||'주소 미입력'}</div>
+      <div class="loc-scenes">배정 씬 ${cnt}개</div>
+      <div class="loc-contact">${l.contact||''}</div>
+      ${l.notes?`<div class="loc-notes">${l.notes}</div>`:''}
+      <div class="card-acts">
+        <button class="btn btn-sm" onclick="openLocModal('${l.id}')">편집</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteLoc('${l.id}')">삭제</button>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+/* ═══════════════════════════════════════════════
+   PEOPLE
+═══════════════════════════════════════════════ */
+function renderPeople() {
+  let ppl = pfilt==='all' ? db.people : db.people.filter(p=>p.cat===pfilt);
+  const el = document.getElementById('peopleContent');
+  if (!ppl.length) { el.innerHTML='<div class="empty-state">인원을 추가해주세요</div>'; return; }
+  el.innerHTML = `<div class="people-grid">${ppl.map(p => {
+    const cnt = db.scenes.filter(s=>(s.cast||'').includes(p.name)||(s.crew||'').includes(p.name)).length;
+    return `<div class="person-card">
+      <div class="person-header">
+        <div class="avatar">${p.name.slice(0,2)}</div>
+        <div>
+          <div class="person-name">${p.name}</div>
+          <div class="person-role">${p.role}</div>
+        </div>
+      </div>
+      <span class="person-type">${p.cat==='cast'?'출연진':'스태프'}</span>
+      <div class="person-meta">배정 씬 ${cnt}개</div>
+      <div class="person-meta">${p.contact||''}</div>
+      ${p.notes?`<div class="person-meta">${p.notes}</div>`:''}
+      <div class="card-acts">
+        <button class="btn btn-sm" onclick="openPersonModal('${p.id}')">편집</button>
+        <button class="btn btn-sm btn-danger" onclick="deletePerson('${p.id}')">삭제</button>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function renderAll() { updateStats(); renderSchedule(); renderLocations(); renderPeople(); renderSceneList(); }
+
+/* ═══════════════════════════════════════════════
+   SELECTS HELPERS
+═══════════════════════════════════════════════ */
+function popDays(selId, curId) {
+  const dn = ['일','월','화','수','목','금','토'];
+  document.getElementById(selId).innerHTML =
+    db.days.sort((a,b)=>a.date.localeCompare(b.date))
+      .map(d=>{ const dd=new Date(d.date); return `<option value="${d.id}"${d.id===curId?' selected':''}>${dd.getMonth()+1}/${dd.getDate()}(${dn[dd.getDay()]})</option>`; })
+      .join('') || '<option value="">촬영일 없음</option>';
+}
+function popLocs(selId, curId) {
+  document.getElementById(selId).innerHTML =
+    db.locations.map(l=>`<option value="${l.id}"${l.id===curId?' selected':''}>${l.name}</option>`).join('')
+    || '<option value="">장소 없음</option>';
+}
+function popLocsChecks(selectedIds) {
+  const sel = selectedIds||[];
+  document.getElementById('fDLocs').innerHTML =
+    db.locations.map(l=>`<label class="chk-item"><input type="checkbox" value="${l.id}"${sel.includes(l.id)?' checked':''}/>${l.name}</label>`).join('')
+    || '<span style="font-family:var(--ff-mono);font-size:11px;color:var(--fg3);">장소 없음</span>';
+}
+function getCheckedLocs() { return [...document.querySelectorAll('#fDLocs input:checked')].map(e=>e.value); }
+
+/* ═══════════════════════════════════════════════
+   SCENE CRUD
+═══════════════════════════════════════════════ */
+function openSceneModal(id) {
+  editIds.scene = id||null;
+  const s = id ? db.scenes.find(x=>x.id===id) : null;
+  document.getElementById('sceneMTitle').textContent = s?'씬 편집':'씬 추가';
+  document.getElementById('sDelBtn').style.display = s?'block':'none';
+  popDays('fSDay',s?.dayId); popLocs('fSLoc',s?.locId);
+  document.getElementById('fSNum').value = s?.sceneNum||'';
+  document.getElementById('fSTitle').value = s?.title||'';
+  document.getElementById('fSType').value = s?.type||'INT';
+  document.getElementById('fSTime').value = s?.timeOfDay||'주간';
+  document.getElementById('fSDur').value = s?.duration||'';
+  document.getElementById('fSPages').value = s?.pages||'';
+  document.getElementById('fSCuts').value = s?.cuts||'';
+  document.getElementById('fSNotes').value = s?.notes||'';
+  const selCast = (s?.cast||'').split(',').map(x=>x.trim()).filter(Boolean);
+  const selCrew = (s?.crew||'').split(',').map(x=>x.trim()).filter(Boolean);
+  document.getElementById('fSCast').innerHTML =
+    db.people.filter(p=>p.cat==='cast').map(p=>`<label class="chk-item"><input type="checkbox" value="${p.name}"${selCast.includes(p.name)?' checked':''}/>${p.name} <span style="color:var(--fg3);font-size:10px;">(${p.role})</span></label>`).join('')
+    || '<span style="font-family:var(--ff-mono);font-size:11px;color:var(--fg3);">출연진 없음</span>';
+  document.getElementById('fSCrew').innerHTML =
+    db.people.filter(p=>p.cat==='crew').map(p=>`<label class="chk-item"><input type="checkbox" value="${p.name}"${selCrew.includes(p.name)?' checked':''}/>${p.name} <span style="color:var(--fg3);font-size:10px;">(${p.role})</span></label>`).join('')
+    || '<span style="font-family:var(--ff-mono);font-size:11px;color:var(--fg3);">스태프 없음</span>';
+  document.getElementById('sceneModal').classList.add('open');
+}
+function saveScene() {
+  const num = document.getElementById('fSNum').value.trim();
+  const title = document.getElementById('fSTitle').value.trim();
+  if (!num||!title) return;
+  const cast = [...document.querySelectorAll('#fSCast input:checked')].map(e=>e.value).join(',');
+  const crew = [...document.querySelectorAll('#fSCrew input:checked')].map(e=>e.value).join(',');
+  const data = {sceneNum:num,title,dayId:document.getElementById('fSDay').value,type:document.getElementById('fSType').value,timeOfDay:document.getElementById('fSTime').value,duration:+document.getElementById('fSDur').value||0,pages:+document.getElementById('fSPages').value||0,cuts:+document.getElementById('fSCuts').value||0,locId:document.getElementById('fSLoc').value,cast,crew,notes:document.getElementById('fSNotes').value};
+  if (editIds.scene) Object.assign(db.scenes.find(x=>x.id===editIds.scene), data);
+  else db.scenes.push({id:uid(),...data});
+  closeM('sceneModal'); renderAll(); saveDB(); showToast('씬 저장됨');
+}
+function deleteSceneM() {
+  if (!editIds.scene) return;
+  db.scenes = db.scenes.filter(x=>x.id!==editIds.scene);
+  closeM('sceneModal'); renderAll(); saveDB(); showToast('씬 삭제됨');
+}
+
+/* ═══════════════════════════════════════════════
+   BREAK CRUD
+═══════════════════════════════════════════════ */
+function openBreakModal(id) {
+  editIds.brk = id||null;
+  const b = id ? (db.breaks||[]).find(x=>x.id===id) : null;
+  document.getElementById('breakMTitle').textContent = b?'시간 블록 편집':'시간 블록 추가';
+  document.getElementById('bDelBtn').style.display = b?'block':'none';
+  popDays('fBDay',b?.dayId);
+  document.getElementById('fBLoc').innerHTML = '<option value="">—</option>' +
+    db.locations.map(l=>`<option value="${l.id}"${l.id===b?.locId?' selected':''}>${l.name}</option>`).join('');
+  document.getElementById('fBType').value = b?.type||'식사';
+  document.getElementById('fBLabel').value = b?.label||'';
+  document.getElementById('fBDur').value = b?.duration||'';
+  document.getElementById('breakModal').classList.add('open');
+}
+function saveBreak() {
+  if (!db.breaks) db.breaks = [];
+  const data = {dayId:document.getElementById('fBDay').value,type:document.getElementById('fBType').value,label:document.getElementById('fBLabel').value,duration:+document.getElementById('fBDur').value||0,locId:document.getElementById('fBLoc').value||''};
+  if (editIds.brk) Object.assign(db.breaks.find(x=>x.id===editIds.brk), data);
+  else db.breaks.push({id:uid(),...data});
+  closeM('breakModal'); renderAll(); saveDB(); showToast('시간 블록 저장됨');
+}
+function deleteBreakM() {
+  if (!editIds.brk) return;
+  db.breaks = db.breaks.filter(x=>x.id!==editIds.brk);
+  closeM('breakModal'); renderAll(); saveDB(); showToast('삭제됨');
+}
+
+/* ═══════════════════════════════════════════════
+   DAY CRUD
+═══════════════════════════════════════════════ */
+function openDayModal(id) {
+  editIds.day = id||null;
+  const d = id ? db.days.find(x=>x.id===id) : null;
+  document.getElementById('dayMTitle').textContent = d?'촬영일 편집':'촬영일 추가';
+  document.getElementById('dDelBtn').style.display = d?'block':'none';
+  document.getElementById('dSaveBtn').textContent = d?'저장':'추가';
+  popLocsChecks(d?.locIds||[]);
+  document.getElementById('fDDate').value = d?.date||'';
+  document.getElementById('fDCall').value = d?.callTime||'';
+  document.getElementById('fDFirst').value = d?.firstShot||'';
+  document.getElementById('fDSunrise').value = d?.sunrise||'';
+  document.getElementById('fDSunset').value = d?.sunset||'';
+  document.getElementById('fDWeather').value = d?.weather||'';
+  document.getElementById('fDTemp').value = d?.temp||'';
+  document.getElementById('fDNotes').value = d?.notes||'';
+  document.getElementById('dayModal').classList.add('open');
+}
+function saveDay() {
+  const date = document.getElementById('fDDate').value;
+  if (!date) return;
+  const data = {date,locIds:getCheckedLocs(),callTime:document.getElementById('fDCall').value,firstShot:document.getElementById('fDFirst').value,sunrise:document.getElementById('fDSunrise').value,sunset:document.getElementById('fDSunset').value,weather:document.getElementById('fDWeather').value,temp:document.getElementById('fDTemp').value,notes:document.getElementById('fDNotes').value};
+  if (editIds.day) Object.assign(db.days.find(x=>x.id===editIds.day), data);
+  else db.days.push({id:uid(),...data});
+  closeM('dayModal'); renderAll(); saveDB(); showToast(editIds.day?'촬영일 저장됨':'촬영일 추가됨');
+}
+function deleteDayM() {
+  if (!editIds.day) return;
+  const hasItems = db.scenes.some(s=>s.dayId===editIds.day)||(db.breaks||[]).some(b=>b.dayId===editIds.day);
+  if (hasItems && !confirm('이 촬영일에 배정된 씬/시간이 있습니다. 삭제할까요?')) return;
+  db.days = db.days.filter(x=>x.id!==editIds.day);
+  db.scenes.forEach(s=>{if(s.dayId===editIds.day)s.dayId='';});
+  if (db.breaks) db.breaks.forEach(b=>{if(b.dayId===editIds.day)b.dayId='';});
+  closeM('dayModal'); renderAll(); saveDB(); showToast('촬영일 삭제됨');
+}
+
+/* ═══════════════════════════════════════════════
+   LOC CRUD
+═══════════════════════════════════════════════ */
+function openLocModal(id) {
+  editIds.loc = id||null;
+  const l = id ? db.locations.find(x=>x.id===id) : null;
+  document.getElementById('locMTitle').textContent = l?'장소 편집':'촬영 장소 추가';
+  document.getElementById('lDelBtn').style.display = l?'block':'none';
+  document.getElementById('fLName').value = l?.name||'';
+  document.getElementById('fLAddr').value = l?.addr||'';
+  document.getElementById('fLType').value = l?.type||'스튜디오';
+  document.getElementById('fLPerm').value = l?.perm||'완료';
+  document.getElementById('fLContact').value = l?.contact||'';
+  document.getElementById('fLNotes').value = l?.notes||'';
+  document.getElementById('locModal').classList.add('open');
+}
+function saveLoc() {
+  const name = document.getElementById('fLName').value.trim();
+  if (!name) return;
+  const data = {name,addr:document.getElementById('fLAddr').value,type:document.getElementById('fLType').value,perm:document.getElementById('fLPerm').value,contact:document.getElementById('fLContact').value,notes:document.getElementById('fLNotes').value};
+  if (editIds.loc) Object.assign(db.locations.find(x=>x.id===editIds.loc), data);
+  else db.locations.push({id:uid(),...data});
+  closeM('locModal'); renderAll(); saveDB(); showToast('장소 저장됨');
+}
+function deleteLocM() {
+  if (!editIds.loc) return;
+  db.locations = db.locations.filter(x=>x.id!==editIds.loc);
+  closeM('locModal'); renderAll(); saveDB(); showToast('장소 삭제됨');
+}
+function deleteLoc(id) { db.locations=db.locations.filter(x=>x.id!==id); renderAll(); saveDB(); showToast('삭제됨'); }
+
+/* ═══════════════════════════════════════════════
+   PERSON CRUD
+═══════════════════════════════════════════════ */
+function openPersonModal(id) {
+  editIds.person = id||null;
+  const p = id ? db.people.find(x=>x.id===id) : null;
+  document.getElementById('personMTitle').textContent = p?'인원 편집':'인원 추가';
+  document.getElementById('pDelBtn').style.display = p?'block':'none';
+  document.getElementById('fPName').value = p?.name||'';
+  document.getElementById('fPCat').value = p?.cat||'cast';
+  document.getElementById('fPRole').value = p?.role||'';
+  document.getElementById('fPContact').value = p?.contact||'';
+  document.getElementById('fPNotes').value = p?.notes||'';
+  document.getElementById('personModal').classList.add('open');
+}
+function savePerson() {
+  const name = document.getElementById('fPName').value.trim();
+  if (!name) return;
+  const data = {name,cat:document.getElementById('fPCat').value,role:document.getElementById('fPRole').value,contact:document.getElementById('fPContact').value,notes:document.getElementById('fPNotes').value};
+  if (editIds.person) Object.assign(db.people.find(x=>x.id===editIds.person), data);
+  else db.people.push({id:uid(),...data});
+  closeM('personModal'); renderAll(); saveDB(); showToast('인원 저장됨');
+}
+function deletePersonM() {
+  if (!editIds.person) return;
+  db.people = db.people.filter(x=>x.id!==editIds.person);
+  closeM('personModal'); renderAll(); saveDB(); showToast('인원 삭제됨');
+}
+function deletePerson(id) { db.people=db.people.filter(x=>x.id!==id); renderAll(); saveDB(); showToast('삭제됨'); }
+
+/* ═══════════════════════════════════════════════
+   PDF — 전용 HTML 빌드 후 숨김 div 캡처
+═══════════════════════════════════════════════ */
+function openPdfModal(){
+  const sorted=[...db.days].sort((a,b)=>a.date.localeCompare(b.date));
+  const dn=['일','월','화','수','목','금','토'];
+  document.getElementById('pdfDayList').innerHTML=sorted.map((d,i)=>{
+    const dd=new Date(d.date);
+    return `<label class="pdf-day-item">
+      <input type="checkbox" class="pdf-day-chk" value="${d.id}" checked/>
+      촬영 ${i+1}일차 · ${dd.getMonth()+1}/${dd.getDate()}(${dn[dd.getDay()]})
+    </label>`;
+  }).join('')||'<span style="font-size:11px;color:#888;">촬영일 없음</span>';
+  document.getElementById('pdfChkAll').checked=true;
+  document.getElementById('pdfModal').classList.add('open');
+}
+
+function toggleAllPdfSections(checked){
+  document.querySelectorAll('.pdf-section-chk').forEach(c=>c.checked=checked);
+  document.querySelectorAll('.pdf-day-chk').forEach(c=>c.checked=checked);
+}
+
+/* ─── PDF 전용 HTML 빌드 ─── */
+function buildPdfHTML(sections, selDayIds){
+  const dn=['일','월','화','수','목','금','토'];
+  const projName=document.getElementById('projName').value||'PreProduction';
+
+  const css=`
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;color:#111;background:#fff;padding:0;}
+
+    /* ── 문서 헤더 ── */
+    .doc-title{font-size:18px;font-weight:700;margin-bottom:4px;}
+    .doc-meta{font-size:9px;color:#888;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #111;}
+
+    /* ── 섹션 제목 ── */
+    .sec-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+      margin:20px 0 8px;padding-bottom:5px;border-bottom:2px solid #111;}
+
+    /* ── 촬영일 헤더 ── */
+    .day-block{margin-bottom:16px;}
+    .day-hdr{padding:7px 0;border-top:2px solid #111;border-bottom:1px solid #CCC;}
+    .day-hdr-inner{display:table;width:100%;}
+    .day-hdr-left{display:table-cell;vertical-align:middle;}
+    .day-hdr-right{display:table-cell;vertical-align:middle;text-align:right;white-space:nowrap;}
+    .day-num{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-right:8px;}
+    .day-date-txt{font-size:13px;font-weight:700;color:#111;}
+    .day-badge{font-size:10px;font-weight:700;color:#111;margin-left:8px;}
+    .day-dur{font-size:9px;color:#888;}
+    .day-meta{font-size:10px;font-weight:700;color:#111;padding:4px 0 6px;border-bottom:1px solid #E0E0E0;}
+
+    /* ── 씬 테이블 — table-layout:fixed 로 넘침 방지 ── */
+    .scene-tbl{width:100%;border-collapse:collapse;font-size:10px;table-layout:fixed;}
+    .scene-tbl th{font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:#888;
+      padding:5px 6px;font-weight:600;border-bottom:1.5px solid #333;text-align:left;overflow:hidden;}
+    .scene-tbl td{padding:5px 6px;border-bottom:1px solid #E8E8E8;vertical-align:middle;
+      overflow:hidden;word-break:break-word;}
+    .scene-tbl tr:nth-child(even) td{background:#F8F8F8;}
+    .scene-tbl tr{page-break-inside:avoid;}
+    .bk-row td{background:#F4F4F4!important;color:#666;font-style:italic;}
+    .bk-type{font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:#888;}
+
+    /* ── 태그 ── */
+    .tag{font-size:8px;padding:1px 4px;border:1px solid #999;color:#555;
+      display:inline;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;}
+    .te{border-color:#333;color:#111;font-weight:700;}
+    .tn{border-color:#333;color:#111;font-weight:700;}
+
+    /* ── 장소 ── */
+    .loc-wrap{width:100%;border-collapse:collapse;table-layout:fixed;}
+    .loc-cell{width:33.33%;vertical-align:top;padding:8px 10px 12px 0;
+      border-bottom:1px solid #E0E0E0;overflow:hidden;}
+    .loc-name{font-size:12px;font-weight:700;margin-bottom:2px;}
+    .loc-addr{font-size:9px;color:#666;margin-bottom:4px;}
+    .loc-status{font-size:9px;color:#555;margin-bottom:2px;}
+    .loc-info{font-size:9px;color:#777;margin-top:2px;line-height:1.4;}
+
+    /* ── 인원 ── */
+    .ppl-wrap{width:100%;border-collapse:collapse;table-layout:fixed;}
+    .ppl-cell{width:25%;vertical-align:top;padding:8px 10px 10px 0;
+      border-bottom:1px solid #E0E0E0;overflow:hidden;}
+    .ppl-name{font-size:12px;font-weight:700;margin-bottom:2px;}
+    .ppl-role{font-size:10px;color:#555;}
+    .ppl-info{font-size:9px;color:#888;margin-top:2px;line-height:1.4;}
+    .sub-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#666;
+      font-weight:600;margin:12px 0 5px;padding-bottom:3px;border-bottom:1px solid #CCC;}
+
+    /* ── 씬리스트 테이블 ── */
+    .sl-tbl{width:100%;border-collapse:collapse;font-size:10px;table-layout:fixed;}
+    .sl-tbl th{font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:#888;
+      padding:5px 6px;font-weight:600;border-bottom:1.5px solid #333;text-align:left;}
+    .sl-tbl td{padding:5px 6px;border-bottom:1px solid #E8E8E8;vertical-align:top;
+      overflow:hidden;word-break:break-word;}
+    .sl-tbl tr:nth-child(even) td{background:#F8F8F8;}
+    .sl-tbl tr{page-break-inside:avoid;}
+
+    .page-break{page-break-before:always;}
+  `;
+
+  let body=`<div class="doc-title">PreProduction — ${projName}</div>
+<div class="doc-meta">PDF 생성: ${new Date().toLocaleDateString('ko-KR')} · 선택 섹션: ${sections.join(', ')}</div>`;
+
+  /* ── 촬영 스케줄 ── */
+  if(sections.includes('schedule')){
+    body+=`<div class="sec-title">촬영 스케줄</div>`;
+    const sorted=[...db.days].sort((a,b)=>a.date.localeCompare(b.date));
+    sorted.forEach((day,di)=>{
+      if(selDayIds.size&&!selDayIds.has(day.id)) return;
+      const items=getDayItems(day.id);
+      const tm=calcTimeMap(day,items);
+      const dd=new Date(day.date);
+      const dateStr=`${dd.getFullYear()}.${String(dd.getMonth()+1).padStart(2,'0')}.${String(dd.getDate()).padStart(2,'0')} (${dn[dd.getDay()]})`;
+      const dayLocs=(day.locIds||[]).map(id=>locName(id)).filter(n=>n!=='—').join(' / ');
+      const totMin=items.reduce((a,x)=>a+(x.duration||0),0);
+      const totStr=totMin>0?(Math.floor(totMin/60)>0?`${Math.floor(totMin/60)}h ${totMin%60}m`:`${totMin%60}m`):'';
+
+      body+=`<div class="day-block">
+<div class="day-hdr">
+  <div class="day-hdr-inner">
+    <div class="day-hdr-left">
+      <span class="day-num">Day ${di+1}</span>
+      <span class="day-date-txt">${dateStr}</span>
+      ${day.callTime?`<span class="day-badge">Call ${day.callTime}</span>`:''}
+      ${day.firstShot?`<span class="day-badge">First ${day.firstShot}</span>`:''}
+      ${dayLocs?`<span style="font-size:9px;color:#555;margin-left:6px;">${dayLocs}</span>`:''}
+    </div>
+    <div class="day-hdr-right"><span class="day-dur">${totStr}</span></div>
+  </div>
+</div>`;
+      if(day.weather||day.temp||day.sunrise||day.sunset){
+        body+=`<div class="day-meta">${[day.sunrise?'↑'+day.sunrise:'',day.sunset?'↓'+day.sunset:'',day.weather,day.temp].filter(Boolean).join(' · ')}</div>`;
+      }
+      body+=`<table class="scene-tbl"><thead><tr>
+        <th style="width:5%">씬</th>
+        <th style="width:9%">시각</th>
+        <th style="width:28%">내용</th>
+        <th style="width:9%">구분</th>
+        <th style="width:18%">출연진</th>
+        <th style="width:16%">장소</th>
+        <th style="width:5%">min</th>
+        <th style="width:5%">pp</th>
+        <th style="width:5%">컷</th>
+      </tr></thead><tbody>`;
+      items.forEach(item=>{
+        if(item._k==='scene'){
+          const s=item;
+          const t=tm?tm[s.id]:null;
+          const timeStr=t&&s.duration?`${t.start}→${t.end}`:'';
+          const tagType=s.type==='EXT'?'tag te':'tag';
+          const tagTime=s.timeOfDay==='야간'?'tag tn':'tag';
+          body+=`<tr>
+            <td style="font-weight:700;">${s.sceneNum}</td>
+            <td style="font-family:monospace;font-size:9px;">${timeStr}</td>
+            <td>${s.title}${s.notes?`<br><span style="font-size:8px;color:#888;">${s.notes}</span>`:''}</td>
+            <td><span class="${tagType}">${s.type}</span> <span class="${tagTime}">${s.timeOfDay}</span></td>
+            <td style="font-size:9px;">${s.cast||'—'}</td>
+            <td style="font-size:9px;">${locName(s.locId)}</td>
+            <td style="text-align:right;">${s.duration||''}</td>
+            <td style="text-align:right;">${s.pages||''}</td>
+            <td style="text-align:right;">${s.cuts||''}</td>
+          </tr>`;
+        } else {
+          const bk=item;
+          const t=tm?tm[bk.id]:null;
+          const timeStr=t&&bk.duration?`${t.start}→${t.end}`:'';
+          body+=`<tr class="bk-row">
+            <td><span class="bk-type">${bk.type}</span></td>
+            <td style="font-family:monospace;font-size:9px;">${timeStr}</td>
+            <td colspan="7">${bk.label||bk.type}${bk.duration?` (${bk.duration}분)`:''}</td>
+          </tr>`;
+        }
+      });
+      body+=`</tbody></table></div>`;
+    });
+  }
+
+  /* ── 촬영 장소 ── */
+  if(sections.includes('locations')){
+    const pb=sections.includes('schedule')?'class="sec-title page-break"':'class="sec-title"';
+    body+=`<div ${pb}>촬영 장소</div>`;
+    // 3열 table 레이아웃
+    const locs=db.locations;
+    const rows=[];
+    for(let i=0;i<locs.length;i+=3) rows.push(locs.slice(i,i+3));
+    body+=`<table class="loc-wrap">`;
+    rows.forEach(row=>{
+      body+=`<tr>`;
+      row.forEach(l=>{
+        const cnt=db.scenes.filter(s=>s.locId===l.id).length;
+        const permCls=l.perm==='완료'?'':l.perm==='진행 중'?'wip':'no';
+        const badgeStyle=l.perm==='완료'?'border-color:#111;color:#111;':l.perm==='진행 중'?'border-color:#666;color:#555;':'border-color:#AAA;color:#888;';
+      body+=`<td class="loc-cell ${permCls}">
+          <div class="loc-name">${l.name}</div>
+          <div class="loc-addr">${l.addr||''}</div>
+          <div class="loc-status">${l.type} · 허가 ${l.perm} · 배정 씬 ${cnt}개</div>
+          ${l.contact?`<div class="loc-info">${l.contact}</div>`:''}
+          ${l.notes?`<div class="loc-info">${l.notes}</div>`:''}
+        </td>`;
+      });
+      // 빈 칸 채우기
+      for(let i=row.length;i<3;i++) body+=`<td class="loc-cell" style="border:none;"></td>`;
+      body+=`</tr>`;
+    });
+    body+=`</table>`;
+  }
+
+  /* ── 출연진 / 스태프 ── */
+  if(sections.includes('people')){
+    const prevSecs=sections.filter(s=>s!=='people'&&s!=='scenelist');
+    const pb=prevSecs.length>0?'class="sec-title page-break"':'class="sec-title"';
+    body+=`<div ${pb}>출연진 / 스태프</div>`;
+    const cast=db.people.filter(p=>p.cat==='cast');
+    const crew=db.people.filter(p=>p.cat==='crew');
+    const renderPplTable=(people,isCrew)=>{
+      if(!people.length) return '';
+      const rows=[];
+      for(let i=0;i<people.length;i+=4) rows.push(people.slice(i,i+4));
+      let t=`<table class="ppl-wrap">`;
+      rows.forEach(row=>{
+        t+=`<tr>`;
+        row.forEach(p=>{
+          const cnt=db.scenes.filter(s=>(isCrew?(s.crew||''):(s.cast||'')).includes(p.name)).length;
+          t+=`<td class="ppl-cell ${isCrew?'crew':''}">
+            <div class="ppl-name">${p.name}</div>
+            <div class="ppl-role">${p.role}</div>
+            ${cnt?`<div class="ppl-info">배정 씬 ${cnt}개</div>`:''}
+            ${p.contact?`<div class="ppl-info">${p.contact}</div>`:''}
+            ${p.notes?`<div class="ppl-info">${p.notes}</div>`:''}
+          </td>`;
+        });
+        for(let i=row.length;i<4;i++) t+=`<td class="ppl-cell" style="border:none;"></td>`;
+        t+=`</tr>`;
+      });
+      t+=`</table>`;
+      return t;
+    };
+    if(cast.length){
+      body+=`<div class="sub-lbl">출연진</div>`;
+      body+=renderPplTable(cast,false);
+    }
+    if(crew.length){
+      body+=`<div class="sub-lbl">스태프</div>`;
+      body+=renderPplTable(crew,true);
+    }
+  }
+
+  /* ── 씬 리스트 ── */
+  if(sections.includes('scenelist')){
+    const prevSecs=sections.filter(s=>s!=='scenelist');
+    const pb=prevSecs.length>0?'class="sec-title page-break"':'class="sec-title"';
+    body+=`<div ${pb}>씬 리스트</div>`;
+    const allScenes=[...db.scenes].sort((a,b)=>{
+      const na=parseFloat(a.sceneNum)||0,nb=parseFloat(b.sceneNum)||0;
+      return na!==nb?na-nb:a.sceneNum.localeCompare(b.sceneNum);
+    });
+    body+=`<table class="sl-tbl"><thead><tr>
+      <th style="width:6%">씬</th>
+      <th style="width:32%">내용</th>
+      <th style="width:10%">구분</th>
+      <th style="width:20%">출연진</th>
+      <th style="width:16%">장소</th>
+      <th style="width:9%">촬영일</th>
+      <th style="width:3.5%">pp</th>
+      <th style="width:3.5%">컷</th>
+    </tr></thead><tbody>`;
+    allScenes.forEach(s=>{
+      const day=db.days.find(d=>d.id===s.dayId);
+      let dayStr='—';
+      if(day){const dd=new Date(day.date);dayStr=`${dd.getMonth()+1}/${dd.getDate()}(${dn[dd.getDay()]})`;}
+      const tagType=s.type==='EXT'?'tag te':'tag';
+      const tagTime=s.timeOfDay==='야간'?'tag tn':'tag';
+      body+=`<tr>
+        <td style="font-weight:700;">${s.sceneNum}</td>
+        <td>${s.title}${s.notes?`<br><span style="font-size:8px;color:#888;">${s.notes}</span>`:''}</td>
+        <td><span class="${tagType}">${s.type}</span> <span class="${tagTime}">${s.timeOfDay}</span></td>
+        <td style="font-size:9px;">${s.cast||'—'}</td>
+        <td style="font-size:9px;">${locName(s.locId)}</td>
+        <td style="font-size:9px;">${dayStr}</td>
+        <td style="text-align:right;">${s.pages||''}</td>
+        <td style="text-align:right;">${s.cuts||''}</td>
+      </tr>`;
+    });
+    body+=`</tbody></table>`;
+  }
+
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${css}</style></head><body>${body}</body></html>`;
+}
+
+function downloadPDF(){
+  const sections=[...document.querySelectorAll('.pdf-section-chk:checked')].map(c=>c.value);
+  const selDayIds=new Set([...document.querySelectorAll('.pdf-day-chk:checked')].map(c=>c.value));
+  closeM('pdfModal');
+  if(!sections.length){showToast('섹션을 선택해주세요');return;}
+
+  const projName=document.getElementById('projName').value||'PreProduction';
+  showToast('PDF 생성 중...');
+
+  const fullHTML=buildPdfHTML(sections,selDayIds);
+
+  const opt={
+    margin:[8,8,8,8],
+    filename:`${projName}_schedule.pdf`,
+    image:{type:'jpeg',quality:0.97},
+    html2canvas:{
+      scale:2,
+      useCORS:true,
+      logging:false,
+      backgroundColor:'#ffffff'
+    },
+    jsPDF:{unit:'mm',format:'a4',orientation:'landscape'},
+    pagebreak:{
+      mode:['css','legacy'],
+      avoid:['.day-block','.loc-cell','.ppl-cell','tr']
+    }
+  };
+
+  html2pdf().set(opt).from(fullHTML,'string').save().then(()=>{
+    showToast('PDF 저장 완료!');
+  }).catch(err=>{
+    console.error('PDF 오류:',err);
+    showToast('PDF 생성 실패');
+  });
+}
+
+/* ═══════════════════════════════════════════════
+   JSON
+═══════════════════════════════════════════════ */
+function migrateData(data) {
+  let v = data._version||1;
+  if (v<2) {
+    (data.scenes||[]).forEach((s,i)=>{ if(s._order==null) s._order=i*2; });
+    (data.breaks||[]).forEach((b,i)=>{ if(b._order==null) b._order=(data.scenes||[]).length*2+i*2+1; });
+    v=2;
+  }
+  data._version=v; return data;
+}
+function exportJSON() {
+  const proj = document.getElementById('projName').value||'PreProduction';
+  const payload = {_version:SCHEMA_VER,projectName:proj,phase:document.getElementById('phaseSelect').value,days:db.days,scenes:db.scenes,breaks:db.breaks||[],locations:db.locations,people:db.people,exportedAt:new Date().toISOString()};
+  const blob = new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download=`${proj}_preproduction.json`; a.click();
+  URL.revokeObjectURL(url); showToast('JSON 백업 완료');
+}
+function importJSON(input) {
+  const file = input.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      let data = JSON.parse(e.target.result);
+      if (!data.scenes||!data.days||!data.locations||!data.people) { alert('올바른 PreProduction JSON 파일이 아닙니다.'); return; }
+      const fv = data._version||1;
+      if (fv > SCHEMA_VER) { alert(`더 최신 버전(v${fv})의 파일입니다. 현재 앱(v${SCHEMA_VER})에서는 열 수 없습니다.`); input.value=''; return; }
+      if (fv < SCHEMA_VER) data = migrateData(data);
+      if (!confirm(`"${data.projectName||'(제목 없음)'}" — 현재 데이터를 덮어씌웁니다. 계속할까요?`)) return;
+      db.days=data.days; db.scenes=data.scenes; db.breaks=data.breaks||[]; db.locations=data.locations; db.people=data.people;
+      if (data.projectName) document.getElementById('projName').value=data.projectName;
+      if (data.phase) { document.getElementById('phaseSelect').value=data.phase; updatePhase(); }
+      saveDB(); renderAll(); showToast('불러오기 완료');
+    } catch(err) { alert('파일을 읽는 중 오류가 발생했습니다.'); }
+    input.value='';
+  };
+  reader.readAsText(file);
+}
+
+/* ═══════════════════════════════════════════════
+   MODAL CLOSE
+═══════════════════════════════════════════════ */
+function closeM(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); }));
+</script>
+</body>
+</html>
