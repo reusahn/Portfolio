@@ -591,49 +591,158 @@ td.editing{background:#FFFFF0!important;outline:2px solid var(--fg2);}
    PRINT
 ══════════════════════════════════════ */
 
+
 /* ══════════════════════════════════════
-   MOBILE
+   MOBILE SCHEDULE CARDS
 ══════════════════════════════════════ */
+.mob-day-block{margin-bottom:20px;}
+.mob-day-hdr{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  padding:10px 12px;background:var(--fg);color:var(--bg);
+  font-family:var(--ff-mono);font-size:11px;
+}
+.mob-day-num{font-size:9px;opacity:.6;letter-spacing:.1em;}
+.mob-day-date{font-weight:700;font-size:13px;}
+.mob-day-call{font-size:10px;opacity:.8;margin-left:auto;}
+.mob-scene-card{
+  background:var(--bg);border:1px solid var(--line);
+  border-top:none;padding:12px 14px;
+  position:relative;
+}
+.mob-scene-card:active{background:var(--bg2);}
+.mob-break-card{
+  background:var(--bg3);border:1px solid var(--line);
+  border-top:none;padding:9px 14px;
+  display:flex;align-items:center;gap:10px;
+}
+.mob-scene-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.mob-scene-num{
+  font-family:var(--ff-mono);font-weight:700;font-size:16px;
+  min-width:28px;color:var(--fg);
+}
+.mob-scene-title{font-size:14px;color:var(--fg);line-height:1.4;flex:1;}
+.mob-scene-time{font-family:var(--ff-mono);font-size:11px;color:var(--fg3);white-space:nowrap;}
+.mob-scene-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px;}
+.mob-scene-meta{
+  display:flex;gap:12px;flex-wrap:wrap;
+  font-family:var(--ff-mono);font-size:10px;color:var(--fg3);
+}
+.mob-meta-item{display:flex;align-items:center;gap:3px;}
+.mob-meta-lbl{opacity:.6;}
+.mob-scene-actions{
+  display:flex;gap:6px;margin-top:10px;padding-top:10px;
+  border-top:1px solid var(--line);
+}
+.mob-break-badge{
+  font-family:var(--ff-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 6px;border:1.5px solid var(--fg3);color:var(--fg3);
+}
+.mob-break-label{font-family:var(--ff-mono);font-size:12px;color:var(--fg2);flex:1;}
+.mob-break-dur{font-family:var(--ff-mono);font-size:11px;color:var(--fg4);}
+.mob-add-row{
+  display:flex;gap:6px;padding:10px 12px;
+  background:var(--bg2);border:1px solid var(--line);border-top:none;
+}
+
+/* ══════════════════════════════════════
+   MOBILE — 하단 탭바
+══════════════════════════════════════ */
+
+/* 하단 탭바 */
+.mob-tabbar{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:300;
+  background:var(--sb-bg);border-top:1px solid var(--sb-border);
+  height:60px;
+  grid-template-columns:repeat(5,1fr);
+  align-items:stretch;
+}
+.mob-tab{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;cursor:pointer;color:#6A6660;
+  font-family:var(--ff-mono);font-size:8px;letter-spacing:.04em;
+  border:none;background:none;padding:6px 2px;touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+.mob-tab.active{color:var(--sb-accent);}
+.mob-tab svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;}
+
+/* 모바일 사이드 액션 패널 (JSON/PDF/설정) */
+.mob-action-sheet{
+  display:none;position:fixed;bottom:60px;left:0;right:0;z-index:290;
+  background:var(--sb-bg);border-top:1px solid var(--sb-border);
+  padding:12px 0 8px;
+  transform:translateY(100%);transition:transform .25s;
+}
+.mob-action-sheet.open{display:block;transform:translateY(0);}
+.mob-action-item{
+  display:flex;align-items:center;gap:12px;padding:14px 24px;
+  font-family:var(--ff-mono);font-size:12px;color:#BCBAB6;cursor:pointer;
+  border-bottom:1px solid var(--sb-border);
+}
+.mob-action-item:last-child{border-bottom:none;}
+.mob-action-item:active{background:rgba(255,255,255,.04);}
+
+.mob-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:280;
+}
+.mob-overlay.open{display:block;}
+
 @media (max-width:768px){
+  /* 레이아웃 */
   .shell{grid-template-columns:1fr;}
-  .sidebar{
-    position:fixed;left:0;top:0;bottom:0;z-index:200;
-    transform:translateX(-100%);transition:transform .25s;width:260px;height:100vh;
-  }
-  .sidebar.open{transform:translateX(0);}
-  .main{min-height:100vh;}
-  .topbar{padding:14px 16px;}
-  .content{padding:16px;}
+  .sidebar{display:none!important;}
+  .main{min-height:100vh;padding-bottom:60px;}
+  .mob-tabbar{display:grid;}
+
+  /* 탑바 */
+  .topbar{padding:13px 16px;}
   .topbar-title{font-size:15px;}
-  /* 햄버거 버튼 */
   .mob-menu-btn{
-    display:flex;flex-direction:column;gap:4px;cursor:pointer;padding:6px;
-    background:none;border:none;
+    display:flex;align-items:center;justify-content:center;
+    width:36px;height:36px;border:none;background:none;cursor:pointer;
+    color:var(--fg);font-size:20px;
   }
-  .mob-menu-btn span{display:block;width:20px;height:2px;background:var(--fg);}
-  .mob-overlay{
-    display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:190;
-  }
-  .mob-overlay.open{display:block;}
-  /* 테이블 스크롤 */
+
+  /* 콘텐츠 */
+  .content{padding:14px 12px;}
+
+  /* 테이블 가로 스크롤 */
   .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-  .scene-table{min-width:600px;}
-  /* 버튼 터치 */
-  .btn{min-height:40px;padding:10px 16px;}
-  .btn-sm{min-height:34px;padding:7px 12px;}
-  .flt{min-height:36px;}
-  /* 모달 */
-  .modal{width:100%;max-width:100%;max-height:100vh;margin:0;border-radius:0;}
+  .scene-table{min-width:620px;}
+
+  /* 툴바 버튼 */
+  .btn{min-height:42px;padding:10px 14px;font-size:11px;}
+  .btn-sm{min-height:36px;padding:7px 10px;}
+  .flt{min-height:36px;padding:8px 10px;}
+  .toolbar{gap:6px;margin-bottom:14px;}
+
+  /* 모달 — 하단에서 올라오게 */
   .overlay{align-items:flex-end;}
-  .modal-body{padding:16px;}
-  .modal-header{padding:16px;}
-  .modal-footer{padding:12px 16px;}
+  .modal{
+    width:100%;max-width:100%;
+    max-height:92vh;border-radius:0;
+    border-left:none;border-right:none;border-bottom:none;
+  }
+  .modal-body{padding:14px 16px;}
+  .modal-header{padding:14px 16px 12px;}
+  .modal-footer{padding:10px 16px 16px;}
   .form-grid{grid-template-columns:1fr;}
   .form-full{grid-column:1;}
-  /* 인라인 편집 터치 */
-  .inline-input{font-size:16px!important;min-height:40px;}
+  .form-inp{font-size:16px;padding:11px 12px;}/* 16px = iOS 자동줌 방지 */
+  select.form-inp{font-size:16px;}
+
+  /* 인라인 편집 */
+  .inline-input{font-size:16px!important;min-height:42px;}
+
+  /* Day 헤더 */
+  .day-hdr{flex-wrap:wrap;gap:8px;padding:10px 12px;}
+  .day-date{font-size:15px;}
 }
+
 @media (min-width:769px){
+  .mob-tabbar{display:none!important;}
+  .mob-action-sheet{display:none!important;}
   .mob-menu-btn{display:none;}
   .mob-overlay{display:none!important;}
 }
@@ -720,14 +829,12 @@ td.editing{background:#FFFFF0!important;outline:2px solid var(--fg2);}
 <main class="main">
 
   <!-- MOB OVERLAY -->
-  <div class="mob-overlay no-print" id="mobOverlay" onclick="closeSidebar()"></div>
+  <div class="mob-overlay no-print" id="mobOverlay" onclick="closeMobSheet()"></div>
 
   <!-- TOPBAR -->
   <div class="topbar no-print">
-    <button class="mob-menu-btn no-print" onclick="openSidebar()" aria-label="메뉴">
-      <span></span><span></span><span></span>
-    </button>
     <div class="topbar-title" id="topbarTitle">촬영 스케줄</div>
+    <button class="mob-menu-btn no-print" onclick="openMobSheet()" aria-label="더보기">⋯</button>
   </div>
 
   <!-- CONTENT -->
@@ -818,6 +925,39 @@ td.editing{background:#FFFFF0!important;outline:2px solid var(--fg2);}
   </div><!-- /content -->
 </main>
 </div><!-- /shell -->
+
+<!-- 모바일 하단 탭바 -->
+<nav class="mob-tabbar no-print" id="mobTabbar">
+  <button class="mob-tab active" data-tab="schedule" onclick="mobSwitchTab('schedule',this)">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="17" width="18" height="4" rx="1"/></svg>
+    스케줄
+  </button>
+  <button class="mob-tab" data-tab="locations" onclick="mobSwitchTab('locations',this)">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+    장소
+  </button>
+  <button class="mob-tab" data-tab="people" onclick="mobSwitchTab('people',this)">
+    <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M21 21v-2a4 4 0 00-3-3.87"/></svg>
+    인원
+  </button>
+  <button class="mob-tab" data-tab="scenelist" onclick="mobSwitchTab('scenelist',this)">
+    <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1.5"/><circle cx="3" cy="12" r="1.5"/><circle cx="3" cy="18" r="1.5"/></svg>
+    씬 리스트
+  </button>
+  <button class="mob-tab" data-tab="equipment" onclick="mobSwitchTab('equipment',this)">
+    <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+    장비
+  </button>
+</nav>
+
+<!-- 모바일 액션 시트 -->
+<div class="mob-action-sheet no-print" id="mobActionSheet">
+  <div class="mob-action-item" onclick="openPdfModal();closeMobSheet()">↓ PDF Export</div>
+  <div class="mob-action-item" onclick="exportJSON();closeMobSheet()">↑ JSON 백업</div>
+  <div class="mob-action-item" onclick="document.getElementById('importInput').click();closeMobSheet()">↓ JSON 불러오기</div>
+  <div class="mob-action-item" onclick="loadSampleData()">예시 데이터</div>
+  <div class="mob-action-item" onclick="resetAllData()" style="color:#C06060;">초기화</div>
+</div>
 </div><!-- /app-root -->
 
 <!-- ─── MODALS ─── -->
@@ -1060,12 +1200,12 @@ const SAMPLE = {
   ],
   scenes: [
     {id:'s1',dayId:'d1',sceneNum:'1',title:'혜미의 방 문 앞 — 셀린, 자물쇠를 열고 들어온다',type:'INT',timeOfDay:'야간',duration:20,pages:1,cuts:8,locId:'l2',cast:'셀린,혜미',crew:'감독,촬영감독,조감독',equip:'소형 LED 패널,핸드헬드 리그',notes:'셀린 POV 핸드헬드. 노란 빛 방 내부 노출 유지'},
-    {id:'s2',dayId:'d1',sceneNum:'2',title:'혜미의 방 — 셀린, 혜미의 팔 칼자국을 센다',type:'INT',timeOfDay:'야간',duration:35,pages:2,cuts:14,locId:'l2',cast:'셀린,혜미',crew:'감독,촬영감독,조감독',equip:'소형 LED 패널,클로즈업 렌즈(100mm)',notes:'셀린이 사탕 씹으며 혜미를 위협. 녹슨 못 프롭 필요'},
+    {id:'s2',dayId:'d1',sceneNum:'2',title:'혜미의 방 — 셀린과 혜미, 대화',type:'INT',timeOfDay:'야간',duration:35,pages:2,cuts:14,locId:'l2',cast:'셀린,혜미',crew:'감독,촬영감독,조감독',equip:'소형 LED 패널,클로즈업 렌즈(100mm)',notes:'셀린과 혜미의 대화 씬. 긴장감 있는 클로즈업 위주'},
     {id:'s3',dayId:'d1',sceneNum:'3',title:'혜미의 방 밖 — 혜미, 준과 눈이 마주친다',type:'INT',timeOfDay:'야간',duration:10,pages:0.5,cuts:5,locId:'l3',cast:'혜미,준',crew:'감독,촬영감독',equip:'클로즈업 렌즈(100mm)',notes:'창문을 통한 시선. 인서트 컷 위주'},
-    {id:'s4',dayId:'d2',sceneNum:'4',title:'혜미의 방 — 커튼·옷으로 밧줄을 만든다',type:'INT',timeOfDay:'야간',duration:25,pages:1.5,cuts:10,locId:'l2',cast:'혜미',crew:'감독,촬영감독',equip:'와이드렌즈(24mm),소형 LED 패널',notes:'풀샷 고정 카메라. 행동 디테일. 밧줄 프롭 사전 제작 필요'},
+    {id:'s4',dayId:'d2',sceneNum:'4',title:'혜미의 방 — 혜미, 무언가를 준비한다',type:'INT',timeOfDay:'야간',duration:25,pages:1.5,cuts:10,locId:'l2',cast:'혜미',crew:'감독,촬영감독',equip:'와이드렌즈(24mm),소형 LED 패널',notes:'풀샷 고정 카메라. 행동 디테일 위주'},
     {id:'s5',dayId:'d2',sceneNum:'5',title:'집 밖 — 후디를 입은 준이 위로 끌어당겨진다',type:'EXT',timeOfDay:'야간',duration:20,pages:1,cuts:8,locId:'l1',cast:'준',crew:'감독,촬영감독,스턴트코디',equip:'로우앵글 리그,와이어 장비',notes:'로우앵글 → 하이앵글 이동. 슈퍼맨/십자가 이미지. 와이어 안전 확인'},
     {id:'s6',dayId:'d2',sceneNum:'6',title:'혜미의 방 — 준이 창문으로 들어온다, 두 사람의 조용한 춤',type:'INT',timeOfDay:'야간',duration:45,pages:2.5,cuts:18,locId:'l2',cast:'혜미,준',crew:'감독,촬영감독,조감독',equip:'소형 LED 패널,와이드렌즈(24mm)',notes:'풀샷 고정. 모방 댄스 시퀀스. 무음 연출. 종이·샤프 프롭'},
-    {id:'s7',dayId:'d3',sceneNum:'7',title:'혜미의 방 — 혜미, 창문에서 뛰어내린다',type:'INT',timeOfDay:'야간',duration:30,pages:2,cuts:12,locId:'l2',cast:'혜미',crew:'감독,촬영감독,스턴트코디,안전요원',equip:'고정 삼각대,소형 LED 패널',notes:'풀샷 고정. 뛰어내리는 소리 없음. 3분 정적 유지. 스턴트 조율 필수'},
+    {id:'s7',dayId:'d3',sceneNum:'7',title:'혜미의 방 — 혜미, 창문 밖을 바라본다',type:'INT',timeOfDay:'야간',duration:30,pages:2,cuts:12,locId:'l2',cast:'혜미',crew:'감독,촬영감독,스턴트코디,안전요원',equip:'고정 삼각대,소형 LED 패널',notes:'풀샷 고정. 정적인 씬. 3분 이상 롱 테이크'},
     {id:'s8',dayId:'d3',sceneNum:'8',title:'혜미의 방 — 셀린이 돌아와 방을 정리한다, 타이틀',type:'INT',timeOfDay:'야간',duration:40,pages:2,cuts:6,locId:'l2',cast:'셀린',crew:'감독,촬영감독',equip:'고정 삼각대,소형 LED 패널',notes:'고정 롱 테이크. 3분 이상 정적. 타이틀 인서트. 대니 웃음소리 O.S.'}
   ],
   breaks: [
@@ -1080,14 +1220,14 @@ const SAMPLE = {
     {id:'l4',name:'준의 집 외부',addr:'서울시 마포구 합정동 일대 (l1 인근)',type:'야외 로케이션',perm:'진행 중',contact:'장소 섭외 담당 / 010-0000-0000',notes:'야간 외부. 와이어 장비 셋업 공간 필요'}
   ],
   people: [
-    {id:'p1',name:'혜미',cat:'cast',role:'주연 (18세 여, 한국인 유학생)',contact:'캐스팅 디렉터 / 010-2200-1100',notes:'자해 표현 씬 포함 — 사전 심리 케어 필수'},
+    {id:'p1',name:'혜미',cat:'cast',role:'주연 (18세 여, 한국인 유학생)',contact:'캐스팅 디렉터 / 010-2200-1100',notes:'주연. 감정 표현 강도 높음 — 사전 조율 필요'},
     {id:'p2',name:'셀린',cat:'cast',role:'조연 (33세 여, 유학원 관리인)',contact:'캐스팅 디렉터 / 010-2200-1100',notes:'터키계 캐릭터. 영어·한국어 혼용 대사'},
     {id:'p3',name:'준',cat:'cast',role:'조연 (9세 남, 한국인 초등학생)',contact:'아역 에이전시 / 02-333-4444',notes:'아역 — 와이어 씬 포함. 보호자 동반 필수. 야간 촬영 허가 확인'},
     {id:'p4',name:'대니',cat:'cast',role:'단역 (15세 남, 웃음 억제 불가)',contact:'캐스팅 디렉터 / 010-2200-1100',notes:'O.S. 웃음소리 위주. 짧은 출연'},
     {id:'p5',name:'감독',cat:'crew',role:'감독',contact:'010-5500-1100',notes:''},
     {id:'p6',name:'촬영감독',cat:'crew',role:'촬영감독 (DP)',contact:'010-5500-2200',notes:'핸드헬드 + 고정 삼각대 병행'},
     {id:'p7',name:'조감독',cat:'crew',role:'1st AD / 조감독',contact:'010-5500-3300',notes:'콜시트 배포 담당'},
-    {id:'p8',name:'스턴트코디',cat:'crew',role:'스턴트 코디네이터',contact:'010-5500-4400',notes:'씬 5·7 와이어 및 낙하 담당'}
+    {id:'p8',name:'스턴트코디',cat:'crew',role:'스턴트 코디네이터',contact:'010-5500-4400',notes:'씬 5·7 와이어 담당'}
   ],
   equipment: [
     {id:'e1',name:'Sony FX3',cat:'카메라',qty:1,assignedScenes:'1,2,3,4,5,6,7,8',notes:'메인 카메라'},
@@ -1097,9 +1237,9 @@ const SAMPLE = {
     {id:'e5',name:'소형 LED 패널 (Aputure MC)',cat:'조명',qty:4,assignedScenes:'1,2,4,6,7,8',notes:'노란 따뜻한 빛. 방 내부 키 라이트'},
     {id:'e6',name:'클로즈업 렌즈 100mm',cat:'렌즈',qty:1,assignedScenes:'2,3',notes:'팔 클로즈업·창문 시선 인서트'},
     {id:'e7',name:'와이드렌즈 24mm',cat:'렌즈',qty:1,assignedScenes:'4,5,6',notes:'공간감 강조'},
-    {id:'e8',name:'와이어 장비 (3m)',cat:'특수장비',qty:1,assignedScenes:'5,7',notes:'준 리프팅 + 혜미 낙하 씬. 스턴트 코디 전담'},
-    {id:'e9',name:'녹슨 못 (프롭)',cat:'소품',qty:3,assignedScenes:'2,4,7,8',notes:'실제 날카롭지 않게 처리 필수'},
-    {id:'e10',name:'밧줄/커튼 천 (프롭)',cat:'소품',qty:1,assignedScenes:'4,5,6,7',notes:'사전 제작. 강도 테스트 필요'},
+    {id:'e8',name:'와이어 장비 (3m)',cat:'특수장비',qty:1,assignedScenes:'5,7',notes:'씬 5·7 전용. 스턴트 코디 전담'},
+    {id:'e9',name:'소품 A',cat:'소품',qty:3,assignedScenes:'2,4,7,8',notes:'소품 처리 주의'},
+    {id:'e10',name:'소품 B (천)',cat:'소품',qty:1,assignedScenes:'4,5,6,7',notes:'사전 제작 필요'},
     {id:'e11',name:'종이·뭉뚝한 샤프 (프롭)',cat:'소품',qty:5,assignedScenes:'6,8',notes:'혜미·준 필기 장면'},
     {id:'e12',name:'사탕 봉지 (프롭)',cat:'소품',qty:2,assignedScenes:'2',notes:'셀린 사탕 씹는 씬. 와그작 소리 중요'}
   ]
@@ -1157,6 +1297,7 @@ function resetAllData() {
   saveDB(); renderAll(); showToast('초기화 완료');
 }
 window.addEventListener('load', loadDB);
+window.addEventListener('resize', ()=>renderSchedule(), {passive:true});
 
 /* ═══════════════════════════════════════════════
    UTILS
@@ -1261,6 +1402,97 @@ function bindModalEndTime() {
     el.addEventListener('input', calcModalDur);
     el.addEventListener('click', ()=>setTimeout(calcModalDur,50));
   });
+}
+
+
+/* ═══════════════════════════════════════════════
+   MOBILE SCHEDULE RENDERER
+═══════════════════════════════════════════════ */
+function buildMobSchedule() {
+  const q = (document.getElementById('sceneSearch').value||'').toLowerCase();
+  const sorted = [...db.days].sort((a,b)=>a.date.localeCompare(b.date));
+  const dn = ['일','월','화','수','목','금','토'];
+  let html = '';
+
+  sorted.forEach((day, di) => {
+    const items = getDayItems(day.id);
+    const scenes = items.filter(x=>x._k==='scene');
+    const tm = calcTimeMap(day, items);
+
+    let visIds = new Set(scenes.map(s=>s.id));
+    if (filters.type !== 'all') visIds = new Set(scenes.filter(s=>s.type===filters.type).map(s=>s.id));
+    if (filters.time !== 'all') visIds = new Set([...visIds].filter(id=>{ const s=scenes.find(x=>x.id===id); return s&&s.timeOfDay===filters.time; }));
+    if (q) visIds = new Set([...visIds].filter(id=>{ const s=scenes.find(x=>x.id===id); return s&&(s.title.toLowerCase().includes(q)||s.sceneNum.toLowerCase().includes(q)||(s.cast||'').toLowerCase().includes(q)); }));
+
+    const dd = new Date(day.date);
+    const dateStr = `${dd.getMonth()+1}.${dd.getDate()} (${dn[dd.getDay()]})`;
+    const callStr = day.callTime ? `Call ${fmt12(day.callTime)}` : '';
+    const firstStr = day.firstShot ? `First ${fmt12(day.firstShot)}` : '';
+
+    html += `<div class="mob-day-block">
+      <div class="mob-day-hdr" onclick="openDayModal('${day.id}')">
+        <span class="mob-day-num">DAY ${di+1}</span>
+        <span class="mob-day-date">${dateStr}</span>
+        ${callStr?`<span style="font-size:10px;opacity:.7;">${callStr}</span>`:''}
+        ${firstStr?`<span style="font-size:10px;opacity:.7;">${firstStr}</span>`:''}
+        <span class="mob-day-call">편집 ›</span>
+      </div>`;
+
+    items.forEach(item => {
+      if (item._k === 'scene') {
+        const s = item;
+        if (!visIds.has(s.id)) return;
+        const t = tm ? tm[s.id] : null;
+        const timeStr = t && s.duration ? `${t.start} → ${t.end}` : '';
+        const castArr = (s.cast||'').split(',').map(x=>x.trim()).filter(Boolean);
+
+        html += `<div class="mob-scene-card" oncontextmenu="openCtxMenu(event,'${s.id}','scene')">
+          <div class="mob-scene-top">
+            <span class="mob-scene-num">${s.sceneNum}</span>
+            <span class="mob-scene-title">${s.title}</span>
+            ${timeStr?`<span class="mob-scene-time">${timeStr}</span>`:''}
+          </div>
+          <div class="mob-scene-tags">
+            <span class="tag ${tagCls(s.type)}">${s.type}</span>
+            <span class="tag ${tagCls(s.timeOfDay)}">${s.timeOfDay}</span>
+            ${castArr.map(c=>`<span class="cast-pill">${c}</span>`).join('')}
+          </div>
+          <div class="mob-scene-meta">
+            ${s.duration?`<span class="mob-meta-item"><span class="mob-meta-lbl">min</span>${s.duration}</span>`:''}
+            ${s.cuts?`<span class="mob-meta-item"><span class="mob-meta-lbl">cut</span>${s.cuts}</span>`:''}
+            ${s.pages?`<span class="mob-meta-item"><span class="mob-meta-lbl">pp</span>${s.pages}</span>`:''}
+            ${s.locId?`<span class="mob-meta-item"><span class="mob-meta-lbl">📍</span>${locName(s.locId)}</span>`:''}
+          </div>
+          ${s.notes?`<div style="font-family:var(--ff-mono);font-size:10px;color:var(--fg3);margin-top:6px;">${s.notes}</div>`:''}
+          <div class="mob-scene-actions">
+            <button class="btn btn-sm" style="flex:1;" onclick="openSceneModal('${s.id}')">편집</button>
+            <button class="btn btn-sm btn-danger" onclick="if(confirm('삭제?')){db.scenes=db.scenes.filter(x=>x.id!=='${s.id}');renderAll();saveDB();}">삭제</button>
+          </div>
+        </div>`;
+      } else {
+        const bk = item;
+        const t = tm ? tm[bk.id] : null;
+        const timeStr = t && bk.duration ? `${t.start}→${t.end}` : '';
+        html += `<div class="mob-break-card">
+          <span class="mob-break-badge">${bk.type}</span>
+          <span class="mob-break-label">${bk.label||bk.type}</span>
+          <span class="mob-break-dur">${timeStr||''}</span>
+          <span class="mob-break-dur" style="margin-left:4px;">${bk.duration?bk.duration+'분':''}</span>
+          <button class="btn btn-sm btn-ghost" onclick="openBreakModal('${bk.id}')">편집</button>
+        </div>`;
+      }
+    });
+
+    html += `<div class="mob-add-row">
+      <button class="btn btn-sm btn-primary" style="flex:1;" onclick="openSceneModal()">+ 씬</button>
+      <button class="btn btn-sm" style="flex:1;" onclick="openBreakModal()">+ 시간 블록</button>
+    </div>`;
+
+    html += `</div>`;
+  });
+
+  if (!sorted.length) return '<div class="empty-state">+ 촬영일 버튼으로 촬영일을 추가하세요</div>';
+  return html;
 }
 
 function calcTimeMap(day, items) {
@@ -1440,6 +1672,10 @@ function renderSchedule() {
     html += `</div>`;
   });
 
+  if (window.innerWidth <= 768) {
+    document.getElementById('scheduleContent').innerHTML = buildMobSchedule() || '<div class="empty-state">촬영일을 추가해주세요</div>';
+    return;
+  }
   document.getElementById('scheduleContent').innerHTML = html || '<div class="empty-state">촬영일을 추가해주세요</div>';
 
   const isFiltered = filters.type!=='all'||filters.time!=='all'||(document.getElementById('sceneSearch').value||'');
@@ -3218,23 +3454,25 @@ function readTime12(wrapperId) {
   return to24(Math.max(1,Math.min(12,hv)), Math.max(0,Math.min(59,mv)), pm);
 }
 
-/* ── 모바일 사이드바 ── */
-function openSidebar() {
-  document.querySelector('.sidebar').classList.add('open');
+/* ── 모바일 탭바 ── */
+function mobSwitchTab(name, el) {
+  // 사이드바 nav-item도 동기화
+  const navEl = document.querySelector(`.nav-item[data-tab="${name}"]`);
+  if (navEl) switchTab(name, navEl);
+  // 탭바 active
+  document.querySelectorAll('.mob-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+function openMobSheet() {
+  document.getElementById('mobActionSheet').classList.add('open');
   document.getElementById('mobOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
 }
-function closeSidebar() {
-  document.querySelector('.sidebar').classList.remove('open');
+function closeMobSheet() {
+  document.getElementById('mobActionSheet').classList.remove('open');
   document.getElementById('mobOverlay').classList.remove('open');
-  document.body.style.overflow = '';
 }
-// 탭 전환 시 모바일에서 사이드바 닫기
-const _origSwitchTab = switchTab;
-function switchTab(name, el) {
-  _origSwitchTab(name, el);
-  if (window.innerWidth <= 768) closeSidebar();
-}
+function openSidebar(){}
+function closeSidebar(){}
 
 function closeM(id) { document.getElementById(id).classList.remove('open'); }
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); }));
