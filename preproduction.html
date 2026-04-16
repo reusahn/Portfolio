@@ -299,7 +299,8 @@ body{
 .time-sep{color:var(--fg3);margin:0 3px;}
 .time-na{font-family:var(--ff-mono);font-size:11px;color:var(--fg4);}
 
-.drag-handle{cursor:grab;color:var(--line2);font-size:14px;user-select:none;line-height:1;}
+.drag-handle{cursor:grab;color:var(--line2);font-size:18px;user-select:none;line-height:1;display:flex;align-items:center;justify-content:center;padding:0;position:absolute;inset:0;}
+.drag-td{position:relative;padding:0!important;width:22px;}
 .drag-handle:active{cursor:grabbing;}
 .sortable-ghost td{background:#E0E0E0!important;opacity:.7;}
 
@@ -497,6 +498,76 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
 .equip-scenes{font-family:var(--ff-mono);font-size:10px;color:var(--fg3);}
 
 
+
+
+/* ── 인라인 편집 ── */
+.inline-input{
+  font-family:var(--ff-mono);font-size:13px;font-weight:600;
+  background:var(--bg);border:2px solid var(--fg);
+  color:var(--fg);padding:3px 7px;outline:none;
+  width:100%;min-width:60px;box-sizing:border-box;
+}
+.inline-input.title{
+  font-family:var(--ff-body);font-size:14px;font-weight:400;
+  min-width:200px;
+}
+td.editing{background:#FFFFF0!important;outline:2px solid var(--fg2);}
+
+/* ── 12시간제 시간 입력 위젯 ── */
+.time12-wrap{
+  display:flex;align-items:center;gap:4px;
+  background:var(--bg2);border:1.5px solid var(--line);
+  padding:7px 10px;transition:border-color .1s;
+}
+.time12-wrap:focus-within{border-color:var(--fg2);background:var(--bg);}
+.time12-inp{
+  font-family:var(--ff-mono);font-size:14px;font-weight:600;
+  width:32px;border:none;background:transparent;
+  color:var(--fg);text-align:center;outline:none;
+  -webkit-appearance:none;padding:0;
+}
+.time12-sep{font-family:var(--ff-mono);font-size:14px;font-weight:700;color:var(--fg2);}
+.time12-ampm{
+  font-family:var(--ff-mono);font-size:11px;font-weight:700;
+  padding:2px 7px;border:1.5px solid var(--line2);background:transparent;
+  color:var(--fg3);cursor:pointer;margin-left:4px;transition:all .1s;
+}
+.time12-ampm.active{background:var(--fg);color:var(--bg);border-color:var(--fg);}
+/* ══════════════════════════════════════
+   CONTEXT MENU
+══════════════════════════════════════ */
+.ctx-menu{
+  position:fixed;z-index:999;
+  background:var(--bg);border:2px solid var(--fg);
+  min-width:180px;box-shadow:4px 4px 0 rgba(0,0,0,.12);
+  display:none;
+}
+.ctx-menu.open{display:block;}
+.ctx-item{
+  font-family:var(--ff-mono);font-size:11px;letter-spacing:.04em;
+  padding:10px 16px;cursor:pointer;color:var(--fg2);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:8px;
+}
+.ctx-item:last-child{border-bottom:none;}
+.ctx-item:hover{background:var(--bg2);color:var(--fg);}
+.ctx-item.danger{color:#AA2222;}
+.ctx-item.danger:hover{background:#FFF5F5;}
+.ctx-sub{position:relative;}
+.ctx-sub-menu{
+  position:absolute;left:100%;top:-2px;
+  background:var(--bg);border:2px solid var(--fg);
+  min-width:160px;box-shadow:4px 4px 0 rgba(0,0,0,.12);
+  display:none;
+}
+.ctx-sub:hover .ctx-sub-menu{display:block;}
+.ctx-sub-item{
+  font-family:var(--ff-mono);font-size:11px;
+  padding:9px 14px;cursor:pointer;color:var(--fg2);
+  border-bottom:1px solid var(--line);
+}
+.ctx-sub-item:last-child{border-bottom:none;}
+.ctx-sub-item:hover{background:var(--bg2);color:var(--fg);}
 /* ══════════════════════════════════════
    TOAST
 ══════════════════════════════════════ */
@@ -519,6 +590,54 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
 /* ══════════════════════════════════════
    PRINT
 ══════════════════════════════════════ */
+
+/* ══════════════════════════════════════
+   MOBILE
+══════════════════════════════════════ */
+@media (max-width:768px){
+  .shell{grid-template-columns:1fr;}
+  .sidebar{
+    position:fixed;left:0;top:0;bottom:0;z-index:200;
+    transform:translateX(-100%);transition:transform .25s;width:260px;height:100vh;
+  }
+  .sidebar.open{transform:translateX(0);}
+  .main{min-height:100vh;}
+  .topbar{padding:14px 16px;}
+  .content{padding:16px;}
+  .topbar-title{font-size:15px;}
+  /* 햄버거 버튼 */
+  .mob-menu-btn{
+    display:flex;flex-direction:column;gap:4px;cursor:pointer;padding:6px;
+    background:none;border:none;
+  }
+  .mob-menu-btn span{display:block;width:20px;height:2px;background:var(--fg);}
+  .mob-overlay{
+    display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:190;
+  }
+  .mob-overlay.open{display:block;}
+  /* 테이블 스크롤 */
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .scene-table{min-width:600px;}
+  /* 버튼 터치 */
+  .btn{min-height:40px;padding:10px 16px;}
+  .btn-sm{min-height:34px;padding:7px 12px;}
+  .flt{min-height:36px;}
+  /* 모달 */
+  .modal{width:100%;max-width:100%;max-height:100vh;margin:0;border-radius:0;}
+  .overlay{align-items:flex-end;}
+  .modal-body{padding:16px;}
+  .modal-header{padding:16px;}
+  .modal-footer{padding:12px 16px;}
+  .form-grid{grid-template-columns:1fr;}
+  .form-full{grid-column:1;}
+  /* 인라인 편집 터치 */
+  .inline-input{font-size:16px!important;min-height:40px;}
+}
+@media (min-width:769px){
+  .mob-menu-btn{display:none;}
+  .mob-overlay{display:none!important;}
+}
+
 @media print{
   .no-print{display:none!important;}
   .shell{display:block;}
@@ -600,8 +719,14 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
 <!-- ─── MAIN ─── -->
 <main class="main">
 
+  <!-- MOB OVERLAY -->
+  <div class="mob-overlay no-print" id="mobOverlay" onclick="closeSidebar()"></div>
+
   <!-- TOPBAR -->
   <div class="topbar no-print">
+    <button class="mob-menu-btn no-print" onclick="openSidebar()" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
     <div class="topbar-title" id="topbarTitle">촬영 스케줄</div>
   </div>
 
@@ -664,6 +789,7 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
     <div id="tab-scenelist" class="tab-panel">
       <div class="toolbar no-print">
         <button class="btn btn-primary" onclick="openSceneModal()">+ 씬 추가</button>
+        <button class="btn" onclick="openDayModal()">+ 촬영일</button>
       </div>
       <div id="scenelistContent"></div>
     </div>
@@ -701,18 +827,25 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title" id="sceneMTitle">씬 추가</div>
-      <span class="modal-close" onclick="closeM('sceneModal')">✕ 닫기</span>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="btn btn-primary btn-sm" onclick="saveScene()">저장</button>
+        <span class="modal-close" onclick="closeM('sceneModal')">✕ 닫기</span>
+      </div>
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div><label class="form-lbl">씬 번호 <span style="color:#AA2222;">*</span></label><input class="form-inp" id="fSNum" placeholder="예: 12A"/></div>
-        <div><label class="form-lbl">촬영일</label><select class="form-inp" id="fSDay"></select></div>
+        <div style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr 2fr;gap:12px;">
+          <div><label class="form-lbl">씬 번호 <span style="color:#AA2222;">*</span></label><input class="form-inp" id="fSNum" placeholder="예: 12A"/></div>
+          <div><label class="form-lbl">컷 수</label><input class="form-inp" id="fSCuts" type="number" min="1" placeholder="20"/></div>
+          <div><label class="form-lbl">촬영일</label><select class="form-inp" id="fSDay"></select></div>
+        </div>
+        <div><label class="form-lbl">씬 시작 시각 <span style="font-size:9px;color:var(--fg4);">(비우면 자동계산)</span></label><div class="time12-wrap" id="fSStartWrap"></div></div>
+        <div><label class="form-lbl">씬 종료 시각 <span style="font-size:9px;color:var(--fg4);">(입력 시 예상시간 자동)</span></label><div class="time12-wrap" id="fSEndWrap" onchange="calcModalDur()"></div></div>
         <div class="form-full"><label class="form-lbl">씬 제목 / 내용 <span style="color:#AA2222;">*</span></label><input class="form-inp" id="fSTitle" placeholder="장소 — 상황 설명"/></div>
         <div><label class="form-lbl">INT / EXT</label><select class="form-inp" id="fSType"><option>INT</option><option>EXT</option></select></div>
         <div><label class="form-lbl">시간대</label><select class="form-inp" id="fSTime"><option>주간</option><option>야간</option></select></div>
         <div><label class="form-lbl">예상 시간 (분)</label><input class="form-inp" id="fSDur" type="number" min="5" placeholder="45"/></div>
         <div><label class="form-lbl">페이지 수</label><input class="form-inp" id="fSPages" type="number" step="0.25" min="0.25" placeholder="2.5"/></div>
-        <div><label class="form-lbl">컷 수</label><input class="form-inp" id="fSCuts" type="number" min="1" placeholder="20"/></div>
         <div class="form-full"><label class="form-lbl">촬영 장소</label><select class="form-inp" id="fSLoc"></select></div>
         <div class="form-full"><label class="form-lbl">출연진 (복수 선택)</label><div class="loc-checks" id="fSCast"></div></div>
         <div class="form-full"><label class="form-lbl">스태프 배정 (복수 선택)</label><div class="loc-checks" id="fSCrew"></div></div>
@@ -764,16 +897,16 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
         <div><label class="form-lbl">날짜 <span style="color:#AA2222;">*</span></label><input class="form-inp" id="fDDate" type="date"/></div>
         <div>
           <label class="form-lbl">콜 타임</label>
-          <input class="form-inp" id="fDCall" type="time"/>
+          <div class="time12-wrap" id="fDCallWrap"></div>
           <div class="form-hint">전체 크루 집합 시각</div>
         </div>
         <div>
           <label class="form-lbl">첫 촬영 시각</label>
-          <input class="form-inp" id="fDFirst" type="time"/>
+          <div class="time12-wrap" id="fDFirstWrap"></div>
           <div class="form-hint">미입력 시 콜타임 기준</div>
         </div>
-        <div><label class="form-lbl">일출</label><input class="form-inp" id="fDSunrise" type="time"/></div>
-        <div><label class="form-lbl">일몰</label><input class="form-inp" id="fDSunset" type="time"/></div>
+        <div><label class="form-lbl">일출</label><div class="time12-wrap" id="fDSunriseWrap"></div></div>
+        <div><label class="form-lbl">일몰</label><div class="time12-wrap" id="fDSunsetWrap"></div></div>
         <div><label class="form-lbl">날씨</label><input class="form-inp" id="fDWeather" placeholder="맑음 / 흐림 / 비"/></div>
         <div><label class="form-lbl">기온</label><input class="form-inp" id="fDTemp" placeholder="22°C / 최저 14°C"/></div>
         <div class="form-full"><label class="form-lbl">촬영 장소 (복수)</label><div class="loc-checks" id="fDLocs"></div></div>
@@ -901,6 +1034,16 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
   </div>
 </div>
 
+<!-- CONTEXT MENU -->
+<div id="ctxMenu" class="ctx-menu">
+  <div class="ctx-item" onclick="ctxDuplicate()">⧉ 복제</div>
+  <div class="ctx-item ctx-sub">
+    ↗ 다른 촬영일로 이동
+    <div class="ctx-sub-menu" id="ctxDayList"></div>
+  </div>
+  <div class="ctx-item danger" onclick="ctxDelete()">✕ 삭제</div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -1019,6 +1162,11 @@ window.addEventListener('load', loadDB);
    UTILS
 ═══════════════════════════════════════════════ */
 function uid() { return '_' + Math.random().toString(36).slice(2,9); }
+function fmt12(t24) {
+  if (!t24) return '';
+  const p = parse12(t24);
+  return `${p.h}:${String(p.m).padStart(2,'0')} ${p.pm?'PM':'AM'}`;
+}
 function locName(id) { const l = db.locations.find(x=>x.id===id); return l ? l.name : '—'; }
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -1092,16 +1240,59 @@ function setPF(val, btn) {
 /* ═══════════════════════════════════════════════
    TIME CALC
 ═══════════════════════════════════════════════ */
+
+function calcModalDur() {
+  const s24 = readTime12('fSStartWrap');
+  const e24 = readTime12('fSEndWrap');
+  if (!s24 || !e24) return;
+  const [sh,sm] = s24.split(':').map(Number);
+  const [eh,em] = e24.split(':').map(Number);
+  const diff = (eh*60+em) - (sh*60+sm);
+  if (diff > 0) {
+    document.getElementById('fSDur').value = diff;
+  }
+}
+
+// makeTime12 후 종료 시각 wrap 인풋에 calcModalDur 바인딩
+function bindModalEndTime() {
+  const wrap = document.getElementById('fSEndWrap');
+  if (!wrap) return;
+  wrap.querySelectorAll('input,.time12-ampm').forEach(el => {
+    el.addEventListener('input', calcModalDur);
+    el.addEventListener('click', ()=>setTimeout(calcModalDur,50));
+  });
+}
+
 function calcTimeMap(day, items) {
   const base = day.firstShot || day.callTime;
   if (!base) return null;
-  const [h,m] = base.split(':').map(Number);
-  let cur = h*60+m;
+  const [bh,bm] = base.split(':').map(Number);
+  let cur = bh*60+bm;
   const map = {};
+  const fmt = n => {
+    const totalMin = ((n % (24*60)) + 24*60) % (24*60);
+    const hh = Math.floor(totalMin/60) % 24;
+    const mm = totalMin % 60;
+    const pm = hh >= 12;
+    const h12 = hh % 12 || 12;
+    return `${h12}:${String(mm).padStart(2,'0')} ${pm?'PM':'AM'}`;
+  };
   items.forEach(item => {
-    const s = cur, e = cur + (item.duration||0);
-    cur = e;
-    const fmt = n => `${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;
+    // scene에 startTime 개별 지정 있으면 override
+    if (item._k === 'scene' && item.startTime) {
+      const [sh,sm] = item.startTime.split(':').map(Number);
+      cur = sh*60+sm;
+    }
+    const s = cur;
+    let e;
+    if (item._k === 'scene' && item.endTime) {
+      const [eh,em] = item.endTime.split(':').map(Number);
+      e = eh*60+em;
+      cur = e;
+    } else {
+      e = cur + (item.duration||0);
+      cur = e;
+    }
     map[item.id] = {start:fmt(s), end:fmt(e)};
   });
   return map;
@@ -1147,8 +1338,8 @@ function renderSchedule() {
       <div class="day-hdr">
         <span class="day-num">Day ${di+1}</span>
         <span class="day-date">${dateStr}</span>
-        ${day.callTime?`<span class="day-call">Call ${day.callTime}</span>`:''}
-        ${day.firstShot?`<span class="day-badge">First ${day.firstShot}</span>`:''}
+        <span class="day-call" style="cursor:pointer;" onclick="inlineEditDayTime(event,'${day.id}','callTime')">${day.callTime?`Call ${fmt12(day.callTime)}`:'<span style="opacity:.4;font-size:9px;">Call —</span>'}</span>
+        <span class="day-badge" style="cursor:pointer;" onclick="inlineEditDayTime(event,'${day.id}','firstShot')">${day.firstShot?`First ${fmt12(day.firstShot)}`:'<span style="opacity:.4;font-size:9px;">First —</span>'}</span>
         ${dayLocs.map(n=>`<span class="day-loc-pill">${n}</span>`).join('')}
         ${durStr?`<span class="day-dur">${durStr}</span>`:''}
         <button class="btn btn-sm no-print" style="margin-left:4px;" onclick="openDayModal('${day.id}')">편집</button>
@@ -1173,12 +1364,12 @@ function renderSchedule() {
           <th style="width:22px" class="no-print"></th>
           <th style="width:58px">Scene</th>
           <th style="width:46px">cut</th>
-          <th style="width:140px">Time</th>
+          <th style="width:220px">Time</th>
           <th>내용</th>
           <th style="width:130px;text-align:center;">구분</th>
           <th style="width:100px">출연진</th>
           <th style="width:80px">장소</th>
-          <th style="width:120px">장비</th>
+          <th style="width:120px">장비 메모</th>
           <th style="width:40px">min</th>
           <th style="width:46px">pp</th>
           <th style="width:80px" class="no-print"></th>
@@ -1193,21 +1384,21 @@ function renderSchedule() {
             ? `<span class="time-cell">${t.start}<span class="time-sep">→</span>${t.end}</span>`
             : `<span class="time-na">—</span>`;
           html += `
-            <tr class="scene-row" data-id="${s.id}" data-kind="scene" onclick="toggleDetail('${s.id}')">
-              <td class="no-print" onclick="event.stopPropagation()" style="padding:0 4px;"><span class="drag-handle">⠿</span></td>
-              <td><span class="scene-num">${s.sceneNum}</span></td>
-              <td class="pg-text" style="white-space:nowrap;">${s.cuts||''}</td>
-              <td style="white-space:nowrap;">${timeHtml}</td>
-              <td class="scene-title-cell">
-                <div class="scene-title">${s.title}</div>
-                ${s.notes?`<div class="scene-note">${s.notes}</div>`:''}
+            <tr class="scene-row" data-id="${s.id}" data-kind="scene" onclick="toggleDetail('${s.id}')" oncontextmenu="openCtxMenu(event,'${s.id}','scene')">
+              <td class="no-print drag-td" onclick="event.stopPropagation()"><span class="drag-handle">⠿</span></td>
+              <td ondblclick="inlineEditSceneNum(event,'${s.id}')" style="cursor:text;"><span class="scene-num">${s.sceneNum}</span></td>
+              <td class="pg-text" style="white-space:nowrap;cursor:pointer;" onclick="inlineEdit(event,'${s.id}','cuts')">${s.cuts||''}</td>
+              <td style="white-space:nowrap;cursor:pointer;" onclick="inlineEditSceneTime(event,'${s.id}','${day.id}')">${timeHtml}</td>
+              <td class="scene-title-cell" style="cursor:text;">
+                <div class="scene-title" ondblclick="inlineEdit(event,'${s.id}','title')">${s.title}</div>
+                <div class="scene-note" ondblclick="event.stopPropagation();inlineEdit(event,'${s.id}','notes')" style="cursor:text;min-height:12px;">${s.notes||''}</div>
               </td>
-              <td style="white-space:nowrap;text-align:center;"><span class="tag ${tagCls(s.type)}">${s.type}</span>&thinsp;<span class="tag ${tagCls(s.timeOfDay)}">${s.timeOfDay}</span></td>
-              <td><div class="pills-wrap">${pills(s.cast,'cast-pill')}</div></td>
-              <td><span class="loc-text">${locName(s.locId)}</span></td>
-              <td><span style="font-family:var(--ff-mono);font-size:10px;color:var(--fg3);">${s.equip||''}</span></td>
-              <td class="dur-text" style="white-space:nowrap;">${s.duration||''}</td>
-              <td class="pg-text" style="white-space:nowrap;">${s.pages||''}</td>
+              <td style="white-space:nowrap;text-align:center;cursor:text;" ondblclick="inlineEdit(event,'${s.id}','type_time')"><span class="tag ${tagCls(s.type)}">${s.type}</span>&thinsp;<span class="tag ${tagCls(s.timeOfDay)}">${s.timeOfDay}</span></td>
+              <td style="cursor:text;" ondblclick="inlineEditCast(event,'${s.id}')"><div class="pills-wrap">${pills(s.cast,'cast-pill')}</div></td>
+              <td style="cursor:text;" ondblclick="inlineEditLoc(event,'${s.id}')"><span class="loc-text">${locName(s.locId)}</span></td>
+              <td style="cursor:text;" ondblclick="inlineEdit(event,'${s.id}','equip')"><span style="font-family:var(--ff-mono);font-size:10px;color:var(--fg3);">${s.equip||''}</span></td>
+              <td class="dur-text" style="white-space:nowrap;cursor:text;" ondblclick="inlineEdit(event,'${s.id}','duration')">${s.duration||''}</td>
+              <td class="pg-text" style="white-space:nowrap;cursor:text;" ondblclick="inlineEdit(event,'${s.id}','pages')">${s.pages||''}</td>
               <td class="no-print"><div class="row-acts"><button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();openSceneModal('${s.id}')">편집</button></div></td>
             </tr>
             <tr class="detail-row" id="detail-${s.id}">
@@ -1229,17 +1420,16 @@ function renderSchedule() {
             ? `<span class="time-cell">${t.start}<span class="time-sep">→</span>${t.end}</span>`
             : `<span class="time-na">—</span>`;
           html += `
-            <tr class="break-row" data-id="${bk.id}" data-kind="break">
-              <td class="no-print" onclick="event.stopPropagation()" style="padding:0 4px;"><span class="drag-handle">⠿</span></td>
-              <td colspan="2"><span class="break-type-badge">${bk.type}</span></td>
-              <td style="white-space:nowrap;">${t&&bk.duration?`<span class="time-cell">${t.start}<span class="time-sep">→</span>${t.end}</span>`:''}</td>
-              <td colspan="3" style="color:var(--fg2);">
+            <tr class="break-row" data-id="${bk.id}" data-kind="break" oncontextmenu="openCtxMenu(event,'${bk.id}','break')">
+              <td class="no-print drag-td" onclick="event.stopPropagation()"><span class="drag-handle">⠿</span></td>
+              <td colspan="2" style="cursor:text;" ondblclick="inlineEditBreak(event,'${bk.id}','type')"><span class="break-type-badge">${bk.type}</span></td>
+              <td style="white-space:nowrap;cursor:pointer;" onclick="inlineEditBreakTime(event,'${bk.id}','${day.id}')">${t&&bk.duration?`<span class="time-cell">${t.start}<span class="time-sep">→</span>${t.end}</span>`:''}</td>
+              <td colspan="3" style="color:var(--fg2);cursor:text;" ondblclick="inlineEditBreak(event,'${bk.id}','label')">
                 <span style="font-weight:500;">${bk.label||bk.type}</span>
-                ${bk.duration?`<span style="font-family:var(--ff-mono);font-size:9px;color:var(--fg3);margin-left:8px;">(${bk.duration}분)</span>`:''}
               </td>
-              <td><span class="loc-text">${bk.locId?locName(bk.locId):''}</span></td>
               <td></td>
               <td></td>
+              <td class="dur-text" style="white-space:nowrap;cursor:text;" ondblclick="inlineEditBreak(event,'${bk.id}','duration')">${bk.duration||''}</td>
               <td></td>
               <td class="no-print"><div class="row-acts"><button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();openBreakModal('${bk.id}')">편집</button></div></td>
             </tr>`;
@@ -1258,7 +1448,7 @@ function renderSchedule() {
       const tbody = document.getElementById(`tbody-${day.id}`);
       if (!tbody) return;
       Sortable.create(tbody, {
-        animation:140, handle:'.drag-handle', ghostClass:'sortable-ghost',
+        animation:140, handle:'.drag-td', ghostClass:'sortable-ghost',
         filter:'.detail-row',
         onEnd() {
           [...tbody.querySelectorAll('tr[data-kind]')].forEach((row,idx) => {
@@ -1307,7 +1497,7 @@ function renderSceneList() {
     let dayStr = '—';
     if (day) { const dd=new Date(day.date); dayStr=`${dd.getMonth()+1}/${dd.getDate()}(${dn[dd.getDay()]})`; }
     html += `
-      <tr class="sl-row" data-id="${s.id}" onclick="toggleSlDetail('${s.id}')">
+      <tr class="sl-row" data-id="${s.id}" onclick="toggleSlDetail('${s.id}')" oncontextmenu="openCtxMenu(event,'${s.id}','scene')">
         <td><span class="sl-num">${s.sceneNum}</span></td>
         <td class="pg-text">${s.cuts||''}</td>
         <td class="scene-title-cell">
@@ -1591,6 +1781,9 @@ function openSceneModal(id) {
   document.getElementById('sceneMTitle').textContent = s?'씬 편집':'씬 추가';
   document.getElementById('sDelBtn').style.display = s?'block':'none';
   popDays('fSDay',s?.dayId); popLocs('fSLoc',s?.locId);
+  makeTime12('fSStartWrap', s?.startTime||'');
+  makeTime12('fSEndWrap', s?.endTime||'');
+  setTimeout(bindModalEndTime, 50);
   document.getElementById('fSNum').value = s?.sceneNum||'';
   document.getElementById('fSTitle').value = s?.title||'';
   document.getElementById('fSType').value = s?.type||'INT';
@@ -1617,7 +1810,16 @@ function saveScene() {
   if (!title) { showToast('⚠ 씬 제목을 입력해주세요'); document.getElementById('fSTitle').focus(); return; }
   const cast = [...document.querySelectorAll('#fSCast input:checked')].map(e=>e.value).join(',');
   const crew = [...document.querySelectorAll('#fSCrew input:checked')].map(e=>e.value).join(',');
-  const data = {sceneNum:num,title,dayId:document.getElementById('fSDay').value,type:document.getElementById('fSType').value,timeOfDay:document.getElementById('fSTime').value,duration:+document.getElementById('fSDur').value||0,pages:+document.getElementById('fSPages').value||0,cuts:+document.getElementById('fSCuts').value||0,locId:document.getElementById('fSLoc').value,cast,crew,equip:document.getElementById('fSEquip').value,notes:document.getElementById('fSNotes').value};
+  const _startT = readTime12('fSStartWrap');
+  const _endT   = readTime12('fSEndWrap');
+  let _dur = +document.getElementById('fSDur').value||0;
+  if (_startT && _endT) {
+    const [sh,sm] = _startT.split(':').map(Number);
+    const [eh,em] = _endT.split(':').map(Number);
+    const diff = (eh*60+em) - (sh*60+sm);
+    if (diff > 0) _dur = diff;
+  }
+  const data = {sceneNum:num,title,dayId:document.getElementById('fSDay').value,type:document.getElementById('fSType').value,timeOfDay:document.getElementById('fSTime').value,duration:_dur,pages:+document.getElementById('fSPages').value||0,cuts:+document.getElementById('fSCuts').value||0,locId:document.getElementById('fSLoc').value,cast,crew,equip:document.getElementById('fSEquip').value,notes:document.getElementById('fSNotes').value,startTime:_startT,endTime:_endT};
   if (editIds.scene) Object.assign(db.scenes.find(x=>x.id===editIds.scene), data);
   else db.scenes.push({id:uid(),...data});
   closeM('sceneModal'); renderAll(); saveDB(); showToast('씬 저장됨');
@@ -1672,10 +1874,10 @@ function openDayModal(id) {
   document.getElementById('dSaveBtn').textContent = d?'저장':'추가';
   popLocsChecks(d?.locIds||[]);
   document.getElementById('fDDate').value = d?.date||'';
-  document.getElementById('fDCall').value = d?.callTime||'';
-  document.getElementById('fDFirst').value = d?.firstShot||'';
-  document.getElementById('fDSunrise').value = d?.sunrise||'';
-  document.getElementById('fDSunset').value = d?.sunset||'';
+  makeTime12('fDCallWrap', d?.callTime||'');
+  makeTime12('fDFirstWrap', d?.firstShot||'');
+  makeTime12('fDSunriseWrap', d?.sunrise||'');
+  makeTime12('fDSunsetWrap', d?.sunset||'');
   document.getElementById('fDWeather').value = d?.weather||'';
   document.getElementById('fDTemp').value = d?.temp||'';
   document.getElementById('fDNotes').value = d?.notes||'';
@@ -1684,7 +1886,7 @@ function openDayModal(id) {
 function saveDay() {
   const date = document.getElementById('fDDate').value;
   if (!date) { showToast('⚠ 날짜를 선택해주세요'); document.getElementById('fDDate').focus(); return; }
-  const data = {date,locIds:getCheckedLocs(),callTime:document.getElementById('fDCall').value,firstShot:document.getElementById('fDFirst').value,sunrise:document.getElementById('fDSunrise').value,sunset:document.getElementById('fDSunset').value,weather:document.getElementById('fDWeather').value,temp:document.getElementById('fDTemp').value,notes:document.getElementById('fDNotes').value};
+  const data = {date,locIds:getCheckedLocs(),callTime:readTime12('fDCallWrap'),firstShot:readTime12('fDFirstWrap'),sunrise:readTime12('fDSunriseWrap'),sunset:readTime12('fDSunsetWrap'),weather:document.getElementById('fDWeather').value,temp:document.getElementById('fDTemp').value,notes:document.getElementById('fDNotes').value};
   if (editIds.day) Object.assign(db.days.find(x=>x.id===editIds.day), data);
   else db.days.push({id:uid(),...data});
   closeM('dayModal'); renderAll(); saveDB(); showToast(editIds.day?'촬영일 저장됨':'촬영일 추가됨');
@@ -2101,9 +2303,939 @@ function importJSON(input) {
 }
 
 
+
+
+/* ═══════════════════════════════════════════════
+   INLINE EDIT
+═══════════════════════════════════════════════ */
+function inlineEdit(e, sceneId, field) {
+  e.stopPropagation();
+  e.preventDefault();
+  const td = e.currentTarget;
+  if (td.classList.contains('editing')) return;
+
+  const s = db.scenes.find(x=>x.id===sceneId);
+  if (!s) return;
+
+  td.classList.add('editing');
+  const prev = td.innerHTML;
+
+  // 구분(type/timeOfDay) — 두 select
+  if (field === 'type_time') {
+    td.innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:3px;" onclick="event.stopPropagation()">
+        <select class="inline-input" id="ie_type" style="width:100%;padding:2px 4px;font-size:10px;">
+          <option${s.type==='INT'?' selected':''}>INT</option>
+          <option${s.type==='EXT'?' selected':''}>EXT</option>
+        </select>
+        <select class="inline-input" id="ie_time" style="width:100%;padding:2px 4px;font-size:10px;">
+          <option${s.timeOfDay==='주간'?' selected':''}>주간</option>
+          <option${s.timeOfDay==='야간'?' selected':''}>야간</option>
+        </select>
+        <button class="btn btn-sm btn-primary" style="padding:2px 6px;font-size:9px;width:100%;" onclick="commitTypeTime('${sceneId}')">✓ 저장</button>
+      </div>`;
+    return;
+  }
+
+  const isNum = ['duration','pages','cuts'].includes(field);
+  const isMultiline = field === 'notes';
+  const isWide = ['title','cast','equip'].includes(field);
+  const oldVal = s[field] !== undefined ? String(s[field]) : '';
+
+  let input;
+  if (isMultiline) {
+    input = document.createElement('textarea');
+    input.className = 'inline-input title';
+    input.rows = 3;
+    input.style.resize = 'vertical';
+  } else {
+    input = document.createElement('input');
+    input.type = isNum ? 'number' : 'text';
+    if (isNum) { input.min = '0'; input.step = field==='pages'?'0.25':'1'; }
+  }
+  input.className = 'inline-input' + (isWide ? ' title' : '');
+  input.value = oldVal;
+
+  td.innerHTML = '';
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex;gap:4px;align-items:flex-start;';
+  wrap.onclick = ev => ev.stopPropagation();
+  wrap.appendChild(input);
+  td.appendChild(wrap);
+  input.focus();
+  if (input.select) input.select();
+
+  function commit() {
+    const newVal = isNum ? (parseFloat(input.value)||0) : input.value.trim();
+    if (String(newVal) !== oldVal) {
+      s[field] = newVal;
+      saveDB();
+      renderAll();
+      showToast('저장됨');
+    } else {
+      td.innerHTML = prev;
+      td.classList.remove('editing');
+    }
+  }
+
+  input.addEventListener('blur', () => setTimeout(commit, 120));
+  input.addEventListener('keydown', ev => {
+    if (ev.key === 'Enter') { ev.preventDefault(); commit(); }
+    if (ev.key === 'Escape') { td.innerHTML = prev; td.classList.remove('editing'); }
+  });
+}
+
+function commitTypeTime(sceneId) {
+  const s = db.scenes.find(x=>x.id===sceneId);
+  if (!s) return;
+  const t = document.getElementById('ie_type');
+  const ti = document.getElementById('ie_time');
+  if (t) s.type = t.value;
+  if (ti) s.timeOfDay = ti.value;
+  saveDB(); renderAll(); showToast('저장됨');
+}
+
+
+
+function inlineEditSceneNum(e, sceneId) {
+  e.stopPropagation();
+  e.preventDefault();
+  const td = e.currentTarget;
+  if (td.classList.contains('editing')) return;
+  const s = db.scenes.find(x=>x.id===sceneId);
+  if (!s) return;
+  td.classList.add('editing');
+  const prev = td.innerHTML;
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.value = s.sceneNum;
+  input.style.cssText = 'font-family:var(--ff-mono);font-weight:600;font-size:13px;width:100%;max-width:54px;border:2px solid var(--fg);padding:2px 5px;outline:none;background:var(--bg);color:var(--fg);';
+  td.innerHTML = '';
+  td.appendChild(input);
+  input.focus(); input.select();
+  function commit() {
+    const v = input.value.trim();
+    if (v && v !== s.sceneNum) { s.sceneNum = v; saveDB(); renderAll(); showToast('저장됨'); }
+    else { td.innerHTML = prev; td.classList.remove('editing'); }
+  }
+  input.addEventListener('blur', commit);
+  input.addEventListener('keydown', ev => {
+    if (ev.key === 'Enter') { ev.preventDefault(); commit(); }
+    if (ev.key === 'Escape') { td.innerHTML = prev; td.classList.remove('editing'); }
+  });
+}
+
+/* ── 시간 편집 헬퍼 ── */
+function parse12(str24) {
+  if (!str24) return {h:9, m:0, pm:false};
+  const [hh, mm] = str24.split(':').map(Number);
+  return { h: hh%12||12, m: mm, pm: hh>=12 };
+}
+function to24(h, m, pm) {
+  let h24 = pm ? (h===12?12:h+12) : (h===12?0:h);
+  return String(h24).padStart(2,'0') + ':' + String(m).padStart(2,'0');
+}
+
+function makeTimeWidget(dayId, td, prev) {
+  const day = db.days.find(x=>x.id===dayId);
+  if (!day) return;
+
+  const base = day.firstShot || day.callTime || '09:00';
+  const p = parse12(base);
+
+  // 인풋 스타일 — 숫자만, 테두리 없이 인라인처럼
+  const INP_STYLE = `font-family:var(--ff-mono);font-size:12px;font-weight:600;
+    width:26px;border:none;border-bottom:2px solid var(--fg);
+    padding:1px 0;outline:none;background:transparent;
+    text-align:center;-webkit-appearance:none;touch-action:manipulation;`;
+
+  td.innerHTML = `
+    <div onclick="event.stopPropagation()"
+      style="display:inline-flex;align-items:center;gap:2px;white-space:nowrap;padding:2px 4px;">
+      <input id="iet_h" type="number" inputmode="numeric" value="${p.h}" style="${INP_STYLE}">
+      <span style="font-family:var(--ff-mono);font-weight:700;font-size:12px;">:</span>
+      <input id="iet_m" type="number" inputmode="numeric" value="${String(p.m).padStart(2,'0')}" style="${INP_STYLE}width:28px;">
+      <button id="iet_ampm" onclick="toggleAmPm();event.stopPropagation();"
+        style="font-family:var(--ff-mono);font-size:10px;font-weight:700;
+               padding:1px 5px;border:1.5px solid var(--fg2);background:transparent;
+               color:var(--fg2);cursor:pointer;margin-left:3px;touch-action:manipulation;">
+        ${p.pm?'PM':'AM'}</button>
+    </div>`;
+
+  const hEl = document.getElementById('iet_h');
+  const mEl = document.getElementById('iet_m');
+  const apEl = document.getElementById('iet_ampm');
+
+  function doCommit() {
+    const apNow = document.getElementById('iet_ampm');
+    let h = parseInt(hEl.value)||12;
+    let m = parseInt(mEl.value)||0;
+    if (h > 12) { h = h - 12; }
+    if (h < 1) h = 12;
+    if (m > 59) m = 0;
+    if (m < 0) m = 59;
+    const pm = apNow ? apNow.textContent.trim() === 'PM' : false;
+    day.firstShot = to24(h, m, pm);
+    window._ietTd = null;
+    saveDB(); renderAll(); showToast('시각 저장됨');
+  }
+
+  // 시 — 입력 시 실시간 보정
+  hEl.addEventListener('input', () => {
+    const apNow = document.getElementById('iet_ampm');
+    let v = parseInt(hEl.value)||1;
+    if (v > 12) { v = v-12; if(apNow){ const wasPm=apNow.textContent.trim()==='PM'; apNow.textContent=wasPm?'AM':'PM'; } }
+    if (v < 1) v = 12;
+    hEl.value = v;
+  });
+  // 분 — 60 넘으면 0
+  mEl.addEventListener('input', () => {
+    let v = parseInt(mEl.value); if(isNaN(v)) v=0;
+    if (v>59) v=0; if(v<0) v=59;
+    mEl.value = String(v).padStart(2,'0');
+  });
+
+  // Enter → 저장, Esc → 취소
+  [hEl, mEl].forEach(el => {
+    el.addEventListener('keydown', ev => {
+      if (ev.key==='Enter') { ev.preventDefault(); doCommit(); }
+      if (ev.key==='Escape') { td.innerHTML=prev; td.classList.remove('editing'); }
+    });
+    el.addEventListener('blur', () => {
+      // 다른 인풋이나 AM/PM 버튼 클릭은 무시
+      setTimeout(() => {
+        if (!td.contains(document.activeElement)) doCommit();
+      }, 150);
+    });
+  });
+
+  hEl.focus(); hEl.select();
+
+  window._ietTd = td;
+  window._ietPrev = prev;
+
+  setTimeout(() => {
+    function outside(ev) {
+      if (!td.contains(ev.target)) {
+        if (window._ietTd) doCommit();
+        document.removeEventListener('click', outside);
+      }
+    }
+    document.addEventListener('click', outside);
+  }, 50);
+}
+
+function toggleAmPm() {
+  const btn = document.getElementById('iet_ampm');
+  if (!btn) return;
+  const isPm = btn.textContent.trim() === 'PM';
+  btn.textContent = isPm ? 'AM' : 'PM';
+}
+
+function commitTimeWidget(dayId) {}  // 하위 호환용 빈 함수
+function cancelTimeWidget() {
+  if (window._ietTd && window._ietPrev !== undefined) {
+    window._ietTd.innerHTML = window._ietPrev;
+    window._ietTd.classList.remove('editing');
+    window._ietTd = null;
+  }
+}
+
+function inlineEditTime(e, dayId) {
+  e.stopPropagation();
+  e.preventDefault();
+  const td = e.currentTarget;
+  if (td.classList.contains('editing')) return;
+  td.classList.add('editing');
+  const prev = td.innerHTML;
+  makeTimeWidget(dayId, td, prev);
+}
+
+
+
+function inlineEditDayTime(e, dayId, field) {
+  e.stopPropagation();
+  const span = e.currentTarget;
+  if (span.dataset.editing) return;
+  span.dataset.editing = '1';
+  const day = db.days.find(x=>x.id===dayId);
+  if (!day) return;
+
+  const val24 = day[field] || '';
+  const p = val24 ? parse12(val24) : {h:9, m:0, pm:false};
+  const label = field === 'callTime' ? 'Call' : 'First';
+
+  const INP = `font-family:var(--ff-mono);font-size:10px;font-weight:600;
+    width:22px;border:none;border-bottom:1.5px solid #fff;
+    padding:0;outline:none;background:transparent;color:inherit;
+    text-align:center;-webkit-appearance:none;`;
+
+  span.innerHTML = `
+    <span style="font-size:9px;opacity:.7;margin-right:2px;">${label}</span>
+    <input id="dht_h" type="number" inputmode="numeric" value="${p.h}" style="${INP}">
+    <span style="font-weight:700;font-size:10px;">:</span>
+    <input id="dht_m" type="number" inputmode="numeric" value="${String(p.m).padStart(2,'0')}" style="${INP}width:24px;">
+    <span id="dht_ap" onclick="event.stopPropagation();this.textContent=this.textContent.trim()==='PM'?'AM':'PM';"
+      style="font-size:9px;font-weight:700;cursor:pointer;margin-left:2px;padding:0 2px;border:1px solid rgba(255,255,255,.4);opacity:.8;">
+      ${p.pm?'PM':'AM'}</span>`;
+
+  const hEl = document.getElementById('dht_h');
+  const mEl = document.getElementById('dht_m');
+
+  function doSave() {
+    const apEl = document.getElementById('dht_ap');
+    let h = parseInt(hEl.value)||12;
+    let m = parseInt(mEl.value)||0;
+    if(h>12) h=h-12; if(h<1) h=12;
+    if(m>59) m=0; if(m<0) m=59;
+    const pm = apEl ? apEl.textContent.trim()==='PM' : false;
+    day[field] = to24(h,m,pm);
+    delete span.dataset.editing;
+    saveDB(); renderAll(); showToast('저장됨');
+  }
+
+  hEl.addEventListener('input', ()=>{
+    let v=parseInt(hEl.value)||1;
+    if(v>12){v=v-12; const ap=document.getElementById('dht_ap'); if(ap){const wasPm=ap.textContent.trim()==='PM';ap.textContent=wasPm?'AM':'PM';}}
+    if(v<1)v=12; hEl.value=v;
+  });
+  mEl.addEventListener('input', ()=>{
+    let v=parseInt(mEl.value); if(isNaN(v))v=0;
+    if(v>59)v=0; if(v<0)v=59;
+    mEl.value=String(v).padStart(2,'0');
+  });
+  [hEl,mEl].forEach(el=>{
+    el.addEventListener('keydown', ev=>{
+      if(ev.key==='Enter'){ev.preventDefault();doSave();}
+      if(ev.key==='Escape'){delete span.dataset.editing;renderSchedule();}
+    });
+    el.addEventListener('blur', ()=>{ setTimeout(()=>{ if(!span.contains(document.activeElement)) doSave(); },160); });
+  });
+
+  hEl.focus(); hEl.select();
+}
+
+function inlineEditSceneTime(e, sceneId, dayId) {
+  e.stopPropagation();
+  const td = e.currentTarget;
+  if (td.classList.contains('editing')) return;
+  const s = db.scenes.find(x=>x.id===sceneId);
+  const day = db.days.find(x=>x.id===dayId);
+  if (!s || !day) return;
+
+  const items = getDayItems(dayId);
+  const tm = calcTimeMap(day, items);
+  const cur = tm ? tm[sceneId] : null;
+
+  // 12h 문자열 "9:00 AM" → 24h "09:00"
+  function disp2base(dispStr) {
+    if (!dispStr) return '09:00';
+    const parts = dispStr.trim().split(' ');
+    const [hh, mm] = parts[0].split(':').map(Number);
+    const pm = parts[1] === 'PM';
+    const h24 = pm ? (hh===12?12:hh+12) : (hh===12?0:hh);
+    return String(h24).padStart(2,'0') + ':' + String(mm).padStart(2,'0');
+  }
+
+  const startBase = s.startTime || (cur ? disp2base(cur.start) : '09:00');
+  const endBase   = s.endTime   || (cur ? disp2base(cur.end)   : null);
+  const pS = parse12(startBase);
+  const pE = endBase ? parse12(endBase) : null;
+
+  td.classList.add('editing');
+  const prev = td.innerHTML;
+
+  // 공통 인풋 스타일 — 작게, 칸 안에 맞게
+  const IS = `font-family:var(--ff-mono);font-size:11px;font-weight:600;
+    width:28px;border:none;border-bottom:1.5px solid var(--fg);
+    padding:0;outline:none;background:transparent;
+    text-align:center;-webkit-appearance:none;`;
+  const AP = (id,pm) => `<span id="${id}"
+    onclick="event.stopPropagation();istAP('${id}');"
+    style="font-family:var(--ff-mono);font-size:9px;font-weight:700;
+           cursor:pointer;padding:0 3px;border:1px solid var(--line2);
+           color:var(--fg3);user-select:none;">${pm?'PM':'AM'}</span>`;
+
+  td.innerHTML = `
+    <div onclick="event.stopPropagation()"
+      style="display:flex;flex-direction:column;gap:2px;padding:3px 5px;width:100%;box-sizing:border-box;">
+      <div style="display:flex;align-items:center;gap:1px;font-size:9px;color:var(--fg4);font-family:var(--ff-mono);margin-bottom:1px;">START</div>
+      <div style="display:flex;align-items:center;gap:2px;">
+        <input id="ist_sh" type="number" inputmode="numeric" value="${pS.h}" style="${IS}">
+        <span style="font-family:var(--ff-mono);font-weight:700;font-size:11px;">:</span>
+        <input id="ist_sm" type="number" inputmode="numeric" value="${String(pS.m).padStart(2,'0')}" style="${IS}width:32px;">
+        ${AP('ist_sap', pS.pm)}
+      </div>
+      <div style="display:flex;align-items:center;gap:1px;font-size:9px;color:var(--fg4);font-family:var(--ff-mono);margin-top:2px;margin-bottom:1px;">END&nbsp;&nbsp;</div>
+      <div style="display:flex;align-items:center;gap:2px;">
+        <input id="ist_eh" type="number" inputmode="numeric" value="${pE?pE.h:''}" placeholder="—" style="${IS}">
+        <span style="font-family:var(--ff-mono);font-weight:700;font-size:11px;">:</span>
+        <input id="ist_em" type="number" inputmode="numeric" value="${pE?String(pE.m).padStart(2,'0'):''}" placeholder="—" style="${IS}width:32px;">
+        ${AP('ist_eap', pE?pE.pm:pS.pm)}
+      </div>
+      <div style="display:flex;gap:3px;margin-top:3px;">
+        <button onclick="event.stopPropagation();istCommit('${sceneId}')"
+          style="flex:1;font-family:var(--ff-mono);font-size:9px;padding:2px 4px;
+                 border:1.5px solid var(--fg);background:var(--fg);color:var(--bg);cursor:pointer;">✓</button>
+        <button onclick="event.stopPropagation();istCancel()"
+          style="flex:1;font-family:var(--ff-mono);font-size:9px;padding:2px 4px;
+                 border:1.5px solid var(--line2);background:transparent;color:var(--fg3);cursor:pointer;">✕</button>
+      </div>
+    </div>`;
+
+  function bindInp(hId, mId) {
+    const h = document.getElementById(hId);
+    const m = document.getElementById(mId);
+    if (!h||!m) return;
+    h.addEventListener('input', ()=>{
+      let v=parseInt(h.value)||1;
+      const apId = hId==='ist_sh'?'ist_sap':'ist_eap';
+      if(v>12){v=v-12;istAP(apId,true);}
+      if(v<1)v=12; h.value=v;
+    });
+    m.addEventListener('input', ()=>{
+      let v=parseInt(m.value); if(isNaN(v))v=0;
+      if(v>59)v=0; if(v<0)v=59;
+      m.value=String(v).padStart(2,'0');
+    });
+    [h,m].forEach(el=>{
+      el.addEventListener('keydown', ev=>{
+        if(ev.key==='Enter'){ev.preventDefault();istCommit(sceneId);}
+        if(ev.key==='Escape'){istCancel();}
+      });
+    });
+  }
+  bindInp('ist_sh','ist_sm');
+  bindInp('ist_eh','ist_em');
+
+  window._istTd = td;
+  window._istPrev = prev;
+  document.getElementById('ist_sh').focus();
+  document.getElementById('ist_sh').select();
+
+  setTimeout(()=>{
+    function outside(ev){
+      if(!td.contains(ev.target)){istCommit(sceneId);document.removeEventListener('click',outside);}
+    }
+    document.addEventListener('click', outside);
+  },50);
+}
+
+function istAP(id, forceFlip) {
+  const btn = document.getElementById(id);
+  if(!btn)return;
+  const isPm = btn.textContent.trim()==='PM';
+  if(forceFlip===undefined) btn.textContent = isPm?'AM':'PM';
+  else btn.textContent = isPm?'AM':'PM'; // flip either way when called from input
+}
+
+function istCommit(sceneId) {
+  const s = db.scenes.find(x=>x.id===sceneId);
+  if(!s)return;
+  const sh=document.getElementById('ist_sh'), sm=document.getElementById('ist_sm'), sap=document.getElementById('ist_sap');
+  const eh=document.getElementById('ist_eh'), em=document.getElementById('ist_em'), eap=document.getElementById('ist_eap');
+  if(!sh||!sm||!sap)return;
+  let h=parseInt(sh.value)||12, m=parseInt(sm.value)||0;
+  if(h>12)h=h-12; if(h<1)h=12; if(m>59)m=0;
+  s.startTime = to24(h,m,sap.textContent.trim()==='PM');
+  if(eh&&em&&eap&&eh.value!==''){
+    let eh2=parseInt(eh.value)||12, em2=parseInt(em.value)||0;
+    if(eh2>12)eh2=eh2-12; if(eh2<1)eh2=12; if(em2>59)em2=0;
+    s.endTime = to24(eh2,em2,eap.textContent.trim()==='PM');
+    // duration 자동 계산
+    const [sh24,sm24]=s.startTime.split(':').map(Number);
+    const [eh24,em24]=s.endTime.split(':').map(Number);
+    const diff=(eh24*60+em24)-(sh24*60+sm24);
+    if(diff>0) s.duration=diff;
+  }
+  window._istTd=null;
+  saveDB(); renderAll(); showToast('시각 저장됨');
+}
+
+function istCancel() {
+  if(window._istTd&&window._istPrev!==undefined){
+    window._istTd.innerHTML=window._istPrev;
+    window._istTd.classList.remove('editing');
+    window._istTd=null;
+  }
+}
+
+function istToggleAmPm() {} // 하위호환
+
+
+function inlineEditBreakTime(e, breakId, dayId) {
+  e.stopPropagation();
+  const td = e.currentTarget;
+  if (td.classList.contains('editing')) return;
+  const bk = (db.breaks||[]).find(x=>x.id===breakId);
+  const day = db.days.find(x=>x.id===dayId);
+  if (!bk || !day) return;
+
+  const items = getDayItems(dayId);
+  const tm = calcTimeMap(day, items);
+  const cur = tm ? tm[breakId] : null;
+
+  function disp2base(dispStr) {
+    if (!dispStr) return '09:00';
+    const parts = dispStr.trim().split(' ');
+    const [hh, mm] = parts[0].split(':').map(Number);
+    const pm = parts[1] === 'PM';
+    const h24 = pm ? (hh===12?12:hh+12) : (hh===12?0:hh);
+    return String(h24).padStart(2,'0') + ':' + String(mm).padStart(2,'0');
+  }
+
+  const startBase = bk.startTime || (cur ? disp2base(cur.start) : '09:00');
+  const endBase   = bk.endTime   || (cur ? disp2base(cur.end)   : null);
+  const pS = parse12(startBase);
+  const pE = endBase ? parse12(endBase) : null;
+
+  td.classList.add('editing');
+  const prev = td.innerHTML;
+
+  const IS = `font-family:var(--ff-mono);font-size:11px;font-weight:600;
+    width:28px;border:none;border-bottom:1.5px solid var(--fg);
+    padding:0;outline:none;background:transparent;
+    text-align:center;-webkit-appearance:none;`;
+  const AP = (id,pm) => `<span id="${id}"
+    onclick="event.stopPropagation();bktAP('${id}');"
+    style="font-family:var(--ff-mono);font-size:9px;font-weight:700;
+           cursor:pointer;padding:0 3px;border:1px solid var(--line2);
+           color:var(--fg3);user-select:none;">${pm?'PM':'AM'}</span>`;
+
+  td.innerHTML = `
+    <div onclick="event.stopPropagation()"
+      style="display:flex;flex-direction:column;gap:2px;padding:3px 5px;width:100%;box-sizing:border-box;">
+      <div style="font-size:9px;color:var(--fg4);font-family:var(--ff-mono);">START</div>
+      <div style="display:flex;align-items:center;gap:2px;">
+        <input id="bkt_sh" type="number" inputmode="numeric" value="${pS.h}" style="${IS}">
+        <span style="font-family:var(--ff-mono);font-weight:700;font-size:11px;">:</span>
+        <input id="bkt_sm" type="number" inputmode="numeric" value="${String(pS.m).padStart(2,'0')}" style="${IS}width:32px;">
+        ${AP('bkt_sap', pS.pm)}
+      </div>
+      <div style="font-size:9px;color:var(--fg4);font-family:var(--ff-mono);margin-top:2px;">END</div>
+      <div style="display:flex;align-items:center;gap:2px;">
+        <input id="bkt_eh" type="number" inputmode="numeric" value="${pE?pE.h:''}" placeholder="—" style="${IS}">
+        <span style="font-family:var(--ff-mono);font-weight:700;font-size:11px;">:</span>
+        <input id="bkt_em" type="number" inputmode="numeric" value="${pE?String(pE.m).padStart(2,'0'):''}" placeholder="—" style="${IS}width:32px;">
+        ${AP('bkt_eap', pE?pE.pm:pS.pm)}
+      </div>
+      <div style="display:flex;gap:3px;margin-top:3px;">
+        <button onclick="event.stopPropagation();bktCommit('${breakId}')"
+          style="flex:1;font-family:var(--ff-mono);font-size:9px;padding:2px 4px;
+                 border:1.5px solid var(--fg);background:var(--fg);color:var(--bg);cursor:pointer;">✓</button>
+        <button onclick="event.stopPropagation();bktCancel()"
+          style="flex:1;font-family:var(--ff-mono);font-size:9px;padding:2px 4px;
+                 border:1.5px solid var(--line2);background:transparent;color:var(--fg3);cursor:pointer;">✕</button>
+      </div>
+    </div>`;
+
+  function bindInp(hId, mId, apId) {
+    const h = document.getElementById(hId);
+    const m = document.getElementById(mId);
+    if (!h||!m) return;
+    h.addEventListener('input', ()=>{
+      let v=parseInt(h.value)||1;
+      if(v>12){v=v-12;bktAP(apId,true);}
+      if(v<1)v=12; h.value=v;
+    });
+    m.addEventListener('input', ()=>{
+      let v=parseInt(m.value); if(isNaN(v))v=0;
+      if(v>59)v=0; if(v<0)v=59;
+      m.value=String(v).padStart(2,'0');
+    });
+    [h,m].forEach(el=>{
+      el.addEventListener('keydown', ev=>{
+        if(ev.key==='Enter'){ev.preventDefault();bktCommit(breakId);}
+        if(ev.key==='Escape'){bktCancel();}
+      });
+      el.addEventListener('blur', ()=>{ setTimeout(()=>{ if(!td.contains(document.activeElement)) bktCommit(breakId); },160); });
+    });
+  }
+  bindInp('bkt_sh','bkt_sm','bkt_sap');
+  bindInp('bkt_eh','bkt_em','bkt_eap');
+
+  window._bktTd = td;
+  window._bktPrev = prev;
+  document.getElementById('bkt_sh').focus();
+  document.getElementById('bkt_sh').select();
+
+  setTimeout(()=>{
+    function outside(ev){
+      if(!td.contains(ev.target)){bktCommit(breakId);document.removeEventListener('click',outside);}
+    }
+    document.addEventListener('click', outside);
+  },50);
+}
+
+function bktAP(id, flip) {
+  const btn = document.getElementById(id);
+  if(!btn)return;
+  btn.textContent = btn.textContent.trim()==='PM'?'AM':'PM';
+}
+
+function bktCommit(breakId) {
+  const bk = (db.breaks||[]).find(x=>x.id===breakId);
+  if(!bk)return;
+  const sh=document.getElementById('bkt_sh'), sm=document.getElementById('bkt_sm'), sap=document.getElementById('bkt_sap');
+  const eh=document.getElementById('bkt_eh'), em=document.getElementById('bkt_em'), eap=document.getElementById('bkt_eap');
+  if(!sh||!sm||!sap)return;
+  let h=parseInt(sh.value)||12, m=parseInt(sm.value)||0;
+  if(h>12)h=h-12; if(h<1)h=12; if(m>59)m=0;
+  bk.startTime = to24(h,m,sap.textContent.trim()==='PM');
+  if(eh&&em&&eap&&eh.value!==''){
+    let eh2=parseInt(eh.value)||12, em2=parseInt(em.value)||0;
+    if(eh2>12)eh2=eh2-12; if(eh2<1)eh2=12; if(em2>59)em2=0;
+    bk.endTime = to24(eh2,em2,eap.textContent.trim()==='PM');
+    const [sh24,sm24]=bk.startTime.split(':').map(Number);
+    const [eh24,em24]=bk.endTime.split(':').map(Number);
+    const diff=(eh24*60+em24)-(sh24*60+sm24);
+    if(diff>0) bk.duration=diff;
+  }
+  window._bktTd=null;
+  saveDB(); renderAll(); showToast('시각 저장됨');
+}
+
+function bktCancel() {
+  if(window._bktTd&&window._bktPrev!==undefined){
+    window._bktTd.innerHTML=window._bktPrev;
+    window._bktTd.classList.remove('editing');
+    window._bktTd=null;
+  }
+}
+
+function inlineEditCast(e, sceneId) {
+  e.stopPropagation();
+  e.preventDefault();
+  const td = e.currentTarget;
+  if (td.classList.contains('editing')) return;
+  const s = db.scenes.find(x=>x.id===sceneId);
+  if (!s) return;
+
+  td.classList.add('editing');
+  const prev = td.innerHTML;
+  const selected = (s.cast||'').split(',').map(x=>x.trim()).filter(Boolean);
+  const castPeople = db.people.filter(p=>p.cat==='cast');
+
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex;flex-direction:column;gap:3px;';
+  wrap.onclick = ev => ev.stopPropagation();
+
+  castPeople.forEach(p => {
+    const lbl = document.createElement('label');
+    lbl.style.cssText = 'display:flex;align-items:center;gap:5px;font-family:var(--ff-mono);font-size:10px;cursor:pointer;white-space:nowrap;';
+    const chk = document.createElement('input');
+    chk.type = 'checkbox';
+    chk.value = p.name;
+    chk.checked = selected.includes(p.name);
+    chk.style.cssText = 'accent-color:var(--fg);cursor:pointer;';
+    lbl.appendChild(chk);
+    lbl.appendChild(document.createTextNode(p.name));
+    wrap.appendChild(lbl);
+  });
+
+  if (!castPeople.length) {
+    wrap.innerHTML = '<span style="font-size:10px;color:var(--fg3);font-family:var(--ff-mono);">출연진 없음</span>';
+  }
+
+  const saveBtn = document.createElement('button');
+  saveBtn.className = 'btn btn-sm btn-primary';
+  saveBtn.style.cssText = 'padding:2px 6px;font-size:9px;margin-top:3px;';
+  saveBtn.textContent = '✓ 저장';
+  saveBtn.onclick = ev => {
+    ev.stopPropagation();
+    const checked = [...wrap.querySelectorAll('input:checked')].map(c=>c.value);
+    s.cast = checked.join(',');
+    saveDB(); renderAll(); showToast('저장됨');
+  };
+  wrap.appendChild(saveBtn);
+
+  td.innerHTML = '';
+  td.appendChild(wrap);
+
+  // 외부 클릭 시 닫기
+  setTimeout(() => {
+    function outside(ev) {
+      if (!td.contains(ev.target)) {
+        td.innerHTML = prev;
+        td.classList.remove('editing');
+        document.removeEventListener('click', outside);
+      }
+    }
+    document.addEventListener('click', outside);
+  }, 0);
+}
+
+function inlineEditLoc(e, sceneId) {
+  e.stopPropagation();
+  e.preventDefault();
+  const td = e.currentTarget;
+  if (td.classList.contains('editing')) return;
+  const s = db.scenes.find(x=>x.id===sceneId);
+  if (!s) return;
+
+  td.classList.add('editing');
+  const prev = td.innerHTML;
+
+  const sel = document.createElement('select');
+  sel.className = 'inline-input';
+  sel.style.cssText = 'width:100%;max-width:100%;font-size:11px;';
+  sel.onclick = ev => ev.stopPropagation();
+  sel.innerHTML = '<option value="">—</option>' +
+    db.locations.map(l=>`<option value="${l.id}"${l.id===s.locId?' selected':''}>${l.name}</option>`).join('');
+
+  td.innerHTML = '';
+  td.appendChild(sel);
+  sel.focus();
+
+  function commit() {
+    s.locId = sel.value;
+    saveDB(); renderAll(); showToast('저장됨');
+  }
+  sel.addEventListener('blur', () => setTimeout(commit, 120));
+  sel.addEventListener('change', commit);
+  sel.addEventListener('keydown', ev => {
+    if (ev.key === 'Escape') { td.innerHTML = prev; td.classList.remove('editing'); }
+  });
+}
+
+/* ═══════════════════════════════════════════════
+   CONTEXT MENU
+═══════════════════════════════════════════════ */
+let ctxTargetId = null;
+let ctxTargetKind = null;
+
+function openCtxMenu(e, id, kind) {
+  e.preventDefault();
+  e.stopPropagation();
+  ctxTargetId = id;
+  ctxTargetKind = kind;
+
+  // 이동 서브메뉴 촬영일 목록 생성
+  const dn = ['일','월','화','수','목','금','토'];
+  const sorted = [...db.days].sort((a,b)=>a.date.localeCompare(b.date));
+  const dayList = document.getElementById('ctxDayList');
+  dayList.innerHTML = sorted.map((d, di) => {
+    const dd = new Date(d.date);
+    const label = `Day ${di+1} · ${dd.getMonth()+1}/${dd.getDate()}(${dn[dd.getDay()]})`;
+    return `<div class="ctx-sub-item" onclick="ctxMoveToDay('${d.id}')">${label}</div>`;
+  }).join('') || '<div class="ctx-sub-item" style="color:var(--fg4);">촬영일 없음</div>';
+
+  const menu = document.getElementById('ctxMenu');
+  menu.classList.add('open');
+
+  // 화면 밖 나가지 않게 위치 조정
+  let x = e.clientX, y = e.clientY;
+  menu.style.left = x + 'px';
+  menu.style.top = y + 'px';
+  requestAnimationFrame(() => {
+    const mw = menu.offsetWidth, mh = menu.offsetHeight;
+    if (x + mw > window.innerWidth) x = window.innerWidth - mw - 8;
+    if (y + mh > window.innerHeight) y = window.innerHeight - mh - 8;
+    menu.style.left = x + 'px';
+    menu.style.top = y + 'px';
+  });
+}
+
+function closeCtxMenu() {
+  document.getElementById('ctxMenu').classList.remove('open');
+  ctxTargetId = null;
+}
+
+document.addEventListener('click', closeCtxMenu);
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeCtxMenu(); });
+
+function ctxDuplicate() {
+  if (!ctxTargetId) return;
+  if (ctxTargetKind === 'break') {
+    const b = (db.breaks||[]).find(x=>x.id===ctxTargetId);
+    if (!b) return;
+    const clone = {...JSON.parse(JSON.stringify(b)), id:uid(), _order:(b._order||0)+1};
+    db.breaks.push(clone);
+    renderAll(); saveDB(); showToast('시간 블록 복제됨');
+  } else {
+    const s = db.scenes.find(x=>x.id===ctxTargetId);
+    if (!s) return;
+    const clone = {...JSON.parse(JSON.stringify(s)), id:uid(), sceneNum: s.sceneNum+'_복사', _order:(s._order||0)+1};
+    db.scenes.push(clone);
+    renderAll(); saveDB(); showToast('씬 복제됨');
+  }
+  closeCtxMenu();
+}
+
+function ctxDelete() {
+  if (!ctxTargetId) return;
+  if (ctxTargetKind === 'break') {
+    const b = (db.breaks||[]).find(x=>x.id===ctxTargetId);
+    if (!b) return;
+    if (!confirm(`"${b.label||b.type}" 시간 블록을 삭제할까요?`)) return;
+    db.breaks = db.breaks.filter(x=>x.id!==ctxTargetId);
+    renderAll(); saveDB(); showToast('삭제됨');
+  } else {
+    const s = db.scenes.find(x=>x.id===ctxTargetId);
+    if (!s) return;
+    if (!confirm(`씬 ${s.sceneNum} "${s.title}" 를 삭제할까요?`)) return;
+    db.scenes = db.scenes.filter(x=>x.id!==ctxTargetId);
+    renderAll(); saveDB(); showToast('씬 삭제됨');
+  }
+  closeCtxMenu();
+}
+
+function ctxMoveToDay(dayId) {
+  if (!ctxTargetId) return;
+  if (ctxTargetKind === 'break') {
+    const b = (db.breaks||[]).find(x=>x.id===ctxTargetId);
+    if (!b) return;
+    b.dayId = dayId;
+    const dayBreaks = db.breaks.filter(x=>x.dayId===dayId&&x.id!==b.id);
+    b._order = dayBreaks.length > 0 ? Math.max(...dayBreaks.map(x=>x._order||0)) + 2 : 0;
+  } else {
+    const s = db.scenes.find(x=>x.id===ctxTargetId);
+    if (!s) return;
+    s.dayId = dayId;
+    const dayScenes = db.scenes.filter(x=>x.dayId===dayId&&x.id!==s.id);
+    s._order = dayScenes.length > 0 ? Math.max(...dayScenes.map(x=>x._order||0)) + 2 : 0;
+  }
+  renderAll(); saveDB();
+  const day = db.days.find(d=>d.id===dayId);
+  const dn = ['일','월','화','수','목','금','토'];
+  const dd = new Date(day.date);
+  showToast(`→ ${dd.getMonth()+1}/${dd.getDate()}(${dn[dd.getDay()]}) 이동됨`);
+  closeCtxMenu();
+}
+
+function inlineEditBreak(e, breakId, field) {
+  e.stopPropagation();
+  e.preventDefault();
+  const td = e.currentTarget;
+  if (td.classList.contains('editing')) return;
+  const b = (db.breaks||[]).find(x=>x.id===breakId);
+  if (!b) return;
+  td.classList.add('editing');
+  const prev = td.innerHTML;
+
+  // 종류(type) — select
+  if (field === 'type') {
+    const sel = document.createElement('select');
+    sel.className = 'inline-input';
+    sel.style.cssText = 'width:100%;font-size:11px;';
+    ['이동','식사','휴식','준비','기타'].forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v; opt.textContent = v;
+      if (v === b.type) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    sel.onclick = ev => ev.stopPropagation();
+    td.innerHTML = ''; td.appendChild(sel); sel.focus();
+    function commit() { b.type = sel.value; saveDB(); renderAll(); showToast('저장됨'); }
+    sel.addEventListener('blur', () => setTimeout(commit, 100));
+    sel.addEventListener('change', commit);
+    sel.addEventListener('keydown', ev => { if(ev.key==='Escape'){td.innerHTML=prev;td.classList.remove('editing');} });
+    return;
+  }
+
+  // 내용(label) — text input
+  // 소요시간(duration) — number input
+  const isNum = field === 'duration';
+  const oldVal = String(b[field]||'');
+  const input = document.createElement('input');
+  input.type = isNum ? 'number' : 'text';
+  input.className = 'inline-input' + (!isNum ? ' title' : '');
+  if (isNum) { input.min='1'; input.style.cssText='width:60px;font-family:var(--ff-mono);font-size:12px;border:2px solid var(--fg);padding:2px 5px;outline:none;'; }
+  input.value = oldVal;
+  input.onclick = ev => ev.stopPropagation();
+  td.innerHTML = ''; td.appendChild(input);
+  input.focus(); input.select();
+  function commit() {
+    const v = isNum ? (parseInt(input.value)||0) : input.value.trim();
+    if (String(v) !== oldVal) { b[field] = v; saveDB(); renderAll(); showToast('저장됨'); }
+    else { td.innerHTML = prev; td.classList.remove('editing'); }
+  }
+  input.addEventListener('blur', commit);
+  input.addEventListener('keydown', ev => {
+    if (ev.key==='Enter') { ev.preventDefault(); commit(); }
+    if (ev.key==='Escape') { td.innerHTML=prev; td.classList.remove('editing'); }
+  });
+}
+
 /* ═══════════════════════════════════════════════
    MODAL CLOSE
 ═══════════════════════════════════════════════ */
+
+
+/* ── 12시간제 모달 위젯 ── */
+function makeTime12(wrapperId, val24) {
+  const wrap = document.getElementById(wrapperId);
+  if (!wrap) return;
+  const p = val24 ? parse12(val24) : null;
+  const h = p ? p.h : '';
+  const m = p ? String(p.m).padStart(2,'0') : '';
+  const pm = p ? p.pm : false;
+  wrap.innerHTML = `
+    <input class="time12-inp" data-role="h" type="number" inputmode="numeric"
+      placeholder="12" value="${h}" min="1" max="12">
+    <span class="time12-sep">:</span>
+    <input class="time12-inp" data-role="m" type="number" inputmode="numeric"
+      placeholder="00" value="${m}" min="0" max="59" style="width:34px;">
+    <button type="button" class="time12-ampm${!pm?' active':''}" onclick="t12toggle(this,'am')">AM</button>
+    <button type="button" class="time12-ampm${pm?' active':''}" onclick="t12toggle(this,'pm')">PM</button>
+  `;
+  const hEl = wrap.querySelector('[data-role="h"]');
+  const mEl = wrap.querySelector('[data-role="m"]');
+  hEl.addEventListener('input', () => {
+    let v = parseInt(hEl.value)||1;
+    if (v > 12) {
+      v = v - 12;
+      const amBtn = wrap.querySelector('.time12-ampm:first-of-type');
+      const pmBtn = wrap.querySelector('.time12-ampm:last-of-type');
+      amBtn.classList.toggle('active'); pmBtn.classList.toggle('active');
+    }
+    if (v < 1) v = 12;
+    hEl.value = v;
+  });
+  mEl.addEventListener('input', () => {
+    let v = parseInt(mEl.value); if(isNaN(v)) v=0;
+    if (v>59) v=0; if(v<0) v=59;
+    mEl.value = String(v).padStart(2,'0');
+  });
+}
+
+function t12toggle(btn, which) {
+  const wrap = btn.closest('.time12-wrap');
+  wrap.querySelectorAll('.time12-ampm').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function readTime12(wrapperId) {
+  const wrap = document.getElementById(wrapperId);
+  if (!wrap) return '';
+  const hEl = wrap.querySelector('[data-role="h"]');
+  const mEl = wrap.querySelector('[data-role="m"]');
+  if (!hEl || !mEl) return '';
+  const hv = parseInt(hEl.value);
+  const mv = parseInt(mEl.value)||0;
+  if (isNaN(hv) || hEl.value === '') return ''; // 비어있으면 빈 문자열
+  const pm = wrap.querySelector('.time12-ampm:last-of-type')?.classList.contains('active') || false;
+  return to24(Math.max(1,Math.min(12,hv)), Math.max(0,Math.min(59,mv)), pm);
+}
+
+/* ── 모바일 사이드바 ── */
+function openSidebar() {
+  document.querySelector('.sidebar').classList.add('open');
+  document.getElementById('mobOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSidebar() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('mobOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+// 탭 전환 시 모바일에서 사이드바 닫기
+const _origSwitchTab = switchTab;
+function switchTab(name, el) {
+  _origSwitchTab(name, el);
+  if (window.innerWidth <= 768) closeSidebar();
+}
+
 function closeM(id) { document.getElementById(id).classList.remove('open'); }
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); }));
 </script>
