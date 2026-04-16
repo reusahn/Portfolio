@@ -496,6 +496,7 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
 .equip-qty{font-family:var(--ff-mono);font-size:13px;font-weight:600;color:var(--fg);text-align:center;}
 .equip-scenes{font-family:var(--ff-mono);font-size:10px;color:var(--fg3);}
 
+
 /* ══════════════════════════════════════
    TOAST
 ══════════════════════════════════════ */
@@ -796,7 +797,7 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-full"><label class="form-lbl">장소명</label><input class="form-inp" id="fLName" placeholder="스튜디오 / 외부 장소명"/></div>
+        <div class="form-full"><label class="form-lbl">장소명 <span style="color:#AA2222;">*</span></label><input class="form-inp" id="fLName" placeholder="스튜디오 / 외부 장소명"/></div>
         <div class="form-full"><label class="form-lbl">주소</label><input class="form-inp" id="fLAddr" placeholder="상세 주소"/></div>
         <div><label class="form-lbl">장소 유형</label><select class="form-inp" id="fLType"><option>스튜디오</option><option>실내 로케이션</option><option>야외 로케이션</option></select></div>
         <div><label class="form-lbl">허가 여부</label><select class="form-inp" id="fLPerm"><option>완료</option><option>진행 중</option><option>미신청</option></select></div>
@@ -821,7 +822,7 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div><label class="form-lbl">이름</label><input class="form-inp" id="fPName" placeholder="이름"/></div>
+        <div><label class="form-lbl">이름 <span style="color:#AA2222;">*</span></label><input class="form-inp" id="fPName" placeholder="이름"/></div>
         <div><label class="form-lbl">구분</label><select class="form-inp" id="fPCat"><option value="cast">출연진</option><option value="crew">스태프</option></select></div>
         <div><label class="form-lbl">역할 / 직책</label><input class="form-inp" id="fPRole" placeholder="주연 / 촬영감독"/></div>
         <div><label class="form-lbl">연락처</label><input class="form-inp" id="fPContact" placeholder="010-0000-0000"/></div>
@@ -845,7 +846,7 @@ textarea.form-inp{min-height:72px;resize:vertical;line-height:1.5;}
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-full"><label class="form-lbl">장비명</label><input class="form-inp" id="fEName" placeholder="예: Sony FX3 / 소형 LED 패널"/></div>
+        <div class="form-full"><label class="form-lbl">장비명 <span style="color:#AA2222;">*</span></label><input class="form-inp" id="fEName" placeholder="예: Sony FX3 / 소형 LED 패널"/></div>
         <div><label class="form-lbl">카테고리</label>
           <select class="form-inp" id="fECat">
             <option>카메라</option>
@@ -1540,7 +1541,7 @@ function openEquipModal(id) {
 function saveEquip() {
   if (!db.equipment) db.equipment = [];
   const name = document.getElementById('fEName').value.trim();
-  if (!name) return;
+  if (!name) { showToast('⚠ 장비명을 입력해주세요'); document.getElementById('fEName').focus(); return; }
   const data = {
     name,
     cat: document.getElementById('fECat').value,
@@ -1716,7 +1717,7 @@ function openLocModal(id) {
 }
 function saveLoc() {
   const name = document.getElementById('fLName').value.trim();
-  if (!name) return;
+  if (!name) { showToast('⚠ 장소명을 입력해주세요'); document.getElementById('fLName').focus(); return; }
   const data = {name,addr:document.getElementById('fLAddr').value,type:document.getElementById('fLType').value,perm:document.getElementById('fLPerm').value,contact:document.getElementById('fLContact').value,notes:document.getElementById('fLNotes').value};
   if (editIds.loc) Object.assign(db.locations.find(x=>x.id===editIds.loc), data);
   else db.locations.push({id:uid(),...data});
@@ -1746,7 +1747,7 @@ function openPersonModal(id) {
 }
 function savePerson() {
   const name = document.getElementById('fPName').value.trim();
-  if (!name) return;
+  if (!name) { showToast('⚠ 이름을 입력해주세요'); document.getElementById('fPName').focus(); return; }
   const data = {name,cat:document.getElementById('fPCat').value,role:document.getElementById('fPRole').value,contact:document.getElementById('fPContact').value,notes:document.getElementById('fPNotes').value};
   if (editIds.person) Object.assign(db.people.find(x=>x.id===editIds.person), data);
   else db.people.push({id:uid(),...data});
@@ -2098,6 +2099,7 @@ function importJSON(input) {
   };
   reader.readAsText(file);
 }
+
 
 /* ═══════════════════════════════════════════════
    MODAL CLOSE
