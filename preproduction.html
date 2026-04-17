@@ -816,6 +816,9 @@ td.editing{background:#FFFFF0!important;outline:2px solid var(--fg2);}
     <div class="sb-stat"><div class="sb-stat-val" id="stLocs">0</div><div class="sb-stat-lbl">Locs</div></div>
   </div>
 
+  <div style="padding:8px 24px;border-top:1px solid var(--sb-border);">
+    <div id="lastSavedLabel" style="font-family:var(--ff-mono);font-size:9px;color:#3A3835;letter-spacing:.04em;">저장 대기 중...</div>
+  </div>
   <div class="sidebar-actions">
     <button class="sb-btn sb-btn-accent" onclick="openPdfModal()">↓ PDF Export</button>
     <button class="sb-btn" onclick="exportJSON()">↑ JSON 백업</button>
@@ -844,7 +847,7 @@ td.editing{background:#FFFFF0!important;outline:2px solid var(--fg2);}
     <!-- NOTICE -->
     <div class="notice-bar no-print" id="noticeBar">
       <span class="notice-text">
-        데이터는 저장되지 않으니까 공유나 백업 시 <b>JSON 백업</b> 버튼으로 파일을 저장하고, 불러올 때는 <b>JSON 불러오기</b>를 사용하세요.
+        데이터는 <b>자동으로 저장</b>되며 브라우저를 껐다 켜도 유지됩니다. 다른 기기로 옮길 때는 <b>JSON 백업</b>을 사용하세요.
       </span>
       <span class="notice-dismiss" onclick="document.getElementById('noticeBar').style.display='none'">닫기</span>
     </div>
@@ -1267,8 +1270,30 @@ function saveDB() {
   db.projectName = document.getElementById('projName').value;
   db.phase = document.getElementById('phaseSelect').value;
   if (!db.equipment) db.equipment = [];
+  db._savedAt = new Date().toISOString();
   localStorage.setItem('pp_v2', JSON.stringify(db));
+  updateLastSaved();
 }
+
+
+
+function updateLastSaved() {
+  const el = document.getElementById('lastSavedLabel');
+  if (!el) return;
+  const raw = db._savedAt;
+  if (!raw) { el.textContent = '저장된 데이터 없음'; return; }
+  const d = new Date(raw);
+  const hh = String(d.getHours()).padStart(2,'0');
+  const mm = String(d.getMinutes()).padStart(2,'0');
+  const ss = String(d.getSeconds()).padStart(2,'0');
+  el.textContent = `마지막 저장 ${hh}:${mm}:${ss}`;
+}
+
+// 10분마다 자동저장
+setInterval(() => {
+  saveDB();
+  showToast('자동 저장됨');
+}, 10 * 60 * 1000);
 function loadDB() {
   const saved = localStorage.getItem('pp_v2');
   if (saved) {
@@ -1278,7 +1303,7 @@ function loadDB() {
       if (!db.equipment) db.equipment = [];
       document.getElementById('projName').value = db.projectName || '';
       if (db.phase) { document.getElementById('phaseSelect').value = db.phase; updatePhase(); }
-      showToast('데이터 불러옴');
+      updateLastSaved(); showToast('데이터 불러옴');
     } catch(e) {}
   } else {
     document.getElementById('projName').value = SAMPLE.projectName;
@@ -1485,8 +1510,8 @@ function buildMobSchedule() {
     });
 
     html += `<div class="mob-add-row">
-      <button class="btn btn-sm btn-primary" style="flex:1;" onclick="openSceneModal()">+ 씬</button>
-      <button class="btn btn-sm" style="flex:1;" onclick="openBreakModal()">+ 시간 블록</button>
+      <button class="btn btn-sm btn-primary" style="flex:1;" onclick="mobOpenSceneModal('${day.id}')">+ 씬</button>
+      <button class="btn btn-sm" style="flex:1;" onclick="mobOpenBreakModal('${day.id}')">+ 시간 블록</button>
     </div>`;
 
     html += `</div>`;
@@ -3456,6 +3481,23 @@ function readTime12(wrapperId) {
 }
 
 /* ── 모바일 탭바 ── */
+function mobOpenSceneModal(dayId) {
+  openSceneModal();
+  // 모달 열린 후 해당 촬영일 선택
+  setTimeout(() => {
+    const sel = document.getElementById('fSDay');
+    if (sel) sel.value = dayId;
+  }, 50);
+}
+
+function mobOpenBreakModal(dayId) {
+  openBreakModal();
+  setTimeout(() => {
+    const sel = document.getElementById('fBDay');
+    if (sel) sel.value = dayId;
+  }, 50);
+}
+
 function mobSwitchTab(name, el) {
   // 사이드바 nav-item도 동기화
   const navEl = document.querySelector(`.nav-item[data-tab="${name}"]`);
