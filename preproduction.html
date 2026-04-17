@@ -1148,51 +1148,6 @@ td.editing{background:#FFFFF0!important;outline:2px solid var(--fg2);}
   </div>
 </div>
 
-      <p style="font-family:var(--ff-mono);font-size:10px;color:var(--fg3);margin-bottom:16px;line-height:1.7;">
-        4자리 코드로 GitHub Gist에 저장합니다.<br>
-        <b>어떤 기기에서도</b> 토큰 + 코드만 있으면 불러올 수 있어요.
-      </p>
-
-      <!-- 저장 -->
-      <div style="margin-bottom:18px;">
-        <label class="form-lbl" style="margin-bottom:8px;display:block;">저장</label>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <input class="form-inp" id="codeSaveInput" type="text" inputmode="numeric"
-            maxlength="4" placeholder="0000"
-            style="width:110px;font-size:24px;text-align:center;letter-spacing:.25em;font-family:var(--ff-mono);font-weight:700;">
-          <button class="btn btn-primary" onclick="codeSave()" id="codeSaveBtn">저장</button>
-        </div>
-        <div id="codeSaveStatus" style="font-family:var(--ff-mono);font-size:10px;color:var(--fg3);margin-top:6px;"></div>
-      </div>
-
-      <hr style="border:none;border-top:1px solid var(--line);margin-bottom:18px;">
-
-      <!-- 불러오기 -->
-      <div style="margin-bottom:18px;">
-        <label class="form-lbl" style="margin-bottom:8px;display:block;">불러오기</label>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <input class="form-inp" id="codeLoadInput" type="text" inputmode="numeric"
-            maxlength="4" placeholder="0000"
-            style="width:110px;font-size:24px;text-align:center;letter-spacing:.25em;font-family:var(--ff-mono);font-weight:700;">
-          <button class="btn btn-primary" onclick="codeLoad()" id="codeLoadBtn">불러오기</button>
-        </div>
-        <div id="codeLoadStatus" style="font-family:var(--ff-mono);font-size:10px;color:var(--fg3);margin-top:6px;"></div>
-      </div>
-
-      <hr style="border:none;border-top:1px solid var(--line);margin-bottom:16px;">
-
-      <!-- 저장 목록 -->
-      <div>
-        <label class="form-lbl" style="margin-bottom:10px;display:block;">내 저장 슬롯 (최대 3개)</label>
-        <div id="codeSlotList" style="display:flex;flex-direction:column;gap:6px;"></div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeM('codeSaveModal')">닫기</button>
-    </div>
-  </div>
-</div>
-
 <!-- PDF MODAL -->
 <div class="overlay" id="pdfModal">
   <div class="modal" style="max-width:440px;">
@@ -1419,17 +1374,20 @@ const tabAddLabels = {schedule:'+ 씬 추가',locations:'+ 장소 추가',people
 function switchTab(name, el) {
   currentTab = name;
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
+  const panel = document.getElementById('tab-'+name);
+  if (panel) panel.classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('topbarTitle').textContent = tabTitles[name];
+  if (el) el.classList.add('active');
+  const titleEl = document.getElementById('topbarTitle');
+  if (titleEl) titleEl.textContent = tabTitles[name]||name;
   const topBtn = document.getElementById('topAddBtn');
-  if (topBtn) topBtn.textContent = tabAddLabels[name];
+  if (topBtn) topBtn.textContent = tabAddLabels[name]||'';
 }
 function handleTopAdd() {
   if (currentTab==='schedule') openSceneModal();
   else if (currentTab==='locations') openLocModal();
   else if (currentTab==='people') openPersonModal();
+  else if (currentTab==='scenelist') openSlSceneModal();
   else if (currentTab==='equipment') openEquipModal();
   else openSceneModal();
 }
@@ -1790,25 +1748,14 @@ function toggleDetail(id) {
 function renderSceneList() {
   const dn = ['일','월','화','수','목','금','토'];
 
-  // 씬 번호 기준 정렬
   const allScenes = [...db.scenes].sort((a,b)=>{
     const na=parseFloat(a.sceneNum)||0, nb=parseFloat(b.sceneNum)||0;
     return na!==nb?na-nb:a.sceneNum.localeCompare(b.sceneNum);
   });
 
-  // 스케줄에서 씬번호 기준으로 촬영일 매칭
-  // scene.dayId가 있으면 그걸 쓰고, 없으면 sceneNum 일치하는 스케줄 씬에서 찾기
-  function getMatchedDay(s) {
-    if (s.dayId) return db.days.find(d=>d.id===s.dayId) || null;
-    // dayId 없으면 sceneNum 일치하는 다른 씬에서 dayId 찾기 (미래: 씬번호 매칭)
-    return null;
-  }
-
-  // 미배정 씬과 배정된 씬 구분
   const unscheduled = allScenes.filter(s=>!s.dayId);
   const scheduled   = allScenes.filter(s=>!!s.dayId);
 
-  // 촬영일별로 그룹
   const dayGroups = {};
   scheduled.forEach(s=>{
     if (!dayGroups[s.dayId]) dayGroups[s.dayId] = [];
@@ -1817,6 +1764,7 @@ function renderSceneList() {
 
   const sortedDays = [...db.days].sort((a,b)=>a.date.localeCompare(b.date));
 
+  const isMob = window.innerWidth <= 768;
   let html = '';
 
   // ── 촬영일별 씬 ──
@@ -1827,26 +1775,26 @@ function renderSceneList() {
     const dateStr = `${dd.getMonth()+1}/${dd.getDate()}(${dn[dd.getDay()]})`;
     html += `
       <div style="margin-bottom:8px;font-family:var(--ff-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
-                  color:var(--fg3);padding:6px 14px;background:var(--bg2);border:1.5px solid var(--line);
+                  color:var(--fg3);padding:${isMob?'10px 12px':'6px 14px'};background:var(--fg);color:var(--bg);
                   display:flex;align-items:center;gap:8px;">
-        <span style="font-weight:600;color:var(--fg);">Day ${di+1}</span>
-        <span>${dateStr}</span>
-        ${day.callTime?`<span style="color:var(--fg2);">Call ${fmt12(day.callTime)}</span>`:''}
+        <span style="font-size:9px;opacity:.6;letter-spacing:.1em;">DAY ${di+1}</span>
+        <span style="font-weight:700;font-size:${isMob?'13px':'11px'};">${dateStr}</span>
+        ${day.callTime?`<span style="font-size:10px;opacity:.7;">Call ${fmt12(day.callTime)}</span>`:''}
       </div>`;
-    html += buildSlTable(scenes);
+    html += isMob ? buildSlCards(scenes) : buildSlTable(scenes);
   });
 
   // ── 미배정 씬 ──
   if (unscheduled.length) {
     html += `
-      <div style="margin-top:${scheduled.length?'28px':'0'};margin-bottom:8px;font-family:var(--ff-mono);font-size:10px;
-                  letter-spacing:.1em;text-transform:uppercase;color:var(--fg3);
-                  padding:6px 14px;background:var(--bg2);border:1.5px solid var(--line2);
+      <div style="margin-top:${scheduled.length?'20px':'0'};margin-bottom:8px;font-family:var(--ff-mono);font-size:10px;
+                  letter-spacing:.1em;text-transform:uppercase;
+                  padding:${isMob?'10px 12px':'6px 14px'};background:var(--bg2);border:1.5px solid var(--line2);
                   display:flex;align-items:center;gap:8px;">
         <span style="font-weight:600;color:var(--fg3);">미배정 씬</span>
-        <span style="font-size:9px;opacity:.6;">촬영일이 지정되지 않은 씬</span>
+        <span style="font-size:9px;opacity:.5;">촬영일 미지정</span>
       </div>`;
-    html += buildSlTable(unscheduled);
+    html += isMob ? buildSlCards(unscheduled) : buildSlTable(unscheduled);
   }
 
   if (!allScenes.length) {
@@ -1856,7 +1804,34 @@ function renderSceneList() {
   document.getElementById('scenelistContent').innerHTML = html;
 }
 
+/* ── 씬 리스트 모바일 카드 ── */
+function buildSlCards(scenes) {
+  let html = '';
+  scenes.forEach(s => {
+    const castArr = (s.cast||'').split(',').map(x=>x.trim()).filter(Boolean);
+    html += `<div class="mob-scene-card" onclick="openSceneModal('${s.id}')" oncontextmenu="openCtxMenu(event,'${s.id}','scene')">
+      <div class="mob-scene-top">
+        <span class="mob-scene-num">${s.sceneNum}</span>
+        <span class="mob-scene-title">${s.title}</span>
+      </div>
+      <div class="mob-scene-tags">
+        <span class="tag ${tagCls(s.type)}">${s.type}</span>
+        <span class="tag ${tagCls(s.timeOfDay)}">${s.timeOfDay}</span>
+        ${castArr.map(c=>`<span class="cast-pill">${c}</span>`).join('')}
+      </div>
+      <div class="mob-scene-meta">
+        ${s.cuts?`<span class="mob-meta-item"><span class="mob-meta-lbl">cut</span>${s.cuts}</span>`:''}
+        ${s.pages?`<span class="mob-meta-item"><span class="mob-meta-lbl">pp</span>${s.pages}</span>`:''}
+        ${s.locId?`<span class="mob-meta-item"><span class="mob-meta-lbl">📍</span>${locName(s.locId)}</span>`:''}
+      </div>
+      ${s.notes?`<div style="font-family:var(--ff-mono);font-size:10px;color:var(--fg3);margin-top:6px;">${s.notes}</div>`:''}
+    </div>`;
+  });
+  return html + '<div style="height:4px;"></div>';
+}
+
 function buildSlTable(scenes) {
+  if (!scenes || !scenes.length) return '';
   const dn = ['일','월','화','수','목','금','토'];
   let html = `<div class="tbl-wrap" style="border:1.5px solid var(--fg);border-top:none;margin-bottom:20px;">
     <table class="sl-table">
@@ -1987,6 +1962,10 @@ function jumpToScene(sceneNum) {
   /* 씬 리스트 탭으로 전환 */
   const navEl = document.querySelector('.nav-item[data-tab="scenelist"]');
   switchTab('scenelist', navEl);
+  // 모바일 탭바도 동기화
+  document.querySelectorAll('.mob-tab').forEach(t=>t.classList.remove('active'));
+  const mobTab = document.querySelector('.mob-tab[data-tab="scenelist"]');
+  if (mobTab) mobTab.classList.add('active');
   /* 해당 씬 행 하이라이트 */
   setTimeout(() => {
     const rows = document.querySelectorAll('.sl-row');
