@@ -899,8 +899,7 @@ td.editing{background:#FFFFF0!important;outline:2px solid var(--fg2);}
     <!-- SCENE LIST TAB -->
     <div id="tab-scenelist" class="tab-panel">
       <div class="toolbar no-print">
-        <button class="btn btn-primary" onclick="openSceneModal()">+ 씬 추가</button>
-        <button class="btn" onclick="openDayModal()">+ 촬영일</button>
+        <button class="btn btn-primary" onclick="openSlSceneModal()">+ 씬 추가</button>
       </div>
       <div id="scenelistContent"></div>
     </div>
@@ -1145,6 +1144,51 @@ td.editing{background:#FFFFF0!important;outline:2px solid var(--fg2);}
       <button class="btn btn-danger" id="eDelBtn" style="display:none;margin-right:auto" onclick="deleteEquipM()">삭제</button>
       <button class="btn" onclick="closeM('equipModal')">취소</button>
       <button class="btn btn-primary" onclick="saveEquip()">저장</button>
+    </div>
+  </div>
+</div>
+
+      <p style="font-family:var(--ff-mono);font-size:10px;color:var(--fg3);margin-bottom:16px;line-height:1.7;">
+        4자리 코드로 GitHub Gist에 저장합니다.<br>
+        <b>어떤 기기에서도</b> 토큰 + 코드만 있으면 불러올 수 있어요.
+      </p>
+
+      <!-- 저장 -->
+      <div style="margin-bottom:18px;">
+        <label class="form-lbl" style="margin-bottom:8px;display:block;">저장</label>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input class="form-inp" id="codeSaveInput" type="text" inputmode="numeric"
+            maxlength="4" placeholder="0000"
+            style="width:110px;font-size:24px;text-align:center;letter-spacing:.25em;font-family:var(--ff-mono);font-weight:700;">
+          <button class="btn btn-primary" onclick="codeSave()" id="codeSaveBtn">저장</button>
+        </div>
+        <div id="codeSaveStatus" style="font-family:var(--ff-mono);font-size:10px;color:var(--fg3);margin-top:6px;"></div>
+      </div>
+
+      <hr style="border:none;border-top:1px solid var(--line);margin-bottom:18px;">
+
+      <!-- 불러오기 -->
+      <div style="margin-bottom:18px;">
+        <label class="form-lbl" style="margin-bottom:8px;display:block;">불러오기</label>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input class="form-inp" id="codeLoadInput" type="text" inputmode="numeric"
+            maxlength="4" placeholder="0000"
+            style="width:110px;font-size:24px;text-align:center;letter-spacing:.25em;font-family:var(--ff-mono);font-weight:700;">
+          <button class="btn btn-primary" onclick="codeLoad()" id="codeLoadBtn">불러오기</button>
+        </div>
+        <div id="codeLoadStatus" style="font-family:var(--ff-mono);font-size:10px;color:var(--fg3);margin-top:6px;"></div>
+      </div>
+
+      <hr style="border:none;border-top:1px solid var(--line);margin-bottom:16px;">
+
+      <!-- 저장 목록 -->
+      <div>
+        <label class="form-lbl" style="margin-bottom:10px;display:block;">내 저장 슬롯 (최대 3개)</label>
+        <div id="codeSlotList" style="display:flex;flex-direction:column;gap:6px;"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeM('codeSaveModal')">닫기</button>
     </div>
   </div>
 </div>
@@ -1695,6 +1739,17 @@ function renderSchedule() {
       });
       html += `</tbody></table></div>`;
     }
+    html += `
+    <div class="no-print" style="display:flex;gap:0;border:2px solid var(--fg);border-top:none;background:var(--bg2);">
+      <button class="btn" style="flex:1;border:none;border-right:1px solid var(--line2);background:transparent;padding:9px 14px;font-size:10px;letter-spacing:.06em;text-align:left;"
+        onclick="(function(){openSceneModal();setTimeout(()=>{const s=document.getElementById('fSDay');if(s)s.value='${day.id}';},50)})()">
+        + 씬 추가
+      </button>
+      <button class="btn" style="flex:1;border:none;background:transparent;padding:9px 14px;font-size:10px;letter-spacing:.06em;text-align:left;"
+        onclick="(function(){openBreakModal();setTimeout(()=>{const s=document.getElementById('fBDay');if(s)s.value='${day.id}';},50)})()">
+        + 시간 블록
+      </button>
+    </div>`;
     html += `</div>`;
   });
 
@@ -1734,11 +1789,77 @@ function toggleDetail(id) {
 ═══════════════════════════════════════════════ */
 function renderSceneList() {
   const dn = ['일','월','화','수','목','금','토'];
+
+  // 씬 번호 기준 정렬
   const allScenes = [...db.scenes].sort((a,b)=>{
     const na=parseFloat(a.sceneNum)||0, nb=parseFloat(b.sceneNum)||0;
     return na!==nb?na-nb:a.sceneNum.localeCompare(b.sceneNum);
   });
-  let html = `<div class="tbl-wrap" style="border:1px solid var(--line);"><table class="sl-table">
+
+  // 스케줄에서 씬번호 기준으로 촬영일 매칭
+  // scene.dayId가 있으면 그걸 쓰고, 없으면 sceneNum 일치하는 스케줄 씬에서 찾기
+  function getMatchedDay(s) {
+    if (s.dayId) return db.days.find(d=>d.id===s.dayId) || null;
+    // dayId 없으면 sceneNum 일치하는 다른 씬에서 dayId 찾기 (미래: 씬번호 매칭)
+    return null;
+  }
+
+  // 미배정 씬과 배정된 씬 구분
+  const unscheduled = allScenes.filter(s=>!s.dayId);
+  const scheduled   = allScenes.filter(s=>!!s.dayId);
+
+  // 촬영일별로 그룹
+  const dayGroups = {};
+  scheduled.forEach(s=>{
+    if (!dayGroups[s.dayId]) dayGroups[s.dayId] = [];
+    dayGroups[s.dayId].push(s);
+  });
+
+  const sortedDays = [...db.days].sort((a,b)=>a.date.localeCompare(b.date));
+
+  let html = '';
+
+  // ── 촬영일별 씬 ──
+  sortedDays.forEach((day, di) => {
+    const scenes = dayGroups[day.id];
+    if (!scenes || !scenes.length) return;
+    const dd = new Date(day.date);
+    const dateStr = `${dd.getMonth()+1}/${dd.getDate()}(${dn[dd.getDay()]})`;
+    html += `
+      <div style="margin-bottom:8px;font-family:var(--ff-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+                  color:var(--fg3);padding:6px 14px;background:var(--bg2);border:1.5px solid var(--line);
+                  display:flex;align-items:center;gap:8px;">
+        <span style="font-weight:600;color:var(--fg);">Day ${di+1}</span>
+        <span>${dateStr}</span>
+        ${day.callTime?`<span style="color:var(--fg2);">Call ${fmt12(day.callTime)}</span>`:''}
+      </div>`;
+    html += buildSlTable(scenes);
+  });
+
+  // ── 미배정 씬 ──
+  if (unscheduled.length) {
+    html += `
+      <div style="margin-top:${scheduled.length?'28px':'0'};margin-bottom:8px;font-family:var(--ff-mono);font-size:10px;
+                  letter-spacing:.1em;text-transform:uppercase;color:var(--fg3);
+                  padding:6px 14px;background:var(--bg2);border:1.5px solid var(--line2);
+                  display:flex;align-items:center;gap:8px;">
+        <span style="font-weight:600;color:var(--fg3);">미배정 씬</span>
+        <span style="font-size:9px;opacity:.6;">촬영일이 지정되지 않은 씬</span>
+      </div>`;
+    html += buildSlTable(unscheduled);
+  }
+
+  if (!allScenes.length) {
+    html = `<div class="empty-state">+ 씬 추가 버튼으로 씬을 만들어보세요.<br><span style="font-size:11px;opacity:.6;">씬은 나중에 스케줄 탭에서 촬영일에 배정할 수 있습니다.</span></div>`;
+  }
+
+  document.getElementById('scenelistContent').innerHTML = html;
+}
+
+function buildSlTable(scenes) {
+  const dn = ['일','월','화','수','목','금','토'];
+  let html = `<div class="tbl-wrap" style="border:1.5px solid var(--fg);border-top:none;margin-bottom:20px;">
+    <table class="sl-table">
     <thead><tr>
       <th style="width:58px">Scene</th>
       <th style="width:46px">cut</th>
@@ -1746,18 +1867,10 @@ function renderSceneList() {
       <th style="width:90px">구분</th>
       <th style="width:100px">출연진</th>
       <th style="width:100px">장소</th>
-      <th style="width:80px">촬영일</th>
-      <th style="width:46px">min</th>
       <th style="width:70px">pp</th>
       <th style="width:80px" class="no-print"></th>
     </tr></thead><tbody>`;
-  if (!allScenes.length) {
-    html += `<tr><td colspan="10" style="text-align:center;padding:28px;font-family:var(--ff-mono);font-size:11px;color:var(--fg3);">씬이 없습니다</td></tr>`;
-  }
-  allScenes.forEach(s => {
-    const day = db.days.find(d=>d.id===s.dayId);
-    let dayStr = '—';
-    if (day) { const dd=new Date(day.date); dayStr=`${dd.getMonth()+1}/${dd.getDate()}(${dn[dd.getDay()]})`; }
+  scenes.forEach(s => {
     html += `
       <tr class="sl-row" data-id="${s.id}" onclick="toggleSlDetail('${s.id}')" oncontextmenu="openCtxMenu(event,'${s.id}','scene')">
         <td><span class="sl-num">${s.sceneNum}</span></td>
@@ -1769,13 +1882,11 @@ function renderSceneList() {
         <td><span class="tag ${tagCls(s.type)}">${s.type}</span>&thinsp;<span class="tag ${tagCls(s.timeOfDay)}">${s.timeOfDay}</span></td>
         <td><div class="pills-wrap">${pills(s.cast,'cast-pill')}</div></td>
         <td><span class="loc-text">${locName(s.locId)}</span></td>
-        <td class="sl-day">${dayStr}</td>
-        <td class="dur-text">${s.duration||''}</td>
         <td class="pg-text">${s.pages||''}</td>
         <td class="no-print"><div class="sl-acts"><button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();openSceneModal('${s.id}')">편집</button></div></td>
       </tr>
       <tr class="detail-row" id="sl-detail-${s.id}">
-        <td class="detail-cell" colspan="10">
+        <td class="detail-cell" colspan="8">
           <div class="detail-grid">
             <div><div class="d-lbl">출연진</div><div class="d-val">${pills(s.cast,'cast-pill')}</div></div>
             <div><div class="d-lbl">스태프</div><div class="d-val">${pills(s.crew,'crew-pill')}</div></div>
@@ -1786,8 +1897,27 @@ function renderSceneList() {
       </tr>`;
   });
   html += `</tbody></table></div>`;
-  document.getElementById('scenelistContent').innerHTML = html;
+  return html;
 }
+
+function openSlSceneModal() {
+  // 씬 리스트에서 씬 추가 — 촬영일 미배정 상태로 열기
+  openSceneModal();
+  // 촬영일 드롭다운 첫 번째 옵션으로 초기화 (빈 선택)
+  setTimeout(() => {
+    const sel = document.getElementById('fSDay');
+    if (sel) {
+      // "미배정" 옵션이 없으면 추가
+      if (!sel.querySelector('option[value=""]')) {
+        const opt = document.createElement('option');
+        opt.value = ''; opt.textContent = '— 미배정 —';
+        sel.insertBefore(opt, sel.firstChild);
+      }
+      sel.value = '';
+    }
+  }, 30);
+}
+
 function toggleSlDetail(id) {
   const r = document.getElementById('sl-detail-'+id);
   if (r) r.classList.toggle('open');
@@ -2016,10 +2146,11 @@ function deleteEquipM() {
 ═══════════════════════════════════════════════ */
 function popDays(selId, curId) {
   const dn = ['일','월','화','수','목','금','토'];
+  const opts = db.days.sort((a,b)=>a.date.localeCompare(b.date))
+    .map(d=>{ const dd=new Date(d.date); return `<option value="${d.id}"${d.id===curId?' selected':''}>${dd.getMonth()+1}/${dd.getDate()}(${dn[dd.getDay()]})</option>`; })
+    .join('');
   document.getElementById(selId).innerHTML =
-    db.days.sort((a,b)=>a.date.localeCompare(b.date))
-      .map(d=>{ const dd=new Date(d.date); return `<option value="${d.id}"${d.id===curId?' selected':''}>${dd.getMonth()+1}/${dd.getDate()}(${dn[dd.getDay()]})</option>`; })
-      .join('') || '<option value="">촬영일 없음</option>';
+    `<option value=""${!curId?' selected':''}>— 미배정 —</option>` + opts;
 }
 function popLocs(selId, curId) {
   document.getElementById(selId).innerHTML =
@@ -3516,6 +3647,8 @@ function closeMobSheet() {
 }
 function openSidebar(){}
 function closeSidebar(){}
+
+
 
 function closeM(id) { document.getElementById(id).classList.remove('open'); }
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); }));
