@@ -1,0 +1,2371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>꽃의 알고리즘과 파도의 문법</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06050a;
+  --bg2: #0d0b15;
+  --surface: #13101e;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.14);
+  --text: #e8e4f0;
+  --text2: #8a85a0;
+  --text3: #3d3858;
+  --basalt: #1a1525;
+  --wave: #1e3a5f;
+  --flower: #3d1a40;
+  --accent: #e8ff47;
+  --accent2: #ff6b9d;
+  --accent3: #47cfff;
+  --accent4: #c084fc;
+  --mono: 'Space Mono', monospace;
+  --serif: 'Noto Serif KR', serif;
+  --display: 'Bebas Neue', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); font-family: var(--serif); overflow-x: hidden; }
+
+/* ── GRAIN ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999;
+}
+
+/* ── HEADER ── */
+header {
+  text-align: center;
+  padding: 60px 40px 40px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(192,132,252,0.06), transparent);
+}
+.title-en {
+  font-family: var(--display);
+  font-size: clamp(28px, 5vw, 52px);
+  letter-spacing: 6px;
+  color: var(--text2);
+  margin-bottom: 12px;
+}
+.title-kr {
+  font-family: var(--serif);
+  font-size: clamp(20px, 3.5vw, 36px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.subtitle {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* ── NAV TABS ── */
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav::-webkit-scrollbar { display: none; }
+.nav-tab {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px 20px;
+  color: var(--text3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+  background: none;
+  border-top: none; border-left: none; border-right: none;
+}
+.nav-tab:hover { color: var(--text2); }
+.nav-tab.active { color: var(--accent4); border-bottom-color: var(--accent4); }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── SECTION COMMON ── */
+.section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 50px 30px;
+}
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 36px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.section-num {
+  font-family: var(--display);
+  font-size: 48px;
+  color: var(--text3);
+  line-height: 1;
+}
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.section-sub {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 2px;
+}
+
+/* ── FORMULA BOX ── */
+.formula-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.formula-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+}
+.formula-card.basalt::before { background: var(--accent3); }
+.formula-card.wave::before   { background: var(--accent); }
+.formula-card.flower::before { background: var(--accent2); }
+.formula-card.dim::before    { background: var(--accent4); }
+
+.formula-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 12px;
+}
+.formula-main {
+  font-family: var(--mono);
+  font-size: clamp(13px, 2vw, 17px);
+  color: var(--text);
+  line-height: 2;
+  margin-bottom: 12px;
+}
+.formula-main .var { color: var(--accent3); }
+.formula-main .op  { color: var(--text3); }
+.formula-main .val { color: var(--accent); }
+.formula-main .fn  { color: var(--accent2); }
+.formula-main .dim4 { color: var(--accent4); }
+.formula-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.9;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin-top: 4px;
+}
+
+/* ── CONCEPT GRID ── */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.concept-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 22px;
+}
+.concept-card .icon {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text3);
+  margin-bottom: 8px;
+}
+.concept-card .name {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.concept-card .desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.8;
+}
+
+/* ── CANVAS AREA ── */
+.canvas-container {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  background: #04030a;
+}
+canvas { display: block; width: 100%; }
+
+/* ── CONTROLS ── */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+.ctrl-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ctrl-group label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text3);
+  white-space: nowrap;
+}
+input[type=range] {
+  -webkit-appearance: none;
+  width: 90px; height: 2px;
+  background: var(--border2);
+  border-radius: 2px; outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--accent4);
+  cursor: pointer;
+}
+.ctrl-val {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--accent4);
+  min-width: 34px;
+}
+.btn {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn:hover { border-color: var(--accent4); color: var(--accent4); background: rgba(192,132,252,0.06); }
+.btn.on { border-color: var(--accent4); color: var(--accent4); background: rgba(192,132,252,0.08); }
+
+/* ── FORMULA EQUATIONS (static display) ── */
+.eq-block {
+  background: #09070f;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 24px 28px;
+  margin-bottom: 16px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 2.4;
+}
+.eq-block .eq-title {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 14px;
+}
+.eq-line { margin-bottom: 4px; }
+.eq-line .kw { color: var(--accent4); }
+.eq-line .num { color: var(--accent); }
+.eq-line .fn { color: var(--accent2); }
+.eq-line .cmt { color: var(--text3); font-style: italic; }
+.eq-line .dim { color: var(--accent3); }
+
+/* ── DIMENSION DIAGRAM ── */
+.dim-diagram {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.dim-cell {
+  background: var(--surface);
+  padding: 20px 16px;
+  text-align: center;
+}
+.dim-cell .dim-num {
+  font-family: var(--display);
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.dim-cell .dim-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text3);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.dim-cell .dim-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+.dim-cell.d4 .dim-num { color: var(--accent4); }
+.dim-cell.d3 .dim-num { color: var(--accent3); }
+.dim-cell.d2 .dim-num { color: var(--accent); }
+.dim-cell.d1 .dim-num { color: var(--accent2); }
+
+/* ── ARROW BETWEEN ── */
+.dim-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 2px;
+}
+.arr { color: var(--text3); font-size: 18px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .dim-diagram { grid-template-columns: repeat(2,1fr); }
+  header { padding: 40px 20px 30px; }
+  .section { padding: 30px 16px; }
+  .formula-main { font-size: 12px; }
+}
+
+/* ── LIVE STAT ── */
+.live-stat {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.stat {
+  font-family: var(--mono);
+  font-size: 10px;
+}
+.stat .sk { color: var(--text3); }
+.stat .sv { color: var(--accent3); margin-left: 6px; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px;
+  text-align: center;
+}
+footer p {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 2px;
+  line-height: 2;
+}
+
+/* ── VIS PAGE CONTROLS ── */
+.vis-ctrl-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 14px 0 10px;
+}
+.vis-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text2);
+}
+.vis-ctrl input[type=range] {
+  width: 76px;
+  -webkit-appearance: none;
+  height: 2px;
+  background: var(--border2);
+  border-radius: 2px;
+  outline: none;
+}
+.vis-ctrl input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--accent4);
+  cursor: pointer;
+}
+.vis-val {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--accent4);
+  min-width: 28px;
+}
+.vis-btn {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.vis-btn:hover { border-color: var(--accent4); color: var(--accent4); }
+.vis-btn.btn-on { border-color: var(--accent4); color: var(--accent4); background: rgba(192,132,252,0.07); }
+.vis-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(71,207,255,0.3);
+  background: rgba(71,207,255,0.08);
+  color: var(--accent3);
+  transition: all 0.2s;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title-en">The Algorithm of Flowers · The Grammar of Waves</div>
+  <div class="title-kr">꽃의 알고리즘과 파도의 문법</div>
+  <div class="subtitle">Jeju Basalt × Wave Particle × Mocap Dance — Formula System</div>
+</header>
+
+<nav class="nav">
+  <button class="nav-tab active" data-page="p-formula">공식 체계</button>
+  <button class="nav-tab" data-page="p-dim">차원 변환</button>
+  <button class="nav-tab" data-page="p-wave">파도의 문법</button>
+  <button class="nav-tab" data-page="p-flower">꽃의 알고리즘</button>
+  <button class="nav-tab" data-page="p-full">통합 시뮬레이션</button>
+  <button class="nav-tab" data-page="p-wp">Wave Particle 원점</button>
+  <button class="nav-tab" data-page="p-mask">현무암 → 꽃 생성</button>
+  <button class="nav-tab" data-page="p-vis1">꽃 해부</button>
+  <button class="nav-tab" data-page="p-vis2">꽃밭 탑뷰</button>
+  <button class="nav-tab" data-page="p-vis3">무용수 · 2.5D</button>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     PAGE 1 — 공식 체계
+══════════════════════════════════════════ -->
+<div id="p-formula" class="page active">
+<div class="section">
+
+  <div class="section-head">
+    <div class="section-num">01</div>
+    <div>
+      <div class="section-title">전체 공식 체계</div>
+      <div class="section-sub">Complete Formula System</div>
+    </div>
+  </div>
+
+  <!-- DIMENSION MODEL -->
+  <div class="formula-card dim" style="margin-bottom:28px">
+    <div class="formula-label">핵심 전제 — Dimensional Ontology</div>
+    <div class="formula-main">
+      <span class="dim4">𝔹(x,y,z,τ)</span> <span class="op"> → </span>
+      현무암 = 4차원 저장소<br>
+      <span class="dim4">τ</span> <span class="op"> = </span>주체성(Subjectivity) <span class="op"> = </span>시간의 모든 흔적<br>
+      <span class="var">파도에 띄움</span> <span class="op"> →  </span><span class="dim4">τ = 0</span> <span class="op"> → </span><span class="var">𝔹(x,y,z)</span><br>
+      <span class="var">원 텍스처</span> <span class="op"> = </span>4D → 2D 단면 <span class="op">:</span> <span class="fn">𝒞(u,v)</span>
+    </div>
+    <div class="formula-desc">
+      현무암은 생성 이후 지금까지 모든 시간 정보를 담은 4차원 객체다.
+      τ(타우)는 주체성·역사·시간 축을 의미한다.
+      파도에 띄우는 행위는 τ를 외부(파도)로 이전시켜 현무암에서 주체성을 삭제하고,
+      순수한 3D 위치 데이터만 남긴다. 표면의 원형 구멍들은 이 4D 정보가 2D로 찍힌 단면이다.
+    </div>
+  </div>
+
+  <!-- BASALT -->
+  <div class="formula-card basalt">
+    <div class="formula-label">현무암 — Basalt 4D Object</div>
+    <div class="formula-main">
+      <span class="var">𝔹</span> <span class="op">(</span><span class="var">x, y, z,</span> <span class="dim4">τ</span><span class="op">)</span><br>
+      <span class="dim4">τ</span> <span class="op">=</span> <span class="fn">∫₀ᵀ</span> <span class="var">φ(t)</span> <span class="var">dt</span>
+      <span class="op">　　　</span><span style="font-size:10px;color:var(--text3)">// 탄생부터 현재까지 누적 흔적</span><br>
+      <span class="var">𝒞ᵢ</span><span class="op">(</span><span class="var">u,v</span><span class="op">)</span>
+      <span class="op">=</span> <span class="fn">proj₂D</span><span class="op">(</span><span class="dim4">τ</span><span class="op">)</span>
+      <span class="op">　</span><span style="font-size:10px;color:var(--text3)">// 원 텍스처 = 4D의 2D 단면</span>
+    </div>
+    <div class="formula-desc">
+      <b>𝔹(x,y,z,τ)</b> : 현무암 4D 좌표계. (x,y,z)는 공간, τ는 누적 시간·역사·주체성<br>
+      <b>𝒞ᵢ(u,v)</b> : 표면의 i번째 원 — 4D 역사가 2D 평면에 투영된 흔적
+    </div>
+  </div>
+
+  <!-- WAVE GRAMMAR -->
+  <div class="formula-card wave">
+    <div class="formula-label">파도의 문법 — Wave Grammar (Wave Particle 기반)</div>
+    <div class="formula-main">
+      <span class="var">W</span><span class="op">(</span><span class="var">x, y, t</span><span class="op">)</span>
+      <span class="op">=</span>
+      <span class="val">A</span> <span class="op">·</span>
+      <span class="fn">sin</span><span class="op">(</span><span class="val">k</span><span class="var">x</span> <span class="op">-</span> <span class="val">ω</span><span class="var">t</span> <span class="op">+</span> <span class="var">φ</span><span class="op">)</span>
+      <span class="op">·</span>
+      <span class="fn">e</span><span class="op">^(</span><span class="op">-</span><span class="val">λ</span><span class="var">r</span><span class="op">)</span><br>
+
+      <span class="var">Δp</span><span class="op">(</span><span class="var">t</span><span class="op">)</span>
+      <span class="op">=</span>
+      <span class="var">p</span><span class="op">(</span><span class="var">t</span><span class="op">)</span>
+      <span class="op">-</span>
+      <span class="var">p</span><span class="op">(</span><span class="var">t</span><span class="op">-</span><span class="val">1</span><span class="op">)</span>
+      <span style="font-size:10px;color:var(--text3)">　// 오브제의 프레임별 변위</span><br>
+
+      <span class="var">τ_wave</span>
+      <span class="op">=</span>
+      <span class="op">{</span><span class="var">v, θ, r, φ</span><span class="op">}</span>
+      <span style="font-size:10px;color:var(--text3)">　// 파도가 흡수한 주체성</span>
+    </div>
+    <div class="formula-desc">
+      <b>W(x,y,t)</b> : SIGGRAPH 2007 Wave Particle 기반 파동 함수.
+      A=진폭, k=파수, ω=각진동수, λ=감쇠계수<br>
+      <b>Δp(t)</b> : 파도 위 오브제의 매 프레임 이동 벡터 = 꽃의 움직임 원형<br>
+      <b>τ_wave</b> : 파도가 현무암으로부터 이전받은 주체성 (속도·방향·반지름·위상)
+    </div>
+  </div>
+
+  <!-- FLOWER ALGORITHM -->
+  <div class="formula-card flower">
+    <div class="formula-label">꽃의 알고리즘 — Flower Algorithm</div>
+    <div class="formula-main">
+      <span class="var">F</span><span class="op">(</span><span class="var">u,v,t</span><span class="op">)</span>
+      <span class="op">=</span>
+      <span class="fn">𝒞ᵢ</span><span class="op">(</span><span class="var">u,v</span><span class="op">)</span>
+      <span class="op">+</span>
+      <span class="fn">Σ</span><span class="op">ₙ</span>
+      <span class="val">αₙ</span>
+      <span class="op">·</span>
+      <span class="var">Δp</span><span class="op">(</span><span class="var">t-n</span><span class="op">)</span>
+      <span class="op">·</span>
+      <span class="fn">e</span><span class="op">^(</span><span class="op">-</span><span class="val">λn</span><span class="op">)</span><br>
+
+      <span class="fn">α</span><span class="op">(</span><span class="var">η</span><span class="op">)</span>
+      <span class="op">=</span>
+      <span class="op">{</span>
+        <span class="val">0</span> <span style="font-size:10px;color:var(--text3)">η=0 → 대칭꽃,</span>
+        <span class="val">η>0</span> <span style="font-size:10px;color:var(--text3)">η=const → 비대칭꽃</span>
+      <span class="op">}</span><br>
+
+      <span style="font-size:11px;color:var(--text2)">꽃 크기 = </span><span class="var">|𝒞ᵢ|</span> <span class="op">+</span> <span class="var">|Δp|</span><span class="op">,　</span>
+      <span style="font-size:11px;color:var(--text2)">밀도 = </span><span class="var">Σn</span><span class="op">,　</span>
+      <span style="font-size:11px;color:var(--text2)">방향 = </span><span class="fn">arg</span><span class="op">(</span><span class="var">Δp</span><span class="op">),　</span>
+      <span style="font-size:11px;color:var(--text2)">색 = </span><span class="var">f</span><span class="op">(</span><span class="var">|Δp|, Σn</span><span class="op">)</span>
+    </div>
+    <div class="formula-desc">
+      <b>F(u,v,t)</b> : 현무암 원 위치(𝒞ᵢ)에서 파도 잔상(Δp)이 겹쳐 꽃이 피는 함수<br>
+      <b>η (노이즈)</b> : η=0 → 완전 대칭 꽃, η=const(>0) → 비대칭 자연 꽃<br>
+      <b>λ (감쇠)</b> : 잔상이 시간에 따라 옅어지는 속도. 클수록 잔상이 빨리 사라짐<br>
+      <b>Σn (겹침)</b> : 잔상이 많을수록 꽃의 밀도가 높아지고 색이 짙어짐
+    </div>
+  </div>
+
+  <!-- MOCAP -->
+  <div class="formula-card" style="border-left:3px solid #f97316">
+    <div class="formula-label">무용수 모션캡처 — Human Impact</div>
+    <div class="formula-main">
+      <span class="var">H</span><span class="op">(</span><span class="var">x,y,z,t</span><span class="op">)</span>
+      <span class="op">→</span>
+      <span class="fn">impulse</span><span class="op">(</span><span class="var">r</span><span class="op">)</span>
+      <span class="op">=</span>
+      <span class="val">I₀</span>
+      <span class="op">·</span>
+      <span class="fn">e</span><span class="op">^(</span><span class="op">-</span><span class="var">r</span><span class="op">²/</span><span class="val">σ²</span><span class="op">)</span><br>
+
+      <span class="var">F′</span><span class="op">(</span><span class="var">u,v,t</span><span class="op">)</span>
+      <span class="op">=</span>
+      <span class="var">F</span><span class="op">(</span><span class="var">u,v,t</span><span class="op">)</span>
+      <span class="op">+</span>
+      <span class="fn">impulse</span><span class="op">(</span><span class="fn">‖</span><span class="op">(</span><span class="var">u,v</span><span class="op">)</span>
+      <span class="op">-</span>
+      <span class="var">H_xy</span><span class="fn">‖</span><span class="op">)</span>
+    </div>
+    <div class="formula-desc">
+      <b>H(x,y,z,t)</b> : 무용수 모션캡처 3D 좌표<br>
+      <b>impulse(r)</b> : 무용수 위치에서 거리 r에 따라 감쇠하는 충격파 — 꽃밭 흔들림<br>
+      <b>F′</b> : 인간의 움직임이 더해진 최종 꽃 상태. σ가 클수록 영향 반경이 넓어짐
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 2 — 차원 변환
+══════════════════════════════════════════ -->
+<div id="p-dim" class="page">
+<div class="section">
+
+  <div class="section-head">
+    <div class="section-num">02</div>
+    <div>
+      <div class="section-title">차원 변환 구조</div>
+      <div class="section-sub">4D → 3D → 2D → Flower</div>
+    </div>
+  </div>
+
+  <div class="dim-diagram">
+    <div class="dim-cell d4">
+      <div class="dim-num">4D</div>
+      <div class="dim-label">현무암 원형</div>
+      <div class="dim-desc">
+        𝔹(x,y,z,τ)<br>
+        τ = 주체성<br>
+        시간의 총합<br>
+        모든 역사 내재
+      </div>
+    </div>
+    <div class="dim-cell d3">
+      <div class="dim-num">3D</div>
+      <div class="dim-label">파도 위 오브제</div>
+      <div class="dim-desc">
+        τ → 파도 이전<br>
+        𝔹(x,y,z)<br>
+        주체성 삭제<br>
+        위치만 남음
+      </div>
+    </div>
+    <div class="dim-cell d2">
+      <div class="dim-num">2D</div>
+      <div class="dim-label">원 텍스처 단면</div>
+      <div class="dim-desc">
+        𝒞ᵢ(u,v)<br>
+        4D → 2D 투영<br>
+        원형 구멍들<br>
+        꽃의 좌표
+      </div>
+    </div>
+    <div class="dim-cell d1">
+      <div class="dim-num">꽃</div>
+      <div class="dim-label">새로운 생성</div>
+      <div class="dim-desc">
+        F(u,v,t)<br>
+        파도 문법 적용<br>
+        잔상 → 꽃잎<br>
+        시간이 형태됨
+      </div>
+    </div>
+  </div>
+
+  <!-- PIPELINE CANVAS -->
+  <div class="canvas-container" style="height:360px">
+    <canvas id="c-dim" height="360"></canvas>
+  </div>
+
+  <div class="eq-block">
+    <div class="eq-title">차원 변환 파이프라인</div>
+    <div class="eq-line"><span class="kw">step 1</span>  : 𝔹(x,y,z,<span class="dim">τ</span>)  <span class="cmt">// 4D — 현무암 (τ = 시간·역사·주체성)</span></div>
+    <div class="eq-line"><span class="kw">step 2</span>  : τ_basalt → τ_wave         <span class="cmt">// 파도에 띄움 → 주체성 이전</span></div>
+    <div class="eq-line"><span class="kw">step 3</span>  : 𝔹(x,y,z)               <span class="cmt">// 3D — 순수 공간 정보만 남음</span></div>
+    <div class="eq-line"><span class="kw">step 4</span>  : proj₂D(𝔹) = <span class="fn">𝒞ᵢ</span>(u,v)  <span class="cmt">// 원 텍스처 추출 (2D 단면)</span></div>
+    <div class="eq-line"><span class="kw">step 5</span>  : 𝒞ᵢ + <span class="fn">Σ</span>(Δp·e^-λn) = F  <span class="cmt">// 파도 잔상 적용 → 꽃 생성</span></div>
+    <div class="eq-line"><span class="kw">step 6</span>  : F + impulse(H)          <span class="cmt">// 무용수 충격 → 꽃밭 반응</span></div>
+  </div>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="icon">CONCEPT 01</div>
+      <div class="name" style="color:var(--accent4)">주체성 (τ)</div>
+      <div class="desc">현무암에 내재된 시간의 총합. 파도에 띄우는 순간 파도로 이전됨. 아리스토텔레스의 목적인(Telos)에 해당하는 개념 — 사과가 스스로 의지로 떨어지는 것처럼.</div>
+    </div>
+    <div class="concept-card">
+      <div class="icon">CONCEPT 02</div>
+      <div class="name" style="color:var(--accent3)">파도의 문법</div>
+      <div class="desc">이전받은 τ를 물리 운동으로 표현하는 규칙. Wave Particle의 발상처럼, 파도는 외부가 아닌 입자 스스로가 만든다 — 자연이 기술에 능동적으로 적응하는 방식.</div>
+    </div>
+    <div class="concept-card">
+      <div class="icon">CONCEPT 03</div>
+      <div class="name" style="color:var(--accent2)">꽃의 알고리즘</div>
+      <div class="desc">원 텍스처(2D 단면) 위에 파도 잔상(Δp)이 겹쳐 꽃이 피는 구조. 노이즈 η가 0이면 대칭, 0 이상이면 비대칭 — 움직임이 형태를 결정하는 순간.</div>
+    </div>
+    <div class="concept-card">
+      <div class="icon">CONCEPT 04</div>
+      <div class="name" style="color:#f97316">인간의 충격</div>
+      <div class="desc">무용수의 모션캡처가 가우시안 충격파로 꽃밭에 영향을 줌. 인간의 데이터가 디지털 자연으로 들어왔을 때 발생하는 변화 — 4D→인간→자연의 순환.</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 3 — 파도의 문법
+══════════════════════════════════════════ -->
+<div id="p-wave" class="page">
+<div class="section">
+
+  <div class="section-head">
+    <div class="section-num">03</div>
+    <div>
+      <div class="section-title">파도의 문법 시뮬레이터</div>
+      <div class="section-sub">Wave Grammar — Object on Wave</div>
+    </div>
+  </div>
+
+  <div class="formula-card wave" style="margin-bottom:16px">
+    <div class="formula-label">Active Formulas</div>
+    <div class="formula-main" style="font-size:12px">
+      <span class="var">p(t)</span> <span class="op">=</span> <span class="var">p₀</span> <span class="op">+</span> <span class="fn">W(x,t)</span> <span class="op">·</span> <span class="val">ĵ</span>
+      <span class="op">　</span>
+      <span class="var">Δp</span> <span class="op">=</span> <span class="var">p(t)</span> <span class="op">-</span> <span class="var">p(t-1)</span>
+      <span class="op">　</span>
+      <span class="var">잔상(n)</span> <span class="op">=</span> <span class="var">p(t-n)</span> <span class="op">·</span> <span class="fn">e^</span><span class="op">(</span><span class="op">-</span><span class="val">λn</span><span class="op">)</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="ctrl-group">
+      <label>진폭 A</label>
+      <input type="range" id="w-amp" min="5" max="60" value="28">
+      <span class="ctrl-val" id="w-ampv">28</span>
+    </div>
+    <div class="ctrl-group">
+      <label>파수 k</label>
+      <input type="range" id="w-freq" min="1" max="10" value="3">
+      <span class="ctrl-val" id="w-freqv">3</span>
+    </div>
+    <div class="ctrl-group">
+      <label>속도 ω</label>
+      <input type="range" id="w-spd" min="1" max="10" value="4">
+      <span class="ctrl-val" id="w-spdv">4</span>
+    </div>
+    <div class="ctrl-group">
+      <label>감쇠 λ</label>
+      <input type="range" id="w-decay" min="1" max="20" value="8">
+      <span class="ctrl-val" id="w-decayv">8</span>
+    </div>
+    <div class="ctrl-group">
+      <label>잔상 수</label>
+      <input type="range" id="w-trail" min="3" max="30" value="14">
+      <span class="ctrl-val" id="w-trailv">14</span>
+    </div>
+    <button class="btn" id="w-pause" onclick="wToggle()">Pause</button>
+  </div>
+
+  <div class="canvas-container">
+    <canvas id="c-wave" height="320"></canvas>
+  </div>
+
+  <div class="live-stat">
+    <div class="stat"><span class="sk">p(t)</span><span class="sv" id="w-pt">0, 0</span></div>
+    <div class="stat"><span class="sk">Δp</span><span class="sv" id="w-dp">0, 0</span></div>
+    <div class="stat"><span class="sk">|Δp|</span><span class="sv" id="w-dpm">0.0</span></div>
+    <div class="stat"><span class="sk">t</span><span class="sv" id="w-t">0.00</span></div>
+  </div>
+
+  <div class="eq-block" style="margin-top:20px">
+    <div class="eq-title">파도 문법 구성 규칙</div>
+    <div class="eq-line">속도가 클수록   → <span class="fn">꽃잎이 더 멀리 퍼진다</span>   <span class="cmt">// |Δp| → 꽃 크기</span></div>
+    <div class="eq-line">방향이 바뀔수록 → <span class="fn">꽃의 방향도 따라 바뀐다</span> <span class="cmt">// arg(Δp) → 꽃 방향</span></div>
+    <div class="eq-line">잔상이 겹칠수록 → <span class="fn">꽃의 밀도가 높아진다</span>   <span class="cmt">// Σn → 꽃 밀도</span></div>
+    <div class="eq-line">감쇠가 클수록   → <span class="fn">잔상이 빨리 사라진다</span>   <span class="cmt">// λ → fade speed</span></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 4 — 꽃의 알고리즘
+══════════════════════════════════════════ -->
+<div id="p-flower" class="page">
+<div class="section">
+
+  <div class="section-head">
+    <div class="section-num">04</div>
+    <div>
+      <div class="section-title">꽃의 알고리즘 시뮬레이터</div>
+      <div class="section-sub">Flower Algorithm — From Circle to Blossom</div>
+    </div>
+  </div>
+
+  <div class="formula-card flower" style="margin-bottom:16px">
+    <div class="formula-label">Active Formulas</div>
+    <div class="formula-main" style="font-size:12px">
+      <span class="var">F(u,v,t)</span> <span class="op">=</span> <span class="fn">𝒞ᵢ</span> <span class="op">+</span> <span class="fn">Σₙ αₙ·Δp(t-n)·e^(-λn)</span>
+      <span class="op">　</span>
+      <span class="fn">η</span><span class="op">=</span><span class="var">노이즈</span><span class="op">:</span>
+      <span class="val">0</span><span class="op">=대칭,</span> <span class="val">&gt;0</span><span class="op">=비대칭</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="ctrl-group">
+      <label>원 반지름</label>
+      <input type="range" id="f-r" min="5" max="40" value="18">
+      <span class="ctrl-val" id="f-rv">18</span>
+    </div>
+    <div class="ctrl-group">
+      <label>잔상 수 n</label>
+      <input type="range" id="f-n" min="1" max="24" value="10">
+      <span class="ctrl-val" id="f-nv">10</span>
+    </div>
+    <div class="ctrl-group">
+      <label>감쇠 λ</label>
+      <input type="range" id="f-decay" min="1" max="20" value="6">
+      <span class="ctrl-val" id="f-decayv">6</span>
+    </div>
+    <div class="ctrl-group">
+      <label>노이즈 η</label>
+      <input type="range" id="f-noise" min="0" max="30" value="0">
+      <span class="ctrl-val" id="f-noisev">0</span>
+    </div>
+    <div class="ctrl-group">
+      <label>파도속도</label>
+      <input type="range" id="f-wspd" min="1" max="10" value="4">
+      <span class="ctrl-val" id="f-wspdv">4</span>
+    </div>
+    <div class="ctrl-group">
+      <label>꽃 수</label>
+      <input type="range" id="f-cnt" min="1" max="12" value="5">
+      <span class="ctrl-val" id="f-cntv">5</span>
+    </div>
+    <button class="btn on" id="f-sym-btn" onclick="fToggleSym()">η=0 대칭</button>
+    <button class="btn" id="f-pause" onclick="fToggle()">Pause</button>
+  </div>
+
+  <div class="canvas-container">
+    <canvas id="c-flower" height="380"></canvas>
+  </div>
+
+  <div class="live-stat">
+    <div class="stat"><span class="sk">η (noise)</span><span class="sv" id="f-stat-n">0.00</span></div>
+    <div class="stat"><span class="sk">꽃 크기</span><span class="sv" id="f-stat-s">0.0</span></div>
+    <div class="stat"><span class="sk">밀도</span><span class="sv" id="f-stat-d">0</span></div>
+    <div class="stat"><span class="sk">방향 θ</span><span class="sv" id="f-stat-a">0°</span></div>
+    <div class="stat"><span class="sk">대칭성</span><span class="sv" id="f-stat-sym">대칭</span></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 5 — 통합 시뮬레이션
+══════════════════════════════════════════ -->
+<div id="p-full" class="page">
+<div class="section" style="max-width:1100px">
+
+  <div class="section-head">
+    <div class="section-num">05</div>
+    <div>
+      <div class="section-title">통합 시뮬레이션</div>
+      <div class="section-sub">현무암 → 파도 → 꽃 → 무용수 — Full Pipeline</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="ctrl-group">
+      <label>파도 강도</label>
+      <input type="range" id="i-wamp" min="5" max="50" value="22">
+      <span class="ctrl-val" id="i-wampv">22</span>
+    </div>
+    <div class="ctrl-group">
+      <label>노이즈 η</label>
+      <input type="range" id="i-noise" min="0" max="40" value="0">
+      <span class="ctrl-val" id="i-noisev">0</span>
+    </div>
+    <div class="ctrl-group">
+      <label>감쇠 λ</label>
+      <input type="range" id="i-decay" min="1" max="15" value="5">
+      <span class="ctrl-val" id="i-decayv">5</span>
+    </div>
+    <div class="ctrl-group">
+      <label>잔상 n</label>
+      <input type="range" id="i-trail" min="3" max="20" value="10">
+      <span class="ctrl-val" id="i-trailv">10</span>
+    </div>
+    <div class="ctrl-group">
+      <label>무용수 영향 σ</label>
+      <input type="range" id="i-sigma" min="10" max="120" value="55">
+      <span class="ctrl-val" id="i-sigmav">55</span>
+    </div>
+    <button class="btn on" id="i-dancer-btn" onclick="iToggleDancer()">무용수 ON</button>
+    <button class="btn" id="i-pause" onclick="iToggle()">Pause</button>
+    <button class="btn" onclick="iReset()">Reset</button>
+  </div>
+
+  <div class="canvas-container">
+    <canvas id="c-full" height="480"></canvas>
+  </div>
+
+  <div class="live-stat">
+    <div class="stat"><span class="sk">꽃 수</span><span class="sv" id="i-flowers">0</span></div>
+    <div class="stat"><span class="sk">파도 t</span><span class="sv" id="i-wt">0.00</span></div>
+    <div class="stat"><span class="sk">무용수</span><span class="sv" id="i-dancer-pos">-</span></div>
+    <div class="stat"><span class="sk">η 상태</span><span class="sv" id="i-sym">대칭</span></div>
+    <div class="stat"><span class="sk">총 잔상</span><span class="sv" id="i-total-trail">0</span></div>
+  </div>
+
+  <div class="eq-block" style="margin-top:20px">
+    <div class="eq-title">통합 공식 — 최종 렌더</div>
+    <div class="eq-line"><span class="kw">Basalt</span>  : 𝔹(x,y,z,<span class="dim">τ</span>) → τ 파도로 이전 → 𝔹(x,y,z)</div>
+    <div class="eq-line"><span class="kw">Circles</span> : 𝒞ᵢ(u,v) = <span class="fn">proj₂D</span>(𝔹) → 현무암 원 텍스처 위치</div>
+    <div class="eq-line"><span class="kw">Wave</span>    : Δp(t) = p(t) - p(t-1) + <span class="fn">η</span>·noise(u,v)</div>
+    <div class="eq-line"><span class="kw">Flower</span>  : F = 𝒞ᵢ + Σₙ <span class="fn">αₙ·Δp·e^(-λn)</span></div>
+    <div class="eq-line"><span class="kw">Human</span>   : F′ = F + I₀·<span class="fn">e^(-r²/σ²)</span>  ← 무용수 충격파</div>
+    <div class="eq-line"><span class="kw">Output</span>  : <span class="fn">Luminance(F′)</span> → 2.5D 꽃밭 (밝기 = 깊이)</div>
+  </div>
+
+</div>
+</div>
+
+<footer>
+  <p>꽃의 알고리즘과 파도의 문법 · Formula Visualization System<br>
+  Based on Wave Particle, SIGGRAPH 2007 · Jeju Basalt 4D Ontology<br>
+  Unity VFX Graph Implementation Reference</p>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     PAGE 6 — 꽃 해부 (단일 꽃)
+══════════════════════════════════════════ -->
+<div id="p-vis1" class="page">
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">06</div>
+    <div>
+      <div class="section-title">꽃 형태 예상 — 단일 꽃 해부</div>
+      <div class="section-sub">F(u,v,t) = 𝒞ᵢ + Σ αₙ·Δp·e^(-λn)  ·  대칭 vs 비대칭</div>
+    </div>
+  </div>
+
+  <div class="formula-card flower" style="margin-bottom:16px">
+    <div class="formula-label">이 시뮬레이터가 구현하는 공식</div>
+    <div class="formula-main" style="font-size:12px">
+      <span class="var">η=0</span> <span class="op">→</span> 노이즈 없음 → 원이 순수한 파도운동으로만 겹침 → <span class="fn">완전 대칭 꽃</span><br>
+      <span class="var">η>0</span> <span class="op">→</span> noise(u,v,t) 가산 → 잔상 위치가 흐트러짐 → <span class="fn">비대칭 자연 꽃</span><br>
+      <span class="val">λ</span> 감쇠 커질수록 꽃잎이 조밀, <span class="val">n</span> 잔상 많을수록 꽃잎 밀도 증가
+    </div>
+  </div>
+
+  <div class="canvas-container" style="background:#05040c">
+    <canvas id="c-vis1" height="420"></canvas>
+  </div>
+
+  <div class="vis-ctrl-bar">
+    <div class="vis-ctrl">감쇠 λ<input type="range" id="v1-lam" min="2" max="18" step="1" value="7"><span class="vis-val" id="v1-lv">7</span></div>
+    <div class="vis-ctrl">잔상 n<input type="range" id="v1-n" min="4" max="28" step="1" value="14"><span class="vis-val" id="v1-nv">14</span></div>
+    <div class="vis-ctrl">파도속도<input type="range" id="v1-ws" min="1" max="8" step="1" value="3"><span class="vis-val" id="v1-wv">3</span></div>
+    <div class="vis-ctrl">노이즈 η<input type="range" id="v1-eta" min="0" max="30" step="1" value="0"><span class="vis-val" id="v1-ev">0</span></div>
+    <div class="vis-ctrl">원 반지름<input type="range" id="v1-cr" min="8" max="38" step="1" value="18"><span class="vis-val" id="v1-crv">18</span></div>
+    <span class="vis-badge" id="v1-badge">η=0 대칭꽃</span>
+  </div>
+
+  <div class="eq-block" style="margin-top:12px">
+    <div class="eq-title">꽃 형태 결정 규칙</div>
+    <div class="eq-line">λ(감쇠) 클수록 → <span class="fn">잔상 빨리 사라짐 → 꽃잎 조밀</span></div>
+    <div class="eq-line">n(잔상수) 클수록 → <span class="fn">겹침 증가 → 꽃 밀도 높아짐</span></div>
+    <div class="eq-line">η=0 → <span class="fn">대칭꽃</span>  ·  η>0(상수) → <span class="fn">비대칭 자연꽃</span></div>
+    <div class="eq-line">파도속도 클수록 → <span class="fn">꽃잎이 더 멀리 퍼짐 · 꽃 크기 증가</span></div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 7 — 꽃밭 탑뷰
+══════════════════════════════════════════ -->
+<div id="p-vis2" class="page">
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">07</div>
+    <div>
+      <div class="section-title">꽃밭 예상 — 현무암 텍스처 탑뷰</div>
+      <div class="section-sub">𝒞ᵢ(u,v) 원 좌표 → 각 원에 파도 문법 적용 → 꽃밭</div>
+    </div>
+  </div>
+
+  <div class="formula-card basalt" style="margin-bottom:16px">
+    <div class="formula-label">현무암 원 텍스처 → 꽃밭 배치 원리</div>
+    <div class="formula-main" style="font-size:12px">
+      점선 원 <span class="op">=</span> <span class="fn">𝒞ᵢ(u,v)</span> <span class="op">=</span> 현무암 표면 원형 구멍 위치<br>
+      각 <span class="var">𝒞ᵢ</span>에 서로 다른 파도 위상(phase) 적용 <span class="op">→</span> 꽃마다 방향·크기 다름<br>
+      <span class="val">밝기→깊이</span>: 밝은 잔상(가까운 n) 위, 어두운 잔상(먼 n) 아래 <span class="op">=</span> 2.5D
+    </div>
+  </div>
+
+  <div class="canvas-container" style="background:#05040c">
+    <canvas id="c-vis2" height="460"></canvas>
+  </div>
+
+  <div class="vis-ctrl-bar">
+    <div class="vis-ctrl">파도강도<input type="range" id="v2-amp" min="5" max="50" step="1" value="20"><span class="vis-val" id="v2-ampv">20</span></div>
+    <div class="vis-ctrl">노이즈 η<input type="range" id="v2-eta" min="0" max="40" step="1" value="0"><span class="vis-val" id="v2-etav">0</span></div>
+    <div class="vis-ctrl">감쇠 λ<input type="range" id="v2-lam" min="1" max="15" step="1" value="5"><span class="vis-val" id="v2-lamv">5</span></div>
+    <div class="vis-ctrl">잔상 n<input type="range" id="v2-n" min="3" max="20" step="1" value="10"><span class="vis-val" id="v2-nv">10</span></div>
+    <div class="vis-ctrl">밝기→깊이<input type="range" id="v2-dep" min="0" max="100" step="1" value="60"><span class="vis-val" id="v2-depv">60</span></div>
+    <button class="vis-btn btn-on" id="v2-base-btn" onclick="v2ToggleBase()">기준원</button>
+    <button class="vis-btn" id="v2-wave-btn" onclick="v2ToggleWave()">파도 배경</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 8 — 무용수 충격 + 2.5D
+══════════════════════════════════════════ -->
+<div id="p-vis3" class="page">
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">08</div>
+    <div>
+      <div class="section-title">무용수 충격 · 2.5D 깊이 렌더</div>
+      <div class="section-sub">F′ = F + I₀·e^(-r²/σ²)  ·  luminance → depth</div>
+    </div>
+  </div>
+
+  <div class="formula-card" style="border-left:3px solid #f97316;margin-bottom:16px">
+    <div class="formula-label">무용수 충격파 + 2.5D 깊이 원리</div>
+    <div class="formula-main" style="font-size:12px">
+      <span class="var">impulse(r)</span> <span class="op">=</span> <span class="val">I₀</span><span class="op">·</span><span class="fn">e^(-r²/σ²)</span>
+      <span class="op">　</span><span style="font-size:10px;color:var(--text3)">// 무용수 근처일수록 꽃이 더 세게 반응</span><br>
+      <span class="var">σ</span> <span class="op">=</span> 영향 반경 <span class="op">·</span>
+      <span class="var">I₀</span> <span class="op">=</span> 충격 강도<br>
+      <span class="val">luminance(F)</span> <span class="op">→</span> Z깊이 <span class="op">=</span> 밝은 잔상↑ 어두운 잔상↓ <span class="op">=</span> <span class="fn">2.5D 꽃밭</span>
+    </div>
+  </div>
+
+  <div class="canvas-container" style="background:#05040c">
+    <canvas id="c-vis3" height="480"></canvas>
+  </div>
+
+  <div class="vis-ctrl-bar">
+    <div class="vis-ctrl">무용수 σ<input type="range" id="v3-sig" min="20" max="160" step="1" value="80"><span class="vis-val" id="v3-sigv">80</span></div>
+    <div class="vis-ctrl">충격 I₀<input type="range" id="v3-imp" min="5" max="60" step="1" value="28"><span class="vis-val" id="v3-impv">28</span></div>
+    <div class="vis-ctrl">파도강도<input type="range" id="v3-wav" min="5" max="40" step="1" value="18"><span class="vis-val" id="v3-wavv">18</span></div>
+    <div class="vis-ctrl">노이즈 η<input type="range" id="v3-eta" min="0" max="35" step="1" value="8"><span class="vis-val" id="v3-etav">8</span></div>
+    <div class="vis-ctrl">깊이감<input type="range" id="v3-dep" min="0" max="100" step="1" value="70"><span class="vis-val" id="v3-depv">70</span></div>
+    <button class="vis-btn btn-on" id="v3-dancer-btn" onclick="v3ToggleDancer()">무용수 ON</button>
+    <button class="vis-btn btn-on" id="v3-ring-btn" onclick="v3ToggleRing()">충격파 표시</button>
+  </div>
+
+  <div class="eq-block" style="margin-top:12px">
+    <div class="eq-title">2.5D 깊이 공식</div>
+    <div class="eq-line">depth(n) = <span class="fn">e^(-λn)</span> <span class="cmt">// n 작을수록(최근 잔상) 밝고 위에 위치</span></div>
+    <div class="eq-line">size(n)  = r · (0.1 + depth · 0.9) <span class="cmt">// 가까운 잔상이 더 크게 보임</span></div>
+    <div class="eq-line">color_v  = 0.35 + depth · depthWeight <span class="cmt">// 밝기가 높이를 표현</span></div>
+    <div class="eq-line">impulse 받은 꽃 → <span class="fn">size×(1+I·0.012) · hue shift</span></div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE WP — Wave Particle 원점 시각화
+══════════════════════════════════════════ -->
+<div id="p-wp" class="page">
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">WP</div>
+    <div>
+      <div class="section-title">Wave Particle 논문 원점 — 구의 프레임별 위치</div>
+      <div class="section-sub">Di(x,t) = aᵢ · Wᵢ(|x − xᵢ(t)|) · Π(|x − xᵢ(t)| / 2rᵢ)  — SIGGRAPH 2007</div>
+    </div>
+  </div>
+
+  <div class="formula-card wave" style="margin-bottom:16px">
+    <div class="formula-label">논문 핵심 공식 — Yuksel, House, Keyser 2007</div>
+    <div class="formula-main" style="font-size:12px">
+      <span class="var">Di</span><span class="op">(</span><span class="var">x,t</span><span class="op">)</span>
+      <span class="op">=</span>
+      <span class="val">aᵢ</span>
+      <span class="op">/2 ·</span>
+      <span class="op">(</span><span class="fn">cos</span><span class="op">(</span><span class="var">π|x−xᵢ(t)|</span><span class="op">/</span><span class="val">rᵢ</span><span class="op">)</span>
+      <span class="op">+1) ·</span>
+      <span class="fn">Π</span><span class="op">(</span><span class="var">|x−xᵢ(t)|</span><span class="op">/2</span><span class="val">rᵢ</span><span class="op">)</span><br>
+      <span class="var">xᵢ(t)</span> <span class="op">=</span> 파도 위 구(球)의 시간 t에서의 위치<br>
+      <span style="font-size:10px;color:var(--text3)">→ 이 구의 매 프레임 위치가 겹쳐 잔상이 됨 → 그것이 꽃의 알고리즘 원점</span>
+    </div>
+  </div>
+
+  <div class="canvas-container" style="background:#04030a">
+    <canvas id="c-wp" height="400"></canvas>
+  </div>
+
+  <div class="vis-ctrl-bar">
+    <div class="vis-ctrl">파도 진폭<input type="range" id="wp-amp" min="10" max="80" step="1" value="40"><span class="vis-val" id="wp-ampv">40</span></div>
+    <div class="vis-ctrl">파수 k<input type="range" id="wp-k" min="1" max="8" step="1" value="3"><span class="vis-val" id="wp-kv">3</span></div>
+    <div class="vis-ctrl">속도 ω<input type="range" id="wp-w" min="1" max="8" step="1" value="3"><span class="vis-val" id="wp-wv">3</span></div>
+    <div class="vis-ctrl">잔상 수<input type="range" id="wp-tr" min="3" max="30" step="1" value="16"><span class="vis-val" id="wp-trv">16</span></div>
+    <div class="vis-ctrl">구 반지름 r<input type="range" id="wp-r" min="6" max="40" step="1" value="18"><span class="vis-val" id="wp-rv">18</span></div>
+    <div class="vis-ctrl">감쇠 λ<input type="range" id="wp-lam" min="2" max="20" step="1" value="8"><span class="vis-val" id="wp-lamv">8</span></div>
+    <button class="vis-btn btn-on" id="wp-wave-btn" onclick="wpToggleWave()">파도 표시</button>
+    <button class="vis-btn btn-on" id="wp-trail-btn" onclick="wpToggleTrail()">잔상 표시</button>
+    <button class="vis-btn" id="wp-pause-btn" onclick="wpTogglePause()">Pause</button>
+  </div>
+
+  <div class="eq-block" style="margin-top:12px">
+    <div class="eq-title">이미지 속 장면의 공식 해석</div>
+    <div class="eq-line">파도 위 구의 위치 <span class="fn">xᵢ(t)</span> = (x₀, W(x₀,t)) <span class="cmt">// 수면 높이를 따라 이동</span></div>
+    <div class="eq-line">매 프레임 위치 기록 → <span class="fn">반투명 구들이 겹쳐 보임</span> <span class="cmt">// 논문 이미지의 원형</span></div>
+    <div class="eq-line">이 겹침 구조 → <span class="fn">잔상 = Σ Di(x, t-n) · e^(-λn)</span> <span class="cmt">// 꽃으로 변환됨</span></div>
+    <div class="eq-line">구의 반지름 rᵢ → <span class="fn">꽃 중심원의 크기</span> · 파도 진폭 → <span class="fn">꽃잎 퍼짐</span></div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE MASK — 현무암 텍스처 → 꽃 생성 과정
+══════════════════════════════════════════ -->
+<div id="p-mask" class="page">
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">TX</div>
+    <div>
+      <div class="section-title">현무암 텍스처 → 꽃 생성 — 4단계 변환</div>
+      <div class="section-sub">라이다 스캔 → 원 마스크 단순화 → 파도 문법 적용 → 꽃밭</div>
+    </div>
+  </div>
+
+  <div class="formula-card basalt" style="margin-bottom:16px">
+    <div class="formula-label">변환 파이프라인 — 이미지 참조</div>
+    <div class="formula-main" style="font-size:12px">
+      <span class="dim4">STEP 1</span> <span class="op">:</span> 현무암 3D 스캔 → 원형 구멍 추출 → <span class="fn">𝒞ᵢ(u,v,rᵢ)</span> 좌표+반지름<br>
+      <span class="dim4">STEP 2</span> <span class="op">:</span> 흑백 마스크 단순화 → 원들만 남김 → <span class="fn">불규칙 보로노이 분포</span><br>
+      <span class="dim4">STEP 3</span> <span class="op">:</span> 각 원에 Wave Particle <span class="fn">Di</span> 적용 → 잔상 겹침 → <span class="fn">꽃 형태</span><br>
+      <span class="dim4">STEP 4</span> <span class="op">:</span> 루미넌스 → 깊이 매핑 → <span class="fn">2.5D 꽃밭</span>
+    </div>
+  </div>
+
+  <div class="canvas-container" style="background:#04030a">
+    <canvas id="c-mask" height="440"></canvas>
+  </div>
+
+  <div class="vis-ctrl-bar">
+    <div class="vis-ctrl">변환 단계<input type="range" id="mk-step" min="0" max="3" step="1" value="0"><span class="vis-val" id="mk-stepv">0</span></div>
+    <div class="vis-ctrl">파도강도<input type="range" id="mk-amp" min="5" max="50" step="1" value="22"><span class="vis-val" id="mk-ampv">22</span></div>
+    <div class="vis-ctrl">노이즈 η<input type="range" id="mk-eta" min="0" max="30" step="1" value="0"><span class="vis-val" id="mk-etav">0</span></div>
+    <div class="vis-ctrl">루미넌스↔깊이<input type="range" id="mk-lum" min="0" max="100" step="1" value="55"><span class="vis-val" id="mk-lumv">55</span></div>
+    <button class="vis-btn btn-on" id="mk-auto-btn" onclick="mkToggleAuto()">자동 진행</button>
+    <button class="vis-btn" id="mk-pause-btn" onclick="mkTogglePause()">Pause</button>
+  </div>
+
+  <div class="live-stat" style="margin-top:8px">
+    <div class="stat"><span class="sk">현재 단계</span><span class="sv" id="mk-stage-label">STEP 0 — 현무암 원 스캔</span></div>
+    <div class="stat"><span class="sk">원 개수</span><span class="sv" id="mk-circle-cnt">0</span></div>
+  </div>
+</div>
+</div>
+
+<script>
+// ════════════════════════════════════════
+//  UTILITIES
+// ════════════════════════════════════════
+function showPage(id, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+window.showPage = showPage;
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.nav-tab[data-page]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      showPage(btn.getAttribute('data-page'), btn);
+    });
+  });
+});
+
+function hsvRgb(h,s,v){
+  h=((h%1)+1)%1;
+  let r,g,b,i=Math.floor(h*6),f=h*6-i,p=v*(1-s),q=v*(1-f*s),t2=v*(1-(1-f)*s);
+  switch(i%6){case 0:r=v,g=t2,b=p;break;case 1:r=q,g=v,b=p;break;
+              case 2:r=p,g=v,b=t2;break;case 3:r=p,g=q,b=v;break;
+              case 4:r=t2,g=p,b=v;break;case 5:r=v,g=p,b=q;break;}
+  return[Math.round(r*255),Math.round(g*255),Math.round(b*255)];
+}
+
+function ctrl(id,vId){
+  const el=document.getElementById(id);
+  const vEl=document.getElementById(vId);
+  if(vEl) vEl.textContent=el.value;
+  el.oninput=()=>{ if(vEl) vEl.textContent=el.value; };
+  return ()=>+el.value;
+}
+
+function noise2d(x,y){ return Math.sin(x*127.1+y*311.7)*0.5+0.5; }
+
+// ════════════════════════════════════════
+//  PAGE 2 — DIMENSION PIPELINE ANIMATION
+// ════════════════════════════════════════
+(function(){
+  const cv=document.getElementById('c-dim');
+  if(!cv) return;
+  const ctx=cv.getContext('2d');
+  function rsz(){ cv.width=cv.parentElement.clientWidth||800; cv.height=360; }
+  rsz(); window.addEventListener('resize',rsz);
+  let t=0, hue=0;
+
+  const stages=[
+    { label:'4D 현무암', sub:'𝔹(x,y,z,τ)', color:'#c084fc', x:0.08 },
+    { label:'파도에 띄움', sub:'τ → 파도', color:'#e8ff47', x:0.31 },
+    { label:'원 텍스처', sub:'𝒞ᵢ(u,v)', color:'#47cfff', x:0.54 },
+    { label:'꽃 생성', sub:'F(u,v,t)', color:'#ff6b9d', x:0.77 },
+  ];
+
+  function draw(){
+    t+=0.012; hue+=0.001;
+    const W=cv.width, H=cv.height;
+    ctx.fillStyle='rgba(4,3,10,0.25)';
+    ctx.fillRect(0,0,W,H);
+
+    // flow line
+    ctx.strokeStyle='rgba(255,255,255,0.04)';
+    ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(W*0.08,H/2);
+    ctx.lineTo(W*0.92,H/2);
+    ctx.stroke();
+
+    stages.forEach((s,i)=>{
+      const sx=W*s.x+W*0.07;
+      const sy=H/2;
+      const pulse=Math.sin(t+i*1.2)*0.15+0.85;
+
+      if(i<stages.length-1){
+        const ns=stages[i+1];
+        const nx=W*ns.x+W*0.07;
+        const prog=(Math.sin(t*1.5-i*0.8)*0.5+0.5);
+        const px=sx+(nx-sx)*prog;
+        const [r,g,b]=hsvRgb(hue+i*0.12,0.8,0.9);
+        ctx.beginPath();
+        ctx.arc(px,sy,4,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${r},${g},${b},0.9)`;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(sx+30,sy);
+        ctx.lineTo(nx-30,sy);
+        ctx.strokeStyle=`rgba(${r},${g},${b},0.15)`;
+        ctx.lineWidth=2;
+        ctx.stroke();
+      }
+
+      // node circle
+      const r=28*pulse;
+      ctx.beginPath();
+      ctx.arc(sx,sy,r,0,Math.PI*2);
+      ctx.fillStyle=s.color+'18';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(sx,sy,r,0,Math.PI*2);
+      ctx.strokeStyle=s.color+'60';
+      ctx.lineWidth=1.5;
+      ctx.stroke();
+
+      // inner
+      ctx.beginPath();
+      ctx.arc(sx,sy,8,0,Math.PI*2);
+      ctx.fillStyle=s.color;
+      ctx.fill();
+
+      // label
+      ctx.fillStyle=s.color;
+      ctx.font='bold 13px "Noto Serif KR",serif';
+      ctx.textAlign='center';
+      ctx.fillText(s.label,sx,sy-44);
+      ctx.fillStyle='rgba(255,255,255,0.35)';
+      ctx.font='11px "Space Mono",monospace';
+      ctx.fillText(s.sub,sx,sy+52);
+
+      // dim number
+      ctx.fillStyle=s.color+'80';
+      ctx.font='bold 28px "Bebas Neue",sans-serif';
+      ctx.fillText(i===3?'꽃':(4-i)+'D',sx,sy+90);
+    });
+
+    // τ arrow annotation
+    ctx.save();
+    ctx.fillStyle='rgba(232,255,71,0.5)';
+    ctx.font='10px "Space Mono",monospace';
+    ctx.textAlign='center';
+    ctx.fillText('τ 주체성 이전',W*0.31+W*0.07,H/2-62);
+    ctx.restore();
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ════════════════════════════════════════
+//  PAGE 3 — WAVE SIMULATOR
+// ════════════════════════════════════════
+(function(){
+  const cv=document.getElementById('c-wave');
+  if(!cv) return;
+  const ctx=cv.getContext('2d');
+  function rsz(){ cv.width=cv.parentElement.clientWidth||800; cv.height=320; }
+  rsz(); window.addEventListener('resize',rsz);
+
+  const gAmp=ctrl('w-amp','w-ampv');
+  const gFreq=ctrl('w-freq','w-freqv');
+  const gSpd=ctrl('w-spd','w-spdv');
+  const gDecay=ctrl('w-decay','w-decayv');
+  const gTrail=ctrl('w-trail','w-trailv');
+
+  let wt=0, paused=false, history=[], hue=0;
+  window.wToggle=()=>{
+    paused=!paused;
+    document.getElementById('w-pause').textContent=paused?'Resume':'Pause';
+  };
+
+  function waveY(x,t){ return Math.sin(x*0.018*gFreq()-t*gSpd()*0.08)*gAmp(); }
+
+  function draw(){
+    if(!paused){ wt+=0.016; hue+=0.002; }
+    const W=cv.width, H=cv.height;
+    const cx=W*0.5, cy=H*0.5;
+
+    ctx.fillStyle='rgba(4,3,10,0.2)';
+    ctx.fillRect(0,0,W,H);
+
+    // wave surface
+    ctx.beginPath();
+    for(let x=0;x<W;x++){
+      const y=cy+waveY(x,wt);
+      x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle='rgba(71,207,255,0.3)';
+    ctx.lineWidth=1.5;
+    ctx.stroke();
+
+    // secondary wave
+    ctx.beginPath();
+    for(let x=0;x<W;x++){
+      const y=cy+waveY(x,wt)*0.5+waveY(x*1.3,wt*0.7)*0.4;
+      x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle='rgba(71,207,255,0.1)';
+    ctx.lineWidth=1;
+    ctx.stroke();
+
+    // object position
+    const objX=cx;
+    const objY=cy+waveY(objX,wt);
+    if(!paused) history.push({x:objX,y:objY,h:hue});
+    const maxTrail=gTrail()*3;
+    if(history.length>maxTrail) history=history.slice(-maxTrail);
+
+    const decay=gDecay()/100;
+
+    // trail (잔상)
+    for(let i=0;i<history.length;i++){
+      const age=history.length-i;
+      const alpha=Math.exp(-decay*age*2.5)*0.8;
+      if(alpha<0.005) continue;
+      const [r,g,b]=hsvRgb(history[i].h,0.7,0.9);
+      ctx.beginPath();
+      ctx.arc(history[i].x,history[i].y,3+age*0.05,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${r},${g},${b},${alpha})`;
+      ctx.fill();
+    }
+
+    // current object (오브제)
+    const [cr,cg,cb]=hsvRgb(hue,0.7,1);
+    ctx.beginPath();
+    ctx.arc(objX,objY,10,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${cr},${cg},${cb},0.9)`;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(objX,objY,20,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(${cr},${cg},${cb},0.2)`;
+    ctx.lineWidth=1;
+    ctx.stroke();
+
+    // Δp arrow
+    if(history.length>1){
+      const prev=history[history.length-2];
+      const cur=history[history.length-1];
+      const dx=cur.x-prev.x, dy=cur.y-prev.y;
+      const mag=Math.hypot(dx,dy);
+      ctx.beginPath();
+      ctx.moveTo(objX,objY);
+      ctx.lineTo(objX+dx*8,objY+dy*8);
+      ctx.strokeStyle='rgba(232,255,71,0.8)';
+      ctx.lineWidth=2;
+      ctx.stroke();
+
+      document.getElementById('w-dp').textContent=`${dx.toFixed(1)}, ${dy.toFixed(1)}`;
+      document.getElementById('w-dpm').textContent=mag.toFixed(2);
+    }
+    document.getElementById('w-pt').textContent=`${Math.round(objX)}, ${Math.round(objY)}`;
+    document.getElementById('w-t').textContent=wt.toFixed(2);
+
+    // labels
+    ctx.fillStyle='rgba(71,207,255,0.4)';
+    ctx.font='10px "Space Mono",monospace';
+    ctx.textAlign='left';
+    ctx.fillText('W(x,t) = A·sin(kx - ωt)',12,20);
+    ctx.fillStyle='rgba(232,255,71,0.4)';
+    ctx.fillText('Δp(t) = 변위벡터',12,36);
+    ctx.fillStyle='rgba(255,107,157,0.4)';
+    ctx.fillText(`잔상수 n = ${Math.min(history.length,gTrail())}`,12,52);
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ════════════════════════════════════════
+//  PAGE 4 — FLOWER ALGORITHM
+// ════════════════════════════════════════
+(function(){
+  const cv=document.getElementById('c-flower');
+  if(!cv) return;
+  const ctx=cv.getContext('2d');
+  function rsz(){ cv.width=cv.parentElement.clientWidth||800; cv.height=380; }
+  rsz(); window.addEventListener('resize',rsz);
+
+  const gR=ctrl('f-r','f-rv');
+  const gN=ctrl('f-n','f-nv');
+  const gDecay=ctrl('f-decay','f-decayv');
+  const gNoise=ctrl('f-noise','f-noisev');
+  const gWspd=ctrl('f-wspd','f-wspdv');
+  const gCnt=ctrl('f-cnt','f-cntv');
+
+  let ft=0, paused=false, hue=0, symMode=true;
+  window.fToggleSym=()=>{
+    symMode=!symMode;
+    const btn=document.getElementById('f-sym-btn');
+    btn.textContent=symMode?'η=0 대칭':'η>0 비대칭';
+    btn.classList.toggle('on',symMode);
+    document.getElementById('f-noise').value=symMode?0:10;
+    document.getElementById('f-noisev').textContent=symMode?'0':'10';
+  };
+  window.fToggle=()=>{
+    paused=!paused;
+    document.getElementById('f-pause').textContent=paused?'Resume':'Pause';
+  };
+
+  // fixed flower centers (현무암 원 텍스처 위치 시뮬레이션)
+  let centers=[];
+  function buildCenters(){
+    const W=cv.width, H=cv.height;
+    centers=[];
+    const cnt=gCnt();
+    for(let i=0;i<cnt;i++){
+      const angle=(i/cnt)*Math.PI*2;
+      const r=Math.min(W,H)*0.28;
+      centers.push({
+        x:W/2+Math.cos(angle)*r,
+        y:H/2+Math.sin(angle)*r,
+        phase:Math.random()*Math.PI*2,
+        hoff:Math.random()
+      });
+    }
+    centers.push({x:W/2,y:H/2,phase:0,hoff:0.5}); // center
+  }
+  window.addEventListener('resize',buildCenters);
+
+  function drawFlower(ctx, cx, cy, baseR, history, hueBase, noiseAmt){
+    const n=history.length;
+    const decay=gDecay()/100;
+
+    for(let i=0;i<n;i++){
+      const age=n-i;
+      const alpha=Math.exp(-decay*age*1.5)*0.85;
+      if(alpha<0.006) continue;
+
+      const h=history[i];
+      const dx=h.dx||0, dy=h.dy||0;
+      const nEta=noiseAmt*(noise2d(cx*0.05+i*0.3,cy*0.05)*2-1);
+
+      const px=cx+dx*(age*0.3)+(noiseAmt>0?nEta:0);
+      const py=cy+dy*(age*0.3)+(noiseAmt>0?nEta*0.8:0);
+
+      const [r,g,b]=hsvRgb(hueBase+age*0.008,0.85,0.9);
+      const sz=baseR*(0.1+Math.exp(-decay*age)*0.9)*(1+Math.abs(h.mag||0)*0.02);
+
+      // flower circle (꽃 원)
+      ctx.beginPath();
+      ctx.arc(px,py,sz,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${r},${g},${b},${alpha*0.35})`;
+      ctx.fill();
+      ctx.strokeStyle=`rgba(${r},${g},${b},${alpha*0.7})`;
+      ctx.lineWidth=0.8;
+      ctx.stroke();
+    }
+
+    // 현재 원 (basalt circle base)
+    ctx.beginPath();
+    ctx.arc(cx,cy,baseR,0,Math.PI*2);
+    const [r,g,b]=hsvRgb(hueBase,0.6,0.5);
+    ctx.strokeStyle=`rgba(${r},${g},${b},0.3)`;
+    ctx.lineWidth=1;
+    ctx.setLineDash([3,3]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.arc(cx,cy,3,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${r},${g},${b},0.6)`;
+    ctx.fill();
+  }
+
+  let flowerHistories=[];
+
+  function initHistories(){
+    buildCenters();
+    flowerHistories=centers.map(()=>[]);
+  }
+  initHistories();
+
+  function draw(){
+    if(!paused){ ft+=0.02; hue+=0.0015; }
+    const W=cv.width, H=cv.height;
+
+    ctx.fillStyle='rgba(4,3,10,0.22)';
+    ctx.fillRect(0,0,W,H);
+
+    if(centers.length!==gCnt()+1){ initHistories(); }
+
+    const noiseAmt=gNoise();
+    const wSpd=gWspd()*0.04;
+    const baseR=gR();
+    const maxN=gN();
+
+    centers.forEach((c,i)=>{
+      const phase=c.phase;
+      const wx=Math.cos(ft*wSpd+phase)*22+Math.cos(ft*wSpd*1.3+phase)*8;
+      const wy=Math.sin(ft*wSpd+phase)*16+Math.sin(ft*wSpd*0.7+phase)*6;
+      const mag=Math.hypot(wx,wy);
+
+      if(!paused){
+        flowerHistories[i].push({dx:wx,dy:wy,mag});
+        if(flowerHistories[i].length>maxN*4) flowerHistories[i].shift();
+      }
+
+      drawFlower(ctx,c.x,c.y,baseR,
+        flowerHistories[i].slice(-maxN),
+        hue+c.hoff,noiseAmt);
+    });
+
+    // labels
+    ctx.fillStyle='rgba(255,255,255,0.18)';
+    ctx.font='10px "Space Mono",monospace';
+    ctx.textAlign='left';
+    const noiseState=noiseAmt===0?'η=0 대칭꽃':'η='+noiseAmt+' 비대칭꽃';
+    ctx.fillText(noiseState,12,20);
+    ctx.fillText('𝒞ᵢ = 현무암 원 위치 (점선)',12,36);
+
+    // stats
+    const totalTrail=flowerHistories.reduce((s,h)=>s+h.length,0);
+    const avgMag=flowerHistories.length>0&&flowerHistories[0].length>0
+      ?Math.hypot(flowerHistories[0].slice(-1)[0].dx,flowerHistories[0].slice(-1)[0].dy):0;
+    const ang=flowerHistories[0]&&flowerHistories[0].length>0
+      ?Math.atan2(flowerHistories[0].slice(-1)[0].dy,flowerHistories[0].slice(-1)[0].dx):0;
+
+    document.getElementById('f-stat-n').textContent=noiseAmt.toFixed(1);
+    document.getElementById('f-stat-s').textContent=(baseR+avgMag*0.3).toFixed(1);
+    document.getElementById('f-stat-d').textContent=totalTrail;
+    document.getElementById('f-stat-a').textContent=Math.round(ang*180/Math.PI)+'°';
+    document.getElementById('f-stat-sym').textContent=noiseAmt===0?'대칭':'비대칭';
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ════════════════════════════════════════
+//  PAGE 5 — INTEGRATED SIMULATION
+// ════════════════════════════════════════
+(function(){
+  const cv=document.getElementById('c-full');
+  if(!cv) return;
+  const ctx=cv.getContext('2d');
+  function rsz(){ cv.width=cv.parentElement.clientWidth||900; cv.height=480; }
+  rsz(); window.addEventListener('resize',rsz);
+
+  const gWamp=ctrl('i-wamp','i-wampv');
+  const gNoise=ctrl('i-noise','i-noisev');
+  const gDecay=ctrl('i-decay','i-decayv');
+  const gTrail=ctrl('i-trail','i-trailv');
+  const gSigma=ctrl('i-sigma','i-sigmav');
+
+  let it=0, paused=false, hue=0, dancerOn=true;
+  let dancerX=0, dancerY=0, dancerT=0;
+  let basaltCircles=[], histories=[];
+
+  window.iToggleDancer=()=>{
+    dancerOn=!dancerOn;
+    document.getElementById('i-dancer-btn').classList.toggle('on',dancerOn);
+    document.getElementById('i-dancer-btn').textContent=dancerOn?'무용수 ON':'무용수 OFF';
+  };
+  window.iToggle=()=>{
+    paused=!paused;
+    document.getElementById('i-pause').textContent=paused?'Resume':'Pause';
+  };
+  window.iReset=()=>{ histories=basaltCircles.map(()=>[]); };
+
+  // 현무암 원 텍스처 좌표 생성 (실제처럼 분포)
+  function buildBasalt(){
+    const W=cv.width, H=cv.height;
+    basaltCircles=[];
+    // 보로노이 느낌의 불규칙 분포
+    const seed=[
+      [0.2,0.25],[0.5,0.18],[0.78,0.22],
+      [0.12,0.5],[0.38,0.45],[0.62,0.42],[0.85,0.48],
+      [0.25,0.72],[0.5,0.68],[0.75,0.75],
+      [0.5,0.5], // center
+    ];
+    seed.forEach(([fx,fy])=>{
+      const jx=(Math.random()-0.5)*0.08;
+      const jy=(Math.random()-0.5)*0.08;
+      basaltCircles.push({
+        x:(fx+jx)*W, y:(fy+jy)*H,
+        r:8+Math.random()*14,
+        phase:Math.random()*Math.PI*2,
+        hoff:Math.random()
+      });
+    });
+    histories=basaltCircles.map(()=>[]);
+  }
+  buildBasalt();
+  window.addEventListener('resize',()=>{ buildBasalt(); });
+
+  function draw(){
+    if(!paused){ it+=0.012; hue+=0.001; dancerT+=0.018; }
+    const W=cv.width, H=cv.height;
+
+    // trail fade
+    ctx.fillStyle='rgba(4,3,10,0.18)';
+    ctx.fillRect(0,0,W,H);
+
+    // ── 파도 배경 레이어 ──
+    for(let x=0;x<W;x+=2){
+      const wy=Math.sin(x*0.015*3-it*4*0.08)*gWamp()*0.4+Math.sin(x*0.02+it)*gWamp()*0.2;
+      const alpha=Math.abs(wy/gWamp())*0.04;
+      ctx.fillStyle=`rgba(30,80,160,${alpha})`;
+      ctx.fillRect(x,0,2,H);
+    }
+
+    // ── 무용수 위치 (모션캡처 시뮬레이션) ──
+    if(dancerOn && !paused){
+      dancerX=W*0.5+Math.sin(dancerT*0.7)*W*0.22+Math.sin(dancerT*1.4)*W*0.05;
+      dancerY=H*0.5+Math.cos(dancerT*0.5)*H*0.18+Math.cos(dancerT*1.1)*H*0.06;
+    }
+
+    const decay=gDecay()/100;
+    const maxN=gTrail();
+    const noiseAmt=gNoise();
+    const sigma=gSigma();
+    let totalTrail=0;
+
+    // ── 꽃 렌더 ──
+    basaltCircles.forEach((c,i)=>{
+      // wave particle influence at this circle
+      const wPhase=c.phase;
+      const wAmp=gWamp();
+      const wx=Math.cos(it*0.04*4+wPhase)*wAmp+Math.sin(it*0.04*2.7+wPhase*1.3)*wAmp*0.4;
+      const wy=Math.sin(it*0.04*4+wPhase)*wAmp*0.65+Math.cos(it*0.04*1.8+wPhase)*wAmp*0.25;
+
+      // 무용수 충격파 impulse(r) = I₀·e^(-r²/σ²)
+      const dr=Math.hypot(c.x-dancerX,c.y-dancerY);
+      const impulse=dancerOn?Math.exp(-(dr*dr)/(sigma*sigma))*wAmp*0.6:0;
+      const iAngle=Math.atan2(c.y-dancerY,c.x-dancerX);
+
+      const finalDx=wx+impulse*Math.cos(iAngle)+(noiseAmt>0?(noise2d(c.x*0.01+it,c.y*0.01)*2-1)*noiseAmt:0);
+      const finalDy=wy+impulse*Math.sin(iAngle)+(noiseAmt>0?(noise2d(c.y*0.01+it,c.x*0.01)*2-1)*noiseAmt*0.7:0);
+
+      if(!paused){
+        histories[i].push({dx:finalDx,dy:finalDy,imp:impulse});
+        if(histories[i].length>maxN*3) histories[i].shift();
+      }
+      totalTrail+=histories[i].length;
+
+      const trail=histories[i].slice(-maxN);
+      trail.forEach((h,j)=>{
+        const age=trail.length-j;
+        const alpha=Math.exp(-decay*age*1.2)*0.8;
+        if(alpha<0.005) return;
+        const impBoost=1+h.imp*0.04;
+        const sz=c.r*Math.exp(-decay*age*0.6)*impBoost;
+        const px=c.x+h.dx*(age*0.22);
+        const py=c.y+h.dy*(age*0.22);
+        const [r,g,b]=hsvRgb(hue+c.hoff+j*0.005+h.imp*0.03,0.85,0.95);
+        ctx.beginPath();
+        ctx.arc(px,py,sz,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${r},${g},${b},${alpha*0.4})`;
+        ctx.fill();
+        ctx.strokeStyle=`rgba(${r},${g},${b},${alpha*0.8})`;
+        ctx.lineWidth=0.6;
+        ctx.stroke();
+      });
+
+      // basalt circle base (현무암 원 텍스처 표시)
+      const [br,bg,bb]=hsvRgb(hue+c.hoff,0.4,0.35);
+      ctx.beginPath();
+      ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(${br},${bg},${bb},0.25)`;
+      ctx.lineWidth=0.8;
+      ctx.setLineDash([2,4]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    });
+
+    // ── 무용수 실루엣 ──
+    if(dancerOn){
+      // body (투명한 덩어리)
+      const dGrad=ctx.createRadialGradient(dancerX,dancerY,0,dancerX,dancerY,sigma*0.4);
+      dGrad.addColorStop(0,'rgba(255,255,255,0.06)');
+      dGrad.addColorStop(0.5,'rgba(200,180,255,0.03)');
+      dGrad.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=dGrad;
+      ctx.fillRect(0,0,W,H);
+
+      // impulse radius ring
+      ctx.beginPath();
+      ctx.arc(dancerX,dancerY,sigma,0,Math.PI*2);
+      ctx.strokeStyle='rgba(255,200,255,0.08)';
+      ctx.lineWidth=1;
+      ctx.setLineDash([4,8]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // dancer dot
+      ctx.beginPath();
+      ctx.arc(dancerX,dancerY,5,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,0.4)';
+      ctx.fill();
+
+      // label
+      ctx.fillStyle='rgba(255,200,255,0.3)';
+      ctx.font='9px "Space Mono",monospace';
+      ctx.textAlign='center';
+      ctx.fillText('H(x,y,z,t)',dancerX,dancerY-14);
+    }
+
+    // ── info labels ──
+    ctx.fillStyle='rgba(255,255,255,0.15)';
+    ctx.font='10px "Space Mono",monospace';
+    ctx.textAlign='left';
+    ctx.fillText('𝒞ᵢ = 현무암 원 텍스처 (점선)',10,18);
+    ctx.fillText('F(u,v,t) = 꽃 잔상 겹침',10,34);
+    if(dancerOn) ctx.fillText('impulse(r) = 무용수 충격파 반경',10,50);
+
+    // ── stats ──
+    document.getElementById('i-flowers').textContent=basaltCircles.length;
+    document.getElementById('i-wt').textContent=it.toFixed(2);
+    document.getElementById('i-dancer-pos').textContent=dancerOn?`${Math.round(dancerX)},${Math.round(dancerY)}`:'OFF';
+    document.getElementById('i-sym').textContent=noiseAmt===0?'대칭':'비대칭 η='+noiseAmt;
+    document.getElementById('i-total-trail').textContent=totalTrail;
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ═══════════════════════════════════════════════════════
+//  PAGE 6 — 꽃 해부 (단일 꽃: 대칭 vs 비대칭)
+// ═══════════════════════════════════════════════════════
+(function(){
+  const cv = document.getElementById('c-vis1');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  function rsz(){ cv.width = cv.parentElement.clientWidth || 800; cv.height = 420; }
+  rsz(); window.addEventListener('resize', rsz);
+
+  function g(id){ return +document.getElementById(id).value; }
+  ['v1-lam','v1-n','v1-ws','v1-eta','v1-cr'].forEach(id => {
+    const vm = {'v1-lam':'v1-lv','v1-n':'v1-nv','v1-ws':'v1-wv','v1-eta':'v1-ev','v1-cr':'v1-crv'};
+    document.getElementById(id).oninput = function(){
+      document.getElementById(vm[id]).textContent = this.value;
+      if (id === 'v1-eta') {
+        const eta = +this.value;
+        const badge = document.getElementById('v1-badge');
+        badge.textContent = eta === 0 ? 'η=0 대칭꽃' : 'η=' + eta + ' 비대칭꽃';
+        badge.style.color = eta === 0 ? 'var(--accent3)' : 'var(--accent2)';
+        badge.style.borderColor = eta === 0 ? 'rgba(71,207,255,0.3)' : 'rgba(255,107,157,0.3)';
+        badge.style.background = eta === 0 ? 'rgba(71,207,255,0.08)' : 'rgba(255,107,157,0.08)';
+      }
+    };
+  });
+
+  function hsvRgb(h,s,v){
+    h=((h%1)+1)%1;
+    let r,gg,b,i=Math.floor(h*6),f=h*6-i,p=v*(1-s),q=v*(1-f*s),t=v*(1-(1-f)*s);
+    switch(i%6){case 0:r=v,gg=t,b=p;break;case 1:r=q,gg=v,b=p;break;
+                case 2:r=p,gg=v,b=t;break;case 3:r=p,gg=q,b=v;break;
+                case 4:r=t,gg=p,b=v;break;case 5:r=v,gg=p,b=q;break;}
+    return [Math.round(r*255),Math.round(gg*255),Math.round(b*255)];
+  }
+  function nh(x,y){ let n=Math.sin(x*127.1+y*311.7)*43758.5; return n-Math.floor(n); }
+
+  let T=0, hue=0;
+
+  function drawFlower(cx, cy, eta){
+    const lam = g('v1-lam')/100*2.8;
+    const maxN = g('v1-n');
+    const wsp  = g('v1-ws')*0.05;
+    const baseR= g('v1-cr');
+    for (let n=maxN; n>=1; n--) {
+      const tf = T - n*0.32;
+      const al = Math.exp(-lam*n/maxN*3.2)*0.9;
+      if (al < 0.005) continue;
+      const nx = eta>0 ? (nh(cx*0.02+n*0.6, tf*0.25)*2-1)*eta : 0;
+      const ny = eta>0 ? (nh(cy*0.02+n*0.5+2, tf*0.25)*2-1)*eta*0.75 : 0;
+      const dx = Math.cos(tf*wsp)*24*(n/maxN) + Math.cos(tf*wsp*1.6+1.2)*10*(n/maxN) + nx;
+      const dy = Math.sin(tf*wsp)*18*(n/maxN) + Math.sin(tf*wsp*0.85+0.6)*8*(n/maxN) + ny;
+      const px = cx + dx*(1+n*0.07);
+      const py = cy + dy*(1+n*0.055);
+      const sz = baseR*(0.12 + Math.exp(-lam*n/maxN*2)*0.88);
+      const [r,gg,b] = hsvRgb(hue+n*0.006+(eta>0?nh(n,n*0.3)*0.12:0), 0.82, 0.95);
+      ctx.beginPath(); ctx.arc(px,py,sz,0,Math.PI*2);
+      ctx.fillStyle   = `rgba(${r},${gg},${b},${al*0.25})`; ctx.fill();
+      ctx.strokeStyle = `rgba(${r},${gg},${b},${al*0.7})`; ctx.lineWidth=0.9; ctx.stroke();
+      ctx.beginPath(); ctx.arc(px,py,sz*0.2,0,Math.PI*2);
+      ctx.fillStyle = `rgba(${r},${gg},${b},${al})`; ctx.fill();
+    }
+    const [r,gg,b] = hsvRgb(hue, 0.45, 0.55);
+    ctx.beginPath(); ctx.arc(cx,cy,g('v1-cr'),0,Math.PI*2);
+    ctx.strokeStyle=`rgba(${r},${gg},${b},0.18)`; ctx.lineWidth=1;
+    ctx.setLineDash([3,6]); ctx.stroke(); ctx.setLineDash([]);
+    ctx.beginPath(); ctx.arc(cx,cy,4,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${r},${gg},${b},0.5)`; ctx.fill();
+  }
+
+  function loop(){
+    T+=0.013; hue+=0.0011;
+    const W=cv.width, H=cv.height;
+    ctx.fillStyle='rgba(5,4,12,0.19)'; ctx.fillRect(0,0,W,H);
+    const lx=W*0.27, rx=W*0.73, my=H*0.5;
+    ctx.strokeStyle='rgba(255,255,255,0.03)'; ctx.lineWidth=1;
+    ctx.setLineDash([4,9]);
+    ctx.beginPath(); ctx.moveTo(W/2,18); ctx.lineTo(W/2,H-18); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font='10px "Space Mono",monospace'; ctx.textAlign='center';
+    ctx.fillStyle='rgba(71,207,255,0.22)';
+    ctx.fillText('η = 0  대칭꽃',lx,22);
+    ctx.fillStyle='rgba(255,107,157,0.22)';
+    ctx.fillText('η > 0  비대칭꽃',rx,22);
+    drawFlower(lx, my, 0);
+    drawFlower(rx, my, g('v1-eta'));
+    ctx.fillStyle='rgba(255,255,255,0.07)'; ctx.font='9px "Space Mono",monospace'; ctx.textAlign='left';
+    ctx.fillText('F = 𝒞ᵢ + Σ αₙ·Δp·e^(-λn)',8,H-8);
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// ═══════════════════════════════════════════════════════
+//  PAGE 7 — 꽃밭 탑뷰
+// ═══════════════════════════════════════════════════════
+(function(){
+  const cv = document.getElementById('c-vis2');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  function rsz(){ cv.width = cv.parentElement.clientWidth || 800; cv.height = 460; }
+  rsz(); window.addEventListener('resize', rsz);
+
+  function g(id){ return +document.getElementById(id).value; }
+  ['v2-amp','v2-eta','v2-lam','v2-n','v2-dep'].forEach(id=>{
+    const vm={'v2-amp':'v2-ampv','v2-eta':'v2-etav','v2-lam':'v2-lamv','v2-n':'v2-nv','v2-dep':'v2-depv'};
+    document.getElementById(id).oninput=function(){ document.getElementById(vm[id]).textContent=this.value; };
+  });
+  let showBase=true, showWave=false;
+  window.v2ToggleBase=()=>{ showBase=!showBase; document.getElementById('v2-base-btn').classList.toggle('btn-on', showBase); };
+  window.v2ToggleWave=()=>{ showWave=!showWave; document.getElementById('v2-wave-btn').classList.toggle('btn-on', showWave); };
+
+  function hsvRgb(h,s,v){
+    h=((h%1)+1)%1;
+    let r,gg,b,i=Math.floor(h*6),f=h*6-i,p=v*(1-s),q=v*(1-f*s),t=v*(1-(1-f)*s);
+    switch(i%6){case 0:r=v,gg=t,b=p;break;case 1:r=q,gg=v,b=p;break;
+                case 2:r=p,gg=v,b=t;break;case 3:r=p,gg=q,b=v;break;
+                case 4:r=t,gg=p,b=v;break;case 5:r=v,gg=p,b=q;break;}
+    return [Math.round(r*255),Math.round(gg*255),Math.round(b*255)];
+  }
+  function nh(x,y){ let n=Math.sin(x*127.1+y*311.7)*43758.5; return n-Math.floor(n); }
+
+  const SEEDS=[
+    [0.18,0.22,14],[0.48,0.15,18],[0.78,0.20,12],
+    [0.10,0.47,16],[0.35,0.42,20],[0.62,0.40,15],[0.88,0.45,13],
+    [0.22,0.70,17],[0.50,0.65,22],[0.76,0.72,14],
+    [0.50,0.50,19],[0.32,0.28,11],[0.67,0.28,12],
+    [0.15,0.85,13],[0.85,0.80,15],[0.50,0.88,16],
+  ];
+  let T=0, gHue=0, circles=[];
+
+  function buildCircles(){
+    const W=cv.width, H=cv.height;
+    circles = SEEDS.map(([fx,fy,r],i)=>({
+      x:(fx+(nh(i,0)*2-1)*0.04)*W,
+      y:(fy+(nh(0,i)*2-1)*0.04)*H,
+      r:r*(Math.min(W,H)/520),
+      phase:nh(i*3,i*7)*Math.PI*2,
+      hoff:nh(i,i*2)*0.9
+    }));
+  }
+  buildCircles(); window.addEventListener('resize', buildCircles);
+
+  function loop(){
+    T+=0.011; gHue+=0.0009;
+    const W=cv.width, H=cv.height;
+    ctx.fillStyle='rgba(5,4,12,0.16)'; ctx.fillRect(0,0,W,H);
+    if (showWave){
+      for (let x=0; x<W; x+=3){
+        const wy=Math.sin(x*0.014-T*3)*g('v2-amp')*0.25;
+        ctx.fillStyle=`rgba(20,50,120,${Math.abs(wy/g('v2-amp'))*0.04})`;
+        ctx.fillRect(x,0,3,H);
+      }
+    }
+    const amp=g('v2-amp'), eta=g('v2-eta'), lam=g('v2-lam')/100*2.5, maxN=g('v2-n'), depthW=g('v2-dep')/100;
+    circles.forEach(ci=>{
+      for (let n=maxN; n>=1; n--){
+        const tf=T-n*0.3;
+        const al=Math.exp(-lam*n/maxN*3)*0.85;
+        if(al<0.004) continue;
+        const nx=eta>0?(nh(ci.x*0.015+n*0.5,tf*0.2)*2-1)*eta:0;
+        const ny=eta>0?(nh(ci.y*0.015+n*0.4+1.8,tf*0.2)*2-1)*eta*0.7:0;
+        const dx=Math.cos(tf*0.04*3+ci.phase)*amp*(n/maxN)+Math.cos(tf*0.04*1.9+ci.phase+1.1)*amp*0.38*(n/maxN)+nx;
+        const dy=Math.sin(tf*0.04*3+ci.phase)*amp*0.7*(n/maxN)+Math.sin(tf*0.04*1.3+ci.phase+0.6)*amp*0.28*(n/maxN)+ny;
+        const px=ci.x+dx*(1+n*0.06);
+        const py=ci.y+dy*(1+n*0.05);
+        const depth=Math.exp(-lam*n/maxN*2);
+        const sz=ci.r*(0.1+depth*0.9);
+        const vBright=0.5+depth*depthW*0.5;
+        const [r,gg,b]=hsvRgb(gHue+ci.hoff+n*0.006, 0.82, vBright);
+        ctx.beginPath(); ctx.arc(px,py,sz,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${r},${gg},${b},${al*0.22})`; ctx.fill();
+        ctx.strokeStyle=`rgba(${r},${gg},${b},${al*0.65})`; ctx.lineWidth=0.7; ctx.stroke();
+        ctx.beginPath(); ctx.arc(px,py,sz*0.18,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${r},${gg},${b},${al*depth+0.1})`; ctx.fill();
+      }
+      if (showBase){
+        const [r,gg,b]=hsvRgb(gHue+ci.hoff,0.35,0.4);
+        ctx.beginPath(); ctx.arc(ci.x,ci.y,ci.r,0,Math.PI*2);
+        ctx.strokeStyle=`rgba(${r},${gg},${b},0.18)`; ctx.lineWidth=0.6;
+        ctx.setLineDash([2,5]); ctx.stroke(); ctx.setLineDash([]);
+        ctx.beginPath(); ctx.arc(ci.x,ci.y,2.5,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${r},${gg},${b},0.4)`; ctx.fill();
+      }
+    });
+    ctx.fillStyle='rgba(255,255,255,0.07)'; ctx.font='9px "Space Mono",monospace'; ctx.textAlign='left';
+    ctx.fillText('TOP VIEW — 현무암 텍스처 기준원(점선) → 꽃 잔상 겹침',8,H-8);
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// ═══════════════════════════════════════════════════════
+//  PAGE 8 — 무용수 충격 + 2.5D
+// ═══════════════════════════════════════════════════════
+(function(){
+  const cv = document.getElementById('c-vis3');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  function rsz(){ cv.width = cv.parentElement.clientWidth || 800; cv.height = 480; }
+  rsz(); window.addEventListener('resize', rsz);
+
+  function g(id){ return +document.getElementById(id).value; }
+  ['v3-sig','v3-imp','v3-wav','v3-eta','v3-dep'].forEach(id=>{
+    const vm={'v3-sig':'v3-sigv','v3-imp':'v3-impv','v3-wav':'v3-wavv','v3-eta':'v3-etav','v3-dep':'v3-depv'};
+    document.getElementById(id).oninput=function(){ document.getElementById(vm[id]).textContent=this.value; };
+  });
+  let showDancer=true, showRing=true;
+  window.v3ToggleDancer=()=>{ showDancer=!showDancer; document.getElementById('v3-dancer-btn').classList.toggle('btn-on',showDancer); };
+  window.v3ToggleRing=()=>{ showRing=!showRing; document.getElementById('v3-ring-btn').classList.toggle('btn-on',showRing); };
+
+  function hsvRgb(h,s,v){
+    h=((h%1)+1)%1;
+    let r,gg,b,i=Math.floor(h*6),f=h*6-i,p=v*(1-s),q=v*(1-f*s),t=v*(1-(1-f)*s);
+    switch(i%6){case 0:r=v,gg=t,b=p;break;case 1:r=q,gg=v,b=p;break;
+                case 2:r=p,gg=v,b=t;break;case 3:r=p,gg=q,b=v;break;
+                case 4:r=t,gg=p,b=v;break;case 5:r=v,gg=p,b=q;break;}
+    return [Math.round(r*255),Math.round(gg*255),Math.round(b*255)];
+  }
+  function nh(x,y){ let n=Math.sin(x*127.1+y*311.7)*43758.5; return n-Math.floor(n); }
+
+  const SEEDS=[
+    [0.12,0.18,13],[0.35,0.12,16],[0.60,0.16,14],[0.82,0.20,12],
+    [0.08,0.42,17],[0.30,0.38,19],[0.55,0.36,18],[0.78,0.40,15],[0.95,0.44,12],
+    [0.18,0.62,16],[0.42,0.58,21],[0.65,0.60,17],[0.88,0.65,14],
+    [0.10,0.82,14],[0.35,0.78,18],[0.58,0.80,20],[0.80,0.83,15],
+    [0.25,0.50,15],[0.50,0.48,19],[0.72,0.52,14],
+  ];
+  let T=0, dHue=0, circles=[];
+  function buildCircles(){
+    const W=cv.width, H=cv.height;
+    circles=SEEDS.map(([fx,fy,r],i)=>({
+      x:(fx+(nh(i*3,i)*2-1)*0.03)*W,
+      y:(fy+(nh(i,i*3)*2-1)*0.03)*H,
+      r:r*(Math.min(W,H)/500),
+      phase:nh(i,i*5)*Math.PI*2,
+      hoff:nh(i*2,i)*0.85
+    }));
+  }
+  buildCircles(); window.addEventListener('resize',buildCircles);
+
+  function drawDancer(dx,dy,T){
+    const sc=Math.min(cv.width,cv.height)*0.055;
+    const bones=[
+      [dx,dy-sc*3.8],[dx,dy-sc*2.8],[dx,dy-sc*1.5],[dx,dy],
+      [dx-sc*1.4,dy-sc*2.2+Math.sin(T*1.2)*sc*0.4],[dx+sc*1.4,dy-sc*2.2+Math.sin(T*1.2+1)*sc*0.4],
+      [dx-sc*2.2,dy-sc*0.6+Math.sin(T*1.0)*sc*0.6],[dx+sc*2.2,dy-sc*0.6+Math.sin(T*1.0+1)*sc*0.6],
+      [dx-sc*2.6+Math.sin(T*1.3)*sc*0.5,dy+sc*0.8],[dx+sc*2.6+Math.sin(T*1.3+1)*sc*0.5,dy+sc*0.8],
+      [dx-sc*0.9,dy+sc*1.4],[dx+sc*0.9,dy+sc*1.4],
+      [dx-sc*1.1,dy+sc*2.9+Math.sin(T*1.1)*sc*0.3],[dx+sc*1.1,dy+sc*2.9+Math.sin(T*1.1+1)*sc*0.3],
+      [dx-sc*0.9+Math.sin(T)*sc*0.4,dy+sc*4.3],[dx+sc*0.9+Math.sin(T+1)*sc*0.4,dy+sc*4.3],
+    ];
+    [[0,1],[1,2],[2,3],[2,4],[2,5],[4,6],[5,7],[6,8],[7,9],[3,10],[3,11],[10,12],[11,13],[12,14],[13,15]].forEach(([a,b])=>{
+      ctx.beginPath(); ctx.moveTo(bones[a][0],bones[a][1]); ctx.lineTo(bones[b][0],bones[b][1]);
+      ctx.strokeStyle='rgba(255,255,255,0.13)'; ctx.lineWidth=2.5; ctx.lineCap='round'; ctx.stroke();
+      ctx.strokeStyle='rgba(220,200,255,0.06)'; ctx.lineWidth=6; ctx.stroke();
+    });
+    ctx.beginPath(); ctx.arc(bones[0][0],bones[0][1],sc*0.55,0,Math.PI*2);
+    ctx.fillStyle='rgba(200,180,255,0.07)'; ctx.fill();
+    ctx.strokeStyle='rgba(220,200,255,0.15)'; ctx.lineWidth=1; ctx.stroke();
+    bones.forEach(([bx,by])=>{ ctx.beginPath(); ctx.arc(bx,by,2,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.2)'; ctx.fill(); });
+    return bones;
+  }
+
+  function loop(){
+    T+=0.012; dHue+=0.001;
+    const W=cv.width, H=cv.height;
+    ctx.fillStyle='rgba(5,4,12,0.17)'; ctx.fillRect(0,0,W,H);
+    const sigma=g('v3-sig'), I0=g('v3-imp'), wAmp=g('v3-wav'), eta=g('v3-eta'), depthW=g('v3-dep')/100;
+    const dx=W*0.5+Math.sin(T*0.55)*W*0.16+Math.sin(T*1.2)*W*0.04;
+    const dy=H*0.44+Math.cos(T*0.42)*H*0.12+Math.cos(T*0.9)*H*0.03;
+    const maxN=11, lam=0.13;
+    circles.forEach(ci=>{
+      const dr=Math.hypot(ci.x-dx,ci.y-dy);
+      const impulse=showDancer?Math.exp(-(dr*dr)/(sigma*sigma))*I0:0;
+      const iAngle=Math.atan2(ci.y-dy,ci.x-dx);
+      for (let n=maxN; n>=1; n--){
+        const tf=T-n*0.28;
+        const al=Math.exp(-lam*n*2.8)*0.88;
+        if(al<0.005) continue;
+        const nx2=eta>0?(nh(ci.x*0.012+n*0.6,tf*0.22)*2-1)*eta:0;
+        const ny2=eta>0?(nh(ci.y*0.012+n*0.5+2,tf*0.22)*2-1)*eta*0.75:0;
+        const baseX=Math.cos(tf*0.055+ci.phase)*wAmp*(n/maxN)+Math.cos(tf*0.038*1.7+ci.phase+1.1)*wAmp*0.4*(n/maxN);
+        const baseY=Math.sin(tf*0.055+ci.phase)*wAmp*0.7*(n/maxN)+Math.sin(tf*0.038*0.8+ci.phase+0.6)*wAmp*0.3*(n/maxN);
+        const px=ci.x+(baseX+impulse*Math.cos(iAngle)*(n/maxN)+nx2)*(1+n*0.065);
+        const py=ci.y+(baseY+impulse*Math.sin(iAngle)*(n/maxN)+ny2)*(1+n*0.05);
+        const depth=Math.exp(-lam*n*2);
+        const sz=ci.r*(0.1+depth*0.9)*(1+impulse*0.012);
+        const vBright=Math.min(1,(0.35+depth*0.65*depthW+impulse*0.008)*(1+impulse*0.018));
+        const [r,gg,b]=hsvRgb(dHue+ci.hoff+n*0.006+impulse*0.025, 0.83, vBright);
+        ctx.beginPath(); ctx.arc(px,py,sz,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${r},${gg},${b},${al*0.22})`; ctx.fill();
+        ctx.strokeStyle=`rgba(${r},${gg},${b},${al*0.68})`; ctx.lineWidth=0.75; ctx.stroke();
+        ctx.beginPath(); ctx.arc(px,py,sz*0.17,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${r},${gg},${b},${al*vBright})`; ctx.fill();
+      }
+      ctx.beginPath(); ctx.arc(ci.x,ci.y,ci.r,0,Math.PI*2);
+      ctx.strokeStyle='rgba(150,130,180,0.1)'; ctx.lineWidth=0.5;
+      ctx.setLineDash([2,5]); ctx.stroke(); ctx.setLineDash([]);
+    });
+    if (showDancer){
+      drawDancer(dx,dy,T);
+      if (showRing){
+        ctx.beginPath(); ctx.arc(dx,dy,sigma,0,Math.PI*2);
+        ctx.strokeStyle='rgba(255,170,220,0.07)'; ctx.lineWidth=1;
+        ctx.setLineDash([5,10]); ctx.stroke(); ctx.setLineDash([]);
+        ctx.beginPath(); ctx.arc(dx,dy,sigma*0.5,0,Math.PI*2);
+        ctx.strokeStyle='rgba(255,170,220,0.05)'; ctx.lineWidth=0.5;
+        ctx.setLineDash([3,7]); ctx.stroke(); ctx.setLineDash([]);
+      }
+      ctx.fillStyle='rgba(255,200,255,0.22)'; ctx.font='9px "Space Mono",monospace'; ctx.textAlign='center';
+      ctx.fillText('H(x,y,z,t)', dx, dy - Math.min(cv.width,cv.height)*0.055*4.5);
+    }
+    ctx.fillStyle='rgba(255,255,255,0.06)'; ctx.font='9px "Space Mono",monospace'; ctx.textAlign='left';
+    ctx.fillText("F′ = F + I₀·e^(-r²/σ²)  |  luminance → 2.5D depth", 8, H-8);
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// ════════════════════════════════════════
+//  PAGE WP — Wave Particle 원점
+// ════════════════════════════════════════
+(function(){
+  const cv = document.getElementById('c-wp');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  function rsz(){ cv.width = cv.parentElement.clientWidth || 800; cv.height = 400; }
+  rsz(); window.addEventListener('resize', rsz);
+
+  function g(id){ return +document.getElementById(id).value; }
+  const CTRL={'wp-amp':'wp-ampv','wp-k':'wp-kv','wp-w':'wp-wv','wp-tr':'wp-trv','wp-r':'wp-rv','wp-lam':'wp-lamv'};
+  Object.keys(CTRL).forEach(id=>{
+    document.getElementById(id).oninput=function(){ document.getElementById(CTRL[id]).textContent=this.value; };
+  });
+
+  let showWave=true, showTrail=true, wpPaused=false;
+  window.wpToggleWave  =()=>{ showWave=!showWave;   document.getElementById('wp-wave-btn').classList.toggle('btn-on',showWave); };
+  window.wpToggleTrail =()=>{ showTrail=!showTrail; document.getElementById('wp-trail-btn').classList.toggle('btn-on',showTrail); };
+  window.wpTogglePause =()=>{ wpPaused=!wpPaused;   document.getElementById('wp-pause-btn').textContent=wpPaused?'Resume':'Pause'; };
+
+  function hsvRgb(h,s,v){
+    h=((h%1)+1)%1;
+    let r,gg,b,i=Math.floor(h*6),f=h*6-i,p=v*(1-s),q=v*(1-f*s),t=v*(1-(1-f)*s);
+    switch(i%6){case 0:r=v,gg=t,b=p;break;case 1:r=q,gg=v,b=p;break;
+                case 2:r=p,gg=v,b=t;break;case 3:r=p,gg=q,b=v;break;
+                case 4:r=t,gg=p,b=v;break;case 5:r=v,gg=p,b=q;break;}
+    return[Math.round(r*255),Math.round(gg*255),Math.round(b*255)];
+  }
+  function Wi(dist, r){ return dist<r ? 0.5*(Math.cos(Math.PI*dist/r)+1) : 0; }
+
+  let wpT=0, wpHue=0;
+  const SPHERES=[{x0:0.22,phase:0.0,hoff:0.0},{x0:0.50,phase:0.8,hoff:0.33},{x0:0.78,phase:1.6,hoff:0.66}];
+
+  function loop(){
+    if (!wpPaused){ wpT+=0.014; wpHue+=0.001; }
+    const W=cv.width, H=cv.height;
+    ctx.fillStyle='rgba(4,3,10,0.2)'; ctx.fillRect(0,0,W,H);
+    const amp=g('wp-amp'), kk=g('wp-k'), ww=g('wp-w'), trN=g('wp-tr'), rr=g('wp-r'), lam=g('wp-lam')/100*2.5;
+    const baseY=H*0.55;
+
+    if (showWave){
+      ctx.beginPath();
+      for(let x=0;x<W;x++){
+        const wy=baseY+Math.sin(x*0.012*kk-wpT*ww*0.07)*amp*0.5+Math.sin(x*0.018*kk*1.4-wpT*ww*0.05+1)*amp*0.25;
+        x===0?ctx.moveTo(x,wy):ctx.lineTo(x,wy);
+      }
+      ctx.strokeStyle='rgba(30,80,160,0.3)'; ctx.lineWidth=1.5; ctx.stroke();
+      ctx.beginPath();
+      for(let x=0;x<W;x++){
+        const wy=baseY+Math.sin(x*0.012*kk-wpT*ww*0.07)*amp*0.5+Math.sin(x*0.018*kk*1.4-wpT*ww*0.05+1)*amp*0.25;
+        x===0?ctx.moveTo(x,wy):ctx.lineTo(x,wy);
+      }
+      ctx.lineTo(W,H); ctx.lineTo(0,H); ctx.closePath();
+      ctx.fillStyle='rgba(15,40,90,0.12)'; ctx.fill();
+      SPHERES.forEach((sp)=>{
+        const sx=sp.x0*W;
+        ctx.beginPath();
+        for(let x=Math.max(0,sx-rr*3);x<Math.min(W,sx+rr*3);x++){
+          const wh=Wi(Math.abs(x-sx),rr*2)*amp*0.4;
+          const wy2=baseY+Math.sin(x*0.012*kk-wpT*ww*0.07)*amp*0.5-wh;
+          x<=Math.max(0,sx-rr*3)+1?ctx.moveTo(x,wy2):ctx.lineTo(x,wy2);
+        }
+        const [r,gg,b]=hsvRgb(wpHue+sp.hoff,0.6,0.8);
+        ctx.strokeStyle=`rgba(${r},${gg},${b},0.35)`; ctx.lineWidth=1; ctx.stroke();
+      });
+    }
+
+    SPHERES.forEach((sp)=>{
+      const sx=sp.x0*W;
+      if (showTrail){
+        for(let n=trN;n>=1;n--){
+          const tf=wpT-n*0.28;
+          const sy_t=baseY+Math.sin(sx*0.012*kk-tf*ww*0.07)*amp*0.5+Math.sin(sx*0.018*kk*1.4-tf*ww*0.05+1)*amp*0.25;
+          const sY=sy_t-rr*0.3;
+          const al=Math.exp(-lam*n/trN*3)*0.85;
+          if(al<0.006) continue;
+          const depth=Math.exp(-lam*n/trN*2);
+          const sz=rr*(0.2+depth*0.8);
+          const [r,gg,b]=hsvRgb(wpHue+sp.hoff+n*0.004,0.75,0.9);
+          ctx.beginPath(); ctx.arc(sx,sY,sz,0,Math.PI*2);
+          ctx.fillStyle=`rgba(${r},${gg},${b},${al*0.22})`; ctx.fill();
+          ctx.strokeStyle=`rgba(${r},${gg},${b},${al*0.6})`; ctx.lineWidth=0.8; ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(sx,sY+sz); ctx.lineTo(sx,sy_t);
+          ctx.strokeStyle=`rgba(${r},${gg},${b},${al*0.2})`; ctx.lineWidth=0.5; ctx.stroke();
+        }
+      }
+      const sy_c=baseY+Math.sin(sx*0.012*kk-wpT*ww*0.07)*amp*0.5+Math.sin(sx*0.018*kk*1.4-wpT*ww*0.05+1)*amp*0.25;
+      const sYc=sy_c-rr*0.3;
+      const [r,gg,b]=hsvRgb(wpHue+sp.hoff,0.8,1.0);
+      ctx.beginPath(); ctx.arc(sx,sYc,rr,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${r},${gg},${b},0.75)`; ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,0.3)'; ctx.lineWidth=1; ctx.stroke();
+      ctx.beginPath(); ctx.arc(sx-rr*0.28,sYc-rr*0.28,rr*0.25,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,0.25)'; ctx.fill();
+      ctx.beginPath(); ctx.arc(sx,sYc,rr*2,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(${r},${gg},${b},0.1)`; ctx.lineWidth=0.5;
+      ctx.setLineDash([3,6]); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle=`rgba(${r},${gg},${b},0.5)`;
+      ctx.font='9px "Space Mono",monospace'; ctx.textAlign='center';
+      ctx.fillText('xᵢ(t)',sx,sYc-rr-6);
+    });
+
+    ctx.fillStyle='rgba(71,207,255,0.25)'; ctx.font='9px "Space Mono",monospace'; ctx.textAlign='left';
+    ctx.fillText('Di(x,t) = aᵢ/2·(cos(π|x−xᵢ|/rᵢ)+1)·Π(|x−xᵢ|/2rᵢ)',8,18);
+    ctx.fillStyle='rgba(255,255,255,0.07)';
+    ctx.fillText('← 반투명 겹침 = 잔상 = 꽃의 원형',8,H-8);
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// ════════════════════════════════════════
+//  PAGE MASK — 현무암 텍스처 → 꽃 4단계
+// ════════════════════════════════════════
+(function(){
+  const cv = document.getElementById('c-mask');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  function rsz(){ cv.width = cv.parentElement.clientWidth || 800; cv.height = 440; }
+  rsz(); window.addEventListener('resize', rsz);
+
+  function g(id){ return +document.getElementById(id).value; }
+  ['mk-step','mk-amp','mk-eta','mk-lum'].forEach(id=>{
+    const m={'mk-step':'mk-stepv','mk-amp':'mk-ampv','mk-eta':'mk-etav','mk-lum':'mk-lumv'};
+    document.getElementById(id).oninput=function(){ document.getElementById(m[id]).textContent=this.value; };
+  });
+
+  let mkAuto=true, mkPaused=false, mkT=0, mkHue=0, mkAutoT=0;
+  window.mkToggleAuto  =()=>{ mkAuto=!mkAuto;     document.getElementById('mk-auto-btn').classList.toggle('btn-on',mkAuto); };
+  window.mkTogglePause =()=>{ mkPaused=!mkPaused; document.getElementById('mk-pause-btn').textContent=mkPaused?'Resume':'Pause'; };
+
+  function hsvRgb(h,s,v){
+    h=((h%1)+1)%1;
+    let r,gg,b,i=Math.floor(h*6),f=h*6-i,p=v*(1-s),q=v*(1-f*s),t=v*(1-(1-f)*s);
+    switch(i%6){case 0:r=v,gg=t,b=p;break;case 1:r=q,gg=v,b=p;break;
+                case 2:r=p,gg=v,b=t;break;case 3:r=p,gg=q,b=v;break;
+                case 4:r=t,gg=p,b=v;break;case 5:r=v,gg=p,b=q;break;}
+    return[Math.round(r*255),Math.round(gg*255),Math.round(b*255)];
+  }
+  function nh(x,y){ let n=Math.sin(x*127.1+y*311.7)*43758.5; return n-Math.floor(n); }
+
+  const STAGE_LABELS=['STEP 0 — 현무암 원 스캔 (라이다 데이터)','STEP 1 — 흑백 마스크 단순화 (원만 추출)','STEP 2 — Wave Particle 잔상 적용 (꽃 생성)','STEP 3 — 루미넌스 → 2.5D 깊이 + 색상'];
+
+  function buildCircles(){
+    const W=cv.width, H=cv.height, circles=[];
+    const bigOnes=[[0.15,0.20,22],[0.42,0.15,26],[0.70,0.18,20],[0.88,0.25,17],[0.08,0.48,19],[0.35,0.45,24],[0.58,0.42,21],[0.80,0.50,18],[0.22,0.72,23],[0.48,0.68,25],[0.72,0.75,19],[0.92,0.70,15]];
+    const smallOnes=[[0.28,0.28,9],[0.55,0.25,10],[0.82,0.10,8],[0.12,0.35,7],[0.50,0.35,8],[0.75,0.32,9],[0.20,0.58,8],[0.40,0.60,7],[0.65,0.55,9],[0.85,0.60,8],[0.30,0.82,8],[0.60,0.85,9],[0.78,0.88,7],[0.05,0.15,6],[0.96,0.40,6],[0.05,0.80,7]];
+    [...bigOnes,...smallOnes].forEach(([fx,fy,r],i)=>{
+      circles.push({x:(fx+(nh(i,i*3)*2-1)*0.035)*W,y:(fy+(nh(i*2,i)*2-1)*0.035)*H,r:r*(Math.min(W,H)/480),phase:nh(i*3,i)*Math.PI*2,hoff:nh(i,i*2)*0.85,big:r>=15});
+    });
+    return circles;
+  }
+  let mkCircles=buildCircles();
+  window.addEventListener('resize',()=>{ mkCircles=buildCircles(); });
+
+  function loop(){
+    if (!mkPaused){ mkT+=0.011; mkHue+=0.0008; }
+    if (mkAuto&&!mkPaused){ mkAutoT+=0.004; }
+    const W=cv.width, H=cv.height;
+    const step=mkAuto?Math.floor(mkAutoT)%4:g('mk-step');
+    const amp=g('mk-amp'), eta=g('mk-eta'), lumW=g('mk-lum')/100;
+    if(mkAuto){ document.getElementById('mk-step').value=step; document.getElementById('mk-stepv').textContent=step; }
+    ctx.fillStyle=step<=1?'rgba(8,8,8,0.3)':'rgba(4,3,10,0.18)';
+    ctx.fillRect(0,0,W,H);
+    document.getElementById('mk-stage-label').textContent=STAGE_LABELS[step];
+    document.getElementById('mk-circle-cnt').textContent=mkCircles.length;
+
+    if(step===0){
+      for(let i=0;i<60;i++){
+        const bx=nh(i,i*7)*W,by=nh(i*5,i)*H;
+        ctx.beginPath(); ctx.arc(bx,by,nh(i*3,i*2)*12+2,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${30+nh(i,i*3)*20},${28+nh(i*2,i)*15},${35+nh(i,i*4)*18},0.08)`; ctx.fill();
+      }
+      mkCircles.forEach(ci=>{
+        const g2=40+nh(ci.x*0.05,ci.y*0.05)*30;
+        ctx.beginPath(); ctx.arc(ci.x,ci.y,ci.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${g2},${g2-5},${g2+8},0.85)`; ctx.fill();
+        ctx.strokeStyle='rgba(80,70,95,0.4)'; ctx.lineWidth=0.6; ctx.stroke();
+        ctx.beginPath(); ctx.arc(ci.x+ci.r*0.15,ci.y+ci.r*0.15,ci.r*0.75,0,Math.PI*2);
+        ctx.fillStyle='rgba(15,12,20,0.5)'; ctx.fill();
+        ctx.beginPath(); ctx.arc(ci.x,ci.y,2,0,Math.PI*2);
+        ctx.fillStyle='rgba(120,100,140,0.6)'; ctx.fill();
+      });
+      ctx.fillStyle='rgba(255,255,255,0.15)'; ctx.font='11px "Space Mono",monospace'; ctx.textAlign='left';
+      ctx.fillText('𝒞ᵢ(u,v,rᵢ) — 현무암 원 구멍 스캔 데이터',10,H-10);
+
+    } else if(step===1){
+      mkCircles.forEach(ci=>{
+        ctx.beginPath(); ctx.arc(ci.x,ci.y,ci.r,0,Math.PI*2);
+        ctx.fillStyle='rgba(255,255,255,0.78)'; ctx.fill();
+        if(ci.big){ for(let s=0;s<3;s++){ const sa=nh(ci.x*0.1+s,ci.y*0.1)*Math.PI*2,sd=ci.r*1.45; ctx.beginPath(); ctx.arc(ci.x+Math.cos(sa)*sd,ci.y+Math.sin(sa)*sd,ci.r*0.26,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.42)'; ctx.fill(); } }
+      });
+      ctx.fillStyle='rgba(255,255,255,0.1)'; ctx.font='11px "Space Mono",monospace'; ctx.textAlign='left';
+      ctx.fillText('흑백 마스크 — proj₂D(𝔹) = 𝒞ᵢ(u,v) 단순화',10,H-10);
+
+    } else if(step===2){
+      const maxN=12,lam2=0.14;
+      mkCircles.forEach(ci=>{
+        for(let n=maxN;n>=1;n--){
+          const tf=mkT-n*0.3,al=Math.exp(-lam2*n*2.6)*0.88;
+          if(al<0.005) continue;
+          const nx2=eta>0?(nh(ci.x*0.012+n*0.5,tf*0.2)*2-1)*eta:0;
+          const ny2=eta>0?(nh(ci.y*0.012+n*0.4+1.8,tf*0.2)*2-1)*eta*0.7:0;
+          const dx=Math.cos(tf*0.055+ci.phase)*amp*(n/maxN)+Math.cos(tf*0.038+ci.phase+1)*amp*0.35*(n/maxN)+nx2;
+          const dy=Math.sin(tf*0.055+ci.phase)*amp*0.7*(n/maxN)+Math.sin(tf*0.038+ci.phase+0.5)*amp*0.3*(n/maxN)+ny2;
+          const px=ci.x+dx*(1+n*0.065),py=ci.y+dy*(1+n*0.05);
+          const depth=Math.exp(-lam2*n*2),sz=ci.r*(0.12+depth*0.88);
+          const [r,gg,b]=hsvRgb(mkHue+ci.hoff+n*0.006,0.82,0.9);
+          ctx.beginPath(); ctx.arc(px,py,sz,0,Math.PI*2);
+          ctx.fillStyle=`rgba(${r},${gg},${b},${al*0.25})`; ctx.fill();
+          ctx.strokeStyle=`rgba(${r},${gg},${b},${al*0.7})`; ctx.lineWidth=0.75; ctx.stroke();
+          ctx.beginPath(); ctx.arc(px,py,sz*0.2,0,Math.PI*2);
+          ctx.fillStyle=`rgba(${r},${gg},${b},${al})`; ctx.fill();
+        }
+        ctx.beginPath(); ctx.arc(ci.x,ci.y,ci.r,0,Math.PI*2);
+        ctx.strokeStyle='rgba(150,130,180,0.12)'; ctx.lineWidth=0.5;
+        ctx.setLineDash([2,4]); ctx.stroke(); ctx.setLineDash([]);
+      });
+      ctx.fillStyle='rgba(255,255,255,0.07)'; ctx.font='11px "Space Mono",monospace'; ctx.textAlign='left';
+      ctx.fillText('F = 𝒞ᵢ + Σ αₙ·Δp·e^(-λn)  — 파도 잔상 → 꽃',10,H-10);
+
+    } else {
+      const maxN=13,lam3=0.12;
+      mkCircles.forEach(ci=>{
+        for(let n=maxN;n>=1;n--){
+          const tf=mkT-n*0.3,al=Math.exp(-lam3*n*2.4)*0.9;
+          if(al<0.005) continue;
+          const nx2=eta>0?(nh(ci.x*0.012+n*0.5,tf*0.2)*2-1)*eta:0;
+          const ny2=eta>0?(nh(ci.y*0.012+n*0.4+1.8,tf*0.2)*2-1)*eta*0.7:0;
+          const dx=Math.cos(tf*0.055+ci.phase)*amp*(n/maxN)+Math.cos(tf*0.038+ci.phase+1)*amp*0.35*(n/maxN)+nx2;
+          const dy=Math.sin(tf*0.055+ci.phase)*amp*0.7*(n/maxN)+Math.sin(tf*0.038+ci.phase+0.5)*amp*0.3*(n/maxN)+ny2;
+          const px=ci.x+dx*(1+n*0.065),py=ci.y+dy*(1+n*0.05);
+          const depth=Math.exp(-lam3*n*2),sz=ci.r*(0.08+depth*0.92);
+          const vB=Math.min(1,0.3+depth*0.7*lumW+(1-lumW)*0.5);
+          const [r,gg,b]=hsvRgb(mkHue+ci.hoff+n*0.006,0.85,vB);
+          ctx.beginPath(); ctx.arc(px,py,sz,0,Math.PI*2);
+          ctx.fillStyle=`rgba(${r},${gg},${b},${al*0.22})`; ctx.fill();
+          ctx.strokeStyle=`rgba(${r},${gg},${b},${al*0.72})`; ctx.lineWidth=0.8; ctx.stroke();
+          ctx.beginPath(); ctx.arc(px,py,sz*0.22*vB,0,Math.PI*2);
+          ctx.fillStyle=`rgba(${r},${gg},${b},${al*vB})`; ctx.fill();
+        }
+      });
+      ctx.fillStyle='rgba(255,255,255,0.07)'; ctx.font='11px "Space Mono",monospace'; ctx.textAlign='left';
+      ctx.fillText('luminance(F) → Z depth  |  2.5D 꽃밭',10,H-10);
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+</script>
+</body>
+</html>
