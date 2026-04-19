@@ -490,6 +490,7 @@ footer p {
   <button class="nav-tab" data-page="p-vis1">꽃 해부</button>
   <button class="nav-tab" data-page="p-vis2">꽃밭 탑뷰</button>
   <button class="nav-tab" data-page="p-vis3">무용수 · 2.5D</button>
+  <button class="nav-tab" data-page="p-3d">3D 볼륨 공간</button>
 </nav>
 
 <!-- ══════════════════════════════════════════
@@ -1093,8 +1094,127 @@ footer p {
 </div>
 
 <!-- ══════════════════════════════════════════
-     PAGE WP — Wave Particle 원점 시각화
+     PAGE 3D — 3D 볼륨 공간
 ══════════════════════════════════════════ -->
+<div id="p-3d" class="page">
+<div class="section" style="max-width:1060px">
+
+  <div class="section-head">
+    <div class="section-num">3D</div>
+    <div>
+      <div class="section-title">3D 볼륨 공간 — 격자 · 모캡 본 · 꽃 VFX</div>
+      <div class="section-sub">x,y,z 좌표계 안에서 현무암 격자 + 본 계층 + Wave Particle 꽃 통합</div>
+    </div>
+  </div>
+
+  <!-- 스케치 해석 카드 -->
+  <div class="concept-grid" style="margin-bottom:20px">
+    <div class="concept-card">
+      <div class="icon">SKETCH — 좌측 인체</div>
+      <div class="name" style="color:var(--accent4)">모캡 본 계층 A/B/C/D/E/F</div>
+      <div class="desc">
+        A = head (머리) · B = shoulder (어깨 L/R)<br>
+        C₁C₂ = elbow · D₁D₂ = hand<br>
+        E₁E₂ = hip · F₁F₂ = knee<br>
+        각 본에서 꽃 VFX 발생. 손·머리가 주 이미션 포인트.
+      </div>
+    </div>
+    <div class="concept-card">
+      <div class="icon">SKETCH — 우상단 A</div>
+      <div class="name" style="color:var(--accent3)">3D 격자 볼륨 공간</div>
+      <div class="desc">
+        x/y/z 세 축 기반 균일 격자. 현무암 원 텍스처 노드가<br>
+        격자 교점에 희소 배치됨 (𝒞ᵢ의 3D 좌표 확장).<br>
+        각 노드에서 Wave Particle Di(x,y,z,t) 적용.
+      </div>
+    </div>
+    <div class="concept-card">
+      <div class="icon">SKETCH — 우하단</div>
+      <div class="name" style="color:var(--accent)">현무암 구 (球) 3D</div>
+      <div class="desc">
+        x,y,z 축 위에 놓인 구 = 파도에 띄운 현무암 오브제.<br>
+        구가 3D 공간을 파도 문법에 따라 이동하며<br>
+        주변 꽃 노드에 충격파 impulse(r) = I₀·e^(-r²/σ²) 전달.
+      </div>
+    </div>
+    <div class="concept-card">
+      <div class="icon">SKETCH — 좌하단</div>
+      <div class="name" style="color:var(--accent2)">세 축 좌표 현무암 고형</div>
+      <div class="desc">
+        6×6 그리드 대각선 = 현무암 UV 텍스처를<br>
+        3D 좌표계로 펼친 매핑. 원들의 (u,v) 위치가<br>
+        3D (x,y,z) 노드로 변환되는 기준 좌표.
+      </div>
+    </div>
+  </div>
+
+  <!-- 3D 공식 -->
+  <div class="formula-card dim" style="margin-bottom:16px">
+    <div class="formula-label">3D 볼륨 확장 공식</div>
+    <div class="formula-main" style="font-size:12px">
+      <span class="dim4">3D 확장</span> <span class="op">:</span>
+      <span class="fn">𝒞ᵢ</span><span class="op">(</span><span class="var">u,v</span><span class="op">)</span>
+      <span class="op">→</span>
+      <span class="fn">𝒞ᵢ</span><span class="op">(</span><span class="var">x,y,z</span><span class="op">)</span>
+      <span class="op">= </span>격자 교점의 현무암 원 노드<br>
+      <span class="var">Di</span><span class="op">(</span><span class="var">x,y,z,t</span><span class="op">)</span>
+      <span class="op">=</span>
+      <span class="val">aᵢ/2</span>
+      <span class="op">·(</span><span class="fn">cos</span><span class="op">(π|</span><span class="var">r₃D</span><span class="op">|/rᵢ)+1)·</span>
+      <span class="fn">Π</span><span class="op">(|</span><span class="var">r₃D</span><span class="op">|/2rᵢ)</span>
+      <span class="op">　</span><span style="font-size:10px;color:var(--text3)">// 3D 구형 wave particle</span><br>
+      <span class="var">r₃D</span>
+      <span class="op">=</span>
+      <span class="fn">√</span><span class="op">((x-xᵢ)²+(y-yᵢ)²+(z-zᵢ)²)</span>
+      <span class="op">　</span><span style="font-size:10px;color:var(--text3)">// 3D 유클리드 거리</span><br>
+      <span class="var">F₃D</span><span class="op">(</span><span class="var">x,y,z,t</span><span class="op">)</span>
+      <span class="op">=</span>
+      <span class="fn">𝒞ᵢ</span>
+      <span class="op">+</span>
+      <span class="fn">Σₙ</span>
+      <span class="val">αₙ</span><span class="op">·</span><span class="var">Δp₃D</span><span class="op">(</span><span class="var">t-n</span><span class="op">)·</span>
+      <span class="fn">e^(-λn)</span>
+      <span class="op">+</span>
+      <span class="var">H_impulse</span><span class="op">(</span><span class="var">r₃D</span><span class="op">)</span>
+    </div>
+  </div>
+
+  <!-- 캔버스 -->
+  <div class="canvas-container" style="background:#05040c;cursor:grab">
+    <canvas id="c-3d" height="480"></canvas>
+  </div>
+
+  <div class="vis-ctrl-bar">
+    <div class="vis-ctrl">격자 n<input type="range" id="td-gn" min="3" max="8" step="1" value="5"><span class="vis-val" id="td-gnv">5</span></div>
+    <div class="vis-ctrl">파도강도<input type="range" id="td-wa" min="5" max="60" step="1" value="22"><span class="vis-val" id="td-wav">22</span></div>
+    <div class="vis-ctrl">꽃밀도<input type="range" id="td-fd" min="1" max="8" step="1" value="4"><span class="vis-val" id="td-fdv">4</span></div>
+    <div class="vis-ctrl">노이즈η<input type="range" id="td-et" min="0" max="30" step="1" value="0"><span class="vis-val" id="td-etv">0</span></div>
+    <div class="vis-ctrl">꽃크기<input type="range" id="td-fs" min="3" max="20" step="1" value="8"><span class="vis-val" id="td-fsv">8</span></div>
+    <div class="vis-ctrl">자동회전<input type="range" id="td-rs" min="0" max="8" step="1" value="2"><span class="vis-val" id="td-rsv">2</span></div>
+    <button class="vis-btn btn-on" id="td-btn-grid" onclick="tdTog('grid')">격자</button>
+    <button class="vis-btn btn-on" id="td-btn-bone" onclick="tdTog('bone')">모캡본</button>
+    <button class="vis-btn btn-on" id="td-btn-flower" onclick="tdTog('flower')">꽃VFX</button>
+    <button class="vis-btn btn-on" id="td-btn-sphere" onclick="tdTog('sphere')">현무암구</button>
+    <button class="vis-btn" id="td-btn-pause" onclick="tdTogPause()">Pause</button>
+  </div>
+
+  <div class="live-stat" style="margin-top:10px">
+    <div class="stat"><span class="sk">드래그</span><span class="sv">마우스로 3D 회전 가능</span></div>
+    <div class="stat"><span class="sk">격자 n³</span><span class="sv">노드 수 = 격자 크기에 비례</span></div>
+    <div class="stat"><span class="sk">현무암 구</span><span class="sv">파도 문법에 따라 3D 이동하며 주변 꽃에 충격파 전달</span></div>
+  </div>
+
+  <div class="eq-block" style="margin-top:16px">
+    <div class="eq-title">스케치 → 3D 공간 구현 대응표</div>
+    <div class="eq-line">스케치 좌측 인체(A~F) → <span class="fn">getBonePositions(t, scale)</span>  <span class="cmt">// 17개 본 모캡 계층</span></div>
+    <div class="eq-line">스케치 우상단 격자(A) → <span class="fn">buildBasaltNodes(n, size)</span>  <span class="cmt">// n³ 격자 위 현무암 노드</span></div>
+    <div class="eq-line">스케치 우하단 구(Z축) → <span class="fn">sphere(x,y,z,t)</span>            <span class="cmt">// 현무암 오브제 파도 이동</span></div>
+    <div class="eq-line">스케치 좌하단 6×6 UV  → <span class="fn">𝒞ᵢ(x,y,z) = proj₃D(UV)</span>    <span class="cmt">// UV→3D 좌표 변환</span></div>
+    <div class="eq-line">꽃 = <span class="fn">Di(x,y,z,t) + bone_impulse + sphere_impulse</span>      <span class="cmt">// 모든 영향 중첩</span></div>
+  </div>
+
+</div>
+</div>
 <div id="p-wp" class="page">
 <div class="section">
   <div class="section-head">
@@ -2362,6 +2482,296 @@ function noise2d(x,y){ return Math.sin(x*127.1+y*311.7)*0.5+0.5; }
       ctx.fillStyle='rgba(255,255,255,0.07)'; ctx.font='11px "Space Mono",monospace'; ctx.textAlign='left';
       ctx.fillText('luminance(F) → Z depth  |  2.5D 꽃밭',10,H-10);
     }
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// ════════════════════════════════════════
+//  PAGE 3D — 3D 볼륨 공간 시뮬레이션
+// ════════════════════════════════════════
+(function(){
+  const cv = document.getElementById('c-3d');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  function rsz(){ cv.width = cv.parentElement.clientWidth || 800; cv.height = 480; }
+  rsz(); window.addEventListener('resize', rsz);
+
+  function g(id){ return +document.getElementById(id).value; }
+  const CMAP = {'td-gn':'td-gnv','td-wa':'td-wav','td-fd':'td-fdv','td-et':'td-etv','td-fs':'td-fsv','td-rs':'td-rsv'};
+  Object.keys(CMAP).forEach(id=>{
+    document.getElementById(id).oninput = function(){ document.getElementById(CMAP[id]).textContent = this.value; };
+  });
+
+  let tdShow = { grid:true, bone:true, flower:true, sphere:true };
+  let tdPaused = false;
+  window.tdTog = function(k){ tdShow[k]=!tdShow[k]; document.getElementById('td-btn-'+k).classList.toggle('btn-on', tdShow[k]); };
+  window.tdTogPause = function(){ tdPaused=!tdPaused; document.getElementById('td-btn-pause').textContent=tdPaused?'Resume':'Pause'; };
+
+  // ── 드래그 회전 ──
+  let rotX=0.42, rotY=0.0, dragging=false, lastMX=0, lastMY=0;
+  cv.addEventListener('mousedown', e=>{ dragging=true; lastMX=e.clientX; lastMY=e.clientY; });
+  window.addEventListener('mouseup', ()=>{ dragging=false; });
+  window.addEventListener('mousemove', e=>{
+    if(!dragging) return;
+    rotY += (e.clientX-lastMX)*0.008;
+    rotX += (e.clientY-lastMY)*0.005;
+    rotX = Math.max(-0.8, Math.min(1.2, rotX));
+    lastMX=e.clientX; lastMY=e.clientY;
+  });
+  cv.addEventListener('touchstart', e=>{ dragging=true; lastMX=e.touches[0].clientX; lastMY=e.touches[0].clientY; }, {passive:true});
+  window.addEventListener('touchend', ()=>{ dragging=false; });
+  window.addEventListener('touchmove', e=>{
+    if(!dragging) return;
+    rotY += (e.touches[0].clientX-lastMX)*0.008;
+    rotX += (e.touches[0].clientY-lastMY)*0.005;
+    lastMX=e.touches[0].clientX; lastMY=e.touches[0].clientY;
+  }, {passive:true});
+
+  function project(x,y,z,W,H){
+    const cx=Math.cos(rotX), sx=Math.sin(rotX);
+    const cy2=Math.cos(rotY), sy2=Math.sin(rotY);
+    const x2=x*cy2+z*sy2;
+    const z2=-x*sy2+z*cy2;
+    const y2=y*cx-z2*sx;
+    const z3=y*sx+z2*cx;
+    const fov=420, depth=z3+6;
+    const scale=fov/depth;
+    return { px:W/2+x2*scale, py:H/2-y2*scale, scale, depth:z3 };
+  }
+
+  function hsvRgb(h,s,v){
+    h=((h%1)+1)%1;
+    let r,gg,b,i=Math.floor(h*6),f=h*6-i,p=v*(1-s),q=v*(1-f*s),t=v*(1-(1-f)*s);
+    switch(i%6){case 0:r=v,gg=t,b=p;break;case 1:r=q,gg=v,b=p;break;
+                case 2:r=p,gg=v,b=t;break;case 3:r=p,gg=q,b=v;break;
+                case 4:r=t,gg=p,b=v;break;case 5:r=v,gg=p,b=q;break;}
+    return [Math.round(r*255),Math.round(gg*255),Math.round(b*255)];
+  }
+  function nh(x,y){ let n=Math.sin(x*127.1+y*311.7)*43758.5; return n-Math.floor(n); }
+
+  // 현무암 노드 (격자 위에 희소 배치)
+  function buildBasaltNodes(n, size){
+    const nodes=[];
+    for(let ix=0;ix<n;ix++) for(let iy=0;iy<n;iy++) for(let iz=0;iz<n;iz++){
+      if(nh(ix+iy*1.3,iz+ix*0.7)>0.52) continue;
+      const x=(ix/(n-1)-0.5)*size;
+      const y=(iy/(n-1)-0.5)*size;
+      const z=(iz/(n-1)-0.5)*size;
+      nodes.push({x,y,z,
+        r:4+nh(ix+iy*0.3,iz+iy*0.7)*8,
+        phase:nh(ix,iy+iz*0.5)*Math.PI*2,
+        hoff:nh(ix*iy,iz)*0.9});
+    }
+    return nodes;
+  }
+
+  // 모캡 본 계층 (스케치: A=head, B=shoulder, C1C2C3=elbow, D1D2=hand, E1E2=hip, F1F2=knee)
+  const BONE_DEF=[
+    ['root',    -1,  0,    0,     0  ],
+    ['spine',    0,  0,    0.35,  0  ],
+    ['chest',    1,  0,    0.35,  0  ],
+    ['neck',     2,  0,    0.25,  0  ],
+    ['head',     3,  0,    0.28,  0  ], // A
+    ['shouldL',  2, -0.32, 0.1,   0  ], // BL
+    ['shouldR',  2,  0.32, 0.1,   0  ], // BR
+    ['elbowL',   5, -0.32,-0.28,  0  ], // C1
+    ['elbowR',   6,  0.32,-0.28,  0  ], // C2
+    ['handL',    7, -0.18,-0.30,  0  ], // D1
+    ['handR',    8,  0.18,-0.30,  0  ], // D2
+    ['hipL',     0, -0.18,-0.35,  0  ], // E1
+    ['hipR',     0,  0.18,-0.35,  0  ], // E2
+    ['kneeL',   11, -0.08,-0.38,  0  ], // F1
+    ['kneeR',   12,  0.08,-0.38,  0  ], // F2
+    ['footL',   13, -0.02,-0.36,  0  ],
+    ['footR',   14,  0.02,-0.36,  0  ],
+  ];
+
+  function getBonePositions(t, scale){
+    const pos=new Array(BONE_DEF.length);
+    function getWorld(i){
+      if(pos[i]) return pos[i];
+      const def=BONE_DEF[i];
+      const lx=def[2], ly=def[3], lz=def[4];
+      let ox=0,oy=0,oz=0;
+      if(i===4){ ox=Math.sin(t*0.5)*0.04; }
+      if(i===7||i===9){ ox=Math.sin(t*1.2+i)*0.06; oy=Math.cos(t*0.9)*0.04; }
+      if(i===8||i===10){ ox=-Math.sin(t*1.2+i)*0.06; oy=Math.cos(t*0.9+0.5)*0.04; }
+      if(i===13||i===15){ oy=Math.abs(Math.sin(t*1.1+i))*0.05; }
+      if(i===14||i===16){ oy=Math.abs(Math.sin(t*1.1+i+Math.PI))*0.05; }
+      const local = { x:(lx+ox)*scale, y:(ly+oy)*scale, z:(lz+oz)*scale };
+      if(def[1]===-1){ pos[i]=local; return local; }
+      const parent=getWorld(def[1]);
+      pos[i]={ x:parent.x+local.x, y:parent.y+local.y, z:parent.z+local.z };
+      return pos[i];
+    }
+    for(let i=0;i<BONE_DEF.length;i++) getWorld(i);
+    return pos;
+  }
+
+  let tdT=0, tdHue=0;
+  let basaltNodes=null, lastGN=-1;
+
+  function loop(){
+    if(!tdPaused){
+      tdT+=0.01; tdHue+=0.0008;
+      const rs=g('td-rs');
+      if(rs>0 && !dragging) rotY+=rs*0.002;
+    }
+    const W=cv.width, H=cv.height;
+    ctx.fillStyle='rgba(5,4,12,0.2)'; ctx.fillRect(0,0,W,H);
+
+    const gn=g('td-gn');
+    if(gn!==lastGN){ basaltNodes=buildBasaltNodes(gn,1.6); lastGN=gn; }
+
+    const amp=g('td-wa'), eta=g('td-et'), fdens=g('td-fd'), fsz=g('td-fs');
+    const boneScale=0.7;
+    const bonePos=getBonePositions(tdT, boneScale);
+
+    // 1) 격자
+    if(tdShow.grid){
+      const gc=1.0;
+      const gcols=['rgba(100,70,160,0.07)','rgba(70,100,160,0.04)','rgba(160,70,100,0.04)'];
+      for(let axis=0;axis<3;axis++){
+        for(let i=0;i<=gn;i++){
+          const t2=i/gn*2*gc-gc;
+          for(let j=0;j<=gn;j++){
+            const s=j/gn*2*gc-gc;
+            let x1,y1,z1,x2,y2,z2;
+            if(axis===0){ x1=s;y1=t2;z1=-gc;x2=s;y2=t2;z2=gc; }
+            else if(axis===1){ x1=t2;y1=s;z1=-gc;x2=t2;y2=s;z2=gc; }
+            else{ x1=-gc;y1=t2;z1=s;x2=gc;y2=t2;z2=s; }
+            const p1=project(x1,y1,z1,W,H), p2=project(x2,y2,z2,W,H);
+            ctx.beginPath(); ctx.moveTo(p1.px,p1.py); ctx.lineTo(p2.px,p2.py);
+            ctx.strokeStyle=gcols[axis]; ctx.lineWidth=0.5; ctx.stroke();
+          }
+        }
+      }
+      // 축
+      [['rgba(255,80,80,0.5)',[1,0,0],'X'],['rgba(80,255,80,0.5)',[0,1,0],'Y'],['rgba(80,80,255,0.5)',[0,0,1],'Z']].forEach(([col,dir,lbl])=>{
+        const o=project(0,0,0,W,H), ep=project(dir[0]*1.15,dir[1]*1.15,dir[2]*1.15,W,H);
+        ctx.beginPath(); ctx.moveTo(o.px,o.py); ctx.lineTo(ep.px,ep.py);
+        ctx.strokeStyle=col; ctx.lineWidth=1.5; ctx.stroke();
+        ctx.fillStyle=col; ctx.font='10px "Space Mono",monospace'; ctx.textAlign='center';
+        ctx.fillText(lbl, ep.px, ep.py-4);
+      });
+    }
+
+    // 2) 현무암 구 (파도 위를 떠다님)
+    let sphere=null;
+    if(tdShow.sphere){
+      const sWorldX=Math.sin(tdT*0.4)*0.7+Math.cos(tdT*0.27)*0.15;
+      const sWorldY=-0.55+Math.sin(tdT*0.6)*0.08;
+      const sWorldZ=Math.cos(tdT*0.4)*0.5;
+      sphere={ worldX:sWorldX, worldY:sWorldY, worldZ:sWorldZ };
+      const sproj=project(sWorldX,sWorldY,sWorldZ,W,H);
+      const r2=18*sproj.scale*0.1;
+      // 구 본체
+      ctx.beginPath(); ctx.arc(sproj.px,sproj.py,Math.max(4,r2),0,Math.PI*2);
+      ctx.fillStyle='rgba(28,22,40,0.92)'; ctx.fill();
+      ctx.strokeStyle='rgba(80,60,110,0.55)'; ctx.lineWidth=1.2; ctx.stroke();
+      // 현무암 원 텍스처
+      for(let i=0;i<6;i++){
+        const a=i/6*Math.PI*2+tdT*0.3;
+        const sr=Math.max(1,r2*(0.15+nh(i,0)*0.1));
+        ctx.beginPath(); ctx.arc(sproj.px+Math.cos(a)*r2*0.7, sproj.py+Math.sin(a)*r2*0.55, sr, 0, Math.PI*2);
+        const [rr,gg2,bb]=hsvRgb(tdHue+i*0.1,0.4,0.4);
+        ctx.strokeStyle=`rgba(${rr},${gg2},${bb},0.3)`; ctx.lineWidth=0.5; ctx.stroke();
+      }
+      ctx.beginPath(); ctx.arc(sproj.px-r2*0.3,sproj.py-r2*0.3,r2*0.22,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,0.06)'; ctx.fill();
+    }
+
+    // 3) 꽃 VFX (basaltNodes 위치)
+    const flowerItems=[];
+    if(tdShow.flower && basaltNodes){
+      const maxN=fdens*2+2, lam=0.13;
+      basaltNodes.forEach(nd=>{
+        for(let n=maxN;n>=1;n--){
+          const tf=tdT-n*0.28;
+          const al=Math.exp(-lam*n*2.5)*0.85;
+          if(al<0.005) continue;
+          const nx2=eta>0?(nh(nd.x*2+n*0.5,tf*0.2)*2-1)*eta*0.01:0;
+          const ny2=eta>0?(nh(nd.y*2+n*0.4+1.8,tf*0.2)*2-1)*eta*0.01:0;
+          const dx=Math.cos(tf*0.05+nd.phase)*amp*0.007*(n/maxN);
+          const dy=Math.sin(tf*0.05+nd.phase)*amp*0.005*(n/maxN)+ny2;
+          const dz=Math.cos(tf*0.035+nd.phase+1)*amp*0.006*(n/maxN)+nx2;
+          let impX=0,impY=0,impZ=0;
+          if(sphere){
+            const dr=Math.sqrt((nd.x-sphere.worldX)**2+(nd.y-sphere.worldY)**2+(nd.z-sphere.worldZ)**2);
+            const imp=Math.exp(-dr*dr*4)*0.12;
+            impX=(nd.x-sphere.worldX)*imp;
+            impY=(nd.y-sphere.worldY)*imp;
+            impZ=(nd.z-sphere.worldZ)*imp;
+          }
+          const px3=nd.x+dx*(1+n*0.08)+impX;
+          const py3=nd.y+dy*(1+n*0.06)+impY;
+          const pz3=nd.z+dz*(1+n*0.07)+impZ;
+          const depth=Math.exp(-lam*n*2);
+          const proj=project(px3,py3,pz3,W,H);
+          const sz=nd.r*(fsz/8)*(0.1+depth*0.9)*proj.scale*0.12;
+          const [r,gg,b]=hsvRgb(tdHue+nd.hoff+n*0.006,0.83,Math.min(1,0.4+depth*0.6));
+          flowerItems.push({proj,sz:Math.max(0.5,sz),al,r,gg,b,depth:proj.depth});
+        }
+      });
+      flowerItems.sort((a,b)=>b.depth-a.depth);
+      flowerItems.forEach(fi=>{
+        ctx.beginPath(); ctx.arc(fi.proj.px,fi.proj.py,fi.sz,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${fi.r},${fi.gg},${fi.b},${fi.al*0.22})`; ctx.fill();
+        ctx.strokeStyle=`rgba(${fi.r},${fi.gg},${fi.b},${fi.al*0.65})`; ctx.lineWidth=0.6; ctx.stroke();
+        ctx.beginPath(); ctx.arc(fi.proj.px,fi.proj.py,fi.sz*0.2,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${fi.r},${fi.gg},${fi.b},${fi.al})`; ctx.fill();
+      });
+    }
+
+    // 4) 모캡 본
+    if(tdShow.bone){
+      const LINKS=[[0,1],[1,2],[2,3],[3,4],[2,5],[2,6],[5,7],[6,8],[7,9],[8,10],[0,11],[0,12],[11,13],[12,14],[13,15],[14,16]];
+      LINKS.forEach(([a,b])=>{
+        const pa=project(bonePos[a].x,bonePos[a].y,bonePos[a].z,W,H);
+        const pb=project(bonePos[b].x,bonePos[b].y,bonePos[b].z,W,H);
+        ctx.beginPath(); ctx.moveTo(pa.px,pa.py); ctx.lineTo(pb.px,pb.py);
+        ctx.strokeStyle='rgba(255,255,255,0.18)'; ctx.lineWidth=2; ctx.lineCap='round'; ctx.stroke();
+        ctx.strokeStyle='rgba(192,132,252,0.07)'; ctx.lineWidth=5; ctx.stroke();
+      });
+      bonePos.forEach((bp,i)=>{
+        const isKey=[4,5,6,9,10].includes(i);
+        const proj=project(bp.x,bp.y,bp.z,W,H);
+        ctx.beginPath(); ctx.arc(proj.px,proj.py,isKey?4:2.5,0,Math.PI*2);
+        ctx.fillStyle=isKey?'rgba(192,132,252,0.75)':'rgba(255,255,255,0.25)'; ctx.fill();
+        if([4,9,10,15,16].includes(i)){
+          const names={4:'head(A)',9:'handL(D₁)',10:'handR(D₂)',15:'footL',16:'footR'};
+          ctx.fillStyle='rgba(255,255,255,0.22)'; ctx.font='8px "Space Mono",monospace'; ctx.textAlign='center';
+          ctx.fillText(names[i], proj.px, proj.py-7);
+        }
+      });
+      // 손·머리에서 꽃 추가
+      if(tdShow.flower){
+        [4,9,10].forEach((bi,bii)=>{
+          const bp=bonePos[bi];
+          for(let n=6;n>=1;n--){
+            const tf=tdT-n*0.25;
+            const al=Math.exp(-0.18*n*2)*0.75;
+            if(al<0.005) continue;
+            const dx=Math.cos(tf*0.08+bii*2)*amp*0.009*(n/6);
+            const dy=Math.sin(tf*0.08+bii*2)*amp*0.006*(n/6);
+            const dz=Math.cos(tf*0.06+bii*1.5)*amp*0.008*(n/6);
+            const proj=project(bp.x+dx,bp.y+dy,bp.z+dz,W,H);
+            const depth=Math.exp(-0.18*n*2);
+            const sz=Math.max(0.5,(6+bii*2)*(fsz/8)*(0.1+depth*0.9)*proj.scale*0.12);
+            const [r,gg,b]=hsvRgb(tdHue+bii*0.3+n*0.007,0.85,Math.min(1,0.5+depth*0.5));
+            ctx.beginPath(); ctx.arc(proj.px,proj.py,sz,0,Math.PI*2);
+            ctx.fillStyle=`rgba(${r},${gg},${b},${al*0.28})`; ctx.fill();
+            ctx.strokeStyle=`rgba(${r},${gg},${b},${al*0.7})`; ctx.lineWidth=0.7; ctx.stroke();
+            ctx.beginPath(); ctx.arc(proj.px,proj.py,sz*0.22,0,Math.PI*2);
+            ctx.fillStyle=`rgba(${r},${gg},${b},${al})`; ctx.fill();
+          }
+        });
+      }
+    }
+
+    ctx.fillStyle='rgba(255,255,255,0.06)'; ctx.font='9px "Space Mono",monospace'; ctx.textAlign='left';
+    ctx.fillText('3D VOLUME  ·  드래그로 회전  ·  F = Σ Di(x,y,z,t)',8,H-8);
     requestAnimationFrame(loop);
   }
   loop();
