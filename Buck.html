@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BUCK — 3D Work / Nanobanana Prompt Reference</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --off: #f5f5f5;
+  --gray: #999;
+  --light: #e0e0e0;
+  --mid: #666;
+  --text: #111;
+  --nb: #111111;
+  --nb-light: #f5f5f5;
+}
+
+body {
+  background: var(--white);
+  color: var(--text);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── PAGE HEADER ─────────────────────── */
+.page-header {
+  border-bottom: 1px solid var(--light);
+  padding: 0 28px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.page-logo {
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: .05em;
+  color: var(--black);
+}
+.page-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.page-subtitle {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+.nb-badge {
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  background: var(--nb);
+  color: #fff;
+  padding: 3px 9px;
+  font-weight: 500;
+}
+
+/* ─── GRID ────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--light);
+}
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+
+/* ─── CARD ────────────────────────────── */
+.card {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--off);
+  cursor: pointer;
+}
+.card-img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform .55s cubic-bezier(.25,.46,.45,.94), filter .4s ease;
+}
+.card:hover .card-img { transform: scale(1.04); filter: brightness(.28); }
+
+.card-ov {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 16px 18px;
+  opacity: 0; transition: opacity .28s;
+  pointer-events: none;
+}
+.card:hover .card-ov { opacity: 1; }
+.ov-client {
+  font-size: 9px; letter-spacing: .15em; text-transform: uppercase;
+  color: rgba(255,255,255,.45); margin-bottom: 2px;
+}
+.ov-title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 16px; font-style: italic;
+  color: #fff; line-height: 1.2; margin-bottom: 10px;
+}
+
+/* JSON preview block on card hover */
+.ov-json {
+  background: rgba(0,0,0,.75);
+  border: 1px solid rgba(255,255,255,.08);
+  border-left: 2px solid rgba(255,255,255,.5);
+  padding: 10px 12px;
+  font-family: 'SF Mono','Fira Code','Courier New',monospace;
+  font-size: 10.5px; line-height: 1.6;
+  color: rgba(255,255,255,.55);
+  max-height: 100px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  position: relative;
+}
+/* fade bottom of json preview */
+.ov-json::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 28px;
+  background: linear-gradient(transparent, rgba(0,0,0,.75));
+  pointer-events: none;
+}
+.ov-json .k { color: #88d4ff; }
+.ov-json .s { color: #a8f0a0; }
+.ov-json .n { color: #ffc888; }
+.ov-json .p { color: rgba(255,255,255,.25); }
+
+.ov-cta {
+  font-size: 9.5px; letter-spacing: .13em; text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  display: flex; align-items: center; gap: 7px;
+}
+.ov-cta-dot {
+  width: 5px; height: 5px;
+  background: #1a73e8; border-radius: 50%;
+  animation: pulse-dot 1.8s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse-dot { 0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.3)} }
+
+/* ─── MODAL BACKDROP ──────────────────── */
+.modal-bg {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .22s;
+  overflow: hidden;
+}
+.modal-bg.open { opacity: 1; pointer-events: all; }
+
+/* ─── MODAL ───────────────────────────── */
+.modal {
+  width: min(1200px, 100%);
+  height: calc(100vh - 48px);
+  max-height: 92vh;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateY(16px);
+  transition: transform .28s cubic-bezier(.34,1.2,.64,1);
+}
+.modal-bg.open .modal { transform: translateY(0); }
+
+/* modal top bar */
+.m-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--light);
+  flex-shrink: 0;
+  background: var(--white); z-index: 10;
+}
+.m-client {
+  font-size: 9.5px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--gray); margin-bottom: 3px;
+}
+.m-title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 22px; font-style: italic; font-weight: 400; color: var(--black);
+}
+.m-bar-right {
+  display: flex; align-items: center; gap: 12px;
+}
+.m-nb-tag {
+  font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+  background: var(--black); color: #fff;
+  padding: 4px 10px;
+}
+.m-close {
+  background: none; border: 1px solid var(--light); color: var(--gray);
+  font-family: inherit; font-size: 11px; letter-spacing: .1em;
+  text-transform: uppercase; padding: 7px 16px; cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.m-close:hover { border-color: var(--black); color: var(--black); }
+
+/* ─── SPLIT LAYOUT ────────────────────── */
+.m-split {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  border-top: 1px solid var(--light);
+  overflow: hidden;
+}
+@media (max-width: 800px) { .m-split { flex-direction: column; } }
+
+/* ─── LEFT: ORIGINAL — fixed, no scroll ─ */
+.m-left {
+  width: 50%;
+  flex-shrink: 0;
+  border-right: 1px solid var(--light);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 800px) { .m-left { width: 100%; border-right: none; border-bottom: 1px solid var(--light); flex-shrink: 0; } }
+
+/* ─── RIGHT: VARIANTS — scrollable ───── */
+.m-right {
+  flex: 1;
+  overflow-y: auto;
+  min-width: 0;
+}
+.panel-label {
+  font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--gray);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--light);
+  display: flex; align-items: center; gap: 8px;
+  flex-shrink: 0;
+}
+.panel-label-dot {
+  width: 6px; height: 6px;
+  background: var(--black); border-radius: 50%;
+  flex-shrink: 0;
+}
+.panel-label-dot.blue { background: var(--black); }
+
+.m-left img {
+  width: 100%; display: block;
+  aspect-ratio: 16/9; object-fit: cover;
+  flex-shrink: 0;
+}
+.orig-meta {
+  padding: 16px;
+  border-top: 1px solid var(--light);
+  overflow-y: auto;
+  flex: 1;
+}
+.orig-meta-title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 15px; font-style: italic; color: var(--black);
+  margin-bottom: 6px;
+}
+.orig-meta-desc {
+  font-size: 11px; color: var(--mid); line-height: 1.65; margin-bottom: 10px;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag {
+  font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--gray); border: 1px solid var(--light); padding: 3px 9px;
+}
+
+/* ─── RIGHT: Nanobanana VARIANTS ────────────── */
+.m-right { }
+
+/* ─── VARIANT BLOCK ───────────────────── */
+.variant {
+  border-bottom: 1px solid var(--light);
+}
+.variant:last-child { border-bottom: none; }
+
+/* video placeholder */
+.v-video-placeholder {
+  aspect-ratio: 16/9;
+  background: #0d0d0d;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* scanlines */
+.v-video-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,.03) 3px, rgba(255,255,255,.03) 4px);
+  pointer-events: none; z-index: 1;
+}
+
+/* subtle vignette */
+.v-video-placeholder::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.5) 100%);
+  pointer-events: none; z-index: 1;
+}
+
+.vph-inner {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  z-index: 2; position: relative;
+}
+
+.vph-play {
+  width: 40px; height: 40px;
+  border: 1px solid rgba(26,115,232,.5);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  animation: breathe 2.8s ease-in-out infinite;
+}
+@keyframes breathe { 0%,100%{opacity:.35;transform:scale(1)}50%{opacity:1;transform:scale(1.06)} }
+
+.vph-txt {
+  font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); text-align: center; line-height: 2;
+}
+.vph-txt span { color: #1a73e8; display: block; }
+
+/* variant meta */
+.v-meta {
+  padding: 16px 16px 18px;
+}
+.v-type {
+  font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gray); margin-bottom: 4px;
+}
+.v-name {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 16px; font-style: italic; color: var(--black);
+  margin-bottom: 8px; line-height: 1.2;
+}
+.v-desc {
+  font-size: 11px; color: var(--mid); line-height: 1.65; margin-bottom: 12px;
+}
+
+/* what changed */
+.v-changes {
+  display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px;
+}
+.v-change {
+  font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 3px 8px;
+  background: var(--black); color: var(--white);
+}
+
+/* Nanobanana specific fields */
+.nb-fields {
+  margin-bottom: 12px;
+}
+.nb-row {
+  display: flex; gap: 0;
+  border: 1px solid var(--light);
+  margin-bottom: 6px;
+}
+.nb-row-label {
+  font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--gray);
+  background: var(--off);
+  padding: 7px 12px;
+  border-right: 1px solid var(--light);
+  white-space: nowrap;
+  min-width: 90px;
+  display: flex; align-items: center;
+}
+.nb-row-val {
+  font-size: 10px; color: var(--text);
+  padding: 7px 12px;
+  line-height: 1.5;
+  flex: 1;
+}
+.nb-row-val.mono {
+  font-family: 'SF Mono','Fira Code','Courier New', monospace;
+  font-size: 9.5px;
+}
+
+/* json block */
+.v-json-label {
+  font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gray); margin-bottom: 7px;
+}
+.v-json {
+  background: var(--black);
+  padding: 14px 16px;
+  font-family: 'SF Mono','Fira Code','Courier New',monospace;
+  font-size: 10px; line-height: 1.7;
+  color: rgba(255,255,255,.38);
+  overflow-x: auto; white-space: pre;
+  margin-bottom: 10px;
+}
+.v-json .k { color: #88d4ff; }
+.v-json .s { color: #a8f0a0; }
+.v-json .n { color: #ffc888; }
+.v-json .p { color: #444; }
+.v-json .vk { color: #4db6ff; }
+
+/* copy btn */
+.copy-btn {
+  font-family: inherit;
+  font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+  background: var(--black); color: var(--white);
+  border: none; padding: 7px 16px; cursor: pointer;
+  transition: opacity .15s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.copy-btn:hover { opacity: .65; }
+.copy-btn.ok { background: #2a7a4a; }
+
+/* footer */
+footer {
+  border-top: 1px solid var(--light);
+  padding: 18px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+footer p { font-size: 11px; color: var(--gray); }
+footer a { color: var(--gray); text-decoration: none; }
+footer a:hover { color: var(--black); }
+
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--light); }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <span class="page-logo">BUCK</span>
+  <div class="page-right">
+    <span class="page-subtitle">3D Work — AI Prompt Reference</span>
+    <span class="nb-badge">Nanobanana</span>
+  </div>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+  <p>© 2026 BUCK. All Rights Reserved.</p>
+  <p><a href="https://buck.co/work/tag/3d" target="_blank">buck.co/work/tag/3d</a> — Nanobanana Prompt Reference</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-bg" id="mbg">
+  <div class="modal">
+    <div class="m-bar">
+      <div>
+        <div class="m-client" id="mc"></div>
+        <div class="m-title" id="mt"></div>
+      </div>
+      <div class="m-bar-right">
+        <span class="m-nb-tag">Nanobanana</span>
+        <button class="m-close" onclick="closeModal()">Close ✕</button>
+      </div>
+    </div>
+
+    <div class="m-split">
+      <!-- LEFT: original sticky -->
+      <div class="m-left">
+        <div class="panel-label"><span class="panel-label-dot"></span>Original — BUCK</div>
+        <img id="mi" src="" alt="">
+        <div class="orig-meta">
+          <div class="orig-meta-title" id="m-orig-title"></div>
+          <div class="orig-meta-desc" id="m-orig-desc"></div>
+          <div class="tags" id="m-tags"></div>
+        </div>
+      </div>
+      <!-- RIGHT: Nanobanana variants -->
+      <div class="m-right">
+        <div class="panel-label"><span class="panel-label-dot blue"></span>Nanobanana Generated Variants</div>
+        <div id="variants"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Nanobanana prompt structure:
+// - prompt: natural language video description (what Nanobanana actually reads)
+// - camera: camera motion / angle instruction
+// - style: visual style / mood
+// - duration: suggested clip length in seconds
+// - fps: frame rate
+// - aspect_ratio: video format
+// - audio: ambient sound description (Nanobanana supports audio generation)
+// - negative: what to avoid
+
+const W = [
+  {
+    client: "Dunkin'", title: "MUNCHKINS® Holiday Campaign",
+    desc: "All wrapped up and tied with a bow, just in time to let it snow.",
+    img: "https://cdn.sanity.io/images/uk7b627p/production/2a7564067551d4434dfffd8d43b5dc478d115cee-1920x1080.jpg?w=800&q=85&auto=format",
+    tags: ["Product Viz","Holiday","Food CG","Soft 3D"],
+    variants: [
+      {
+        type: "Faithful Reproduction",
+        name: "Hero donut hole floating in snowfall",
+        desc: "Nanobanana recreation of BUCK's original: a single glazed MUNCHKIN gently rotating and floating against a soft bokeh winter backdrop, snowflakes drifting past, warm studio light catching the glaze.",
+        changes: ["Same mood: warm/cozy","Camera: slow orbit","Duration: 6s loop","Audio: soft ambient holiday"],
+        veo: {
+          prompt: "A single perfectly glazed donut hole floats and slowly rotates in a soft warm studio environment. Delicate snowflakes drift gently past in the bokeh background. Warm amber light catches the sugar glaze creating beautiful subsurface scattering and crystalline highlights. A small red ribbon curls softly below the donut as it drifts upward. The overall feel is warm, cozy, and festive — like a high-end food commercial.",
+          camera: "Slow 360-degree orbit around the floating donut at eye level. Camera moves at a meditative pace, no jerky cuts.",
+          style: "High-end food commercial CG. Octane render quality. Soft warm ambient light, photorealistic glaze materials, shallow depth of field.",
+          aspect_ratio: "16:9",
+          duration_sec: 6,
+          fps: 24,
+          audio: "Soft ambient holiday music, gentle tinkling bells, quiet snowfall ambience",
+          negative: "cartoon, flat 2D, harsh shadows, people, hands"
+        }
+      },
+      {
+        type: "Camera — Wide Establishing",
+        name: "Full holiday tablescape reveal",
+        desc: "Pulls back from the hero product to a full lifestyle scene: camera slowly cranes up to reveal an entire festive table — scattered MUNCHKINS, unwrapped ribbons, gift boxes, falling snow.",
+        changes: ["Camera: crane up reveal","Scale: product → full scene","Added: environment props","Mood: lifestyle storytelling"],
+        veo: {
+          prompt: "A slow crane-up camera move begins tight on a single glazed donut hole on a festive table, then gradually reveals the full holiday scene: scattered Dunkin MUNCHKINS, ribbons, small gift boxes wrapped in red and gold, sugar dusting catching warm light. Real snowflakes drift inside a beautifully decorated holiday space. The scene feels aspirational and warm, like a premium holiday advertisement.",
+          camera: "Slow crane up from macro on single donut to wide establishing shot of full table. Smooth, uncut, 8 seconds.",
+          style: "Premium holiday commercial, photorealistic food styling, warm amber and cream tones, soft key light from upper left.",
+          aspect_ratio: "16:9",
+          duration_sec: 8,
+          fps: 24,
+          audio: "Warm holiday music swells as the scene is revealed, paper rustle, soft ambience",
+          negative: "dark, flat, harsh shadows, studio equipment visible"
+        }
+      },
+      {
+        type: "Style — Dark Luxury",
+        name: "Moody dark confectionery editorial",
+        desc: "A complete tonal inversion. Black velvet background, dramatic single rim light. The same MUNCHKIN subject becomes a luxury confectionery product — closer to a high-end chocolate brand than fast food.",
+        changes: ["Background: black velvet","Lighting: hard rim only","Mood: luxury dark editorial","Palette: deep/rich tones"],
+        veo: {
+          prompt: "A glazed donut hole sits on black velvet in total darkness. A single dramatic rim light from the right catches the sugar glaze, sending a narrow streak of warm gold across the subject. The camera slowly pushes in — an intimate, reverential approach. Sugar crystals catch the light like diamonds. The mood is luxurious, almost precious. This could be a Godiva commercial.",
+          camera: "Ultra-slow push-in toward the donut on a perfectly stable camera. 0.2x speed creep only. No shaking.",
+          style: "Luxury confectionery dark editorial. Chiaroscuro lighting. Single hard rim light. Deep black background.",
+          aspect_ratio: "16:9",
+          duration_sec: 7,
+          fps: 24,
+          audio: "Complete silence except for subtle ambient room tone",
+          negative: "bright, colorful, cheerful, busy background, multiple donuts"
+        }
+      },
+      {
+        type: "Camera — Phantom Speed",
+        name: "Slow-motion glaze pour sequence",
+        desc: "Nanobanana physics simulation: warm glaze pours over a donut hole in extreme slow motion, individual sugar crystals catching studio light, a final pull-back reveals the fully glazed product.",
+        changes: ["Speed: extreme slow-mo","Subject: glaze in motion","Physics: fluid simulation","Duration: 8s sequence"],
+        veo: {
+          prompt: "Extreme slow motion sequence: warm golden glaze pours in a thick arc from above, landing on a single donut hole. The glaze spreads in perfect fluid dynamics, each drip stretching in phantom-camera slow motion. Individual sugar crystals become visible as the coating sets. The camera slowly pulls back at the end to reveal the fully glazed, pristine donut in a warm studio. The whole sequence feels like a luxury food film.",
+          camera: "Fixed macro close-up during pour, then slow pull-back reveal at the end. Phantom camera simulation — 0.05x real speed.",
+          style: "Phantom high-speed food commercial. Extreme macro detail. Warm amber studio lighting. Photorealistic fluid glaze simulation.",
+          aspect_ratio: "16:9",
+          duration_sec: 8,
+          fps: 120,
+          audio: "Hyper-enhanced slow-motion audio: stretched gentle pour sound, crystalline tinkling",
+          negative: "fast movement, multiple items, dark, harsh"
+        }
+      }
+    ]
+  },
+  {
+    client: "Oura", title: "Ring True to You",
+    desc: "Celebrating what color makes possible with the Oura Ring 4 Ceramic.",
+    img: "https://cdn.sanity.io/images/uk7b627p/production/e26a85bc832b9d89dbe8bfa9aa0c60d110655a8d-1440x900.png?w=800&q=85&auto=format",
+    tags: ["Product","Ceramic","Luxury","Jewelry CG"],
+    variants: [
+      {
+        type: "Faithful Reproduction",
+        name: "Ceramic ring on dark marble — orbit",
+        desc: "Nanobanana recreation of BUCK's original: multiple ceramic Oura Ring variants arranged on dark marble, soft studio rim lighting, camera orbiting slowly to reveal each color's material quality.",
+        changes: ["Same: dark marble surface","Same: multi-ring arrangement","Camera: slow orbit","Audio: ambient silence"],
+        veo: {
+          prompt: "Multiple Oura Ring ceramic variants are arranged in a precise geometric formation on a polished dark marble surface. Soft studio rim lighting catches each ring differently, revealing the matte ceramic finish and subtle color variations. The camera slowly orbits the arrangement at a low angle, as if studying sculpture in a gallery. The surface reflects faint caustic patterns. No music — the silence emphasizes the premium material quality.",
+          camera: "Low-angle slow orbit, 180 degrees over 8 seconds. Camera stays at ring level, slightly below.",
+          style: "Luxury jewelry editorial. Three-point studio lighting with rim. Dark marble. Silence.",
+          aspect_ratio: "16:9",
+          duration_sec: 8,
+          fps: 60,
+          audio: "Minimal — only subtle ambient room tone. No music.",
+          negative: "hands, people, bright background, busy"
+        }
+      },
+      {
+        type: "Camera — Macro Surface Study",
+        name: "Ceramic matte surface — light sweep",
+        desc: "Extreme macro on a single ring. A single light source slowly sweeps across the matte ceramic surface, revealing microscopic texture — a pure material study that communicates quality through touch sensation.",
+        changes: ["Camera: extreme macro","Subject: surface texture only","Lighting: single sweep","Duration: 6s surface study"],
+        veo: {
+          prompt: "An extreme macro close-up of the Oura Ring ceramic surface. A single soft light source slowly sweeps from left to right across the matte ceramic finish, revealing fine surface texture and the precise geometry of the ring's edge. The camera is perfectly still. No logo, no context — only the material. The ring slowly rotates one degree per second as the light moves. This is a pure study of ceramic quality.",
+          camera: "Absolutely static camera. Ultra macro. Only the ring rotates at 1°/second.",
+          style: "Industrial material study. Single moving raking light. Extreme macro. No depth of field — entire surface in focus.",
+          aspect_ratio: "16:9",
+          duration_sec: 6,
+          fps: 60,
+          audio: "Complete silence",
+          negative: "full product in frame, lifestyle, people, multiple rings"
+        }
+      },
+      {
+        type: "Style — Wrist Lifestyle",
+        name: "Ring worn — natural window light",
+        desc: "Shifts from pure product to lifestyle wear. A wrist wearing the ring in soft natural window light — camera slowly pushes in toward the ring as morning light shifts across the ceramic surface.",
+        changes: ["Context: product → worn","Added: human wrist","Lighting: natural window","Mood: intimate/personal"],
+        veo: {
+          prompt: "A wrist wearing an Oura Ring Ceramic rests on a light linen surface near a window. Soft morning light filters through the window and slowly shifts across the ceramic ring, creating gentle caustic patterns. The camera begins at medium distance and slowly, intimately pushes in toward the ring over 8 seconds. The skin texture and the ring's matte ceramic interact naturally with the light. The mood is meditative and personal.",
+          camera: "Slow push-in from medium to extreme close-up on the ring. 8-second continuous move.",
+          style: "Natural lifestyle editorial. Window light only. Intimate, documentary. No artificial studio feel.",
+          aspect_ratio: "16:9",
+          duration_sec: 8,
+          fps: 30,
+          audio: "Morning ambience — distant birds, gentle wind, quiet indoor silence",
+          negative: "studio lighting, stark white background, jewelry commercial cliché"
+        }
+      },
+      {
+        type: "Camera — Color Reveal Sequence",
+        name: "Ring variants appearing one by one",
+        desc: "Each ceramic color variant materializes on the marble surface one at a time — a reveal sequence that showcases the full Oura Ring color range as a cinematic product launch moment.",
+        changes: ["Motion: sequential reveal","Subject: all color variants","Narrative: product launch","Duration: 10s sequence"],
+        veo: {
+          prompt: "On a dark marble surface, Oura Ring ceramic variants appear one by one in a deliberate reveal sequence. Each ring materializes with a subtle soft light bloom — first the lightest ivory, then warm sand, then deep charcoal. After each appears, the camera lingers for one beat before the next reveals. The final shot holds on all variants arranged together, the camera pulling back slowly to show the complete palette.",
+          camera: "Static for each reveal beat. Slow pull-back on the final held frame.",
+          style: "Luxury product reveal editorial. Bloom materializations. Dark marble. Studio rim lighting.",
+          aspect_ratio: "16:9",
+          duration_sec: 10,
+          fps: 30,
+          audio: "Minimal tonal sound design — one soft tonal chord per ring reveal, silence between",
+          negative: "fast movement, all rings at once, busy, lifestyle"
+        }
+      }
+    ]
+  },
+  {
+    client: "J.P. Morgan", title: "Payments Creative Expression",
+    desc: "A unique brand expression for a legendary institution.",
+    img: "https://cdn.sanity.io/images/uk7b627p/production/de23bc83ac74e595e685d01f1fe577ba080110a3-2076x1268.png?w=800&q=85&auto=format",
+    tags: ["Brand System","Abstract 3D","Gold","Finance"],
+    variants: [
+      {
+        type: "Faithful Reproduction",
+        name: "Gold ribbons morphing through dark void",
+        desc: "Nanobanana recreation of BUCK's brand film: fluid geometric gold liquid-metal ribbons flowing and morphing through deep navy space, specular highlights communicating institutional authority.",
+        changes: ["Same: navy/gold palette","Same: ribbon forms","Camera: slow float","Audio: orchestral brand"],
+        veo: {
+          prompt: "Geometric ribbons of liquid gold slowly morph and flow through a deep navy void. The forms shift from tight braids to sweeping arcs — always fluid, always precise. Dramatic specular lighting catches the gold surface, creating moving highlights that suggest both physical material and data in motion. The pace is deliberate and authoritative. This is a global financial institution rendered as abstract motion poetry.",
+          camera: "Camera floats slowly through the space, passing between ribbon forms. No sharp cuts — continuous drift.",
+          style: "Premium institutional brand motion. Liquid metal materials. Dramatic specular. Deep navy void. Octane quality.",
+          aspect_ratio: "16:9",
+          duration_sec: 10,
+          fps: 30,
+          audio: "Low orchestral swell — cinematic, authoritative, no percussion",
+          negative: "cheap, generic, busy, corporate clip art, bright colors"
+        }
+      },
+      {
+        type: "Camera — Extreme Close Detail",
+        name: "Liquid gold ribbon — micro surface",
+        desc: "Pulls entirely into the material surface. The camera skims millimeters above the flowing gold ribbon, capturing the micro-detail of the liquid metal texture as it morphs. Pure material cinema.",
+        changes: ["Camera: skimming macro","Subject: surface texture only","Removed: full composition","Focus: material quality"],
+        veo: {
+          prompt: "The camera skims just millimeters above the surface of a flowing liquid gold ribbon, tracking along its morphing form. The metal surface catches the studio light in constantly shifting specular patterns. Small imperfections in the fluid surface — micro-ripples, tension lines — are visible up close. The ribbon slowly curves away from camera into darkness. The entire sequence is a meditation on material and light.",
+          camera: "Tracking shot skimming just above the ribbon surface. Ultra-low angle, razor-thin depth of field.",
+          style: "Extreme material macro cinema. Liquid gold surface. Single raking specular light.",
+          aspect_ratio: "16:9",
+          duration_sec: 7,
+          fps: 60,
+          audio: "Deep ambient tone, very low frequency — suggests scale and weight",
+          negative: "full scene visible, multiple ribbons, wide angle"
+        }
+      },
+      {
+        type: "Style — Global Data Network",
+        name: "Gold payment streams connecting globe",
+        desc: "Shifts metaphor from abstract ribbons to literal global connectivity. Gold data streams trace payment routes across a dark globe — every transaction visualized as a golden arc of light.",
+        changes: ["Metaphor: ribbons → globe","Added: geographic data","Style: tech/network","Added: electric blue accents"],
+        veo: {
+          prompt: "A dark Earth seen from orbit, slowly rotating. Golden arcs of light trace payment routes across the globe — each arc launches from one city and lands in another, leaving a brief trail that fades. As the sequence develops, more and more golden connections appear, building a glowing network. Occasional electric blue pulses travel along established routes, suggesting real-time transactions. The globe turns beneath a sea of its own financial light.",
+          camera: "Slow orbital shot around Earth. Camera gently rotates to follow the most active connection routes.",
+          style: "High-end data visualization meets brand identity. Dark space. Glowing gold arcs. Electric blue data pulses.",
+          aspect_ratio: "16:9",
+          duration_sec: 12,
+          fps: 30,
+          audio: "Pulsing ambient electronic score, subtle data ping sounds on each new connection",
+          negative: "flat 2D map, obvious stock globe, cluttered UI elements"
+        }
+      },
+      {
+        type: "Camera — Seamless Brand Loop",
+        name: "Infinite ribbon morphing loop",
+        desc: "A perfectly seamless 10-second loop designed for digital stage backgrounds or boardroom displays. The gold ribbon endlessly transforms — no beginning, no end, just continuous institutional motion.",
+        changes: ["Format: seamless loop","Duration: 10s perfect loop","Purpose: background display","Motion: continuous/hypnotic"],
+        veo: {
+          prompt: "An endless seamless loop of liquid gold ribbons morphing continuously through dark navy space. The forms never repeat — always becoming something new — but the overall composition stays balanced and hypnotic. This is designed as a looping background for high-end corporate presentations or digital stage installations. The pace is steady and meditative. No dramatic events, no resolution — just eternal authoritative flow.",
+          camera: "Camera slowly drifts forward infinitely. The loop is designed so the end frame matches the start perfectly.",
+          style: "Seamless brand background loop. Liquid gold. Deep navy. Authoritative and meditative.",
+          aspect_ratio: "16:9",
+          duration_sec: 10,
+          fps: 30,
+          audio: "Seamless looping ambient tone — orchestral drone, loops perfectly",
+          negative: "sharp cuts, dramatic events, bright flashes, obvious loop point"
+        }
+      }
+    ]
+  },
+  {
+    client: "Batman: Arkham Shadow", title: "When Batman Calls",
+    desc: "When Batman throws up the Bat Signal, we answer the call.",
+    img: "https://cdn.sanity.io/images/uk7b627p/production/e072eec7f7d7e9b20551408f0c7d7fdbac14dd6c-2048x1152.png?w=800&q=85&auto=format",
+    tags: ["Gothic","Noir","Game CG","Dark Hero"],
+    variants: [
+      {
+        type: "Faithful Reproduction",
+        name: "Gotham rooftop — Bat Signal in storm",
+        desc: "Nanobanana recreation of BUCK's key visual: Batman silhouette on a rain-drenched Art Deco rooftop, the Bat Signal cutting through storm clouds above, teal-and-amber chiaroscuro noir.",
+        changes: ["Same: teal/amber grade","Same: rain/noir atmosphere","Camera: slow crane up","Audio: rain/thunder"],
+        veo: {
+          prompt: "Batman stands motionless on a rain-slicked Art Deco Gotham rooftop at night. His cape billows slightly in the wind. Above him, the Bat Signal cuts a sharp cone of yellow light through heavy storm clouds, casting the bat symbol against the churning sky. Heavy rain falls throughout. Deep shadows dominate with only teal ambient city light and warm amber signal light. The camera slowly cranes up from low behind Batman to reveal the full scope of the signal in the sky.",
+          camera: "Slow crane up from low angle behind Batman, revealing the Bat Signal in the sky over 8 seconds.",
+          style: "Gothic noir game cinematics. Heavy chiaroscuro. Teal and amber color grading. Volumetric rain. Art Deco architecture.",
+          aspect_ratio: "16:9",
+          duration_sec: 8,
+          fps: 24,
+          audio: "Heavy rain, distant thunder rolling, low cinematic drone, no music",
+          negative: "bright colors, daylight, campy, smiling Batman"
+        }
+      },
+      {
+        type: "Camera — Extreme Close Portrait",
+        name: "Batman cowl macro — rain on kevlar",
+        desc: "Abandons the city view entirely. Extreme close-up on the cowl: rain beading and running down the kevlar texture in slow motion, glowing white eyes barely visible in shadow. Pure character material study.",
+        changes: ["Camera: extreme macro portrait","Subject: cowl only","Speed: slow motion rain","Removed: city/signal"],
+        veo: {
+          prompt: "Extreme close-up on Batman's cowl in darkness. Rain beads and runs down the textured kevlar surface in slow motion — individual droplets catching a faint rim light from the right before dissolving into shadow. The glowing white eyes are barely visible in the deep darkness, more suggested than seen. The camera is completely still. Only the rain moves. The silence is broken only by water on hard material.",
+          camera: "Absolutely static macro. Zero camera movement. Only rain and water motion.",
+          style: "Extreme noir macro. Single rim light. Near-total darkness. Slow motion rain physics.",
+          aspect_ratio: "4:5",
+          duration_sec: 7,
+          fps: 120,
+          audio: "Slow-motion rain on hard surface — stretched, hypnotic, no music",
+          negative: "full body visible, city background, fast motion, bright"
+        }
+      },
+      {
+        type: "Style — Signal Only Atmosphere",
+        name: "Bat Signal through storm — no character",
+        desc: "Removes Batman entirely. The Bat Signal stands alone as a pure atmospheric event: a vast column of light pushing through storm clouds over a rain-soaked Gotham, city lights glittering far below.",
+        changes: ["Removed: Batman","Subject: signal + atmosphere","Scale: monumental","Mood: anticipation"],
+        veo: {
+          prompt: "High above Gotham, a single massive column of yellow-white light erupts upward through storm clouds, projecting the bat symbol across the underside of the weather. No figure is present. The camera is aerial, looking across the skyline at this atmospheric event. Rain falls in sheets. City lights glitter in the wet streets far below. The signal pulses very slightly — not because of the projector, but because clouds shift across it.",
+          camera: "Aerial camera looking across Gotham skyline at the signal. Very slow lateral drift, no cuts.",
+          style: "Atmospheric noir aerial. Teal ambient city light. Amber signal column. Volumetric storm clouds.",
+          aspect_ratio: "21:9",
+          duration_sec: 10,
+          fps: 24,
+          audio: "Wind, rain, distant thunder, low cinematic orchestra — slow and heavy",
+          negative: "Batman present, daylight, comedy, any character"
+        }
+      },
+      {
+        type: "Camera — Cape Unfurl Action",
+        name: "Batman leaps — slow-motion cape deployment",
+        desc: "Game trailer opener: Batman leaps from a gargoyle in extreme slow motion, cape deploying in full physics simulation, rain in particle suspension around him, city below receding.",
+        changes: ["Subject: full action","Speed: extreme slow-motion","Physics: cape + rain particles","Duration: 8s sequence"],
+        veo: {
+          prompt: "In extreme slow motion, Batman launches from a gothic gargoyle at the edge of a Gotham skyscraper. His cape deploys in a dramatic spread, each edge catching air and billowing outward against the storm sky. Rain particles hang suspended in the air around him. The Bat Signal is visible in the background clouds as he falls away from camera, the city grid receding below. The sequence ends with him disappearing into darkness below.",
+          camera: "Starts behind and above Batman as he leaps. Slowly follows him down-and-forward as he falls. No cut.",
+          style: "Extreme slow motion game cinematic. Rain particles. Physics-accurate cape simulation. Teal and amber.",
+          aspect_ratio: "16:9",
+          duration_sec: 8,
+          fps: 120,
+          audio: "Slow-motion whoosh, cape fabric sound stretched, low cinematic impact tone",
+          negative: "fast cut, bright, campy, daylight"
+        }
+      }
+    ]
+  },
+  {
+    client: "Beats", title: "Pills",
+    desc: "Pill people are back.",
+    img: "https://cdn.sanity.io/images/uk7b627p/production/0ac173d9f529cb1f1b30e7e210e40aaa5304ccc4-1920x1080.png?w=800&q=85&auto=format",
+    tags: ["Character Design","Product 3D","Playful","Anthropomorphic"],
+    variants: [
+      {
+        type: "Faithful Reproduction",
+        name: "Beats Pill character — dynamic street pose",
+        desc: "Nanobanana recreation of BUCK's original: the anthropomorphic Beats Pill character in full personality mode — expressive rubber body, vibrant color, dynamic pose communicating urban music culture.",
+        changes: ["Same: white background","Same: Pixar character quality","Camera: character reveal","Audio: bass beat"],
+        veo: {
+          prompt: "An anthropomorphic Beats Pill bluetooth speaker stands on a clean white surface. It has expressive grille eyes that blink and look around with personality. The rubber body bounces slightly to an implied beat. It throws a confident side-eye at camera, tilts its body in a cool hip-hop lean, then returns to center — full Pixar-level character expressiveness. The character is clearly enjoying itself.",
+          camera: "Medium shot. Camera stays stable. Character commands the frame through its own movement.",
+          style: "Pixar-quality 3D character animation. Clean white studio. Vibrant red. Rubber toy premium material.",
+          aspect_ratio: "16:9",
+          duration_sec: 6,
+          fps: 24,
+          audio: "Deep bass pulse plays quietly, character seems to respond to it",
+          negative: "static product shot, no movement, boring, matte flat"
+        }
+      },
+      {
+        type: "Camera — Face Close-up",
+        name: "Expressive grille face — emotion sequence",
+        desc: "The camera moves in close to just the face, and the character performs a sequence of emotions — curiosity, surprise, coolness, joy — entirely through grille movement and eye expression.",
+        changes: ["Camera: face close-up","Subject: face only","Added: emotion sequence","Format: square"],
+        veo: {
+          prompt: "A tight close-up on the Beats Pill character's face — the speaker grille serves as its expressive mouth and eyes. In rapid sequence, the character expresses: curiosity (eyes narrow, slight tilt), surprise (eyes widen, quick back-lean), cool confidence (one eye squints, slow nod), pure joy (full wide grin, sparkle in the eye). Each emotion is held for one beat, then transitions naturally. The performance is genuinely charming.",
+          camera: "Fixed close-up on face throughout. Only tiny drifts to follow the character's own movement.",
+          style: "Pixar close-up character performance. Bright lighting. White background. Expressive rubber material.",
+          aspect_ratio: "1:1",
+          duration_sec: 6,
+          fps: 24,
+          audio: "Playful sound effects matching each emotion — curious hum, surprised sting, bass thump for confidence",
+          negative: "full body, product shot, no emotion, static"
+        }
+      },
+      {
+        type: "Style — Party Ensemble",
+        name: "Multiple Pills — neon party scene",
+        desc: "Multiplies the single character into a group of color-variant Pills in a neon party scene, each with its own personality — tests the character as an ensemble cast for a social campaign.",
+        changes: ["Count: 1 → many","Setting: neon party","Palette: full color range","Mood: joyful chaos"],
+        veo: {
+          prompt: "A neon-lit party space filled with Beats Pill characters in every color — red, black, white, yellow, blue. Each has its own personality and is doing something different: one dances, one DJs behind tiny decks, one crowd-surfs carried by the others, one has fallen asleep in the corner. Music visualizer light bars pulse in the background. The energy is chaotic, joyful, and completely alive.",
+          camera: "Wide shot holds the full party in frame. Occasional slow rack focus between different characters.",
+          style: "Pixar short film energy. Neon party lighting. Multi-character ensemble. Musical visualization elements.",
+          aspect_ratio: "16:9",
+          duration_sec: 8,
+          fps: 24,
+          audio: "Full hip-hop party track, crowd ambience, each character adds a vocal sting when featured",
+          negative: "single character, dark, quiet, static"
+        }
+      },
+      {
+        type: "Camera — Product Transform",
+        name: "Pill transitions from product to character",
+        desc: "An origin story: a regular Beats Pill speaker sits dormant on a shelf. Music starts playing from it. Slowly, it comes alive — grille morphs into eyes, body gains joints and personality. Product to character.",
+        changes: ["Narrative: product → character","Motion: awakening transform","Story: origin moment","Duration: 10s"],
+        veo: {
+          prompt: "A regular Beats Pill bluetooth speaker sits static on a white shelf. Bass begins to play. The speaker visibly vibrates. Then — the grille slowly morphs into expressive eyes. A slight lean forward. Arms materialize from the sides. One eye opens fully and looks directly at camera with complete personality. The character straightens up, bounces once to the beat, then gives the camera a confident nod. It's alive.",
+          camera: "Static camera throughout, medium shot. The transformation happens within the frame.",
+          style: "Character awakening sequence. Clean white studio. Pixar quality transformation. Product becomes character.",
+          aspect_ratio: "16:9",
+          duration_sec: 10,
+          fps: 24,
+          audio: "Silence → bass begins → music swells as character comes alive",
+          negative: "fast cut, pre-animated character, already alive at start"
+        }
+      }
+    ]
+  },
+  {
+    client: "Microsoft", title: "Copilot+ PCs",
+    desc: "A visual identity for Microsoft's new Next Gen AI PCs.",
+    img: "https://cdn.sanity.io/images/uk7b627p/production/f0517e293f7ef0da1c03e91313a27baaee04eef5-1280x720.png?w=800&q=85&auto=format",
+    tags: ["AI Identity","Fluid Gradient","Tech Futurism","Soft Forms"],
+    variants: [
+      {
+        type: "Faithful Reproduction",
+        name: "Fluid AI form breathing in white void",
+        desc: "Nanobanana recreation of BUCK's soft futurism: a single organic fluid form gently breathing and morphing in clean white space, Microsoft's lavender-to-cream gradient, self-luminous and optimistic.",
+        changes: ["Same: white void","Same: soft palette","Same: organic form","Camera: slow orbit"],
+        veo: {
+          prompt: "A single organic fluid form floats in a clean white void, slowly breathing — expanding on the inhale, contracting on the exhale. Its surface carries a soft gradient that cycles gently from soft lavender to sky blue to warm cream. The form is self-luminous, casting a gentle ambient glow into the space around it. No sharp edges anywhere. The movement is meditative and reassuring. This is what artificial intelligence feels like when it's working for you.",
+          camera: "Slow 180-degree orbit over 10 seconds. Camera stays at form-level, slightly below.",
+          style: "Microsoft Copilot brand identity. Soft futurism. Self-luminous organic form. Clean white void.",
+          aspect_ratio: "16:9",
+          duration_sec: 10,
+          fps: 30,
+          audio: "Soft ambient electronic tone — gentle, optimistic, no percussion",
+          negative: "dark, harsh, mechanical, cold, corporate"
+        }
+      },
+      {
+        type: "Camera — Screen Integration",
+        name: "Copilot form on Surface device",
+        desc: "Moves from abstract to concrete: the fluid Copilot form is shown as a live UI element on a Surface Laptop screen. The screen glows in a dim room — AI as ambient presence in a real space.",
+        changes: ["Context: abstract → device","Added: Surface Laptop","Environment: dim room","Mood: ambient/practical"],
+        veo: {
+          prompt: "A Microsoft Surface Laptop sits open on a minimal desk in a slightly dim room. The screen displays the fluid Copilot AI form — its colors shifting gently, breathing. The soft screen light is the primary light source in the room, casting a gentle lavender-blue glow on the desk surface and the user's hands. The user's hands are not visible — only their presence is suggested. The camera slowly pushes in toward the glowing screen.",
+          camera: "Slow push-in from medium room shot to screen close-up. 8 seconds. No cuts.",
+          style: "Intimate product film. Screen as ambient light source. Microsoft Copilot identity within real context.",
+          aspect_ratio: "16:9",
+          duration_sec: 8,
+          fps: 30,
+          audio: "Quiet room tone, very faint ambient electronic music from the laptop",
+          negative: "bright studio, harsh product shot, people visible, busy"
+        }
+      },
+      {
+        type: "Style — Dark Neural Mode",
+        name: "Neural network glowing in darkness",
+        desc: "Flips to dark mode. The same AI intelligence expressed as a neural network in deep navy space — glowing nodes and luminous threads forming brain-like patterns. Same brand, opposite mood.",
+        changes: ["Background: white → deep navy","Style: neural network","Lighting: emissive nodes","Mood: technical/dramatic"],
+        veo: {
+          prompt: "In deep navy darkness, thousands of tiny glowing nodes connect via luminous blue threads, forming a slowly expanding neural network. The nodes pulse with soft light — some sending signals along threads that briefly brighten as data moves. The overall pattern resembles a brain from a distance, but up close it's pure geometric precision. Microsoft's blue color DNA is present in every glowing element. The camera slowly pulls back to reveal the full network scale.",
+          camera: "Slow pull-back from single node close-up to full network overview. 10 seconds.",
+          style: "Neural network visualization. Deep navy void. Emissive node glow. IBM-meets-Microsoft tech aesthetic.",
+          aspect_ratio: "16:9",
+          duration_sec: 10,
+          fps: 30,
+          audio: "Deep electronic ambient — low frequency pulse matching the node rhythm",
+          negative: "white background, bright, light mode, soft organic"
+        }
+      },
+      {
+        type: "Camera — Seamless Brand Loop",
+        name: "Color-shifting form — perfect loop",
+        desc: "A 6-second seamless loop for loading screens, backgrounds, or ambient displays. The fluid Copilot form breathes through its color palette indefinitely — end frame matches start perfectly.",
+        changes: ["Format: perfect loop","Duration: 6s seamless","Purpose: ambient background","Motion: color breathe cycle"],
+        veo: {
+          prompt: "A fluid organic form breathes slowly and cycles through the Microsoft Copilot color palette — lavender into sky blue into warm cream and back again — in a perfectly seamless 6-second loop. The form gently expands and contracts with each color breath. The start and end frames are identical, making the loop invisible. This is designed as an ambient loading animation or digital background for Microsoft products.",
+          camera: "Static camera. Only the form moves.",
+          style: "Seamless brand loop. Soft gradient. White void. Optimistic and calm.",
+          aspect_ratio: "16:9",
+          duration_sec: 6,
+          fps: 30,
+          audio: "Seamless looping ambient tone — 6 seconds, loops perfectly",
+          negative: "obvious loop point, sharp transition, dramatic events, dark"
+        }
+      }
+    ]
+  },
+  {
+    client: "Pepsi", title: '"Crave"',
+    desc: "Gorgeous liquid footage and freshly branded elements in a hero film for Pepsi's Crave campaign.",
+    img: "https://cdn.sanity.io/images/uk7b627p/production/3620f2a4f0a2d8d044ec951357d4d776b4615efe-5568x3044.png?w=800&q=85&auto=format",
+    tags: ["Liquid 3D","Product Hero","Kinetic","Beverage"],
+    variants: [
+      {
+        type: "Faithful Reproduction",
+        name: "Can hero — liquid explosion environment",
+        desc: "Nanobanana recreation of BUCK's hyperkinetic Pepsi aesthetic: can at center, explosive liquid physics surrounding it, electric neon blue backlight, hyperkinetic energy that makes you crave a sip.",
+        changes: ["Same: electric blue","Same: dark backdrop","Same: liquid physics","Camera: orbit"],
+        veo: {
+          prompt: "A Pepsi can stands at the center of frame in a dark studio. Electric blue neon light from behind creates a dramatic rim around the can. Suddenly, an explosion of cold blue liquid erupts in all directions from around the base — droplets catching the backlight as they arc and freeze in slow motion. Condensation beads on the can's cold surface. The camera orbits the can slowly as the liquid hangs suspended in the air around it.",
+          camera: "Slow orbit around the can. The liquid explosion is in sustained slow motion throughout.",
+          style: "Hyperkinetic beverage commercial. Phantom camera slow motion. Electric neon blue. Dark studio.",
+          aspect_ratio: "16:9",
+          duration_sec: 8,
+          fps: 120,
+          audio: "Slow-motion liquid physics sounds stretched — ice crack, carbonation hiss, deep bass pulse",
+          negative: "static, flat, bright white background, old branding"
+        }
+      },
+      {
+        type: "Camera — Condensation Macro",
+        name: "Extreme macro — droplets on cold aluminum",
+        desc: "The camera pulls entirely into the surface. Extreme macro on condensation beading on the cold Pepsi can surface — electric blue neon reflected in each individual water droplet. Tactile and sensory.",
+        changes: ["Camera: extreme macro","Subject: condensation only","Removed: liquid explosion","Focus: surface tactility"],
+        veo: {
+          prompt: "An extreme macro close-up tracking slowly across the surface of a cold Pepsi can. Individual condensation droplets are huge in frame — each one reflecting the electric blue neon light source behind the camera. New droplets form and run together as the camera tracks. The aluminum surface texture is visible beneath. The camera is so close that the can's curve is barely perceptible — it reads almost like an abstract landscape of blue-reflecting water spheres.",
+          camera: "Slow lateral tracking shot 2mm above surface. Razor-thin depth of field.",
+          style: "Extreme tactile product macro. Neon reflection in water. Cold aluminum texture.",
+          aspect_ratio: "16:9",
+          duration_sec: 7,
+          fps: 60,
+          audio: "Amplified condensation sounds — tiny drips, fizz, cold air ambience",
+          negative: "wide shot, full can, liquid explosion, fast movement"
+        }
+      },
+      {
+        type: "Style — Abstract Liquid Sculpture",
+        name: "Pepsi blue as pure kinetic sculpture",
+        desc: "The product disappears. Only Pepsi's electric blue liquid remains — captured mid-motion as a pure abstract sculpture. Fine art liquid photography aesthetic that could open a brand film.",
+        changes: ["Removed: Pepsi can","Subject: liquid form only","Style: fine art","Mood: sculptural/elegant"],
+        veo: {
+          prompt: "A column of electric blue liquid explodes upward from below frame and freezes at its peak — a perfect abstract sculpture of frozen fluid motion. No can. No branding. Only the liquid and its relationship with studio light. The form slowly rotates as the camera orbits it. Small drops hang in the air around the main form. The lighting picks out every surface detail of the frozen liquid. After 6 seconds, the liquid continues its fall and the cycle begins again.",
+          camera: "Slow orbit around the frozen liquid form. 6-second suspension then fall, looping.",
+          style: "Abstract liquid fine art. Electric blue. Studio lighting. No product context.",
+          aspect_ratio: "16:9",
+          duration_sec: 8,
+          fps: 120,
+          audio: "Slow motion water physics — deeply ambient, no music, sculptural silence",
+          negative: "Pepsi can, logo, branding, fast motion"
+        }
+      },
+      {
+        type: "Camera — Can Opening Ritual",
+        name: "Tab pull → carbonation eruption → first sip",
+        desc: "A narrative sequence: the definitive crave ritual. Fingers grip the cold wet can → tab pulls back → carbonation erupts in a micro-explosion → the first sip is poured, ice cascading into a glass.",
+        changes: ["Narrative: 3-act ritual","Added: human hands","Motion: tab pull sequence","Duration: 10s story"],
+        veo: {
+          prompt: "A cold wet Pepsi can sits in a dark space. A hand enters frame and grips it — condensation disturbed by warm fingers. The thumb finds the tab and slowly pulls it back. The moment the seal breaks, a tiny eruption of electric blue mist and carbonation escapes. The camera cuts to an extreme close-up of the opening as bubbles race upward through dark Pepsi liquid. The can is slowly tipped and poured over ice in a glass, blue bubbles and ice catching the neon backlight.",
+          camera: "Three positions: medium on can → close on tab pull → extreme macro on pour. Slow, deliberate cuts.",
+          style: "Crave ritual sequence. Hyperreal product cinema. Dark studio. Electric blue neon backlight.",
+          aspect_ratio: "16:9",
+          duration_sec: 10,
+          fps: 60,
+          audio: "Tab crack amplified, carbonation hiss, ice clink, pour sound — each deeply satisfying",
+          negative: "fast cut, MTV style, graphic overlay, people's faces"
+        }
+      }
+    ]
+  },
+  {
+    client: "Nike", title: "White Hot",
+    desc: "We helped Nike birth these white-hot, instant classics.",
+    img: "https://cdn.sanity.io/images/uk7b627p/production/38dcd4edb5ca196cff4380ff8d816038d5ad9427-1920x1920.jpg?w=800&q=85&auto=format",
+    tags: ["Sneaker","Product Hero","White on White","Sculptural"],
+    variants: [
+      {
+        type: "Faithful Reproduction",
+        name: "White shoe — single light sweep",
+        desc: "Nanobanana recreation of BUCK's approach: the Nike sneaker on a white surface with a single soft light source slowly sweeping from left to right, revealing the form purely through shadow transition.",
+        changes: ["Same: white-on-white","Same: sculptural intent","Camera: static","Audio: silence"],
+        veo: {
+          prompt: "A white Nike sneaker sits on a pure white surface. The room begins in near-total even light, then a single soft light source slowly sweeps from left to right across the shoe over 8 seconds — as it moves, shadows emerge on the left and dissolve on the right, revealing the full three-dimensional form of the shoe through shadow alone. No color. No distraction. The shoe is treated as a classical sculpture deserving of reverent attention.",
+          camera: "Absolutely static camera. Only the light moves. Side profile framing.",
+          style: "Monochromatic sculptural product. White-on-white. Moving single light source. Museum quality.",
+          aspect_ratio: "1:1",
+          duration_sec: 8,
+          fps: 30,
+          audio: "Complete silence",
+          negative: "colorful, lifestyle, people, busy background, fast movement"
+        }
+      },
+      {
+        type: "Camera — Slow Orbit Reveal",
+        name: "360° orbit — form revealed in motion",
+        desc: "A slow 360-degree orbit around the shoe, allowing the form to be read from every angle as it rotates. Careful lighting ensures every angle is equally sculptural — no unflattering shots.",
+        changes: ["Camera: 360° orbit","Duration: 10s full orbit","Lighting: multi-angle equal","View: all angles shown"],
+        veo: {
+          prompt: "A white Nike sneaker sits on a minimal white surface as the camera performs a slow, complete 360-degree orbit over 10 seconds. The lighting has been engineered so that every angle of the shoe — side, heel, toe, top, sole — is equally well-lit and sculptural. As the camera rotates, the shoe reads as pure form: mesh, leather, rubber, lace all visible in their material relationship. This is a complete portrait of a product.",
+          camera: "360-degree orbit, smooth, one complete revolution over 10 seconds. Camera at slight upward angle.",
+          style: "Complete product portrait. White studio. Even multi-directional lighting. Sculptural.",
+          aspect_ratio: "1:1",
+          duration_sec: 10,
+          fps: 60,
+          audio: "Silence",
+          negative: "lifestyle, people, colorful, dark, dramatic"
+        }
+      },
+      {
+        type: "Style — Dark Inversion",
+        name: "White shoe on black — museum light",
+        desc: "The tonal inversion: the white shoe on a black background, a single museum-style rim light carving the form from darkness. The shoe becomes a glowing object — precious, iconic, collectible.",
+        changes: ["Background: white → black","Lighting: single rim","Mood: rare object","Tone: dramatic inversion"],
+        veo: {
+          prompt: "Total darkness. A white Nike sneaker materializes — not through a cut, but through a light that slowly rises from darkness, a single rim light from the upper right that outlines the shoe against complete black. The shoe appears to almost glow from within. The camera makes a very slow, reverential push-in over 8 seconds. No other information exists in the frame — only this white form against black, deserving of complete attention.",
+          camera: "Very slow push-in, near static. Single rim light from upper right.",
+          style: "Dark gallery lighting. White shoe against pure black. Single rim light. Precious object treatment.",
+          aspect_ratio: "1:1",
+          duration_sec: 8,
+          fps: 30,
+          audio: "Silence",
+          negative: "white background, lifestyle, colorful, busy"
+        }
+      },
+      {
+        type: "Camera — Material Macro",
+        name: "Mesh and leather — surface texture tour",
+        desc: "A macro journey across the shoe's different material zones: open mesh breathes, leather grain catches directional light, rubber sole texture provides contrast. A love letter to material craft.",
+        changes: ["Camera: macro tracking","Subject: materials only","Removed: full shoe view","Focus: texture/craft"],
+        veo: {
+          prompt: "A slow macro tracking shot travels across different material zones of a white Nike sneaker. Starting at the open mesh upper — the camera close enough to see individual fibers — then tracking slowly to the leather overlay where grain texture catches a raking light. Then to the rubber sole with its geometric tread pattern. Each material is given 2-3 seconds of reverent attention. The camera is always within 2cm of the surface.",
+          camera: "Slow tracking macro 2cm above surface. Continuous uncut journey across materials.",
+          style: "Material macro documentary. Single raking light. White/cream tones. Pure craft focus.",
+          aspect_ratio: "16:9",
+          duration_sec: 10,
+          fps: 60,
+          audio: "Ambient near-silence — faint material texture sound when touched",
+          negative: "full shoe visible, lifestyle, people, colorful"
+        }
+      }
+    ]
+  },
+  {
+    client: "IBM", title: "watsonx",
+    desc: "Reimagining watsonx as the new face of AI within IBM's enterprise solutions.",
+    img: "https://cdn.sanity.io/images/uk7b627p/production/7b67975fb8e1008bc44e6e92ee1d000780fe8130-3436x1920.png?w=800&q=85&auto=format",
+    tags: ["Enterprise AI","Data Viz","Deep Blue","Crystalline"],
+    variants: [
+      {
+        type: "Faithful Reproduction",
+        name: "Crystalline data network — full system view",
+        desc: "Nanobanana recreation of BUCK's approach: IBM deep blue network of crystalline data nodes, connections activating sequentially, camera floating through the system to convey scale and precision.",
+        changes: ["Same: IBM blue palette","Same: crystalline forms","Camera: float through","Audio: enterprise tone"],
+        veo: {
+          prompt: "A vast crystalline data network fills the frame — thousands of geometric nodes connected by luminous blue threads in deep navy space. The camera floats slowly through this structure, passing between node clusters. Periodically, a pulse of electric data travels along a connection line, briefly brightening it. The scale feels enormous — like floating through a city of data. IBM's signature deep blue pervades everything. This is enterprise AI made visible.",
+          camera: "Slow float through the network. Camera passes between node clusters, always moving forward.",
+          style: "Enterprise AI visualization. IBM deep blue. Crystalline geometry. Precision and scale.",
+          aspect_ratio: "16:9",
+          duration_sec: 12,
+          fps: 30,
+          audio: "Low orchestral ambient with electronic undertone. Authoritative and intelligent.",
+          negative: "consumer aesthetic, messy, casual, bright"
+        }
+      },
+      {
+        type: "Camera — Single Node Activation",
+        name: "One node awakens — signal propagates",
+        desc: "The entire network starts dark. A single node activates — glows, sends a signal along its connections. Each connected node wakes and does the same. Chain reaction that builds the full network from nothing.",
+        changes: ["Narrative: origin story","Motion: chain activation","Starting point: darkness","Duration: 15s build"],
+        veo: {
+          prompt: "Complete darkness. A single point of blue light appears — a data node activating in deep navy void. It pulses once, then sends signals along its connection threads to adjacent nodes. Each neighbor wakes and does the same. The activation spreads in widening waves — slowly at first, then with increasing momentum — until the entire vast network is illuminated and alive with data flow. The camera pulls back as the network grows, revealing its true scale.",
+          camera: "Starts close on the first node. Slowly pulls back as the network expands to reveal full scale.",
+          style: "Network growth sequence. IBM deep blue. Chain activation pattern. Dark void to full illumination.",
+          aspect_ratio: "16:9",
+          duration_sec: 15,
+          fps: 30,
+          audio: "Silence → soft tone on first node → building orchestral swell as network grows",
+          negative: "already lit network, fast activation, busy from start"
+        }
+      },
+      {
+        type: "Style — Human + AI Collaboration",
+        name: "Professional working inside the network",
+        desc: "Grounds the abstract in human context. A business professional stands at the center of a holographic watsonx network — the crystalline data forms float around her as interactive elements she navigates.",
+        changes: ["Added: human figure","Scale: human-sized hologram","Setting: corporate space","Mood: collaborative tool"],
+        veo: {
+          prompt: "A business professional stands in the center of a holographic IBM watsonx network that projects around her in a darkened corporate space. Crystalline data nodes float at arm's reach — she gestures toward one, and it responds, expanding its connected data threads. The network is responsive to her attention. She is clearly in command of the intelligence, not subordinate to it. The blue light of the network illuminates her face and workspace.",
+          camera: "Medium shot holding the professional and surrounding network. Occasional pushes toward moments of interaction.",
+          style: "Enterprise human-AI collaboration film. IBM blue holographic. Corporate but futuristic.",
+          aspect_ratio: "16:9",
+          duration_sec: 10,
+          fps: 30,
+          audio: "Minimal ambient electronic underscore. Confident and productive.",
+          negative: "fearful tone, dramatic AI threat, chaotic, consumer casual"
+        }
+      },
+      {
+        type: "Camera — Crystalline Macro",
+        name: "Single node — interior structure revealed",
+        desc: "Extreme macro push into a single crystalline node until the camera seems to enter it — revealing the complex geometric interior, with data streams running through it like light through fiber.",
+        changes: ["Camera: macro push-in","Subject: node interior","Effect: enter the crystal","Duration: 8s journey"],
+        veo: {
+          prompt: "The camera begins at medium distance looking at a single glowing blue crystalline data node. It slowly pushes in — closer and closer — until the crystal fills the frame and the camera appears to enter it. Inside: complex geometric facets, data streams running through the crystal like fiber optic light, an infinite inner architecture. The deeper the camera goes, the more detail is revealed. The sequence ends inside the crystal with data flowing past in all directions.",
+          camera: "Continuous slow push-in that appears to enter the crystal. No cuts. 8-second journey inward.",
+          style: "Crystal interior macro. IBM electric blue. Geometric inner architecture. Data stream visualization.",
+          aspect_ratio: "16:9",
+          duration_sec: 8,
+          fps: 60,
+          audio: "Deep tonal drone — the sound of data at rest",
+          negative: "full network, pullback, wide angle, people"
+        }
+      }
+    ]
+  },
+  {
+    client: "Spotify", title: "Summer Campaign",
+    desc: "Animated posters in cultural hot spots for Spotify's summer campaign.",
+    img: "https://cdn.sanity.io/images/uk7b627p/production/df84634c3c08ac92ec905a266efae62941acbc31-8114x5268.jpg?w=800&q=85&auto=format",
+    tags: ["Animated Poster","Summer","OOH","Cultural"],
+    variants: [
+      {
+        type: "Faithful Reproduction",
+        name: "Surreal summer world — Spotify green threading through",
+        desc: "Nanobanana recreation of BUCK's poster world: a surreal tropical summer scene where Spotify's signature green flows through the environment as liquid, plants pulse to music, the whole world is made of music.",
+        changes: ["Same: Spotify green","Same: surreal summer","Camera: drift through","Audio: summer track"],
+        veo: {
+          prompt: "A surreal tropical summer environment where Spotify green flows as a liquid river through the scene — threading between oversized tropical plants, pooling around melting ice cream sculptures, catching the golden hour sun. The plants pulse very slightly to an implied beat. The camera drifts slowly through this world at eye level, discovering new details: a flamingo bobbing its head to the rhythm, a waterfall of green Spotify liquid, a sky full of music note clouds.",
+          camera: "Slow drift through the environment. Continuous uncut movement through the surreal space.",
+          style: "Surreal editorial summer world. Photorealistic + graphic mix. Spotify green as environmental element. Golden hour.",
+          aspect_ratio: "9:16",
+          duration_sec: 10,
+          fps: 24,
+          audio: "Euphoric summer pop track plays throughout — the world seems built from this music",
+          negative: "generic summer, plain background, no personality, winter"
+        }
+      },
+      {
+        type: "Camera — Poster Come to Life",
+        name: "Static billboard animates as camera approaches",
+        desc: "A real-world billboard on a street begins as a static image — as the camera slowly pushes in, the poster's elements begin to move, the Spotify green begins to flow. The OOH experience made cinematic.",
+        changes: ["Context: real-world billboard","Effect: poster coming alive","Camera: push-in trigger","Narrative: OOH activation"],
+        veo: {
+          prompt: "A Spotify summer campaign billboard on a city street is seen from across the road. As the camera slowly pushes toward it, the poster's elements begin to animate — the tropical plants sway, the Spotify green starts to flow like liquid, the ice cream drips. By the time the camera is close to the billboard, it's fully alive. Passersby on the street look up in wonder. The real world and the poster world coexist.",
+          camera: "Slow push-in from across the street toward the billboard. The animation begins midway through the push.",
+          style: "Real-world OOH activation. City environment. Poster-to-animation transformation.",
+          aspect_ratio: "9:16",
+          duration_sec: 10,
+          fps: 24,
+          audio: "City ambience → Spotify summer track emerges from the billboard as it activates",
+          negative: "static poster only, studio, no real world context"
+        }
+      },
+      {
+        type: "Style — Golden Hour Cinemagraph",
+        name: "Still summer scene with only music elements moving",
+        desc: "Cinemagraph aesthetic: the summer scene is largely frozen like a photograph, with only music-responsive elements animated — the Spotify green liquid flows, flowers bloom on loop, everything else is still.",
+        changes: ["Style: cinemagraph","Motion: selective only","Static: most elements","Loop: seamless 6s"],
+        veo: {
+          prompt: "A perfectly composed summer scene frozen like a photograph — golden light, tropical flowers, fruit, sunshine. Then: only two things move. A thin stream of Spotify green liquid flows slowly through the scene, threading between the frozen elements. And in one corner, a single flower blooms in slow loop, opening and reopening. Everything else is completely still. The contrast between frozen and living creates a hypnotic, meditative feel.",
+          camera: "Completely static. Cinemagraph — frozen frame with selective animation.",
+          style: "Cinemagraph summer editorial. Golden hour. Selective motion. Hypnotic loop.",
+          aspect_ratio: "1:1",
+          duration_sec: 6,
+          fps: 24,
+          audio: "Soft ambient — barely audible Spotify track, mostly natural summer silence",
+          negative: "everything moving, fast, busy, winter, dark"
+        }
+      },
+      {
+        type: "Camera — Crowd at Festival",
+        name: "Festival crowd in Spotify summer world",
+        desc: "Grounds the surreal world in human energy. A music festival crowd in the surreal Spotify summer environment — Spotify green infuses the smoke, the stage lights, the bubbles — music is everywhere and everything.",
+        changes: ["Added: real humans/crowd","Setting: music festival","Scale: epic crowd","Mood: communal euphoria"],
+        veo: {
+          prompt: "A music festival crowd fills a golden summer field, all moving to the same beat. Spotify green infuses the stage smoke, streams through the light beams, bubbles float in the green color from crowd level up to the sky. Overhead drones capture the scale — thousands of people at the center of a Spotify summer world. The surreal elements — oversized tropical plants, green waterfalls — surround the very real crowd. Music connects the fictional world and the real one.",
+          camera: "Begins aerial showing crowd scale, then descends to crowd level in one continuous move.",
+          style: "Epic summer festival film. Real crowd. Surreal Spotify green environment. Golden hour.",
+          aspect_ratio: "16:9",
+          duration_sec: 12,
+          fps: 24,
+          audio: "Full summer anthem — euphoric and communal. Crowd sounds mixed in.",
+          negative: "empty, quiet, small scale, winter, dark"
+        }
+      }
+    ]
+  }
+];
+
+function hl(obj) {
+  return JSON.stringify(obj, null, 2)
+    .replace(/("[\w_]+")\s*:/g, '<span class="k">$1</span>:')
+    .replace(/:\s*(".*?")/g, ': <span class="s">$1</span>')
+    .replace(/:\s*(\d+\.?\d*)/g, ': <span class="n">$1</span>')
+    .replace(/[{}\[\],]/g, m => `<span class="p">${m}</span>`);
+}
+
+// grid
+const grid = document.getElementById('grid');
+W.forEach((w, i) => {
+  // Build a short JSON preview from the first variant's Nanobanana prompt fields
+  const v0 = w.variants[0].veo;
+  const preview = {
+    model: "Nanobanana",
+    prompt: v0.prompt.slice(0, 90) + '…',
+    camera: v0.camera.split('.')[0],
+    duration: `${v0.duration_sec}s · ${v0.fps}fps · ${v0.aspect_ratio}`
+  };
+
+  const c = document.createElement('div');
+  c.className = 'card';
+  c.innerHTML = `
+    <img class="card-img" src="${w.img}" alt="${w.title}" loading="lazy">
+    <div class="card-ov">
+      <div class="ov-client">${w.client}</div>
+      <div class="ov-title">${w.title}</div>
+      <div class="ov-json">${hl(preview)}</div>
+      <div class="ov-cta">
+        <span class="ov-cta-dot"></span>
+        ${w.variants.length} Nanobanana variants — click to expand
+      </div>
+    </div>`;
+  c.addEventListener('click', () => openModal(i));
+  grid.appendChild(c);
+});
+
+let _wi = null;
+function openModal(i) {
+  _wi = i;
+  const w = W[i];
+  document.getElementById('mc').textContent = w.client;
+  document.getElementById('mt').textContent = w.title;
+  document.getElementById('mi').src = w.img;
+  document.getElementById('m-orig-title').textContent = w.title;
+  document.getElementById('m-orig-desc').textContent = w.desc;
+  document.getElementById('m-tags').innerHTML = w.tags.map(t=>`<span class="tag">${t}</span>`).join('');
+
+  document.getElementById('variants').innerHTML = w.variants.map((v, vi) => `
+    <div class="variant">
+      <div class="v-video-placeholder">
+        <div class="vph-inner">
+          <div class="vph-play">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#1a73e8" stroke="none"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <div class="vph-txt">Generate with<br><span>Nanobanana</span></div>
+        </div>
+      </div>
+      <div class="v-meta">
+        <div class="v-type">${v.type}</div>
+        <div class="v-name">${v.name}</div>
+        <div class="v-desc">${v.desc}</div>
+        <div class="v-changes">${v.changes.map(ch=>`<span class="v-change">${ch}</span>`).join('')}</div>
+
+        <div class="nb-fields">
+          <div class="nb-row">
+            <div class="nb-row-label">Camera</div>
+            <div class="nb-row-val">${v.veo.camera}</div>
+          </div>
+          <div class="nb-row">
+            <div class="nb-row-label">Style</div>
+            <div class="nb-row-val">${v.veo.style}</div>
+          </div>
+          <div class="nb-row">
+            <div class="nb-row-label">Audio</div>
+            <div class="nb-row-val">${v.veo.audio}</div>
+          </div>
+          <div class="nb-row">
+            <div class="nb-row-label">Duration</div>
+            <div class="nb-row-val mono">${v.veo.duration_sec}s · ${v.veo.fps}fps · ${v.veo.aspect_ratio}</div>
+          </div>
+          <div class="nb-row">
+            <div class="nb-row-label">Negative</div>
+            <div class="nb-row-val mono">${v.veo.negative}</div>
+          </div>
+        </div>
+
+        <div class="v-json-label">Nanobanana Full JSON Prompt</div>
+        <div class="v-json">${hl(v.veo)}</div>
+        <button class="copy-btn" id="cbtn-${i}-${vi}" onclick="copyV(${i},${vi})">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy JSON
+        </button>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('mbg').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('mbg').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function copyV(wi, vi) {
+  const json = W[wi].variants[vi].veo;
+  navigator.clipboard.writeText(JSON.stringify(json, null, 2)).then(() => {
+    const btn = document.getElementById(`cbtn-${wi}-${vi}`);
+    btn.textContent = '✓ Copied';
+    btn.className = 'copy-btn ok';
+    setTimeout(() => {
+      btn.innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy JSON`;
+      btn.className = 'copy-btn';
+    }, 2000);
+  });
+}
+
+document.getElementById('mbg').addEventListener('click', e => {
+  if (e.target === document.getElementById('mbg')) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
