@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전시 아카이브</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════
+   SETLOG-INSPIRED: 검정 배경 · 핑크/민트 액센트
+   볼드 라운드 카드 · 무거운 타이포그래피
+   ═══════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #0f0f0f;
+  --bg2:    #181818;
+  --bg3:    #202020;
+  --bg4:    #2c2c2c;
+
+  --pink:   #d4748a;   /* dusty rose chalk */
+  --mint:   #72b8a0;   /* sage chalk */
+  --yellow: #c9b86c;   /* ochre chalk */
+  --white:  #e8e4de;
+
+  --t1: #e8e4de;
+  --t2: #7a7570;
+  --t3: #3e3b38;
+
+  --r: 20px;
+  --r-lg: 28px;
+  --r-xl: 36px;
+
+  --f-title: 'Nunito', 'Noto Sans KR', sans-serif;
+  --f-body:  'Nunito', 'Noto Sans KR', sans-serif;
+  --f-en:    'Nunito', sans-serif;
+  --f-serif: 'Gaegu', 'Noto Sans KR', cursive;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--f-body);
+  background: var(--bg);
+  color: var(--t1);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
+
+/* ─── VIEWS ─── */
+.view { display: none; }
+.view.on {
+  display: block;
+  animation: slideUp .32s var(--ease) both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ═══════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════ */
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(17,17,17,.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--bg3);
+}
+
+.hdr-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--f-en);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: .03em;
+  cursor: pointer;
+  line-height: 1;
+  color: var(--pink);
+}
+
+.hdr-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hdr-icon-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--bg3);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  color: var(--t1);
+  transition: background .18s;
+}
+
+.hdr-icon-btn:hover { background: var(--bg4); }
+
+.hdr-add-btn {
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a1a;
+  background: var(--pink);
+  border: none;
+  cursor: pointer;
+  padding: 9px 18px;
+  border-radius: 40px;
+  transition: all .2s;
+  letter-spacing: -.01em;
+}
+
+.hdr-add-btn:hover {
+  background: #b85e74;
+  transform: scale(1.04);
+}
+
+/* ─── bottom tab bar ─── */
+.tab-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(26,26,26,.96);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--bg3);
+  padding: 0 20px;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.tab-bar-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.tab-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 0;
+  color: var(--t3);
+  transition: color .18s;
+}
+
+.tab-btn.on { color: var(--pink); }
+.tab-btn:hover { color: var(--t2); }
+
+.tab-icon { font-size: 20px; line-height: 1; }
+
+.tab-lbl {
+  font-family: var(--f-body);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* page padding for tab bar */
+.page { padding-top: 0; padding-bottom: 80px; }
+
+/* ═══════════════════════════════════════════════
+   HOME
+   ═══════════════════════════════════════════════ */
+.home-hero {
+  padding: 32px 0 24px;
+}
+
+.home-greeting {
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--t2);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.home-title {
+  font-family: var(--f-title);
+  font-size: clamp(30px, 7vw, 50px);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -.02em;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+
+.home-title span {
+  color: var(--pink);
+}
+
+/* stat row */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 36px;
+}
+
+.stat-chip {
+  background: var(--bg2);
+  border-radius: var(--r);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: background .18s;
+}
+
+.stat-chip:hover { background: var(--bg3); }
+
+.sc-val {
+  font-family: var(--f-en);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--white);
+  letter-spacing: -.01em;
+}
+
+.sc-lbl {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--t2);
+  letter-spacing: .04em;
+}
+
+/* section header */
+.sec {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.sec-title {
+  font-family: var(--f-title);
+  font-size: 18px;
+  letter-spacing: -.01em;
+  color: var(--white);
+}
+
+.sec-more {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--t2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color .18s;
+  padding: 4px 0;
+}
+
+.sec-more:hover { color: var(--pink); }
+
+/* ─── FEED CARD (Setlog style) ─── */
+.feed-card {
+  position: relative;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  margin-bottom: 12px;
+  cursor: pointer;
+  background: var(--bg2);
+  transition: transform .22s var(--ease);
+  min-height: 300px;
+}
+
+.feed-card:hover { transform: scale(1.012); }
+.feed-card:active { transform: scale(0.99); }
+
+/* bg image fill */
+.fc-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s var(--ease);
+}
+
+.feed-card:hover .fc-img { transform: scale(1.04); }
+
+/* dim overlay */
+.fc-dim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,.12) 0%,
+    rgba(0,0,0,.55) 60%,
+    rgba(0,0,0,.8) 100%
+  );
+}
+
+/* no-image placeholder */
+.fc-ph {
+  position: absolute;
+  inset: 0;
+  background: var(--bg3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  opacity: .3;
+}
+
+/* card content */
+.fc-content {
+  position: relative;
+  z-index: 2;
+  padding: 20px 22px 26px;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  justify-content: space-between;
+}
+
+.fc-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.fc-type-badge {
+  font-family: var(--f-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  background: var(--pink);
+  padding: 4px 10px;
+  border-radius: 40px;
+}
+
+.fc-type-badge.mint { background: var(--mint); }
+.fc-type-badge.yellow { background: var(--yellow); }
+
+.fc-stars {
+  font-size: 12px;
+  letter-spacing: 1px;
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,.8));
+  color: var(--yellow);
+}
+
+.fc-bottom {}
+
+.fc-time {
+  font-family: var(--f-en);
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: -.01em;
+  line-height: 1;
+  color: var(--white);
+  text-shadow: 0 2px 16px rgba(0,0,0,.6);
+  margin-bottom: 6px;
+}
+
+.fc-title {
+  font-family: var(--f-title);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--white);
+  text-shadow: 0 2px 8px rgba(0,0,0,.6);
+  margin-bottom: 4px;
+}
+
+.fc-venue-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fc-venue {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,.7);
+}
+
+.fc-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,.4); flex-shrink: 0; }
+
+.fc-impression {
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(255,255,255,.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+/* ─── month map ─── */
+.month-strip {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 5px;
+  margin-bottom: 36px;
+}
+
+.ms-cell {
+  border-radius: 10px;
+  background: var(--bg2);
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: all .18s;
+}
+
+.ms-cell[data-n="0"] { opacity: .3; }
+.ms-cell[data-n="1"] { background: rgba(212,116,138,.2); }
+.ms-cell[data-n="2"] { background: rgba(212,116,138,.38); }
+.ms-cell[data-n="3+"]{ background: var(--pink); }
+
+.ms-cell[data-n="3+"] .ms-mo { color: rgba(26,26,26,.6); }
+.ms-cell[data-n="3+"] .ms-n  { color: #1a1a1a; }
+
+.ms-mo {
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--t3);
+}
+
+.ms-n {
+  font-family: var(--f-en);
+  font-size: 16px;
+  line-height: 1;
+  color: var(--t2);
+}
+
+/* ─── venue list ─── */
+.venue-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--bg3);
+  cursor: pointer;
+  transition: all .18s;
+}
+
+.venue-item:hover .vi-name { color: var(--pink); }
+
+.vi-rank {
+  font-family: var(--f-en);
+  font-size: 20px;
+  color: var(--t3);
+  width: 28px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.vi-info { flex: 1; }
+.vi-name { font-size: 14px; font-weight: 600; color: var(--t1); margin-bottom: 2px; transition: color .18s; }
+.vi-cnt  { font-size: 11px; color: var(--t2); }
+
+.vi-bar { width: 80px; }
+.vi-bar-track { height: 3px; background: var(--bg4); border-radius: 2px; overflow: hidden; }
+.vi-bar-fill  { height: 100%; border-radius: 2px; background: var(--pink); transition: width .5s var(--ease); }
+
+/* ═══════════════════════════════════════════════
+   LIST VIEW
+   ═══════════════════════════════════════════════ */
+.list-hdr {
+  padding: 28px 0 20px;
+}
+
+.list-hdr-title {
+  font-family: var(--f-title);
+  font-size: clamp(26px, 6vw, 40px);
+  font-weight: 900;
+  letter-spacing: -.02em;
+  margin-bottom: 20px;
+  line-height: 1;
+}
+
+/* toolbar */
+.toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.tb-in {
+  font-family: var(--f-body);
+  font-size: 13px;
+  color: var(--t1);
+  background: var(--bg2);
+  border: 1.5px solid var(--bg3);
+  padding: 9px 14px 9px 36px;
+  border-radius: 40px;
+  outline: none;
+  flex: 1;
+  min-width: 160px;
+  transition: border-color .2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%23444' stroke-width='2'%3E%3Ccircle cx='6' cy='6' r='4'/%3E%3Cpath d='m9 9 3 3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 14px center;
+  background-color: var(--bg2);
+}
+
+.tb-in:focus { border-color: var(--pink); }
+.tb-in::placeholder { color: var(--t3); }
+
+.tb-sel {
+  font-family: var(--f-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--t2);
+  background: var(--bg2);
+  border: 1.5px solid var(--bg3);
+  padding: 9px 28px 9px 12px;
+  border-radius: 40px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23666'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-color: var(--bg2);
+  transition: border-color .2s;
+}
+
+.tb-sel option { background: var(--bg2); }
+.tb-sel:focus { border-color: var(--pink); }
+
+.tb-btn {
+  font-family: var(--f-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--t2);
+  background: var(--bg2);
+  border: 1.5px solid var(--bg3);
+  padding: 9px 16px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all .18s;
+}
+
+.tb-btn:hover, .tb-btn.on {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: #1a1a1a;
+}
+
+/* tag pills */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 20px;
+}
+
+.tag-pill {
+  font-family: var(--f-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  color: var(--t2);
+  background: var(--bg2);
+  border: 1.5px solid var(--bg3);
+  padding: 5px 14px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all .18s;
+}
+
+.tag-pill:hover { border-color: var(--t2); color: var(--t1); }
+.tag-pill.on { background: var(--pink); border-color: var(--pink); color: #1a1a1a; }
+
+/* list feed */
+.feed-list { margin-bottom: 20px; }
+
+/* table view */
+.rec-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.rec-table th {
+  font-family: var(--f-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--t3);
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--bg3);
+}
+
+.rec-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--bg2);
+  font-size: 13px;
+  color: var(--t2);
+  vertical-align: middle;
+}
+
+.rec-table tr { transition: background .15s; cursor: pointer; }
+.rec-table tr:hover td { background: var(--bg2); }
+.tbl-title { color: var(--t1) !important; font-weight: 600; }
+.tbl-stars { color: var(--yellow) !important; font-size: 11px; letter-spacing: 1px; }
+
+/* view toggle */
+.view-toggle {
+  display: flex;
+  background: var(--bg2);
+  border-radius: 40px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.vt-btn {
+  font-size: 13px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 40px;
+  color: var(--t3);
+  transition: all .18s;
+}
+
+.vt-btn.on { background: var(--pink); color: var(--bg); }
+
+/* empty */
+.empty {
+  text-align: center;
+  padding: 80px 0;
+  color: var(--t3);
+}
+
+.empty-icon { font-size: 48px; margin-bottom: 12px; display: block; opacity: .4; }
+.empty h3 { font-family: var(--f-title); font-size: 22px; color: var(--t2); margin-bottom: 6px; }
+.empty p  { font-size: 13px; }
+
+/* ═══════════════════════════════════════════════
+   DETAIL VIEW
+   ═══════════════════════════════════════════════ */
+.det-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 20px 0 0;
+  transition: color .18s;
+  margin-bottom: 4px;
+}
+
+.det-back:hover { color: var(--pink); }
+
+.det-hero-card {
+  position: relative;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  margin-bottom: 20px;
+  background: var(--bg2);
+}
+
+.det-hero-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  cursor: zoom-in;
+  transition: transform .4s var(--ease);
+}
+
+.det-hero-img:hover { transform: scale(1.03); }
+
+.det-hero-ph {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px;
+  opacity: .2;
+}
+
+.det-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 55%);
+}
+
+.det-hero-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 24px;
+  z-index: 2;
+}
+
+.det-hero-time {
+  font-family: var(--f-en);
+  font-size: 54px;
+  font-weight: 900;
+  letter-spacing: -.02em;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 2px 20px rgba(0,0,0,.5);
+  margin-bottom: 6px;
+}
+
+.det-hero-title {
+  font-family: var(--f-title);
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,.5);
+}
+
+/* info card */
+.info-card {
+  background: var(--bg2);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  margin-bottom: 12px;
+}
+
+.info-card-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--t3);
+  margin-bottom: 14px;
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 8px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--bg3);
+  font-size: 13px;
+}
+
+.info-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+.ir-key { font-size: 11px; font-weight: 600; color: var(--t3); padding-top: 1px; }
+.ir-val { color: var(--t1); }
+
+/* impression quote */
+.imp-card {
+  background: var(--bg2);
+  border-radius: var(--r-lg);
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--pink);
+}
+
+.imp-card p {
+  font-family: var(--f-serif);
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--t1);
+}
+
+/* essay card */
+.essay-card {
+  background: var(--bg2);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  margin-bottom: 12px;
+}
+
+.essay-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--t3);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.essay-text {
+  font-family: var(--f-body);
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: rgba(245,245,245,.75);
+  white-space: pre-wrap;
+}
+
+/* stars display */
+.stars-big {
+  font-size: 24px;
+  letter-spacing: 4px;
+  color: var(--yellow);
+  display: block;
+  margin-bottom: 14px;
+}
+
+/* revisit */
+.revisit-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 40px;
+  margin-bottom: 16px;
+}
+
+.revisit-badge.yes { background: rgba(114,184,160,.1); color: var(--mint); border: 1.5px solid rgba(114,184,160,.22); }
+.revisit-badge.no  { background: var(--bg3); color: var(--t3); border: 1.5px solid var(--bg4); }
+
+/* gallery */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.gallery-grid img {
+  width: 100%; aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--r);
+  cursor: zoom-in;
+  transition: transform .2s;
+  background: var(--bg3);
+}
+
+.gallery-grid img:hover { transform: scale(1.04); }
+
+/* tags wrap */
+.tags-card {
+  background: var(--bg2);
+  border-radius: var(--r-lg);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.memo-card {
+  background: var(--bg2);
+  border-radius: var(--r-lg);
+  padding: 20px 24px;
+  margin-bottom: 12px;
+}
+
+.memo-text {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--t2);
+  white-space: pre-wrap;
+}
+
+/* det actions */
+.det-actions {
+  display: flex;
+  gap: 10px;
+  padding: 20px 0;
+}
+
+/* ═══════════════════════════════════════════════
+   WRITE VIEW
+   ═══════════════════════════════════════════════ */
+.write-hdr {
+  padding: 28px 0 24px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.write-hdr-title {
+  font-family: var(--f-title);
+  font-size: clamp(26px, 6vw, 36px);
+  letter-spacing: -.02em;
+  line-height: 1;
+}
+
+.draft-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  background: rgba(255,233,60,.1);
+  border: 1.5px solid rgba(255,233,60,.25);
+  padding: 5px 12px;
+  border-radius: 40px;
+  display: none;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.45} }
+
+/* form sections */
+.fb {
+  background: var(--bg2);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  margin-bottom: 12px;
+}
+
+.fb-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--t3);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.frow { margin-bottom: 14px; }
+.frow:last-child { margin-bottom: 0; }
+
+.frow2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.flbl {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--t3);
+  margin-bottom: 6px;
+}
+
+.fi, .fs, .fta {
+  width: 100%;
+  font-family: var(--f-body);
+  font-size: 14px;
+  color: var(--t1);
+  background: var(--bg3);
+  border: 1.5px solid var(--bg4);
+  padding: 11px 14px;
+  border-radius: var(--r);
+  outline: none;
+  transition: border-color .2s;
+  caret-color: var(--pink);
+}
+
+.fi:focus, .fs:focus, .fta:focus { border-color: var(--pink); }
+.fi::placeholder, .fta::placeholder { color: var(--t3); }
+
+.fs {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23666'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-color: var(--bg3);
+}
+
+.fs option { background: var(--bg2); }
+
+.fta {
+  resize: vertical;
+  line-height: 1.7;
+  min-height: 80px;
+}
+
+.fta-tall { min-height: 200px; font-size: 15px; }
+
+/* star picker */
+.star-row { display: flex; gap: 8px; }
+
+.star-btn {
+  font-size: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--bg4);
+  transition: color .14s, transform .14s;
+  line-height: 1;
+  padding: 2px;
+}
+
+.star-btn:hover { transform: scale(1.2); }
+.star-btn.lit   { color: var(--yellow); }
+
+/* toggle pair */
+.tog-pair {
+  display: flex;
+  background: var(--bg3);
+  border: 1.5px solid var(--bg4);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.tog {
+  flex: 1;
+  padding: 10px 0;
+  font-family: var(--f-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--t3);
+  text-align: center;
+  transition: all .18s;
+}
+
+.tog.on { background: var(--mint); color: #1a1a1a; }
+
+/* upload zone */
+.upload-zone {
+  border: 2px dashed var(--bg4);
+  border-radius: var(--r-lg);
+  padding: 28px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+  position: relative;
+  background: var(--bg3);
+}
+
+.upload-zone:hover, .upload-zone.drag-on {
+  border-color: var(--pink);
+  background: rgba(255,60,172,.05);
+}
+
+.upload-zone input[type="file"] {
+  position: absolute;
+  inset: 0; opacity: 0;
+  cursor: pointer;
+  width: 100%; height: 100%;
+}
+
+.uz-icon { font-size: 28px; margin-bottom: 8px; display: block; }
+.uz-text { font-size: 12px; font-weight: 700; color: var(--t2); display: block; margin-bottom: 3px; }
+.uz-sub  { font-size: 11px; color: var(--t3); }
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.pg-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--bg4);
+}
+
+.pg-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.pg-del {
+  position: absolute;
+  top: 4px; right: 4px;
+  width: 20px; height: 20px;
+  background: rgba(0,0,0,.7);
+  border: none; cursor: pointer;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: #fff;
+  opacity: 0; transition: opacity .14s;
+}
+
+.pg-item:hover .pg-del { opacity: 1; }
+
+/* form actions */
+.form-actions {
+  display: flex;
+  gap: 10px;
+  padding: 16px 0 24px;
+}
+
+/* ═══════════════════════════════════════════════
+   DATA VIEW
+   ═══════════════════════════════════════════════ */
+.data-hdr {
+  padding: 28px 0 20px;
+}
+
+.data-hdr h1 {
+  font-family: var(--f-title);
+  font-size: 32px;
+  letter-spacing: -.02em;
+}
+
+.data-section {
+  background: var(--bg2);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.ds-title { font-size: 15px; font-weight: 700; margin-bottom: 5px; }
+.ds-desc  { font-size: 12px; color: var(--t3); line-height: 1.6; margin-bottom: 16px; }
+
+/* ═══════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════ */
+.btn {
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  padding: 12px 22px;
+  border-radius: 40px;
+  transition: all .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: -.01em;
+}
+
+.btn-primary {
+  background: var(--pink);
+  color: #1a1a1a;
+}
+
+.btn-primary:hover {
+  background: #b85e74;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(212,116,138,.2);
+}
+
+.btn-secondary {
+  background: var(--bg3);
+  color: var(--t2);
+  border: 1.5px solid var(--bg4);
+}
+
+.btn-secondary:hover { background: var(--bg4); color: var(--t1); }
+
+.btn-danger {
+  background: none;
+  color: var(--t3);
+  border: 1.5px solid var(--bg4);
+}
+
+.btn-danger:hover { color: #ff6060; border-color: rgba(255,80,80,.4); }
+
+/* ═══════════════════════════════════════════════
+   MODAL
+   ═══════════════════════════════════════════════ */
+.modal-wrap {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.75);
+  backdrop-filter: blur(10px);
+  z-index: 500;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+.modal-wrap.on { display: flex; }
+
+.modal-box {
+  background: var(--bg2);
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  padding: 32px 24px 28px;
+  width: 100%;
+  max-width: 720px;
+  animation: slideUp .28s var(--ease);
+}
+
+.modal-handle {
+  width: 36px; height: 4px;
+  background: var(--bg4);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+
+.modal-box h3 {
+  font-family: var(--f-title);
+  font-size: 22px;
+  margin-bottom: 8px;
+  letter-spacing: -.01em;
+}
+
+.modal-box p {
+  font-size: 13px;
+  color: var(--t3);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.modal-btns { display: flex; gap: 10px; }
+
+/* ═══════════════════════════════════════════════
+   LIGHTBOX
+   ═══════════════════════════════════════════════ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.92);
+  z-index: 600;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.on { display: flex; }
+
+.lightbox img {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: var(--r-lg);
+}
+
+.lb-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 40px; height: 40px;
+  background: var(--bg3);
+  border: none; cursor: pointer;
+  border-radius: 50%;
+  color: var(--t1);
+  font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .18s;
+}
+
+.lb-close:hover { background: var(--pink); color: var(--bg); }
+
+/* ═══════════════════════════════════════════════
+   TOAST
+   ═══════════════════════════════════════════════ */
+.toast {
+  position: fixed;
+  bottom: 76px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--bg3);
+  border: 1.5px solid var(--bg4);
+  border-radius: 40px;
+  color: var(--t1);
+  font-family: var(--f-body);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 11px 20px;
+  z-index: 700;
+  opacity: 0;
+  pointer-events: none;
+  transition: all .3s var(--ease);
+  white-space: nowrap;
+}
+
+.toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .stat-strip { grid-template-columns: repeat(2,1fr); }
+  .frow2 { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="logo" onclick="goView('home')">ARCHIVE</div>
+    <div class="hdr-right">
+      <button class="hdr-icon-btn" title="검색" onclick="goView('list')">🔍</button>
+      <button class="hdr-add-btn" onclick="openWrite(null)">+ 기록</button>
+    </div>
+  </div>
+</header>
+
+<!-- VIEWS -->
+
+<!-- ── HOME ── -->
+<div class="view on page" id="v-home">
+<div class="wrap">
+  <div class="home-hero">
+    <span class="home-greeting">👋 오늘도 좋은 전시 봤나요?</span>
+    <div class="home-title">나의 전시<br><span>아카이브</span></div>
+  </div>
+
+  <div class="stat-strip" id="stat-strip"></div>
+
+  <div class="sec">
+    <span class="sec-title">최근 기록</span>
+    <button class="sec-more" onclick="goView('list')">전체 보기</button>
+  </div>
+  <div id="home-feed"></div>
+
+  <div class="sec" style="margin-top:8px">
+    <span class="sec-title">올해 캘린더</span>
+  </div>
+  <div class="month-strip" id="month-strip" style="margin-bottom:28px"></div>
+
+  <div class="sec">
+    <span class="sec-title">자주 간 곳</span>
+  </div>
+  <div id="venue-list" style="margin-bottom:20px"></div>
+</div>
+</div>
+
+<!-- ── LIST ── -->
+<div class="view page" id="v-list">
+<div class="wrap">
+  <div class="list-hdr">
+    <div class="list-hdr-title" id="list-title">전체 기록</div>
+    <div class="toolbar">
+      <input class="tb-in" type="text" placeholder="검색…" id="s-q" oninput="applyF()">
+      <select class="tb-sel" id="s-venue" onchange="applyF()"><option value="">미술관 전체</option></select>
+      <select class="tb-sel" id="s-year"  onchange="applyF()"><option value="">연도 전체</option></select>
+      <button class="tb-btn on" id="sd" onclick="setSort('desc')">최신</button>
+      <button class="tb-btn"    id="sa" onclick="setSort('asc')">오래된</button>
+      <div class="view-toggle">
+        <button class="vt-btn on" id="vg" onclick="setLV('grid')" title="카드">⊞</button>
+        <button class="vt-btn"    id="vt" onclick="setLV('tbl')"  title="테이블">≡</button>
+      </div>
+    </div>
+    <div class="tag-row" id="tag-row"></div>
+  </div>
+  <div id="list-body"></div>
+</div>
+</div>
+
+<!-- ── DETAIL ── -->
+<div class="view page" id="v-detail">
+<div class="wrap" id="det-wrap"></div>
+</div>
+
+<!-- ── WRITE ── -->
+<div class="view page" id="v-write">
+<div class="wrap">
+  <div class="write-hdr">
+    <span class="write-hdr-title" id="write-title">새 기록</span>
+    <span class="draft-badge" id="draft-badge">임시저장</span>
+  </div>
+
+  <!-- 전시 정보 -->
+  <div class="fb">
+    <span class="fb-title">전시 정보</span>
+    <div class="frow">
+      <label class="flbl" for="f-title">전시 제목 *</label>
+      <input class="fi" id="f-title" type="text" placeholder="전시 제목" oninput="dSave()">
+    </div>
+    <div class="frow2">
+      <div>
+        <label class="flbl" for="f-venue">미술관 *</label>
+        <input class="fi" id="f-venue" type="text" placeholder="국립현대미술관" oninput="dSave()">
+      </div>
+      <div>
+        <label class="flbl" for="f-location">위치</label>
+        <input class="fi" id="f-location" type="text" placeholder="서울" oninput="dSave()">
+      </div>
+    </div>
+    <div class="frow2">
+      <div>
+        <label class="flbl" for="f-date">날짜 *</label>
+        <input class="fi" id="f-date" type="date" oninput="dSave()">
+      </div>
+      <div>
+        <label class="flbl" for="f-order">올해 몇 번째?</label>
+        <input class="fi" id="f-order" type="number" min="1" placeholder="7" oninput="dSave()">
+      </div>
+    </div>
+    <div class="frow2">
+      <div>
+        <label class="flbl" for="f-artists">작가</label>
+        <input class="fi" id="f-artists" type="text" placeholder="이름" oninput="dSave()">
+      </div>
+      <div>
+        <label class="flbl" for="f-type">유형</label>
+        <select class="fs" id="f-type" onchange="dSave()">
+          <option value="">선택</option>
+          <option>개인전</option><option>단체전</option><option>그룹전</option>
+          <option>상설전시</option><option>미디어아트</option><option>영화 상영</option>
+          <option>퍼포먼스</option><option>기타</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow2">
+      <div>
+        <label class="flbl" for="f-with">동행</label>
+        <input class="fi" id="f-with" type="text" placeholder="혼자, 친구 2명…" oninput="dSave()">
+      </div>
+      <div>
+        <label class="flbl" for="f-admission">입장료</label>
+        <input class="fi" id="f-admission" type="text" placeholder="무료, 20,000원" oninput="dSave()">
+      </div>
+    </div>
+  </div>
+
+  <!-- 이미지 -->
+  <div class="fb">
+    <span class="fb-title">이미지</span>
+    <div class="upload-zone" id="upload-zone"
+         ondragover="dzO(event)" ondragleave="dzL()" ondrop="dzD(event)">
+      <input type="file" id="f-imgs" multiple accept="image/*" onchange="imgSel(event)">
+      <span class="uz-icon">📎</span>
+      <span class="uz-text">클릭 또는 드래그</span>
+      <span class="uz-sub">JPG · PNG · WEBP · 5MB 이하</span>
+    </div>
+    <div class="preview-grid" id="img-prev"></div>
+    <div style="margin-top:12px">
+      <label class="flbl" for="f-imgurl">이미지 URL</label>
+      <input class="fi" id="f-imgurl" type="url" placeholder="https://…" oninput="dSave()">
+    </div>
+  </div>
+
+  <!-- 감상 -->
+  <div class="fb">
+    <span class="fb-title">감상</span>
+    <div class="frow">
+      <label class="flbl" for="f-imp">한 줄 인상</label>
+      <textarea class="fta" id="f-imp" placeholder="이 전시를 한 문장으로…" oninput="dSave()"></textarea>
+    </div>
+    <div class="frow">
+      <label class="flbl" for="f-essay">감상문</label>
+      <textarea class="fta fta-tall" id="f-essay" placeholder="천천히, 일기 쓰듯 적어보세요." oninput="dSave()"></textarea>
+    </div>
+  </div>
+
+  <!-- 평가 -->
+  <div class="fb">
+    <span class="fb-title">평가</span>
+    <div class="frow">
+      <label class="flbl">별점</label>
+      <div class="star-row" id="star-row">
+        <button class="star-btn" data-v="1" onclick="setStar(1)">★</button>
+        <button class="star-btn" data-v="2" onclick="setStar(2)">★</button>
+        <button class="star-btn" data-v="3" onclick="setStar(3)">★</button>
+        <button class="star-btn" data-v="4" onclick="setStar(4)">★</button>
+        <button class="star-btn" data-v="5" onclick="setStar(5)">★</button>
+      </div>
+      <input type="hidden" id="f-stars" value="0">
+    </div>
+    <div class="frow">
+      <label class="flbl">다시 가고 싶다</label>
+      <div class="tog-pair">
+        <button class="tog on" id="rv-y" onclick="setRev(true)">YES</button>
+        <button class="tog"    id="rv-n" onclick="setRev(false)">NO</button>
+      </div>
+      <input type="hidden" id="f-revisit" value="true">
+    </div>
+  </div>
+
+  <!-- 태그 & 메모 -->
+  <div class="fb">
+    <span class="fb-title">태그 &amp; 메모</span>
+    <div class="frow">
+      <label class="flbl" for="f-tags">태그 (쉼표 구분)</label>
+      <input class="fi" id="f-tags" type="text" placeholder="회화, 설치, 한국현대미술" oninput="dSave()">
+    </div>
+    <div class="frow">
+      <label class="flbl" for="f-mood">날씨 / 기분</label>
+      <input class="fi" id="f-mood" type="text" placeholder="맑음, 조금 지쳐있었음…" oninput="dSave()">
+    </div>
+    <div class="frow">
+      <label class="flbl" for="f-memo">자유 메모</label>
+      <textarea class="fta" id="f-memo" placeholder="입장권, 도록, 굿즈, 카페 등…" oninput="dSave()"></textarea>
+    </div>
+  </div>
+
+  <input type="hidden" id="f-id">
+  <input type="hidden" id="f-imgdata" value="[]">
+
+  <div class="form-actions">
+    <button class="btn btn-primary" onclick="saveRec()">저장하기</button>
+    <button class="btn btn-secondary" onclick="clearDraft(); goView('list')">취소</button>
+  </div>
+</div>
+</div>
+
+<!-- ── DATA ── -->
+<div class="view page" id="v-data">
+<div class="wrap">
+  <div class="data-hdr">
+    <h1>데이터</h1>
+  </div>
+
+  <div class="data-section">
+    <div class="ds-title">내보내기</div>
+    <div class="ds-desc">모든 기록(이미지 포함)을 JSON 파일로 저장합니다.</div>
+    <button class="btn btn-primary" onclick="exportD()">JSON 내보내기</button>
+  </div>
+
+  <div class="data-section">
+    <div class="ds-title">가져오기</div>
+    <div class="ds-desc">JSON 파일에서 기록을 불러옵니다. 중복은 건너뜁니다.</div>
+    <input type="file" id="imp-f" accept=".json" style="display:none" onchange="importD(event)">
+    <button class="btn btn-secondary" onclick="document.getElementById('imp-f').click()">JSON 가져오기</button>
+  </div>
+
+  <div class="data-section">
+    <div class="ds-title">전체 삭제</div>
+    <div class="ds-desc">모든 기록을 영구 삭제합니다. 되돌릴 수 없습니다.</div>
+    <button class="btn btn-danger" onclick="confDelAll()">전체 삭제</button>
+  </div>
+</div>
+</div>
+
+<!-- BOTTOM TAB BAR -->
+<nav class="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab-btn on" id="tb-home" onclick="goView('home')">
+      <span class="tab-icon">🏠</span>
+      <span class="tab-lbl">홈</span>
+    </button>
+    <button class="tab-btn" id="tb-list" onclick="goView('list')">
+      <span class="tab-icon">🗂</span>
+      <span class="tab-lbl">기록</span>
+    </button>
+    <button class="tab-btn" id="tb-data" onclick="goView('data')">
+      <span class="tab-icon">💾</span>
+      <span class="tab-lbl">데이터</span>
+    </button>
+  </div>
+</nav>
+
+<!-- MODAL -->
+<div class="modal-wrap" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <h3 id="m-title">확인</h3>
+    <p id="m-desc"></p>
+    <div class="modal-btns">
+      <button class="btn btn-danger" id="m-ok">삭제</button>
+      <button class="btn btn-secondary" onclick="closeModal()">취소</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLB()">
+  <button class="lb-close" onclick="closeLB()">✕</button>
+  <img id="lb-img" src="" alt="" onclick="event.stopPropagation()">
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════
+     JS
+     ═══════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+const SK='exhv5_r', DK='exhv5_d';
+let recs=[], sortD='desc', tagF='', lv='grid', editId=null, dT=null;
+
+/* ── SAMPLES ── */
+const SAMPLES=[
+  { id:'s1', title:'양혜규: 솔 르윗 뒤집기',
+    venue:'국립현대미술관', location:'서울', date:'2024-11-08', order:21,
+    artists:'양혜규', type:'개인전',
+    impression:'블라인드로 만든 공간을 걷는다는 것은 빛과 그림자를 몸으로 읽는 행위였다.',
+    essay:'서울관 1층 전시실에 들어서자마자 압도당했다. 수천 개의 금속 블라인드가 공간 전체를 채우고 있었고, 관람객은 그 사이사이를 걸으며 자신의 그림자를 만들어냈다.\n\n양혜규는 블라인드라는 산업 재료를 통해 빛, 공기, 그리고 소리를 조각했다. 두 시간 가까이 있었다.',
+    tags:['설치','한국현대미술','빛'], stars:5, revisit:true,
+    with:'혼자', admission:'무료', mood:'맑음, 집중된 오후',
+    images:[], imgUrl:'https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=900&q=80',
+    memo:'도록 구입. 목요일 야간 개관 이용.', createdAt:'2024-11-08T14:30:00Z' },
+  { id:'s2', title:'마크 로스코: 빛과 공간',
+    venue:'Tate Modern', location:'런던', date:'2024-07-22', order:13,
+    artists:'마크 로스코', type:'개인전',
+    impression:'그림 앞에서 우는 사람들을 처음으로 이해했다.',
+    essay:'런던 여행 중 반드시 가야 할 곳으로 꼽았던 테이트 모던의 로스코 룸.\n\n로스코의 그림 앞에서는 제대로 설 수가 없다. 거대한 화면이 뿜어내는 색의 진동이 물리적으로 느껴진다.',
+    tags:['추상표현주의','색채','감동'], stars:5, revisit:true,
+    with:'친구 1명', admission:'£25', mood:'흐림, 감수성 예민한 날',
+    images:[], imgUrl:'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=900&q=80',
+    memo:'오디오 가이드 별도. 포스터 구입.', createdAt:'2024-07-22T11:00:00Z' },
+  { id:'s3', title:'2024 광주비엔날레',
+    venue:'광주비엔날레 전시관', location:'광주', date:'2024-09-14', order:17,
+    artists:'니콜라스 부리오 (감독)', type:'단체전',
+    impression:'너무 많아서 소화가 안 됐지만, 며칠 지나니 몇몇 작품이 생각났다.',
+    essay:'비엔날레 특성상 압도적인 양의 작품이 전시되어 있었다. 다음에 온다면 2–3일에 나눠서 보고 싶다.',
+    tags:['비엔날레','동시대미술','설치'], stars:3, revisit:true,
+    with:'친구 2명', admission:'₩20,000', mood:'흐리고 습함',
+    images:[], imgUrl:'https://images.unsplash.com/photo-1531913764164-f85c52e6e654?w=900&q=80',
+    memo:'도록 너무 비싸서 포기.', createdAt:'2024-09-14T10:00:00Z' }
+];
+
+/* ── INIT ── */
+(()=>{
+  const r=localStorage.getItem(SK);
+  recs=r?JSON.parse(r):[...SAMPLES];
+  if(!r)save();
+  renderHome();
+})();
+
+function save(){ localStorage.setItem(SK,JSON.stringify(recs)); }
+
+/* ── NAV ── */
+function goView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.getElementById('v-'+id).classList.add('on');
+  ['home','list','data'].forEach(n=>{
+    const b=document.getElementById('tb-'+n);
+    if(b) b.classList.toggle('on', n===id);
+  });
+  if(id==='home') renderHome();
+  if(id==='list'){ buildF(); applyF(); }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── HOME ── */
+function renderHome(){
+  // stats
+  const total=recs.length;
+  const venues=new Set(recs.map(r=>r.venue)).size;
+  const avg=total?(recs.reduce((s,r)=>s+(r.stars||0),0)/total).toFixed(1):'—';
+  const locs=new Set(recs.map(r=>r.location).filter(Boolean)).size;
+  document.getElementById('stat-strip').innerHTML=[
+    [total,'기록'],[venues,'미술관'],[avg,'평균 ★'],[locs,'지역']
+  ].map(([v,l])=>`<div class="stat-chip"><span class="sc-val">${v}</span><span class="sc-lbl">${l}</span></div>`).join('');
+
+  // recent feed (3)
+  const recent=[...recs].sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).slice(0,3);
+  const hf=document.getElementById('home-feed');
+  hf.innerHTML=recent.length?recent.map(feedCardHtml).join('')
+    :`<p style="color:var(--t3);padding:20px 0;font-size:13px">아직 기록이 없어요. 첫 전시를 기록해보세요 🎨</p>`;
+
+  // month map
+  const yr=new Date().getFullYear();
+  const mc={};
+  recs.filter(r=>r.date?.startsWith(yr)).forEach(r=>{ const m=r.date.slice(5,7); mc[m]=(mc[m]||0)+1; });
+  const MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('month-strip').innerHTML=MO.map((_,i)=>{
+    const k=String(i+1).padStart(2,'0'), n=mc[k]||0;
+    const lv=n===0?'0':n===1?'1':n===2?'2':'3+';
+    return `<div class="ms-cell" data-n="${lv}" title="${yr}.${k} — ${n}건"><span class="ms-mo">${MO[i]}</span><span class="ms-n">${n||''}</span></div>`;
+  }).join('');
+
+  // venues
+  const vc={};
+  recs.forEach(r=>{ vc[r.venue]=(vc[r.venue]||0)+1; });
+  const sorted=Object.entries(vc).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const mx=sorted[0]?.[1]||1;
+  document.getElementById('venue-list').innerHTML=sorted.map(([name,cnt],i)=>`
+    <div class="venue-item" onclick="filterV('${x(name)}')">
+      <span class="vi-rank">${String(i+1).padStart(2,'0')}</span>
+      <div class="vi-info">
+        <div class="vi-name">${x(name)}</div>
+        <div class="vi-cnt">${cnt}회 방문 · ${recs.filter(r=>r.venue===name).map(r=>r.location).filter((v,i,a)=>v&&a.indexOf(v)===i).join(', ')||''}</div>
+      </div>
+      <div class="vi-bar"><div class="vi-bar-track"><div class="vi-bar-fill" style="width:${Math.round(cnt/mx*100)}%"></div></div></div>
+    </div>`).join('');
+}
+
+function filterV(v){
+  goView('list');
+  setTimeout(()=>{ document.getElementById('s-venue').value=v; applyF(); },60);
+}
+
+/* ── FEED CARD HTML ── */
+function feedCardHtml(r){
+  const thumb=getThumb(r);
+  const t=r.date?.slice(11,16)||r.date?.replace(/-/g,'');
+  const badge_class = r.type==='개인전'?'':'mint';
+  return `
+    <div class="feed-card" onclick="showDet('${r.id}')">
+      ${thumb?`<img class="fc-img" src="${thumb}" alt="${x(r.title)}" loading="lazy"
+          onerror="this.style.display='none'">`:`<div class="fc-ph">🖼</div>`}
+      ${thumb?`<div class="fc-dim"></div>`:''}
+      <div class="fc-content">
+        <div class="fc-top">
+          ${r.type?`<span class="fc-type-badge ${badge_class}">${r.type}</span>`:'<span></span>'}
+          <span class="fc-stars">${r.stars?'★'.repeat(r.stars):''}</span>
+        </div>
+        <div class="fc-bottom">
+          <div class="fc-time">${r.date?.replace(/-/g,'.')?.slice(2)||'——'}</div>
+          <div class="fc-title">${x(r.title)}</div>
+          <div class="fc-venue-row">
+            <span class="fc-venue">${x(r.venue)}</span>
+            ${r.location?`<span class="fc-dot"></span><span class="fc-venue">${x(r.location)}</span>`:''}
+            ${r.impression?`<span class="fc-dot"></span><span class="fc-impression">${x(r.impression)}</span>`:''}
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ── LIST ── */
+function buildF(){
+  const set=(id,arr)=>{
+    const s=document.getElementById(id),c=s.value;
+    s.innerHTML=s.options[0].outerHTML+arr.map(o=>`<option${o===c?' selected':''}>${o}</option>`).join('');
+  };
+  set('s-venue',[...new Set(recs.map(r=>r.venue))].sort());
+  set('s-year',[...new Set(recs.map(r=>r.date?.slice(0,4)).filter(Boolean))].sort().reverse());
+  const tc={};
+  recs.forEach(r=>(r.tags||[]).forEach(t=>{ tc[t]=(tc[t]||0)+1; }));
+  document.getElementById('tag-row').innerHTML=
+    Object.entries(tc).sort((a,b)=>b[1]-a[1]).slice(0,14)
+    .map(([t])=>`<button class="tag-pill${tagF===t?' on':''}" onclick="tglTag('${t}')">${t}</button>`).join('');
+}
+
+function tglTag(t){ tagF=tagF===t?'':t; buildF(); applyF(); }
+
+function setSort(d){
+  sortD=d;
+  document.getElementById('sd').classList.toggle('on',d==='desc');
+  document.getElementById('sa').classList.toggle('on',d==='asc');
+  applyF();
+}
+
+function setLV(v){
+  lv=v;
+  document.getElementById('vg').classList.toggle('on',v==='grid');
+  document.getElementById('vt').classList.toggle('on',v==='tbl');
+  applyF();
+}
+
+function applyF(){
+  const q=document.getElementById('s-q').value.toLowerCase();
+  const ven=document.getElementById('s-venue').value;
+  const yr=document.getElementById('s-year').value;
+
+  let out=recs.filter(r=>{
+    const mq=!q||[r.title,r.venue,r.artists,r.impression,r.date,...(r.tags||[])].some(v=>(v||'').toLowerCase().includes(q));
+    return mq&&(!ven||r.venue===ven)&&(!yr||(r.date||'').startsWith(yr))&&(!tagF||(r.tags||[]).includes(tagF));
+  });
+
+  out.sort((a,b)=>sortD==='desc'?new Date(b.createdAt)-new Date(a.createdAt):new Date(a.createdAt)-new Date(b.createdAt));
+
+  document.getElementById('list-title').textContent=`전체 기록 (${out.length})`;
+
+  const body=document.getElementById('list-body');
+  if(!out.length){
+    body.innerHTML=`<div class="empty"><span class="empty-icon">🎨</span><h3>기록이 없어요</h3><p>필터를 바꾸거나 새 기록을 추가해보세요.</p></div>`;
+    return;
+  }
+
+  if(lv==='grid'){
+    body.innerHTML=`<div class="feed-list">${out.map(feedCardHtml).join('')}</div>`;
+  } else {
+    body.innerHTML=`<table class="rec-table">
+      <thead><tr><th>날짜</th><th>제목</th><th>미술관</th><th>별점</th></tr></thead>
+      <tbody>${out.map(r=>`
+        <tr onclick="showDet('${r.id}')">
+          <td style="font-size:11px;white-space:nowrap">${r.date?.replace(/-/g,'.')||'—'}</td>
+          <td class="tbl-title">${x(r.title)}</td>
+          <td>${x(r.venue)}</td>
+          <td class="tbl-stars">${r.stars?'★'.repeat(r.stars):'—'}</td>
+        </tr>`).join('')}</tbody></table>`;
+  }
+}
+
+/* ── DETAIL ── */
+function showDet(id){
+  const r=recs.find(r=>r.id===id); if(!r) return;
+  const imgs=[];
+  if(r.imgUrl) imgs.push(r.imgUrl);
+  (r.images||[]).forEach(i=>imgs.push(i));
+  const main=imgs[0], extra=imgs.slice(1);
+
+  document.getElementById('det-wrap').innerHTML=`
+    <button class="det-back" onclick="goView('list')">← 목록</button>
+
+    <div class="det-hero-card">
+      ${main?`<img class="det-hero-img" src="${main}" alt="${x(r.title)}" onclick="openLB('${main}')"
+          onerror="this.outerHTML='<div class=det-hero-ph>🖼</div>'">`
+            :`<div class="det-hero-ph">🖼</div>`}
+      ${main?`<div class="det-hero-overlay"></div>`:''}
+      <div class="det-hero-bottom">
+        <div class="det-hero-time">${r.date?.replace(/-/g,'.')||'——'}</div>
+        <div class="det-hero-title">${x(r.title)}</div>
+      </div>
+    </div>
+
+    ${r.impression?`<div class="imp-card"><p>${x(r.impression)}</p></div>`:''}
+
+    <div class="info-card">
+      <div class="info-card-title">전시 정보</div>
+      ${r.type?irow('유형',r.type):''}
+      ${irow('미술관',r.venue+(r.location?' · '+r.location:''))}
+      ${r.artists?irow('작가',r.artists):''}
+      ${r.with?irow('동행',r.with):''}
+      ${r.admission?irow('입장료',r.admission):''}
+      ${r.mood?irow('날씨/기분',r.mood):''}
+      ${r.order?irow('번째',r.order+'번째 전시'):''}
+      <div class="info-row">
+        <span class="ir-key">별점</span>
+        <span class="ir-val" style="font-size:16px;letter-spacing:3px;color:var(--yellow)">${r.stars?'★'.repeat(r.stars)+'☆'.repeat(5-r.stars):'—'}</span>
+      </div>
+      <div class="info-row" style="border-bottom:none">
+        <span class="ir-key">재방문</span>
+        <span class="revisit-badge ${r.revisit?'yes':'no'}" style="margin-bottom:0">${r.revisit?'↩ 또 가고 싶다':'미정'}</span>
+      </div>
+    </div>
+
+    ${r.essay?`<div class="essay-card"><span class="essay-lbl">감상문</span><div class="essay-text">${x(r.essay)}</div></div>`:''}
+
+    ${extra.length?`<div class="gallery-grid">${extra.map(s=>`<img src="${s}" onclick="openLB('${s}')" onerror="this.remove()">`).join('')}</div>`:''}
+
+    ${(r.tags||[]).length?`<div class="tags-card">${r.tags.map(t=>`<span class="tag-pill on" style="cursor:default">${t}</span>`).join('')}</div>`:''}
+
+    ${r.memo?`<div class="memo-card"><span class="essay-lbl">메모</span><div class="memo-text">${x(r.memo)}</div></div>`:''}
+
+    <div class="det-actions">
+      <button class="btn btn-primary" onclick="openWrite('${r.id}')">수정</button>
+      <button class="btn btn-danger" onclick="confDel('${r.id}')">삭제</button>
+    </div>
+  `;
+  goView('detail');
+}
+
+function irow(k,v){
+  return `<div class="info-row"><span class="ir-key">${k}</span><span class="ir-val">${x(String(v||''))}</span></div>`;
+}
+
+/* ── WRITE ── */
+function openWrite(id){
+  editId=id; clearForm();
+  if(id){
+    const r=recs.find(r=>r.id===id); if(!r) return;
+    document.getElementById('write-title').textContent='기록 수정';
+    document.getElementById('f-id').value=r.id;
+    const m={'f-title':r.title,'f-venue':r.venue,'f-location':r.location,'f-date':r.date,
+      'f-order':r.order,'f-artists':r.artists,'f-type':r.type,'f-imp':r.impression,
+      'f-essay':r.essay,'f-tags':(r.tags||[]).join(', '),'f-with':r.with,
+      'f-admission':r.admission,'f-mood':r.mood,'f-imgurl':r.imgUrl,'f-memo':r.memo};
+    Object.entries(m).forEach(([k,v])=>{ const e=document.getElementById(k); if(e) e.value=v||''; });
+    document.getElementById('f-imgdata').value=JSON.stringify(r.images||[]);
+    setStar(r.stars||0,false); setRev(r.revisit!==false,false);
+    renderPrev(r.images||[]);
+    document.getElementById('draft-badge').style.display='none';
+  } else {
+    document.getElementById('write-title').textContent='새 기록';
+    restoreDraft();
+  }
+  goView('write');
+}
+
+function clearForm(){
+  ['f-title','f-venue','f-location','f-date','f-order','f-artists','f-imp','f-essay',
+   'f-tags','f-with','f-admission','f-mood','f-imgurl','f-memo'].forEach(i=>{ const e=document.getElementById(i); if(e) e.value=''; });
+  document.getElementById('f-type').value='';
+  document.getElementById('f-id').value='';
+  document.getElementById('f-imgdata').value='[]';
+  setStar(0,false); setRev(true,false);
+  document.getElementById('img-prev').innerHTML='';
+}
+
+/* images */
+function dzO(e){ e.preventDefault(); document.getElementById('upload-zone').classList.add('drag-on'); }
+function dzL(){ document.getElementById('upload-zone').classList.remove('drag-on'); }
+function dzD(e){ e.preventDefault(); dzL(); handleImgs(e.dataTransfer.files); }
+function imgSel(e){ handleImgs(e.target.files); }
+
+function handleImgs(files){
+  const arr=JSON.parse(document.getElementById('f-imgdata').value||'[]');
+  let n=0;
+  Array.from(files).forEach(f=>{
+    if(!f.type.startsWith('image/')||f.size>5*1024*1024){ showToast('5MB 이하만 가능'); return; }
+    const rd=new FileReader();
+    rd.onload=ev=>{ arr.push(ev.target.result); document.getElementById('f-imgdata').value=JSON.stringify(arr); renderPrev(arr); n++; if(n===files.length) showToast(`${n}장 추가됨`); };
+    rd.readAsDataURL(f);
+  });
+}
+
+function renderPrev(imgs){
+  document.getElementById('img-prev').innerHTML=imgs.map((s,i)=>
+    `<div class="pg-item"><img src="${s}"><button class="pg-del" onclick="delImg(${i})">✕</button></div>`).join('');
+}
+
+function delImg(i){
+  const a=JSON.parse(document.getElementById('f-imgdata').value||'[]');
+  a.splice(i,1); document.getElementById('f-imgdata').value=JSON.stringify(a); renderPrev(a);
+}
+
+function setStar(v,sv=true){
+  document.getElementById('f-stars').value=v;
+  document.querySelectorAll('.star-btn').forEach(b=>b.classList.toggle('lit',parseInt(b.dataset.v)<=v));
+  if(sv) dSave();
+}
+
+function setRev(v,sv=true){
+  document.getElementById('f-revisit').value=v;
+  document.getElementById('rv-y').classList.toggle('on',!!v);
+  document.getElementById('rv-n').classList.toggle('on',!v);
+  if(sv) dSave();
+}
+
+function saveRec(){
+  const title=document.getElementById('f-title').value.trim();
+  const venue=document.getElementById('f-venue').value.trim();
+  const date=document.getElementById('f-date').value;
+  if(!title){ showToast('전시 제목을 입력해주세요.'); return; }
+  if(!venue){ showToast('미술관 이름을 입력해주세요.'); return; }
+  if(!date){  showToast('날짜를 선택해주세요.'); return; }
+
+  const tags=document.getElementById('f-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  const images=JSON.parse(document.getElementById('f-imgdata').value||'[]');
+  const prev=editId?recs.find(r=>r.id===editId):null;
+
+  const rec={
+    id:editId||'r'+Date.now(), title, venue,
+    location:document.getElementById('f-location').value.trim(), date,
+    order:parseInt(document.getElementById('f-order').value)||null,
+    artists:document.getElementById('f-artists').value.trim(),
+    type:document.getElementById('f-type').value,
+    impression:document.getElementById('f-imp').value.trim(),
+    essay:document.getElementById('f-essay').value.trim(),
+    tags, stars:parseInt(document.getElementById('f-stars').value)||0,
+    revisit:document.getElementById('f-revisit').value!=='false',
+    with:document.getElementById('f-with').value.trim(),
+    admission:document.getElementById('f-admission').value.trim(),
+    mood:document.getElementById('f-mood').value.trim(),
+    imgUrl:document.getElementById('f-imgurl').value.trim(),
+    images, memo:document.getElementById('f-memo').value.trim(),
+    createdAt:prev?.createdAt||new Date().toISOString()
+  };
+
+  if(editId){ const i=recs.findIndex(r=>r.id===editId); if(i!==-1) recs[i]=rec; }
+  else recs.push(rec);
+
+  save(); clearDraft();
+  showToast(editId?'수정됐어요 ✓':'저장됐어요 ✓');
+  showDet(rec.id);
+}
+
+/* draft */
+function dSave(){
+  if(editId) return;
+  clearTimeout(dT);
+  dT=setTimeout(()=>{
+    const d={};
+    ['title','venue','location','date','order','artists','type','imp','essay',
+     'tags','with','admission','mood','imgurl','memo'].forEach(k=>{ const e=document.getElementById('f-'+k); if(e) d[k]=e.value; });
+    d.stars=document.getElementById('f-stars').value;
+    d.revisit=document.getElementById('f-revisit').value;
+    localStorage.setItem(DK,JSON.stringify(d));
+    const b=document.getElementById('draft-badge'); if(b) b.style.display='inline-block';
+  },800);
+}
+
+function restoreDraft(){
+  try{
+    const raw=localStorage.getItem(DK); if(!raw) return;
+    const d=JSON.parse(raw); if(!d.title&&!d.essay) return;
+    Object.entries(d).forEach(([k,v])=>{ const e=document.getElementById('f-'+k); if(e&&e.type!=='hidden') e.value=v||''; });
+    setStar(parseInt(d.stars)||0,false); setRev(d.revisit!=='false',false);
+    const b=document.getElementById('draft-badge'); if(b) b.style.display='inline-block';
+  }catch{}
+}
+
+function clearDraft(){
+  localStorage.removeItem(DK);
+  const b=document.getElementById('draft-badge'); if(b) b.style.display='none';
+}
+
+/* delete */
+let delId=null;
+function confDel(id){
+  const r=recs.find(r=>r.id===id); delId=id;
+  document.getElementById('m-title').textContent='기록 삭제';
+  document.getElementById('m-desc').textContent=`"${r?.title||'이 기록'}"을 삭제할까요? 되돌릴 수 없어요.`;
+  document.getElementById('m-ok').onclick=()=>{ recs=recs.filter(r=>r.id!==delId); save(); closeModal(); showToast('삭제됐어요'); goView('list'); };
+  openModal();
+}
+
+function confDelAll(){
+  document.getElementById('m-title').textContent='전체 삭제';
+  document.getElementById('m-desc').textContent=`모든 기록 ${recs.length}건을 영구 삭제합니다.`;
+  document.getElementById('m-ok').onclick=()=>{ recs=[]; save(); closeModal(); showToast('모두 삭제됐어요'); goView('home'); };
+  openModal();
+}
+
+function openModal(){ document.getElementById('modal').classList.add('on'); }
+function closeModal(){ document.getElementById('modal').classList.remove('on'); }
+
+/* export / import */
+function exportD(){
+  const b=new Blob([JSON.stringify(recs,null,2)],{type:'application/json'});
+  const u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u; a.download=`archive-${new Date().toISOString().slice(0,10)}.json`; a.click(); URL.revokeObjectURL(u);
+  showToast('내보냈어요 ✓');
+}
+
+function importD(e){
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=ev=>{ try{ const imp=JSON.parse(ev.target.result); if(!Array.isArray(imp)){ showToast('올바른 형식이 아니에요'); return; }
+    const ids=new Set(recs.map(r=>r.id)); let n=0;
+    imp.forEach(r=>{ if(!ids.has(r.id)){ recs.push(r); n++; } });
+    save(); renderHome(); showToast(`${n}건 가져왔어요`); goView('list');
+  }catch{ showToast('파일 읽기 오류'); } };
+  r.readAsText(f); e.target.value='';
+}
+
+/* lightbox */
+function openLB(src){ document.getElementById('lb-img').src=src; document.getElementById('lightbox').classList.add('on'); }
+function closeLB(){ document.getElementById('lightbox').classList.remove('on'); }
+
+/* helpers */
+function x(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function getThumb(r){ return r.imgUrl||(r.images?.length?r.images[0]:null); }
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),2400);
+}
+
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeModal(); closeLB(); } });
+</script>
+</body>
+</html>
