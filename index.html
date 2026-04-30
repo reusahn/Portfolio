@@ -3,947 +3,362 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shininho — UE5 Digital Human Pipeline · Jonghoon Ahn</title>
-  <link rel="icon" href="../assets/images/favicon.png" type="image/png">
+  <title>Jonghoon Ahn — TA · Filmmaker · Media Artist</title>
+  <link rel="icon" href="./assets/images/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #080808; --surface: #111; --surface2: #161616;
-      --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.13);
-      --text: #f0ede8; --muted: #666; --muted2: #999;
-      --accent: #e8ff47;
-      --font-display: 'Syne', sans-serif;
-      --font-mono: 'Space Mono', monospace;
-      --font-body: 'DM Sans', sans-serif;
+      --border: rgba(255,255,255,0.07); --text: #f0ede8; --muted: #555; --accent: #e8ff47;
+      --font-display: 'Syne', sans-serif; --font-mono: 'Space Mono', monospace;
+      --font-body: 'DM Sans', sans-serif; --font-kr: 'Noto Sans KR', sans-serif;
     }
-    html { scroll-behavior: smooth; font-size: 16px; }
-    body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-weight:300; line-height:1.65; overflow-x:hidden; }
-
-    /* NAV */
-    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:22px 48px; background:rgba(8,8,8,.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
-    .nav-back { font-family:var(--font-mono); font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
-    .nav-back:hover { color:var(--accent); }
-    .nav-links { display:flex; gap:24px; list-style:none; }
-    .nav-links a { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
-    .nav-links a:hover { color:var(--text); }
+    html { scroll-behavior: smooth; font-size: 14px; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-weight:300; line-height:1.6; overflow-x:hidden; }
+    #cur,#curR { display:none; }
+    @media(hover:hover){
+      #cur { display:block; width:8px; height:8px; background:var(--accent); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:transform .15s; }
+      #curR { display:block; width:34px; height:34px; border:1px solid rgba(232,255,71,.35); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .2s,height .2s; }
+    }
+    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:flex-end; align-items:center; padding:22px 48px; transition:background .4s,border-color .4s; border-bottom:1px solid transparent; }
+    nav.stuck { background:rgba(8,8,8,.92); backdrop-filter:blur(20px); border-color:var(--border); }
+    .nav-links { display:flex; gap:28px; list-style:none; align-items:center; }
+    .nav-links a { font-family:var(--font-mono); font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; position:relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1px; background:var(--accent); transition:width .3s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--text); }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+    .lang-btn { font-family:var(--font-mono); font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; background:none; border:none; cursor:pointer; padding:0; color:var(--muted); transition:color .2s; }
+    .lang-btn::before { content:'['; }
+    .lang-btn::after  { content:']'; }
+    .lang-btn:hover { color:var(--text); }
+    .lang-btn.kr { color:var(--accent); }
     .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
-    .nav-toggle span { width:24px; height:1px; background:var(--text); }
+    .nav-toggle span { width:24px; height:1px; background:var(--text); transition:all .3s; }
     @media(max-width:768px){
       nav { padding:18px 24px; }
       .nav-toggle { display:flex; }
-      .nav-links { display:none; flex-direction:column; position:fixed; top:0; right:0; bottom:0; width:70vw; max-width:280px; background:rgba(8,8,8,.97); backdrop-filter:blur(20px); padding:80px 32px 32px; border-left:1px solid var(--border); gap:0; }
+      .nav-links { display:none; flex-direction:column; gap:0; position:fixed; top:0; right:0; bottom:0; width:70vw; max-width:280px; background:rgba(8,8,8,.97); backdrop-filter:blur(20px); padding:80px 32px 32px; border-left:1px solid var(--border); }
       .nav-links.open { display:flex; }
-      .nav-links a { font-size:1rem; padding:14px 0; border-bottom:1px solid var(--border); }
+      .nav-links a { font-size:1.1rem; padding:14px 0; border-bottom:1px solid var(--border); }
+      .nav-links a::after { display:none; }
+      .lang-btn { font-size:1rem; padding:14px 0; border-bottom:1px solid var(--border); }
     }
-
-    /* HERO */
-    .detail-hero { padding:120px 48px 0; max-width:1200px; margin:0 auto; }
-    @media(max-width:768px){ .detail-hero { padding:100px 24px 0; } }
-    .detail-cat { font-family:var(--font-mono); font-size:.8rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
-    .detail-title { font-family:'Bebas Neue', sans-serif; font-size:clamp(3rem,7vw,6.5rem); font-weight:400; letter-spacing:.04em; line-height:.9; margin-bottom:14px; }
-    .detail-subtitle { font-family:var(--font-display); font-size:clamp(1.1rem,2vw,1.5rem); font-weight:600; color:var(--accent); margin-bottom:22px; letter-spacing:-.01em; }
-    .detail-meta { display:flex; gap:32px; flex-wrap:wrap; padding:20px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:24px; }
-    .detail-meta-item { display:flex; flex-direction:column; gap:5px; }
-    .detail-meta-label { font-family:var(--font-mono); font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
-    .detail-meta-value { font-size:.95rem; color:var(--text); }
-    .hero-tags { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:48px; }
-    .hero-tag { font-family:var(--font-mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; padding:6px 14px; border:1px solid var(--border); color:var(--muted2); }
-
-    /* BANNER */
-    .detail-banner { max-width:1200px; margin:0 auto; padding:0 48px 60px; }
-    @media(max-width:768px){ .detail-banner { padding:0 24px 48px; } }
-    .detail-banner img { width:100%; display:block; object-fit:cover; filter:brightness(.9); }
-
-    /* CONTENT WRAPPER */
-    .detail-content { max-width:1200px; margin:0 auto; padding:0 48px 120px; }
-    @media(max-width:768px){ .detail-content { padding:0 24px 80px; } }
-
-    /* SECTION LABEL */
-    .sec-label { font-family:var(--font-mono); font-size:.78rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:22px; padding-bottom:14px; border-bottom:1px solid var(--border); }
-
-    /* TWO-COL BODY */
-    .detail-body { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-bottom:60px; }
-    @media(max-width:768px){ .detail-body { grid-template-columns:1fr; gap:32px; } }
-    .detail-desc { font-size:1.05rem; color:rgba(240,237,232,.75); line-height:1.8; }
-    .detail-desc p { margin-bottom:16px; }
-    .detail-desc p:last-child { margin-bottom:0; }
-    .detail-desc ul { list-style:none; display:flex; flex-direction:column; gap:10px; margin-top:8px; }
-    .detail-desc ul li { font-size:1rem; color:rgba(240,237,232,.72); line-height:1.65; padding-left:20px; position:relative; }
-    .detail-desc ul li::before { content:'—'; position:absolute; left:0; color:var(--accent); font-family:var(--font-mono); font-size:.72rem; top:4px; }
-
-    /* SNAPSHOT GRID */
-    .snapshot-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:60px; }
-    @media(max-width:600px){ .snapshot-grid { grid-template-columns:1fr; } }
-    .snapshot-cell { background:var(--surface); padding:26px 30px; }
-    .snapshot-cell.wide { grid-column:span 2; }
-    @media(max-width:600px){ .snapshot-cell.wide { grid-column:span 1; } }
-    .snapshot-label { font-family:var(--font-mono); font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:9px; }
-    .snapshot-val { font-size:1rem; line-height:1.65; color:rgba(240,237,232,.82); }
-
-    /* TECH GRID */
-    .tech-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; margin-bottom:60px; }
-    @media(max-width:768px){ .tech-grid { grid-template-columns:1fr; } }
-    .tech-block { background:var(--surface); padding:26px 30px; }
-    .tech-block-icon { font-family:var(--font-mono); font-size:.72rem; color:var(--accent); letter-spacing:.14em; margin-bottom:10px; }
-    .tech-block-title { font-family:var(--font-display); font-size:1.05rem; font-weight:700; margin-bottom:10px; }
-    .tech-block p { font-size:.95rem; color:rgba(240,237,232,.62); line-height:1.75; }
-
-    /* PIPELINE STEPS */
-    .pipeline-step { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:2px; }
-    @media(max-width:768px){ .pipeline-step { grid-template-columns:1fr; } }
-    .pipeline-img { overflow:hidden; }
-    .pipeline-img img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; filter:brightness(.85); transition:filter .3s; }
-    .pipeline-img img:hover { filter:brightness(1); }
-    .pipeline-placeholder { width:100%; aspect-ratio:4/3; background:var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; }
-    .pipeline-placeholder span { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.1em; color:var(--muted); text-align:center; padding:0 20px; line-height:1.8; }
-    .pipeline-info { background:var(--surface); padding:36px; display:flex; flex-direction:column; justify-content:center; }
-    .pipeline-num { font-family:var(--font-mono); font-size:.72rem; color:var(--accent); letter-spacing:.15em; margin-bottom:10px; }
-    .pipeline-title { font-family:var(--font-display); font-size:1.3rem; font-weight:700; margin-bottom:16px; }
-    .pipeline-sub { font-family:var(--font-mono); font-size:.68rem; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
-    .pipeline-sub-text { font-size:.98rem; color:rgba(240,237,232,.5); line-height:1.65; margin-bottom:14px; font-style:italic; }
-    .pipeline-desc { font-size:.98rem; color:rgba(240,237,232,.68); line-height:1.8; }
-    .pipeline-desc ul { list-style:none; display:flex; flex-direction:column; gap:7px; }
-    .pipeline-desc ul li { padding-left:16px; position:relative; }
-    .pipeline-desc ul li::before { content:'·'; position:absolute; left:0; color:var(--accent); }
-    .pipeline-result { font-size:.95rem; color:rgba(232,255,71,.72); line-height:1.7; margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
-    .pipeline-result-lbl { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:4px; }
-    .pipeline-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:18px; }
-    .ptag { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.1em; text-transform:uppercase; padding:5px 12px; border:1px solid var(--border); color:var(--muted); }
-
-    /* METRICS BOX */
-    .metrics-box { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px; padding:16px 18px; background:var(--surface2); }
-    .metric-item-lbl { font-family:var(--font-mono); font-size:.62rem; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); margin-bottom:3px; }
-    .metric-item-val { font-family:var(--font-mono); font-size:.8rem; color:var(--muted2); }
-
-    /* CONTRIBUTION TABLE */
-    .contrib-wrap { overflow-x:auto; margin-bottom:60px; }
-    .contrib-table { width:100%; border-collapse:collapse; }
-    .contrib-table th { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); padding:13px 20px; border-bottom:1px solid var(--border2); text-align:left; background:var(--surface2); }
-    .contrib-table td { padding:15px 20px; border-bottom:1px solid var(--border); font-size:.95rem; vertical-align:top; line-height:1.65; }
-    .contrib-table tr:last-child td { border-bottom:none; }
-    .contrib-table tr:nth-child(odd) td { background:var(--surface); }
-    .contrib-table tr:nth-child(even) td { background:var(--bg); }
-    .contrib-table td:first-child { font-family:var(--font-mono); font-size:.72rem; color:var(--accent); letter-spacing:.08em; font-weight:700; white-space:nowrap; }
-    .contrib-table td:last-child { font-family:var(--font-mono); font-size:.72rem; color:var(--muted2); }
-    @media(max-width:600px){
-      .contrib-table thead { display:none; }
-      .contrib-table td { display:block; padding:10px 14px; }
-      .contrib-table td:first-child { background:var(--surface2); }
-    }
-
-    /* GALLERY */
-    .gallery-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:2px; margin-bottom:60px; }
-    .gal-item { overflow:hidden; background:var(--surface); }
-    .gal-s8  { grid-column:span 8; }
-    .gal-s6  { grid-column:span 6; }
-    .gal-s4  { grid-column:span 4; }
-    .gal-s12 { grid-column:span 12; }
-    @media(max-width:900px){ .gal-s8,.gal-s6,.gal-s4 { grid-column:span 12; } }
-    .gal-media { position:relative; overflow:hidden; }
-    .gal-s8  .gal-media, .gal-s6  .gal-media { aspect-ratio:16/10; }
-    .gal-s4  .gal-media { aspect-ratio:4/5; }
-    .gal-s12 .gal-media { aspect-ratio:21/9; }
-    .gal-media img { width:100%; height:100%; object-fit:cover; display:block; filter:brightness(.8); transition:filter .4s; }
-    .gal-item:hover .gal-media img { filter:brightness(.97); }
-    .gal-ph { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; background:var(--surface2); }
-    .gal-ph-num { font-family:var(--font-mono); font-size:.68rem; letter-spacing:.15em; color:var(--accent); }
-    .gal-ph-txt { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.08em; color:var(--muted); text-align:center; padding:0 16px; line-height:1.7; }
-    .gal-caption { padding:14px 18px; }
-    .gal-cap-num { font-family:var(--font-mono); font-size:.68rem; letter-spacing:.15em; color:var(--accent); margin-bottom:5px; }
-    .gal-cap-text { font-size:.92rem; color:rgba(240,237,232,.58); line-height:1.6; }
-
-    /* ARTISTIC QUOTE */
-    .artistic-quote { border-left:2px solid var(--accent); padding:4px 24px; margin-bottom:20px; }
-    .artistic-quote p { font-family:var(--font-display); font-size:1.1rem; font-weight:600; color:rgba(240,237,232,.38); line-height:1.65; }
-
-    /* DEPLOYMENT */
-    .deployment-list { display:flex; flex-direction:column; gap:2px; margin-bottom:28px; }
-    .deploy-row { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:17px 24px; background:var(--surface); transition:background .2s; flex-wrap:wrap; }
-    .deploy-row:hover { background:var(--surface2); }
-    .deploy-title { font-size:1rem; color:rgba(240,237,232,.88); margin-bottom:3px; }
-    .deploy-role  { font-family:var(--font-mono); font-size:.68rem; letter-spacing:.1em; color:var(--muted); }
-    .deploy-year  { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.1em; color:var(--accent); flex-shrink:0; }
-
-    /* ROLES BOX */
-    .roles-box { background:var(--surface); padding:32px 36px; margin-bottom:60px; display:grid; grid-template-columns:1fr 1fr; gap:32px; }
-    @media(max-width:600px){ .roles-box { grid-template-columns:1fr; } }
-    .roles-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
-    .roles-list li { font-family:var(--font-mono); font-size:.82rem; letter-spacing:.06em; color:rgba(240,237,232,.75); padding-left:16px; position:relative; }
-    .roles-list li::before { content:'·'; position:absolute; left:0; color:var(--accent); }
-    .roles-desc { font-size:.98rem; color:rgba(240,237,232,.6); line-height:1.8; }
-
-    /* RELATED */
-    .related-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-bottom:40px; }
-    @media(max-width:900px){ .related-grid { grid-template-columns:1fr 1fr; } }
-    @media(max-width:500px){ .related-grid { grid-column:1fr; } }
-    .related-card { background:var(--surface); padding:22px 24px; text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:6px; transition:background .2s; }
-    .related-card:hover { background:var(--surface2); }
-    .related-cat { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
-    .related-title { font-family:var(--font-display); font-size:1rem; font-weight:700; transition:color .2s; }
-    .related-card:hover .related-title { color:var(--accent); }
-    .related-sub { font-size:.88rem; color:var(--muted2); line-height:1.6; }
-    .related-arrow { font-size:.8rem; color:var(--muted); margin-top:auto; padding-top:10px; }
-
-    /* COLLAB */
-    .collab-block { background:var(--surface); border-left:3px solid var(--accent); padding:24px 32px; margin-bottom:60px; }
-    .collab-block p { font-size:1rem; color:rgba(240,237,232,.72); line-height:1.8; }
-    .collab-block a { color:var(--accent); text-decoration:none; }
-    .collab-block a:hover { text-decoration:underline; }
-
-    /* CONTACT */
-    .contact-block { background:var(--surface); padding:36px 40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; margin-bottom:60px; }
-    .contact-block h3 { font-family:var(--font-display); font-size:1.2rem; font-weight:700; margin-bottom:6px; }
-    .contact-block p { font-size:.95rem; color:rgba(240,237,232,.55); }
-    .contact-cta { font-family:var(--font-mono); font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text); text-decoration:none; border:1px solid var(--border2); padding:13px 26px; transition:all .2s; white-space:nowrap; }
-    .contact-cta:hover { background:var(--accent); color:#000; border-color:var(--accent); }
-
-    /* DIVIDER */
-    hr { border:none; border-top:1px solid var(--border); margin:60px 0; }
-
-    /* PAGINATION */
-    .detail-nav { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:32px; margin-top:60px; }
-    .detail-nav a { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
-    .detail-nav a:hover { color:var(--accent); }
-    .detail-nav .back { color:var(--text); }
-
-    /* REVEAL */
-    .r { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+    #hero { position:relative; width:100%; height:100vh; height:100svh; display:flex; align-items:center; overflow:hidden; padding-top:20vh; }
+    .hero-bg { position:absolute; inset:0; z-index:0; }
+    .hero-bg-inner { position:absolute; inset:0; overflow:hidden; z-index:1; }
+    .hero-bg-inner iframe { position:absolute; top:50%; left:50%; width:177.78vh; min-width:100%; height:56.25vw; min-height:100%; transform:translate(-50%,-50%); opacity:.5; pointer-events:none; }
+    .hero-bg-fallback { position:absolute; inset:0; z-index:0; background:radial-gradient(ellipse at 70% 40%, #1c1c1c 0%, #080808 65%); }
+    .hero-grain { position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.4; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size:180px 180px; mix-blend-mode:overlay; }
+    .hero-fade-b { position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(to top, var(--bg) 0%, rgba(8,8,8,.5) 35%, transparent 65%); }
+    .hero-fade-l { position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(to right, rgba(8,8,8,.8) 0%, transparent 55%); }
+    .hero-scan { position:absolute; inset:0; z-index:3; pointer-events:none; background:repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,.05) 3px, rgba(0,0,0,.05) 4px); }
+    .hero-content { position:relative; z-index:5; padding:0 48px 80px; max-width:860px; }
+    .hero-eyebrow { font-family:var(--font-mono); font-size:1.2rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:18px; opacity:0; animation:fadeUp .7s ease .2s forwards; }
+    .hero-name { font-family:'Bebas Neue', sans-serif; font-size:clamp(5rem,13vw,12rem); font-weight:400; line-height:.9; letter-spacing:.04em; margin-bottom:32px; opacity:0; animation:fadeUp .7s ease .4s forwards; }
+    .hero-name em { display:block; color:var(--accent); font-style:normal; }
+    .hero-sub { font-size:1.2rem; color:rgba(240,237,232,.6); max-width:520px; margin-bottom:24px; line-height:1.75; opacity:0; animation:fadeUp .7s ease .6s forwards; }
+    .hero-pills { display:flex; gap:10px; flex-wrap:wrap; opacity:0; animation:fadeUp .7s ease .8s forwards; }
+    .hero-pill { font-family:var(--font-mono); font-size:1rem; letter-spacing:.12em; text-transform:uppercase; padding:8px 16px; border:1px solid var(--border); color:rgba(240,237,232,.75); }
+    .hero-scroll { position:absolute; right:48px; bottom:48px; z-index:5; display:flex; flex-direction:column; align-items:center; gap:10px; opacity:0; animation:fadeIn 1s ease 1.2s forwards; }
+    .hero-scroll span { font-family:var(--font-mono); font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); writing-mode:vertical-rl; }
+    .scroll-bar { width:1px; height:56px; background:var(--border); position:relative; overflow:hidden; }
+    .scroll-bar::after { content:''; position:absolute; top:-100%; left:0; width:100%; height:100%; background:var(--accent); animation:scrollDrop 2.2s ease infinite; }
+    @media(max-width:768px){ .hero-content{padding:0 24px 60px;} .hero-eyebrow{font-size:.7rem;} .hero-sub{font-size:.9rem;} .hero-pill{font-size:.65rem;padding:6px 12px;} .hero-scroll{display:none;} }
+    @keyframes scrollDrop { 0%{top:-100%} 100%{top:200%} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    .wrap { max-width:1380px; margin:0 auto; padding:120px 48px; }
+    @media(max-width:768px){ .wrap{padding:72px 20px;} }
+    .sec-head { display:flex; align-items:baseline; justify-content:space-between; border-bottom:1px solid var(--border); padding-bottom:18px; margin-bottom:52px; }
+    .sec-num { font-family:var(--font-mono); font-size:.6rem; color:var(--accent); letter-spacing:.16em; }
+    .sec-title { font-family:var(--font-display); font-size:clamp(1.6rem,2.8vw,2.5rem); font-weight:700; letter-spacing:-.025em; }
+    .grid { display:grid; grid-template-columns:repeat(12,1fr); gap:2px; }
+    .s12{grid-column:span 12} .s8{grid-column:span 8} .s7{grid-column:span 7}
+    .s6{grid-column:span 6} .s5{grid-column:span 5} .s4{grid-column:span 4} .s3{grid-column:span 3}
+    @media(max-width:600px){ .s12,.s8,.s7,.s6,.s5,.s4,.s3{grid-column:span 12} }
+    @media(min-width:601px) and (max-width:900px){ .s8,.s7{grid-column:span 12} .s6,.s5{grid-column:span 6} .s4,.s3{grid-column:span 6} }
+    @media(min-width:901px) and (max-width:1100px){ .s8{grid-column:span 7} .s4{grid-column:span 5} .s3{grid-column:span 6} }
+    .card { position:relative; overflow:hidden; background:var(--surface); display:block; text-decoration:none; color:inherit; cursor:pointer; }
+    .card-media { position:relative; width:100%; overflow:hidden; aspect-ratio:16/10; }
+    .card-media img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; transition:transform .7s cubic-bezier(.25,.46,.45,.94), filter .4s; filter:brightness(.7) saturate(.75); z-index:1; }
+    .card:hover .card-media img { transform:scale(1.04); filter:brightness(.88) saturate(1); }
+    .card-no-img { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:.58rem; letter-spacing:.12em; color:var(--muted); background:var(--surface2); z-index:0; }
+    .card-arrow { position:absolute; top:16px; right:16px; z-index:5; width:34px; height:34px; border:1px solid var(--accent); display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:.95rem; opacity:0; transform:translate(6px,-6px); transition:opacity .25s,transform .25s; }
+    .card:hover .card-arrow { opacity:1; transform:none; }
+    .card-info { padding:18px 22px 22px; }
+    .card-cat { font-family:var(--font-mono); font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+    .card-title { font-family:var(--font-display); font-size:1.2rem; font-weight:600; margin-bottom:8px; transition:color .2s; }
+    .card:hover .card-title { color:var(--accent); }
+    .card-desc { font-size:1.2rem; color:rgba(240,237,232,.65); line-height:1.6; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .card-tags { display:flex; gap:6px; margin-top:14px; flex-wrap:wrap; }
+    .tag { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.08em; text-transform:uppercase; padding:4px 10px; border:1px solid var(--border); color:var(--muted); }
+    .about-wrap { display:grid; grid-template-columns:1fr 1.7fr; gap:80px; align-items:start; }
+    @media(max-width:768px){ .about-wrap{grid-template-columns:1fr;gap:48px;} }
+    .about-img-col { position:relative; }
+    .about-img-col img { width:100%; aspect-ratio:3/4; object-fit:cover; filter:grayscale(15%) contrast(1.05); display:block; }
+    .about-label { position:absolute; bottom:22px; left:-18px; background:var(--accent); color:#000; font-family:'Noto Sans KR',sans-serif; font-size:.72rem; font-weight:700; letter-spacing:.08em; padding:7px 16px; }
+    @media(max-width:768px){ .about-label{left:0;} }
+    .about-txt h3 { font-family:var(--font-display); font-size:1.7rem; font-weight:700; letter-spacing:-.02em; margin-bottom:22px; }
+    .about-txt p { font-size:1.1rem; color:rgba(240,237,232,.6); line-height:1.8; margin-bottom:14px; }
+    .about-sub-label { font-family:var(--font-mono); font-size:.85rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+    .awards { margin-top:32px; border-top:1px solid var(--border); padding-top:28px; }
+    .award { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:11px 0; border-bottom:1px solid var(--border); }
+    .award-n { font-size:1rem; }
+    .award-y { font-family:var(--font-mono); font-size:.75rem; color:var(--muted); letter-spacing:.1em; white-space:nowrap; }
+    .cta-link { display:inline-flex; align-items:center; gap:10px; margin-top:28px; font-family:var(--font-mono); font-size:.9rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text); text-decoration:none; border-bottom:1px solid var(--border); padding-bottom:3px; transition:color .2s,border-color .2s; }
+    .cta-link+.cta-link { margin-top:14px; }
+    .cta-link:hover { color:var(--accent); border-color:var(--accent); }
+    .news-ul { list-style:none; }
+    .news-row { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 0; border-bottom:1px solid var(--border); transition:padding-left .25s; }
+    .news-row:hover { padding-left:12px; }
+    .news-n { font-family:var(--font-display); font-size:.92rem; font-weight:600; }
+    .news-a { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; border:1px solid var(--border); padding:6px 14px; transition:all .2s; white-space:nowrap; }
+    .news-a:hover { color:#000; background:var(--accent); border-color:var(--accent); }
+    footer { border-top:1px solid var(--border); padding:44px 48px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+    @media(max-width:768px){ footer{padding:32px 20px;} }
+    .foot-l { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.1em; color:var(--muted); line-height:1.8; }
+    .foot-r a { font-family:var(--font-mono); font-size:.65rem; letter-spacing:.12em; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .foot-r a:hover { color:var(--accent); }
+    body.kr { font-family:var(--font-kr); }
+    body.kr .card-title, body.kr .sec-title, body.kr .about-txt h3 { letter-spacing:-.02em; }
+    .r { opacity:0; transform:translateY(36px); transition:opacity .65s ease,transform .65s ease; }
     .r.on { opacity:1; transform:none; }
   </style>
 </head>
 <body>
 
-<nav>
-  <a href="../index.html" class="nav-back">← Portfolio</a>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<nav id="nav">
   <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
   <ul class="nav-links" id="navLinks">
-    <li><a href="../index.html#interactive">Interactive</a></li>
-    <li><a href="../index.html#film">Film</a></li>
-    <li><a href="../index.html#media">Media Art</a></li>
-    <li><a href="../index.html#xr">XR · Game</a></li>
-    <li><a href="../index.html#vfx">3D / VFX</a></li>
-    <li><a href="../index.html#about">About</a></li>
+    <li><a href="#interactive" data-en="Interactive" data-kr="인터랙티브 작업">Interactive</a></li>
+    <li><a href="#film" data-en="Film" data-kr="영화">Film</a></li>
+    <li><a href="#media" data-en="Media Art" data-kr="미디어 아트">Media Art</a></li>
+    <li><a href="#xr" data-en="XR · Game" data-kr="XR · 게임">XR · Game</a></li>
+    <li><a href="#vfx" data-en="3D / VFX" data-kr="3D / VFX">3D / VFX</a></li>
+    <li><a href="#about" data-en="About" data-kr="소개">About</a></li>
+    <li><button class="lang-btn" id="langBtn" onclick="toggleLang()">KR</button></li>
   </ul>
 </nav>
 
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-bg-inner">
+      <iframe src="https://player.vimeo.com/video/1179518036?h=000a01b959&badge=0&autopause=0&player_id=0&app_id=58479&background=1&autoplay=1&loop=1&muted=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="showreel"></iframe>
+    </div>
+    <div class="hero-bg-fallback"></div>
+  </div>
+  <div class="hero-grain"></div><div class="hero-fade-b"></div><div class="hero-fade-l"></div><div class="hero-scan"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow" data-en="* TECHNICAL ARTIST · REAL-TIME VISUALIZATION · FILMMAKER" data-kr="* 테크니컬 아티스트 · 미디어아티스트 · 영화감독">* TECHNICAL ARTIST · REAL-TIME VISUALIZATION · FILMMAKER</div>
+    <h1 class="hero-name">Jonghoon<br><em>Ahn</em></h1>
+    <p class="hero-sub" data-en="An technical artist, filmmaker and AI researcher with experience in real-time visualization, digital human creation, and cinematic storytelling, creating work that explores how technology and the age of AI reshape the lives of those often marginalized by it." data-kr="실시간 비주얼라이제이션, 디지털 휴먼 제작, 시네마틱 스토리텔링을 기반으로 작업하는 테크니컬 아티스트이자 영화감독, AI 리서처입니다. AI 시대에 기술로부터 소외되기 쉬운 사람들의 삶이 어떻게 변화하는지를 탐구합니다.">An technical artist, filmmaker and AI researcher with experience in real-time visualization, digital human creation, and cinematic storytelling, creating work that explores how technology and the age of AI reshape the lives of those often marginalized by it.</p>
+    <div class="hero-pills">
+      <!--<span class="hero-pill">CalArts MFA '25</span>-->
+      <span class="hero-pill">LA · Seoul</span>
+      <span class="hero-pill" data-en="Sundance Ignite Finalist '24" data-kr="선댄스 이그나이트 파이널리스트 2024">Sundance Ignite Finalist '24</span>
+      <span class="hero-pill" data-en="Academy Nicholl Fellowship Official Partner '25" data-kr="아카데미 니콜 펠로우십 오피셜 파트너 2025">Academy Nicholl Fellowship Official Partner '25</span>
+      <span class="hero-pill" data-en="CJ &amp; TIFF K-Story Fund Shortlist '25" data-kr="CJ &amp; TIFF K-스토리 펀드 쇼트리스트 2025">CJ &amp; TIFF K-Story Fund Shortlist '25</span>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-bar"></div><span data-en="Scroll" data-kr="아래로">Scroll</span></div>
+</section>
 
-<!-- ═══════════════════════════════════════════
-     01  HERO
-═══════════════════════════════════════════ -->
-<div class="detail-hero">
-  <div class="detail-cat r">Technical Art Case Study · Digital Human Pipeline · 2024–2025</div>
-  <h1 class="detail-title r">Shininho</h1>
-  <div class="detail-subtitle r">UE5 Digital Human / Real-Time Cinematic Pipeline</div>
-  <div class="detail-meta r">
-    <div class="detail-meta-item">
-      <span class="detail-meta-label">Role</span>
-      <span class="detail-meta-value">Technical Artist / Pipeline Lead</span>
-    </div>
-    <div class="detail-meta-item">
-      <span class="detail-meta-label">Tools</span>
-      <span class="detail-meta-value">UE5 · Maya · MetaHuman · Faceit · Substance Painter · Photoshop · Blueprints · Sequencer</span>
-    </div>
-    <div class="detail-meta-item">
-      <span class="detail-meta-label">Collaboration</span>
-      <span class="detail-meta-value">Yaloo Studio</span>
-    </div>
-    <div class="detail-meta-item">
-      <span class="detail-meta-label">Year</span>
-      <span class="detail-meta-value">2024–2025</span>
-    </div>
-  </div>
-  <div class="hero-tags r">
-    <span class="hero-tag">Technical Art</span>
-    <span class="hero-tag">Digital Human Pipeline</span>
-    <span class="hero-tag">UE5 Sequencer</span>
-    <span class="hero-tag">MetaHuman</span>
-    <span class="hero-tag">Maya Rigging</span>
-    <span class="hero-tag">Blueprint</span>
-    <span class="hero-tag">Real-Time Optimization</span>
-  </div>
-</div>
-
-<!-- Hero videos (existing) -->
-<div class="detail-banner r">
-  <div style="position:relative;padding:56.25% 0 0 0;">
-    <iframe src="https://player.vimeo.com/video/1182459073?badge=0&autopause=0&player_id=0&app_id=58479&background=1&autoplay=1&loop=1&muted=1"
-      frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"
-      title="Shininho Digital Human"></iframe>
-  </div>
-</div>
-<div class="detail-banner r">
-  <div style="position:relative;padding:56.25% 0 0 0;">
-    <iframe src="https://player.vimeo.com/video/1185837104?h=15251d947d&badge=0&autopause=0&player_id=0&app_id=58479&background=1&autoplay=1&loop=1&muted=1"
-      frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"
-      title="Shininho Digital Human"></iframe>
+<div class="wrap" id="interactive">
+  <div class="sec-head r"><span class="sec-num">01 —</span><h2 class="sec-title" data-en="Interactive Art" data-kr="인터랙티브 아트">Interactive Art</h2></div>
+  <div class="grid">
+    <a href="detail_pages/interactive_1.html" class="card s8 r"><div class="card-media"><img src="./assets/images/interactive1_3.jpg" alt="To Eternity"><div class="card-no-img">To Eternity</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Interactive Installation" data-kr="인터랙티브 설치">Interactive Installation</div><div class="card-title">To Eternity</div><div class="card-desc" data-en="Archival photographs from the Gwangju Democratization Movement algorithmically mosaicked in real time over the viewer's live image." data-kr="5·18 광주민주화운동의 아카이브 사진이 관람객의 실시간 이미지 위에 알고리즘적으로 중첩되어 모자이크처럼 나타나는 인터랙티브 설치입니다.">Archival photographs from the Gwangju Democratization Movement algorithmically mosaicked in real time over the viewer's live image.</div><div class="card-tags"><span class="tag">Unity</span><span class="tag">Computer Vision</span></div></div></a>
+    <a href="detail_pages/interactive_2.html" class="card s4 r"><div class="card-media"><img src="./assets/images/interactive2.jpg" alt="AI Gang Se-hwang"><div class="card-no-img">AI Gang Se-hwang</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="AI · Digital Human" data-kr="AI · 디지털 휴먼">AI · Digital Human</div><div class="card-title" data-en="AI Gang Se-hwang" data-kr="AI 강세황">AI Gang Se-hwang</div><div class="card-desc" data-en="Historical painter revived as an interactive AI docent blending 18th century scholarship with real-time conversation." data-kr="조선 후기 화가 강세황을 대화형 AI 도슨트로 복원한 실시간 인터랙티브 설치 작품입니다.">Historical painter revived as an interactive AI docent blending 18th century scholarship with real-time conversation.</div><div class="card-tags"><span class="tag">Unity</span><span class="tag">Maya</span></div></div></a>
+    <a href="detail_pages/interactive_3.html" class="card s4 r"><div class="card-media"><img src="./assets/images/interactive3.jpg" alt="Jemulpo Photo Studio"><div class="card-no-img">Jemulpo Photo Studio</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Computer Vision · Style Transfer" data-kr="컴퓨터 비전 · 스타일 변환">Computer Vision · Style Transfer</div><div class="card-title" data-en="Jemulpo Photo Studio" data-kr="제물포 사진관">Jemulpo Photo Studio</div><div class="card-desc" data-en="Visitor portraits transformed into colonial-era magazine covers inspired by the &quot;New Women&quot; aesthetic of early Incheon." data-kr="방문객의 초상을 근대 인천의 '신여성' 잡지 표지 스타일로 실시간 변환하는 인터랙티브 설치입니다.">Visitor portraits transformed into colonial-era magazine covers inspired by the "New Women" aesthetic of early Incheon.</div><div class="card-tags"><span class="tag">Unity</span><span class="tag">OpenCV</span></div></div></a>
+    <a href="detail_pages/interactive_4.html" class="card s4 r"><div class="card-media"><img src="./assets/images/interactive4.jpg" alt="AI ZOO"><div class="card-no-img">AI ZOO</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Mixed Media Installation" data-kr="복합 매체 설치">Mixed Media Installation</div><div class="card-title">AI ZOO</div><div class="card-desc" data-en="Balloons inside an acrylic sphere represent AI's diffusion and training models—inner workings made tangible." data-kr="투명 구체 안의 풍선을 통해 AI의 확산 모델과 학습 과정을 물리적으로 시각화한 설치 작업입니다.">Balloons inside an acrylic sphere represent AI's diffusion and training models—inner workings made tangible.</div><div class="card-tags"><span class="tag">Unity</span><span class="tag">ChatGPT</span></div></div></a>
+    <a href="detail_pages/interactive_5.html" class="card s4 r"><div class="card-media"><img src="./assets/images/interactive5.jpg" alt="Directed By AI"><div class="card-no-img">Directed By AI</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Film · AI Co-Director" data-kr="영화 · AI 공동 연출">Film · AI Co-Director</div><div class="card-title">Directed By AI</div><div class="card-desc" data-en="Co-directed with an AI system using personal facial data to reconstruct virtual family members as fictional beings." data-kr="개인 얼굴 데이터를 바탕으로 가족을 가상의 존재로 재구성한 AI 공동 연출 영화입니다.">Co-directed with an AI system using personal facial data to reconstruct virtual family members as fictional beings.</div><div class="card-tags"><span class="tag">Unreal</span><span class="tag">Diffusion</span></div></div></a>
+    <a href="detail_pages/interactive_7.html" class="card s6 r"><div class="card-media"><img src="./assets/images/interactive7.jpg" alt="Silhak Dance"><div class="card-no-img">Silhak Dance</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Motion Capture · Real-time" data-kr="모션 캡처 · 실시간">Motion Capture · Real-time</div><div class="card-title" data-en="Silhak Dance" data-kr="실학 댄스">Silhak Dance</div><div class="card-desc" data-en="Digital scholar Kim Yuk mirrors the audience's body movements—playful educational body interaction." data-kr="실학자 김육의 디지털 캐릭터가 관람객의 몸짓을 실시간으로 따라 하며 상호작용하는 교육형 설치입니다.">Digital scholar Kim Yuk mirrors the audience's body movements—playful educational body interaction.</div><div class="card-tags"><span class="tag">Unity</span><span class="tag">Pose Detection</span></div></div></a>
+    <a href="detail_pages/interactive_8.html" class="card s3 r"><div class="card-media"><img src="./assets/images/interactive8.jpg" alt="Track 6"><div class="card-no-img">Track 6</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Kinect · Dance" data-kr="키넥트 · 댄스">Kinect · Dance</div><div class="card-title">Track 6</div><div class="card-desc" data-en="Full-body Kinect dance inside six distorted geometric physics worlds." data-kr="키넥트로 포착한 전신 움직임을 여섯 개의 왜곡된 기하학적 물리 공간에 매핑한 댄스 설치입니다.">Full-body Kinect dance inside six distorted geometric physics worlds.</div><div class="card-tags"><span class="tag">Unity</span><span class="tag">Kinect</span></div></div></a>
+    <a href="detail_pages/interactive_10.html" class="card s3 r"><div class="card-media"><img src="./assets/images/interactive10_2.jpg" alt="Beads Wall"><div class="card-no-img">Beads Wall</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Generative · Participatory" data-kr="제너러티브 · 참여형">Generative · Participatory</div><div class="card-title" data-en="Beads Wall" data-kr="비즈 월">Beads Wall</div><div class="card-desc" data-en="Human motion as pointillist bead compositions—silhouettes dissolve into vibrant shimmering patterns." data-kr="인간의 움직임을 반짝이는 구슬 점묘 이미지로 변환하는 참여형 미디어 설치입니다.">Human motion as pointillist bead compositions—silhouettes dissolve into vibrant shimmering patterns.</div><div class="card-tags"><span class="tag">Unity</span></div></div></a>
+    <a href="detail_pages/interactive_9.html" class="card s6 r"><div class="card-media"><img src="./assets/images/interactive9.jpg" alt="AI Choi Jung Hoon"><div class="card-no-img">AI Choi Jung Hoon</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="LLM · Real-time Avatar" data-kr="LLM · 실시간 아바타">LLM · Real-time Avatar</div><div class="card-title" data-en="AI Choi Jung Hoon" data-kr="AI 최정훈">AI Choi Jung Hoon</div><div class="card-desc" data-en="JANNABI vocalist reconstructed as a real-time AI avatar via LLMs—voice, personality, and appearance integrated." data-kr="잔나비 보컬 최정훈을 LLM 기반의 실시간 AI 아바타로 재구성한 프로젝트입니다.">JANNABI vocalist reconstructed as a real-time AI avatar via LLMs—voice, personality, and appearance integrated.</div><div class="card-tags"><span class="tag">Unity</span><span class="tag">GPT</span><span class="tag">TTS</span></div></div></a>
   </div>
 </div>
 
+<div class="wrap" id="film">
+  <div class="sec-head r"><span class="sec-num">02 —</span><h2 class="sec-title" data-en="Film" data-kr="영화">Film</h2></div>
+  <div class="grid">
+    <a href="detail_pages/film_1.html" class="card s6 r"><div class="card-media"><img src="./assets/images/film1.jpg" alt="Non-Done Record"><div class="card-no-img">Non-Done Record</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Short Film · Sundance Ignite Finalist 2024" data-kr="단편영화 · 선댄스 이그나이트 파이널리스트 2024">Short Film · Sundance Ignite Finalist 2024</div><div class="card-title" data-en="Non-Done Record" data-kr="미완성 기록">Non-Done Record</div><div class="card-desc" data-en="A young filmmaker's fading consciousness reconstructed as a completed film—unfinished memories looping in undefined space." data-kr="젊은 영화감독의 희미해지는 의식이 하나의 완성된 영화처럼 재구성되고, 미완의 기억이 불분명한 공간 속에서 반복됩니다.">A young filmmaker's fading consciousness reconstructed as a completed film—unfinished memories looping in undefined space.</div></div></a>
+    <a href="detail_pages/film_4.html" class="card s6 r"><div class="card-media"><img src="./assets/images/film4.jpg" alt="Where is My Cloud"><div class="card-no-img">Where is My Cloud</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Documentary · Experimental" data-kr="다큐멘터리 · 실험영화">Documentary · Experimental</div><div class="card-title" data-en="Where is My Cloud" data-kr="Where is My Cloud">Where is My Cloud</div><div class="card-desc" data-en="Eight years of digital memories erased. A filmmaker retraces imagined journeys across Korea—seeking not lost data, but a new sense of future." data-kr="8년 동안 쌓아온 디지털 기억이 사라진 뒤, 잃어버린 데이터가 아니라 새로운 미래의 감각을 찾아 한국의 풍경 속을 여행하는 실험 다큐멘터리입니다.">Eight years of digital memories erased. A filmmaker retraces imagined journeys across Korea—seeking not lost data, but a new sense of future.</div></div></a>
+    <a href="detail_pages/film_2.html" class="card s4 r"><div class="card-media"><img src="./assets/images/film2.jpg" alt="Urban Diary"><div class="card-no-img">Urban Diary</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Short Film" data-kr="단편영화">Short Film</div><div class="card-title" data-en="Urban Diary" data-kr="도시 일기">Urban Diary</div><div class="card-desc" data-en="A high school girl alone in her apartment—a meditation on absence and city life rhythms." data-kr="아파트에 홀로 남겨진 여고생의 시간을 통해 부재와 도시적 일상의 리듬을 바라보는 단편영화입니다.">A high school girl alone in her apartment—a meditation on absence and city life rhythms.</div></div></a>
+    <a href="detail_pages/film_3.html" class="card s4 r"><div class="card-media"><img src="./assets/images/film3.jpg" alt="Like Mother"><div class="card-no-img">Like Mother</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Short Film" data-kr="단편영화">Short Film</div><div class="card-title" data-en="Like Mother" data-kr="녀의나루">Like Mother</div><div class="card-desc" data-en="A surreal subway journey between guilt and grief—an estranged mother appears once more." data-kr="죄책감과 슬픔 사이를 가로지르는 초현실적인 지하철 여정 속에서 멀어진 어머니가 다시 모습을 드러냅니다.">A surreal subway journey between guilt and grief—an estranged mother appears once more.</div></div></a>
+    <a href="detail_pages/film_5.html" class="card s4 r"><div class="card-media"><img src="./assets/images/film5.jpg" alt="Mythomania"><div class="card-no-img">Mythomania</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Short Film" data-kr="단편영화">Short Film</div><div class="card-title">Mythomania</div><div class="card-desc" data-en="Three strangers on a drifting raft—silence unravels their darkest guilt one by one." data-kr="표류하는 뗏목 위에 놓인 세 낯선 사람의 침묵이 각자의 가장 어두운 죄책감을 하나씩 드러내는 단편영화입니다.">Three strangers on a drifting raft—silence unravels their darkest guilt one by one.</div></div></a>
+    <a href="detail_pages/film_6.html" class="card s6 r"><div class="card-media"><img src="./assets/images/film6.jpg" alt="Berdua Saja"><div class="card-no-img">Berdua Saja</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Music Video" data-kr="뮤직비디오">Short Film</div><div class="card-title">Berdua Saja</div><div class="card-desc" data-en="A man checking into a mysterious inn for those planning to die—finding something unexpected instead." data-kr="죽음을 준비하는 사람들을 위한 신비로운 여관에 들어선 남자가 예상치 못한 감정과 마주하게 되는 이야기입니다.">A man checking into a mysterious inn for those planning to die—finding something unexpected instead.</div></div></a>
+  </div>
+</div>
 
-<div class="detail-content">
+<div class="wrap" id="media">
+  <div class="sec-head r"><span class="sec-num">03 —</span><h2 class="sec-title" data-en="Media Art" data-kr="미디어 아트">Media Art</h2></div>
+  <div class="grid">
+    <a href="detail_pages/media_1.html" class="card s4 r"><div class="card-media"><img src="./assets/images/media1.jpg" alt="DADA Myeongdong"><div class="card-no-img">DADA Myeongdong</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Media Wall · Art Korea Lab 2025" data-kr="미디어 월 · 아트코리아랩 2025">Media Wall · Art Korea Lab 2025</div><div class="card-title" data-en="DADA Myeongdong" data-kr="다다명동">DADA Myeongdong</div><div class="card-desc" data-en="Screened on the Shinsegae Myeongdong Media Wall as part of the 2025 Art Korea Lab incubation program." data-kr="2025 아트코리아랩 인큐베이션 프로그램의 일환으로 신세계 명동 미디어 월에 상영된 작업입니다.">Screened on the Shinsegae Myeongdong Media Wall as part of the 2025 Art Korea Lab incubation program.</div><div class="card-tags"><span class="tag">Blender</span></div></div></a>
+    <a href="detail_pages/media_2.html" class="card s4 r"><div class="card-media"><img src="./assets/images/media2.jpg" alt="Dream of Salmon"><div class="card-no-img">Dream of Salmon</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Generative Media" data-kr="제너러티브 미디어">Generative Media</div><div class="card-title" data-en="Dream of Salmon" data-kr="연어의 꿈">Dream of Salmon</div><div class="card-desc" data-en="Luminous hand-shaped fish drifting through darkness—the dreamlike migration of memory, loss, and rebirth." data-kr="어둠 속을 떠도는 손 모양의 빛나는 물고기를 통해 기억, 상실, 재생의 흐름을 그려낸 제너러티브 영상 작업입니다.">Luminous hand-shaped fish drifting through darkness—the dreamlike migration of memory, loss, and rebirth.</div><div class="card-tags"><span class="tag">Unreal</span></div></div></a>
+    <a href="detail_pages/media_3.html" class="card s4 r"><div class="card-media"><img src="./assets/images/media3.jpg" alt="Fall of Minds"><div class="card-no-img">Fall of Minds</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Sound-Reactive Installation" data-kr="사운드 반응형 설치">Sound-Reactive Installation</div><div class="card-title" data-en="Fall of Minds" data-kr="마음의 폭포">Fall of Minds</div><div class="card-desc" data-en="Ambient noise visualized as a generative waterfall—soundscape shaping movement and density in real time." data-kr="주변의 소음을 제너러티브 폭포로 시각화한 작업으로, 사운드스케이프가 실시간으로 움직임과 밀도를 형성합니다.">Ambient noise visualized as a generative waterfall—soundscape shaping movement and density in real time.</div><div class="card-tags"><span class="tag">Unity</span></div></div></a>
+    <a href="detail_pages/media_4.html" class="card s7 r"><div class="card-media"><img src="./assets/images/media4.jpg" alt="The Nature of Manpasikjeok"><div class="card-no-img">The Nature of Manpasikjeok</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Public Media Art · Daegu" data-kr="공공 미디어 아트 · 대구">Public Media Art · Daegu</div><div class="card-title" data-en="The Nature of Manpasikjeok" data-kr="만파식적의 자연">The Nature of Manpasikjeok</div><div class="card-desc" data-en="Ancient Korean legend reinterpreted—wind and sound generatively visualized to symbolically protect the city." data-kr="고대 설화인 만파식적을 재해석해 바람과 소리를 제너러티브 이미지로 시각화하고, 도시를 상징적으로 지켜내는 공공 미디어 아트입니다.">Ancient Korean legend reinterpreted—wind and sound generatively visualized to symbolically protect the city.</div><div class="card-tags"><span class="tag">Unity</span></div></div></a>
+    <a href="detail_pages/media_5.html" class="card s5 r"><div class="card-media"><img src="./assets/images/media5.jpg" alt="Seon-a's Family"><div class="card-no-img">Seon-a's Family</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Narrative Media Art" data-kr="내러티브 미디어 아트">Narrative Media Art</div><div class="card-title" data-en="Seon-a's Family" data-kr="선아의 가족">Seon-a's Family</div><div class="card-desc" data-en="Familial conflict and reconciliation through diffusion models, LLMs, and digital human technology." data-kr="확산 모델, LLM, 디지털 휴먼 기술을 통해 가족 갈등과 화해의 서사를 풀어낸 내러티브 미디어 아트입니다.">Familial conflict and reconciliation through diffusion models, LLMs, and digital human technology.</div><div class="card-tags"><span class="tag">Unreal</span><span class="tag">LLM</span></div></div></a>
+    <a href="detail_pages/media_7.html" class="card s6 r"><div class="card-media"><img src="./assets/images/media7.jpg" alt="Nature Human"><div class="card-no-img">Nature Human</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Posthumanism · 2050" data-kr="포스트휴머니즘 · 2050">Posthumanism · 2050</div><div class="card-title" data-en="Nature Human" data-kr="자연 인간">Nature Human</div><div class="card-desc" data-en="Virtual human Evangeline narrates humanity's decision to merge with nature in the face of ecological collapse." data-kr="2050년을 배경으로, 가상 인간 에반젤린이 생태 붕괴 앞에서 자연과 결합하기로 한 인류의 선택을 들려주는 작업입니다.">Virtual human Evangeline narrates humanity's decision to merge with nature in the face of ecological collapse.</div><div class="card-tags"><span class="tag">Unity</span><span class="tag">Digital Human</span></div></div></a>
+<a href="detail_pages/media_8.html" class="card s6 r"><div class="card-media"><img src="./assets/images/media8.png" alt="Shininho Digital Human"><div class="card-no-img">Shininho</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Digital Human · UE5 · Maya" data-kr="디지털 휴먼 · UE5 · Maya">Digital Human · UE5 · Maya</div><div class="card-title" data-en="Shininho – Digital Human" data-kr="신인호 – 디지털 휴먼">Shininho – Digital Human</div><div class="card-desc" data-en="Volumetric reconstruction of media artist Yaloo's grandmother — MetaHuman pipeline, Maya rigging, UE5 Sequencer, and real-time exhibition deployment." data-kr="미디어 아티스트 얄루의 할머니를 볼류메트릭 스캔으로 복원한 디지털 휴먼 — MetaHuman 파이프라인, Maya 리깅, UE5 시퀀서, 실시간 전시.">Volumetric reconstruction of media artist Yaloo's grandmother — MetaHuman pipeline, Maya rigging, UE5 Sequencer, and real-time exhibition deployment.</div><div class="card-tags"><span class="tag">UE5</span><span class="tag">Maya</span><span class="tag">MetaHuman</span></div></div></a>
+  </div>
+</div>
 
-  <!-- ═══════════════════════════════════════════
-       02  COMMERCIAL SNAPSHOT
-  ═══════════════════════════════════════════ -->
-  <div class="sec-label r">Commercial Snapshot</div>
-  <div class="snapshot-grid r">
-    <div class="snapshot-cell">
-      <div class="snapshot-label">Project Type</div>
-      <div class="snapshot-val">Real-Time Digital Human / Cinematic Character Pipeline</div>
+<div class="wrap" id="xr">
+  <div class="sec-head r"><span class="sec-num">04 —</span><h2 class="sec-title" data-en="XR · Game" data-kr="XR · 게임">XR · Game</h2></div>
+  <div class="grid">
+    <a href="detail_pages/xr_1.html" class="card s8 r"><div class="card-media"><img src="./assets/images/xr1.jpg" alt="Fineo"><div class="card-no-img">Fineo, Translated Universe</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="VR · Grand Prize — KMU Exhibition" data-kr="VR · 대상 — 국민대학교 예술디자인대전">VR · Grand Prize — KMU Exhibition</div><div class="card-title">Fineo, Translated Universe</div><div class="card-desc" data-en="Periodic table mapped through harmonograph-based functions—a new visual logic for elemental data in VR." data-kr="하모노그래프 기반 함수를 통해 주기율표를 새로운 시각 논리로 재해석한 VR 데이터 시각화 작업입니다.">Periodic table mapped through harmonograph-based functions—a new visual logic for elemental data in VR.</div><div class="card-tags"><span class="tag">Unity</span><span class="tag">VR</span></div></div></a>
+    <a href="detail_pages/xr_4.html" class="card s4 r"><div class="card-media"><img src="./assets/images/xr4.jpg" alt="Escape Metro"><div class="card-no-img">Escape Metro</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="VR Escape Game · AI NPC" data-kr="VR 방탈출 · AI NPC">VR Escape Game · AI NPC</div><div class="card-title" data-en="Escape Metro" data-kr="지하철 탈출">Escape Metro</div><div class="card-desc" data-en="Surreal VR escape game with real-time ChatGPT-powered NPC conversations to navigate entrapment." data-kr="ChatGPT 기반 NPC와 실시간으로 대화하며 탈출해야 하는 초현실적 VR 방탈출 게임입니다.">Surreal VR escape game with real-time ChatGPT-powered NPC conversations to navigate entrapment.</div><div class="card-tags"><span class="tag">Unity</span><span class="tag">ChatGPT</span></div></div></a>
+    <a href="detail_pages/xr_2.html" class="card s4 r"><div class="card-media"><img src="./assets/images/xr2.jpg" alt="NARCI"><div class="card-no-img">NARCI</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="VR · Psychology" data-kr="VR · 심리">VR · Psychology</div><div class="card-title">NARCI</div><div class="card-desc" data-en="Inside an elevator, encounters with narcissistic figures progressively erode the viewer's self-esteem." data-kr="엘리베이터 안에서 자기애적 인물들과 마주치며 관람객의 자존감이 서서히 무너지는 VR 작품입니다.">Inside an elevator, encounters with narcissistic figures progressively erode the viewer's self-esteem.</div><div class="card-tags"><span class="tag">Unity</span><span class="tag">VR</span></div></div></a>
+    <a href="detail_pages/xr_3.html" class="card s4 r"><div class="card-media"><img src="./assets/images/xr3.jpg" alt="Be Narci"><div class="card-no-img">Be NARCI</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="VR · Role Reversal" data-kr="VR · 역할 전환">VR · Role Reversal</div><div class="card-title">Be NARCI</div><div class="card-desc" data-en="Play the narcissist—transform graceful human figures into scrap metal and reflect on ego elevation." data-kr="관람객이 직접 자기애적 인물이 되어 우아한 형상을 고철로 바꾸며 자아 팽창의 대가를 체험하는 VR 작업입니다.">Play the narcissist—transform graceful human figures into scrap metal and reflect on ego elevation.</div><div class="card-tags"><span class="tag">Unity</span><span class="tag">VR</span></div></div></a>
+    <a href="detail_pages/xr_5.html" class="card s4 r"><div class="card-media"><img src="./assets/images/xr5.jpg" alt="Graffiti Freedom"><div class="card-no-img">Graffiti Freedom</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="VR · Public Space" data-kr="VR · 공공 공간">VR · Public Space</div><div class="card-title" data-en="Graffiti Freedom" data-kr="그래피티 프리덤">Graffiti Freedom</div><div class="card-desc" data-en="Spray graffiti freely inside a virtual subway—reclaiming public space without real-world consequence." data-kr="가상 지하철 안에서 자유롭게 그래피티를 그리며 현실의 제약 없이 공공 공간을 되찾는 VR 체험입니다.">Spray graffiti freely inside a virtual subway—reclaiming public space without real-world consequence.</div><div class="card-tags"><span class="tag">Unity</span><span class="tag">VR</span></div></div></a>
+  </div>
+</div>
+
+<div class="wrap" id="vfx">
+  <div class="sec-head r"><span class="sec-num">05 —</span><h2 class="sec-title" data-en="3D / VFX" data-kr="3D / VFX">3D / VFX</h2></div>
+  <div class="grid">
+    <a href="detail_pages/vfx_1.html" class="card s8 r"><div class="card-media"><img src="./assets/images/vfx2.jpg" alt="FX Portfolio"><div class="card-no-img">FX Portfolio</div></div><div class="card-arrow">↗</div><div class="card-info"><div class="card-cat" data-en="Digital Humans · Simulation · Real-time VFX" data-kr="디지털 휴먼 · 시뮬레이션 · 실시간 VFX">Digital Humans · Simulation · Real-time VFX</div><div class="card-title" data-en="FX Portfolio 1" data-kr="FX 포트폴리오">FX Portfolio 1</div><div class="card-desc" data-en="Digital humans, fluid and smoke simulations, and real-time visual effects across Maya, Houdini, Unity, and Unreal Engine." data-kr="Maya, Houdini, Unity, Unreal Engine을 활용한 디지털 휴먼, 유체 및 연기 시뮬레이션, 그리고 실시간 시각 효과 작업 모음입니다.">Digital humans, fluid and smoke simulations, and real-time visual effects across Maya, Houdini, Unity, and Unreal Engine.</div><div class="card-tags"><span class="tag">Maya</span><span class="tag">Houdini</span><span class="tag">Unity</span><span class="tag">Unreal</span></div></div></a>
+  </div>
+</div>
+
+<div class="wrap" id="about">
+  <div class="sec-head r"><span class="sec-num">06 —</span><h2 class="sec-title" data-en="About" data-kr="소개">About</h2></div>
+  <div class="about-wrap">
+    <div class="about-img-col r">
+      <img src="./assets/images/profile2.jpg" alt="Jonghoon Ahn" onerror="this.style.background='#161616';this.removeAttribute('src')">
+      <div class="about-label">Jonghoon Ahn — 안종훈</div>
     </div>
-    <div class="snapshot-cell">
-      <div class="snapshot-label">Production Context</div>
-      <div class="snapshot-val">International exhibition deployment across multiple venues, 2024–2026</div>
-    </div>
-    <div class="snapshot-cell">
-      <div class="snapshot-label">Primary Contribution</div>
-      <div class="snapshot-val">Built and maintained the character pipeline from scan processing to Unreal Engine 5 integration and real-time playback</div>
-    </div>
-    <div class="snapshot-cell">
-      <div class="snapshot-label">Relevant Roles</div>
-      <div class="snapshot-val">Technical Artist · UE5 Cinematic Artist · Real-Time Visualization Artist · Digital Human Artist · Pipeline Artist</div>
-    </div>
-    <div class="snapshot-cell wide">
-      <div class="snapshot-label">Key Skills Demonstrated</div>
-      <div class="snapshot-val">Digital human pipeline · Maya rigging · Facial blendshapes · UE5 Sequencer · Blueprint logic · Material setup · Performance optimization · Technical documentation</div>
+    <div class="about-txt r">
+      <h3 data-en="Writer-Director · Technical Artist · Media Artist" data-kr="영화감독 · 테크니컬 아티스트 · 미디어 아티스트">Writer-Director · Technical Artist · Media Artist</h3>
+      <p data-en="Jonghoon Ahn is a filmmaker, screenwriter, and media artist based in Los Angeles and Seoul. His work explores silence, emotional repression, and social systems that fail to protect individuals—told through minimal dialogue, long takes, and restrained visual language." data-kr="안종훈은 로스앤젤레스와 서울을 기반으로 활동하는 영화감독, 시나리오 작가, 미디어 아티스트입니다. 그의 작업은 침묵, 감정적 억압, 그리고 개인을 보호하지 못하는 사회 구조를 최소한의 대사와 롱테이크, 절제된 시각 언어로 탐구합니다.">Jonghoon Ahn is a filmmaker, screenwriter, and media artist based in Los Angeles and Seoul. His work explores silence, emotional repression, and social systems that fail to protect individuals—told through minimal dialogue, long takes, and restrained visual language.</p>
+      <p data-en="He works across film, XR, and digital performance using motion capture, digital humans, real-time engines, and generative image technologies to create work where audiences move beyond passive spectatorship." data-kr="영화, XR, 디지털 퍼포먼스 전반에서 모션 캡처, 디지털 휴먼, 실시간 엔진, 생성형 이미지 기술을 활용하며, 관객이 단순한 감상자를 넘어 작품에 능동적으로 개입하도록 만드는 작업을 지향합니다.">He works across film, XR, and digital performance using motion capture, digital humans, real-time engines, and generative image technologies to create work where audiences move beyond passive spectatorship.</p>
+      <p data-en="He was serving as Technical Artist on Academy Award–nominated animator Erick Oh's game project, and Now He is serving on media artist Yaloo's digital human projects (featured in Hyperallergic). His feature screenplay was selected as a school-nominated submission for the 2025 Academy Nicholl Fellowships and shortlisted for the CJ &amp; TIFF K-Story Fund." data-kr="아카데미 수상 후보 애니메이터 에릭 오의 게임 프로젝트에서 스토리개발과 테크니컬 아티스트를 맡았으며, 미디어 아티스트 얄루의 디지털 휴먼 프로젝트(Hyperallergic 소개)에서 테크니컬 디렉터로 활동하고 있습니다. 장편 시나리오는 2025 아카데미 니콜 펠로우십 파트너 추천작으로 선정되었고, CJ &amp; TIFF K-스토리 펀드 쇼트리스트에도 이름을 올렸습니다.">Currently serving as Technical Director on Academy Award–nominated animator Erick Oh's game project, and on media artist Yaloo's digital human projects (featured in Hyperallergic). His feature screenplay was selected as a school-nominated submission for the 2025 Academy Nicholl Fellowships and shortlisted for the CJ &amp; TIFF K-Story Fund.</p>
+      <div class="awards">
+        <div class="about-sub-label" data-en="Education" data-kr="학력">Education</div>
+        <div class="award"><span class="award-n" data-en="MFA, Art and Technology — California Institute of the Arts" data-kr="Art and Technology 석사 — California Institute of the Arts[Calarts]">MFA, Art and Technology — California Institute of the Arts</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n" data-en="BFA, Entertainment Design — Kookmin University, Seoul" data-kr="조형대학 영상디자인 학사 — 국민대학교, 서울">BFA, Entertainment Design — Kookmin University, Seoul</span><span class="award-y">2022</span></div>
+      </div>
+      <div class="awards">
+        <div class="about-sub-label" data-en="Selected Filmography" data-kr="주요 필모그래피">Selected Filmography</div>
+        <div class="award"><span class="award-n" data-en="The Way To Be Oneself — Experimental AI Film, Director" data-kr="The Way To Be Oneself — Experimental AI Film, Director">The Way To Be Oneself — Experimental AI Film, Director</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n" data-en="Mythomania — 3D Animated Short, Director" data-kr="미소매니아 — 3D 애니메이션 단편, 감독">Mythomania — 3D Animated Short, Director</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n" data-en="Where Is My Cloud — Experimental Documentary, Director" data-kr="Where Is My Cloud — 실험 다큐멘터리, 감독">Where Is My Cloud — Experimental Documentary, Director</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n" data-en="Non-done Record — Short Film, Director" data-kr="미완성 기록 — 단편영화, 감독">Non-done Record — Short Film, Director</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n" data-en="Like Mother — Experimental Short Film, Director" data-kr="녀의나루 — 실험 단편영화, 감독">Like Mother — Experimental Short Film, Director</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n" data-en="Similar — Music Video (Jung Kyumin × DINDIN), Producer &amp; Gaffer" data-kr="닮은 사람 — 뮤직비디오 (정규민 × 딘딘), 프로듀서 &amp; 조명">Similar — Music Video (Jung Kyumin × DINDIN), Producer &amp; Gaffer</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n" data-en="NARCI — VR Film, Director" data-kr="NACRCI — VR 영화, 감독">NARCI — VR Film, Director</span><span class="award-y">2023</span></div>
+        <div class="award"><span class="award-n" data-en="Urban Diary — Short Film, Director" data-kr="도시 일기 — 단편영화, 공동감독">Urban Diary — Short Film, Director</span><span class="award-y">2019</span></div>
+      </div>
+      <div class="awards">
+        <div class="about-sub-label" data-en="Selected Honors &amp; Programs" data-kr="주요 수상 및 프로그램">Selected Honors &amp; Programs</div>
+        <div class="award"><span class="award-n" data-en="Academy Nicholl Fellowships Partner Entrant" data-kr="아카데미 니콜 펠로우십 파트너 추천작">Academy Nicholl Fellowships Partner Entrant</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n" data-en="CJ &amp; TIFF K-Story Fund — Shortlist" data-kr="CJ &amp; TIFF K-스토리 펀드 — 쇼트리스트">CJ &amp; TIFF K-Story Fund — Shortlist</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n" data-en="Best Script Nominee — Asian Film Festival Los Angeles" data-kr="최우수 각본 후보 — 아시안 필름 페스티벌 로스앤젤레스">Best Script Nominee — Asian Film Festival Los Angeles</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n" data-en="Gold Award, Best Short Script — Independent Shorts Awards" data-kr="금상, 최우수 단편 각본 — 인디펜던트 쇼츠 어워즈">Gold Award, Best Short Script — Independent Shorts Awards</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n" data-en="Sundance Ignite × Adobe Fellowship — Finalist" data-kr="선댄스 이그나이트 × 어도비 펠로우십 — 파이널리스트">Sundance Ignite × Adobe Fellowship — Finalist</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n" data-en="Television Academy Foundation (SFX &amp; New Media) — Finalist" data-kr="Television Academy Foundation  (SFX &amp; 뉴미디어) — 파이널리스트">Television Academy Foundation (SFX &amp; New Media) — Finalist</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n" data-en="Silver Award, Best Student Male Director — Independent Shorts Awards" data-kr="은상, 최우수 남자 학생 감독 — 인디펜던트 쇼츠 어워즈">Silver Award, Best Student Male Director — Independent Shorts Awards</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n" data-en="Flickers' Rhode Island International Film Festival — Semi-finalist" data-kr="플리커스 로드아일랜드 국제영화제 — 준결선 진출">Flickers' Rhode Island International Film Festival — Semi-finalist</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n" data-en="Art Korea Lab Super Testbed — Lab Participant" data-kr="아트코리아랩 수퍼테스트베드 기본, 공동프로젝트 수료">Art Korea Lab Super Testbed — Lab Participant</span><span class="award-y">2024–25</span></div>
+      </div>
+      <div class="awards">
+        <div class="about-sub-label" data-en="Selected Exhibitions &amp; Collaborations" data-kr="주요 전시 및 협업">Selected Exhibitions &amp; Collaborations</div>
+        <div class="award"><span class="award-n" data-en="West Seoul Museum of Art 'Shininho Landing' — Metahuman Animator" data-kr="서서울미술관 '신인호 랜딩' — 메타휴먼 애니메이터">West Seoul Museum of Art 'Shininho Landing' — Metahuman Animator</span><span class="award-y">2026</span></div>
+        <div class="award"><span class="award-n" data-en="Encore Creative Festival, Ohio — Dream of Salmon" data-kr="앙코르 크리에이티브 페스티벌, 오하이오 — '연어의 꿈'">Encore Creative Festival, Ohio — Dream of Salmon</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n" data-en="LA Rip Space 'Shininho Docking' — Metahuman Animation Asst." data-kr="LA Rip Space '신인호 도킹' — 메타휴먼 애니메이션 어시스턴트">LA Rip Space 'Shininho Docking' — Metahuman Animation Asst.</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n" data-en="Songeun Art Award, Yaloo 'Shininho World Tour' — Metahuman Animation Asst." data-kr="송은미술대상, 얄루 '신인호 월드 투어' — 메타휴먼 애니메이션 어시스턴트">Songeun Art Award, Yaloo 'Shininho World Tour' — Metahuman Animation Asst.</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n" data-en="Shinsegae Department Store Media Wall 'DADA Myeongdong' — Art Korea Lab" data-kr="신세계백화점 미디어월 '다다명동' — 아트코리아랩">Shinsegae Department Store Media Wall 'DADA Myeongdong' — Art Korea Lab</span><span class="award-y">2025</span></div>
+        <div class="award"><span class="award-n" data-en="SF 836M Yaloo Residency 'Shininho Destiny' — Metahuman Asst." data-kr="SF 836M 얄루 레지던시 '신인호 데스티니' — 메타휴먼 어시스턴트">SF 836M Yaloo Residency 'Shininho Destiny' — Metahuman Asst.</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n" data-en="KOTE Gallery Seoul 'Gather and Scatter' — Seon-a's Family" data-kr="KOTE 갤러리 서울 'Gather and Scatter' — 선아의 가족">KOTE Gallery Seoul 'Gather and Scatter' — Seon-a's Family</span><span class="award-y">2024</span></div>
+        <div class="award"><span class="award-n" data-en="Gyeonggi Museum of Modern Art 'Gang Se-hwang AI Docent' — Technical Director" data-kr="경기도미술관 '강세황 AI 도슨트' — 테크니컬 디렉터">Gyeonggi Museum of Modern Art 'Gang Se-hwang AI Docent' — Technical Director</span><span class="award-y">2022</span></div>
+        <div class="award"><span class="award-n" data-en="Incheon Metropolitan City Museum 'Jemulpo Photo Studio' — Technical Director" data-kr="인천시립박물관 '제물포 사진관' — 테크니컬 디렉터">Incheon Metropolitan City Museum 'Jemulpo Photo Studio' — Technical Director</span><span class="award-y">2022</span></div>
+        <div class="award"><span class="award-n" data-en="Asia Culture Center 'To Eternity' — Coding Director" data-kr="국립아시아문화전당 'To Eternity' — 코딩 디렉터">Asia Culture Center 'To Eternity' — Coding Director</span><span class="award-y">2020</span></div>
+      </div>
+      <a href="https://drive.google.com/file/d/1doDtI6z1NPJDWgAFLb_kTxylAOYxrsBt/view?usp=sharing" target="_blank" class="cta-link" data-en="View Resume / CV ↗" data-kr="이력서 / CV 보기 ↗">View Resume / CV ↗</a><br>
+      <a href="#" class="cta-link" id="emailLink1">Email ↗</a><br>
+      <a href="https://github.com/reusahn/Unity-Unreal-Interaction-Research/tree/main" target="_blank" class="cta-link" data-en="GitHub Research ↗" data-kr="GitHub 리서치 ↗">GitHub Research ↗</a>
     </div>
   </div>
+</div>
 
-  <hr class="r">
+<div class="wrap" style="padding-top:0;" id="news">
+  <div class="sec-head r"><span class="sec-num">07 —</span><h2 class="sec-title" data-en="Press · News" data-kr="언론 · 뉴스">Press · News</h2></div>
+  <ul class="news-ul">
+    <li class="news-row r"><span class="news-n" data-en="Academy Nicholl Fellowships — Official Partners" data-kr="아카데미 니콜 펠로우십 — 공식 파트너">Academy Nicholl Fellowships — Official Partners</span><a href="https://www.oscars.org/official-nicholl-partners#:~:text=Jonghoon%20Ahn,%20THE%20SILENCE%20WE%20SHARE" target="_blank" class="news-a" data-en="View ↗" data-kr="보기 ↗">View ↗</a></li>
+    <li class="news-row r"><span class="news-n">Asian Film Festival</span><a href="https://asianfilmfestival.us/south-korea-the-silence-we-share-%e9%9f%a9%e5%9b%bd%e5%89%a7%e6%9c%ac/" target="_blank" class="news-a" data-en="Read ↗" data-kr="기사 보기 ↗">Read ↗</a></li>
+    <li class="news-row r"><span class="news-n">IMDB — Jonghoon Ahn</span><a href="https://www.imdb.com/name/nm17746174/" target="_blank" class="news-a" data-en="View ↗" data-kr="보기 ↗">View ↗</a></li>
+    <li class="news-row r"><span class="news-n" data-en="Shinsegae Media Wall — Myeongdong" data-kr="신세계 미디어월 — 명동">Shinsegae Media Wall — Myeongdong</span><a href="https://www.yna.co.kr/view/AKR20250929031900005" target="_blank" class="news-a" data-en="Read ↗" data-kr="기사 보기 ↗">Read ↗</a></li>
+    <li class="news-row r"><span class="news-n" data-en="CalArts AI Symposium — Unbound" data-kr="칼아츠 AI 심포지엄 — 언바운드">CalArts AI Symposium — Unbound</span><a href="https://calarts.edu/unbound/speakers" target="_blank" class="news-a" data-en="View ↗" data-kr="보기 ↗">View ↗</a></li>
+    <li class="news-row r"><span class="news-n" data-en="Project Archive — Generated Cinema" data-kr="프로젝트 아카이브 — 생성 시네마">Project Archive — Generated Cinema</span><a href="https://projectarchive.art.calarts.edu/project/generated-cinema/" target="_blank" class="news-a" data-en="View ↗" data-kr="보기 ↗">View ↗</a></li>
+    <li class="news-row r"><span class="news-n" data-en="Independent Shorts Awards" data-kr="인디펜던트 쇼츠 어워즈">Independent Shorts Awards</span><a href="https://independentshortsawards.com/2024/01/15/non-done-record/" target="_blank" class="news-a" data-en="Read ↗" data-kr="기사 보기 ↗">Read ↗</a></li>
+    <li class="news-row r"><span class="news-n" data-en="VoyageLA Interview" data-kr="VoyageLA 인터뷰">VoyageLA Interview</span><a href="https://voyagela.com/interview/conversations-with-jonghoon-ahn/" target="_blank" class="news-a" data-en="Read ↗" data-kr="기사 보기 ↗">Read ↗</a></li>
+    <li class="news-row r"><span class="news-n" data-en="Maeil Newspaper" data-kr="매일신문">Maeil Newspaper</span><a href="https://www.imaeil.com/page/view/2023102610192087838" target="_blank" class="news-a" data-en="Read ↗" data-kr="기사 보기 ↗">Read ↗</a></li>
+  </ul>
+</div>
 
-  <!-- ═══════════════════════════════════════════
-       03  MY ROLE
-  ═══════════════════════════════════════════ -->
-  <div class="sec-label r">My Role</div>
-  <div class="detail-body r">
-    <div class="detail-desc">
-      <p>As Technical Artist and Pipeline Lead, I owned the production pipeline between the raw digital human asset and its real-time presentation in Unreal Engine 5.</p>
-    </div>
-    <div class="detail-desc">
-      <ul>
-        <li>Volumetric scan cleanup and mesh preparation</li>
-        <li>Maya rigging, UV organization, and FBX export workflow</li>
-        <li>Facial blendshape setup and MetaHuman-compatible integration</li>
-        <li>UE5 Sequencer setup for cinematic playback</li>
-        <li>Blueprint-based interaction, trigger, and loop logic</li>
-        <li>Material refinement for skin, hair, and fabric</li>
-        <li>LOD, texture streaming, and performance tuning</li>
-        <li>Pipeline documentation and naming conventions</li>
-      </ul>
-    </div>
-  </div>
-
-  <hr class="r">
-
-  <!-- ═══════════════════════════════════════════
-       04  TECHNICAL SCOPE
-  ═══════════════════════════════════════════ -->
-  <div class="sec-label r">Technical Scope</div>
-  <div class="tech-grid r">
-    <div class="tech-block">
-      <div class="tech-block-icon">// Maya</div>
-      <div class="tech-block-title">Character Pipeline</div>
-      <p>Full-body skeleton rigging, joint orientation, UV layout, blendshape setup, and FBX export to UE5 with maintained naming conventions and asset integrity. Python scripts written for batch export and texture validation.</p>
-    </div>
-    <div class="tech-block">
-      <div class="tech-block-icon">// Unreal Engine 5</div>
-      <div class="tech-block-title">Real-Time Systems</div>
-      <p>MetaHuman integration, Control Rig runtime IK, Sequencer-driven cinematics, Blueprint interaction logic, Lumen global illumination, Nanite virtualized geometry, and per-venue performance profiling.</p>
-    </div>
-    <div class="tech-block">
-      <div class="tech-block-icon">// Pipeline</div>
-      <div class="tech-block-title">Documentation & Workflow</div>
-      <p>Asset naming conventions, performance budgets, LOD specifications, texture streaming targets, and technical documentation maintained throughout to support future project iterations.</p>
-    </div>
-  </div>
-
-  <hr class="r">
-
-  <!-- ═══════════════════════════════════════════
-       05  OVERVIEW
-  ═══════════════════════════════════════════ -->
-  <div class="sec-label r">Overview</div>
-  <div class="detail-body r">
-    <div class="detail-desc">
-      <p>Shininho is a real-time digital human project developed through a complete technical art pipeline from volumetric capture to Unreal Engine 5 deployment. As Technical Artist and Pipeline Lead, I helped transform high-density scan data into a riggable, animatable, and optimized character system for real-time cinematic presentation and exhibition playback.</p>
-      <p>The project required balancing emotional presence with technical stability. The digital human needed to preserve subtle gestures, facial expression, breathing, blinking, and body weight while remaining performant enough for repeated playback across multiple exhibition environments.</p>
-    </div>
-    <div class="detail-desc">
-      <p>The artistic concept explores affection, grief, memory, and presence through a computational body. However, the production challenge was technical: building a reproducible pipeline that could support character preparation, animation playback, material response, Blueprint logic, optimization, and future iteration.</p>
-      <p>The pipeline was designed to be reproducible and scalable. Documentation and asset conventions were maintained throughout to support future iterations of the project.</p>
-    </div>
-  </div>
-
-  <hr class="r">
-
-  <!-- ═══════════════════════════════════════════
-       06  PRODUCTION CHALLENGE
-  ═══════════════════════════════════════════ -->
-  <div class="sec-label r">Production Challenge</div>
-  <div class="detail-body r">
-    <div class="detail-desc">
-      <p>The project required a realistic digital human that could preserve the emotional presence of the original subject while remaining stable enough for real-time playback in exhibition environments. The main challenge was to translate high-density scan data into an optimized, riggable, and expressive character that could be animated, sequenced, and deployed across different hardware and display conditions.</p>
-    </div>
-    <div class="detail-desc">
-      <p>The work needed to balance two goals at once: preserving subtle human details such as facial expression, breathing, blinking, and body weight, while also building a reliable technical pipeline for Unreal Engine 5 playback, iteration, and exhibition deployment.</p>
-    </div>
-  </div>
-
-  <hr class="r">
-
-  <!-- ═══════════════════════════════════════════
-       07  PIPELINE BREAKDOWN
-  ═══════════════════════════════════════════ -->
-  <div class="sec-label r">Pipeline Breakdown</div>
-
-  <!-- STEP 01 -->
-  <div class="pipeline-step r">
-    <div class="pipeline-img">
-      <img src="../assets/images/sin2.jpg" alt="Volumetric Capture">
-    </div>
-    <div class="pipeline-info">
-      <div class="pipeline-num">01 — CAPTURE & MESH PREPARATION</div>
-      <div class="pipeline-title">Volumetric Scan to Production-Ready Asset</div>
-      <div class="pipeline-sub">Goal</div>
-      <div class="pipeline-sub-text">Convert high-resolution scan data into a clean, animation-ready character asset suitable for real-time rendering.</div>
-      <div class="pipeline-sub">Work</div>
-      <div class="pipeline-desc">
-        <ul>
-          <li>Cleaned and organized raw scan geometry</li>
-          <li>Retopologized high-density mesh in Maya</li>
-          <li>Preserved key facial and surface details for hero-distance rendering</li>
-          <li>Prepared LOD-ready geometry for UE5 integration</li>
-        </ul>
-      </div>
-      <div class="pipeline-result">
-        <span class="pipeline-result-lbl">Result</span>
-        The scanned character was converted into a production-ready asset that could be rigged, textured, animated, and rendered in real time.
-      </div>
-      <div class="pipeline-tags">
-        <span class="ptag">Volumetric Studio</span><span class="ptag">Maya</span><span class="ptag">Retopology</span><span class="ptag">LOD Setup</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- STEP 02 -->
-  <div class="pipeline-step r">
-    <div class="pipeline-info">
-      <div class="pipeline-num">02 — RIGGING & FACIAL SYSTEM</div>
-      <div class="pipeline-title">Maya Rig, ARKit Blendshapes, UE5 Control Rig</div>
-      <div class="pipeline-sub">Goal</div>
-      <div class="pipeline-sub-text">Build a character rig that could support subtle human gestures, facial motion, and UE5-compatible animation playback.</div>
-      <div class="pipeline-sub">Work</div>
-      <div class="pipeline-desc">
-        <ul>
-          <li>Prepared full-body skeleton and joint orientation in Maya</li>
-          <li>Built facial animation support through ARKit-compatible blendshapes</li>
-          <li>Used Faceit for facial shape preparation (64 shapes)</li>
-          <li>Integrated the rig into UE5 with Control Rig adjustments</li>
-          <li>Tested body and facial motion for stable playback in Sequencer</li>
-        </ul>
-      </div>
-      <div class="pipeline-result">
-        <span class="pipeline-result-lbl">Result</span>
-        The character became animatable for both cinematic playback and gesture-based presentation.
-      </div>
-      <div class="pipeline-tags">
-        <span class="ptag">Maya Rigging</span><span class="ptag">Blendshapes × 64</span><span class="ptag">ARKit</span><span class="ptag">UE5 Control Rig</span><span class="ptag">Faceit</span>
-      </div>
-    </div>
-    <div class="pipeline-img">
-      <img src="../assets/images/sin3.png" alt="Rigging and Facial Setup">
-    </div>
-  </div>
-
-  <!-- STEP 03 -->
-  <div class="pipeline-step r">
-    <div class="pipeline-img">
-      <img src="../assets/images/sin4.jpg" alt="Material and Shader Work">
-    </div>
-    <div class="pipeline-info">
-      <div class="pipeline-num">03 — MATERIALS & LOOK DEVELOPMENT</div>
-      <div class="pipeline-title">Texture Pipeline, Shader Refinement, PBR Workflow</div>
-      <div class="pipeline-sub">Goal</div>
-      <div class="pipeline-sub-text">Preserve the scanned subject's visual identity while building materials that could respond consistently to different lighting and exhibition conditions.</div>
-      <div class="pipeline-sub">Work</div>
-      <div class="pipeline-desc">
-        <ul>
-          <li>Cleaned scan textures in Photoshop and Substance Painter</li>
-          <li>Baked normal maps and generated PBR channels</li>
-          <li>Built UE5 material networks for skin, hair, and fabric</li>
-          <li>Tuned subsurface scattering, roughness, translucency, and texture response</li>
-          <li>Tested materials under multiple lighting setups</li>
-        </ul>
-      </div>
-      <div class="pipeline-result">
-        <span class="pipeline-result-lbl">Result</span>
-        The character maintained believable surface detail and emotional presence under real-time lighting conditions.
-      </div>
-      <div class="pipeline-tags">
-        <span class="ptag">Substance Painter</span><span class="ptag">Photoshop</span><span class="ptag">UE5 Material Editor</span><span class="ptag">Subsurface Scattering</span><span class="ptag">PBR</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- STEP 04 -->
-  <div class="pipeline-step r">
-    <div class="pipeline-img">
-      <img src="../assets/images/sin5.png" alt="UE5 Real-time Rendering">
-    </div>
-    <div class="pipeline-info">
-      <div class="pipeline-num">04 — UE5 SEQUENCER & CINEMATIC PLAYBACK</div>
-      <div class="pipeline-title">Camera Layout, Animation Tracks, Real-Time Rendering</div>
-      <div class="pipeline-sub">Goal</div>
-      <div class="pipeline-sub-text">Author real-time cinematic sequences that could present the digital human with controlled timing, camera language, lighting transitions, and character performance.</div>
-      <div class="pipeline-sub">Work</div>
-      <div class="pipeline-desc">
-        <ul>
-          <li>Set up UE5 Sequencer timelines for character animation and camera playback</li>
-          <li>Designed camera framing and timing for exhibition viewing conditions</li>
-          <li>Organized animation tracks, lighting cues, and playback loops</li>
-          <li>Integrated character animation with real-time rendering settings</li>
-          <li>Prepared shots for consistent playback across multiple venues</li>
-        </ul>
-      </div>
-      <div class="pipeline-result">
-        <span class="pipeline-result-lbl">Result</span>
-        The digital human could be presented as a repeatable, real-time cinematic experience rather than a static 3D asset.
-      </div>
-      <div class="pipeline-tags">
-        <span class="ptag">UE5 Sequencer</span><span class="ptag">Lumen</span><span class="ptag">Nanite</span><span class="ptag">MetaHuman</span><span class="ptag">Camera Layout</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- STEP 05 -->
-  <div class="pipeline-step r">
-    <!-- [PLACEHOLDER] Replace with Blueprint graph screenshot -->
-    <div class="pipeline-img">
-      <div class="pipeline-placeholder">
-        <span>[Add: Blueprint graph screenshot — trigger, loop, and state logic]</span>
-      </div>
-    </div>
-    <div class="pipeline-info">
-      <div class="pipeline-num">05 — BLUEPRINT INTERACTION & PLAYBACK LOGIC</div>
-      <div class="pipeline-title">Triggers, Loop Behavior, Gallery State Management</div>
-      <div class="pipeline-sub">Goal</div>
-      <div class="pipeline-sub-text">Create a stable playback and interaction structure for gallery environments where the work had to run repeatedly without manual intervention.</div>
-      <div class="pipeline-sub">Work</div>
-      <div class="pipeline-desc">
-        <ul>
-          <li>Built Blueprint logic for triggers, playback loops, and state transitions</li>
-          <li>Managed audience-responsive behavior and exhibition timing</li>
-          <li>Organized reusable Blueprint structures for future project iterations</li>
-          <li>Tested playback stability for long-duration installation use</li>
-        </ul>
-      </div>
-      <div class="pipeline-result">
-        <span class="pipeline-result-lbl">Result</span>
-        The digital human system could operate reliably in exhibition environments with repeatable real-time behavior.
-      </div>
-      <div class="pipeline-tags">
-        <span class="ptag">UE5 Blueprints</span><span class="ptag">Trigger Logic</span><span class="ptag">Loop Behavior</span><span class="ptag">State Management</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- STEP 06 -->
-  <div class="pipeline-step r">
-    <div class="pipeline-img">
-      <img src="../assets/images/sin6.png" alt="Performance Optimization">
-    </div>
-    <div class="pipeline-info">
-      <div class="pipeline-num">06 — OPTIMIZATION & EXHIBITION DEPLOYMENT</div>
-      <div class="pipeline-title">Profiling, LODs, Texture Streaming, Venue Tuning</div>
-      <div class="pipeline-sub">Goal</div>
-      <div class="pipeline-sub-text">Maintain stable real-time playback across different exhibition hardware and display conditions.</div>
-      <div class="pipeline-sub">Work</div>
-      <div class="pipeline-desc">
-        <ul>
-          <li>Profiled GPU, CPU, and memory performance in UE5</li>
-          <li>Tuned LOD chains, draw calls, material complexity, and texture streaming</li>
-          <li>Adjusted lighting and rendering settings per venue</li>
-          <li>Prepared asset conventions and documentation for future maintenance</li>
-        </ul>
-      </div>
-      <div class="pipeline-result">
-        <span class="pipeline-result-lbl">Result</span>
-        The project was deployed across multiple exhibition environments with a reproducible pipeline and stable playback structure.
-      </div>
-      <div class="metrics-box">
-        <div>
-          <div class="metric-item-lbl">Target Playback</div>
-          <div class="metric-item-val">[Add FPS if known]</div>
-        </div>
-        <div>
-          <div class="metric-item-lbl">Target Platform</div>
-          <div class="metric-item-val">Exhibition PC</div>
-        </div>
-        <div>
-          <div class="metric-item-lbl">Display Context</div>
-          <div class="metric-item-val">[Single display / multi-screen / projection]</div>
-        </div>
-        <div>
-          <div class="metric-item-lbl">Optimization Focus</div>
-          <div class="metric-item-val">LODs · Texture streaming · Material complexity · Draw calls</div>
-        </div>
-      </div>
-      <div class="pipeline-tags" style="margin-top:14px;">
-        <span class="ptag">Unreal Insights</span><span class="ptag">RenderDoc</span><span class="ptag">LOD Chains</span><span class="ptag">GPU Profiling</span><span class="ptag">Texture Streaming</span>
-      </div>
-    </div>
-  </div>
-
-  <hr class="r">
-
-  <!-- ═══════════════════════════════════════════
-       08  TECHNICAL CONTRIBUTION TABLE
-  ═══════════════════════════════════════════ -->
-  <div class="sec-label r">Technical Contributions</div>
-  <div class="contrib-wrap r">
-    <table class="contrib-table">
-      <thead>
-        <tr>
-          <th>Area</th>
-          <th>My Contribution</th>
-          <th>Tools</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Scan Processing</td>
-          <td>Mesh cleanup, topology organization, UV preparation</td>
-          <td>Maya</td>
-        </tr>
-        <tr>
-          <td>Rigging</td>
-          <td>Skeleton setup, joint orientation, facial blendshape preparation (64 ARKit shapes)</td>
-          <td>Maya, Faceit</td>
-        </tr>
-        <tr>
-          <td>Real-Time Integration</td>
-          <td>Character setup, Control Rig adjustment, Sequencer playback, MetaHuman-compatible workflow</td>
-          <td>UE5, MetaHuman, Control Rig</td>
-        </tr>
-        <tr>
-          <td>Materials</td>
-          <td>Skin, hair, and fabric shader refinement and texture cleanup</td>
-          <td>UE5, Substance Painter, Photoshop</td>
-        </tr>
-        <tr>
-          <td>Interaction</td>
-          <td>Trigger logic, loop behavior, exhibition playback systems</td>
-          <td>UE5 Blueprints</td>
-        </tr>
-        <tr>
-          <td>Optimization</td>
-          <td>LODs, texture streaming, performance profiling</td>
-          <td>UE5, Unreal Insights, RenderDoc</td>
-        </tr>
-        <tr>
-          <td>Documentation</td>
-          <td>Naming conventions, export workflow, pipeline notes, Python batch scripts</td>
-          <td>Pipeline docs, Python (Maya)</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <hr class="r">
-
-  <!-- ═══════════════════════════════════════════
-       09  VISUAL BREAKDOWN GALLERY
-  ═══════════════════════════════════════════ -->
-  <div class="sec-label r">Visual Breakdown</div>
-  <div class="gallery-grid r">
-
-    <div class="gal-item gal-s8">
-      <div class="gal-media">
-        <img src="../assets/images/sin5.png" alt="Final real-time render">
-      </div>
-      <div class="gal-caption">
-        <div class="gal-cap-num">01 — Final Render</div>
-        <div class="gal-cap-text">Final real-time render in UE5. Lumen global illumination and Nanite geometry preserve scanned surface detail without baked lighting dependencies.</div>
-      </div>
-    </div>
-
-    <div class="gal-item gal-s4">
-      <div class="gal-media">
-        <img src="../assets/images/sin2.jpg" alt="Volumetric scan capture">
-      </div>
-      <div class="gal-caption">
-        <div class="gal-cap-num">02 — Volumetric Capture</div>
-        <div class="gal-cap-text">Synchronized multi-camera array recording geometry and albedo simultaneously. Source data for all downstream retopology and texture work in Maya.</div>
-      </div>
-    </div>
-
-    <div class="gal-item gal-s4">
-      <div class="gal-media" style="position:relative; aspect-ratio:4/5;">
-        <!-- [PLACEHOLDER] Add wireframe overlay image -->
-        <div class="gal-ph">
-          <div class="gal-ph-num">03</div>
-          <div class="gal-ph-txt">[Add: Wireframe overlay — retopologized mesh in Maya]</div>
-        </div>
-      </div>
-      <div class="gal-caption">
-        <div class="gal-cap-num">03 — Wireframe</div>
-        <div class="gal-cap-text">Retopologized mesh in Maya. Polygon budget optimized for real-time rendering while preserving facial edge flow for blendshape deformation.</div>
-      </div>
-    </div>
-
-    <div class="gal-item gal-s8">
-      <div class="gal-media">
-        <img src="../assets/images/sin3.png" alt="Maya rigging and facial setup">
-      </div>
-      <div class="gal-caption">
-        <div class="gal-cap-num">04 — Maya Rigging & Facial System</div>
-        <div class="gal-cap-text">Maya rigging workflow with ARKit-compatible blendshapes prepared using Faceit. 64 facial shapes enable performance capture playback and procedural gesture synthesis in UE5 Sequencer.</div>
-      </div>
-    </div>
-
-    <div class="gal-item gal-s6">
-      <div class="gal-media" style="position:relative; aspect-ratio:16/10;">
-        <!-- [PLACEHOLDER] Add blendshape grid -->
-        <div class="gal-ph">
-          <div class="gal-ph-num">05</div>
-          <div class="gal-ph-txt">[Add: Facial blendshape grid — ARKit expression range]</div>
-        </div>
-      </div>
-      <div class="gal-caption">
-        <div class="gal-cap-num">05 — Blendshape Grid</div>
-        <div class="gal-cap-text">ARKit blendshape expression range. Used for both performance capture playback and procedural gesture synthesis for breathing, blinking, and weight shifts.</div>
-      </div>
-    </div>
-
-    <div class="gal-item gal-s6">
-      <div class="gal-media">
-        <img src="../assets/images/sin4.jpg" alt="Material and shader work">
-      </div>
-      <div class="gal-caption">
-        <div class="gal-cap-num">06 — Material Result</div>
-        <div class="gal-cap-text">Material network and texture refinement for skin, hair, and fabric under real-time lighting conditions. Custom UE5 skin shader with subsurface scattering and translucency tuned per exhibition venue.</div>
-      </div>
-    </div>
-
-    <div class="gal-item gal-s6">
-      <div class="gal-media" style="position:relative; aspect-ratio:16/10;">
-        <!-- [PLACEHOLDER] Add UE5 material graph screenshot -->
-        <div class="gal-ph">
-          <div class="gal-ph-num">07</div>
-          <div class="gal-ph-txt">[Add: UE5 Material Editor — skin shader node network]</div>
-        </div>
-      </div>
-      <div class="gal-caption">
-        <div class="gal-cap-num">07 — UE5 Material Graph</div>
-        <div class="gal-cap-text">Material node network for the skin shader. Handles subsurface color, roughness variation, and translucency for real-time surface response across exhibition lighting conditions.</div>
-      </div>
-    </div>
-
-    <div class="gal-item gal-s6">
-      <div class="gal-media" style="position:relative; aspect-ratio:16/10;">
-        <!-- [PLACEHOLDER] Add UE5 Sequencer timeline screenshot -->
-        <div class="gal-ph">
-          <div class="gal-ph-num">08</div>
-          <div class="gal-ph-txt">[Add: UE5 Sequencer timeline — animation, camera, and lighting tracks]</div>
-        </div>
-      </div>
-      <div class="gal-caption">
-        <div class="gal-cap-num">08 — UE5 Sequencer</div>
-        <div class="gal-cap-text">UE5 Sequencer setup showing character animation, camera timing, and lighting cues organized for real-time cinematic exhibition presentation.</div>
-      </div>
-    </div>
-
-    <div class="gal-item gal-s6">
-      <div class="gal-media" style="position:relative; aspect-ratio:16/10;">
-        <!-- [PLACEHOLDER] Add Blueprint graph screenshot -->
-        <div class="gal-ph">
-          <div class="gal-ph-num">09</div>
-          <div class="gal-ph-txt">[Add: Blueprint graph — playback loop and trigger logic]</div>
-        </div>
-      </div>
-      <div class="gal-caption">
-        <div class="gal-cap-num">09 — Blueprint Graph</div>
-        <div class="gal-cap-text">Blueprint playback logic used to manage triggers, loop behavior, and long-duration exhibition stability. Built for unattended gallery operation across multiple venues.</div>
-      </div>
-    </div>
-
-    <div class="gal-item gal-s6">
-      <div class="gal-media">
-        <img src="../assets/images/sin6.png" alt="Performance optimization">
-      </div>
-      <div class="gal-caption">
-        <div class="gal-cap-num">10 — Optimization Pass</div>
-        <div class="gal-cap-text">Optimization pass focused on LODs, texture streaming, material complexity, and stable playback across exhibition hardware. Profiled using UE5 Unreal Insights and RenderDoc.</div>
-      </div>
-    </div>
-
-    <div class="gal-item gal-s12">
-      <div class="gal-media" style="position:relative; aspect-ratio:21/9;">
-        <!-- [PLACEHOLDER] Add installation documentation photo -->
-        <div class="gal-ph">
-          <div class="gal-ph-num">11</div>
-          <div class="gal-ph-txt">[Add: Final installation documentation photo — exhibition context]</div>
-        </div>
-      </div>
-      <div class="gal-caption">
-        <div class="gal-cap-num">11 — Exhibition Deployment</div>
-        <div class="gal-cap-text">Final exhibition deployment. Venue-specific performance tuning applied to maintain stable playback across different display and projection configurations.</div>
-      </div>
-    </div>
-
-  </div><!-- /gallery-grid -->
-
-  <hr class="r">
-
-  <!-- ═══════════════════════════════════════════
-       10  ARTISTIC CONTEXT
-  ═══════════════════════════════════════════ -->
-  <div class="sec-label r">Artistic Context</div>
-  <div class="detail-body r">
-    <div>
-      <div class="artistic-quote">
-        <p>"The pipeline was built to carry something that no render setting can specify: the weight of someone who is no longer here."</p>
-      </div>
-    </div>
-    <div class="detail-desc">
-      <p>Artistically, Shininho explores how affection, grief, and presence can be translated into computational form. Subtle gestures such as breathing, blinking, and weight shifts were treated not only as animation details, but as emotional traces that allow a digital body to carry memory and absence.</p>
-      <p>The technical pipeline was built to support this emotional goal. Rather than presenting the digital human as a static model, the project used real-time animation, camera timing, material response, and playback logic to create a living presence that could exist within exhibition space.</p>
-    </div>
-  </div>
-
-  <hr class="r">
-
-  <!-- ═══════════════════════════════════════════
-       11  DEPLOYMENT CONTEXT
-  ═══════════════════════════════════════════ -->
-  <div class="sec-label r">Deployment Context</div>
-  <p class="r" style="font-size:1rem; color:rgba(240,237,232,.5); margin-bottom:24px; max-width:640px; line-height:1.8;">The digital human pipeline was used across multiple exhibition contexts between 2024 and 2026, requiring adaptable real-time playback, venue-specific performance tuning, and reliable character presentation across different display and projection setups.</p>
-
-  <div class="deployment-list r">
-    <div class="deploy-row">
-      <div>
-        <div class="deploy-title">West Seoul Museum of Art — "Shininho Landing"</div>
-        <div class="deploy-role">MetaHuman Animator · Seoul</div>
-      </div>
-      <div class="deploy-year">2026</div>
-    </div>
-    <div class="deploy-row">
-      <div>
-        <div class="deploy-title">LA Rip Space — "Shininho Docking"</div>
-        <div class="deploy-role">MetaHuman Animation Assistant · Los Angeles</div>
-      </div>
-      <div class="deploy-year">2025</div>
-    </div>
-    <div class="deploy-row">
-      <div>
-        <div class="deploy-title">Songeun Art Award — "Shininho World Tour" (Yaloo)</div>
-        <div class="deploy-role">MetaHuman Animation Assistant · Seoul</div>
-      </div>
-      <div class="deploy-year">2025</div>
-    </div>
-    <div class="deploy-row">
-      <div>
-        <div class="deploy-title">SF 836M Yaloo Residency — "Shininho Destiny"</div>
-        <div class="deploy-role">MetaHuman Assistant · San Francisco</div>
-      </div>
-      <div class="deploy-year">2024</div>
-    </div>
-  </div>
-
-  <div class="collab-block r">
-    <p>Collaboration with media artist <a href="https://www.instagram.com/p/DEmYLfmy9NC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">Yaloo (@yalooreality)</a> — exhibited at Songeun Art Award, LA Rip Space, SF 836M Residency, and West Seoul Museum of Art (2024–2026).</p>
-  </div>
-
-  <hr class="r">
-
-  <!-- ═══════════════════════════════════════════
-       12  RELEVANT ROLES / RELATED WORK / CONTACT
-  ═══════════════════════════════════════════ -->
-  <div class="sec-label r">Relevant Roles</div>
-  <div class="roles-box r">
-    <ul class="roles-list">
-      <li>Technical Artist</li>
-      <li>UE5 Cinematic Artist</li>
-      <li>Real-Time Visualization Artist</li>
-      <li>Digital Human Artist</li>
-      <li>Pipeline Artist</li>
-      <li>Cinematics Pipeline Artist</li>
-    </ul>
-    <div class="roles-desc">This project demonstrates cross-disciplinary technical art work across character preparation, rigging, materials, UE5 Sequencer, Blueprint systems, optimization, and exhibition deployment.</div>
-  </div>
-
-  <div class="sec-label r">Related Work</div>
-  <div class="related-grid r">
-    <a href="vfx_1.html" class="related-card">
-      <div class="related-cat">3D / VFX</div>
-      <div class="related-title">FX Portfolio</div>
-      <div class="related-sub">Digital humans, simulation, and real-time VFX across Maya, Houdini, Unity, and Unreal Engine</div>
-      <div class="related-arrow">↗</div>
-    </a>
-    <a href="interactive_2.html" class="related-card">
-      <div class="related-cat">AI · Digital Human</div>
-      <div class="related-title">AI Gang Se-hwang</div>
-      <div class="related-sub">Historical figure revived as an interactive AI docent with real-time conversation</div>
-      <div class="related-arrow">↗</div>
-    </a>
-    <a href="media_1.html" class="related-card">
-      <div class="related-cat">Media Wall · UE5</div>
-      <div class="related-title">DADA Myeongdong</div>
-      <div class="related-sub">Real-time media work screened on Shinsegae Myeongdong Media Wall</div>
-      <div class="related-arrow">↗</div>
-    </a>
-    <a href="xr_2.html" class="related-card">
-      <div class="related-cat">VR · Character</div>
-      <div class="related-title">NARCI</div>
-      <div class="related-sub">VR character experience with real-time digital figures in Unity</div>
-      <div class="related-arrow">↗</div>
-    </a>
-  </div>
-
-  <div class="contact-block r">
-    <div>
-      <h3>Full Technical Breakdown Available</h3>
-      <p>For a complete technical breakdown, reel, pipeline documentation, or to discuss collaboration, please get in touch.</p>
-    </div>
-    <a href="#" class="contact-cta" id="contactEmail">Get in Touch ↗</a>
-  </div>
-
-  <!-- PAGINATION -->
-  <div class="detail-nav r">
-    <a href="media_7.html">← Previous</a>
-    <a href="../index.html" class="back">All Work</a>
-    <span></span>
-  </div>
-
-</div><!-- /detail-content -->
+<footer>
+  <div class="foot-l">© 2025 Jonghoon Ahn — 안종훈<br><span style="color:#2a2a2a;">TA · Filmmaker · Media Artist</span></div>
+  <div class="foot-r"><a href="#" id="emailLink2">hoonahncloud@gmail.com</a></div>
+</footer>
 
 <script>
-  /* NAV MOBILE */
+  const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function raf(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(raf);})();
+
+  (function(){
+    var e='hoonahncloud'+'@'+'gmail.com';
+    var l1=document.getElementById('emailLink1'),l2=document.getElementById('emailLink2');
+    if(l1){l1.href='mailto:'+e;l1.textContent=e+' ↗';}
+    if(l2){l2.href='mailto:'+e;l2.textContent=e;}
+  })();
+
   const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
   toggle.addEventListener('click',()=>links.classList.toggle('open'));
   links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+  /* ↓ 추가된 한 줄: 언어 버튼 클릭 시 모바일 메뉴 닫기 */
+  document.getElementById('langBtn').addEventListener('click',()=>links.classList.remove('open'));
 
-  /* EMAIL */
-  (function(){
-    var e='hoonahncloud'+'@'+'gmail.com';
-    var el=document.getElementById('contactEmail');
-    if(el){ el.href='mailto:'+e; }
-  })();
+  const nav=document.getElementById('nav'),navAs=document.querySelectorAll('.nav-links a[href^="#"]');
+  const secIds=['interactive','film','media','xr','vfx','about','news'];
+  window.addEventListener('scroll',()=>{
+    nav.classList.toggle('stuck',scrollY>50);
+    let active='';
+    secIds.forEach(id=>{const el=document.getElementById(id);if(el&&scrollY>=el.offsetTop-140)active=id;});
+    navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+active));
+  });
 
-  /* SCROLL REVEAL */
   const io=new IntersectionObserver((entries)=>{
-    entries.forEach((e,i)=>{
-      if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*55);io.unobserve(e.target);}
-    });
-  },{threshold:0.05});
+    entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*55);io.unobserve(e.target);}});
+  },{threshold:0.08});
   document.querySelectorAll('.r').forEach(el=>io.observe(el));
+
+  let currentLang=null;
+  function applyLang(lang){
+    currentLang=lang;
+    localStorage.setItem('lang',lang);
+    document.documentElement.lang=lang==='kr'?'ko':'en';
+    document.body.classList.toggle('kr',lang==='kr');
+    document.querySelectorAll('[data-en][data-kr]').forEach(el=>{
+      el.textContent=lang==='kr'?el.dataset.kr:el.dataset.en;
+    });
+    const btn=document.getElementById('langBtn');
+    if(btn){btn.textContent=lang==='kr'?'EN':'KR';btn.classList.toggle('kr',lang==='kr');}
+  }
+  function toggleLang(){applyLang(currentLang==='kr'?'en':'kr');}
+  function detectLang(){
+    const saved=localStorage.getItem('lang');
+    applyLang(saved||(navigator.language.startsWith('ko')?'kr':'en'));
+  }
+  detectLang();
 </script>
+<script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 </html>
