@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>안종훈 — Portfolio</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    background: #e5e5e5;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  @page { size: 1600px 900px; margin: 0; }
+  .page {
+    width: 1600px;
+    height: 900px;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    margin: 24px auto;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 80px;
+  }
+  .page:last-child { page-break-after: auto; }
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; }
+  }
+
+  .header {
+    position: absolute;
+    top: 50px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #000;
+  }
+  .footer {
+    position: absolute;
+    bottom: 50px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #000;
+  }
+
+  /* === Cover === */
+  .cover-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .cover h1 {
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 28px;
+  }
+  .cover .sub {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 720px;
+    margin-bottom: 64px;
+  }
+  .cover .toc {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 900px;
+  }
+  .cover .toc-row {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    border-top: 1px solid #000;
+    padding-top: 12px;
+  }
+  .cover .toc-num {
+    font-size: 14px;
+    font-weight: 700;
+    width: 40px;
+  }
+  .cover .toc-name {
+    font-size: 20px;
+    font-weight: 700;
+    flex: 1;
+  }
+  .cover .toc-count {
+    font-size: 13px;
+  }
+
+  /* === Section divider === */
+  .section-divider {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .section-divider .num {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .section-divider h2 {
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 28px;
+  }
+  .section-divider .desc {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 1200px;
+    margin-bottom: 48px;
+  }
+  .section-divider .work-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 800px;
+  }
+  .section-divider .work-list-row {
+    display: flex;
+    gap: 24px;
+    border-top: 1px solid #000;
+    padding-top: 10px;
+    font-size: 15px;
+  }
+  .section-divider .work-list-row .idx {
+    font-weight: 700;
+    width: 40px;
+  }
+  .section-divider .work-list-row .name {
+    flex: 1;
+    font-weight: 700;
+  }
+  .section-divider .work-list-row .year {
+    font-size: 13px;
+  }
+
+  /* === Work cover (image page) === */
+  .work-cover { display: flex; flex-direction: column; }
+  .work-cover .top-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-top: 30px;
+    margin-bottom: 28px;
+  }
+  .work-cover .work-num { font-size: 13px; font-weight: 700; }
+  .work-cover h2 {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  .work-cover .tagline {
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 900px;
+    margin-bottom: 24px;
+  }
+  .work-cover .main-image-wrap {
+    width: 100%;
+    max-width: 1100px;
+    aspect-ratio: 16 / 9;
+    background: #f0f0f0;
+    overflow: hidden;
+  }
+  .work-cover .main-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* === Detail page === */
+  .detail {
+    display: grid;
+    grid-template-columns: 520px 1fr;
+    gap: 60px;
+    padding-top: 50px;
+  }
+  .detail .left {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .detail .left .img-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #f0f0f0;
+    overflow: hidden;
+  }
+  .detail .left .img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .detail .right { display: flex; flex-direction: column; }
+  .detail .right .work-num { font-size: 13px; font-weight: 700; margin-bottom: 20px; }
+  .detail .right h3 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+  .detail .meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 32px;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #000;
+  }
+  .detail .meta .row { display: flex; flex-direction: column; }
+  .detail .meta .lbl { font-size: 11px; font-weight: 700; margin-bottom: 4px; }
+  .detail .meta .val { font-size: 13px; line-height: 1.4; }
+  .detail .body { font-size: 13px; line-height: 1.7; }
+  .detail .body p { margin-bottom: 10px; }
+  .detail .video {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #000;
+  }
+  .detail .video .lbl { font-size: 11px; font-weight: 700; margin-bottom: 6px; }
+  .detail .video a {
+    font-size: 13px;
+    font-weight: 700;
+    color: #000;
+    text-decoration: none;
+    word-break: break-all;
+  }
+</style>
+</head>
+<body>
+
+
+<div class="page cover">
+  <div class="header">
+    <span>안종훈 — Portfolio</span>
+    <span>—</span>
+  </div>
+  <div class="cover-inner">
+    <h1>안종훈<br>Selected Works</h1>
+    <div class="sub">테크니컬 아티스트 · 영화감독 · 미디어 아티스트 <!--<br>서울 기반--></div> 
+    <div class="toc">
+      <div class="toc-row"><span class="toc-num">01</span><span class="toc-name">미디어월과 미디어파사드</span><span class="toc-count">5 작품</span></div>
+<div class="toc-row"><span class="toc-num">02</span><span class="toc-name">데이터 시각화</span><span class="toc-count">1 작품</span></div>
+<div class="toc-row"><span class="toc-num">03</span><span class="toc-name">센서 및 AI 활용</span><span class="toc-count">3 작품</span></div>
+<div class="toc-row"><span class="toc-num">04</span><span class="toc-name">디지털 휴먼</span><span class="toc-count">1 작품</span></div>
+<div class="toc-row"><span class="toc-num">05</span><span class="toc-name">영화</span><span class="toc-count">2 작품</span></div>
+    </div>
+  </div>
+  <div class="footer">
+    <span>jonghoonahn.com</span>
+    <span>hoonahncloud@gmail.com</span>
+  </div>
+</div>
+
+
+<div class="page section-divider">
+  <div class="header">
+    <span>01 미디어월과 미디어파사드</span>
+    <span>—</span>
+  </div>
+  <div>
+    <div class="num">Section 01</div>
+    <h2>미디어월과 미디어파사드</h2>
+    <div class="desc">도시의 역사나 특징을 담은 대형 미디어 아트. 건물의 외벽이나 미디어월을 캔버스 삼아 도시의 시간, 기억, 풍경을 시각화한다.</div>
+    <div class="work-list">
+      <div class="work-list-row"><span class="idx">01</span><span class="name">다다명동</span><span class="year">2025</span></div>
+<div class="work-list-row"><span class="idx">02</span><span class="name">To Eternity</span><span class="year">2020</span></div>
+<div class="work-list-row"><span class="idx">03</span><span class="name">Fall of Minds</span><span class="year">2022</span></div>
+<div class="work-list-row"><span class="idx">04</span><span class="name">만인의 기억과 여전한 바다</span><span class="year">2024</span></div>
+<div class="work-list-row"><span class="idx">05</span><span class="name">Dream of Salmon</span><span class="year">2025</span></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="page work-cover">
+  <div class="header">
+    <span>01 미디어월과 미디어파사드</span>
+    <span>Work 01</span>
+  </div>
+  <div class="top-row">
+    <span class="work-num">Work 01</span>
+  </div>
+  <h2>다다명동</h2>
+  <div class="tagline">신세계백화점 명동 미디어월에서 상영된 미디어월 작업. 명동의 하루를 아침, 밤, 새벽으로 재구성한다.</div>
+  <div class="main-image-wrap"><img src="./assets/images/media1.jpg" alt=""></div>
+</div>
+
+
+<div class="page">
+  <div class="header">
+    <span>01 미디어월과 미디어파사드</span>
+    <span>Work 01</span>
+  </div>
+  <div class="detail">
+    <div class="left">
+      <div class="img-wrap"><img src="./assets/images/M2.jpg" alt=""></div>
+      <div class="img-wrap"><img src="./assets/images/media1.jpg" alt=""></div>
+    </div>
+    <div class="right">
+      <div class="work-num">Work 01</div>
+      <h3>다다명동</h3>
+      <div class="meta">
+        <div class="row"><div class="lbl">연도</div><div class="val">2025</div></div>
+<div class="row"><div class="lbl">유형</div><div class="val">미디어월</div></div>
+<div class="row"><div class="lbl">장소</div><div class="val">신세계백화점 명동 미디어월</div></div>
+<div class="row"><div class="lbl">프로그램</div><div class="val">아트코리아랩 2025</div></div>
+<div class="row"><div class="lbl">역할</div><div class="val">연출, 3D 아티스트</div></div>
+<div class="row"><div class="lbl">툴</div><div class="val">Blender, Mesh AI, Maya</div></div>
+      </div>
+      <div class="body">
+        <p>2025 아트코리아랩 프로그램의 일환으로 신세계백화점 명동 미디어월에서 상영된 미디어월 작업이다. 서울의 대표적 도시 공간인 명동의 하루를 아침, 밤, 새벽으로 예술적으로 재구성한다.</p>
+<p>명동이 가진 이동성, 관광, 상업적 에너지, 거리 음식 문화, 빛의 리듬을 하나의 가상 쇼윈도처럼 펼쳐낸다. 명동을 단순한 공간이 아니라 다양한 문화와 바쁜 한국인들이 교차하는 도시적 신호의 장소로 해석하였다.</p>
+      </div>
+      
+      <div class="video">
+        <div class="lbl">Link</div>
+        <a href="https://www.ezyeconomy.com/news/articleView.html?idxno=222563">https://www.ezyeconomy.com/news/articleView.html?idxno=222563</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="page work-cover">
+  <div class="header">
+    <span>01 미디어월과 미디어파사드</span>
+    <span>Work 02</span>
+  </div>
+  <div class="top-row">
+    <span class="work-num">Work 02</span>
+  </div>
+  <h2>To Eternity</h2>
+  <div class="tagline">5·18 광주민주화운동을 기념하는 인터랙티브 미디어 설치. 관객의 헌화 제스처가 5·18 아카이브 사진으로 모자이크된다.</div>
+  <div class="main-image-wrap"><img src="./assets/images/interactive1_3.jpg" alt=""></div>
+</div>
+
+
+<div class="page">
+  <div class="header">
+    <span>01 미디어월과 미디어파사드</span>
+    <span>Work 02</span>
+  </div>
+  <div class="detail">
+    <div class="left">
+      <div class="img-wrap"><img src="./assets/images/interactive1_3.jpg" alt=""></div>
+      <div class="img-wrap"><img src="./assets/images/e4.png" alt=""></div>
+    </div>
+    <div class="right">
+      <div class="work-num">Work 02</div>
+      <h3>To Eternity</h3>
+      <div class="meta">
+        <div class="row"><div class="lbl">연도</div><div class="val">2020</div></div>
+<div class="row"><div class="lbl">유형</div><div class="val">인터랙티브 미디어 설치</div></div>
+<div class="row"><div class="lbl">장소</div><div class="val">국립아시아문화전당 (ACC)</div></div>
+<div class="row"><div class="lbl">역할</div><div class="val">코딩 디렉터</div></div>
+<div class="row"><div class="lbl">기술</div><div class="val">Unity, Azure Kinect, OpenCV</div></div>
+<div class="row"><div class="lbl">주제</div><div class="val">5·18 광주민주화운동</div></div>
+      </div>
+      <div class="body">
+        <p>2020년 국립아시아문화전당에서 선보인 5·18 광주민주화운동 기념 인터랙티브 미디어 설치 작업이다. 관객의 실시간 신체 인식과 헌화 제스처를 바탕으로, 관객의 실루엣 위에 5·18 관련 아카이브 사진들이 모자이크처럼 생성된다.</p>
+<p>관객의 몸과 제스처를 통해 기억과 애도의 행위를 Covid 19 상황에서 비접촉으로 참여할 수 있도록 도와주었다. 역사적 기록, 신체 인식, 실시간 시각화를 결합한 경험이었다.</p>
+      </div>
+      
+      <div class="video">
+        <div class="lbl">Link</div>
+        <a href="https://jonghoonahn.com/detail_pages/interactive_1.html">https://jonghoonahn.com/detail_pages/interactive_1.html</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="page work-cover">
+  <div class="header">
+    <span>01 미디어월과 미디어파사드</span>
+    <span>Work 03</span>
+  </div>
+  <div class="top-row">
+    <span class="work-num">Work 03</span>
+  </div>
+  <h2>Fall of Minds</h2>
+  <div class="tagline">판교 파미어스몰에서 선보인 사운드 반응형 미디어 설치. 공간의 소음을 변수로 폭포와 구름 이미지가 실시간 변화한다.</div>
+  <div class="main-image-wrap"><img src="./assets/images/media3.jpg" alt=""></div>
+</div>
+
+
+<div class="page">
+  <div class="header">
+    <span>01 미디어월과 미디어파사드</span>
+    <span>Work 03</span>
+  </div>
+  <div class="detail">
+    <div class="left">
+      <div class="img-wrap"><img src="./assets/images/media3.jpg" alt=""></div>
+      <div class="img-wrap"><img src="./assets/images/media3_2.jpg" alt=""></div>
+    </div>
+    <div class="right">
+      <div class="work-num">Work 03</div>
+      <h3>Fall of Minds</h3>
+      <div class="meta">
+        <div class="row"><div class="lbl">연도</div><div class="val">2022</div></div>
+<div class="row"><div class="lbl">유형</div><div class="val">사운드 반응형 미디어 설치</div></div>
+<div class="row"><div class="lbl">장소</div><div class="val">판교 파미어스몰</div></div>
+<div class="row"><div class="lbl">역할</div><div class="val">코딩 디렉터, 아티스트</div></div>
+<div class="row"><div class="lbl">툴</div><div class="val">Unity, 오디오 분석</div></div>
+<div class="row"><div class="lbl">주제</div><div class="val">소리 → 이미지</div></div>
+      </div>
+      <div class="body">
+        <p>판교 파미에스몰에서 선보인 사운드 반응형 미디어 설치 작업이다. 판교의 지역적 분위기와 쇼핑몰의 소음을 하나의 생성 변수로 받아들이며, 실시간으로 폭포와 구름 같은 이미지의 움직임, 밀도, 채도를 변화시킨다.</p>
+<p>조용한 공간에서는 부드럽고 성긴 흐름이 나타나고, 소리가 커질수록 더욱 밀도 있고 격렬한 흐름이 생성된다.</p>
+      </div>
+      
+      <div class="video">
+        <div class="lbl">Link</div>
+        <a href="https://vimeo.com/666368634">https://vimeo.com/666368634</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="page work-cover">
+  <div class="header">
+    <span>01 미디어월과 미디어파사드</span>
+    <span>Work 04</span>
+  </div>
+  <div class="top-row">
+    <span class="work-num">Work 04</span>
+  </div>
+  <h2>만인의 기억과 여전한 바다</h2>
+  <div class="tagline">경상도를 고향으로 둔 작가들의 추억의 장소, 해운대를 빛과 물결의 풍경으로 표현한 미디어아트 영상.</div>
+  <div class="main-image-wrap"><img src="./assets/images/man1.png" alt=""></div>
+</div>
+
+
+<div class="page">
+  <div class="header">
+    <span>01 미디어월과 미디어파사드</span>
+    <span>Work 04</span>
+  </div>
+  <div class="detail">
+    <div class="left">
+      <div class="img-wrap"><img src="./assets/images/man2.png" alt=""></div>
+      <div class="img-wrap"><img src="./assets/images/man3.png" alt=""></div>
+    </div>
+    <div class="right">
+      <div class="work-num">Work 04</div>
+      <h3>만인의 기억과 여전한 바다</h3>
+      <div class="meta">
+        <div class="row"><div class="lbl">연도</div><div class="val">2024</div></div>
+<div class="row"><div class="lbl">유형</div><div class="val">미디어 아트 영상</div></div>
+<div class="row"><div class="lbl">장소</div><div class="val">해운대(예정)</div></div>
+<div class="row"><div class="lbl">역할</div><div class="val">감독, 아티스트</div></div>
+<div class="row"><div class="lbl">주제</div><div class="val">기억, 바다, 빛</div></div>
+<div class="row"><div class="lbl">구성</div><div class="val">아침 · 낮 · 밤 · 새벽</div></div>
+      </div>
+      <div class="body">
+        <p>경상도를 고향으로 둔 작가들로부터, 추억의 장소인 해운대를 빛과 물결의 풍경으로 표현한 미디어아트 영상이다. 시냅스와 뉴런이 서로 연결되듯, 기억 역시 사라지는 것이 아니라 보이지 않는 방식으로 이어지고 축적된다.</p>
+<p>한 번의 파도가 지나가면 한 사람의 기억은 사라지는 듯 보이지만, 만인의 기억은 결국 바다의 깊이에 남아 다음 물결 속에서도 흔적을 드러낸다. 작품은 아침, 낮, 밤, 새벽 순으로 하늘과 햇빛, 모래와 달빛의 색을 통해 바다가 여전히 품고 있는 만인의 기억을 하나의 아카이브로 표현한다.</p>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<div class="page work-cover">
+  <div class="header">
+    <span>01 미디어월과 미디어파사드</span>
+    <span>Work 05</span>
+  </div>
+  <div class="top-row">
+    <span class="work-num">Work 05</span>
+  </div>
+  <h2>Dream of Salmon</h2>
+  <div class="tagline">오하이오 Encore Institute에서 건축적 미디어 파사드로 투사된 라이브 미디어 퍼포먼스. 연어의 여정을 메타포로 한 변형의 의식.</div>
+  <div class="main-image-wrap"><img src="./assets/images/media2.jpg" alt=""></div>
+</div>
+
+
+<div class="page">
+  <div class="header">
+    <span>01 미디어월과 미디어파사드</span>
+    <span>Work 05</span>
+  </div>
+  <div class="detail">
+    <div class="left">
+      <div class="img-wrap"><img src="./assets/images/media2_3.jpg" alt=""></div>
+      <div class="img-wrap"><img src="./assets/images/media2_2.jpg" alt=""></div>
+    </div>
+    <div class="right">
+      <div class="work-num">Work 05</div>
+      <h3>Dream of Salmon</h3>
+      <div class="meta">
+        <div class="row"><div class="lbl">연도</div><div class="val">2025</div></div>
+<div class="row"><div class="lbl">유형</div><div class="val">라이브 미디어 퍼포먼스, 파사드</div></div>
+<div class="row"><div class="lbl">장소</div><div class="val">Encore Institute, 오하이오</div></div>
+<div class="row"><div class="lbl">역할</div><div class="val">미디어 아트, 비주얼</div></div>
+<div class="row"><div class="lbl">안무, 연출, 퍼포먼스</div><div class="val">Euseon Song</div></div>
+<div class="row"><div class="lbl">음악</div><div class="val">Binh</div></div>
+      </div>
+      <div class="body">
+        <p>어둠 속을 떠다니는 손 모양의 빛나는 물고기들이 모이고 흩어지고 녹아내리며, 지각의 표면 아래 기억과 상실과 재생의 꿈같은 이동을 메아리친다.</p>
+<p>건축적 미디어 파사드로 투사된 라이브 미디어 퍼포먼스다. 시간과 상실, 그리고 회귀에 맞선 인간의 분투를 비추는 연어의 여정을 메타포로 삼아 삶과 죽음의 순환적 본질을 탐구한다.</p>
+<p>실시간 퍼포먼스와 제너러티브 비주얼을 결합해, 관객을 변형의 의식 속으로 끌어들인다. 무용수의 몸과 투사된 이미지가 함께 호흡한다.</p>
+      </div>
+      
+      <div class="video">
+        <div class="lbl">Link</div>
+        <a href="https://jonghoonahn.com/detail_pages/media_2.html">https://jonghoonahn.com/detail_pages/media_2.html</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="page section-divider">
+  <div class="header">
+    <span>02 데이터 시각화</span>
+    <span>—</span>
+  </div>
+  <div>
+    <div class="num">Section 02</div>
+    <h2>데이터 시각화</h2>
+    <div class="desc">수치와 과학적 정보를 이미지와 공간 경험으로 변환하는 작업. 보이지 않는 데이터를 몰입형 시각 체계로 재구성한다.</div>
+    <div class="work-list">
+      <div class="work-list-row"><span class="idx">01</span><span class="name">Fineo, Translated Universe</span><span class="year">2019</span></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="page work-cover">
+  <div class="header">
+    <span>02 데이터 시각화</span>
+    <span>Work 06</span>
+  </div>
+  <div class="top-row">
+    <span class="work-num">Work 06</span>
+  </div>
+  <h2>Fineo, Translated Universe</h2>
+  <div class="tagline">원소 주기율표 데이터를 하모노그래프 함수로 매핑한 VR 데이터 시각화. 국민대 제16회 조형전 대상 수상작.</div>
+  <div class="main-image-wrap"><img src="./assets/images/xr1.jpg" alt=""></div>
+</div>
+
+
+<div class="page">
+  <div class="header">
+    <span>02 데이터 시각화</span>
+    <span>Work 06</span>
+  </div>
+  <div class="detail">
+    <div class="left">
+      <div class="img-wrap"><img src="./assets/images/xr1.jpg" alt=""></div>
+      <div class="img-wrap"><img src="./assets/images/fineo10.jpg" alt=""></div>
+    </div>
+    <div class="right">
+      <div class="work-num">Work 06</div>
+      <h3>Fineo, Translated Universe</h3>
+      <div class="meta">
+        <div class="row"><div class="lbl">연도</div><div class="val">2019</div></div>
+<div class="row"><div class="lbl">유형</div><div class="val">VR 데이터 시각화</div></div>
+<div class="row"><div class="lbl">수상</div><div class="val">대상 - 국민대 제16회 조형전</div></div>
+<div class="row"><div class="lbl">역할</div><div class="val">감독, 테크니컬 아티스트</div></div>
+<div class="row"><div class="lbl">툴</div><div class="val">Unity, VR, C#</div></div>
+<div class="row"><div class="lbl">주제</div><div class="val">주기율표 → 하모노그래프</div></div>
+      </div>
+      <div class="body">
+        <p>원소 주기율표의 데이터를 하모노그래프 기반 함수로 매핑하여 새로운 우주적 시각 체계로 재구성한 VR 데이터 시각화 설치 작업이다. 과학적 데이터와 상상력을 결합하여, 원소와 별자리, 구조와 움직임이 하나의 가상 우주로 경험되는 방식을 실험하였다.</p>
+<p>2019년 국민대학교 제16회 조형전에서 대상을 수상한 이 작업은, 보이지 않는 과학적 정보와 수치를 몰입형 VR 컨텐츠로 확장하였다.</p>
+      </div>
+      
+      <div class="video">
+        <div class="lbl">Link</div>
+        <a href="https://jonghoonahn.com/detail_pages/xr_1.html">https://jonghoonahn.com/detail_pages/xr_1.html</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="page section-divider">
+  <div class="header">
+    <span>03 센서 및 AI 활용</span>
+    <span>—</span>
+  </div>
+  <div>
+    <div class="num">Section 03</div>
+    <h2>센서 및 AI 활용</h2>
+    <div class="desc">관객, 데이터, 비인간 존재가 반응하는 실시간 시스템. 센서와 AI를 매개로 한 새로운 상호작용을 탐구한다.</div>
+    <div class="work-list">
+      <div class="work-list-row"><span class="idx">01</span><span class="name">AI ZOO</span><span class="year">2024</span></div>
+<div class="work-list-row"><span class="idx">02</span><span class="name">AI 강세황 도슨트</span><span class="year">2022</span></div>
+<div class="work-list-row"><span class="idx">03</span><span class="name">제물포 사진관</span><span class="year">2022</span></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="page work-cover">
+  <div class="header">
+    <span>03 센서 및 AI 활용</span>
+    <span>Work 07</span>
+  </div>
+  <div class="top-row">
+    <span class="work-num">Work 07</span>
+  </div>
+  <h2>AI ZOO</h2>
+  <div class="tagline">인간이 AI 존재와 제한된 상호작용을 맺을 때 생기는 심리적 관계를 탐구한 CalArts 인터랙티브 리서치 설치.</div>
+  <div class="main-image-wrap"><img src="./assets/images/interactive4.jpg" alt=""></div>
+</div>
+
+
+<div class="page">
+  <div class="header">
+    <span>03 센서 및 AI 활용</span>
+    <span>Work 07</span>
+  </div>
+  <div class="detail">
+    <div class="left">
+      <div class="img-wrap"><img src="./assets/images/interactive4_1.jpg" alt=""></div>
+      <div class="img-wrap"><img src="./assets/images/interactive4_2.jpg" alt=""></div>
+    </div>
+    <div class="right">
+      <div class="work-num">Work 07</div>
+      <h3>AI ZOO</h3>
+      <div class="meta">
+        <div class="row"><div class="lbl">연도</div><div class="val">2024</div></div>
+<div class="row"><div class="lbl">유형</div><div class="val">인터랙티브 리서치 설치</div></div>
+<div class="row"><div class="lbl">장소</div><div class="val">CalArts</div></div>
+<div class="row"><div class="lbl">역할</div><div class="val">감독, 아티스트</div></div>
+<div class="row"><div class="lbl">기술</div><div class="val">디지털 휴먼, 센서, 대화형 AI, TTS</div></div>
+<div class="row"><div class="lbl">주제</div><div class="val">AI와 인간의 정서적 관계</div></div>
+      </div>
+      <div class="body">
+        <p>2024년 CalArts에서 선보인 인터랙티브 리서치 설치 작업으로, 인간이 인공지능 존재와 제한된 상호작용을 맺을 때 발생하는 심리적 관계를 탐구한다.</p>
+<p>디지털 휴먼, 대형 투명 구체, 센서, 대화형 AI, 음성 합성, 모터 움직임, 조명 반응을 결합하여 관객이 AI 존재를 하나의 감정적 대상으로 읽게 되는 과정을 실험한다. 관객의 입력과 제스처는 감정으로 변환되고, 이는 구체의 움직임, 목소리의 톤, 조명 반응으로 다시 출력된다.</p>
+      </div>
+      
+      <div class="video">
+        <div class="lbl">Link</div>
+        <a href="https://vimeo.com/1026374193">https://vimeo.com/1026374193</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="page work-cover">
+  <div class="header">
+    <span>03 센서 및 AI 활용</span>
+    <span>Work 08</span>
+  </div>
+  <div class="top-row">
+    <span class="work-num">Work 08</span>
+  </div>
+  <h2>AI 강세황 도슨트</h2>
+  <div class="tagline">조선 후기 화가이자 김홍도의 스승 강세황을 실시간 AI 휴먼으로 부활시킨 박물관 인터랙티브 설치.</div>
+  <div class="main-image-wrap"><img src="./assets/images/interactive2.jpg" alt=""></div>
+</div>
+
+
+<div class="page">
+  <div class="header">
+    <span>03 센서 및 AI 활용</span>
+    <span>Work 08</span>
+  </div>
+  <div class="detail">
+    <div class="left">
+      <div class="img-wrap"><img src="./assets/images/interactive2.jpg" alt=""></div>
+      <div class="img-wrap"><img src="./assets/images/GangSehwang_install_01.jpg" alt=""></div>
+    </div>
+    <div class="right">
+      <div class="work-num">Work 08</div>
+      <h3>AI 강세황 도슨트</h3>
+      <div class="meta">
+        <div class="row"><div class="lbl">연도</div><div class="val">2022</div></div>
+<div class="row"><div class="lbl">유형</div><div class="val">인터랙티브 AI 설치</div></div>
+<div class="row"><div class="lbl">장소</div><div class="val">경기도박물관</div></div>
+<div class="row"><div class="lbl">역할</div><div class="val">테크니컬 디렉터</div></div>
+<div class="row"><div class="lbl">기술</div><div class="val">Unity, OptiTrack, ARKit, ZBrush, Maya</div></div>
+<div class="row"><div class="lbl">주제</div><div class="val">디지털 부활, 문화유산</div></div>
+      </div>
+      <div class="body">
+        <p>조선 후기 화가이자 김홍도의 스승인 강세황을 실시간 AI 휴먼으로 디지털 부활시킨 인터랙티브 미디어 설치이다. 3D 재구성, 모션캡쳐, 음성 인터랙션을 통해 관객은 역사적으로 재해석된 인물과 대화하고, 포즈를 취하고, 사진을 찍을 수 있다.</p>
+<p>전통적 유산 보존은 정적인 재현에 초점을 맞춰왔지만, 기억은 수행적이다. 제스처, 목소리, 행동으로 살아남는다. 본 프로젝트는 박물관 방문객이 응답하는 디지털 학자를 마주하게 하여, 유산을 대화로, 기억을 공감으로 전환하는 사이보그 박물관학을 제안한다.</p>
+      </div>
+      
+      <div class="video">
+        <div class="lbl">Link</div>
+        <a href="https://vimeo.com/1011866123">https://vimeo.com/1011866123</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="page work-cover">
+  <div class="header">
+    <span>03 센서 및 AI 활용</span>
+    <span>Work 09</span>
+  </div>
+  <div class="top-row">
+    <span class="work-num">Work 09</span>
+  </div>
+  <h2>제물포 사진관</h2>
+  <div class="tagline">관객의 초상을 AI 페이스 스왑과 스타일 트랜스퍼로 식민지기 신여성 잡지 표지로 재해석하는 인터랙티브 설치.</div>
+  <div class="main-image-wrap"><img src="./assets/images/interactive3.jpg" alt=""></div>
+</div>
+
+
+<div class="page">
+  <div class="header">
+    <span>03 센서 및 AI 활용</span>
+    <span>Work 09</span>
+  </div>
+  <div class="detail">
+    <div class="left">
+      <div class="img-wrap"><img src="./assets/images/g6.png" alt=""></div>
+      <div class="img-wrap"><img src="./assets/images/g4.png" alt=""></div>
+    </div>
+    <div class="right">
+      <div class="work-num">Work 09</div>
+      <h3>제물포 사진관</h3>
+      <div class="meta">
+        <div class="row"><div class="lbl">연도</div><div class="val">2022</div></div>
+<div class="row"><div class="lbl">유형</div><div class="val">인터랙티브 미디어 설치</div></div>
+<div class="row"><div class="lbl">장소</div><div class="val">인천광역시립박물관</div></div>
+<div class="row"><div class="lbl">역할</div><div class="val">테크니컬 디렉터</div></div>
+<div class="row"><div class="lbl">기술</div><div class="val">Unity, OpenCV, Barracuda, RTX 4070</div></div>
+<div class="row"><div class="lbl">주제</div><div class="val">신여성, 근대화, 시각 미디어</div></div>
+      </div>
+      <div class="body">
+        <p>식민지 시기 한국의 신여성 잡지 문화의 미학을 재구성한 인터랙티브 미디어 설치다. 관객의 초상이 실시간으로 캡처되어 AI 기반 페이스 스왑과 뉴럴 스타일 트랜스퍼를 거치며, 현대적 정체성이 20세기 초의 시각적 모더니티와 결합된 재해석된 표지로 변환된다.</p>
+<p>각 초상은 제물포 초기 사진관의 자유롭고 활기찬 톤으로 양식화되어, 실시간으로 가상의 벽에 자동으로 프레이밍·전시·아카이브된다. 사진의 역할을 기록이자 수행으로 성찰하며, 관객을 디지털로 재구성된 근대사의 참여자로 전환한다.</p>
+      </div>
+      
+      <div class="video">
+        <div class="lbl">Link</div>
+        <a href="https://jonghoonahn.com/detail_pages/interactive_3.html">https://jonghoonahn.com/detail_pages/interactive_3.html</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="page section-divider">
+  <div class="header">
+    <span>04 디지털 휴먼</span>
+    <span>—</span>
+  </div>
+  <div>
+    <div class="num">Section 04</div>
+    <h2>디지털 휴먼</h2>
+    <div class="desc">MetaHuman과 볼류메트릭 스캔, AI 기반 제스처 애니메이션을 결합해 사라진 존재의 흔적을 실시간으로 복원한다.</div>
+    <div class="work-list">
+      <div class="work-list-row"><span class="idx">01</span><span class="name">Shininho — 신인호</span><span class="year">2024–2026</span></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="page work-cover">
+  <div class="header">
+    <span>04 디지털 휴먼</span>
+    <span>Work 10</span>
+  </div>
+  <div class="top-row">
+    <span class="work-num">Work 10</span>
+  </div>
+  <h2>Shininho — 신인호</h2>
+  <div class="tagline">미디어 아티스트 Yaloo의 외할머니를 볼류메트릭 스캔과 MetaHuman 파이프라인으로 복원한 디지털 휴먼 프로젝트.</div>
+  <div class="main-image-wrap"><img src="./assets/images/media8.png" alt=""></div>
+</div>
+
+
+<div class="page">
+  <div class="header">
+    <span>04 디지털 휴먼</span>
+    <span>Work 10</span>
+  </div>
+  <div class="detail">
+    <div class="left">
+      <div class="img-wrap"><img src="./assets/images/sin4.jpg" alt=""></div>
+      <div class="img-wrap"><img src="./assets/images/sin2.jpg" alt=""></div>
+    </div>
+    <div class="right">
+      <div class="work-num">Work 10</div>
+      <h3>Shininho — 신인호</h3>
+      <div class="meta">
+        <div class="row"><div class="lbl">연도</div><div class="val">2024–2026</div></div>
+<div class="row"><div class="lbl">유형</div><div class="val">디지털 휴먼, 실시간 캐릭터</div></div>
+<div class="row"><div class="lbl">엔진</div><div class="val">UE5, Maya, MetaHuman</div></div>
+<div class="row"><div class="lbl">협업</div><div class="val">Yaloo (@yalooreality)</div></div>
+<div class="row"><div class="lbl">역할</div><div class="val">테크니컬 아티스트, 파이프라인 리드</div></div>
+<div class="row"><div class="lbl">전시</div><div class="val">송은아트어워드, LA Rip Space, SF 836M, 서서울미술관</div></div>
+      </div>
+      <div class="body">
+        <p>미디어 아티스트 Yaloo의 외할머니를 볼류메트릭 스캐닝, MetaHuman 리깅, AI 기반 제스처 애니메이션으로 복원한 디지털 휴먼 프로젝트다. 송은아트어워드, LA Rip Space, SF 836M, 서서울미술관 등 국내외 다수의 전시 공간에서 선보였다.</p>
+<p>사라진 존재에 대한 애정, 상실, 현전을 계산적 형식으로 번역하는 것을 탐구한다. 호흡, 깜빡임, 무게 이동 같은 미세한 제스처들을 합성해 더 이상 물리적 세계에 존재하지 않는 삶의 흔적을 시뮬레이션했다.</p>
+<p>테크니컬 아티스트 및 파이프라인 리드로서 볼류메트릭 스캔 처리, Maya 리깅과 UV 워크플로, MetaHuman 통합, UE5 시퀀서 시네마틱, Blueprint 인터랙션 시스템, 실시간 퍼포먼스 최적화 전 과정을 담당했다.</p>
+      </div>
+      
+      <div class="video">
+        <div class="lbl">Link</div>
+        <a href="https://jonghoonahn.com/detail_pages/media_8.html">https://jonghoonahn.com/detail_pages/media_8.html</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="page section-divider">
+  <div class="header">
+    <span>05 영화</span>
+    <span>—</span>
+  </div>
+  <div>
+    <div class="num">Section 05</div>
+    <h2>영화</h2>
+    <div class="desc">침묵, 정서적 억압, 개인을 보호하지 못하는 사회 시스템을 최소한의 대사, 롱테이크, 절제된 시각 언어로 풀어낸 단편 영화 작업.</div>
+    <div class="work-list">
+      <div class="work-list-row"><span class="idx">01</span><span class="name">Non-Done Record</span><span class="year">2024</span></div>
+<div class="work-list-row"><span class="idx">02</span><span class="name">The Silence We Share</span><span class="year">2025</span></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="page work-cover">
+  <div class="header">
+    <span>05 영화</span>
+    <span>Work 11</span>
+  </div>
+  <div class="top-row">
+    <span class="work-num">Work 11</span>
+  </div>
+  <h2>Non-Done Record</h2>
+  <div class="tagline">젊은 영화감독이 죽기 직전, 사라져가는 의식이 미완성 영화로 재구성되는 초현실적 단편 영화.</div>
+  <div class="main-image-wrap"><img src="./assets/images/film1.jpg" alt=""></div>
+</div>
+
+
+<div class="page">
+  <div class="header">
+    <span>05 영화</span>
+    <span>Work 11</span>
+  </div>
+  <div class="detail">
+    <div class="left">
+    <!--  <div class="img-wrap"><img src="./assets/images/film1.jpg" alt=""></div>
+      <div class="img-wrap"><img src="" alt=""></div>-->
+    </div>
+    <div class="right">
+      <div class="work-num">Work 11</div>
+      <h3>Non-Done Record</h3>
+      <div class="meta">
+        <div class="row"><div class="lbl">연도</div><div class="val">2024</div></div>
+<div class="row"><div class="lbl">유형</div><div class="val">라이브 액션 단편 영화</div></div>
+<div class="row"><div class="lbl">러닝타임</div><div class="val">8분</div></div>
+<div class="row"><div class="lbl">역할</div><div class="val">감독</div></div>
+<div class="row"><div class="lbl">수상</div><div class="val">Sundance Ignite × Adobe Fellowship — 파이널리스트</div></div>
+<div class="row"><div class="lbl">수상</div><div class="val">Independent Shorts Awards — Silver Award</div></div>
+      </div>
+      <div class="body">
+        <p>영화감독을 꿈꾸는 한 청년이 자신보다 우월해 보이는 누군가를 만나 다시 꿈에 불을 붙이지만, 열등감과 환멸에 휩싸여 결국 삶을 끝내기로 한다. 마지막 순간, 사라져가는 그의 의식은 완성된 영화로 재구성되고, 미완의 기억들이 미정의 공간 속에서 무의미하게 반복된다.</p>
+<p>두 명의 신비로운 남자, 청춘(30대)과 산아(40대)가 이 초현실적 풍경 속에 나타난다. 그들은 청춘이 이루지 못한 시나리오 작가의 꿈을 대신 살아가는 가을이라는 여성을 만난다.</p>
+<p>반복되는 시간 이동, 미니멀한 정면 카메라 앵글, 크레스트 라인과 실험 음악 같은 초현실적 요소를 통해 현실과 꿈의 경계를 흐린다.</p>
+      </div>
+      
+      <div class="video">
+        <div class="lbl">Link</div>
+        <a href="https://jonghoonahn.com/detail_pages/film_1.html">https://jonghoonahn.com/detail_pages/film_1.html</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="page work-cover">
+  <div class="header">
+    <span>05 영화</span>
+    <span>Work 12</span>
+  </div>
+  <div class="top-row">
+    <span class="work-num">Work 12</span>
+  </div>
+  <h2>The Silence We Share</h2>
+  <div class="tagline">2025 Academy Nicholl Fellowships에 CalArts 영화학교를 대표해 출품된 장편 시나리오.</div>
+  <div class="main-image-wrap"><img src="./assets/images/film10.jpg" alt=""></div>
+</div>
+
+
+<div class="page">
+  <div class="header">
+    <span>05 영화</span>
+    <span>Work 12</span>
+  </div>
+  <div class="detail">
+    <div class="left">
+    <!--  <div class="img-wrap"><img src="" alt=""></div>
+      <div class="img-wrap"><img src="" alt=""></div>-->
+    </div>
+    <div class="right">
+      <div class="work-num">Work 12</div>
+      <h3>The Silence We Share</h3>
+      <div class="meta">
+        <div class="row"><div class="lbl">연도</div><div class="val">2025</div></div>
+<div class="row"><div class="lbl">유형</div><div class="val">장편 시나리오</div></div>
+<div class="row"><div class="lbl">역할</div><div class="val">각본, 감독</div></div>
+<div class="row"><div class="lbl">선정</div><div class="val">Academy Nicholl Fellowships — Official Partner Entrant</div></div>
+<div class="row"><div class="lbl">선정</div><div class="val">CJ & TIFF K-Story Fund — Shortlist</div></div>
+<div class="row"><div class="lbl">후원</div><div class="val">CalArts School of Film and Video</div></div>
+      </div>
+      <div class="body">
+        <p>2025 Academy Nicholl Fellowships에 CalArts 영화학교를 대표하는 출품작으로 선정된 장편 시나리오다. CJ & TIFF K-Story Fund 쇼트리스트에도 선정되었다.</p>
+<p>침묵, 정서적 억압, 개인을 보호하지 못하는 사회 시스템을 다룬다. 최소한의 대사, 롱테이크, 절제된 시각 언어를 통해 말해지지 않는 것들의 무게를 따라간다.</p>
+      </div>
+      
+      <div class="video">
+        <div class="lbl">Link</div>
+        <a href="https://www.oscars.org/official-nicholl-partners">https://www.oscars.org/official-nicholl-partners</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
