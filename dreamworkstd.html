@@ -3,444 +3,218 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DreamWorks TD Portfolio — 4 Selected Works · Jonghoon Ahn</title>
-  <link rel="icon" href="../assets/images/favicon.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <title>DreamWorks TD Portfolio · Jonghoon Ahn</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --bg:#0c0c0c; --surface:#161616; --surface2:#1e1e1e; --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.18); --text:#ede9e3; --text-sub:#a09a91; --text-dim:#6b6560; --accent:#d4a847; --accent-lt:#e8c876; --fd:'Syne',sans-serif; --fm:'Space Mono',monospace; --fb:'DM Sans',sans-serif; }
-    html { scroll-behavior:smooth; }
-    body { background:var(--bg); color:var(--text); font-family:var(--fb); font-size:22px; font-weight:400; line-height:1.75; overflow-x:hidden; }
-    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:18px 48px; background:rgba(12,12,12,.96); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); }
-    .nav-back { font-family:var(--fm); font-size:17px; letter-spacing:.04em; text-transform:uppercase; color:var(--text-sub); text-decoration:none; transition:color .2s; }
-    .nav-back:hover { color:var(--text); }
-    .nav-links { display:flex; gap:28px; list-style:none; }
-    .nav-links a { font-family:var(--fm); font-size:16px; letter-spacing:.04em; text-transform:uppercase; color:var(--text-dim); text-decoration:none; transition:color .2s; }
-    .nav-links a:hover { color:var(--text); }
-    .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
-    .nav-toggle span { width:22px; height:1px; background:var(--text); }
-    @media(max-width:768px){ nav { padding:16px 20px; } .nav-toggle { display:flex; } .nav-links { display:none; flex-direction:column; position:fixed; top:0; right:0; bottom:0; width:70vw; max-width:280px; background:rgba(12,12,12,.98); padding:80px 28px 28px; border-left:1px solid var(--border); gap:0; } .nav-links.open { display:flex; } .nav-links a { font-size:20px; padding:14px 0; border-bottom:1px solid var(--border); } }
-    .detail-hero { padding:108px 80px 0; max-width:1400px; margin:0 auto; }
-    @media(max-width:768px){ .detail-hero { padding:88px 24px 0; } }
-    .detail-cat { font-family:var(--fm); font-size:18px; letter-spacing:.07em; text-transform:uppercase; color:var(--accent); margin-bottom:18px; }
-    .detail-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(52px,7vw,96px); font-weight:400; letter-spacing:.02em; line-height:1; margin-bottom:10px; color:var(--text); }
-    .detail-subtitle { font-family:var(--fd); font-size:clamp(18px,2vw,24px); font-weight:600; color:var(--text-sub); margin-bottom:28px; }
-    .detail-meta { display:flex; gap:36px; flex-wrap:wrap; padding:18px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:20px; }
-    .detail-meta-item { display:flex; flex-direction:column; gap:5px; }
-    .detail-meta-label { font-family:var(--fm); font-size:17px; letter-spacing:.09em; text-transform:uppercase; color:var(--text-dim); }
-    .detail-meta-value { font-size:20px; color:var(--text); }
-    .hero-tags { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:48px; }
-    .hero-tag { font-family:var(--fm); font-size:17px; letter-spacing:.04em; text-transform:uppercase; padding:5px 13px; border:1px solid var(--border2); color:var(--text-sub); border-radius:2px; }
-    .detail-banner { max-width:1400px; margin:0 auto; padding:0 80px 56px; }
-    @media(max-width:768px){ .detail-banner { padding:0 24px 40px; } }
-    .detail-banner img { width:100%; display:block; object-fit:cover; }
-    .detail-content { max-width:1400px; margin:0 auto; padding:0 80px 120px; }
-    @media(max-width:768px){ .detail-content { padding:0 24px 80px; } }
-    .sec-label { font-family:var(--fm); font-size:18px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:28px; padding-bottom:12px; border-bottom:1px solid var(--border); }
-    .detail-body { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; margin-bottom:64px; }
-    @media(max-width:768px){ .detail-body { grid-template-columns:1fr; gap:28px; } }
-    .detail-desc { font-size:22px; color:var(--text); line-height:1.8; }
-    .detail-desc p { margin-bottom:18px; }
-    .detail-desc p:last-child { margin-bottom:0; }
-    .detail-desc ul { list-style:none; display:flex; flex-direction:column; gap:12px; margin-top:8px; }
-    .detail-desc ul li { font-size:21px; color:var(--text); line-height:1.65; padding-left:20px; position:relative; }
-    .detail-desc ul li::before { content:'·'; position:absolute; left:0; color:var(--accent); font-size:22px; line-height:1.2; }
-    .snapshot-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:64px; }
-    @media(max-width:600px){ .snapshot-grid { grid-template-columns:1fr; } }
-    .snapshot-cell { background:var(--surface); border:1px solid var(--border); padding:22px 26px; border-radius:4px; }
-    .snapshot-cell.wide { grid-column:span 2; }
-    @media(max-width:600px){ .snapshot-cell.wide { grid-column:span 1; } }
-    .snapshot-label { font-family:var(--fm); font-size:17px; letter-spacing:.07em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
-    .snapshot-val { font-size:21px; line-height:1.65; color:var(--text); }
-    .tech-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:64px; }
-    @media(max-width:768px){ .tech-grid { grid-template-columns:1fr; } }
-    .tech-block { background:var(--surface); border:1px solid var(--border); padding:24px 28px; border-radius:4px; }
-    .tech-block-icon { font-family:var(--fm); font-size:18px; color:var(--accent); letter-spacing:.04em; margin-bottom:10px; }
-    .tech-block-title { font-family:var(--fd); font-size:22px; font-weight:700; margin-bottom:12px; color:var(--text); }
-    .tech-block p { font-size:20px; color:var(--text-sub); line-height:1.75; }
-    .pipeline-step { display:grid; grid-template-columns:1.2fr 1fr; gap:16px; margin-bottom:16px; }
-    @media(max-width:768px){ .pipeline-step { grid-template-columns:1fr; } }
-    .pipeline-img { overflow:hidden; border-radius:3px; }
-    .pipeline-img img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; filter:brightness(.88); transition:filter .3s; }
-    .pipeline-img img:hover { filter:brightness(1); }
-    .pipeline-placeholder { width:100%; aspect-ratio:4/3; background:linear-gradient(135deg,var(--surface2),#111); border:1px solid var(--border); border-radius:3px; position:relative; }
-    .pipeline-placeholder::after { content:attr(data-label); position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--fm); font-size:17px; letter-spacing:.06em; text-transform:uppercase; color:var(--text-dim); }
-    .pipeline-info { background:var(--surface); border:1px solid var(--border); padding:32px 34px; display:flex; flex-direction:column; justify-content:center; border-radius:3px; }
-    .pipeline-num { font-family:var(--fm); font-size:19px; color:var(--accent); letter-spacing:.05em; margin-bottom:10px; }
-    .pipeline-title { font-family:var(--fd); font-size:22px; font-weight:700; margin-bottom:20px; line-height:1.3; color:var(--text); }
-    .pipeline-sub { font-family:var(--fm); font-size:18px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; margin-top:18px; }
-    .pipeline-sub-text { font-size:21px; color:var(--text-sub); line-height:1.7; margin-bottom:4px; font-style:italic; }
-    .pipeline-desc { font-size:21px; color:var(--text); line-height:1.8; }
-    .pipeline-desc ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
-    .pipeline-desc ul li { padding-left:16px; position:relative; }
-    .pipeline-desc ul li::before { content:'·'; position:absolute; left:0; color:var(--accent); font-size:20px; line-height:1.3; }
-    .pipeline-result { font-size:21px; color:var(--text-sub); line-height:1.7; margin-top:18px; padding-top:18px; border-top:1px solid var(--border); }
-    .pipeline-result-lbl { font-family:var(--fm); font-size:18px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:6px; font-weight:700; }
-    .pipeline-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:16px; }
-    .ptag { font-family:var(--fm); font-size:17px; letter-spacing:.03em; text-transform:uppercase; padding:4px 11px; border:1px solid var(--border2); color:var(--text-sub); border-radius:2px; }
-    .metrics-box { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; padding:16px 18px; background:var(--surface2); border:1px solid var(--border); border-radius:3px; }
-    .metric-item-lbl { font-family:var(--fm); font-size:18px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:3px; }
-    .metric-item-val { font-family:var(--fm); font-size:19px; color:var(--text-sub); }
-    .contrib-wrap { overflow-x:auto; margin-bottom:56px; border:1px solid var(--border); border-radius:4px; }
-    .contrib-table { width:100%; border-collapse:collapse; }
-    .contrib-table th { font-family:var(--fm); font-size:18px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); padding:14px 20px; border-bottom:1px solid var(--border2); text-align:left; background:var(--surface2); }
-    .contrib-table td { padding:16px 20px; border-bottom:1px solid var(--border); font-size:21px; vertical-align:top; line-height:1.65; color:var(--text); }
-    .contrib-table tr:last-child td { border-bottom:none; }
-    .contrib-table tr:hover td { background:var(--surface2); }
-    .contrib-table td:first-child { font-family:var(--fm); font-size:19px; color:var(--accent-lt); letter-spacing:.03em; font-weight:700; white-space:nowrap; }
-    .contrib-table td:last-child { font-family:var(--fm); font-size:19px; color:var(--text-sub); }
-    @media(max-width:600px){ .contrib-table thead { display:none; } .contrib-table td { display:block; padding:10px 14px; } .contrib-table td:first-child { background:var(--surface2); border-bottom:1px solid var(--border); } }
-    .gallery-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:8px; margin-bottom:56px; }
-    .gal-item { overflow:hidden; background:var(--surface); border:1px solid var(--border); border-radius:4px; }
-    .gal-s8 { grid-column:span 8; } .gal-s6 { grid-column:span 6; } .gal-s4 { grid-column:span 4; } .gal-s12 { grid-column:span 12; }
-    @media(max-width:900px){ .gal-s8,.gal-s6,.gal-s4 { grid-column:span 12; } }
-    .gal-media { position:relative; overflow:hidden; }
-    .gal-s8 .gal-media,.gal-s6 .gal-media { aspect-ratio:16/10; } .gal-s4 .gal-media { aspect-ratio:4/5; } .gal-s12 .gal-media { aspect-ratio:21/9; }
-    .gal-media img { width:100%; height:100%; object-fit:cover; display:block; filter:brightness(.88); transition:filter .35s; }
-    .gal-item:hover .gal-media img { filter:brightness(1); }
-    .gal-ph { position:absolute; inset:0; background:var(--surface2); }
-    .gal-caption { padding:14px 16px; border-top:1px solid var(--border); }
-    .gal-cap-num { font-family:var(--fm); font-size:18px; letter-spacing:.07em; color:var(--accent); margin-bottom:5px; }
-    .gal-cap-text { font-size:20px; color:var(--text-sub); line-height:1.6; }
-    .artistic-quote { border-left:2px solid var(--border2); padding:8px 22px; margin-bottom:24px; }
-    .artistic-quote p { font-family:var(--fd); font-size:19px; font-weight:600; color:var(--text-sub); line-height:1.65; }
-    .deployment-list { display:flex; flex-direction:column; gap:4px; margin-bottom:28px; }
-    .deploy-row { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:16px 20px; background:var(--surface); border:1px solid var(--border); border-radius:3px; transition:background .18s; flex-wrap:wrap; }
-    .deploy-row:hover { background:var(--surface2); }
-    .deploy-title { font-size:21px; color:var(--text); margin-bottom:3px; }
-    .deploy-role { font-family:var(--fm); font-size:18px; letter-spacing:.03em; color:var(--text-dim); }
-    .deploy-year { font-family:var(--fm); font-size:18px; letter-spacing:.04em; color:var(--accent); flex-shrink:0; }
-    .roles-box { background:var(--surface); border:1px solid var(--border); padding:28px 32px; margin-bottom:56px; display:grid; grid-template-columns:1fr 1fr; gap:28px; border-radius:4px; }
-    @media(max-width:600px){ .roles-box { grid-template-columns:1fr; } }
-    .roles-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
-    .roles-list li { font-size:21px; color:var(--text); padding-left:18px; position:relative; }
-    .roles-list li::before { content:'·'; position:absolute; left:0; color:var(--accent); font-size:20px; line-height:1.3; }
-    .roles-desc { font-size:21px; color:var(--text-sub); line-height:1.8; }
-    .related-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:40px; }
-    @media(max-width:900px){ .related-grid { grid-template-columns:1fr 1fr; } }
-    @media(max-width:500px){ .related-grid { grid-template-columns:1fr; } }
-    .related-card { background:var(--surface); border:1px solid var(--border); padding:20px 22px; text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:6px; transition:background .18s,border-color .18s; border-radius:4px; }
-    .related-card:hover { background:var(--surface2); border-color:var(--border2); }
-    .related-cat { font-family:var(--fm); font-size:18px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); }
-    .related-title { font-family:var(--fd); font-size:21px; font-weight:700; color:var(--text); transition:color .18s; }
-    .related-card:hover .related-title { color:var(--accent-lt); }
-    .related-sub { font-size:19px; color:var(--text-sub); line-height:1.6; }
-    .related-arrow { font-size:19px; color:var(--text-dim); margin-top:auto; padding-top:8px; }
-    .collab-block { background:var(--surface); border:1px solid var(--border); border-left:2px solid var(--accent); padding:20px 28px; margin-bottom:56px; border-radius:0 4px 4px 0; }
-    .collab-block p { font-size:21px; color:var(--text); line-height:1.8; }
-    .collab-block a { color:var(--accent-lt); text-decoration:underline; text-underline-offset:3px; }
-    .collab-block a:hover { color:var(--accent); }
-    .contact-block { background:var(--surface); border:1px solid var(--border); padding:32px 36px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; margin-bottom:56px; border-radius:4px; }
-    .contact-block h3 { font-family:var(--fd); font-size:20px; font-weight:700; margin-bottom:6px; }
-    .contact-block p { font-size:21px; color:var(--text-sub); }
-    .contact-cta { font-family:var(--fm); font-size:17px; letter-spacing:.05em; text-transform:uppercase; color:var(--text); text-decoration:none; border:1px solid var(--border2); padding:11px 24px; transition:all .2s; white-space:nowrap; border-radius:2px; }
-    .contact-cta:hover { background:var(--accent); color:#000; border-color:var(--accent); }
-    hr { border:none; border-top:1px solid var(--border); margin:52px 0; }
-    .detail-nav { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:28px; margin-top:52px; }
-    .detail-nav a { font-family:var(--fm); font-size:17px; letter-spacing:.05em; text-transform:uppercase; color:var(--text-sub); text-decoration:none; transition:color .2s; }
-    .detail-nav a:hover { color:var(--text); }
-    .detail-nav .back { color:var(--text); }
-    .r { opacity:0; transform:translateY(18px); transition:opacity .55s ease,transform .55s ease; }
-    .r.on { opacity:1; transform:none; }
-  </style>
-
+:root{
+  --bg:#f6f4f0;
+  --paper:#ffffff;
+  --ink:#151515;
+  --muted:#66615b;
+  --line:#d9d3ca;
+  --soft:#ece7df;
+  --accent:#1f1f1f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+.wrap{width:min(1120px,calc(100% - 48px));margin:0 auto}
+.topbar{
+  position:sticky;top:0;z-index:10;
+  background:rgba(246,244,240,.94);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{height:58px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.nav{display:flex;gap:18px;align-items:center;font-size:13px;color:var(--muted)}
+.hero{padding:72px 0 42px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:16px}
+h1{font-size:clamp(38px,7vw,72px);line-height:.98;letter-spacing:-.06em;font-weight:760;max-width:900px}
+.hero p{font-size:20px;line-height:1.55;color:var(--muted);max-width:760px;margin-top:22px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.pill{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 11px;font-size:13px;color:var(--muted)}
+.section{padding:46px 0;border-bottom:1px solid var(--line)}
+.section-title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:18px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{
+  display:block;background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:28px;min-height:260px;transition:transform .12s ease,border-color .12s ease,background .12s ease;
+}
+.card:hover{transform:translateY(-2px);border-color:#aaa39a;text-decoration:none}
+.num{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:18px}
+.card h2{font-size:32px;line-height:1.05;letter-spacing:-.04em;margin-bottom:12px}
+.role{font-size:15px;color:var(--muted);margin-bottom:22px}
+.focus{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.focus span{font-size:12px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:5px 8px;color:var(--muted);background:var(--bg)}
+.case-layout{display:grid;grid-template-columns:300px 1fr;gap:46px;align-items:start}
+.side{position:sticky;top:82px}
+.side-box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
+.side-label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:8px}
+.side-text{font-size:15px;color:var(--ink);line-height:1.6}
+.content{min-width:0}
+.block{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:26px;margin-bottom:16px}
+.block h2{font-size:26px;line-height:1.15;letter-spacing:-.03em;margin-bottom:14px}
+.block h3{font-size:17px;margin:18px 0 8px}
+.block p{color:var(--muted);margin-bottom:12px}
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:10px;color:var(--muted)}
+ul.clean li{position:relative;padding-left:18px}
+ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
+.workflow{display:grid;gap:10px;margin-top:8px}
+.step{display:grid;grid-template-columns:86px 1fr;gap:16px;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.step-num{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.step h3{font-size:17px;margin:0 0 6px}
+.step p{margin:0;color:var(--muted)}
+.table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:table}
+.table th,.table td{border-bottom:1px solid var(--line);padding:13px 14px;text-align:left;vertical-align:top}
+.table th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--soft)}
+.table td{font-size:15px;color:var(--muted)}
+.table td:first-child{color:var(--ink);font-weight:700;width:28%}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.media-slot{border:1px dashed #aaa39a;background:var(--bg);border-radius:10px;min-height:180px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;text-align:center;padding:18px}
+.footer{padding:28px 0 54px;color:var(--muted);font-size:14px}
+@media(max-width:820px){
+  .wrap{width:min(100% - 28px,1120px)}
+  .topbar-inner{height:auto;min-height:58px;padding:14px 0;align-items:flex-start;flex-direction:column;gap:8px}
+  .nav{flex-wrap:wrap;gap:10px}
+  .hero{padding:48px 0 32px}
+  .grid-2,.case-layout,.media-grid{grid-template-columns:1fr}
+  .side{position:static}
+  .card{min-height:0}
+  .card h2{font-size:28px}
+  .step{grid-template-columns:1fr;gap:6px}
+}
+</style>
 </head>
 <body>
-
-<nav>
-  <a href="../index.html" class="nav-back">← Portfolio</a>
-  <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#case-studies">Case Studies</a></li>
-    <li><a href="#pipeline">Pipeline</a></li>
-    <li><a href="#contributions">Contributions</a></li>
-    <li><a href="#links">Official Links</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- 01 HERO -->
-<div class="detail-hero">
-  <div class="detail-cat r">DreamWorks Animation · Technical Direction Portfolio · Fall 2026</div>
-  <h1 class="detail-title r">Artist-Facing Tools,<br>Character Pipelines,<br>Real-Time Worlds</h1>
-  <div class="detail-subtitle r">Selected technical art work by Jonghoon Ahn for the Technical Direction Intern role</div>
-  <div class="detail-meta r">
-    <div class="detail-meta-item">
-      <span class="detail-meta-label">Role Focus</span>
-      <span class="detail-meta-value">Technical Artist · Pipeline Artist · Real-Time Character Systems</span>
-    </div>
-    <div class="detail-meta-item">
-      <span class="detail-meta-label">Tools</span>
-      <span class="detail-meta-value">Python · Maya · MotionBuilder · UE5 · MetaHuman · Unity · Houdini · C# · Git</span>
-    </div>
-    <div class="detail-meta-item">
-      <span class="detail-meta-label">Portfolio Link</span>
-      <span class="detail-meta-value"><a href="https://jonghoonahn.com/dreamworkstd" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">jonghoonahn.com/dreamworkstd</a></span>
-    </div>
-    <div class="detail-meta-item">
-      <span class="detail-meta-label">Availability</span>
-      <span class="detail-meta-value">U.S. PR · Work Authorized · LA / Bay Area</span>
-    </div>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="dreamworkstd.html">Jonghoon Ahn · DreamWorks TD Portfolio</a>
+    <nav class="nav">
+      <a href="dreamworkstd-yaloo-digital-human.html">Yaloo</a>
+      <a href="dreamworkstd-real-people-to-metahumans.html">MetaHumans</a>
+      <a href="dreamworkstd-motion-capture-pipeline.html">Mocap</a>
+      <a href="dreamworkstd-real-time-cloud-game.html">Cloud Game</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#experience">Experience</a>
+      <a href="#awards">Awards</a>
+    </nav>
   </div>
-  <div class="hero-tags r">
-    <span class="hero-tag">Artist-Facing Tools</span>
-    <span class="hero-tag">Character Pipeline</span>
-    <span class="hero-tag">Digital Human</span>
-    <span class="hero-tag">Mocap Cleanup</span>
-    <span class="hero-tag">Retargeting</span>
-    <span class="hero-tag">UE5 Sequencer</span>
-    <span class="hero-tag">Unity Shaders</span>
-    <span class="hero-tag">Real-Time Graphics</span>
-  </div>
-</div>
-
-<!-- HERO MEDIA PLACEHOLDER -->
-<div class="detail-banner r">
-  <div style="position:relative;padding:56.25% 0 0 0;background:var(--surface2);border:1px solid var(--border);border-radius:4px;overflow:hidden;">
-    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;color:var(--text-sub);font-family:var(--fm);font-size:18px;letter-spacing:.05em;text-transform:uppercase;">
-      [ HERO REEL PLACEHOLDER ]<br>Replace with Vimeo / YouTube iframe or image montage
+</header>
+<main>
+  <section class="hero wrap">
+    <div class="kicker">Selected Case Studies · Technical Direction Intern</div>
+    <h1>Production-minded TD work for artists, characters, mocap, and real-time systems.</h1>
+    <p>Four focused case studies showing how I break artist needs into repeatable workflows, organize production data, test and debug technical systems, and deliver assets that can be reviewed, iterated, and used downstream.</p>
+    <div class="meta">
+      <span class="pill">Artist-Facing Tools</span>
+      <span class="pill">Character Pipeline</span>
+      <span class="pill">Mocap / Retargeting</span>
+      <span class="pill">Real-Time Graphics</span>
+      <span class="pill">Python / C# / UE5 / Unity</span>
     </div>
-  </div>
-</div>
+  </section>
 
-<div class="detail-content">
-
-  <!-- 02 SNAPSHOT -->
-  <div class="sec-label r">Portfolio Snapshot</div>
-  <div class="snapshot-grid r">
-    <div class="snapshot-cell">
-      <div class="snapshot-label">Target Role</div>
-      <div class="snapshot-val">Technical Direction Intern · DreamWorks Animation</div>
+  <section class="section wrap">
+    <div class="section-title">Selected Case Studies</div>
+    <div class="grid-2">
+      <a class="card" href="dreamworkstd-yaloo-digital-human.html">
+        <div class="num">01</div>
+        <h2>Yaloo Digital Human Pipeline</h2>
+        <div class="role">Technical Artist / Digital Human TD · 2024—Present</div>
+        <p>Built a repeatable digital-human character pipeline for age and likeness variation, from reference organization and facial setup to UE5 delivery and exhibition support.</p>
+        <div class="focus"><span>Character Pipeline</span><span>Blend Shapes</span><span>UE5 Delivery</span><span>Artist Support</span></div>
+      </a>
+      <a class="card" href="dreamworkstd-real-people-to-metahumans.html">
+        <div class="num">02</div>
+        <h2>Real People to MetaHumans</h2>
+        <div class="role">Technical Artist · 2026</div>
+        <p>Converted ten real participants into MetaHuman characters through a consistent intake, identity-matching, setup, QA, and handoff process.</p>
+        <div class="focus"><span>Data Wrangling</span><span>Standardization</span><span>Character Prep</span><span>QA</span></div>
+      </a>
+      <a class="card" href="dreamworkstd-motion-capture-pipeline.html">
+        <div class="num">03</div>
+        <h2>Motion Capture Pipeline</h2>
+        <div class="role">Motion Capture Specialist · 2025</div>
+        <p>Managed performer capture through cleanup, retargeting, validation, and real-time animation handoff so artists could evaluate performance instead of debugging files.</p>
+        <div class="focus"><span>Capture</span><span>Cleanup</span><span>Retargeting</span><span>Animation Handoff</span></div>
+      </a>
+      <a class="card" href="dreamworkstd-real-time-cloud-game.html">
+        <div class="num">04</div>
+        <h2>Real-time Cloud Game</h2>
+        <div class="role">Technical Artist / TD · 2025—2026</div>
+        <p>Developed Unity raymarching visuals and blendshape-driven animation controls while supporting shot blocking, debugging, and playable real-time delivery.</p>
+        <div class="focus"><span>Shader</span><span>Raymarching</span><span>Tool Controls</span><span>Virtual Camera</span></div>
+      </a>
     </div>
-    <div class="snapshot-cell">
-      <div class="snapshot-label">Core Strength</div>
-      <div class="snapshot-val">Connecting artists, directors, and real-time production through reliable technical workflows</div>
+  </section>
+
+  <section class="section wrap" id="profile">
+    <div class="section-title">Profile</div>
+    <div class="block">
+      <p>Technical Artist and Creative Technologist focused on artist-facing tools, character pipelines, and real-time production support. I work between artists, directors, rigs, data, and engines: translating creative goals into repeatable technical workflows, debugging production issues, and preparing assets for iteration and delivery.</p>
+      <p>My background includes MetaHuman / UE5 character setup, Maya and MotionBuilder retargeting, blend shapes, mocap cleanup, Unity shaders and raymarching, Python / C# tooling, Git-based workflow, and hands-on technical support for artists. Incoming UC Santa Barbara Media Arts and Technology PhD student beginning September 2026.</p>
     </div>
-    <div class="snapshot-cell">
-      <div class="snapshot-label">Character Pipeline</div>
-      <div class="snapshot-val">Digital humans, MetaHuman workflows, facial setup, mocap cleanup, retargeting, blendshapes</div>
-    </div>
-    <div class="snapshot-cell">
-      <div class="snapshot-label">Real-Time Systems</div>
-      <div class="snapshot-val">Unity / UE5 prototypes, shader systems, raymarching visuals, cinematic playback, and real-time scene delivery</div>
-    </div>
-    <div class="snapshot-cell wide">
-      <div class="snapshot-label">Technical Direction Fit</div>
-      <div class="snapshot-val">This page highlights four selected production-facing works: digital human pipelines, repeatable MetaHuman workflows, mocap cleanup / retargeting, real-time graphics, debugging, artist support, and performance-aware delivery.</div>
-    </div>
-  </div>
+  </section>
 
-  <hr class="r">
+  <section class="section wrap" id="pipeline">
+    <div class="section-title">Pipeline &amp; Tool Development</div>
+    <table class="table"><tbody>
+      <tr><td>Character pipeline</td><td>Built repeatable digital-human workflows for facial setup, blendshape testing, MetaHuman / UE5 integration, material checks, and real-time delivery.</td></tr>
+      <tr><td>Data organization</td><td>Organized scan, reference, capture, and review data into consistent folder structures and naming rules so assets could be tracked across subjects and iterations.</td></tr>
+      <tr><td>Mocap cleanup &amp; retargeting</td><td>Prepared performance data for downstream artists by cleaning motion, checking skeleton mismatch, validating body weight / feet / scale, and exporting usable animation assets.</td></tr>
+      <tr><td>Real-time graphics systems</td><td>Prototyped shader and raymarching systems in Unity, exposed controllable parameters for iteration, and connected technical systems to camera blocking and scene delivery.</td></tr>
+    </tbody></table>
+  </section>
 
-  <!-- 03 MY ROLE -->
-  <div class="sec-label r">My Role</div>
-  <div class="detail-body r">
-    <div class="detail-desc">
-      <p>I work as a creative technologist and technical artist, building the bridge between visual intention and production systems. My projects often begin with an artist or director's image, character, or emotional target, then become a reproducible workflow through rigging, capture, shader systems, compositing, real-time engines, and technical iteration.</p>
-    </div>
-    <div class="detail-desc">
-      <ul>
-        <li>Built digital human and MetaHuman production workflows for real people and exhibition characters</li>
-        <li>Cleaned mocap data and retargeted performances across MotionBuilder, Maya, UE5, and Unity</li>
-        <li>Developed Unity shader / raymarching systems and real-time cinematic sequences</li>
-        <li>Supported artists and directors through debugging, scene setup, technical documentation, and iteration</li>
-        <li>Organized production-facing assets, reference data, character setups, and technical notes for repeatable artist workflows</li>
-      </ul>
-    </div>
-  </div>
+  <section class="section wrap" id="skills">
+    <div class="section-title">Skills</div>
+    <table class="table"><tbody>
+      <tr><td>Programming</td><td>Python · C# · C++ · JavaScript · Git · pipeline scripting · automation</td></tr>
+      <tr><td>Pipeline &amp; Tools</td><td>Artist support · debugging · testing · data wrangling · documentation · naming conventions · UX / UI thinking · Jira-style production tracking</td></tr>
+      <tr><td>Real-Time &amp; Graphics</td><td>Unreal Engine 5 · Unity · Blueprints · Sequencer · shaders · raymarching · VFX Graph · virtual camera workflows</td></tr>
+      <tr><td>Character &amp; DCC</td><td>Maya · Houdini · Nuke · MetaHuman · MotionBuilder · retargeting · blend shapes · rigging · facial setup</td></tr>
+    </tbody></table>
+  </section>
 
-  <hr class="r">
+  <section class="section wrap" id="experience">
+    <div class="section-title">Additional Experience</div>
+    <table class="table"><tbody>
+      <tr><td>Teaching Assistant — Graduate Program<br><span style="color:var(--muted);font-weight:400">California Institute of the Arts · Valencia, CA · 2024—2025</span></td><td>Supported MFA productions by debugging UE5, Unity AR, real-time rendering, and AI image workflows; translated technical problems into usable steps for artists.</td></tr>
+      <tr><td>XR Game Developer<br><span style="color:var(--muted);font-weight:400">RedFlight AI · Seoul, Korea · 2024</span></td><td>Prototyped NLP-based character scenes and real-time XR interactions in Unity for Meta Quest 3, balancing technical constraints with scene design and user interaction.</td></tr>
+      <tr><td>Lead Developer — Research Program<br><span style="color:var(--muted);font-weight:400">Kookmin University · Seoul, Korea · 2019—2022</span></td><td>Led real-time AR / MR installation development for national museum exhibitions and built an AI-powered museum docent using OpenCV and Azure Kinect.</td></tr>
+    </tbody></table>
+  </section>
 
-  <!-- 04 TECHNICAL SCOPE -->
-  <div class="sec-label r">Technical Scope</div>
-  <div class="tech-grid r">
-    <div class="tech-block">
-      <div class="tech-block-icon">// Character</div>
-      <div class="tech-block-title">Digital Human Pipeline</div>
-      <p>MetaHuman setup, likeness iteration, Maya blendshape and retargeting workflows, MotionBuilder cleanup, real-time character preparation, facial pipeline testing, and exhibition delivery.</p>
-    </div>
-    <div class="tech-block">
-      <div class="tech-block-icon">// Real-Time</div>
-      <div class="tech-block-title">Tools & Systems</div>
-      <p>Unity / Unreal prototypes, shader systems, raymarching visuals, C# / Blueprint logic, cinematic camera blocking, playback loops, and performance-aware real-time scenes.</p>
-    </div>
-    <div class="tech-block">
-      <div class="tech-block-icon">// Production</div>
-      <div class="tech-block-title">Artist-Facing Workflow</div>
-      <p>Documentation, naming conventions, asset preparation, debugging, scene organization, performance-aware delivery, and communication across technical and creative teams.</p>
-    </div>
-  </div>
+  <section class="section wrap" id="education">
+    <div class="section-title">Education</div>
+    <table class="table"><tbody>
+      <tr><td>PhD, Media Arts and Technology</td><td>UC Santa Barbara · Incoming 2026</td></tr>
+      <tr><td>MFA, Art and Technology</td><td>California Institute of the Arts · 2025</td></tr>
+      <tr><td>BFA, Entertainment Design</td><td>Kookmin University · 2022</td></tr>
+    </tbody></table>
+  </section>
 
-  <hr class="r">
+  <section class="section wrap" id="awards">
+    <div class="section-title">Awards &amp; Fellowships</div>
+    <table class="table"><tbody>
+      <tr><td>Academy Nicholl Fellowships — Official Partner Entrant</td><td>2025</td></tr>
+      <tr><td>CJ &amp; TIFF K-Story Fund — Shortlist (Feature Screenplay)</td><td>2025</td></tr>
+      <tr><td>Art Korea Lab Super Testbed — Lab Participant, Seoul</td><td>2025</td></tr>
+      <tr><td>Sundance Ignite &times; Adobe Fellowship — Finalist</td><td>2024</td></tr>
+      <tr><td>Television Academy Foundation (SFX &amp; New Media) — Finalist</td><td>2024</td></tr>
+      <tr><td>1st Prize — Team X Design, Kookmin University</td><td>2019</td></tr>
+    </tbody></table>
+  </section>
+</main>
+<footer class="footer wrap">jonghoonahn.com/dreamworkstd · hoonahncloud@gmail.com</footer>
 
-  <!-- 05 CASE STUDIES -->
-  <div class="sec-label r" id="case-studies">Selected Case Studies</div>
-
-  <div class="pipeline-step r">
-    <div class="pipeline-img"><div class="pipeline-placeholder" data-label="Yaloo Digital Human Media"></div></div>
-    <div class="pipeline-info">
-      <div class="pipeline-num">01 — DIGITAL HUMAN PIPELINE · 2024 — PRESENT</div>
-      <div class="pipeline-title">Yaloo Digital Human Pipeline</div>
-      <div class="pipeline-sub">Role</div>
-      <div class="pipeline-sub-text">Technical Artist / Digital Human TD · Los Angeles & Seoul</div>
-      <div class="pipeline-sub">Work</div>
-      <div class="pipeline-desc"><ul>
-        <li>Built a repeatable digital human pipeline for age and likeness variation, including child and elderly versions of Yaloo and a digital reconstruction of Yaloo's grandmother.</li>
-        <li>Produced each age and likeness variant as a real-time-ready character for exhibition, including facial setup, blend shapes, and UE5 / MetaHuman delivery.</li>
-        <li>Provided technical support across production and delivered real-time exhibition builds for Songeun Art Award, Gyeonggi MoMA, and West Seoul Museum of Art.</li>
-      </ul></div>
-      <div class="pipeline-result"><span class="pipeline-result-lbl">TD Relevance</span>Shows end-to-end character pipeline ownership: likeness iteration, facial setup, blendshape preparation, engine delivery, artist support, and exhibition-ready real-time builds.</div>
-      <div class="pipeline-tags"><span class="ptag">Digital Human</span><span class="ptag">MetaHuman</span><span class="ptag">UE5</span><span class="ptag">Maya</span><span class="ptag">Blendshapes</span><span class="ptag">Exhibition Build</span></div>
-    </div>
-  </div>
-
-  <div class="pipeline-step r">
-    <div class="pipeline-info">
-      <div class="pipeline-num">02 — SCALABLE CHARACTER WORKFLOW · 2026</div>
-      <div class="pipeline-title">Real People to MetaHumans</div>
-      <div class="pipeline-sub">Role</div>
-      <div class="pipeline-sub-text">Technical Artist · Jung Hye-jeong Artist Project</div>
-      <div class="pipeline-sub">Work</div>
-      <div class="pipeline-desc"><ul>
-        <li>Converted 10 real participants into MetaHuman characters through a standardized, data-driven workflow for facial structure, identity matching, and real-time setup.</li>
-        <li>Wrangled and organized scan / reference data across subjects to keep character preparation consistent and repeatable at production scale.</li>
-      </ul></div>
-      <div class="pipeline-result"><span class="pipeline-result-lbl">TD Relevance</span>Demonstrates production-scale standardization: multiple human subjects, repeated character preparation, organized data, and a reliable workflow that can be reused by artists.</div>
-      <div class="pipeline-tags"><span class="ptag">MetaHuman</span><span class="ptag">Data Wrangling</span><span class="ptag">Identity Matching</span><span class="ptag">Character Prep</span><span class="ptag">Pipeline Standardization</span></div>
-    </div>
-    <div class="pipeline-img"><div class="pipeline-placeholder" data-label="Real People to MetaHumans Media"></div></div>
-  </div>
-
-  <div class="pipeline-step r">
-    <div class="pipeline-img"><div class="pipeline-placeholder" data-label="Motion Capture Pipeline Media"></div></div>
-    <div class="pipeline-info">
-      <div class="pipeline-num">03 — MOTION CAPTURE PIPELINE · 2025</div>
-      <div class="pipeline-title">Motion Capture Pipeline</div>
-      <div class="pipeline-sub">Role</div>
-      <div class="pipeline-sub-text">Motion Capture Specialist · Stella Lee Project</div>
-      <div class="pipeline-sub">Work</div>
-      <div class="pipeline-desc"><ul>
-        <li>Owned the performance-capture workflow on the project, from on-set capture to delivery of retargeted, real-time animation.</li>
-        <li>Cleaned and organized mocap data, supported retargeting workflows, and prepared animation assets for real-time character integration.</li>
-      </ul></div>
-      <div class="pipeline-result"><span class="pipeline-result-lbl">TD Relevance</span>Shows capture-to-engine pipeline thinking: data cleanup, retargeting, animation delivery, and technical handoff between performance, DCC tools, and real-time characters.</div>
-      <div class="pipeline-tags"><span class="ptag">Mocap Cleanup</span><span class="ptag">Retargeting</span><span class="ptag">MotionBuilder</span><span class="ptag">Maya</span><span class="ptag">Real-Time Animation</span></div>
-    </div>
-  </div>
-
-  <div class="pipeline-step r">
-    <div class="pipeline-info">
-      <div class="pipeline-num">04 — REAL-TIME SHADER SYSTEM · 2025 — 2026</div>
-      <div class="pipeline-title">Real-time Cloud Game</div>
-      <div class="pipeline-sub">Role</div>
-      <div class="pipeline-sub-text">Technical Artist / Technical Director · Erick Oh Indie Game</div>
-      <div class="pipeline-sub">Work</div>
-      <div class="pipeline-desc"><ul>
-        <li>Developed raymarching visuals and blendshape-driven animation systems in Unity for cinematic real-time scenes.</li>
-        <li>Directed technical implementation, shot composition, and virtual camera blocking, translating concept art into playable real-time environments.</li>
-      </ul></div>
-      <div class="pipeline-result"><span class="pipeline-result-lbl">TD Relevance</span>Shows real-time graphics implementation, shader prototyping, cinematic layout, virtual camera blocking, and artist-driven technical problem solving.</div>
-      <div class="pipeline-tags"><span class="ptag">Unity</span><span class="ptag">Shader</span><span class="ptag">Raymarching</span><span class="ptag">Blendshapes</span><span class="ptag">Virtual Camera</span><span class="ptag">Cinematic Blocking</span></div>
-    </div>
-    <div class="pipeline-img"><div class="pipeline-placeholder" data-label="Real-Time Cloud Game Media"></div></div>
-  </div>
-
-  <hr class="r" id="contributions">
-
-  <!-- 06 TECHNICAL CONTRIBUTIONS TABLE -->
-  <div class="sec-label r">Technical Contributions</div>
-  <div class="contrib-wrap r">
-    <table class="contrib-table">
-      <thead><tr><th>Area</th><th>Representative Work</th><th>Tools / Concepts</th></tr></thead>
-      <tbody>
-        <tr><td>Digital Human Pipeline</td><td>Yaloo Digital Human Pipeline, Real People to MetaHumans</td><td>MetaHuman, UE5, Maya, facial setup, blendshapes, likeness iteration</td></tr>
-        <tr><td>Data Wrangling</td><td>Organized scan / reference data across 10 real participants for repeatable character preparation</td><td>Reference management, naming conventions, production-scale consistency</td></tr>
-        <tr><td>Mocap / Retargeting</td><td>Stella Lee performance-capture workflow from on-set capture to retargeted real-time animation</td><td>MotionBuilder, Maya, retargeting, mocap cleanup, animation handoff</td></tr>
-        <tr><td>Real-Time Graphics</td><td>Real-time Cloud Game shader, raymarching visuals, blendshape-driven animation, cinematic scenes</td><td>Unity, C#, shaders, raymarching, virtual camera, real-time scene delivery</td></tr>
-        <tr><td>Artist Support</td><td>Technical support for artists and directors across character setup, scene iteration, debugging, and delivery</td><td>Documentation, pipeline notes, asset organization, debugging</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <hr class="r" id="pipeline">
-
-  <!-- 07 PRODUCTION PIPELINE PRINCIPLES -->
-  <div class="sec-label r">Production Pipeline Principles</div>
-  <div class="roles-box r">
-    <ul class="roles-list">
-      <li>Keep character workflows repeatable across subjects, revisions, and exhibition builds</li>
-      <li>Make technical systems understandable and usable for artists and directors</li>
-      <li>Debug the bridge between capture data, DCC software, and real-time engines</li>
-      <li>Organize reference, scan, and animation data so assets can be prepared consistently</li>
-      <li>Balance visual intention with performance, playback stability, and technical delivery</li>
-    </ul>
-    <div class="roles-desc">Across these four works, my role is closest to a production-facing technical artist: turning creative goals into executable pipelines, repeatable data structures, real-time-ready characters, mocap/retargeting workflows, and shader-based scenes that artists can actually use and iterate on.</div>
-  </div>
-
-  <hr class="r" id="links">
-
-  <!-- 08 OFFICIAL LINKS -->
-  <div class="sec-label r">Official Links</div>
-  <div class="deployment-list r">
-    <a class="deploy-row" href="https://www.oscars.org/official-nicholl-partners#:~:text=Jonghoon%20Ahn,%20THE%20SILENCE%20WE%20SHARE" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
-      <div><div class="deploy-title">Academy Nicholl Fellowships — Official Partner Listing</div><div class="deploy-role">Official Oscars / Academy page</div></div>
-      <div class="deploy-year">View ↗</div>
-    </a>
-    <a class="deploy-row" href="https://calarts.edu/unbound/speakers" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
-      <div><div class="deploy-title">CalArts Unbound — AI Symposium</div><div class="deploy-role">CalArts official speaker page</div></div>
-      <div class="deploy-year">View ↗</div>
-    </a>
-    <a class="deploy-row" href="https://projectarchive.art.calarts.edu/project/generated-cinema/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
-      <div><div class="deploy-title">Generated Cinema — CalArts Project Archive</div><div class="deploy-role">Official project archive</div></div>
-      <div class="deploy-year">View ↗</div>
-    </a>
-    <a class="deploy-row" href="https://independentshortsawards.com/2024/01/15/non-done-record/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
-      <div><div class="deploy-title">Independent Shorts Awards — Non-done Record</div><div class="deploy-role">English awards page</div></div>
-      <div class="deploy-year">Read ↗</div>
-    </a>
-    <a class="deploy-row" href="https://voyagela.com/interview/conversations-with-jonghoon-ahn/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
-      <div><div class="deploy-title">VoyageLA — Interview</div><div class="deploy-role">Artist / Creative Technologist profile</div></div>
-      <div class="deploy-year">Read ↗</div>
-    </a>
-  </div>
-
-  <hr class="r">
-
-  <div class="contact-block r" id="contact">
-    <div>
-      <h3>Contact</h3>
-      <p>For portfolio review, demo reels, production notes, or technical breakdown materials, please get in touch.</p>
-    </div>
-    <a href="#" class="contact-cta" id="contactEmail">Get in Touch ↗</a>
-  </div>
-
-  <div class="detail-nav r">
-    <a href="../index.html">← Main Portfolio</a>
-    <a href="https://jonghoonahn.com" class="back" target="_blank" rel="noopener noreferrer">jonghoonahn.com</a>
-    <span></span>
-  </div>
-
-</div>
-
-<script>
-  const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
-  toggle.addEventListener('click',()=>links.classList.toggle('open'));
-  links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
-
-  (function(){
-    var e='hoonahncloud'+'@'+'gmail.com';
-    var el=document.getElementById('contactEmail');
-    if(el){ el.href='mailto:'+e; }
-  })();
-
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach((e,i)=>{
-      if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*55);io.unobserve(e.target);}
-    });
-  },{threshold:0.05});
-  document.querySelectorAll('.r').forEach(el=>io.observe(el));
-</script>
 </body>
 </html>

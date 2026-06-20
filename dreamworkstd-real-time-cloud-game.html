@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real-time Cloud Game · Jonghoon Ahn</title>
+  <style>
+:root{
+  --bg:#f6f4f0;
+  --paper:#ffffff;
+  --ink:#151515;
+  --muted:#66615b;
+  --line:#d9d3ca;
+  --soft:#ece7df;
+  --accent:#1f1f1f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+.wrap{width:min(1120px,calc(100% - 48px));margin:0 auto}
+.topbar{
+  position:sticky;top:0;z-index:10;
+  background:rgba(246,244,240,.94);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{height:58px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.nav{display:flex;gap:18px;align-items:center;font-size:13px;color:var(--muted)}
+.hero{padding:72px 0 42px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:16px}
+h1{font-size:clamp(38px,7vw,72px);line-height:.98;letter-spacing:-.06em;font-weight:760;max-width:900px}
+.hero p{font-size:20px;line-height:1.55;color:var(--muted);max-width:760px;margin-top:22px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.pill{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 11px;font-size:13px;color:var(--muted)}
+.section{padding:46px 0;border-bottom:1px solid var(--line)}
+.section-title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:18px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{
+  display:block;background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:28px;min-height:260px;transition:transform .12s ease,border-color .12s ease,background .12s ease;
+}
+.card:hover{transform:translateY(-2px);border-color:#aaa39a;text-decoration:none}
+.num{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:18px}
+.card h2{font-size:32px;line-height:1.05;letter-spacing:-.04em;margin-bottom:12px}
+.role{font-size:15px;color:var(--muted);margin-bottom:22px}
+.focus{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.focus span{font-size:12px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:5px 8px;color:var(--muted);background:var(--bg)}
+.case-layout{display:grid;grid-template-columns:300px 1fr;gap:46px;align-items:start}
+.side{position:sticky;top:82px}
+.side-box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
+.side-label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:8px}
+.side-text{font-size:15px;color:var(--ink);line-height:1.6}
+.content{min-width:0}
+.block{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:26px;margin-bottom:16px}
+.block h2{font-size:26px;line-height:1.15;letter-spacing:-.03em;margin-bottom:14px}
+.block h3{font-size:17px;margin:18px 0 8px}
+.block p{color:var(--muted);margin-bottom:12px}
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:10px;color:var(--muted)}
+ul.clean li{position:relative;padding-left:18px}
+ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
+.workflow{display:grid;gap:10px;margin-top:8px}
+.step{display:grid;grid-template-columns:86px 1fr;gap:16px;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.step-num{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.step h3{font-size:17px;margin:0 0 6px}
+.step p{margin:0;color:var(--muted)}
+.table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:table}
+.table th,.table td{border-bottom:1px solid var(--line);padding:13px 14px;text-align:left;vertical-align:top}
+.table th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--soft)}
+.table td{font-size:15px;color:var(--muted)}
+.table td:first-child{color:var(--ink);font-weight:700;width:28%}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.media-slot{border:1px dashed #aaa39a;background:var(--bg);border-radius:10px;min-height:180px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;text-align:center;padding:18px}
+.footer{padding:28px 0 54px;color:var(--muted);font-size:14px}
+@media(max-width:820px){
+  .wrap{width:min(100% - 28px,1120px)}
+  .topbar-inner{height:auto;min-height:58px;padding:14px 0;align-items:flex-start;flex-direction:column;gap:8px}
+  .nav{flex-wrap:wrap;gap:10px}
+  .hero{padding:48px 0 32px}
+  .grid-2,.case-layout,.media-grid{grid-template-columns:1fr}
+  .side{position:static}
+  .card{min-height:0}
+  .card h2{font-size:28px}
+  .step{grid-template-columns:1fr;gap:6px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="dreamworkstd.html">← DreamWorks TD Portfolio</a>
+    <nav class="nav">
+      <a href="#workflow">Workflow</a>
+      <a href="#responsibilities">TD Role</a>
+      <a href="#media">Media</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="hero wrap">
+    <div class="kicker">Case Study 04 · Real-Time Graphics / Unity TD · 2025—2026</div>
+    <h1>Real-time Cloud Game</h1>
+    <p>Developed raymarching visuals, controllable shader parameters, and blendshape-driven animation systems in Unity for cinematic real-time scenes.</p>
+    <div class="meta"><span class="pill">Technical Artist / Technical Director · Erick Oh Indie Game</span></div>
+  </section>
+
+  <section class="section wrap">
+    <div class="case-layout">
+      <aside class="side">
+        <div class="side-box">
+          <div class="side-label">Role</div>
+          <div class="side-text">Technical Artist / Technical Director · Erick Oh Indie Game</div>
+        </div>
+        <div class="side-box">
+          <div class="side-label">Tools / Focus</div>
+          <div class="side-text">Unity, C#, shaders, raymarching, blendshape animation, virtual camera blocking, playable scene delivery</div>
+        </div>
+        <div class="side-box">
+          <div class="side-label">Page Logic</div>
+          <div class="side-text">Problem → Ideation → Workflow → TD Responsibilities → Media Proof</div>
+        </div>
+      </aside>
+
+      <div class="content">
+        <div class="block">
+          <h2>Production Problem</h2>
+          <p>The project needed to translate a soft, cinematic cloud language into playable real-time scenes. The TD challenge was to preserve the visual intention of concept art while building systems that could be controlled, debugged, iterated, and run interactively.</p>
+        </div>
+        <div class="block">
+          <h2>Ideation / TD Approach</h2>
+          <p>I began by separating the visual goal into controllable technical parts: volume, softness, motion, transformation, timing, and camera readability. I then prototyped shader / raymarching solutions, exposed parameters for iteration, and connected the systems to blendshape animation and virtual camera blocking.</p>
+        </div>
+        <div class="block" id="workflow">
+          <h2>Workflow</h2>
+          <div class="workflow">
+<div class="step"><div class="step-num">Step 01</div><div><h3>Visual Targets</h3><p>Translated concept art and motion references into practical technical targets for cloud shape, density, softness, and movement.</p></div></div>
+<div class="step"><div class="step-num">Step 02</div><div><h3>Shader / Raymarching Prototype</h3><p>Built raymarching and shader tests in Unity to find a real-time visual language for soft volumetric forms.</p></div></div>
+<div class="step"><div class="step-num">Step 03</div><div><h3>Artist Controls</h3><p>Exposed adjustable parameters so timing, density, transformation, and scene feel could be iterated without rebuilding the system.</p></div></div>
+<div class="step"><div class="step-num">Step 04</div><div><h3>Animation &amp; Camera Blocking</h3><p>Connected blendshape-driven animation to shot timing, virtual camera placement, and cinematic scene composition.</p></div></div>
+<div class="step"><div class="step-num">Step 05</div><div><h3>Debugging &amp; Playable Delivery</h3><p>Iterated visuals and performance so the scenes could function as stable playable real-time environments.</p></div></div>
+          </div>
+        </div>
+        <div class="block" id="responsibilities">
+          <h2>My TD Responsibilities</h2>
+          <table class="table"><tbody>
+<tr><td>Technical Direction</td><td>Translated visual goals into working Unity systems with controllable parameters.</td></tr>
+<tr><td>Real-Time Graphics</td><td>Built shader and raymarching prototypes for cloud visuals and soft volumetric behavior.</td></tr>
+<tr><td>Tool / Control Design</td><td>Created practical controls for iteration so the look could be adjusted during production.</td></tr>
+<tr><td>Cinematic Workflow</td><td>Connected technical systems to shot composition, timing, and virtual camera blocking.</td></tr>
+<tr><td>Debugging / Delivery</td><td>Balanced visual quality and runtime stability for playable scene delivery.</td></tr>
+          </tbody></table>
+        </div>
+        <div class="block" id="media">
+          <h2>Media to Add</h2>
+          <p>Keep this section practical: use screenshots, breakdown images, short clips, and before / after comparisons that prove the workflow instead of only showing final renders.</p>
+          <div class="media-grid">
+<div class="media-slot">TODO: Replace with Cloud shader / raymarching test capture</div>
+<div class="media-slot">TODO: Replace with Unity scene view with camera blocking</div>
+<div class="media-slot">TODO: Replace with Blendshape animation control screenshot</div>
+<div class="media-slot">TODO: Replace with Playable scene capture</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer wrap"><a href="dreamworkstd.html">Back to selected case studies</a> · jonghoonahn.com/dreamworkstd</footer>
+
+</body>
+</html>
