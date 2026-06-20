@@ -98,9 +98,10 @@ ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
   <div class="wrap topbar-inner">
     <a class="brand" href="dreamworkstd.html">← DreamWorks TD Portfolio</a>
     <nav class="nav">
-      <a href="#workflow">Workflow</a>
-      <a href="#responsibilities">TD Role</a>
-      <a href="#media">Media</a>
+      <a href="#task">Task</a>
+      <a href="#implementation">Implementation</a>
+      <a href="#debugging">Debugging</a>
+      <a href="#evidence">Evidence</a>
     </nav>
   </div>
 </header>
@@ -108,7 +109,7 @@ ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
   <section class="hero wrap">
     <div class="kicker">Case Study 02 · Scalable Character Workflow · 2026</div>
     <h1>Real People to MetaHumans</h1>
-    <p>Converted 10 real participants into MetaHuman characters through a standardized workflow for reference intake, identity matching, character setup, QA, and real-time preparation.</p>
+    <p>Converted 10 real participants into MetaHuman characters through a standardized TD workflow for reference intake, identity matching, character setup, QA, and real-time preparation.</p>
     <div class="meta"><span class="pill">Technical Artist · Jung Hye-jeong Artist Project</span></div>
   </section>
 
@@ -121,51 +122,103 @@ ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
         </div>
         <div class="side-box">
           <div class="side-label">Tools / Focus</div>
-          <div class="side-text">MetaHuman, UE5, scan / reference organization, facial identity matching, data wrangling, character QA</div>
+          <div class="side-text">MetaHuman · UE5 · scan / photo reference organization · facial identity matching · data wrangling · character QA</div>
         </div>
         <div class="side-box">
           <div class="side-label">Page Logic</div>
-          <div class="side-text">Problem → Ideation → Workflow → TD Responsibilities → Media Proof</div>
+          <div class="side-text">Task → Problem → Constraint → Solution → Implementation → Debugging → Delivery → Evidence</div>
         </div>
       </aside>
 
       <div class="content">
+        <div class="block" id="task">
+          <h2>Project Task</h2>
+          <h3>Convert 10 real people into reviewable MetaHuman characters</h3>
+          <p>The task was to take real participant references and produce a consistent set of digital humans that could be reviewed, compared, and prepared for real-time use. The work was less about making one hero character and more about building a repeatable process that could hold up across ten different people.</p>
+        </div>
+
         <div class="block">
           <h2>Production Problem</h2>
-          <p>Ten real participants needed to be converted into digital characters with consistent preparation quality. The input data varied from subject to subject, but the output had to feel like one controlled production system: organized, reviewable, and repeatable.</p>
+          <ul class="clean">
+            <li>Each participant arrived with different reference quality, facial structure, lighting conditions, and available data.</li>
+<li>Likeness is subjective, so the process needed a review structure: what changed, why it changed, and what still needed artist feedback.</li>
+<li>Without data wrangling and naming rules, the project would quickly become ten disconnected character files instead of one controlled production pipeline.</li>
+          </ul>
         </div>
+
         <div class="block">
-          <h2>Ideation / TD Approach</h2>
-          <p>I built the workflow around standardization and review. Instead of treating each participant as a separate custom task, I used a consistent folder structure, naming logic, likeness notes, setup sequence, and QA pass so all ten characters could move through the same production pipeline.</p>
+          <h2>Constraints</h2>
+          <ul class="clean">
+            <li>Ten subjects needed consistent setup quality, even when input references were uneven.</li>
+<li>The artist needed to compare identity and presence, not debug missing files or inconsistent character states.</li>
+<li>The final characters had to be prepared as real-time assets rather than only static likeness studies.</li>
+          </ul>
         </div>
-        <div class="block" id="workflow">
-          <h2>Workflow</h2>
+
+        <div class="block">
+          <h2>TD Solution</h2>
+          <p>I built a standardized character-prep workflow: shared folder structure, clear subject IDs, reference boards, likeness notes, a repeated MetaHuman setup sequence, a group QA pass, and a final handoff format. The goal was to make every participant pass through the same pipeline so the artist could review differences in identity rather than differences in file organization.</p>
+        </div>
+
+        <div class="block" id="implementation">
+          <h2>Implementation Breakdown</h2>
           <div class="workflow">
-<div class="step"><div class="step-num">Step 01</div><div><h3>Data Intake</h3><p>Collected and organized scan / photo / reference material for each participant into consistent folders and naming rules.</p></div></div>
-<div class="step"><div class="step-num">Step 02</div><div><h3>Reference Normalization</h3><p>Compared face structure, silhouette, proportion, and expression references so each character had clear likeness targets.</p></div></div>
-<div class="step"><div class="step-num">Step 03</div><div><h3>MetaHuman Setup</h3><p>Created MetaHuman characters while keeping reference notes visible during iteration and review.</p></div></div>
-<div class="step"><div class="step-num">Step 04</div><div><h3>Consistency / QA Pass</h3><p>Checked all ten characters as a group for scale, material response, identity match, and production consistency.</p></div></div>
-<div class="step"><div class="step-num">Step 05</div><div><h3>Real-Time Prep &amp; Handoff</h3><p>Prepared characters for downstream UE5 review, artist feedback, and real-time use.</p></div></div>
+            <div class="step"><div class="step-num">Step 01</div><div><h3>Reference Intake &amp; Naming</h3><p>Collected scan / photo / expression references into a consistent folder structure. Each subject was assigned a trackable ID so every reference, setup file, screenshot, and review output stayed connected.</p></div></div>
+<div class="step"><div class="step-num">Step 02</div><div><h3>Reference Normalization</h3><p>Built comparison boards for front, side, three-quarter, silhouette, facial proportions, and expression cues. This gave the MetaHuman setup a concrete likeness target instead of relying on memory.</p></div></div>
+<div class="step"><div class="step-num">Step 03</div><div><h3>Base MetaHuman Setup</h3><p>Created an initial MetaHuman for each participant, matching large facial structure first: head shape, jaw, cheekbones, nose bridge, eye spacing, mouth width, and overall facial rhythm.</p></div></div>
+<div class="step"><div class="step-num">Step 04</div><div><h3>Identity Iteration</h3><p>Compared the character against the reference board, logged the biggest likeness mismatches, and adjusted the character in passes rather than changing everything at once.</p></div></div>
+<div class="step"><div class="step-num">Step 05</div><div><h3>Group Consistency QA</h3><p>Reviewed all ten characters together for scale, age readability, material response, hair / silhouette consistency, and whether the set felt like one production package.</p></div></div>
+<div class="step"><div class="step-num">Step 06</div><div><h3>Real-Time Prep &amp; Handoff</h3><p>Prepared final review states for UE5 / MetaHuman use, including organized screenshots, character files, notes, and a clean handoff structure for artist feedback.</p></div></div>
           </div>
         </div>
+
+        <div class="block" id="debugging">
+          <h2>Debugging / Iteration</h2>
+          <table class="table"><tbody>
+            <tr><td>Uneven reference data</td><td>Built a normalized reference board so each subject could still be reviewed with the same criteria.</td></tr>
+<tr><td>Subjective likeness feedback</td><td>Separated likeness into specific categories: silhouette, facial proportions, eye / nose / mouth spacing, material tone, and age impression.</td></tr>
+<tr><td>Scale drift across characters</td><td>Checked the ten characters as a group instead of only reviewing each file in isolation.</td></tr>
+<tr><td>Review confusion</td><td>Kept subject IDs, folders, screenshots, and notes consistent so feedback could point to the right asset quickly.</td></tr>
+<tr><td>Real-time readiness</td><td>Prepared the characters with downstream UE5 review in mind instead of stopping at a static MetaHuman look.</td></tr>
+          </tbody></table>
+        </div>
+
         <div class="block" id="responsibilities">
           <h2>My TD Responsibilities</h2>
           <table class="table"><tbody>
-<tr><td>Data Wrangling</td><td>Organized participant data so character preparation stayed trackable and repeatable across ten subjects.</td></tr>
-<tr><td>Workflow Standardization</td><td>Used the same setup and review structure for every character instead of inventing a new process each time.</td></tr>
-<tr><td>Character Setup</td><td>Converted real participants into MetaHuman-ready characters with identity matching in mind.</td></tr>
-<tr><td>QA / Consistency</td><td>Reviewed the group for scale, likeness quality, material response, and production readability.</td></tr>
-<tr><td>Artist Support</td><td>Prepared assets so the artist could compare identity and presence without debugging technical files.</td></tr>
+            <tr><td>Data Wrangling</td><td>Organized participant references, subject IDs, folders, and review materials so the work could be repeated across ten characters.</td></tr>
+<tr><td>Character Setup</td><td>Converted real participant references into MetaHuman-ready characters while tracking identity and facial structure changes.</td></tr>
+<tr><td>Workflow Standardization</td><td>Used one repeated setup and QA process instead of treating every participant as a one-off custom asset.</td></tr>
+<tr><td>QA / Review</td><td>Checked likeness, scale, material response, and group consistency before artist review.</td></tr>
+<tr><td>Artist Support</td><td>Prepared assets and comparison material so the artist could evaluate identity and presence without debugging technical files.</td></tr>
           </tbody></table>
         </div>
-        <div class="block" id="media">
-          <h2>Media to Add</h2>
-          <p>Keep this section practical: use screenshots, breakdown images, short clips, and before / after comparisons that prove the workflow instead of only showing final renders.</p>
+
+        <div class="block" id="delivery">
+          <h2>Final Delivery</h2>
+          <ul class="clean">
+            <li>10 MetaHuman-ready character setups</li>
+<li>Organized reference and review structure</li>
+<li>Group consistency pass across all subjects</li>
+<li>Artist-review package with comparison targets</li>
+<li>Clean handoff for real-time character iteration</li>
+          </ul>
+        </div>
+
+        <div class="block" id="evidence">
+          <h2>Visual / Technical Evidence to Add</h2>
+          <p>Use this section as proof of process: final result, technical screenshots, before / after comparisons, implementation views, debugging evidence, and handoff material.</p>
           <div class="media-grid">
-<div class="media-slot">TODO: Replace with Participant-to-character comparison grid</div>
-<div class="media-slot">TODO: Replace with Reference board / folder organization screenshot</div>
-<div class="media-slot">TODO: Replace with MetaHuman character setup screenshot</div>
-<div class="media-slot">TODO: Replace with Final group lineup or review board</div>
+            <div class="media-slot">TODO: Replace with 01 Final Result — 10-participant MetaHuman lineup</div>
+<div class="media-slot">TODO: Replace with 02 Before / After — participant reference → character result</div>
+<div class="media-slot">TODO: Replace with 03 Reference Board — front / side / three-quarter comparison</div>
+<div class="media-slot">TODO: Replace with 04 Data Structure — folder naming and subject IDs</div>
+<div class="media-slot">TODO: Replace with 05 Character Setup — MetaHuman editor / UE5 screen</div>
+<div class="media-slot">TODO: Replace with 06 Likeness Pass — facial proportion notes</div>
+<div class="media-slot">TODO: Replace with 07 Group QA — scale and material comparison</div>
+<div class="media-slot">TODO: Replace with 08 Iteration Notes — what changed between versions</div>
+<div class="media-slot">TODO: Replace with 09 Real-Time Prep — UE5 character review scene</div>
+<div class="media-slot">TODO: Replace with 10 Handoff Package — final folders / screenshots / notes</div>
           </div>
         </div>
       </div>
@@ -173,6 +226,5 @@ ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
   </section>
 </main>
 <footer class="footer wrap"><a href="dreamworkstd.html">Back to selected case studies</a> · jonghoonahn.com/dreamworkstd</footer>
-
 </body>
 </html>

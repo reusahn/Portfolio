@@ -98,9 +98,10 @@ ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
   <div class="wrap topbar-inner">
     <a class="brand" href="dreamworkstd.html">← DreamWorks TD Portfolio</a>
     <nav class="nav">
-      <a href="#workflow">Workflow</a>
-      <a href="#responsibilities">TD Role</a>
-      <a href="#media">Media</a>
+      <a href="#task">Task</a>
+      <a href="#implementation">Implementation</a>
+      <a href="#debugging">Debugging</a>
+      <a href="#evidence">Evidence</a>
     </nav>
   </div>
 </header>
@@ -108,7 +109,7 @@ ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
   <section class="hero wrap">
     <div class="kicker">Case Study 04 · Real-Time Graphics / Unity TD · 2025—2026</div>
     <h1>Real-time Cloud Game</h1>
-    <p>Developed raymarching visuals, controllable shader parameters, and blendshape-driven animation systems in Unity for cinematic real-time scenes.</p>
+    <p>Developed raymarching visuals, controllable shader parameters, blendshape-driven animation, and virtual camera blocking in Unity for cinematic real-time scenes.</p>
     <div class="meta"><span class="pill">Technical Artist / Technical Director · Erick Oh Indie Game</span></div>
   </section>
 
@@ -121,51 +122,104 @@ ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
         </div>
         <div class="side-box">
           <div class="side-label">Tools / Focus</div>
-          <div class="side-text">Unity, C#, shaders, raymarching, blendshape animation, virtual camera blocking, playable scene delivery</div>
+          <div class="side-text">Unity · C# · shaders · raymarching · blendshape animation · virtual camera blocking · playable scene delivery</div>
         </div>
         <div class="side-box">
           <div class="side-label">Page Logic</div>
-          <div class="side-text">Problem → Ideation → Workflow → TD Responsibilities → Media Proof</div>
+          <div class="side-text">Task → Problem → Constraint → Solution → Implementation → Debugging → Delivery → Evidence</div>
         </div>
       </aside>
 
       <div class="content">
+        <div class="block" id="task">
+          <h2>Project Task</h2>
+          <h3>Translate a cinematic cloud language into a playable real-time system</h3>
+          <p>The task was to turn a soft, filmic cloud visual language into an interactive real-time environment. The system needed to look cinematic, remain controllable for shot iteration, and run as a playable scene rather than a pre-rendered effect.</p>
+        </div>
+
         <div class="block">
           <h2>Production Problem</h2>
-          <p>The project needed to translate a soft, cinematic cloud language into playable real-time scenes. The TD challenge was to preserve the visual intention of concept art while building systems that could be controlled, debugged, iterated, and run interactively.</p>
+          <ul class="clean">
+            <li>Clouds are visually soft and volumetric, but real-time rendering needs hard performance limits.</li>
+<li>The director needed an image that could be composed cinematically, while the engine needed adjustable parameters, stable playback, and repeatable behavior.</li>
+<li>A beautiful shader test was not enough; the system had to connect visual controls, animation timing, and virtual camera blocking.</li>
+          </ul>
         </div>
+
         <div class="block">
-          <h2>Ideation / TD Approach</h2>
-          <p>I began by separating the visual goal into controllable technical parts: volume, softness, motion, transformation, timing, and camera readability. I then prototyped shader / raymarching solutions, exposed parameters for iteration, and connected the systems to blendshape animation and virtual camera blocking.</p>
+          <h2>Constraints</h2>
+          <ul class="clean">
+            <li>The visual language needed to preserve concept-art softness and atmosphere.</li>
+<li>Raymarching / volumetric tests had to stay within runtime performance limits.</li>
+<li>The system needed artist-adjustable parameters so scenes could be iterated without rewriting the shader each time.</li>
+<li>Camera composition had to work inside a playable scene, not only as a rendered still.</li>
+          </ul>
         </div>
-        <div class="block" id="workflow">
-          <h2>Workflow</h2>
+
+        <div class="block">
+          <h2>TD Solution</h2>
+          <p>I decomposed the cloud look into controllable technical parts: density, edge softness, noise scale, movement, transformation timing, depth, and camera readability. I prototyped raymarching / shader approaches, exposed parameters for iteration, connected them to blendshape-driven animation, and blocked shots in Unity so technical systems could support cinematic direction.</p>
+        </div>
+
+        <div class="block" id="implementation">
+          <h2>Implementation Breakdown</h2>
           <div class="workflow">
-<div class="step"><div class="step-num">Step 01</div><div><h3>Visual Targets</h3><p>Translated concept art and motion references into practical technical targets for cloud shape, density, softness, and movement.</p></div></div>
-<div class="step"><div class="step-num">Step 02</div><div><h3>Shader / Raymarching Prototype</h3><p>Built raymarching and shader tests in Unity to find a real-time visual language for soft volumetric forms.</p></div></div>
-<div class="step"><div class="step-num">Step 03</div><div><h3>Artist Controls</h3><p>Exposed adjustable parameters so timing, density, transformation, and scene feel could be iterated without rebuilding the system.</p></div></div>
-<div class="step"><div class="step-num">Step 04</div><div><h3>Animation &amp; Camera Blocking</h3><p>Connected blendshape-driven animation to shot timing, virtual camera placement, and cinematic scene composition.</p></div></div>
-<div class="step"><div class="step-num">Step 05</div><div><h3>Debugging &amp; Playable Delivery</h3><p>Iterated visuals and performance so the scenes could function as stable playable real-time environments.</p></div></div>
+            <div class="step"><div class="step-num">Step 01</div><div><h3>Visual Targets</h3><p>Translated concept art and motion references into technical targets for cloud density, softness, silhouette, motion speed, and camera readability.</p></div></div>
+<div class="step"><div class="step-num">Step 02</div><div><h3>Shader / Raymarching Prototype</h3><p>Built Unity shader and raymarching tests to find a real-time approach for soft volumetric forms.</p></div></div>
+<div class="step"><div class="step-num">Step 03</div><div><h3>Parameter Controls</h3><p>Exposed adjustable controls for density, noise, softness, timing, and transformation so the look could be tuned without rebuilding the system.</p></div></div>
+<div class="step"><div class="step-num">Step 04</div><div><h3>Blendshape Animation System</h3><p>Connected blendshape-driven animation to visual transformation and timing, allowing scene behavior to be directed rather than manually keyed everywhere.</p></div></div>
+<div class="step"><div class="step-num">Step 05</div><div><h3>Virtual Camera Blocking</h3><p>Blocked shots, camera distance, movement, and composition inside Unity to make the playable scene read cinematically.</p></div></div>
+<div class="step"><div class="step-num">Step 06</div><div><h3>Debugging &amp; Playable Delivery</h3><p>Balanced image quality and runtime stability, iterating shader cost, timing, camera readability, and scene playback.</p></div></div>
           </div>
         </div>
+
+        <div class="block" id="debugging">
+          <h2>Debugging / Iteration</h2>
+          <table class="table"><tbody>
+            <tr><td>Shader cost</td><td>Balanced raymarching quality with runtime performance by reducing unnecessary samples and testing visual thresholds.</td></tr>
+<tr><td>Flat cloud volume</td><td>Adjusted noise scale, density falloff, and edge softness so forms had readable depth.</td></tr>
+<tr><td>Flicker / unstable motion</td><td>Separated noise movement and animation timing so cloud motion felt intentional instead of random.</td></tr>
+<tr><td>Hard-to-tune look</td><td>Exposed practical parameters for density, softness, transformation, and timing so the scene could be iterated artistically.</td></tr>
+<tr><td>Cinematic readability</td><td>Used virtual camera blocking to test the effect as a shot rather than judging it only from scene view.</td></tr>
+          </tbody></table>
+        </div>
+
         <div class="block" id="responsibilities">
           <h2>My TD Responsibilities</h2>
           <table class="table"><tbody>
-<tr><td>Technical Direction</td><td>Translated visual goals into working Unity systems with controllable parameters.</td></tr>
+            <tr><td>Technical Direction</td><td>Translated visual goals into working Unity systems with controllable parameters.</td></tr>
 <tr><td>Real-Time Graphics</td><td>Built shader and raymarching prototypes for cloud visuals and soft volumetric behavior.</td></tr>
 <tr><td>Tool / Control Design</td><td>Created practical controls for iteration so the look could be adjusted during production.</td></tr>
-<tr><td>Cinematic Workflow</td><td>Connected technical systems to shot composition, timing, and virtual camera blocking.</td></tr>
-<tr><td>Debugging / Delivery</td><td>Balanced visual quality and runtime stability for playable scene delivery.</td></tr>
+<tr><td>Animation System</td><td>Connected blendshape-driven animation to timing and transformation behavior.</td></tr>
+<tr><td>Cinematic Workflow</td><td>Connected technical systems to shot composition, virtual camera blocking, and playable scene delivery.</td></tr>
           </tbody></table>
         </div>
-        <div class="block" id="media">
-          <h2>Media to Add</h2>
-          <p>Keep this section practical: use screenshots, breakdown images, short clips, and before / after comparisons that prove the workflow instead of only showing final renders.</p>
+
+        <div class="block" id="delivery">
+          <h2>Final Delivery</h2>
+          <ul class="clean">
+            <li>Unity real-time cloud visual system</li>
+<li>Shader / raymarching prototypes</li>
+<li>Adjustable parameters for look iteration</li>
+<li>Blendshape-driven animation setup</li>
+<li>Playable cinematic scene captures</li>
+          </ul>
+        </div>
+
+        <div class="block" id="evidence">
+          <h2>Visual / Technical Evidence to Add</h2>
+          <p>Use this section as proof of process: final result, technical screenshots, before / after comparisons, implementation views, debugging evidence, and handoff material.</p>
           <div class="media-grid">
-<div class="media-slot">TODO: Replace with Cloud shader / raymarching test capture</div>
-<div class="media-slot">TODO: Replace with Unity scene view with camera blocking</div>
-<div class="media-slot">TODO: Replace with Blendshape animation control screenshot</div>
-<div class="media-slot">TODO: Replace with Playable scene capture</div>
+            <div class="media-slot">TODO: Replace with 01 Final Scene — playable cloud environment capture</div>
+<div class="media-slot">TODO: Replace with 02 Concept → Technical Target map</div>
+<div class="media-slot">TODO: Replace with 03 Shader Test — raymarching / density prototype</div>
+<div class="media-slot">TODO: Replace with 04 Parameter Controls — exposed Unity inspector values</div>
+<div class="media-slot">TODO: Replace with 05 Noise / Density Pass — before / after comparison</div>
+<div class="media-slot">TODO: Replace with 06 Blendshape Setup — animation controls</div>
+<div class="media-slot">TODO: Replace with 07 Virtual Camera Blocking — scene view / camera view</div>
+<div class="media-slot">TODO: Replace with 08 Performance Debug — profiler or frame-cost notes</div>
+<div class="media-slot">TODO: Replace with 09 Iteration Comparison — early look vs final look</div>
+<div class="media-slot">TODO: Replace with 10 Delivery Capture — playable scene recording</div>
           </div>
         </div>
       </div>
@@ -173,6 +227,5 @@ ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
   </section>
 </main>
 <footer class="footer wrap"><a href="dreamworkstd.html">Back to selected case studies</a> · jonghoonahn.com/dreamworkstd</footer>
-
 </body>
 </html>

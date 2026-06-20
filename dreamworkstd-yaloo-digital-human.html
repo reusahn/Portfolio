@@ -92,8 +92,10 @@ ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
   .step{grid-template-columns:1fr;gap:6px}
 }
 </style>
+  
 </head>
 <body>
+
 <header class="topbar">
   <div class="wrap topbar-inner">
     <a class="brand" href="dreamworkstd.html">← DreamWorks TD Portfolio</a>
@@ -101,6 +103,7 @@ ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
       <a href="#workflow">Workflow</a>
       <a href="#responsibilities">TD Role</a>
       <a href="#media">Media</a>
+      <a href="https://jonghoonahn.com" target="_blank" rel="noopener noreferrer">Main Site ↗</a>
     </nav>
   </div>
 </header>
@@ -108,7 +111,7 @@ ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
   <section class="hero wrap">
     <div class="kicker">Case Study 01 · Digital Human Pipeline · 2024—Present</div>
     <h1>Yaloo Digital Human Pipeline</h1>
-    <p>Built a repeatable digital-human pipeline for age and likeness variation, including child and elderly versions of Yaloo and a digital reconstruction of Yaloo’s grandmother.</p>
+    <p>Built a repeatable digital human pipeline for age and likeness variation, including child and elderly versions of Yaloo and a digital reconstruction of Yaloo’s grandmother.</p>
     <div class="meta"><span class="pill">Technical Artist / Digital Human TD · Los Angeles &amp; Seoul</span></div>
   </section>
 
@@ -120,55 +123,118 @@ ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
           <div class="side-text">Technical Artist / Digital Human TD · Los Angeles &amp; Seoul</div>
         </div>
         <div class="side-box">
+          <div class="side-label">Project Task</div>
+          <div class="side-text">Build repeatable age / likeness variants of one digital identity and deliver them as real-time-ready exhibition characters.</div>
+        </div>
+        <div class="side-box">
           <div class="side-label">Tools / Focus</div>
-          <div class="side-text">UE5 / MetaHuman, Maya, MotionBuilder, facial setup, blend shapes, material checks, real-time exhibition builds</div>
+          <div class="side-text">UE5 / MetaHuman, Maya, MotionBuilder, facial setup, blend shapes, material checks, naming conventions, real-time exhibition builds</div>
+        </div>
+        <div class="side-box">
+          <div class="side-label">TD Output</div>
+          <div class="side-text">Character variants, facial / material QA, UE5-ready assets, exhibition builds, artist-review handoff</div>
         </div>
         <div class="side-box">
           <div class="side-label">Page Logic</div>
-          <div class="side-text">Problem → Ideation → Workflow → TD Responsibilities → Media Proof</div>
+          <div class="side-text">Task → Problem → Constraints → Solution → Implementation → Debugging → Final Delivery → Evidence</div>
         </div>
       </aside>
 
       <div class="content">
+        <div class="block" id="task">
+          <h2>Project Task</h2>
+          <p>The task was to support Yaloo Studio in building a reusable digital-human pipeline for multiple versions of the same identity: a child version of Yaloo, an elderly version of Yaloo, and a digital reconstruction of Yaloo’s grandmother.</p>
+          <p>For DreamWorks TD review, this project is shown less as a final artwork and more as a production pipeline case study: how I organized likeness references, prepared character variants, tested facial behavior, debugged real-time presentation issues, and delivered UE5-ready assets for artists and exhibition playback.</p>
+        </div>
+
         <div class="block">
           <h2>Production Problem</h2>
-          <p>The project required multiple versions of a single identity across age, memory, and family resemblance. The production challenge was not only making one believable digital human, but keeping likeness, facial behavior, material response, and real-time performance consistent across several character variants and exhibition venues.</p>
+          <p>The main problem was consistency. Each character variant needed to feel connected to the same identity or family lineage, while also representing a different age, memory, or reconstruction. A small change in facial proportion, skin material, expression response, or eye behavior could make the character feel unrelated or uncanny.</p>
+          <p>The work also had to survive production conditions: artist feedback, multiple iterations, real-time engine constraints, and exhibition delivery across different venues. The pipeline could not be a one-off sculpting exercise. It needed a repeatable structure that could be reused and explained to collaborators.</p>
         </div>
+
         <div class="block">
-          <h2>Ideation / TD Approach</h2>
-          <p>I treated the project as a reusable character-pipeline problem. Each variant followed the same logic: define likeness targets, prepare the character asset, test facial response, integrate into UE5, check materials and playback, then package a build that artists could review without touching the technical setup.</p>
+          <h2>Production Constraints</h2>
+          <table class="table"><tbody>
+            <tr><td>Likeness continuity</td><td>Preserve recognizable facial relationships across child, elderly, and grandmother versions instead of treating each character as an isolated design.</td></tr>
+            <tr><td>Artist iteration</td><td>Translate subjective artist notes such as “older,” “softer,” “closer to the grandmother,” or “less synthetic” into concrete technical changes.</td></tr>
+            <tr><td>Real-time delivery</td><td>Keep characters usable inside UE5 / MetaHuman workflows for playback, review, and exhibition environments.</td></tr>
+            <tr><td>Repeatability</td><td>Maintain naming, versioning, reference organization, and handoff logic so later character variants could follow the same process.</td></tr>
+          </tbody></table>
         </div>
+
+        <div class="block">
+          <h2>TD Solution</h2>
+          <p>I built the work around a reusable character pipeline: reference intake, likeness target definition, variant asset preparation, facial / blendshape testing, material lookdev checks, UE5 integration, debugging, and exhibition handoff.</p>
+          <p>The TD goal was to make the process understandable and repeatable for artists. Instead of only producing final renders, I prepared each character variant as a production object that could be reviewed, adjusted, tested, and delivered inside a real-time workflow.</p>
+        </div>
+
         <div class="block" id="workflow">
-          <h2>Workflow</h2>
+          <h2>Implementation Breakdown</h2>
           <div class="workflow">
-<div class="step"><div class="step-num">Step 01</div><div><h3>Reference &amp; Likeness Targets</h3><p>Organized age references, family resemblance cues, and artist notes into clear technical targets for each character variant.</p></div></div>
-<div class="step"><div class="step-num">Step 02</div><div><h3>Character Asset Prep</h3><p>Prepared each variant for facial setup, deformation testing, material passes, and real-time engine integration.</p></div></div>
-<div class="step"><div class="step-num">Step 03</div><div><h3>Facial System &amp; Blendshape Tests</h3><p>Set up expression support and checked whether subtle performance changes preserved likeness across child, elderly, and grandmother versions.</p></div></div>
-<div class="step"><div class="step-num">Step 04</div><div><h3>UE5 Integration</h3><p>Integrated real-time-ready characters into UE5, checked materials, playback, scale, and scene behavior for exhibition presentation.</p></div></div>
-<div class="step"><div class="step-num">Step 05</div><div><h3>Debugging &amp; Handoff</h3><p>Troubleshot asset issues, prepared delivery builds, and supported production handoff for Songeun Art Award, Gyeonggi MoMA, and West Seoul Museum of Art.</p></div></div>
+            <div class="step"><div class="step-num">Step 01</div><div><h3>Reference Intake &amp; Likeness Map</h3><p>Collected age references, family resemblance cues, artist notes, and visual targets. I separated stable identity features — eyes, mouth corners, cheek volume, jaw silhouette, brow shape — from age-specific surface changes.</p></div></div>
+            <div class="step"><div class="step-num">Step 02</div><div><h3>Variant Asset Preparation</h3><p>Prepared each version as a controlled branch of the same pipeline, keeping file naming, asset organization, and iteration history consistent so the child, elderly, and grandmother variants could be compared side by side.</p></div></div>
+            <div class="step"><div class="step-num">Step 03</div><div><h3>Facial Setup &amp; Blendshape QA</h3><p>Checked facial behavior through expression tests rather than only neutral-pose likeness. I looked for deformation issues around the eyes, mouth, cheeks, and jaw because these areas quickly break likeness during performance.</p></div></div>
+            <div class="step"><div class="step-num">Step 04</div><div><h3>Material / Lookdev Pass</h3><p>Adjusted skin, surface softness, roughness, and age-specific material response so each variant stayed believable under real-time lighting instead of only looking correct in a static preview.</p></div></div>
+            <div class="step"><div class="step-num">Step 05</div><div><h3>UE5 / MetaHuman Integration</h3><p>Prepared the characters for UE5 playback and checked scale, materials, facial response, scene placement, and real-time performance. The goal was an artist-reviewable build, not just exported assets.</p></div></div>
+            <div class="step"><div class="step-num">Step 06</div><div><h3>Exhibition Build &amp; Handoff</h3><p>Packaged real-time-ready characters and supported delivery builds for Songeun Art Award, Gyeonggi MoMA, and West Seoul Museum of Art, including troubleshooting and production handoff.</p></div></div>
           </div>
         </div>
+
+        <div class="block" id="debug">
+          <h2>Debugging / Iteration</h2>
+          <table class="table"><tbody>
+            <tr><td>Problem</td><td><strong>Likeness drift between age variants.</strong><br>When age features changed too much, the character stopped feeling like the same person or family member.</td></tr>
+            <tr><td>Fix</td><td>I compared stable facial anchors across versions — eye spacing, cheek structure, jaw / chin relationship, mouth corner shape — and treated age changes as a controlled layer rather than a full redesign.</td></tr>
+            <tr><td>Problem</td><td><strong>Neutral pose looked acceptable, but expressions weakened likeness.</strong><br>Some facial shapes felt technically correct but emotionally wrong once animated.</td></tr>
+            <tr><td>Fix</td><td>I tested expression ranges early, checked deformation around eyes and mouth, and used blendshape / facial-response passes as part of the likeness workflow.</td></tr>
+            <tr><td>Problem</td><td><strong>Material response changed the perceived age.</strong><br>Skin roughness, subsurface feel, and lighting could make an elderly version look too artificial or a younger version too flat.</td></tr>
+            <tr><td>Fix</td><td>I separated geometry / likeness notes from material notes, then tested characters under UE5 lighting conditions before delivery.</td></tr>
+            <tr><td>Problem</td><td><strong>Artists needed to review the character, not debug the file.</strong></td></tr>
+            <tr><td>Fix</td><td>I prepared reviewable UE5 scenes / builds with organized naming, consistent asset structure, and clear handoff logic so feedback could stay focused on character and performance.</td></tr>
+          </tbody></table>
+        </div>
+
         <div class="block" id="responsibilities">
           <h2>My TD Responsibilities</h2>
           <table class="table"><tbody>
-<tr><td>Pipeline Structure</td><td>Created a repeatable workflow for age and likeness variation instead of solving each character as a one-off asset.</td></tr>
-<tr><td>Character Setup</td><td>Prepared facial setup, blendshape response, material checks, and UE5-ready character delivery.</td></tr>
-<tr><td>Artist Support</td><td>Translated artist feedback about likeness, age, and presence into concrete technical changes.</td></tr>
-<tr><td>Debugging / QA</td><td>Checked deformation, materials, playback stability, and venue delivery issues before handoff.</td></tr>
-<tr><td>Production Delivery</td><td>Supported real-time exhibition builds across multiple venues and project iterations.</td></tr>
+            <tr><td>Task Definition</td><td>Translated the artistic goal — age, memory, likeness, and family resemblance — into a technical character pipeline.</td></tr>
+            <tr><td>Pipeline Structure</td><td>Created a repeatable workflow for reference intake, variant prep, facial checks, material QA, UE5 delivery, and exhibition handoff.</td></tr>
+            <tr><td>Character Setup</td><td>Prepared facial setup, blendshape response, material checks, and real-time-ready character delivery.</td></tr>
+            <tr><td>Artist Support</td><td>Converted subjective artist feedback into concrete technical adjustments across likeness, expression, materials, and playback.</td></tr>
+            <tr><td>Debugging / QA</td><td>Checked deformation, materials, scale, playback stability, and venue delivery issues before handoff.</td></tr>
+            <tr><td>Production Delivery</td><td>Supported real-time exhibition builds across multiple venues and project iterations.</td></tr>
           </tbody></table>
         </div>
-        <div class="block" id="media">
-          <h2>Media to Add</h2>
-          <p>Keep this section practical: use screenshots, breakdown images, short clips, and before / after comparisons that prove the workflow instead of only showing final renders.</p>
+
+        <div class="block">
+          <h2>Final Delivery</h2>
+          <ul class="clean">
+            <li>Real-time-ready digital human character variants for Yaloo Studio.</li>
+            <li>Age and likeness variants including child, elderly, and grandmother-related reconstruction work.</li>
+            <li>UE5 / MetaHuman-ready assets prepared for review, iteration, and exhibition playback.</li>
+            <li>Technical support and handoff for Songeun Art Award, Gyeonggi MoMA, and West Seoul Museum of Art.</li>
+            <li>A repeatable production logic that could be used for later digital-human variants.</li>
+          </ul>
+        </div>
+
+        <div class="block" id="evidence">
+          <h2>Visual / Technical Evidence to Add</h2>
+          <p>Use this section as proof of TD workflow. Each slot should show a concrete stage of the process: task, implementation, debugging, or final delivery. Avoid only showing polished final images.</p>
           <div class="media-grid">
-<div class="media-slot">TODO: Replace with Hero render or screen capture of final Yaloo character</div>
-<div class="media-slot">TODO: Replace with Age variation comparison: child / elderly / grandmother</div>
-<div class="media-slot">TODO: Replace with Facial setup or blendshape screenshot</div>
-<div class="media-slot">TODO: Replace with UE5 scene / material / sequencer screenshot</div>
+            <div class="media-slot">01 · Final Result<br>Replace with final Yaloo digital-human render or playback capture</div>
+            <div class="media-slot">02 · Variant Comparison<br>Replace with child / elderly / grandmother comparison</div>
+            <div class="media-slot">03 · Reference / Likeness Map<br>Replace with reference board or annotated facial-feature comparison</div>
+            <div class="media-slot">04 · Character Prep<br>Replace with Maya / MetaHuman setup screenshot</div>
+            <div class="media-slot">05 · Facial System<br>Replace with blendshape or expression test grid</div>
+            <div class="media-slot">06 · Material QA<br>Replace with skin / material / lighting test comparison</div>
+            <div class="media-slot">07 · UE5 Integration<br>Replace with UE5 scene, Sequencer, Blueprint, or character viewport screenshot</div>
+            <div class="media-slot">08 · Debugging Before / After<br>Replace with likeness, deformation, or material issue before / after</div>
+            <div class="media-slot">09 · Exhibition Delivery<br>Replace with venue playback, installation photo, or final build capture</div>
+            <div class="media-slot">10 · Handoff Package<br>Replace with organized folder / naming / delivery package screenshot if available</div>
           </div>
         </div>
-      </div>
+      </div>      </div>
     </div>
   </section>
 </main>
