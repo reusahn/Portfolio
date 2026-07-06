@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yaloo Digital Human Pipeline · Jonghoon Ahn</title>
+  <style>
+:root{
+  --bg:#f6f4f0;
+  --paper:#ffffff;
+  --ink:#151515;
+  --muted:#66615b;
+  --line:#d9d3ca;
+  --soft:#ece7df;
+  --accent:#1f1f1f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+.wrap{width:min(1120px,calc(100% - 48px));margin:0 auto}
+.topbar{
+  position:sticky;top:0;z-index:10;
+  background:rgba(246,244,240,.94);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{height:58px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.nav{display:flex;gap:18px;align-items:center;font-size:13px;color:var(--muted)}
+.hero{padding:72px 0 42px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:16px}
+h1{font-size:clamp(38px,7vw,72px);line-height:.98;letter-spacing:-.06em;font-weight:760;max-width:900px}
+.hero p{font-size:20px;line-height:1.55;color:var(--muted);max-width:760px;margin-top:22px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.pill{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 11px;font-size:13px;color:var(--muted)}
+.section{padding:46px 0;border-bottom:1px solid var(--line)}
+.section-title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:18px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{
+  display:block;background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:28px;min-height:260px;transition:transform .12s ease,border-color .12s ease,background .12s ease;
+}
+.card:hover{transform:translateY(-2px);border-color:#aaa39a;text-decoration:none}
+.num{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:18px}
+.card h2{font-size:32px;line-height:1.05;letter-spacing:-.04em;margin-bottom:12px}
+.role{font-size:15px;color:var(--muted);margin-bottom:22px}
+.focus{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.focus span{font-size:12px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:5px 8px;color:var(--muted);background:var(--bg)}
+.case-layout{display:grid;grid-template-columns:300px 1fr;gap:46px;align-items:start}
+.side{position:sticky;top:82px}
+.side-box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
+.side-label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:8px}
+.side-text{font-size:15px;color:var(--ink);line-height:1.6}
+.content{min-width:0}
+.block{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:26px;margin-bottom:16px}
+.block h2{font-size:26px;line-height:1.15;letter-spacing:-.03em;margin-bottom:14px}
+.block h3{font-size:17px;margin:18px 0 8px}
+.block p{color:var(--muted);margin-bottom:12px}
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:10px;color:var(--muted)}
+ul.clean li{position:relative;padding-left:18px}
+ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
+.workflow{display:grid;gap:10px;margin-top:8px}
+.step{display:grid;grid-template-columns:86px 1fr;gap:16px;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.step-num{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.step h3{font-size:17px;margin:0 0 6px}
+.step p{margin:0;color:var(--muted)}
+.table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:table}
+.table th,.table td{border-bottom:1px solid var(--line);padding:13px 14px;text-align:left;vertical-align:top}
+.table th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--soft)}
+.table td{font-size:15px;color:var(--muted)}
+.table td:first-child{color:var(--ink);font-weight:700;width:28%}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.media-slot{border:1px dashed #aaa39a;background:var(--bg);border-radius:10px;min-height:180px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;text-align:center;padding:18px}
+.footer{padding:28px 0 54px;color:var(--muted);font-size:14px}
+@media(max-width:820px){
+  .wrap{width:min(100% - 28px,1120px)}
+  .topbar-inner{height:auto;min-height:58px;padding:14px 0;align-items:flex-start;flex-direction:column;gap:8px}
+  .nav{flex-wrap:wrap;gap:10px}
+  .hero{padding:48px 0 32px}
+  .grid-2,.case-layout,.media-grid{grid-template-columns:1fr}
+  .side{position:static}
+  .card{min-height:0}
+  .card h2{font-size:28px}
+  .step{grid-template-columns:1fr;gap:6px}
+}
+</style>
+  
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="dreamworkstd.html">← DreamWorks TD Portfolio</a>
+    <nav class="nav">
+      <a href="#workflow">Workflow</a>
+      <a href="#responsibilities">TD Role</a>
+      <a href="#media">Media</a>
+      <a href="https://jonghoonahn.com" target="_blank" rel="noopener noreferrer">Main Site ↗</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="hero wrap">
+    <div class="kicker">Case Study 01 · Digital Human Pipeline · 2024—Present</div>
+    <h1>Yaloo Digital Human Pipeline</h1>
+    <p>Built a repeatable digital human pipeline for age and likeness variation, including child and elderly versions of Yaloo and a digital reconstruction of Yaloo’s grandmother.</p>
+    <div class="meta"><span class="pill">Technical Artist / Digital Human TD · Los Angeles &amp; Seoul</span></div>
+  </section>
+
+  <section class="section wrap">
+    <div class="case-layout">
+      <aside class="side">
+        <div class="side-box">
+          <div class="side-label">Role</div>
+          <div class="side-text">Technical Artist / Digital Human TD · Los Angeles &amp; Seoul</div>
+        </div>
+        <div class="side-box">
+          <div class="side-label">Project Task</div>
+          <div class="side-text">Build repeatable age / likeness variants of one digital identity and deliver them as real-time-ready exhibition characters.</div>
+        </div>
+        <div class="side-box">
+          <div class="side-label">Tools / Focus</div>
+          <div class="side-text">UE5 / MetaHuman, Maya, MotionBuilder, facial setup, blend shapes, material checks, naming conventions, real-time exhibition builds</div>
+        </div>
+        <div class="side-box">
+          <div class="side-label">TD Output</div>
+          <div class="side-text">Character variants, facial / material QA, UE5-ready assets, exhibition builds, artist-review handoff</div>
+        </div>
+        <div class="side-box">
+          <div class="side-label">Page Logic</div>
+          <div class="side-text">Task → Problem → Constraints → Solution → Implementation → Debugging → Final Delivery → Evidence</div>
+        </div>
+      </aside>
+
+      <div class="content">
+        <div class="block" id="task">
+          <h2>Project Task</h2>
+          <p>The task was to support Yaloo Studio in building a reusable digital-human pipeline for multiple versions of the same identity: a child version of Yaloo, an elderly version of Yaloo, and a digital reconstruction of Yaloo’s grandmother.</p>
+          <p>For DreamWorks TD review, this project is shown less as a final artwork and more as a production pipeline case study: how I organized likeness references, prepared character variants, tested facial behavior, debugged real-time presentation issues, and delivered UE5-ready assets for artists and exhibition playback.</p>
+        </div>
+
+        <div class="block">
+          <h2>Production Problem</h2>
+          <p>The main problem was consistency. Each character variant needed to feel connected to the same identity or family lineage, while also representing a different age, memory, or reconstruction. A small change in facial proportion, skin material, expression response, or eye behavior could make the character feel unrelated or uncanny.</p>
+          <p>The work also had to survive production conditions: artist feedback, multiple iterations, real-time engine constraints, and exhibition delivery across different venues. The pipeline could not be a one-off sculpting exercise. It needed a repeatable structure that could be reused and explained to collaborators.</p>
+        </div>
+
+        <div class="block">
+          <h2>Production Constraints</h2>
+          <table class="table"><tbody>
+            <tr><td>Likeness continuity</td><td>Preserve recognizable facial relationships across child, elderly, and grandmother versions instead of treating each character as an isolated design.</td></tr>
+            <tr><td>Artist iteration</td><td>Translate subjective artist notes such as “older,” “softer,” “closer to the grandmother,” or “less synthetic” into concrete technical changes.</td></tr>
+            <tr><td>Real-time delivery</td><td>Keep characters usable inside UE5 / MetaHuman workflows for playback, review, and exhibition environments.</td></tr>
+            <tr><td>Repeatability</td><td>Maintain naming, versioning, reference organization, and handoff logic so later character variants could follow the same process.</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="block">
+          <h2>TD Solution</h2>
+          <p>I built the work around a reusable character pipeline: reference intake, likeness target definition, variant asset preparation, facial / blendshape testing, material lookdev checks, UE5 integration, debugging, and exhibition handoff.</p>
+          <p>The TD goal was to make the process understandable and repeatable for artists. Instead of only producing final renders, I prepared each character variant as a production object that could be reviewed, adjusted, tested, and delivered inside a real-time workflow.</p>
+        </div>
+
+        <div class="block" id="workflow">
+          <h2>Implementation Breakdown</h2>
+          <div class="workflow">
+            <div class="step"><div class="step-num">Step 01</div><div><h3>Reference Intake &amp; Likeness Map</h3><p>Collected age references, family resemblance cues, artist notes, and visual targets. I separated stable identity features — eyes, mouth corners, cheek volume, jaw silhouette, brow shape — from age-specific surface changes.</p></div></div>
+            <div class="step"><div class="step-num">Step 02</div><div><h3>Variant Asset Preparation</h3><p>Prepared each version as a controlled branch of the same pipeline, keeping file naming, asset organization, and iteration history consistent so the child, elderly, and grandmother variants could be compared side by side.</p></div></div>
+            <div class="step"><div class="step-num">Step 03</div><div><h3>Facial Setup &amp; Blendshape QA</h3><p>Checked facial behavior through expression tests rather than only neutral-pose likeness. I looked for deformation issues around the eyes, mouth, cheeks, and jaw because these areas quickly break likeness during performance.</p></div></div>
+            <div class="step"><div class="step-num">Step 04</div><div><h3>Material / Lookdev Pass</h3><p>Adjusted skin, surface softness, roughness, and age-specific material response so each variant stayed believable under real-time lighting instead of only looking correct in a static preview.</p></div></div>
+            <div class="step"><div class="step-num">Step 05</div><div><h3>UE5 / MetaHuman Integration</h3><p>Prepared the characters for UE5 playback and checked scale, materials, facial response, scene placement, and real-time performance. The goal was an artist-reviewable build, not just exported assets.</p></div></div>
+            <div class="step"><div class="step-num">Step 06</div><div><h3>Exhibition Build &amp; Handoff</h3><p>Packaged real-time-ready characters and supported delivery builds for Songeun Art Award, Gyeonggi MoMA, and West Seoul Museum of Art, including troubleshooting and production handoff.</p></div></div>
+          </div>
+        </div>
+
+        <div class="block" id="debug">
+          <h2>Debugging / Iteration</h2>
+          <table class="table"><tbody>
+            <tr><td>Problem</td><td><strong>Likeness drift between age variants.</strong><br>When age features changed too much, the character stopped feeling like the same person or family member.</td></tr>
+            <tr><td>Fix</td><td>I compared stable facial anchors across versions — eye spacing, cheek structure, jaw / chin relationship, mouth corner shape — and treated age changes as a controlled layer rather than a full redesign.</td></tr>
+            <tr><td>Problem</td><td><strong>Neutral pose looked acceptable, but expressions weakened likeness.</strong><br>Some facial shapes felt technically correct but emotionally wrong once animated.</td></tr>
+            <tr><td>Fix</td><td>I tested expression ranges early, checked deformation around eyes and mouth, and used blendshape / facial-response passes as part of the likeness workflow.</td></tr>
+            <tr><td>Problem</td><td><strong>Material response changed the perceived age.</strong><br>Skin roughness, subsurface feel, and lighting could make an elderly version look too artificial or a younger version too flat.</td></tr>
+            <tr><td>Fix</td><td>I separated geometry / likeness notes from material notes, then tested characters under UE5 lighting conditions before delivery.</td></tr>
+            <tr><td>Problem</td><td><strong>Artists needed to review the character, not debug the file.</strong></td></tr>
+            <tr><td>Fix</td><td>I prepared reviewable UE5 scenes / builds with organized naming, consistent asset structure, and clear handoff logic so feedback could stay focused on character and performance.</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="block" id="responsibilities">
+          <h2>My TD Responsibilities</h2>
+          <table class="table"><tbody>
+            <tr><td>Task Definition</td><td>Translated the artistic goal — age, memory, likeness, and family resemblance — into a technical character pipeline.</td></tr>
+            <tr><td>Pipeline Structure</td><td>Created a repeatable workflow for reference intake, variant prep, facial checks, material QA, UE5 delivery, and exhibition handoff.</td></tr>
+            <tr><td>Character Setup</td><td>Prepared facial setup, blendshape response, material checks, and real-time-ready character delivery.</td></tr>
+            <tr><td>Artist Support</td><td>Converted subjective artist feedback into concrete technical adjustments across likeness, expression, materials, and playback.</td></tr>
+            <tr><td>Debugging / QA</td><td>Checked deformation, materials, scale, playback stability, and venue delivery issues before handoff.</td></tr>
+            <tr><td>Production Delivery</td><td>Supported real-time exhibition builds across multiple venues and project iterations.</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="block">
+          <h2>Final Delivery</h2>
+          <ul class="clean">
+            <li>Real-time-ready digital human character variants for Yaloo Studio.</li>
+            <li>Age and likeness variants including child, elderly, and grandmother-related reconstruction work.</li>
+            <li>UE5 / MetaHuman-ready assets prepared for review, iteration, and exhibition playback.</li>
+            <li>Technical support and handoff for Songeun Art Award, Gyeonggi MoMA, and West Seoul Museum of Art.</li>
+            <li>A repeatable production logic that could be used for later digital-human variants.</li>
+          </ul>
+        </div>
+
+        <div class="block" id="evidence">
+          <h2>Visual / Technical Evidence to Add</h2>
+          <p>Use this section as proof of TD workflow. Each slot should show a concrete stage of the process: task, implementation, debugging, or final delivery. Avoid only showing polished final images.</p>
+          <div class="media-grid">
+            <div class="media-slot">01 · Final Result<br>Replace with final Yaloo digital-human render or playback capture</div>
+            <div class="media-slot">02 · Variant Comparison<br>Replace with child / elderly / grandmother comparison</div>
+            <div class="media-slot">03 · Reference / Likeness Map<br>Replace with reference board or annotated facial-feature comparison</div>
+            <div class="media-slot">04 · Character Prep<br>Replace with Maya / MetaHuman setup screenshot</div>
+            <div class="media-slot">05 · Facial System<br>Replace with blendshape or expression test grid</div>
+            <div class="media-slot">06 · Material QA<br>Replace with skin / material / lighting test comparison</div>
+            <div class="media-slot">07 · UE5 Integration<br>Replace with UE5 scene, Sequencer, Blueprint, or character viewport screenshot</div>
+            <div class="media-slot">08 · Debugging Before / After<br>Replace with likeness, deformation, or material issue before / after</div>
+            <div class="media-slot">09 · Exhibition Delivery<br>Replace with venue playback, installation photo, or final build capture</div>
+            <div class="media-slot">10 · Handoff Package<br>Replace with organized folder / naming / delivery package screenshot if available</div>
+          </div>
+        </div>
+      </div>      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer wrap"><a href="dreamworkstd.html">Back to selected case studies</a> · jonghoonahn.com/dreamworkstd</footer>
+
+</body>
+</html>

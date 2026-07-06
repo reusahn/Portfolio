@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real People to MetaHumans · Jonghoon Ahn</title>
+  <style>
+:root{
+  --bg:#f6f4f0;
+  --paper:#ffffff;
+  --ink:#151515;
+  --muted:#66615b;
+  --line:#d9d3ca;
+  --soft:#ece7df;
+  --accent:#1f1f1f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+.wrap{width:min(1120px,calc(100% - 48px));margin:0 auto}
+.topbar{
+  position:sticky;top:0;z-index:10;
+  background:rgba(246,244,240,.94);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{height:58px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.nav{display:flex;gap:18px;align-items:center;font-size:13px;color:var(--muted)}
+.hero{padding:72px 0 42px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:16px}
+h1{font-size:clamp(38px,7vw,72px);line-height:.98;letter-spacing:-.06em;font-weight:760;max-width:900px}
+.hero p{font-size:20px;line-height:1.55;color:var(--muted);max-width:760px;margin-top:22px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.pill{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 11px;font-size:13px;color:var(--muted)}
+.section{padding:46px 0;border-bottom:1px solid var(--line)}
+.section-title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:18px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{
+  display:block;background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:28px;min-height:260px;transition:transform .12s ease,border-color .12s ease,background .12s ease;
+}
+.card:hover{transform:translateY(-2px);border-color:#aaa39a;text-decoration:none}
+.num{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:18px}
+.card h2{font-size:32px;line-height:1.05;letter-spacing:-.04em;margin-bottom:12px}
+.role{font-size:15px;color:var(--muted);margin-bottom:22px}
+.focus{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.focus span{font-size:12px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:5px 8px;color:var(--muted);background:var(--bg)}
+.case-layout{display:grid;grid-template-columns:300px 1fr;gap:46px;align-items:start}
+.side{position:sticky;top:82px}
+.side-box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
+.side-label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:8px}
+.side-text{font-size:15px;color:var(--ink);line-height:1.6}
+.content{min-width:0}
+.block{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:26px;margin-bottom:16px}
+.block h2{font-size:26px;line-height:1.15;letter-spacing:-.03em;margin-bottom:14px}
+.block h3{font-size:17px;margin:18px 0 8px}
+.block p{color:var(--muted);margin-bottom:12px}
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:10px;color:var(--muted)}
+ul.clean li{position:relative;padding-left:18px}
+ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
+.workflow{display:grid;gap:10px;margin-top:8px}
+.step{display:grid;grid-template-columns:86px 1fr;gap:16px;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.step-num{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.step h3{font-size:17px;margin:0 0 6px}
+.step p{margin:0;color:var(--muted)}
+.table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:table}
+.table th,.table td{border-bottom:1px solid var(--line);padding:13px 14px;text-align:left;vertical-align:top}
+.table th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--soft)}
+.table td{font-size:15px;color:var(--muted)}
+.table td:first-child{color:var(--ink);font-weight:700;width:28%}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.media-slot{border:1px dashed #aaa39a;background:var(--bg);border-radius:10px;min-height:180px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;text-align:center;padding:18px}
+.footer{padding:28px 0 54px;color:var(--muted);font-size:14px}
+@media(max-width:820px){
+  .wrap{width:min(100% - 28px,1120px)}
+  .topbar-inner{height:auto;min-height:58px;padding:14px 0;align-items:flex-start;flex-direction:column;gap:8px}
+  .nav{flex-wrap:wrap;gap:10px}
+  .hero{padding:48px 0 32px}
+  .grid-2,.case-layout,.media-grid{grid-template-columns:1fr}
+  .side{position:static}
+  .card{min-height:0}
+  .card h2{font-size:28px}
+  .step{grid-template-columns:1fr;gap:6px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="dreamworkstd.html">← DreamWorks TD Portfolio</a>
+    <nav class="nav">
+      <a href="#task">Task</a>
+      <a href="#implementation">Implementation</a>
+      <a href="#debugging">Debugging</a>
+      <a href="#evidence">Evidence</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="hero wrap">
+    <div class="kicker">Case Study 02 · Scalable Character Workflow · 2026</div>
+    <h1>Real People to MetaHumans</h1>
+    <p>Converted 10 real participants into MetaHuman characters through a standardized TD workflow for reference intake, identity matching, character setup, QA, and real-time preparation.</p>
+    <div class="meta"><span class="pill">Technical Artist · Jung Hye-jeong Artist Project</span></div>
+  </section>
+
+  <section class="section wrap">
+    <div class="case-layout">
+      <aside class="side">
+        <div class="side-box">
+          <div class="side-label">Role</div>
+          <div class="side-text">Technical Artist · Jung Hye-jeong Artist Project</div>
+        </div>
+        <div class="side-box">
+          <div class="side-label">Tools / Focus</div>
+          <div class="side-text">MetaHuman · UE5 · scan / photo reference organization · facial identity matching · data wrangling · character QA</div>
+        </div>
+        <div class="side-box">
+          <div class="side-label">Page Logic</div>
+          <div class="side-text">Task → Problem → Constraint → Solution → Implementation → Debugging → Delivery → Evidence</div>
+        </div>
+      </aside>
+
+      <div class="content">
+        <div class="block" id="task">
+          <h2>Project Task</h2>
+          <h3>Convert 10 real people into reviewable MetaHuman characters</h3>
+          <p>The task was to take real participant references and produce a consistent set of digital humans that could be reviewed, compared, and prepared for real-time use. The work was less about making one hero character and more about building a repeatable process that could hold up across ten different people.</p>
+        </div>
+
+        <div class="block">
+          <h2>Production Problem</h2>
+          <ul class="clean">
+            <li>Each participant arrived with different reference quality, facial structure, lighting conditions, and available data.</li>
+<li>Likeness is subjective, so the process needed a review structure: what changed, why it changed, and what still needed artist feedback.</li>
+<li>Without data wrangling and naming rules, the project would quickly become ten disconnected character files instead of one controlled production pipeline.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h2>Constraints</h2>
+          <ul class="clean">
+            <li>Ten subjects needed consistent setup quality, even when input references were uneven.</li>
+<li>The artist needed to compare identity and presence, not debug missing files or inconsistent character states.</li>
+<li>The final characters had to be prepared as real-time assets rather than only static likeness studies.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h2>TD Solution</h2>
+          <p>I built a standardized character-prep workflow: shared folder structure, clear subject IDs, reference boards, likeness notes, a repeated MetaHuman setup sequence, a group QA pass, and a final handoff format. The goal was to make every participant pass through the same pipeline so the artist could review differences in identity rather than differences in file organization.</p>
+        </div>
+
+        <div class="block" id="implementation">
+          <h2>Implementation Breakdown</h2>
+          <div class="workflow">
+            <div class="step"><div class="step-num">Step 01</div><div><h3>Reference Intake &amp; Naming</h3><p>Collected scan / photo / expression references into a consistent folder structure. Each subject was assigned a trackable ID so every reference, setup file, screenshot, and review output stayed connected.</p></div></div>
+<div class="step"><div class="step-num">Step 02</div><div><h3>Reference Normalization</h3><p>Built comparison boards for front, side, three-quarter, silhouette, facial proportions, and expression cues. This gave the MetaHuman setup a concrete likeness target instead of relying on memory.</p></div></div>
+<div class="step"><div class="step-num">Step 03</div><div><h3>Base MetaHuman Setup</h3><p>Created an initial MetaHuman for each participant, matching large facial structure first: head shape, jaw, cheekbones, nose bridge, eye spacing, mouth width, and overall facial rhythm.</p></div></div>
+<div class="step"><div class="step-num">Step 04</div><div><h3>Identity Iteration</h3><p>Compared the character against the reference board, logged the biggest likeness mismatches, and adjusted the character in passes rather than changing everything at once.</p></div></div>
+<div class="step"><div class="step-num">Step 05</div><div><h3>Group Consistency QA</h3><p>Reviewed all ten characters together for scale, age readability, material response, hair / silhouette consistency, and whether the set felt like one production package.</p></div></div>
+<div class="step"><div class="step-num">Step 06</div><div><h3>Real-Time Prep &amp; Handoff</h3><p>Prepared final review states for UE5 / MetaHuman use, including organized screenshots, character files, notes, and a clean handoff structure for artist feedback.</p></div></div>
+          </div>
+        </div>
+
+        <div class="block" id="debugging">
+          <h2>Debugging / Iteration</h2>
+          <table class="table"><tbody>
+            <tr><td>Uneven reference data</td><td>Built a normalized reference board so each subject could still be reviewed with the same criteria.</td></tr>
+<tr><td>Subjective likeness feedback</td><td>Separated likeness into specific categories: silhouette, facial proportions, eye / nose / mouth spacing, material tone, and age impression.</td></tr>
+<tr><td>Scale drift across characters</td><td>Checked the ten characters as a group instead of only reviewing each file in isolation.</td></tr>
+<tr><td>Review confusion</td><td>Kept subject IDs, folders, screenshots, and notes consistent so feedback could point to the right asset quickly.</td></tr>
+<tr><td>Real-time readiness</td><td>Prepared the characters with downstream UE5 review in mind instead of stopping at a static MetaHuman look.</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="block" id="responsibilities">
+          <h2>My TD Responsibilities</h2>
+          <table class="table"><tbody>
+            <tr><td>Data Wrangling</td><td>Organized participant references, subject IDs, folders, and review materials so the work could be repeated across ten characters.</td></tr>
+<tr><td>Character Setup</td><td>Converted real participant references into MetaHuman-ready characters while tracking identity and facial structure changes.</td></tr>
+<tr><td>Workflow Standardization</td><td>Used one repeated setup and QA process instead of treating every participant as a one-off custom asset.</td></tr>
+<tr><td>QA / Review</td><td>Checked likeness, scale, material response, and group consistency before artist review.</td></tr>
+<tr><td>Artist Support</td><td>Prepared assets and comparison material so the artist could evaluate identity and presence without debugging technical files.</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="block" id="delivery">
+          <h2>Final Delivery</h2>
+          <ul class="clean">
+            <li>10 MetaHuman-ready character setups</li>
+<li>Organized reference and review structure</li>
+<li>Group consistency pass across all subjects</li>
+<li>Artist-review package with comparison targets</li>
+<li>Clean handoff for real-time character iteration</li>
+          </ul>
+        </div>
+
+        <div class="block" id="evidence">
+          <h2>Visual / Technical Evidence to Add</h2>
+          <p>Use this section as proof of process: final result, technical screenshots, before / after comparisons, implementation views, debugging evidence, and handoff material.</p>
+          <div class="media-grid">
+            <div class="media-slot">TODO: Replace with 01 Final Result — 10-participant MetaHuman lineup</div>
+<div class="media-slot">TODO: Replace with 02 Before / After — participant reference → character result</div>
+<div class="media-slot">TODO: Replace with 03 Reference Board — front / side / three-quarter comparison</div>
+<div class="media-slot">TODO: Replace with 04 Data Structure — folder naming and subject IDs</div>
+<div class="media-slot">TODO: Replace with 05 Character Setup — MetaHuman editor / UE5 screen</div>
+<div class="media-slot">TODO: Replace with 06 Likeness Pass — facial proportion notes</div>
+<div class="media-slot">TODO: Replace with 07 Group QA — scale and material comparison</div>
+<div class="media-slot">TODO: Replace with 08 Iteration Notes — what changed between versions</div>
+<div class="media-slot">TODO: Replace with 09 Real-Time Prep — UE5 character review scene</div>
+<div class="media-slot">TODO: Replace with 10 Handoff Package — final folders / screenshots / notes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer wrap"><a href="dreamworkstd.html">Back to selected case studies</a> · jonghoonahn.com/dreamworkstd</footer>
+</body>
+</html>

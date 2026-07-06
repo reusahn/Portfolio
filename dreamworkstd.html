@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DreamWorks TD Portfolio · Jonghoon Ahn</title>
+  <style>
+:root{
+  --bg:#f6f4f0;
+  --paper:#ffffff;
+  --ink:#151515;
+  --muted:#66615b;
+  --line:#d9d3ca;
+  --soft:#ece7df;
+  --accent:#1f1f1f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+.wrap{width:min(1120px,calc(100% - 48px));margin:0 auto}
+.topbar{
+  position:sticky;top:0;z-index:10;
+  background:rgba(246,244,240,.94);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{height:58px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.nav{display:flex;gap:18px;align-items:center;font-size:13px;color:var(--muted)}
+.hero{padding:72px 0 42px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:16px}
+h1{font-size:clamp(38px,7vw,72px);line-height:.98;letter-spacing:-.06em;font-weight:760;max-width:900px}
+.hero p{font-size:20px;line-height:1.55;color:var(--muted);max-width:760px;margin-top:22px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.pill{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 11px;font-size:13px;color:var(--muted)}
+.section{padding:46px 0;border-bottom:1px solid var(--line)}
+.section-title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:18px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{
+  display:block;background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:28px;min-height:260px;transition:transform .12s ease,border-color .12s ease,background .12s ease;
+}
+.card:hover{transform:translateY(-2px);border-color:#aaa39a;text-decoration:none}
+.num{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:18px}
+.card h2{font-size:32px;line-height:1.05;letter-spacing:-.04em;margin-bottom:12px}
+.role{font-size:15px;color:var(--muted);margin-bottom:22px}
+.focus{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.focus span{font-size:12px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:5px 8px;color:var(--muted);background:var(--bg)}
+.case-layout{display:grid;grid-template-columns:300px 1fr;gap:46px;align-items:start}
+.side{position:sticky;top:82px}
+.side-box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
+.side-label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:8px}
+.side-text{font-size:15px;color:var(--ink);line-height:1.6}
+.content{min-width:0}
+.block{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:26px;margin-bottom:16px}
+.block h2{font-size:26px;line-height:1.15;letter-spacing:-.03em;margin-bottom:14px}
+.block h3{font-size:17px;margin:18px 0 8px}
+.block p{color:var(--muted);margin-bottom:12px}
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:10px;color:var(--muted)}
+ul.clean li{position:relative;padding-left:18px}
+ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
+.workflow{display:grid;gap:10px;margin-top:8px}
+.step{display:grid;grid-template-columns:86px 1fr;gap:16px;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.step-num{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.step h3{font-size:17px;margin:0 0 6px}
+.step p{margin:0;color:var(--muted)}
+.table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:table}
+.table th,.table td{border-bottom:1px solid var(--line);padding:13px 14px;text-align:left;vertical-align:top}
+.table th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--soft)}
+.table td{font-size:15px;color:var(--muted)}
+.table td:first-child{color:var(--ink);font-weight:700;width:28%}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.media-slot{border:1px dashed #aaa39a;background:var(--bg);border-radius:10px;min-height:180px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;text-align:center;padding:18px}
+.footer{padding:28px 0 54px;color:var(--muted);font-size:14px}
+@media(max-width:820px){
+  .wrap{width:min(100% - 28px,1120px)}
+  .topbar-inner{height:auto;min-height:58px;padding:14px 0;align-items:flex-start;flex-direction:column;gap:8px}
+  .nav{flex-wrap:wrap;gap:10px}
+  .hero{padding:48px 0 32px}
+  .grid-2,.case-layout,.media-grid{grid-template-columns:1fr}
+  .side{position:static}
+  .card{min-height:0}
+  .card h2{font-size:28px}
+  .step{grid-template-columns:1fr;gap:6px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="dreamworkstd.html">Jonghoon Ahn · DreamWorks TD Portfolio</a>
+    <nav class="nav">
+      <a href="dreamworkstd-yaloo-digital-human.html">Yaloo</a>
+      <a href="dreamworkstd-real-people-to-metahumans.html">MetaHumans</a>
+      <a href="dreamworkstd-motion-capture-pipeline.html">Mocap</a>
+      <a href="dreamworkstd-real-time-cloud-game.html">Cloud Game</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#experience">Experience</a>
+      <a href="#awards">Awards</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="hero wrap">
+    <div class="kicker">Selected Case Studies · Technical Direction Intern</div>
+    <h1>Production-minded TD work for artists, characters, mocap, and real-time systems.</h1>
+    <p>Four focused case studies showing how I break artist needs into repeatable workflows, organize production data, test and debug technical systems, and deliver assets that can be reviewed, iterated, and used downstream.</p>
+    <div class="meta">
+      <span class="pill">Artist-Facing Tools</span>
+      <span class="pill">Character Pipeline</span>
+      <span class="pill">Mocap / Retargeting</span>
+      <span class="pill">Real-Time Graphics</span>
+      <span class="pill">Python / C# / UE5 / Unity</span>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-title">Selected Case Studies</div>
+    <div class="grid-2">
+      <a class="card" href="dreamworkstd-yaloo-digital-human.html">
+        <div class="num">01</div>
+        <h2>Yaloo Digital Human Pipeline</h2>
+        <div class="role">Technical Artist / Digital Human TD · 2024—Present</div>
+        <p>Built a repeatable digital-human character pipeline for age and likeness variation, from reference organization and facial setup to UE5 delivery and exhibition support.</p>
+        <div class="focus"><span>Character Pipeline</span><span>Blend Shapes</span><span>UE5 Delivery</span><span>Artist Support</span></div>
+      </a>
+      <a class="card" href="dreamworkstd-real-people-to-metahumans.html">
+        <div class="num">02</div>
+        <h2>Real People to MetaHumans</h2>
+        <div class="role">Technical Artist · 2026</div>
+        <p>Converted ten real participants into MetaHuman characters through a consistent intake, identity-matching, setup, QA, and handoff process.</p>
+        <div class="focus"><span>Data Wrangling</span><span>Standardization</span><span>Character Prep</span><span>QA</span></div>
+      </a>
+      <a class="card" href="dreamworkstd-motion-capture-pipeline.html">
+        <div class="num">03</div>
+        <h2>Motion Capture Pipeline</h2>
+        <div class="role">Motion Capture Specialist · 2025</div>
+        <p>Managed performer capture through cleanup, retargeting, validation, and real-time animation handoff so artists could evaluate performance instead of debugging files.</p>
+        <div class="focus"><span>Capture</span><span>Cleanup</span><span>Retargeting</span><span>Animation Handoff</span></div>
+      </a>
+      <a class="card" href="dreamworkstd-real-time-cloud-game.html">
+        <div class="num">04</div>
+        <h2>Real-time Cloud Game</h2>
+        <div class="role">Technical Artist / TD · 2025—2026</div>
+        <p>Developed Unity raymarching visuals and blendshape-driven animation controls while supporting shot blocking, debugging, and playable real-time delivery.</p>
+        <div class="focus"><span>Shader</span><span>Raymarching</span><span>Tool Controls</span><span>Virtual Camera</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="section wrap" id="profile">
+    <div class="section-title">Profile</div>
+    <div class="block">
+      <p>Technical Artist and Creative Technologist focused on artist-facing tools, character pipelines, and real-time production support. I work between artists, directors, rigs, data, and engines: translating creative goals into repeatable technical workflows, debugging production issues, and preparing assets for iteration and delivery.</p>
+      <p>My background includes MetaHuman / UE5 character setup, Maya and MotionBuilder retargeting, blend shapes, mocap cleanup, Unity shaders and raymarching, Python / C# tooling, Git-based workflow, and hands-on technical support for artists. Incoming UC Santa Barbara Media Arts and Technology PhD student beginning September 2026.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" id="pipeline">
+    <div class="section-title">Pipeline &amp; Tool Development</div>
+    <table class="table"><tbody>
+      <tr><td>Character pipeline</td><td>Built repeatable digital-human workflows for facial setup, blendshape testing, MetaHuman / UE5 integration, material checks, and real-time delivery.</td></tr>
+      <tr><td>Data organization</td><td>Organized scan, reference, capture, and review data into consistent folder structures and naming rules so assets could be tracked across subjects and iterations.</td></tr>
+      <tr><td>Mocap cleanup &amp; retargeting</td><td>Prepared performance data for downstream artists by cleaning motion, checking skeleton mismatch, validating body weight / feet / scale, and exporting usable animation assets.</td></tr>
+      <tr><td>Real-time graphics systems</td><td>Prototyped shader and raymarching systems in Unity, exposed controllable parameters for iteration, and connected technical systems to camera blocking and scene delivery.</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="section wrap" id="skills">
+    <div class="section-title">Skills</div>
+    <table class="table"><tbody>
+      <tr><td>Programming</td><td>Python · C# · C++ · JavaScript · Git · pipeline scripting · automation</td></tr>
+      <tr><td>Pipeline &amp; Tools</td><td>Artist support · debugging · testing · data wrangling · documentation · naming conventions · UX / UI thinking · Jira-style production tracking</td></tr>
+      <tr><td>Real-Time &amp; Graphics</td><td>Unreal Engine 5 · Unity · Blueprints · Sequencer · shaders · raymarching · VFX Graph · virtual camera workflows</td></tr>
+      <tr><td>Character &amp; DCC</td><td>Maya · Houdini · Nuke · MetaHuman · MotionBuilder · retargeting · blend shapes · rigging · facial setup</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="section wrap" id="experience">
+    <div class="section-title">Additional Experience</div>
+    <table class="table"><tbody>
+      <tr><td>Teaching Assistant — Graduate Program<br><span style="color:var(--muted);font-weight:400">California Institute of the Arts · Valencia, CA · 2024—2025</span></td><td>Supported MFA productions by debugging UE5, Unity AR, real-time rendering, and AI image workflows; translated technical problems into usable steps for artists.</td></tr>
+      <tr><td>XR Game Developer<br><span style="color:var(--muted);font-weight:400">RedFlight AI · Seoul, Korea · 2024</span></td><td>Prototyped NLP-based character scenes and real-time XR interactions in Unity for Meta Quest 3, balancing technical constraints with scene design and user interaction.</td></tr>
+      <tr><td>Lead Developer — Research Program<br><span style="color:var(--muted);font-weight:400">Kookmin University · Seoul, Korea · 2019—2022</span></td><td>Led real-time AR / MR installation development for national museum exhibitions and built an AI-powered museum docent using OpenCV and Azure Kinect.</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="section wrap" id="education">
+    <div class="section-title">Education</div>
+    <table class="table"><tbody>
+      <tr><td>PhD, Media Arts and Technology</td><td>UC Santa Barbara · Incoming 2026</td></tr>
+      <tr><td>MFA, Art and Technology</td><td>California Institute of the Arts · 2025</td></tr>
+      <tr><td>BFA, Entertainment Design</td><td>Kookmin University · 2022</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="section wrap" id="awards">
+    <div class="section-title">Awards &amp; Fellowships</div>
+    <table class="table"><tbody>
+      <tr><td>Academy Nicholl Fellowships — Official Partner Entrant</td><td>2025</td></tr>
+      <tr><td>CJ &amp; TIFF K-Story Fund — Shortlist (Feature Screenplay)</td><td>2025</td></tr>
+      <tr><td>Art Korea Lab Super Testbed — Lab Participant, Seoul</td><td>2025</td></tr>
+      <tr><td>Sundance Ignite &times; Adobe Fellowship — Finalist</td><td>2024</td></tr>
+      <tr><td>Television Academy Foundation (SFX &amp; New Media) — Finalist</td><td>2024</td></tr>
+      <tr><td>1st Prize — Team X Design, Kookmin University</td><td>2019</td></tr>
+    </tbody></table>
+  </section>
+</main>
+<footer class="footer wrap">jonghoonahn.com/dreamworkstd · hoonahncloud@gmail.com</footer>
+
+</body>
+</html>

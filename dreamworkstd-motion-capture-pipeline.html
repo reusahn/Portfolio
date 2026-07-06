@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Motion Capture Pipeline · Jonghoon Ahn</title>
+  <style>
+:root{
+  --bg:#f6f4f0;
+  --paper:#ffffff;
+  --ink:#151515;
+  --muted:#66615b;
+  --line:#d9d3ca;
+  --soft:#ece7df;
+  --accent:#1f1f1f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+.wrap{width:min(1120px,calc(100% - 48px));margin:0 auto}
+.topbar{
+  position:sticky;top:0;z-index:10;
+  background:rgba(246,244,240,.94);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{height:58px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.nav{display:flex;gap:18px;align-items:center;font-size:13px;color:var(--muted)}
+.hero{padding:72px 0 42px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:16px}
+h1{font-size:clamp(38px,7vw,72px);line-height:.98;letter-spacing:-.06em;font-weight:760;max-width:900px}
+.hero p{font-size:20px;line-height:1.55;color:var(--muted);max-width:760px;margin-top:22px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.pill{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 11px;font-size:13px;color:var(--muted)}
+.section{padding:46px 0;border-bottom:1px solid var(--line)}
+.section-title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:18px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{
+  display:block;background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:28px;min-height:260px;transition:transform .12s ease,border-color .12s ease,background .12s ease;
+}
+.card:hover{transform:translateY(-2px);border-color:#aaa39a;text-decoration:none}
+.num{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:18px}
+.card h2{font-size:32px;line-height:1.05;letter-spacing:-.04em;margin-bottom:12px}
+.role{font-size:15px;color:var(--muted);margin-bottom:22px}
+.focus{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.focus span{font-size:12px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:5px 8px;color:var(--muted);background:var(--bg)}
+.case-layout{display:grid;grid-template-columns:300px 1fr;gap:46px;align-items:start}
+.side{position:sticky;top:82px}
+.side-box{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
+.side-label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:8px}
+.side-text{font-size:15px;color:var(--ink);line-height:1.6}
+.content{min-width:0}
+.block{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:26px;margin-bottom:16px}
+.block h2{font-size:26px;line-height:1.15;letter-spacing:-.03em;margin-bottom:14px}
+.block h3{font-size:17px;margin:18px 0 8px}
+.block p{color:var(--muted);margin-bottom:12px}
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:10px;color:var(--muted)}
+ul.clean li{position:relative;padding-left:18px}
+ul.clean li:before{content:"–";position:absolute;left:0;color:var(--ink)}
+.workflow{display:grid;gap:10px;margin-top:8px}
+.step{display:grid;grid-template-columns:86px 1fr;gap:16px;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.step-num{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.step h3{font-size:17px;margin:0 0 6px}
+.step p{margin:0;color:var(--muted)}
+.table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:table}
+.table th,.table td{border-bottom:1px solid var(--line);padding:13px 14px;text-align:left;vertical-align:top}
+.table th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--soft)}
+.table td{font-size:15px;color:var(--muted)}
+.table td:first-child{color:var(--ink);font-weight:700;width:28%}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.media-slot{border:1px dashed #aaa39a;background:var(--bg);border-radius:10px;min-height:180px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;text-align:center;padding:18px}
+.footer{padding:28px 0 54px;color:var(--muted);font-size:14px}
+@media(max-width:820px){
+  .wrap{width:min(100% - 28px,1120px)}
+  .topbar-inner{height:auto;min-height:58px;padding:14px 0;align-items:flex-start;flex-direction:column;gap:8px}
+  .nav{flex-wrap:wrap;gap:10px}
+  .hero{padding:48px 0 32px}
+  .grid-2,.case-layout,.media-grid{grid-template-columns:1fr}
+  .side{position:static}
+  .card{min-height:0}
+  .card h2{font-size:28px}
+  .step{grid-template-columns:1fr;gap:6px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="dreamworkstd.html">← DreamWorks TD Portfolio</a>
+    <nav class="nav">
+      <a href="#task">Task</a>
+      <a href="#implementation">Implementation</a>
+      <a href="#debugging">Debugging</a>
+      <a href="#evidence">Evidence</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="hero wrap">
+    <div class="kicker">Case Study 03 · Performance Capture Workflow · 2025</div>
+    <h1>Motion Capture Pipeline</h1>
+    <p>Managed a performance-capture workflow from on-set capture to cleanup, retargeting, validation, and real-time animation handoff.</p>
+    <div class="meta"><span class="pill">Motion Capture Specialist · Stella Lee Project</span></div>
+  </section>
+
+  <section class="section wrap">
+    <div class="case-layout">
+      <aside class="side">
+        <div class="side-box">
+          <div class="side-label">Role</div>
+          <div class="side-text">Motion Capture Specialist · Stella Lee Project</div>
+        </div>
+        <div class="side-box">
+          <div class="side-label">Tools / Focus</div>
+          <div class="side-text">OptiTrack / Motive · MotionBuilder · Maya · cleanup · retargeting · real-time character integration</div>
+        </div>
+        <div class="side-box">
+          <div class="side-label">Page Logic</div>
+          <div class="side-text">Task → Problem → Constraint → Solution → Implementation → Debugging → Delivery → Evidence</div>
+        </div>
+      </aside>
+
+      <div class="content">
+        <div class="block" id="task">
+          <h2>Project Task</h2>
+          <h3>Turn live performance into usable real-time character animation</h3>
+          <p>The task was to capture performer movement and deliver animation files that could be used downstream by artists. The important TD work was not just recording motion, but creating a clean path from performer calibration to source data, cleanup, retargeting, character validation, and reviewable delivery.</p>
+        </div>
+
+        <div class="block">
+          <h2>Production Problem</h2>
+          <ul class="clean">
+            <li>Raw mocap data is never automatically production-ready: marker loss, jitter, incorrect contact, skeleton scale, and joint orientation can all break the performance.</li>
+<li>The target character does not move exactly like the performer skeleton, so the transfer needed validation rather than a simple file conversion.</li>
+<li>Artists needed readable performance outputs, not a folder of raw data that required technical troubleshooting.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h2>Constraints</h2>
+          <ul class="clean">
+            <li>Capture sessions move quickly, so take naming and notes needed to be clear from the start.</li>
+<li>Performance intention had to survive cleanup and retargeting.</li>
+<li>Animation needed to be checked for real-time playback issues such as feet sliding, hip offsets, joint pops, and body-weight readability.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h2>TD Solution</h2>
+          <p>I structured the mocap process as a production pipeline: prepare the capture session, track takes, clean problematic data, retarget onto the target rig, run animation validation, and deliver files with review notes. The goal was to reduce ambiguity between capture, animation cleanup, and artist review.</p>
+        </div>
+
+        <div class="block" id="implementation">
+          <h2>Implementation Breakdown</h2>
+          <div class="workflow">
+            <div class="step"><div class="step-num">Step 01</div><div><h3>Capture Prep</h3><p>Prepared performer calibration, take naming, movement requirements, and the review plan before recording so the session created usable data from the beginning.</p></div></div>
+<div class="step"><div class="step-num">Step 02</div><div><h3>On-Set Capture</h3><p>Captured performance while tracking usable takes, capture issues, timing notes, and movements that would need extra cleanup later.</p></div></div>
+<div class="step"><div class="step-num">Step 03</div><div><h3>Raw Data Review</h3><p>Reviewed takes for marker loss, jitter, missing contact, inconsistent body orientation, and performance moments worth preserving.</p></div></div>
+<div class="step"><div class="step-num">Step 04</div><div><h3>Cleanup Pass</h3><p>Cleaned motion data and corrected technical noise before retargeting, prioritizing performance clarity rather than over-smoothing the body.</p></div></div>
+<div class="step"><div class="step-num">Step 05</div><div><h3>Retargeting</h3><p>Mapped motion onto the target character rig and checked skeleton scale, joint behavior, shoulders, hips, feet contact, and body weight.</p></div></div>
+<div class="step"><div class="step-num">Step 06</div><div><h3>Validation &amp; Handoff</h3><p>Exported reviewable animation outputs and prepared playback captures / notes so the director and artists could evaluate performance instead of debugging files.</p></div></div>
+          </div>
+        </div>
+
+        <div class="block" id="debugging">
+          <h2>Debugging / Iteration</h2>
+          <table class="table"><tbody>
+            <tr><td>Marker loss / jitter</td><td>Reviewed noisy sections and cleaned the data before retargeting to avoid transferring capture errors into the character rig.</td></tr>
+<tr><td>Skeleton mismatch</td><td>Checked scale, joint orientation, limb length, and neutral pose differences between performer data and target rig.</td></tr>
+<tr><td>Foot sliding</td><td>Validated contact frames and corrected motion so body weight read properly in playback.</td></tr>
+<tr><td>Hip / shoulder offsets</td><td>Adjusted retarget results and checked silhouettes so the character did not feel mechanically shifted from the original performance.</td></tr>
+<tr><td>Artist review bottleneck</td><td>Prepared clean preview outputs and notes so review could focus on acting and motion quality.</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="block" id="responsibilities">
+          <h2>My TD Responsibilities</h2>
+          <table class="table"><tbody>
+            <tr><td>Capture Workflow</td><td>Managed the path from performer to usable animation asset, including setup, naming, and take organization.</td></tr>
+<tr><td>Technical Cleanup</td><td>Solved motion-data issues before delivery so artists would not inherit broken or noisy files.</td></tr>
+<tr><td>Retarget Validation</td><td>Checked body scale, joint behavior, feet contact, and performance readability on the target rig.</td></tr>
+<tr><td>Artist Support</td><td>Prepared outputs so directors and artists could review motion quality without technical friction.</td></tr>
+<tr><td>Real-Time Handoff</td><td>Delivered animation assets ready for real-time character integration and playback review.</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="block" id="delivery">
+          <h2>Final Delivery</h2>
+          <ul class="clean">
+            <li>Cleaned mocap takes</li>
+<li>Retargeted character animation</li>
+<li>Reviewable playback captures</li>
+<li>Technical notes for problem areas</li>
+<li>Real-time-ready animation handoff</li>
+          </ul>
+        </div>
+
+        <div class="block" id="evidence">
+          <h2>Visual / Technical Evidence to Add</h2>
+          <p>Use this section as proof of process: final result, technical screenshots, before / after comparisons, implementation views, debugging evidence, and handoff material.</p>
+          <div class="media-grid">
+            <div class="media-slot">TODO: Replace with 01 Capture Setup — performer / volume / calibration</div>
+<div class="media-slot">TODO: Replace with 02 Take Sheet — naming and usable-take notes</div>
+<div class="media-slot">TODO: Replace with 03 Raw Data — Motive / source capture view</div>
+<div class="media-slot">TODO: Replace with 04 Cleanup Pass — before / after motion data</div>
+<div class="media-slot">TODO: Replace with 05 Source Skeleton — original capture skeleton</div>
+<div class="media-slot">TODO: Replace with 06 Retarget Mapping — source to target rig</div>
+<div class="media-slot">TODO: Replace with 07 Feet Contact Debug — sliding correction comparison</div>
+<div class="media-slot">TODO: Replace with 08 Body Weight Check — hip / shoulder validation</div>
+<div class="media-slot">TODO: Replace with 09 Target Rig Playback — character animation preview</div>
+<div class="media-slot">TODO: Replace with 10 Final Delivery — exported animation / review package</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer wrap"><a href="dreamworkstd.html">Back to selected case studies</a> · jonghoonahn.com/dreamworkstd</footer>
+</body>
+</html>
