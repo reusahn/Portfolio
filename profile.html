@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>안종훈 Jonghoon Ahn — Artist Profile</title>
+<style>
+  @font-face { font-family: 'Pretendard'; src: local('Pretendard'); }
+
+  :root {
+    --ink: #171717;
+    --ink-soft: #444;
+    --ink-faint: #8a8a8a;
+    --line: #e5e5e5;
+    --line-strong: #d2d2d2;
+    --paper: #fff;
+    --max-w: 980px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    word-break: keep-all;
+  }
+
+  .wrap {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .hero {
+    padding: 92px 0 54px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+
+  h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    line-height: 1.22;
+    letter-spacing: -0.02em;
+  }
+
+  .name-en {
+    font-size: 16px;
+    color: var(--ink-faint);
+    margin: 0 0 28px;
+  }
+
+  .tagline {
+    font-size: 18px;
+    line-height: 1.72;
+    color: var(--ink-soft);
+    max-width: 710px;
+    margin: 0 0 18px;
+  }
+
+  .location {
+    font-size: 14px;
+    color: var(--ink-faint);
+    margin: 0 0 26px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    border: 1px solid var(--line-strong);
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+
+  section.block {
+    padding: 54px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  section.block:last-of-type { border-bottom: none; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+
+  .section-head .kr {
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .section-head .en {
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .intro p,
+  .vision p {
+    font-size: 16px;
+    line-height: 1.95;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+
+  .intro p:last-child,
+  .vision p:last-child { margin-bottom: 0; }
+
+  .hl { color: var(--ink); font-weight: 600; }
+
+  .list,
+  .timeline,
+  .cards,
+  .film-list { margin: 0; padding: 0; list-style: none; }
+
+  .list li {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 20px;
+    padding: 13px 0;
+    border-top: 1px solid var(--line);
+    font-size: 15.5px;
+    line-height: 1.72;
+  }
+
+  .list li:first-child { border-top: none; }
+
+  .year {
+    color: var(--ink-faint);
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+    padding-top: 1px;
+  }
+
+  .desc { color: var(--ink-soft); }
+
+  .desc strong { color: var(--ink); font-weight: 600; }
+
+  .plain-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .plain-list li {
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+
+  .plain-list li:first-child { border-top: none; }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 20px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .timeline-item:first-child { border-top: none; }
+
+  .title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .meta {
+    font-size: 14.7px;
+    color: var(--ink-soft);
+    line-height: 1.72;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .card {
+    background: var(--paper);
+    padding: 26px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    display: block;
+    overflow: hidden;
+    background: #f6f6f6;
+    margin-bottom: 10px;
+  }
+
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .thumb:hover img {
+    transform: scale(1.015);
+  }
+
+  .thumb img {
+    transition: transform 180ms ease;
+  }
+
+  .card-year {
+    font-size: 12.5px;
+    color: var(--ink-faint);
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .card-medium {
+    font-size: 13.5px;
+    color: var(--ink-faint);
+    line-height: 1.55;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin-top: auto;
+  }
+
+  footer {
+    padding: 48px 0 80px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 13.5px;
+    color: var(--ink-faint);
+  }
+
+  footer a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  footer a:hover { color: var(--ink); }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 0 20px; }
+    .hero { padding: 62px 0 40px; }
+    h1 { font-size: 31px; }
+    .tagline { font-size: 16px; }
+    section.block { padding: 40px 0; }
+    .list li,
+    .timeline-item { grid-template-columns: 54px 1fr; gap: 14px; }
+    .card-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; }
+  }
+
+  .thumb { position: relative; overflow: hidden; }
+  .thumb::after {
+    content: 'Vimeo 보기';
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    color: #fff;
+    background: rgba(0,0,0,0.62);
+    padding: 5px 8px;
+    border-radius: 999px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+  .thumb:hover::after { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+<div class="eyebrow">Artist Profile · 2026</div>
+<h1>안종훈</h1>
+<p class="name-en">Jonghoon Ahn</p>
+<p class="tagline">실시간 시각화, 디지털 휴먼, 생성형 AI, 영화적 스토리텔링을 기반으로 작업하는 테크니컬 아티스트 · 영화감독 · 미디어아티스트</p>
+<p class="location">서울 · 로스앤젤레스 기반</p>
+<div class="tags">
+<span class="tag">Technical Artist</span>
+<span class="tag">Media Art</span>
+<span class="tag">Real-time Visualization</span>
+<span class="tag">Digital Human</span>
+<span class="tag">Generative AI</span>
+<span class="tag">Film</span>
+</div>
+</header>
+<section class="block intro">
+<div class="section-head">
+<span class="kr">소개</span>
+<span class="en">About</span>
+</div>
+<p>안종훈은 서울과 로스앤젤레스를 기반으로 활동하는 테크니컬 아티스트, 영화감독, 미디어아티스트다. 실시간 시각화, 디지털 휴먼 제작, 생성형 AI, 영화적 스토리텔링을 바탕으로 기술과 AI 시대가 주변화된 개인의 삶을 어떻게 재구성하는지 탐구한다.</p>
+<p>영화, XR, 디지털 퍼포먼스, 모션캡처, 실시간 엔진, 생성형 이미지 기술을 활용해 관객이 단순한 감상자를 넘어 작품의 구조에 개입하는 방식을 작업해왔다. 대표 작업으로는 〈To Eternity〉, 〈AI Gang Se-hwang〉, 〈Jemulpo Photo Studio〉, 〈AI ZOO〉, 〈DADA Myeongdong〉, 〈Dream of Salmon〉 등이 있다.</p>
+<p>CalArts Art and Technology 석사 과정에서 AI와 인간의 상호작용을 연구했으며, 최근에는 AI 리서치를 바탕으로 <span class="hl">MIT Media Lab Cyborg Psychology Lab</span>으로부터 연구 방향에 대한 관심을 받으며 기술과 인간성, 심리, 윤리의 관계를 다루는 뉴미디어 작업을 확장하고 있다. 단편영화 〈Non-Done Record〉는 Sundance Ignite × Adobe Fellowship 파이널리스트로 선정되었고, 장편 시나리오는 Academy Nicholl Fellowships Partner Entrant 및 CJ &amp; TIFF K-Story Fund 쇼트리스트에 선정되었다.</p>
+</section>
+<section class="block">
+<div class="section-head">
+<span class="kr">학력</span>
+<span class="en">Education</span>
+</div>
+<ul class="plain-list">
+<li>캘리포니아예술대학교 California Institute of the Arts, Art and Technology 석사 졸업</li>
+<li>국민대학교 조형대학 영상디자인학과 학사 졸업</li>
+<li>MITx 머신러닝·인공지능 과정 수료</li></ul>
+</section>
+<section class="block">
+<div class="section-head">
+<span class="kr">선정 · 지원 · 강연</span>
+<span class="en">Selections · Grants · Talks</span>
+</div>
+<ul class="list">
+<li><span class="year">2026</span><span class="desc"><strong>서울문화재단 K-Art 청년 창작자 지원사업 선정</strong></span></li>
+<li><span class="year">2026</span><span class="desc"><strong>관악문화재단 〈젊은 예술가의 창작노트〉 선정</strong></span></li>
+<li><span class="year">2026</span><span class="desc"><strong>CalArts X CultureHub 초빙 작가 · AI/인터랙티브 미디어 창작 수업 진행</strong></span></li>
+<li><span class="year">2025</span><span class="desc">UNBOUND: Transcending Technology and Disciplinarity, AI 예술 비평 연구 심포지엄 연사</span></li>
+<li><span class="year">2025</span><span class="desc">Academy Nicholl Fellowships Partner Entrant</span></li>
+<li><span class="year">2025</span><span class="desc">CJ &amp; TIFF K-Story Fund 쇼트리스트</span></li>
+<li><span class="year">2025</span><span class="desc">Best Script Nominee, Asian Film Festival Los Angeles</span></li>
+<li><span class="year">2024</span><span class="desc">Sundance Ignite × Adobe Fellowship 파이널리스트</span></li>
+<li><span class="year">2024</span><span class="desc">Television Academy Foundation SFX &amp; New Media 파이널리스트</span></li>
+<li><span class="year">2024–25</span><span class="desc">Art Korea Lab Super Testbed 수료</span></li>
+
+</ul>
+</section>
+<section class="block">
+<div class="section-head">
+<span class="kr">주요 전시 · 협업</span>
+<span class="en">Selected Exhibitions · Collaborations</span>
+</div>
+<div class="timeline">
+<div class="timeline-item"><span class="year">2026</span><div><div class="title">〈Shininho Landing〉</div><div class="meta">West Seoul Museum of Art · Metahuman Animator</div></div></div>
+<div class="timeline-item"><span class="year">2025</span><div><div class="title">〈Dream of Salmon〉</div><div class="meta">Encore Creative Festival, Ohio</div></div></div>
+<div class="timeline-item"><span class="year">2025</span><div><div class="title">〈Shininho Docking〉</div><div class="meta">LA Rip Space · Metahuman Animation Assistant</div></div></div>
+<div class="timeline-item"><span class="year">2025</span><div><div class="title">얄루 〈Shininho World Tour〉</div><div class="meta">Songeun Art Award · Metahuman Animation Assistant</div></div></div>
+<div class="timeline-item"><span class="year">2025</span><div><div class="title">〈DADA Myeongdong〉</div><div class="meta">Shinsegae Department Store Media Wall · Art Korea Lab</div></div></div>
+<div class="timeline-item"><span class="year">2025</span><div><div class="title">〈Generated Cinema〉</div><div class="meta">CalArts 개인전</div></div></div>
+<div class="timeline-item"><span class="year">2024</span><div><div class="title">〈Shininho Destiny〉</div><div class="meta">SF 836M Yaloo Residency · Metahuman Assistant</div></div></div>
+<div class="timeline-item"><span class="year">2024</span><div><div class="title">〈AI ZOO〉</div><div class="meta">Mixed Media Installation · Unity / ChatGPT</div></div></div>
+<div class="timeline-item"><span class="year">2024</span><div><div class="title">〈Directed By AI〉</div><div class="meta">Film · AI Co-Director · Unreal / Diffusion</div></div></div>
+<div class="timeline-item"><span class="year">2024</span><div><div class="title">〈AI Choi Jung Hoon〉</div><div class="meta">LLM · Real-time Avatar · Unity / GPT / TTS</div></div></div>
+<div class="timeline-item"><span class="year">2023</span><div><div class="title">〈NARCI〉</div><div class="meta">VR · Psychology · Unity VR</div></div></div>
+<div class="timeline-item"><span class="year">2023</span><div><div class="title">〈Be NARCI〉</div><div class="meta">VR · Role Reversal · Unity VR</div></div></div>
+<div class="timeline-item"><span class="year">2022</span><div><div class="title">〈AI Gang Se-hwang〉</div><div class="meta">Gyeonggi Museum of Modern Art · Technical Director</div></div></div>
+<div class="timeline-item"><span class="year">2022</span><div><div class="title">〈Jemulpo Photo Studio〉</div><div class="meta">Incheon Metropolitan City Museum · Technical Director</div></div></div>
+<div class="timeline-item"><span class="year">2022</span><div><div class="title">〈Sound Alive in Falls〉</div><div class="meta">Interactive Media · Unity</div></div></div>
+<div class="timeline-item"><span class="year">2022</span><div><div class="title">〈The Nature of Manpasikjeok〉</div><div class="meta">Public Media Art · Daegu · Unity</div></div></div>
+<div class="timeline-item"><span class="year">2021</span><div><div class="title">〈Fall of Minds〉</div><div class="meta">Famille Station, Pangyo · Coding Director</div></div></div>
+<div class="timeline-item"><span class="year">2020</span><div><div class="title">〈To Eternity〉</div><div class="meta">Asia Culture Center · Coding Director</div></div></div>
+</div>
+</section>
+<section class="block">
+<div class="section-head">
+<span class="kr">대표 작업</span>
+<span class="en">Selected Works</span>
+</div>
+<div class="card-grid">
+  <div class="card">
+    <a aria-label="To Eternity 작품 영상 보기" class="thumb" href="https://vimeo.com/666369383/69a48ffe55?fl=tl&fe=ec" rel="noopener" target="_blank"><img alt="To Eternity 대표 이미지" src="https://jonghoonahn.com/assets/images/interactive1.jpg"/></a>
+    <span class="card-year">2020</span>
+    <span class="card-title">To Eternity</span>
+    <span class="card-medium">Interactive Installation · Asia Culture Center</span>
+    <span class="card-desc">광주민주화운동 아카이브 사진을 관객의 실시간 실루엣 위에 모자이크로 재구성한 인터랙티브 설치</span>
+  </div>
+  <div class="card">
+    <a aria-label="AI Gang Se-hwang 작품 영상 보기" class="thumb" href="https://vimeo.com/1011866123/8336cf2a0c?fl=tl&fe=ec" rel="noopener" target="_blank"><img alt="AI Gang Se-hwang 대표 이미지" src="https://jonghoonahn.com/assets/images/interactive2.jpg"/></a>
+    <span class="card-year">2022</span>
+    <span class="card-title">AI Gang Se-hwang</span>
+    <span class="card-medium">AI · Digital Human · Technical Director</span>
+    <span class="card-desc">조선시대 화가 강세황을 실시간 대화가 가능한 인터랙티브 AI 도슨트로 구현한 작업</span>
+  </div>
+  <div class="card">
+    <a aria-label="Jemulpo Photo Studio 작품 영상 보기" class="thumb" href="https://vimeo.com/1011870114/e6a92f4ef4?fl=tl&fe=ec" rel="noopener" target="_blank"><img alt="Jemulpo Photo Studio 대표 이미지" src="https://jonghoonahn.com/assets/images/interactive3.jpg"/></a>
+    <span class="card-year">2022</span>
+    <span class="card-title">Jemulpo Photo Studio</span>
+    <span class="card-medium">Computer Vision · Style Transfer</span>
+    <span class="card-desc">관객의 초상을 근대 인천 ‘신여성’ 미학의 잡지 표지 이미지로 변환하는 참여형 작업</span>
+  </div>
+  <div class="card">
+    <a aria-label="AI ZOO 작품 영상 보기" class="thumb" href="https://vimeo.com/1026374193?fl=tl&fe=ec" rel="noopener" target="_blank"><img alt="AI ZOO 대표 이미지" src="https://jonghoonahn.com/assets/images/interactive4.jpg"/></a>
+    <span class="card-year">2024</span>
+    <span class="card-title">AI ZOO</span>
+    <span class="card-medium">Mixed Media Installation</span>
+    <span class="card-desc">아크릴 구 안의 풍선과 디지털 휴먼 인터랙션을 통해 인간과 AI 사이의 감정적 관계를 탐구한 설치</span>
+  </div>
+  <div class="card">
+    <a aria-label="DADA Myeongdong Vimeo 영상 보기" class="thumb" href="https://www.yna.co.kr/view/AKR20250929031900005" rel="noopener" target="_blank"><img alt="DADA Myeongdong 대표 이미지" src="https://jonghoonahn.com/assets/images/media1.jpg"/></a>
+    <span class="card-year">2025</span>
+    <span class="card-title">DADA Myeongdong</span>
+    <span class="card-medium">Media Wall · Art Korea Lab</span>
+    <span class="card-desc">아트코리아랩 수퍼테스트베드 공동과정을 통해 명동 신세계백화점 미디어월에 송출된 미디어아트</span>
+  </div>
+  <div class="card">
+    <a aria-label="Dream of Salmon 작품 영상 보기" class="thumb" href="https://vimeo.com/1129008487/44e0460d39?fl=tl&fe=ec" rel="noopener" target="_blank"><img alt="Dream of Salmon 대표 이미지" src="https://jonghoonahn.com/assets/images/media2_1.jpg"/></a>
+    <span class="card-year">2025</span>
+    <span class="card-title">Dream of Salmon</span>
+    <span class="card-medium">Generative Media · Media Facade</span>
+    <span class="card-desc">어둠 속을 유영하는 손 모양의 빛나는 물고기들을 통해 기억, 상실, 재생의 이동을 다룬 생성형 미디어 작업</span>
+  </div>
+</div>
+</section>
+<footer>
+<span>© 2026 Jonghoon Ahn</span>
+<span><a href="https://jonghoonahn.com" rel="noopener" target="_blank">jonghoonahn.com</a></span>
+</footer>
+</div>
+</body>
+</html>
