@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>차귀도포구 오전 만조(06–12시) 파고·수위 — 연도별</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+  :root{
+    --bg:#080808; --bg-panel:#101010; --line:#242424;
+    --accent:#e8ff47; --accent-dim:#8a9a2b; --text:#e8e8e4; --text-dim:#8a8a86;
+    --wave:#4fb8ff; --level:#e8ff47;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;}
+  header{padding:48px 6vw 32px;border-bottom:1px solid var(--line);}
+  header .eyebrow{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+  header h1{font-size:clamp(24px,3.4vw,38px);font-weight:900;margin:0 0 12px;line-height:1.2;}
+  header h1 span{color:var(--accent);}
+  header p{max-width:680px;color:var(--text-dim);font-size:14px;line-height:1.7;margin:0;}
+  nav.tabs{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--line);padding:0 6vw;position:sticky;top:0;background:rgba(8,8,8,.94);backdrop-filter:blur(6px);z-index:10;}
+  nav.tabs button{font-family:'Space Mono',monospace;font-size:13px;background:none;border:none;color:var(--text-dim);padding:16px 18px;cursor:pointer;border-bottom:2px solid transparent;}
+  nav.tabs button.active{color:var(--accent);border-bottom-color:var(--accent);}
+  main{padding:36px 6vw 90px;max-width:1200px;margin:0 auto;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .chart-box{border:1px solid var(--line);background:var(--bg-panel);padding:24px 24px 14px;margin-bottom:28px;}
+  .chart-box .t{font-family:'Space Mono',monospace;font-size:12px;color:var(--text-dim);margin-bottom:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle;}
+  canvas{max-width:100%;}
+  .note{font-size:12px;color:var(--text-dim);line-height:1.7;border-top:1px solid var(--line);padding-top:16px;margin-top:4px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">CHAGWIDO PORT — MORNING HIGH TIDE ONLY (06:00–12:00)</div>
+  <h1>오전 06시~12시 사이 만조가 있는 날만<br>골라서 본 <span>파고 · 수위</span></h1>
+  <p>하루 두 번 있는 만조 중, 06:00~12:00 사이에 발생한 만조만 추출했다. 그 시간대에 만조가 없는 날은 막대 없이 날짜만 x축에 표시된다.</p>
+</header>
+
+<nav class="tabs" id="tabs"></nav>
+<main id="main"></main>
+
+<script>
+const DATA = {"2021": [{"day": 1, "cm": null, "wh": null, "time": null}, {"day": 2, "cm": null, "wh": null, "time": null}, {"day": 3, "cm": null, "wh": null, "time": null}, {"day": 4, "cm": 190.0, "wh": 0.48, "time": "06:23"}, {"day": 5, "cm": 187.0, "wh": 0.47, "time": "07:11"}, {"day": 6, "cm": 188.0, "wh": 0.2, "time": "07:57"}, {"day": 7, "cm": 192.0, "wh": 0.23, "time": "08:41"}, {"day": 8, "cm": 197.0, "wh": 0.17, "time": "09:24"}, {"day": 9, "cm": 204.0, "wh": 0.11, "time": "10:03"}, {"day": 10, "cm": 209.0, "wh": 0.12, "time": "10:41"}, {"day": 11, "cm": 213.0, "wh": 0.08, "time": "11:17"}, {"day": 12, "cm": 214.0, "wh": 0.08, "time": "11:54"}, {"day": 13, "cm": null, "wh": null, "time": null}, {"day": 14, "cm": null, "wh": null, "time": null}, {"day": 15, "cm": null, "wh": null, "time": null}, {"day": 16, "cm": null, "wh": null, "time": null}, {"day": 17, "cm": null, "wh": null, "time": null}, {"day": 18, "cm": null, "wh": null, "time": null}, {"day": 19, "cm": null, "wh": null, "time": null}, {"day": 20, "cm": 206.0, "wh": 0.1, "time": "06:44"}, {"day": 21, "cm": 207.0, "wh": 0.14, "time": "07:49"}, {"day": 22, "cm": 213.0, "wh": 0.34, "time": "08:50"}, {"day": 23, "cm": 221.0, "wh": 0.28, "time": "09:46"}, {"day": 24, "cm": 230.0, "wh": 0.24, "time": "10:36"}, {"day": 25, "cm": 234.0, "wh": 0.38, "time": "11:24"}, {"day": 26, "cm": null, "wh": null, "time": null}, {"day": 27, "cm": null, "wh": null, "time": null}, {"day": 28, "cm": null, "wh": null, "time": null}, {"day": 29, "cm": null, "wh": null, "time": null}, {"day": 30, "cm": null, "wh": null, "time": null}, {"day": 31, "cm": null, "wh": null, "time": null}], "2022": [{"day": 1, "cm": 206.0, "wh": null, "time": "11:44"}, {"day": 2, "cm": null, "wh": null, "time": null}, {"day": 3, "cm": null, "wh": null, "time": null}, {"day": 4, "cm": null, "wh": null, "time": null}, {"day": 5, "cm": null, "wh": null, "time": null}, {"day": 6, "cm": null, "wh": null, "time": null}, {"day": 7, "cm": null, "wh": null, "time": null}, {"day": 8, "cm": null, "wh": null, "time": null}, {"day": 9, "cm": 206.0, "wh": 0.12, "time": "06:03"}, {"day": 10, "cm": 205.0, "wh": 0.07, "time": "07:02"}, {"day": 11, "cm": 208.0, "wh": 0.01, "time": "08:01"}, {"day": 12, "cm": 215.0, "wh": 0.06, "time": "08:58"}, {"day": 13, "cm": 223.0, "wh": 0.19, "time": "09:53"}, {"day": 14, "cm": 232.0, "wh": 0.13, "time": "10:45"}, {"day": 15, "cm": 236.0, "wh": 0.12, "time": "11:36"}, {"day": 16, "cm": null, "wh": null, "time": null}, {"day": 17, "cm": null, "wh": null, "time": null}, {"day": 18, "cm": null, "wh": null, "time": null}, {"day": 19, "cm": null, "wh": null, "time": null}, {"day": 20, "cm": null, "wh": null, "time": null}, {"day": 21, "cm": null, "wh": null, "time": null}, {"day": 22, "cm": null, "wh": null, "time": null}, {"day": 23, "cm": 182.0, "wh": 0.15, "time": "06:13"}, {"day": 24, "cm": 179.0, "wh": 0.09, "time": "07:15"}, {"day": 25, "cm": 183.0, "wh": 0.42, "time": "08:12"}, {"day": 26, "cm": 190.0, "wh": 0.0, "time": "09:01"}, {"day": 27, "cm": 200.0, "wh": 0.04, "time": "09:44"}, {"day": 28, "cm": 208.0, "wh": 0.13, "time": "10:22"}, {"day": 29, "cm": 214.0, "wh": 0.1, "time": "10:57"}, {"day": 30, "cm": 218.0, "wh": 0.3, "time": "11:31"}, {"day": 31, "cm": null, "wh": null, "time": null}], "2023": [{"day": 1, "cm": 203.0, "wh": null, "time": "08:29"}, {"day": 2, "cm": 210.0, "wh": 0.08, "time": "09:19"}, {"day": 3, "cm": 217.0, "wh": 0.03, "time": "10:07"}, {"day": 4, "cm": 225.0, "wh": 0.04, "time": "10:55"}, {"day": 5, "cm": 229.0, "wh": 0.02, "time": "11:45"}, {"day": 6, "cm": null, "wh": null, "time": null}, {"day": 7, "cm": null, "wh": null, "time": null}, {"day": 8, "cm": null, "wh": null, "time": null}, {"day": 9, "cm": null, "wh": null, "time": null}, {"day": 10, "cm": null, "wh": null, "time": null}, {"day": 11, "cm": null, "wh": null, "time": null}, {"day": 12, "cm": 197.0, "wh": 0.23, "time": "06:03"}, {"day": 13, "cm": 189.0, "wh": 0.16, "time": "07:01"}, {"day": 14, "cm": 186.0, "wh": 0.24, "time": "07:58"}, {"day": 15, "cm": 189.0, "wh": 0.28, "time": "08:49"}, {"day": 16, "cm": 194.0, "wh": 0.24, "time": "09:34"}, {"day": 17, "cm": 202.0, "wh": 0.14, "time": "10:15"}, {"day": 18, "cm": 208.0, "wh": 0.06, "time": "10:52"}, {"day": 19, "cm": 211.0, "wh": 0.25, "time": "11:27"}, {"day": 20, "cm": null, "wh": null, "time": null}, {"day": 21, "cm": null, "wh": null, "time": null}, {"day": 22, "cm": null, "wh": null, "time": null}, {"day": 23, "cm": null, "wh": null, "time": null}, {"day": 24, "cm": null, "wh": null, "time": null}, {"day": 25, "cm": null, "wh": null, "time": null}, {"day": 26, "cm": null, "wh": null, "time": null}, {"day": 27, "cm": null, "wh": null, "time": null}, {"day": 28, "cm": null, "wh": null, "time": null}, {"day": 29, "cm": 191.0, "wh": 0.06, "time": "06:55"}, {"day": 30, "cm": 199.0, "wh": 0.04, "time": "08:04"}, {"day": 31, "cm": 211.0, "wh": 0.02, "time": "09:04"}], "2024": [{"day": 1, "cm": 206.0, "wh": null, "time": "06:18"}, {"day": 2, "cm": 200.0, "wh": 0.1, "time": "07:16"}, {"day": 3, "cm": 199.0, "wh": 0.33, "time": "08:14"}, {"day": 4, "cm": 201.0, "wh": 0.37, "time": "09:08"}, {"day": 5, "cm": 205.0, "wh": 0.16, "time": "09:57"}, {"day": 6, "cm": 210.0, "wh": 0.23, "time": "10:41"}, {"day": 7, "cm": 212.0, "wh": 0.26, "time": "11:23"}, {"day": 8, "cm": null, "wh": null, "time": null}, {"day": 9, "cm": null, "wh": null, "time": null}, {"day": 10, "cm": null, "wh": null, "time": null}, {"day": 11, "cm": null, "wh": null, "time": null}, {"day": 12, "cm": null, "wh": null, "time": null}, {"day": 13, "cm": null, "wh": null, "time": null}, {"day": 14, "cm": null, "wh": null, "time": null}, {"day": 15, "cm": null, "wh": null, "time": null}, {"day": 16, "cm": null, "wh": null, "time": null}, {"day": 17, "cm": 185.0, "wh": 0.12, "time": "06:43"}, {"day": 18, "cm": 188.0, "wh": 0.14, "time": "07:47"}, {"day": 19, "cm": 195.0, "wh": 0.32, "time": "08:42"}, {"day": 20, "cm": 206.0, "wh": 0.19, "time": "09:31"}, {"day": 21, "cm": 217.0, "wh": 0.17, "time": "10:17"}, {"day": 22, "cm": 228.0, "wh": 0.19, "time": "11:02"}, {"day": 23, "cm": 235.0, "wh": 0.14, "time": "11:48"}, {"day": 24, "cm": null, "wh": null, "time": null}, {"day": 25, "cm": null, "wh": null, "time": null}, {"day": 26, "cm": null, "wh": null, "time": null}, {"day": 27, "cm": null, "wh": null, "time": null}, {"day": 28, "cm": null, "wh": null, "time": null}, {"day": 29, "cm": null, "wh": null, "time": null}, {"day": 30, "cm": null, "wh": null, "time": null}, {"day": 31, "cm": 184.0, "wh": 0.12, "time": "06:53"}], "2025": [{"day": 1, "cm": null, "wh": null, "time": null}, {"day": 2, "cm": null, "wh": null, "time": null}, {"day": 3, "cm": null, "wh": null, "time": null}, {"day": 4, "cm": null, "wh": null, "time": null}, {"day": 5, "cm": null, "wh": null, "time": null}, {"day": 6, "cm": 181.0, "wh": 0.1, "time": "06:45"}, {"day": 7, "cm": 183.0, "wh": 0.1, "time": "07:44"}, {"day": 8, "cm": 188.0, "wh": 0.04, "time": "08:37"}, {"day": 9, "cm": 195.0, "wh": 0.29, "time": "09:24"}, {"day": 10, "cm": 204.0, "wh": 0.36, "time": "10:07"}, {"day": 11, "cm": 210.0, "wh": 0.96, "time": "10:45"}, {"day": 12, "cm": 215.0, "wh": 0.85, "time": "11:23"}, {"day": 13, "cm": null, "wh": null, "time": null}, {"day": 14, "cm": null, "wh": null, "time": null}, {"day": 15, "cm": null, "wh": null, "time": null}, {"day": 16, "cm": null, "wh": null, "time": null}, {"day": 17, "cm": null, "wh": null, "time": null}, {"day": 18, "cm": null, "wh": null, "time": null}, {"day": 19, "cm": null, "wh": null, "time": null}, {"day": 20, "cm": null, "wh": null, "time": null}, {"day": 21, "cm": 193.0, "wh": 0.03, "time": "06:56"}, {"day": 22, "cm": 197.0, "wh": 0.03, "time": "08:10"}, {"day": 23, "cm": 208.0, "wh": 0.02, "time": "09:12"}, {"day": 24, "cm": 218.0, "wh": 0.01, "time": "10:06"}, {"day": 25, "cm": 227.0, "wh": 0.05, "time": "10:53"}, {"day": 26, "cm": 231.0, "wh": 0.17, "time": "11:37"}, {"day": 27, "cm": null, "wh": null, "time": null}, {"day": 28, "cm": null, "wh": null, "time": null}, {"day": 29, "cm": null, "wh": null, "time": null}, {"day": 30, "cm": null, "wh": null, "time": null}, {"day": 31, "cm": null, "wh": null, "time": null}], "2026": [{"day": 1, "cm": 207.0, "wh": 0.06, "time": "11:15"}, {"day": 2, "cm": 209.0, "wh": 0.3, "time": "11:50"}, {"day": 3, "cm": null, "wh": null, "time": null}, {"day": 4, "cm": null, "wh": null, "time": null}, {"day": 5, "cm": null, "wh": null, "time": null}, {"day": 6, "cm": null, "wh": null, "time": null}, {"day": 7, "cm": null, "wh": null, "time": null}, {"day": 8, "cm": null, "wh": null, "time": null}, {"day": 9, "cm": null, "wh": null, "time": null}, {"day": 10, "cm": null, "wh": null, "time": null}, {"day": 11, "cm": 197.0, "wh": 0.34, "time": "07:08"}, {"day": 12, "cm": 204.0, "wh": null, "time": "08:15"}, {"day": 13, "cm": 214.0, "wh": null, "time": "09:17"}, {"day": 14, "cm": 226.0, "wh": null, "time": "10:13"}, {"day": 15, "cm": 235.0, "wh": null, "time": "11:05"}, {"day": 16, "cm": 239.0, "wh": null, "time": "11:55"}, {"day": 17, "cm": null, "wh": null, "time": null}, {"day": 18, "cm": null, "wh": null, "time": null}, {"day": 19, "cm": null, "wh": null, "time": null}, {"day": 20, "cm": null, "wh": null, "time": null}, {"day": 21, "cm": null, "wh": null, "time": null}, {"day": 22, "cm": null, "wh": null, "time": null}, {"day": 23, "cm": null, "wh": null, "time": null}, {"day": 24, "cm": null, "wh": null, "time": null}, {"day": 25, "cm": 176.0, "wh": null, "time": "07:06"}, {"day": 26, "cm": 183.0, "wh": null, "time": "08:14"}, {"day": 27, "cm": 193.0, "wh": null, "time": "09:06"}, {"day": 28, "cm": 204.0, "wh": null, "time": "09:49"}, {"day": 29, "cm": 212.0, "wh": null, "time": "10:26"}, {"day": 30, "cm": 219.0, "wh": null, "time": "11:01"}, {"day": 31, "cm": 223.0, "wh": null, "time": "11:36"}]};
+
+const YEARS = Object.keys(DATA);
+Chart.defaults.font.family = "'Space Mono', monospace";
+Chart.defaults.color = "#8a8a86";
+Chart.defaults.borderColor = "#242424";
+
+const tabsEl = document.getElementById('tabs');
+const mainEl = document.getElementById('main');
+
+YEARS.forEach((y, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'tab-btn' + (i===0 ? ' active' : '');
+  btn.textContent = y + '년 7월';
+  btn.dataset.year = y;
+  btn.addEventListener('click', () => showYear(y));
+  tabsEl.appendChild(btn);
+
+  const panel = document.createElement('div');
+  panel.className = 'panel' + (i===0 ? ' active' : '');
+  panel.id = 'panel-' + y;
+  panel.innerHTML = `
+    <div class="chart-box">
+      <div class="t"><span><span class="dot" style="background:var(--wave)"></span>파고 (m) — 오전 06–12시 만조 시점</span></div>
+      <canvas id="wave-${y}" height="90"></canvas>
+    </div>
+    <div class="chart-box">
+      <div class="t"><span><span class="dot" style="background:var(--level)"></span>만조 수위 (cm) — 오전 06–12시</span></div>
+      <canvas id="level-${y}" height="90"></canvas>
+    </div>
+    <div class="note">막대가 없는 날짜는 그 날 오전 06:00~12:00 사이에 만조가 없었다는 뜻(다른 시간대에 만조가 있었거나, 데이터 없음).</div>
+  `;
+  mainEl.appendChild(panel);
+});
+
+function showYear(y){
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.year===y));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id==='panel-'+y));
+}
+
+YEARS.forEach(y => {
+  const rows = DATA[y];
+  const labels = rows.map(r => r.day);
+  const waves = rows.map(r => r.wh);
+  const levels = rows.map(r => r.cm);
+  const times = rows.map(r => r.time);
+
+  new Chart(document.getElementById('wave-'+y), {
+    type: 'bar',
+    data: { labels, datasets: [{ data: waves, backgroundColor: '#4fb8ff', borderRadius: 2, maxBarThickness: 22 }] },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => {
+          const t = times[ctx.dataIndex];
+          return t ? `만조 ${t} · 파고 ${ctx.parsed.y}m` : '만조 없음';
+        }}}
+      },
+      scales: {
+        x: { title: { display: true, text: '날짜 (7월)', color: '#8a8a86' }, grid: { display:false } },
+        y: { title: { display: true, text: 'm', color: '#8a8a86' }, grid: { color: '#1a1a1a' }, beginAtZero: true }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('level-'+y), {
+    type: 'bar',
+    data: { labels, datasets: [{ data: levels, backgroundColor: '#e8ff47', borderRadius: 2, maxBarThickness: 22 }] },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => {
+          const t = times[ctx.dataIndex];
+          return t ? `만조 ${t} · 수위 ${ctx.parsed.y}cm` : '만조 없음';
+        }}}
+      },
+      scales: {
+        x: { title: { display: true, text: '날짜 (7월)', color: '#8a8a86' }, grid: { display:false } },
+        y: { title: { display: true, text: 'cm', color: '#8a8a86' }, grid: { color: '#1a1a1a' } }
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
