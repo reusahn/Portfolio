@@ -545,6 +545,28 @@
   }
 }
 
+
+/* Facial capture Vimeo loop — replaces heavy GIF */
+.facial-vimeo-loop{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  overflow:hidden;
+  background:#050505;
+}
+.facial-vimeo-loop iframe{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:100%;
+  height:133.34%;
+  transform:translate(-50%,-50%);
+  border:0;
+  display:block;
+  pointer-events:none;
+  background:#050505;
+}
+
 </style>
 </head>
 <body>
@@ -923,12 +945,16 @@
 
   <div class="uniform-card">
     <div class="visual">
-      <img class="slot-media contain"
-           src="../media/shininho/08_facial_capture.gif"
-           data-fallbacks="../media/shininho/08_facial_capture.gif|../media/shininho/08_facial_capture.gif"
-           onerror="tryMediaFallback(this)"
-           alt="Rokoko helmet iPhone facial capture and MetaHuman Animator processing">
       <div class="placeholder"><div class="ph-text"><b>ROKOKO + IPHONE + METAHUMAN ANIMATOR</b><span>Independent facial performance capture</span></div></div>
+      <div class="facial-vimeo-loop">
+        <iframe
+          src="https://player.vimeo.com/video/1219180209?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1"
+          allow="autoplay; fullscreen; picture-in-picture"
+          referrerpolicy="strict-origin-when-cross-origin"
+          tabindex="-1"
+          title="Shininho facial capture">
+        </iframe>
+      </div>
     </div>
     <div class="copy"><b>Facial capture</b><p>Rokoko head rig, iPhone Live Link Face, and MetaHuman Animator processing.</p></div>
   </div>

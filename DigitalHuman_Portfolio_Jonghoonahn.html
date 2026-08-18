@@ -202,6 +202,28 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   }
 }
 
+
+/* Vimeo thumbnail loops */
+.project-vimeo-loop{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  overflow:hidden;
+  background:#050505;
+}
+.project-vimeo-loop iframe{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:100%;
+  height:133.34%;
+  transform:translate(-50%,-50%);
+  border:0;
+  display:block;
+  pointer-events:none;
+  background:#050505;
+}
+
 </style>
 </head>
 <body>
@@ -318,7 +340,18 @@ img{display:block;width:100%;height:100%;object-fit:cover}
         <div class="project-body"><span class="project-meta">2024–2025 · TECHNICAL ARTIST</span><h3>Confidential Real-Time Game</h3><p>Perlin vertex displacement, runtime directional flow, raymarched metaball liquid, fixed-topology cloud growth.</p><div class="card-view">View →</div></div>
       </a>
       <a class="project-card support" href="projects/when-it-seen.html">
-        <div class="project-media"><div class="placeholder"><div class="ph"><b>3-DANCER PERFORMANCE CAPTURE</b></div></div><img src="media/when/hero_three_dancers.gif" alt="Three dancer performance capture" onerror="this.style.display='none'"></div>
+        <div class="project-media">
+          <div class="placeholder"><div class="ph"><b>3-DANCER PERFORMANCE CAPTURE</b></div></div>
+          <div class="project-vimeo-loop" aria-hidden="true">
+            <iframe
+              src="https://player.vimeo.com/video/1219183858?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1"
+              allow="autoplay; fullscreen; picture-in-picture"
+              referrerpolicy="strict-origin-when-cross-origin"
+              tabindex="-1"
+              title="When It Seen thumbnail">
+            </iframe>
+          </div>
+        </div>
         <div class="project-body"><span class="project-meta">2026 · MOTION CAPTURE SPECIALIST</span><h3>When It Seen</h3><p>Synchronized MOVIN TRACIN body capture with Rokoko/iPhone facial capture in Unreal, then delivered full-character Alembic caches for downstream Houdini simulation.</p><div class="card-view">View →</div></div>
       </a>
       <a class="project-card support" href="projects/yaloo.html">
