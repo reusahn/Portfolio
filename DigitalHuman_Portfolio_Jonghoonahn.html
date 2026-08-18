@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jonghoon Ahn — Real-Time Technical Artist</title>
+<meta name="description" content="Digital Human, Performance Capture, Technical Animation, and Real-Time R&D portfolio by Jonghoon Ahn.">
+<style>
+:root{
+  --bg:#f5f5f2;--paper:#fff;--ink:#111;--ink2:#33332f;--muted:#6f6f68;
+  --line:#deddd7;--soft:#eae9e4;--accent:#244968;--dark:#151719;
+  --max:1320px;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,"Helvetica Neue",Arial,"Noto Sans KR",sans-serif
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.62 var(--sans);-webkit-font-smoothing:antialiased;word-break:normal}
+a{color:inherit}
+img{display:block;width:100%;height:100%;object-fit:cover}
+.shell{width:min(calc(100% - 56px),var(--max));margin:auto}
+.eyebrow{font:10px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:#868680}
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-inner{height:64px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.brand{display:flex;align-items:baseline;gap:12px;text-decoration:none;font-weight:700;letter-spacing:-.02em}
+.brand small{font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.02em}
+.nav{display:flex;align-items:center;gap:24px}
+.nav a{text-decoration:none;font-size:13px;color:var(--muted)}
+.nav a:hover{color:var(--ink)}
+
+.hero{background:var(--paper);border-bottom:1px solid var(--line);padding:70px 0 54px}
+.hero-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:64px;align-items:center}
+.hero h1{font-size:clamp(42px,4.1vw,60px);line-height:1.04;letter-spacing:-.042em;margin:16px 0 20px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{font-size:clamp(17px,1.25vw,20px);line-height:1.55;color:var(--ink2);max-width:650px;margin:0}
+.hero .sub{font-size:14px;line-height:1.65;color:var(--muted);max-width:620px;margin:18px 0 0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid #c9c8c2;background:#fff;border-radius:7px;padding:10px 14px;font-size:13px}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
+.reel{aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#111;box-shadow:0 18px 52px rgba(0,0,0,.12)}
+.reel iframe{display:block;width:100%;height:100%;border:0}
+.reel-caption{display:flex;justify-content:space-between;gap:16px;margin-top:9px;font:10px/1.5 var(--mono);letter-spacing:.05em;color:#8a8a84}
+
+.snapshot{background:var(--paper);border-bottom:1px solid var(--line)}
+.snapshot-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.snapshot-item{padding:20px 24px 22px;border-right:1px solid var(--line)}
+.snapshot-item:first-child{padding-left:0}
+.snapshot-item:last-child{border-right:0;padding-right:0}
+.snapshot-item span{display:block;font:9px/1.4 var(--mono);letter-spacing:.11em;color:#909089}
+.snapshot-item b{display:block;font-size:15px;line-height:1.35;margin-top:7px}
+.snapshot-item small{display:block;font-size:12.5px;line-height:1.45;color:var(--muted);margin-top:4px}
+
+.section{padding:74px 0;border-bottom:1px solid var(--line)}
+.section-head{display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;margin-bottom:36px}
+.section-head h2{font-size:clamp(29px,2.65vw,38px);line-height:1.14;letter-spacing:-.032em;margin:0;max-width:900px}
+.section-head p{font-size:15px;color:var(--muted);max-width:800px;margin:14px 0 0}
+
+.feature{display:grid;grid-template-columns:1.3fr .7fr;min-height:520px;background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;text-decoration:none}
+.feature-media{position:relative;overflow:hidden;background:var(--soft)}
+.feature-media img{transition:transform .5s ease}
+.feature:hover .feature-media img{transform:scale(1.018)}
+.badge{position:absolute;left:16px;top:16px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);font:10px/1 var(--mono);letter-spacing:.08em}
+.feature-copy{padding:42px;display:flex;flex-direction:column}
+.feature-copy .num{font:10px/1.4 var(--mono);letter-spacing:.11em;color:var(--accent)}
+.feature-copy h3{font-size:clamp(28px,2.35vw,34px);line-height:1.1;letter-spacing:-.032em;margin:14px 0 12px}
+.feature-copy p{font-size:15px;color:var(--muted);margin:0}
+.evidence{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px}
+.evidence span{border:1px solid var(--line);border-radius:999px;padding:5px 9px;font:9px/1.3 var(--mono);letter-spacing:.05em;color:#62625e;background:#fafaf8}
+.view{margin-top:auto;padding-top:30px;font-size:13px;font-weight:650}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.project-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column}
+.project-media{position:relative;aspect-ratio:16/10;background:var(--soft);overflow:hidden}
+.project-body{padding:24px 26px 28px;display:flex;flex-direction:column;flex:1}
+.project-meta{font:9px/1.4 var(--mono);letter-spacing:.11em;color:#8b8b85}
+.project-card h3{font-size:23px;line-height:1.14;letter-spacing:-.028em;margin:11px 0 9px}
+.project-card p{font-size:14px;color:var(--muted);margin:0}
+.card-view{font-size:12px;font-weight:650;margin-top:auto;padding-top:20px}
+
+.placeholder{position:absolute;inset:0;padding:24px;display:flex;align-items:flex-end;background:linear-gradient(rgba(255,255,255,.0),rgba(255,255,255,.18)),repeating-linear-gradient(135deg,#ecebe6 0 1px,#f4f3ef 1px 10px)}
+.placeholder:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 45%,rgba(36,73,104,.07))}
+.ph{position:relative;z-index:1}
+.ph b{display:block;font-size:18px;line-height:1.25}
+.ph small{display:block;font:10px/1.5 var(--mono);color:#777770;margin-top:5px}
+
+.support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.support .project-media{aspect-ratio:16/9}
+.support .project-body{padding:20px 22px 22px}
+.support h3{font-size:19px}
+
+.expertise{background:var(--dark);color:#fff;border-bottom:0}
+.expertise .eyebrow{color:#8ea5b8}
+.expertise .section-head h2{max-width:820px}
+.expertise .section-head p{color:#a7a9aa}
+.expertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#34383b;border:1px solid #34383b;border-radius:18px;overflow:hidden}
+.expertise-card{background:#191c1f;padding:30px;min-height:260px}
+.expertise-card .n{font:10px/1.4 var(--mono);letter-spacing:.1em;color:#8ea5b8}
+.expertise-card h3{font-size:21px;line-height:1.16;letter-spacing:-.025em;margin:22px 0 11px}
+.expertise-card p{font-size:14px;color:#afb2b4;margin:0}
+.expertise-card strong{display:block;font-size:12px;color:#e9eaeb;margin-top:20px;font-weight:600}
+
+.workflow{background:var(--paper)}
+.workflow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.workflow-grid>div{background:var(--paper);padding:24px;min-height:175px}
+.workflow-grid span{font:10px/1.4 var(--mono);letter-spacing:.1em;color:var(--accent)}
+.workflow-grid h3{font-size:18px;margin:18px 0 8px}
+.workflow-grid p{font-size:13px;color:var(--muted);margin:0}
+
+.about-row{display:grid;grid-template-columns:180px 1.2fr .8fr;gap:32px;align-items:start;padding-top:10px}
+.about-row p{font-size:16px;line-height:1.65;margin:0;max-width:760px;color:var(--ink2)}
+.tool-list{border-top:1px solid var(--line)}
+.tool-line{display:flex;justify-content:space-between;gap:22px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}
+.tool-line span{font:9px/1.5 var(--mono);letter-spacing:.1em;color:#8c8c86}
+.tool-line b{text-align:right;font-weight:600}
+
+.footer{padding:42px 0 60px;background:var(--bg)}
+.footer-inner{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:13px}
+
+@media(max-width:980px){
+  .hero-grid,.feature{grid-template-columns:1fr}
+  .hero-grid{gap:36px}
+  .feature{min-height:0}
+  .feature-media{aspect-ratio:16/9}
+  .feature-copy{padding:30px}
+  .snapshot-grid{grid-template-columns:1fr 1fr}
+  .snapshot-item:nth-child(2){border-right:0}
+  .snapshot-item:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .snapshot-item:nth-child(3){padding-left:0}
+  .section-head,.about-row{grid-template-columns:1fr}
+  .expertise-grid{grid-template-columns:1fr}
+  .workflow-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:680px){
+  .shell{width:calc(100% - 28px)}
+  .top-inner{height:auto;padding:12px 0}
+  .brand small,.nav{display:none}
+  .hero{padding:52px 0 38px}
+  .hero h1{font-size:clamp(38px,11vw,50px)}
+  .reel{border-radius:14px}
+  .reel-caption{flex-direction:column;gap:2px}
+  .snapshot-grid,.grid-2,.support-grid,.workflow-grid{grid-template-columns:1fr}
+  .snapshot-item{padding:17px 0;border-right:0!important;border-bottom:1px solid var(--line)}
+  .snapshot-item:last-child{border-bottom:0}
+  .section{padding:62px 0}
+  .feature-copy{padding:24px}
+  .feature-copy h3{font-size:28px}
+}
+
+.project-media>img,.feature-media>img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+}
+.project-media .badge,.feature-media .badge{z-index:3}
+.feature-media{position:relative}
+
+
+/* Broader portfolio link */
+.broader-portfolio{
+  margin-top:30px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  flex-wrap:wrap;
+}
+.broader-portfolio-copy{
+  max-width:760px;
+}
+.broader-portfolio-copy span{
+  display:block;
+  margin-bottom:7px;
+  font:9px/1.4 var(--mono);
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:#8c8c86;
+}
+.broader-portfolio-copy p{
+  margin:0;
+  font-size:14px;
+  line-height:1.62;
+  color:var(--muted);
+}
+.broader-portfolio-link{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  border:1px solid #c9c8c2;
+  border-radius:7px;
+  background:#fff;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:600;
+}
+.broader-portfolio-link:hover{
+  border-color:#a9a8a2;
+}
+@media(max-width:680px){
+  .broader-portfolio{
+    align-items:flex-start;
+  }
+}
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="shell top-inner">
+    <a class="brand" href="DigitalHuman_Portfolio_Jonghoonahn.html">Jonghoon Ahn.<small>3D Visualization &amp; Animation Technical Artist</small></a>
+    <nav class="nav">
+      <a href="#work">Work</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="shell hero-grid">
+    <div>
+      <div class="eyebrow">3D VISUALIZATION &amp; ANIMATION TECHNICAL ARTIST · DIGITAL HUMAN / PERFORMANCE CAPTURE / REAL-TIME R&amp;D</div>
+      <h1>Human performance into<br><em>production-ready 3D.</em></h1>
+      <p class="lead">Technical Artist connecting Digital Humans, Performance Capture, Technical Animation, and Real-Time Graphics.</p>
+      <p class="sub">I turn captured human geometry, textures, and motion into production-ready characters, animation, and real-time systems across Maya, MotionBuilder, Unreal Engine, and Unity.</p>
+      <div class="actions">
+        <a class="btn primary" href="#work">Selected Work ↓</a>
+        <a class="btn" href="#expertise">Technical Fit</a>
+      </div>
+    </div>
+    <div>
+      <div class="reel">
+        <iframe src="https://player.vimeo.com/video/1218450064?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;autopause=0&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;playsinline=1&amp;transparent=0&amp;dnt=1"
+          allow="autoplay; fullscreen; picture-in-picture" title="Jonghoon Ahn technical art showreel"></iframe>
+      </div>
+      <div class="reel-caption"><span>SELECTED TECHNICAL WORK — SHOWREEL</span><span>Digital Human · Mocap · Real-Time</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="snapshot">
+  <div class="shell snapshot-grid">
+    <div class="snapshot-item"><span>01 / DIGITAL HUMAN</span><b>Scan / Depth → MetaHuman / Custom Human</b><small>Likeness, topology, texture, eye, hair, lookdev</small></div>
+    <div class="snapshot-item"><span>02 / PERFORMANCE</span><b>OptiTrack · MOVIN TRACIN · Rokoko · iPhone</b><small>Capture, cleanup, retarget, body/face assembly</small></div>
+    <div class="snapshot-item"><span>03 / ENGINE</span><b>Unreal Engine · Unity</b><small>Sequencer · Control Rig · HDRP/URP · VR · real-time delivery</small></div>
+    <div class="snapshot-item"><span>04 / R&amp;D</span><b>C# · HLSL · Python · C++</b><small>Runtime systems, shaders, technical prototyping</small></div>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">SELECTED WORK</span>
+      <div>
+        <h2>Selected work in Digital Humans, Performance Capture, and Real-Time R&D.</h2>
+        <p>From a single-subject digital human pipeline to a ten-character production and a custom historical reconstruction, each project addresses a different production problem.</p>
+      </div>
+    </div>
+
+    <a class="feature" href="projects/shininho-jooan.html">
+      <div class="feature-media">
+        <img src="media/shininho/hero.jpg" alt="Digital Human Shininho final performance" onerror="this.style.display='none'">
+        <span class="badge">01 / FLAGSHIP · DIGITAL HUMAN</span>
+      </div>
+      <div class="feature-copy">
+        <span class="num">2025–2026 · TECHNICAL DIRECTOR</span>
+        <h3>Digital Human Shininho</h3>
+        <p>An end-to-end digital human case built from a real-person volumetric source through a Unity prototype, Wrap + MetaHuman reconstruction, hybrid body/facial capture, Maya/MotionBuilder cleanup, and Unreal performance assembly.</p>
+        <div class="evidence"><span>MetaHuman</span><span>Wrap</span><span>OptiTrack</span><span>MOVIN TRACIN</span><span>MotionBuilder</span><span>Unreal</span><span>Unity</span></div>
+        <div class="view">View case study →</div>
+      </div>
+    </a>
+
+    <div class="grid-2">
+      <a class="project-card" href="projects/row-row-row-your-boat.html">
+        <div class="project-media">
+          <div class="placeholder"><div class="ph"><b>10 DIGITAL HUMAN IDENTITIES</b></div></div>
+          <img src="media/row/hero_10_faces.jpg" alt="Ten MetaHuman identities" onerror="this.style.display='none'">
+          <span class="badge">02 / SCALE</span>
+        </div>
+        <div class="project-body">
+          <span class="project-meta">2026 · TECHNICAL ARTIST</span>
+          <h3>Row, Row, Row Your Boat</h3>
+          <p>Processed ten depth-video identities into MetaHumans, then handled per-character skin and hair look development, facial performance, canon timing, multi-character rendering, and final delivery.</p>
+          <div class="evidence"><span>10 MetaHumans</span><span>Live Link Face</span><span>Control Rig</span><span>Rendering</span></div>
+          <div class="card-view">View case study →</div>
+        </div>
+      </a>
+
+      <a class="project-card" href="projects/gang-se-hwang.html">
+        <div class="project-media">
+          <div class="placeholder"><div class="ph"><b>PORTRAIT → CUSTOM DIGITAL HUMAN</b></div></div>
+          <img src="media/gang/hero_portrait_to_digital2.jpg" alt="Historical portrait to custom digital human" onerror="this.style.display='none'">
+          <span class="badge">03 / CONSTRUCTION</span>
+        </div>
+        <div class="project-body">
+          <span class="project-meta">2022 · TECHNICAL DIRECTOR</span>
+          <h3>Gang Se-hwang Digital Human</h3>
+          <p>Reconstructed a custom digital human from a historical portrait, including approximately 256 facial blendshapes, an ARKit facial pipeline, hair cards, Hanbok Alembic cloth, Unity HDRP look development, and a museum kiosk installation.</p>
+          <div class="evidence"><span>~256 Blendshapes</span><span>ZBrush / ZWrap</span><span>Hair Cards</span><span>Unity HDRP</span></div>
+          <div class="card-view">View case study →</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="shell">
+    <div class="section-head" style="margin-bottom:24px">
+      <span class="eyebrow">SUPPORTING WORK</span>
+      <div><h2 style="font-size:clamp(26px,2.4vw,32px)">Graphics R&amp;D, multi-performer capture, age variation.</h2></div>
+    </div>
+    <div class="support-grid">
+      <a class="project-card support" href="projects/confidential-game.html">
+        <div class="project-media"><div class="placeholder"><div class="ph"><b>C# + HLSL REAL-TIME R&amp;D</b></div></div><img src="media/game/hero_metaball.gif" alt="Raymarched metaball liquid system" onerror="this.style.display='none'"></div>
+        <div class="project-body"><span class="project-meta">2024–2025 · TECHNICAL ARTIST</span><h3>Confidential Real-Time Game</h3><p>Perlin vertex displacement, runtime directional flow, raymarched metaball liquid, fixed-topology cloud growth.</p><div class="card-view">View →</div></div>
+      </a>
+      <a class="project-card support" href="projects/when-it-seen.html">
+        <div class="project-media"><div class="placeholder"><div class="ph"><b>3-DANCER PERFORMANCE CAPTURE</b></div></div><img src="media/when/hero_three_dancers.gif" alt="Three dancer performance capture" onerror="this.style.display='none'"></div>
+        <div class="project-body"><span class="project-meta">2026 · MOTION CAPTURE SPECIALIST</span><h3>When It Seen</h3><p>Synchronized MOVIN TRACIN body capture with Rokoko/iPhone facial capture in Unreal, then delivered full-character Alembic caches for downstream Houdini simulation.</p><div class="card-view">View →</div></div>
+      </a>
+      <a class="project-card support" href="projects/yaloo.html">
+        <div class="project-media"><div class="placeholder"><div class="ph"><b>AGE-VARIANT DIGITAL HUMAN</b></div></div><img src="media/yaloo/hero_age_states.jpg" alt="Age-variant digital human" onerror="this.style.display='none'"></div>
+        <div class="project-body"><span class="project-meta">2024 · TECHNICAL ARTIST</span><h3>Yaloo Digital Human</h3><p>Depth-video MetaHuman Identity, CC4 child-body integration, material-driven middle-aged / elderly variations.</p><div class="card-view">View →</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section expertise" id="expertise">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">TECHNICAL FIT</span>
+      <div>
+        <h2>I work at the intersection of character, animation, and engine.</h2>
+        <p>My role is less about a single software package and more about finding production bottlenecks across the pipeline, connecting disciplines, and turning solutions into repeatable workflows.</p>
+      </div>
+    </div>
+    <div class="expertise-grid">
+      <div class="expertise-card"><span class="n">01 / HUMAN</span><h3>Digital Human Pipeline</h3><p>Scan/depth source cleanup, topology/UV, Wrap, MetaHuman Identity/From Template, custom reconstruction, texture·eye·hair troubleshooting.</p><strong>Maya · ZBrush · Wrap · MetaHuman · CC4</strong></div>
+      <div class="expertise-card"><span class="n">02 / MOTION</span><h3>Performance &amp; Technical Animation</h3><p>Optical/markerless/facial capture, cleanup, reconstruction, retargeting, body-face synchronization, Sequencer and Control Rig assembly.</p><strong>OptiTrack · MOVIN TRACIN · Rokoko · MotionBuilder · Unreal</strong></div>
+      <div class="expertise-card"><span class="n">03 / REAL-TIME</span><h3>Rendering &amp; R&amp;D</h3><p>Real-time lookdev, hair/material optimization, runtime interaction, shaders, raymarching, production troubleshooting and technical prototyping.</p><strong>Unity HDRP/URP · Unreal · C# · HLSL · Python · C++</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="section workflow">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">HOW I WORK</span>
+      <div><h2>Problem → Decision → Implementation → Result.</h2><p>Each case study shows the production problem, the reasoning behind the chosen approach, how it was implemented, and what changed in the final result.</p></div>
+    </div>
+    <div class="workflow-grid">
+      <div><span>01</span><h3>Problem</h3><p>What failed, broke, or blocked production?</p></div>
+      <div><span>02</span><h3>Decision</h3><p>Why this tool, pipeline, or trade-off?</p></div>
+      <div><span>03</span><h3>Implementation</h3><p>How was the solution connected across character, animation, and engine?</p></div>
+      <div><span>04</span><h3>Result</h3><p>What became more usable, stable, or repeatable?</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="shell">
+    <div class="about-row">
+      <span class="eyebrow">ABOUT / TOOLSET</span>
+      <p>I work between artistic goals and engineering constraints. My focus is digital humans and performance capture, solving the technical problems that appear as characters move from source data to animation, rendering, and real-time deployment.</p>
+      <div class="tool-list">
+        <div class="tool-line"><span>DCC</span><b>Maya · MotionBuilder · Blender · ZBrush · Wrap</b></div>
+        <div class="tool-line"><span>ENGINE</span><b>Unreal Engine · Unity</b></div>
+        <div class="tool-line"><span>CAPTURE</span><b>OptiTrack · MOVIN TRACIN · Rokoko · iPhone</b></div>
+        <div class="tool-line"><span>CODE</span><b>Python · C# · C++ · HLSL</b></div>
+      </div>
+    </div>
+
+    <div class="broader-portfolio">
+      <div class="broader-portfolio-copy">
+        <span>MORE WORK</span>
+        <p>Additional work in film, installation, and media art.</p>
+      </div>
+      <a
+        class="broader-portfolio-link"
+        href="https://jonghoonahn.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open broader portfolio at jonghoonahn.com">
+        Broader Portfolio — Film / Installation / Media Art ↗
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="shell footer-inner">
+    <span><strong>Jonghoon Ahn</strong> · 3D Visualization &amp; Animation Technical Artist</span>
+    <span>Digital Human · Performance Capture · Technical Animation · Real-Time R&amp;D</span>
+  </div>
+</footer>
+</body>
+</html>

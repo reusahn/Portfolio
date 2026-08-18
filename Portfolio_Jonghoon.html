@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jonghoon Ahn — 3D Visualization & Animation Technical Artist</title>
+<meta name="description" content="휴먼 캡처, 디지털 휴먼, 퍼포먼스 캡처, 애니메이션 파이프라인, 실시간 렌더링, 기술 R&D를 중심으로 한 Jonghoon Ahn의 3D Visualization & Animation Technical Artist 포트폴리오.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="shell">
+    <a class="brand" href="index.html">Jonghoon Ahn<span>.</span></a>
+    <nav class="nav">
+      <a href="#capture">Capture</a>
+      <a href="#work">Work</a>
+      <a href="#rnd">R&amp;D</a>
+      <a href="#capabilities">Capabilities</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="shell">
+    <section class="hero sony-hero">
+      <div>
+        <span class="eyebrow">3D VISUALIZATION &amp; ANIMATION TECHNICAL ARTIST</span>
+        <h1>휴먼 캡처 데이터를 <span class="accent">실제 제작 가능한</span> 디지털 캐릭터로.</h1>
+        <p class="lead">저는 사람을 캡처하는 단계부터 디지털 휴먼 구축, 모션 정리와 리타기팅, 얼굴·몸 퍼포먼스 통합, 셰이더 개발, 실시간 엔진 배포까지 이어지는 제작 파이프라인을 다룹니다. Maya와 MotionBuilder의 애니메이션 작업을 Unreal Engine과 Unity의 최종 구현까지 연결하는 Technical Artist입니다.</p>
+        <div class="hero-facts">
+          <div><span class="mono">SINCE 2018</span><b>Real-time 3D / Technical Art</b></div>
+          <div><span class="mono">DCC + ENGINE</span><b>Maya · MotionBuilder · Blender · Unreal · Unity</b></div>
+          <div><span class="mono">SCRIPTING / GRAPHICS</span><b>Python · C# · C++ · HLSL</b></div>
+        </div>
+      </div>
+
+      <aside class="hero-media-panel">
+        <div class="media-slot hero-video-slot" data-video-slot>
+          <video muted loop playsinline autoplay data-src="media/home/hero_shininho_loop.mp4" poster="media/home/hero_shininho.jpg" aria-label="디지털 휴먼 퍼포먼스 릴"></video>
+          <div class="media-fallback">
+            <span class="filename">media/home/hero_shininho_loop.mp4</span>
+            <strong>첫 화면에는 완성된 디지털 휴먼 퍼포먼스를 6–10초 루프로. UI 없이 결과부터 보여주기.</strong>
+          </div>
+        </div>
+        <div class="hero-media-caption"><span>Shininho → Jooan</span><span>Scan · Performance Capture · Unreal VR</span></div>
+      </aside>
+    </section>
+  </div>
+
+  <section class="role-match-strip">
+    <div class="shell role-match-grid">
+      <div><span>01</span><b>Human Capture</b><small>volumetric / depth / body / facial workflows</small></div>
+      <div><span>02</span><b>3D Human Modeling</b><small>geometry · texture · MetaHuman · custom reconstruction</small></div>
+      <div><span>03</span><b>Animation Pipeline</b><small>mocap · cleanup · retarget · body/face integration</small></div>
+      <div><span>04</span><b>Rendering / Simulation</b><small>skin · eye · hair · garment · shader</small></div>
+      <div><span>05</span><b>R&amp;D Documentation</b><small>problem · decision · implementation · result</small></div>
+    </div>
+  </section>
+
+  <section class="section capture-section" id="capture">
+    <div class="shell">
+      <div class="section-head">
+        <span class="eyebrow">HUMAN &amp; PERFORMANCE CAPTURE</span>
+        <div>
+          <h2>캡처에서 캐릭터, 애니메이션, 엔진까지 하나의 파이프라인으로 봅니다.</h2>
+          <p>OptiTrack/Motive, Move.ai, Rokoko와 iPhone 기반 facial capture, depth-video 기반 human capture처럼 직접 다룬 퍼포먼스 캡처 경험이 있습니다. 외부 volumetric / 4D capture가 필요한 프로젝트에서는 장비를 직접 운용하는 역할이 아니라, 스튜디오에서 생성된 geometry·texture 데이터를 후속 모델링, 애니메이션, 렌더링, 엔진 파이프라인에 연결하는 production-side 역할을 맡았습니다.</p>
+        </div>
+      </div>
+
+      <div class="capture-grid">
+        <article class="capture-card">
+          <div class="media-slot landscape">
+            <img data-src="media/home/capture_volumetric.jpg" alt="외부 volumetric human capture stage">
+            <div class="media-fallback"><span class="filename">media/home/capture_volumetric.jpg</span><strong>외부 volumetric / 4D capture stage. 캡처 장비 운용이 아니라 downstream production pipeline 협업을 보여주는 이미지.</strong></div>
+          </div>
+          <span class="card-num">VOLUMETRIC / 4D · DOWNSTREAM</span>
+          <h3>Capture-to-character requirements</h3>
+          <p>외부 스튜디오에서 캡처된 사람의 데이터를 받아, 캐릭터 제작에 필요한 geometry·texture·파일 조건을 정의하고 모델링, 애니메이션, 렌더링, 엔진 배포가 가능한 형태로 연결했습니다.</p>
+        </article>
+
+        <article class="capture-card">
+          <div class="media-slot landscape">
+            <img data-src="media/home/capture_body.jpg" alt="OptiTrack과 markerless body performance capture">
+            <div class="media-fallback"><span class="filename">media/home/capture_body.jpg</span><strong>OptiTrack/Motive + Move.ai. Performer, tracking volume, 결과 캐릭터가 함께 보이는 증거 이미지.</strong></div>
+          </div>
+          <span class="card-num">BODY PERFORMANCE</span>
+          <h3>Optical + markerless capture</h3>
+          <p>강한 신체 움직임을 OptiTrack/Motive와 Move.ai로 캡처하고, 각각의 장점을 비교해 필요한 구간을 선택한 뒤 Maya/MotionBuilder에서 cleanup·reconstruction·retargeting을 거쳐 실제 캐릭터 애니메이션으로 완성했습니다.</p>
+        </article>
+
+        <article class="capture-card">
+          <div class="media-slot landscape">
+            <img data-src="media/home/capture_face.jpg" alt="Rokoko head rig와 iPhone facial capture">
+            <div class="media-fallback"><span class="filename">media/home/capture_face.jpg</span><strong>Rokoko head rig + iPhone / Live Link Face / MetaHuman Animator 기반 facial capture 증거.</strong></div>
+          </div>
+          <span class="card-num">FACIAL PERFORMANCE</span>
+          <h3>Face + body synchronization</h3>
+          <p>필요한 프로젝트에서는 body와 facial performance를 분리해 캡처한 뒤, Unreal에서 시간축을 다시 맞추고 서로 다른 take를 조합해 하나의 캐릭터 퍼포먼스로 구성했습니다.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="shell">
+      <div class="section-head">
+        <span class="eyebrow">SELECTED TECHNICAL WORK</span>
+        <div>
+          <h2>한 사람을 깊게, 열 사람을 확장하고, 없는 얼굴은 직접 구축하며, 필요하면 코드까지 내려갑니다.</h2>
+          <p>앞의 세 프로젝트는 제가 3D human과 animation pipeline을 얼마나 깊게 다루는지 보여주는 핵심 사례입니다. 나머지 프로젝트는 multi-performer mocap handoff, shader/runtime R&amp;D, age-variant digital human처럼 기술 범위를 확장합니다.</p>
+        </div>
+      </div>
+
+      <div class="work-grid sony-work-grid">
+        <a class="work-card large" href="projects/shininho-jooan.html">
+          <div class="cover media-slot">
+            <img data-src="media/shininho/hero.jpg" alt="Shininho to Jooan digital human final">
+            <div class="media-fallback"><span class="filename">media/shininho/hero.jpg</span><strong>최종 digital human 또는 VR performance. 이 프로젝트는 결과부터 시작.</strong></div>
+            <div class="cover-label">01 / CAPTURE → CHARACTER → PERFORMANCE → VR</div>
+          </div>
+          <div class="card-body">
+            <span class="card-num">2025–2026 · TECHNICAL DIRECTOR</span>
+            <h3>Shininho → Jooan</h3>
+            <p>외부 human scan 데이터를 Unity feasibility prototype으로 변환한 뒤, likeness 한계를 발견해 원본 high-resolution scan으로 돌아가 Wrap + MetaHuman production pipeline을 재설계했습니다. 이후 OptiTrack/Move.ai body capture, Maya/MotionBuilder cleanup, facial/body performance assembly, Unreal VR와 Niagara까지 확장했습니다.</p>
+            <div class="tags"><span class="tag">MetaHuman</span><span class="tag">OptiTrack</span><span class="tag">Move.ai</span><span class="tag">MotionBuilder</span><span class="tag">Unreal VR</span></div>
+          </div>
+        </a>
+
+        <a class="work-card medium" href="projects/row-row-row-your-boat.html">
+          <div class="cover media-slot">
+            <img data-src="media/row/hero_10_faces.jpg" alt="Ten MetaHuman identities">
+            <div class="media-fallback"><span class="filename">media/row/hero_10_faces.jpg</span><strong>10명의 identity를 한 화면에. 이 프로젝트의 핵심은 scale이므로 숫자를 이미지로 증명.</strong></div>
+            <div class="cover-label">02 / 10-PERSON DIGITAL HUMAN PRODUCTION</div>
+          </div>
+          <div class="card-body">
+            <span class="card-num">2026 · TECHNICAL ARTIST</span>
+            <h3>Row, Row, Row Your Boat</h3>
+            <p>10명의 depth-video 데이터를 MetaHuman Identity로 처리하고, 사람마다 다른 skin/hair 문제를 조정했습니다. 부족한 motion capture를 재구성하고 Live Link Face·Control Rig·canon timing을 맞춰, 여러 캐릭터가 겹치는 설치 영상의 rendering과 delivery까지 담당했습니다.</p>
+            <div class="tags"><span class="tag">MetaHuman Identity</span><span class="tag">Live Link Face</span><span class="tag">Control Rig</span><span class="tag">Rendering</span></div>
+          </div>
+        </a>
+
+        <a class="work-card half" href="projects/gang-se-hwang.html">
+          <div class="cover media-slot">
+            <img data-src="media/gang/hero_portrait_to_digital.jpg" alt="Historical portrait to custom digital human">
+            <div class="media-fallback"><span class="filename">media/gang/hero_portrait_to_digital.jpg</span><strong>역사 초상과 final digital human을 동일 angle로 비교. MetaHuman preset이 아닌 custom construction임을 즉시 보여주기.</strong></div>
+            <div class="cover-label">03 / CUSTOM HUMAN · RIG · HAIR · GARMENT · UNITY</div>
+          </div>
+          <div class="card-body">
+            <span class="card-num">2022 · TECHNICAL DIRECTOR</span>
+            <h3>Gang Se-hwang Digital Human</h3>
+            <p>단 한 장의 역사 초상을 바탕으로 ZBrush/ZWrap에서 얼굴을 재구성하고, 약 256개의 custom facial blendshape, iPhone/ARKit→CSV→Maya facial animation, hair cards, Marvelous→Alembic 한복, Unity HDRP lookdev와 실제 박물관 kiosk까지 구축했습니다.</p>
+            <div class="tags"><span class="tag">~256 Blendshapes</span><span class="tag">Hair Cards</span><span class="tag">Marvelous</span><span class="tag">Unity HDRP</span></div>
+          </div>
+        </a>
+
+        <a class="work-card half" href="projects/confidential-game.html">
+          <div class="cover media-slot">
+            <img data-src="media/game/hero_metaball.jpg" alt="Raymarched metaball liquid system">
+            <div class="media-fallback"><span class="filename">media/game/hero_metaball.jpg</span><strong>예쁜 game shot보다 C# runtime behavior + HLSL rendering이 동시에 보이는 결과.</strong></div>
+            <div class="cover-label">04 / C# · HLSL · REAL-TIME GRAPHICS R&amp;D</div>
+          </div>
+          <div class="card-body">
+            <span class="card-num">APR 2024–APR 2025 · TECHNICAL ARTIST</span>
+            <h3>Confidential Real-Time Game Project</h3>
+            <p>Unity URP에서 C# input/runtime logic과 custom HLSL을 연결해 Perlin vertex displacement와 Fresnel 기반 cloud surface를 구현했습니다. 별도로 raymarched metaball liquid, collider 기반 droplet grouping, fixed-topology blendshape cloud growth를 제작했습니다.</p>
+            <div class="tags"><span class="tag">C#</span><span class="tag">HLSL</span><span class="tag">Raymarching</span><span class="tag">Unity URP</span></div>
+          </div>
+        </a>
+
+        <a class="work-card third" href="projects/when-it-seen.html">
+          <div class="cover media-slot">
+            <img data-src="media/when/hero_three_dancers.jpg" alt="Three dancer performance capture">
+            <div class="media-fallback"><span class="filename">media/when/hero_three_dancers.jpg</span><strong>3명의 dancer가 동시에 보이는 performance capture 결과.</strong></div>
+            <div class="cover-label">MINI / PERFORMANCE CAPTURE → ALEMBIC HANDOFF</div>
+          </div>
+          <div class="card-body">
+            <span class="card-num">2026 · MOTION CAPTURE SPECIALIST</span>
+            <h3>When It Seen</h3>
+            <p>세 명의 무용수를 Move.ai로 body capture하고, Rokoko head rig + iPhone으로 별도 facial capture한 뒤 Unreal에서 timing을 맞췄습니다. body와 face가 통합된 full-character geometry를 Alembic으로 bake해 downstream Houdini cloth simulation 팀에 전달했습니다.</p>
+            <div class="tags"><span class="tag">Move.ai</span><span class="tag">Rokoko</span><span class="tag">Unreal</span><span class="tag">Alembic</span></div>
+          </div>
+        </a>
+
+        <a class="work-card third" href="projects/yaloo.html">
+          <div class="cover media-slot">
+            <img data-src="media/yaloo/hero_age_states.jpg" alt="Age-variant digital human">
+            <div class="media-fallback"><span class="filename">media/yaloo/hero_age_states.jpg</span><strong>Child / middle-aged / elderly를 같은 angle로 정렬해 age variation을 한눈에.</strong></div>
+            <div class="cover-label">05 / AGE-VARIANT DIGITAL HUMAN</div>
+          </div>
+          <div class="card-body">
+            <span class="card-num">2024 · TECHNICAL ARTIST</span>
+            <h3>Yaloo Digital Human</h3>
+            <p>depth-video 기반 MetaHuman Identity를 제작하고, 어린 버전은 CC4 child body와 MetaHuman head를 결합했습니다. 중년·노년 버전은 geometry를 새로 만드는 대신 age-specific texture/material을 fade in/out하여 전환했습니다.</p>
+            <div class="tags"><span class="tag">MetaHuman Identity</span><span class="tag">CC4</span><span class="tag">Materials</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section rnd-section" id="rnd">
+    <div class="shell">
+      <div class="section-head">
+        <span class="eyebrow">TECHNICAL R&amp;D DOCUMENTATION</span>
+        <div>
+          <h2>최종 결과만 보여주지 않고, 왜 그 방법을 선택했는지까지 기록합니다.</h2>
+          <p>각 case study는 Problem → Decision → Implementation → Result 순서로 구성합니다. 어떤 방식이 실패했는지, 캡처 데이터의 어떤 한계가 있었는지, 왜 다른 pipeline으로 전환했는지, 어떤 rendering/animation 문제를 해결했는지까지 기록해 아티스트와 엔지니어가 다시 사용할 수 있는 기술적 판단으로 남깁니다.</p>
+        </div>
+      </div>
+      <div class="rnd-flow" aria-label="Technical R&D documentation framework">
+        <div><span>01</span><b>Problem</b><small>제작에서 실제로 막힌 문제는 무엇이었는가?</small></div><i>→</i>
+        <div><span>02</span><b>Decision</b><small>왜 이 tool / pipeline / trade-off를 선택했는가?</small></div><i>→</i>
+        <div><span>03</span><b>Implementation</b><small>어떻게 만들고 production에 연결했는가?</small></div><i>→</i>
+        <div><span>04</span><b>Result</b><small>무엇이 더 usable / stable / repeatable해졌는가?</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="capabilities">
+    <div class="shell">
+      <div class="section-head">
+        <span class="eyebrow">CAPABILITIES</span>
+        <div>
+          <h2>기술 이름보다, 실제 production에서 어디까지 맡았는지를 보여줍니다.</h2>
+          <p>각 역량은 위 프로젝트의 구체적인 결과와 연결됩니다. 단순 software list가 아니라 human capture, character construction, animation, rigging, rendering, scripting을 실제 production evidence로 증명합니다.</p>
+        </div>
+      </div>
+      <div class="cap-grid sony-cap-grid">
+        <div class="cap"><span class="n">01</span><h3>Human / Performance Capture</h3><p>Volumetric/4D downstream collaboration, depth video, OptiTrack/Motive, Move.ai, Rokoko/iPhone, Live Link Face.</p></div>
+        <div class="cap"><span class="n">02</span><h3>3D Human Modeling</h3><p>Scan cleanup, topology/UV, Wrap, MetaHuman Identity, ZBrush/ZWrap reconstruction, texture와 eye correction.</p></div>
+        <div class="cap"><span class="n">03</span><h3>Animation Technical Art</h3><p>Maya/MotionBuilder cleanup, retargeting, facial/body synchronization, Sequencer, Control Rig, blendshape animation.</p></div>
+        <div class="cap"><span class="n">04</span><h3>Rigging / Hair / Garment</h3><p>약 256개의 custom facial blendshape, hair cards와 groom troubleshooting, Marvelous cloth → Alembic → Unity.</p></div>
+        <div class="cap"><span class="n">05</span><h3>Shader / Material / Rendering</h3><p>Unity HDRP/URP, skin SSS, eye/cornea, hair response, HLSL, Perlin displacement, Fresnel, raymarching.</p></div>
+        <div class="cap"><span class="n">06</span><h3>Scripting / R&amp;D</h3><p>Python, C#, C++, HLSL, runtime controls, technical troubleshooting, pipeline prototyping, technical documentation.</p></div>
+      </div>
+
+      <div class="toolset-row">
+        <span class="eyebrow">PRODUCTION TOOLSET</span>
+        <p>Maya · MotionBuilder · Blender · ZBrush · Wrap · Houdini · Marvelous Designer · Unreal Engine · Unity · MetaHuman</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="shell">
+    <div><strong>Jonghoon Ahn</strong><br><small>3D Visualization &amp; Animation Technical Artist · Digital Human / Performance Capture / Real-Time R&amp;D</small></div>
+    <div><small>Human capture → character → animation → rendering → engine</small></div>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>
