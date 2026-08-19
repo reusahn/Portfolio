@@ -567,6 +567,192 @@
   background:#050505;
 }
 
+
+/* Jooan VR Vimeo — portfolio-standard controlled player */
+.vr-reel{
+  position:relative;
+  width:min(960px,100%);
+  aspect-ratio:16/9;
+  margin:30px auto 26px;
+  border-radius:18px;
+  overflow:hidden;
+  background:#111;
+  border:1px solid var(--line);
+  box-shadow:0 12px 34px rgba(0,0,0,.08);
+}
+.vr-reel iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+  pointer-events:none;
+}
+.vr-reel-controls{
+  position:absolute;
+  left:16px;
+  right:16px;
+  bottom:12px;
+  z-index:10;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:14px;
+  align-items:center;
+  pointer-events:auto;
+}
+.vr-reel-seek{
+  display:flex;
+  align-items:center;
+  height:20px;
+}
+.vr-reel-seek input[type="range"]{
+  width:100%;
+  margin:0;
+  appearance:none;
+  -webkit-appearance:none;
+  height:18px;
+  background:transparent;
+  cursor:pointer;
+}
+.vr-reel-seek input[type="range"]::-webkit-slider-runnable-track{
+  height:3px;
+  border-radius:999px;
+  background:linear-gradient(
+    to right,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.95) var(--vr-seek-progress,0%),
+    rgba(255,255,255,.32) var(--vr-seek-progress,0%),
+    rgba(255,255,255,.32) 100%
+  );
+}
+.vr-reel-seek input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:11px;
+  height:11px;
+  margin-top:-4px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.28);
+}
+.vr-reel-seek input[type="range"]::-moz-range-track{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.32);
+}
+.vr-reel-seek input[type="range"]::-moz-range-progress{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.95);
+}
+.vr-reel-seek input[type="range"]::-moz-range-thumb{
+  width:11px;
+  height:11px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+}
+.vr-reel-volume{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:170px;
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(0,0,0,.42);
+  backdrop-filter:blur(6px);
+}
+.vr-reel-volume button{
+  appearance:none;
+  border:0;
+  padding:0;
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+  font:9px/1.2 var(--mono);
+  letter-spacing:.08em;
+  min-width:44px;
+}
+.vr-reel-volume input[type="range"]{
+  width:105px;
+  margin:0;
+  appearance:none;
+  -webkit-appearance:none;
+  background:transparent;
+  cursor:pointer;
+}
+.vr-reel-volume input[type="range"]::-webkit-slider-runnable-track{
+  height:3px;
+  border-radius:999px;
+  background:linear-gradient(
+    to right,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.95) var(--vr-volume-progress,0%),
+    rgba(255,255,255,.32) var(--vr-volume-progress,0%),
+    rgba(255,255,255,.32) 100%
+  );
+}
+.vr-reel-volume input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:10px;
+  height:10px;
+  margin-top:-3.5px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+}
+.vr-reel-volume input[type="range"]::-moz-range-track{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.32);
+}
+.vr-reel-volume input[type="range"]::-moz-range-progress{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.95);
+}
+.vr-reel-volume input[type="range"]::-moz-range-thumb{
+  width:10px;
+  height:10px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+}
+.vr-reel-cap{
+  width:min(960px,100%);
+  margin:-16px auto 26px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  font:10px/1.5 var(--mono);
+  color:#8a8a84;
+}
+@media(max-width:560px){
+  .vr-reel{
+    width:100%;
+    border-radius:14px;
+  }
+  .vr-reel-controls{
+    left:10px;
+    right:10px;
+    bottom:8px;
+    grid-template-columns:1fr;
+    gap:4px;
+  }
+  .vr-reel-volume{
+    justify-self:end;
+    min-width:150px;
+  }
+  .vr-reel-volume input[type="range"]{
+    width:85px;
+  }
+  .vr-reel-cap{
+    flex-direction:column;
+    gap:2px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1154,7 +1340,33 @@
     </div>
     <div class="copy"><b>Final ribbon trail</b><p>Finished hand-driven trail evaluated in the VR environment.</p></div>
   </div>
-</div><div class="story"><div><span>COMFORT</span><p>Compared faster and slower camera versions with approximately ten informal testers, then reduced camera speed.</p></div><div><span>STAGING</span><p>Kept the viewer relatively stable while allowing the character to move through the environment.</p></div><div><span>LIGHT</span><p>Used a Skylight + HDRI dusk environment to guide attention across the 360° scene.</p></div><div><span>VFX</span><p>Built a Niagara system with emitters on both hands and ribbon trails, then tuned particle count for VR performance.</p></div></div>
+
+</div>
+
+<div class="vr-reel">
+  <iframe
+    id="jooanVrPlayer"
+    src="https://player.vimeo.com/video/1219693160?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1"
+    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    title="Jooan VR">
+  </iframe>
+  <div class="vr-reel-controls" aria-label="Jooan VR video controls">
+    <div class="vr-reel-seek" aria-label="Video timeline">
+      <input id="jooanVrSeek" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek Jooan VR video">
+    </div>
+    <div class="vr-reel-volume">
+      <button id="jooanVrMute" type="button" aria-label="Unmute video" aria-pressed="true">MUTED</button>
+      <input id="jooanVrVolume" type="range" min="0" max="100" value="0" step="1" aria-label="Jooan VR video volume">
+    </div>
+  </div>
+</div>
+<div class="vr-reel-cap">
+  <span>JOOAN — VR EXTENSION</span>
+  <span>Vimeo · 16:9 · autoplay · timeline + volume control</span>
+</div>
+
+<div class="story"><div><span>COMFORT</span><p>Compared faster and slower camera versions with approximately ten informal testers, then reduced camera speed.</p></div><div><span>STAGING</span><p>Kept the viewer relatively stable while allowing the character to move through the environment.</p></div><div><span>LIGHT</span><p>Used a Skylight + HDRI dusk environment to guide attention across the 360° scene.</p></div><div><span>VFX</span><p>Built a Niagara system with emitters on both hands and ribbon trails, then tuned particle count for VR performance.</p></div></div>
 <div class="task-deep"><div class="task-kicker">Task 05A / VR Comfort</div><div><h3>Re-editing the performance for a viewer who controls their own gaze</h3><p class="summary">The original animation was not designed around VR comfort. In Jooan, camera motion that felt acceptable on a flat screen could become uncomfortable in a headset, so I reduced viewer movement and let the character carry more of the spatial motion.</p><div class="task-facts"><div><label>Test</label><p>Compared faster and slower camera versions with approximately ten informal testers.</p></div><div><label>Decision</label><p>Reduced camera speed after the faster version produced a less comfortable viewing experience.</p></div><div><label>Staging</label><p>Kept the viewer position relatively stable while the character moved through the scene.</p></div><div><label>Platform</label><p>Evaluated the work in a PC-connected headset workflow rather than targeting standalone mobile VR.</p></div></div></div></div>
 <div class="task-deep"><div class="task-kicker">Task 05B / Attention & Lighting</div><div><h3>Using lighting as spatial direction in a 360° environment</h3><p class="summary">A VR viewer can look away from the intended action at any time. I used darkness, contrast, and a dusk environment to make the character easier to locate without forcing the viewer through aggressive camera movement.</p><div class="task-facts"><div><label>Environment</label><p>Skylight + HDRI-based dusk/sunset environment.</p></div><div><label>Attention</label><p>Used brightness and darkness to guide visual focus toward the character.</p></div><div><label>Camera</label><p>Avoided relying on cinematic framing that only works for a fixed 2D view.</p></div><div><label>Goal</label><p>Maintain legibility of the performance while preserving viewer agency.</p></div></div></div></div>
 <div class="task-deep"><div class="task-kicker">Task 05C / Niagara</div><div><h3>Building hand-driven ribbon trails as both motion accent and narrative effect</h3><p class="summary">The hand trails were built as a new Niagara system rather than a baked effect. Separate emitters were attached to both hands, ribbon trails were timed to selected performance moments, and particle count was tuned with VR performance in mind.</p><div class="task-facts"><div><label>System</label><p>Niagara effect built from scratch for the VR extension.</p></div><div><label>Attachment</label><p>Separate emitters attached to the left and right hands.</p></div><div><label>Timing</label><p>Trail visibility was turned on/off at selected animation moments.</p></div><div><label>Optimization</label><p>Particle count was adjusted to balance visual density with VR frame-rate constraints.</p></div></div><div class="result-band"><span>Narrative role</span><p>The ribbon trails amplified the dance into a more ritualistic, data-like visual language while still being driven directly by the performer’s hand motion.</p></div></div></div>
@@ -1202,6 +1414,108 @@ function tryMediaFallback(img){
   function paintVolume(value){
     const pct = Math.max(0, Math.min(100, Number(value)));
     volume.style.setProperty('--volume-progress', pct + '%');
+  }
+
+  function updateMuteUI(isMuted, vol){
+    const silent = isMuted || vol <= 0.001;
+    muteBtn.textContent = silent ? 'MUTED' : 'SOUND';
+    muteBtn.setAttribute('aria-label', silent ? 'Unmute video' : 'Mute video');
+    muteBtn.setAttribute('aria-pressed', silent ? 'true' : 'false');
+  }
+
+  player.getDuration().then(function(d){
+    duration = d || 0;
+  }).catch(function(){});
+
+  player.on('timeupdate', function(data){
+    if(!dragging && data.duration){
+      duration = data.duration;
+      const value = Math.round((data.seconds / data.duration) * 1000);
+      seek.value = value;
+      paintSeek(value);
+    }
+  });
+
+  seek.addEventListener('pointerdown', function(){ dragging = true; });
+  seek.addEventListener('input', function(){
+    const value = Number(seek.value);
+    paintSeek(value);
+    if(duration > 0){
+      player.setCurrentTime((value / 1000) * duration).catch(function(){});
+    }
+  });
+  seek.addEventListener('change', function(){ dragging = false; });
+  seek.addEventListener('pointerup', function(){ dragging = false; });
+  seek.addEventListener('pointercancel', function(){ dragging = false; });
+
+  muteBtn.addEventListener('click', async function(){
+    try{
+      const isMuted = await player.getMuted();
+      if(isMuted || Number(volume.value) === 0){
+        const restore = Math.max(0.05, lastNonZeroVolume);
+        await player.setMuted(false);
+        await player.setVolume(restore);
+        volume.value = String(Math.round(restore * 100));
+        paintVolume(volume.value);
+        updateMuteUI(false, restore);
+      }else{
+        const current = await player.getVolume();
+        if(current > 0.001) lastNonZeroVolume = current;
+        await player.setMuted(true);
+        volume.value = "0";
+        paintVolume(0);
+        updateMuteUI(true, 0);
+      }
+    }catch(e){}
+  });
+
+  volume.addEventListener('input', async function(){
+    const v = Math.max(0, Math.min(1, Number(volume.value) / 100));
+    paintVolume(volume.value);
+    try{
+      if(v > 0){
+        lastNonZeroVolume = v;
+        await player.setMuted(false);
+        await player.setVolume(v);
+        updateMuteUI(false, v);
+      }else{
+        await player.setMuted(true);
+        updateMuteUI(true, 0);
+      }
+    }catch(e){}
+  });
+
+  seek.value = "0";
+  paintSeek(0);
+  volume.value = "0";
+  paintVolume(0);
+  updateMuteUI(true, 0);
+})();
+</script>
+
+
+<script>
+(function(){
+  const iframe = document.getElementById('jooanVrPlayer');
+  const seek = document.getElementById('jooanVrSeek');
+  const muteBtn = document.getElementById('jooanVrMute');
+  const volume = document.getElementById('jooanVrVolume');
+
+  if(!iframe || !seek || !muteBtn || !volume || typeof Vimeo === 'undefined') return;
+
+  const player = new Vimeo.Player(iframe);
+  let duration = 0;
+  let dragging = false;
+  let lastNonZeroVolume = 0.7;
+
+  function paintSeek(value){
+    const pct = Math.max(0, Math.min(100, value / 10));
+    seek.style.setProperty('--vr-seek-progress', pct + '%');
+  }
+
+  function paintVolume(value){
+    const pct = Math.max(0, Math.min(100, Number(value)));
+    volume.style.setProperty('--vr-volume-progress', pct + '%');
   }
 
   function updateMuteUI(isMuted, vol){
