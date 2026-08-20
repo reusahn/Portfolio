@@ -93,19 +93,41 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .pager{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 @media(max-width:900px){.overview-grid,.chapter-head{grid-template-columns:1fr}.logic{grid-template-columns:1fr 1fr}}
 @media(max-width:650px){.media-grid,.logic{grid-template-columns:1fr}.result{grid-template-columns:1fr}.case-nav .inner{width:calc(100% - 28px)}}
-</style></head><body>
+</style>
+<style>
+.native-vimeo-embed{
+  position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:#050607;
+  border-radius:18px;
+}
+.native-vimeo-embed iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  pointer-events:auto;
+}
+</style>
+
+</head><body>
 <header class="top"><div class="shell top-inner"><a class="brand" href="../Google_XR_Portfolio_JonghoonAhn.html">Jonghoon Ahn.<small>XR &amp; Real-Time Graphics</small></a><nav class="nav"><a href="../Google_XR_Portfolio_JonghoonAhn.html#work">Work</a><a href="../Google_XR_Portfolio_JonghoonAhn.html#systems">Systems</a><a href="../Google_XR_Portfolio_JonghoonAhn.html#timeline">5+ Years</a><a href="mailto:hoonahncloud@gmail.com">Contact</a></nav></div></header>
 <main>
 <section class="hero"><div class="narrow"><div class="hero-top"><span class="eyebrow">VR DATA VISUALIZATION · GENERATED SPATIAL SYSTEM</span><span class="eyebrow">2019</span></div><h1>Fineo, Translated Universe</h1><p class="lede">A VR installation that remaps periodic-table data through harmonograph-based functions, turning elemental information into an explorable spatial visual system.</p>
 <div class="meta"><span><b>Role</b> Director / Technical Artist</span><span><b>Stack</b> Unity · VR · Data Visualization</span></div></div>
 <div class="shell hero-video">
-    <div class="vimeo-box" data-vimeo-player>
-      <iframe src="https://player.vimeo.com/video/666371092?background=1&autoplay=1&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0&badge=0&autopause=0&playsinline=1" allow="autoplay; fullscreen; picture-in-picture" title="Fineo, Translated Universe"></iframe>
-      <div class="vimeo-controls">
-        <div class="vimeo-seek"><input data-seek type="range" min="0" max="100" step=".1" value="0" aria-label="Video timeline"></div>
-        <div class="vimeo-volume"><button data-mute type="button">MUTED</button><input data-volume type="range" min="0" max="100" value="0" aria-label="Volume"></div>
-      </div>
-    </div><div class="vimeo-caption"><span>Fineo, Translated Universe</span><span>16:9 · autoplay · timeline + volume</span></div></div></section>
+    <div class="vimeo-box native-vimeo-embed">
+      <iframe
+        src="https://player.vimeo.com/video/666371092?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        title="Fineo : Translated universe">
+      </iframe>
+    </div>
+      <div class="vimeo-caption"><span>Fineo, Translated Universe</span><span>Vimeo · native embedded player</span></div></div></section>
 <section class="overview"><div class="narrow overview-grid"><div><span class="eyebrow">OVERVIEW</span><h2>An early experiment in using rules and data to generate navigable 3D space.</h2><p>Instead of treating the periodic table as a flat information graphic, the project translated elemental properties into a speculative spatial language using harmonograph-based functions and constellation-like structures.</p></div><div class="scope"><div class="scope-row"><span>TYPE</span><strong>VR data-visualization installation</strong></div><div class="scope-row"><span>SYSTEM</span><strong>Elemental data → harmonograph-based spatial mapping</strong></div><div class="scope-row"><span>ROLE</span><strong>Director · Technical Artist</strong></div><div class="scope-row"><span>RECOGNITION</span><strong>Grand Prize · 16th Kookmin University Art & Design Exhibition</strong></div></div></div></section>
 <nav class="case-nav"><div class="inner"><a href="#mapping">01 Mapping</a><a href="#space">02 Spatial Experience</a></div></nav>
 
