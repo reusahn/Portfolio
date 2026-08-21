@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jonghoon Ahn — CG Experimental Artist</title>
+<meta name="description" content="CG Experimental Artist portfolio: The Way To Be Oneself, Digital Humans, Performance Capture, Character CG, Unreal Engine, Unity, HLSL and real-time production.">
+<style>
+:root{
+  --bg:#f5f5f2;--paper:#fff;--ink:#111;--ink2:#33332f;--muted:#6f6f68;
+  --line:#deddd7;--soft:#eae9e4;--accent:#244968;--dark:#151719;
+  --max:1320px;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,"Helvetica Neue",Arial,"Noto Sans KR",sans-serif
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.62 var(--sans);-webkit-font-smoothing:antialiased;word-break:normal}
+a{color:inherit}
+img{display:block;width:100%;height:100%;object-fit:cover}
+.shell{width:min(calc(100% - 56px),var(--max));margin:auto}
+.eyebrow{font:10px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:#868680}
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-inner{height:64px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.brand{display:flex;align-items:baseline;gap:12px;text-decoration:none;font-weight:700;letter-spacing:-.02em}
+.brand small{font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.02em}
+.nav{display:flex;align-items:center;gap:24px}
+.nav a{text-decoration:none;font-size:13px;color:var(--muted)}
+.nav a:hover{color:var(--ink)}
+
+.hero{background:var(--paper);border-bottom:1px solid var(--line);padding:70px 0 54px}
+.hero-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:64px;align-items:center}
+.hero h1{font-size:clamp(42px,4.1vw,60px);line-height:1.04;letter-spacing:-.042em;margin:16px 0 20px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{font-size:clamp(17px,1.25vw,20px);line-height:1.55;color:var(--ink2);max-width:650px;margin:0}
+.hero .sub{font-size:14px;line-height:1.65;color:var(--muted);max-width:620px;margin:18px 0 0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid #c9c8c2;background:#fff;border-radius:7px;padding:10px 14px;font-size:13px}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
+.reel{aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#111;box-shadow:0 18px 52px rgba(0,0,0,.12)}
+.reel iframe{display:block;width:100%;height:100%;border:0}
+.reel-caption{display:flex;justify-content:space-between;gap:16px;margin-top:9px;font:10px/1.5 var(--mono);letter-spacing:.05em;color:#8a8a84}
+
+.snapshot{background:var(--paper);border-bottom:1px solid var(--line)}
+.snapshot-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.snapshot-item{padding:20px 24px 22px;border-right:1px solid var(--line)}
+.snapshot-item:first-child{padding-left:0}
+.snapshot-item:last-child{border-right:0;padding-right:0}
+.snapshot-item span{display:block;font:9px/1.4 var(--mono);letter-spacing:.11em;color:#909089}
+.snapshot-item b{display:block;font-size:15px;line-height:1.35;margin-top:7px}
+.snapshot-item small{display:block;font-size:12.5px;line-height:1.45;color:var(--muted);margin-top:4px}
+
+.section{padding:74px 0;border-bottom:1px solid var(--line)}
+.section-head{display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;margin-bottom:36px}
+.section-head h2{font-size:clamp(29px,2.65vw,38px);line-height:1.14;letter-spacing:-.032em;margin:0;max-width:900px}
+.section-head p{font-size:15px;color:var(--muted);max-width:800px;margin:14px 0 0}
+
+.feature{display:grid;grid-template-columns:1.3fr .7fr;min-height:520px;background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;text-decoration:none}
+.feature-media{position:relative;overflow:hidden;background:var(--soft)}
+.feature-media img{transition:transform .5s ease}
+.feature:hover .feature-media img{transform:scale(1.018)}
+.badge{position:absolute;left:16px;top:16px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);font:10px/1 var(--mono);letter-spacing:.08em}
+.feature-copy{padding:42px;display:flex;flex-direction:column}
+.feature-copy .num{font:10px/1.4 var(--mono);letter-spacing:.11em;color:var(--accent)}
+.feature-copy h3{font-size:clamp(28px,2.35vw,34px);line-height:1.1;letter-spacing:-.032em;margin:14px 0 12px}
+.feature-copy p{font-size:15px;color:var(--muted);margin:0}
+.evidence{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px}
+.evidence span{border:1px solid var(--line);border-radius:999px;padding:5px 9px;font:9px/1.3 var(--mono);letter-spacing:.05em;color:#62625e;background:#fafaf8}
+.view{margin-top:auto;padding-top:30px;font-size:13px;font-weight:650}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.project-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column}
+.project-media{position:relative;aspect-ratio:16/10;background:var(--soft);overflow:hidden}
+.project-body{padding:24px 26px 28px;display:flex;flex-direction:column;flex:1}
+.project-meta{font:9px/1.4 var(--mono);letter-spacing:.11em;color:#8b8b85}
+.project-card h3{font-size:23px;line-height:1.14;letter-spacing:-.028em;margin:11px 0 9px}
+.project-card p{font-size:14px;color:var(--muted);margin:0}
+.card-view{font-size:12px;font-weight:650;margin-top:auto;padding-top:20px}
+
+.placeholder{position:absolute;inset:0;padding:24px;display:flex;align-items:flex-end;background:linear-gradient(rgba(255,255,255,.0),rgba(255,255,255,.18)),repeating-linear-gradient(135deg,#ecebe6 0 1px,#f4f3ef 1px 10px)}
+.placeholder:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 45%,rgba(36,73,104,.07))}
+.ph{position:relative;z-index:1}
+.ph b{display:block;font-size:18px;line-height:1.25}
+.ph small{display:block;font:10px/1.5 var(--mono);color:#777770;margin-top:5px}
+
+.support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.support .project-media{aspect-ratio:16/9}
+.support .project-body{padding:20px 22px 22px}
+.support h3{font-size:19px}
+
+.expertise{background:var(--dark);color:#fff;border-bottom:0}
+.expertise .eyebrow{color:#8ea5b8}
+.expertise .section-head h2{max-width:820px}
+.expertise .section-head p{color:#a7a9aa}
+.expertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#34383b;border:1px solid #34383b;border-radius:18px;overflow:hidden}
+.expertise-card{background:#191c1f;padding:30px;min-height:260px}
+.expertise-card .n{font:10px/1.4 var(--mono);letter-spacing:.1em;color:#8ea5b8}
+.expertise-card h3{font-size:21px;line-height:1.16;letter-spacing:-.025em;margin:22px 0 11px}
+.expertise-card p{font-size:14px;color:#afb2b4;margin:0}
+.expertise-card strong{display:block;font-size:12px;color:#e9eaeb;margin-top:20px;font-weight:600}
+
+.workflow{background:var(--paper)}
+.workflow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.workflow-grid>div{background:var(--paper);padding:24px;min-height:175px}
+.workflow-grid span{font:10px/1.4 var(--mono);letter-spacing:.1em;color:var(--accent)}
+.workflow-grid h3{font-size:18px;margin:18px 0 8px}
+.workflow-grid p{font-size:13px;color:var(--muted);margin:0}
+
+.about-row{display:grid;grid-template-columns:180px 1.2fr .8fr;gap:32px;align-items:start;padding-top:10px}
+.about-row p{font-size:16px;line-height:1.65;margin:0;max-width:760px;color:var(--ink2)}
+.tool-list{border-top:1px solid var(--line)}
+.tool-line{display:flex;justify-content:space-between;gap:22px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}
+.tool-line span{font:9px/1.5 var(--mono);letter-spacing:.1em;color:#8c8c86}
+.tool-line b{text-align:right;font-weight:600}
+
+.footer{padding:42px 0 60px;background:var(--bg)}
+.footer-inner{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:13px}
+
+@media(max-width:980px){
+  .hero-grid,.feature{grid-template-columns:1fr}
+  .hero-grid{gap:36px}
+  .feature{min-height:0}
+  .feature-media{aspect-ratio:16/9}
+  .feature-copy{padding:30px}
+  .snapshot-grid{grid-template-columns:1fr 1fr}
+  .snapshot-item:nth-child(2){border-right:0}
+  .snapshot-item:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .snapshot-item:nth-child(3){padding-left:0}
+  .section-head,.about-row{grid-template-columns:1fr}
+  .expertise-grid{grid-template-columns:1fr}
+  .workflow-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:680px){
+  .shell{width:calc(100% - 28px)}
+  .top-inner{height:auto;padding:12px 0}
+  .brand small,.nav{display:none}
+  .hero{padding:52px 0 38px}
+  .hero h1{font-size:clamp(38px,11vw,50px)}
+  .reel{border-radius:14px}
+  .reel-caption{flex-direction:column;gap:2px}
+  .snapshot-grid,.grid-2,.support-grid,.workflow-grid{grid-template-columns:1fr}
+  .snapshot-item{padding:17px 0;border-right:0!important;border-bottom:1px solid var(--line)}
+  .snapshot-item:last-child{border-bottom:0}
+  .section{padding:62px 0}
+  .feature-copy{padding:24px}
+  .feature-copy h3{font-size:28px}
+}
+
+.project-media>img,.feature-media>img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+}
+.project-media .badge,.feature-media .badge{z-index:3}
+.feature-media{position:relative}
+
+
+/* Broader portfolio link */
+.broader-portfolio{
+  margin-top:30px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  flex-wrap:wrap;
+}
+.broader-portfolio-copy{
+  max-width:760px;
+}
+.broader-portfolio-copy span{
+  display:block;
+  margin-bottom:7px;
+  font:9px/1.4 var(--mono);
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:#8c8c86;
+}
+.broader-portfolio-copy p{
+  margin:0;
+  font-size:14px;
+  line-height:1.62;
+  color:var(--muted);
+}
+.broader-portfolio-link{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  border:1px solid #c9c8c2;
+  border-radius:7px;
+  background:#fff;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:600;
+}
+.broader-portfolio-link:hover{
+  border-color:#a9a8a2;
+}
+@media(max-width:680px){
+  .broader-portfolio{
+    align-items:flex-start;
+  }
+}
+
+
+/* NETFLIX CG EXPERIMENTAL — V2 */
+.ai-feature{display:grid;grid-template-columns:1.03fr .97fr;background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:48px}
+.ai-visual{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;padding:28px;background:linear-gradient(145deg,#f7f7f4,#edf1f3)}
+.ai-flow{width:100%;display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.ai-node{min-height:100px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:12px;display:flex;flex-direction:column;justify-content:center}
+.ai-node span{font:9px/1.35 var(--mono);letter-spacing:.08em;color:#7f8588;text-transform:uppercase}
+.ai-node b{font-size:12px;line-height:1.4;margin-top:6px}
+.ai-copy{padding:34px 36px;display:flex;flex-direction:column}
+.ai-copy .num{font:10px/1.4 var(--mono);letter-spacing:.1em;color:var(--accent)}
+.ai-copy h3{font-size:30px;line-height:1.08;letter-spacing:-.035em;margin:12px 0 12px}
+.ai-copy p{font-size:14.5px;line-height:1.68;color:var(--muted);margin:0}
+.ai-proof{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:19px}
+.ai-proof div{background:#fbfbf9;padding:13px 14px}
+.ai-proof span{display:block;font:8px/1.4 var(--mono);letter-spacing:.09em;color:#898f92;text-transform:uppercase}
+.ai-proof b{display:block;font-size:12.5px;line-height:1.42;margin-top:5px}
+.netflix-note{margin:0 0 34px;padding:20px 22px;border:1px solid var(--line);border-radius:14px;background:#eef4f7;display:grid;grid-template-columns:180px 1fr;gap:24px}
+.netflix-note b{font:10px/1.45 var(--mono);letter-spacing:.1em;color:var(--accent);text-transform:uppercase}
+.netflix-note p{font-size:14px;line-height:1.66;color:#465056;margin:0}
+.full-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.full-grid .project-card{height:100%}
+.full-grid .project-media{aspect-ratio:16/9}
+.section-sub{font-size:14px;color:var(--muted);margin-top:10px}
+@media(max-width:980px){.ai-feature{grid-template-columns:1fr}.full-grid{grid-template-columns:1fr}}
+@media(max-width:680px){.ai-flow{grid-template-columns:1fr}.netflix-note{grid-template-columns:1fr;gap:8px}.ai-copy{padding:24px}}
+
+/* V3 — portfolio balance / projects2 */
+.character-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+.system-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.system-grid .project-card{height:100%}
+.project-media iframe{
+  position:absolute;inset:0;width:100%;height:100%;border:0;z-index:1;
+}
+.project-group-head{
+  display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;
+  margin:54px 0 22px;padding-top:28px;border-top:1px solid var(--line)
+}
+.project-group-head:first-of-type{margin-top:22px}
+.project-group-head h3{
+  margin:0;font-size:clamp(24px,2.2vw,31px);line-height:1.14;letter-spacing:-.03em
+}
+.project-group-head p{margin:9px 0 0;color:var(--muted);font-size:14px;max-width:760px}
+.expertise-grid{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1050px){
+  .character-grid{grid-template-columns:1fr 1fr}
+  .expertise-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:680px){
+  .character-grid,.system-grid,.expertise-grid{grid-template-columns:1fr}
+  .project-group-head{grid-template-columns:1fr;gap:8px}
+}
+
+
+.feature-media iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:1;display:block}
+.feature-media img,.feature-media iframe{background:#111}
+.ai-visual{padding:24px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:16px}
+.ai-image{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#111;border:1px solid rgba(0,0,0,.04)}
+.ai-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ai-flow{grid-template-columns:repeat(5,1fr)}
+@media(max-width:980px){.ai-image{aspect-ratio:16/9}}
+@media(max-width:680px){.ai-flow{grid-template-columns:1fr}}
+
+
+/* V5 — clickable preview behavior */
+.ai-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.feature[href] .feature-media iframe,
+.project-card[href] .project-media iframe{pointer-events:none}
+.feature[href] .feature-media,
+.project-card[href] .project-media{cursor:pointer}
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="shell top-inner">
+    <a class="brand" href="Netflix_CG_Experimental_Portfolio_JonghoonAhn.html">Jonghoon Ahn.<small>CG Experimental Artist · Digital Human / Real-Time CG</small></a>
+    <nav class="nav">
+      <a href="#work">Work</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#about">About</a>
+      <a href="mailto:hoonahncloud@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="shell hero-grid">
+    <div>
+      <div class="eyebrow">NETFLIX · CG EXPERIMENTAL ARTIST · GENERATIVE AI / DIGITAL HUMAN / REAL-TIME CG</div>
+      <h1>Experimental tools into<br><em>production-ready images.</em></h1>
+      <p class="lead">Filmmaker and Technical Artist combining generative AI with Digital Humans, character production, performance capture, and real-time graphics.</p>
+      <p class="sub">For this portfolio, I lead with one authored AI film—<strong>The Way To Be Oneself</strong>—then show the CG production work behind my practice: MetaHuman and custom digital humans, facial and body performance, technical animation, materials, rendering, shaders, and engine delivery.</p>
+      <div class="actions">
+        <a class="btn primary" href="#work">Selected Work ↓</a>
+      </div>
+    </div>
+    <div>
+      <div class="reel">
+        <iframe src="https://player.vimeo.com/video/1218450064?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;autopause=0&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;playsinline=1&amp;transparent=0&amp;dnt=1"
+          allow="autoplay; fullscreen; picture-in-picture" title="Jonghoon Ahn CG and technical art showreel"></iframe>
+      </div>
+      <div class="reel-caption"><span>SELECTED CG / TECHNICAL WORK — SHOWREEL</span><span>Digital Human · Character · Real-Time</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="snapshot">
+  <div class="shell snapshot-grid">
+    <div class="snapshot-item"><span>01 / GENERATIVE</span><b>ComfyUI · AI Film</b><small>Authored visual exploration, selection, sequence, cinematic judgment</small></div>
+    <div class="snapshot-item"><span>02 / DIGITAL HUMAN</span><b>MetaHuman · Custom Human</b><small>Scan/depth source, likeness, topology, textures, eyes, hair</small></div>
+    <div class="snapshot-item"><span>03 / PERFORMANCE</span><b>Body · Face · Technical Animation</b><small>Capture, cleanup, retarget, body/face assembly, rig bake</small></div>
+    <div class="snapshot-item"><span>04 / GRAPHICS</span><b>Unreal · Unity · HLSL</b><small>Real-time rendering, shaders, VFX, tools and production delivery</small></div>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">SELECTED WORK</span>
+      <div>
+        <h2>AI film, digital humans, performance, and real-time CG.</h2>
+        <p>The Way To Be Oneself is the single generative-AI film case. The remaining work focuses on character CG, digital humans, performance capture, animation integration, and real-time graphics.</p>
+      </div>
+    </div>
+
+    <div class="ai-feature">
+      <div class="ai-visual">
+        <div class="ai-image ai-video">
+          <iframe
+            src="https://player.vimeo.com/video/1143335967?h=25404ae421&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+            frameborder="0"
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            title="The Way To Be Oneself">
+          </iframe>
+        </div>
+        <div class="ai-flow">
+          <div class="ai-node"><span>01 / Intent</span><b>Story / emotional question</b></div>
+          <div class="ai-node"><span>02 / Generate</span><b>ComfyUI image workflow</b></div>
+          <div class="ai-node"><span>03 / Evaluate</span><b>Compare / reject / refine</b></div>
+          <div class="ai-node"><span>04 / Author</span><b>Sequence / pacing / image relationships</b></div>
+          <div class="ai-node"><span>05 / Film</span><b>Experimental moving-image result</b></div>
+        </div>
+      </div>
+      <div class="ai-copy">
+        <span class="num">01 / EXPERIMENTAL AI FILM · 2025</span>
+        <h3>The Way To Be Oneself</h3>
+        <p>An authored AI-film project where ComfyUI and generative-image workflows enter a larger cinematic process. I evaluate generated material as film material—through continuity, sequence, tone, pacing, visual consistency, and whether an image actually serves the work.</p>
+        <div class="ai-proof">
+          <div><span>Role</span><b>Director / image-maker</b></div>
+          <div><span>AI workflow</span><b>ComfyUI / generative-image iteration</b></div>
+          <div><span>Creative problem</span><b>Turn generated images into an authored sequence</b></div>
+          <div><span>What it proves</span><b>AI use grounded in filmmaking judgment</b></div>
+        </div>
+        <div class="evidence"><span>ComfyUI</span><span>Generative AI</span><span>Experimental Film</span><span>Directing</span></div>
+        <div class="view">Full film preview is embedded here — no separate case page.</div>
+      </div>
+    </div>
+
+    
+    <div class="netflix-note">
+      <b>CG EXPERIMENTAL POSITIONING</b>
+      <p>The portfolio is organized by production discipline rather than by medium. The digital-human cases demonstrate character construction, likeness, facial systems, materials, hair, performance, technical animation, rendering, and final real-time delivery. The final pair extends that foundation into multi-performer animation and custom graphics R&amp;D.</p>
+    </div>
+
+    <div class="project-group-head">
+      <span class="eyebrow">DIGITAL HUMAN / CHARACTER CG</span>
+      <div>
+        <h3>Character work from identity source to final real-time human.</h3>
+        <p>These projects are the core CG evidence: different approaches to likeness, topology, materials, facial systems, animation, performance capture, and production delivery.</p>
+      </div>
+    </div>
+
+    <a class="feature" href="projects2/shininho-jooan.html">
+      <div class="feature-media">
+        <iframe src="https://player.vimeo.com/video/1218744311?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1" allow="autoplay; fullscreen; picture-in-picture" title="Digital Human Shininho preview"></iframe>
+        <span class="badge">02 / FLAGSHIP · DIGITAL HUMAN · OPEN CASE</span>
+      </div>
+      <div class="feature-copy">
+        <span class="num">2025–2026 · TECHNICAL DIRECTOR</span>
+        <h3>Digital Human Shininho + Jooan VR</h3>
+        <p>End-to-end real-person digital-human production: source scan, Unity feasibility prototype, Wrap + MetaHuman reconstruction, identity-preserving texture / eye work, hybrid body and facial performance capture, MotionBuilder / Maya technical animation, Unreal assembly, and immersive VR re-staging.</p>
+        <div class="evidence"><span>MetaHuman</span><span>Wrap</span><span>OptiTrack</span><span>MOVIN TRACIN</span><span>MotionBuilder</span><span>Maya</span><span>Unreal</span></div>
+        <div class="view">View full case study →</div>
+      </div>
+    </a>
+
+    <div class="character-grid">
+      <a class="project-card" href="projects2/row-row-row-your-boat.html">
+        <div class="project-media">
+          <div class="placeholder"><div class="ph"><b>10 DIGITAL HUMAN IDENTITIES</b></div></div>
+          <img src="https://jonghoonahn.com/media/row/01_ten_face_grid.jpg" alt="Ten MetaHuman identities">
+          <span class="badge">03 / SCALE</span>
+        </div>
+        <div class="project-body">
+          <span class="project-meta">2026 · TECHNICAL ARTIST</span>
+          <h3>Row, Row, Row Your Boat</h3>
+          <p>Ten individual MetaHuman identities developed from depth-video facial source, with per-character skin / eye / groom lookdev, facial performance, canon staging, multi-character rendering, and final installation delivery.</p>
+          <div class="evidence"><span>10 MetaHumans</span><span>Live Link Face</span><span>Identity</span><span>Lookdev</span><span>Rendering</span></div>
+          <div class="card-view">View case study →</div>
+        </div>
+      </a>
+
+      <a class="project-card" href="projects2/gang-se-hwang.html">
+        <div class="project-media">
+          <div class="placeholder"><div class="ph"><b>PORTRAIT → CUSTOM DIGITAL HUMAN</b></div></div>
+          <img src="https://jonghoonahn.com/media/gang/hero_portrait_to_digital.jpg" alt="Historical portrait to custom digital human">
+          <span class="badge">04 / CUSTOM CHARACTER</span>
+        </div>
+        <div class="project-body">
+          <span class="project-meta">2022 · TECHNICAL DIRECTOR</span>
+          <h3>Gang Se-hwang Digital Human</h3>
+          <p>Historical digital-human reconstruction built through ZBrush / ZWrap, custom facial blendshapes, facial-data import, hair cards, beard motion, Hanbok cloth simulation handoff, Unity HDRP lookdev, and interactive museum delivery.</p>
+          <div class="evidence"><span>Custom Human</span><span>Blendshapes</span><span>Hair</span><span>Cloth</span><span>Unity HDRP</span></div>
+          <div class="card-view">View case study →</div>
+        </div>
+      </a>
+
+      <a class="project-card" href="projects2/yaloo.html">
+        <div class="project-media">
+          <div class="placeholder"><div class="ph"><b>MULTI-AGE DIGITAL HUMAN</b></div></div>
+          <img src="https://jonghoonahn.com/media/yaloo/00_hero_installation.jpg" alt="Yaloo digital human installation">
+          <span class="badge">05 / AGE VARIATION</span>
+        </div>
+        <div class="project-body">
+          <span class="project-meta">2024 · TECHNICAL ARTIST</span>
+          <h3>Yaloo Digital Human</h3>
+          <p>Depth-video MetaHuman Identity work across age states, combining a CC4 child body with a MetaHuman head and material-driven middle-aged / elderly variations for a reusable real-time character system.</p>
+          <div class="evidence"><span>MetaHuman Identity</span><span>CC4</span><span>Age States</span><span>Materials</span></div>
+          <div class="card-view">View case study →</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="project-group-head">
+      <span class="eyebrow">ANIMATION / GRAPHICS SYSTEMS</span>
+      <div>
+        <h3>Performance integration and custom real-time image systems.</h3>
+        <p>Instead of leaving the game project alone in its own section, these two cases sit together as complementary technical CG work: one centered on character performance data, the other on rendering and visual-system R&amp;D.</p>
+      </div>
+    </div>
+
+    <div class="system-grid">
+      <a class="project-card" href="projects2/when-it-seen.html">
+        <div class="project-media">
+          <iframe src="https://player.vimeo.com/video/1219183858?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1"
+            allow="autoplay; fullscreen; picture-in-picture" title="When It Seen performance capture"></iframe>
+          <span class="badge">06 / PERFORMANCE · OPEN CASE</span>
+        </div>
+        <div class="project-body">
+          <span class="project-meta">2026 · MOTION CAPTURE SPECIALIST</span>
+          <h3>When It Seen</h3>
+          <p>Three-performer character animation pipeline combining separate MOVIN TRACIN body and Rokoko / iPhone facial streams in Unreal, then delivering full-character Alembic deformation caches for downstream Houdini cloth work.</p>
+          <div class="evidence"><span>3 Performers</span><span>Body + Face</span><span>Unreal</span><span>Alembic</span><span>Houdini Handoff</span></div>
+          <div class="card-view">View case study →</div>
+        </div>
+      </a>
+
+      <a class="project-card" href="projects2/confidential-game.html">
+        <div class="project-media">
+          <iframe src="https://player.vimeo.com/video/1219170733?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1"
+            allow="autoplay; fullscreen; picture-in-picture" title="Confidential real-time graphics R&D"></iframe>
+          <span class="badge">07 / GRAPHICS R&amp;D · OPEN CASE</span>
+        </div>
+        <div class="project-body">
+          <span class="project-meta">2025–2026 · TECHNICAL ARTIST / TECHNICAL DIRECTOR</span>
+          <h3>Erick Oh — Confidential Real-Time Game</h3>
+          <p>Custom HLSL Perlin deformation, raymarched metaball rendering, C# runtime visual behavior, and a fixed-topology four-state transformation workflow built for art-directed iteration.</p>
+          <div class="evidence"><span>Unity URP</span><span>C#</span><span>HLSL</span><span>Raymarching</span><span>Fixed Topology</span></div>
+          <div class="card-view">View technical case →</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section expertise" id="expertise">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">CG EXPERIMENTAL FIT</span>
+      <div>
+        <h2>My experimental practice is supported by hands-on CG production.</h2>
+        <p>Digital humans are particularly useful evidence because they force visual judgment and technical implementation to meet: likeness, deformation, facial expression, motion, shading, hair, simulation, rendering, and final delivery all have to survive the same pipeline.</p>
+      </div>
+    </div>
+    <div class="expertise-grid">
+      <div class="expertise-card"><span class="n">01 / GENERATIVE</span><h3>AI Image Workflow</h3><p>ComfyUI and generative-image experimentation used inside an authored moving-image process.</p><strong>ComfyUI · Generative AI · Film</strong></div>
+      <div class="expertise-card"><span class="n">02 / CHARACTER</span><h3>Digital Human / CG</h3><p>Scan/depth source cleanup, topology, identity reconstruction, facial systems, textures, eyes, hair, materials, and lookdev.</p><strong>Maya · ZBrush · Wrap · MetaHuman · CC4</strong></div>
+      <div class="expertise-card"><span class="n">03 / ANIMATION</span><h3>Performance &amp; Technical Animation</h3><p>Body / facial capture, retargeting, cleanup, reconstruction, synchronized performance, Sequencer, Control Rig, and cache delivery.</p><strong>OptiTrack · MOVIN TRACIN · MotionBuilder · Unreal</strong></div>
+      <div class="expertise-card"><span class="n">04 / GRAPHICS</span><h3>Real-Time Rendering &amp; R&amp;D</h3><p>Materials, lighting, shaders, raymarching, runtime interaction, technical troubleshooting, and production visualization.</p><strong>Unreal · Unity · HLSL · C# · Python</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">ABOUT</span>
+      <div>
+        <h2>Filmmaker's eye, technical artist's production discipline.</h2>
+        <p>I am a Los Angeles–based filmmaker and Technical Artist working across experimental AI film, Digital Humans, character CG, performance capture, animation, and real-time graphics. I am interested in emerging image tools when they can be pushed beyond novelty and tested against the actual demands of production: authorship, consistency, character, performance, visual quality, and delivery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>Jonghoon Ahn — CG Experimental Artist</span>
+    <span>Generative AI · Digital Human · Character CG · Real-Time Graphics · hoonahncloud@gmail.com</span>
+  </div>
+</footer>
+</body>
+</html>
