@@ -1,0 +1,258 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jonghoon Ahn - Riot VFX Artist II Portfolio</title>
+<meta name="description" content="Technical animation portfolio by Jonghoon Ahn — Unreal Engine, digital humans, performance capture, retargeting, MotionBuilder, Maya, MetaHuman, animation cleanup and character pipelines.">
+<style>
+:root{
+  --bg:#f5f5f2;--paper:#fff;--ink:#111;--ink2:#33332f;--muted:#6f6f68;
+  --line:#deddd7;--soft:#eae9e4;--accent:#244968;--dark:#151719;
+  --max:1320px;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,"Helvetica Neue",Arial,"Noto Sans KR",sans-serif
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.62 var(--sans);-webkit-font-smoothing:antialiased;word-break:normal}
+a{color:inherit}
+img{display:block;width:100%;height:100%;object-fit:cover}
+.shell{width:min(calc(100% - 56px),var(--max));margin:auto}
+.eyebrow{font:10px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:#868680}
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-inner{height:64px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.brand{display:flex;align-items:baseline;gap:12px;text-decoration:none;font-weight:700;letter-spacing:-.02em}
+.brand small{font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.02em}
+.nav{display:flex;align-items:center;gap:24px}
+.nav a{text-decoration:none;font-size:13px;color:var(--muted)}
+.nav a:hover{color:var(--ink)}
+
+.hero{background:var(--paper);border-bottom:1px solid var(--line);padding:70px 0 54px}
+.hero-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:64px;align-items:center}
+.hero h1{font-size:clamp(42px,4.1vw,60px);line-height:1.04;letter-spacing:-.042em;margin:16px 0 20px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{font-size:clamp(17px,1.25vw,20px);line-height:1.55;color:var(--ink2);max-width:650px;margin:0}
+.hero .sub{font-size:14px;line-height:1.65;color:var(--muted);max-width:620px;margin:18px 0 0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid #c9c8c2;background:#fff;border-radius:7px;padding:10px 14px;font-size:13px}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
+.reel{aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#111;box-shadow:0 18px 52px rgba(0,0,0,.12)}
+.reel iframe{display:block;width:100%;height:100%;border:0}
+.reel-caption{display:flex;justify-content:space-between;gap:16px;margin-top:9px;font:10px/1.5 var(--mono);letter-spacing:.05em;color:#8a8a84}
+
+.snapshot{background:var(--paper);border-bottom:1px solid var(--line)}
+.snapshot-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.snapshot-item{padding:20px 24px 22px;border-right:1px solid var(--line)}
+.snapshot-item:first-child{padding-left:0}
+.snapshot-item:last-child{border-right:0;padding-right:0}
+.snapshot-item span{display:block;font:9px/1.4 var(--mono);letter-spacing:.11em;color:#909089}
+.snapshot-item b{display:block;font-size:15px;line-height:1.35;margin-top:7px}
+.snapshot-item small{display:block;font-size:12.5px;line-height:1.45;color:var(--muted);margin-top:4px}
+
+.section{padding:74px 0;border-bottom:1px solid var(--line)}
+.section-head{display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;margin-bottom:36px}
+.section-head h2{font-size:clamp(29px,2.65vw,38px);line-height:1.14;letter-spacing:-.032em;margin:0;max-width:900px}
+.section-head p{font-size:15px;color:var(--muted);max-width:800px;margin:14px 0 0}
+
+.feature{display:grid;grid-template-columns:1.3fr .7fr;min-height:520px;background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;text-decoration:none}
+.feature-media{position:relative;overflow:hidden;background:var(--soft)}
+.feature-media img{transition:transform .5s ease}
+.feature:hover .feature-media img{transform:scale(1.018)}
+.badge{position:absolute;left:16px;top:16px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);font:10px/1 var(--mono);letter-spacing:.08em}
+.feature-copy{padding:42px;display:flex;flex-direction:column}
+.feature-copy .num{font:10px/1.4 var(--mono);letter-spacing:.11em;color:var(--accent)}
+.feature-copy h3{font-size:clamp(28px,2.35vw,34px);line-height:1.1;letter-spacing:-.032em;margin:14px 0 12px}
+.feature-copy p{font-size:15px;color:var(--muted);margin:0}
+.evidence{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px}
+.evidence span{border:1px solid var(--line);border-radius:999px;padding:5px 9px;font:9px/1.3 var(--mono);letter-spacing:.05em;color:#62625e;background:#fafaf8}
+.view{margin-top:auto;padding-top:30px;font-size:13px;font-weight:650}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.project-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column}
+.project-media{position:relative;aspect-ratio:16/10;background:var(--soft);overflow:hidden}
+.project-body{padding:24px 26px 28px;display:flex;flex-direction:column;flex:1}
+.project-meta{font:9px/1.4 var(--mono);letter-spacing:.11em;color:#8b8b85}
+.project-card h3{font-size:23px;line-height:1.14;letter-spacing:-.028em;margin:11px 0 9px}
+.project-card p{font-size:14px;color:var(--muted);margin:0}
+.card-view{font-size:12px;font-weight:650;margin-top:auto;padding-top:20px}
+
+.placeholder{position:absolute;inset:0;padding:24px;display:flex;align-items:flex-end;background:linear-gradient(rgba(255,255,255,.0),rgba(255,255,255,.18)),repeating-linear-gradient(135deg,#ecebe6 0 1px,#f4f3ef 1px 10px)}
+.placeholder:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 45%,rgba(36,73,104,.07))}
+.ph{position:relative;z-index:1}
+.ph b{display:block;font-size:18px;line-height:1.25}
+.ph small{display:block;font:10px/1.5 var(--mono);color:#777770;margin-top:5px}
+
+.support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.support .project-media{aspect-ratio:16/9}
+.support .project-body{padding:20px 22px 22px}
+.support h3{font-size:19px}
+
+.expertise{background:var(--dark);color:#fff;border-bottom:0}
+.expertise .eyebrow{color:#8ea5b8}
+.expertise .section-head h2{max-width:820px}
+.expertise .section-head p{color:#a7a9aa}
+.expertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#34383b;border:1px solid #34383b;border-radius:18px;overflow:hidden}
+.expertise-card{background:#191c1f;padding:30px;min-height:260px}
+.expertise-card .n{font:10px/1.4 var(--mono);letter-spacing:.1em;color:#8ea5b8}
+.expertise-card h3{font-size:21px;line-height:1.16;letter-spacing:-.025em;margin:22px 0 11px}
+.expertise-card p{font-size:14px;color:#afb2b4;margin:0}
+.expertise-card strong{display:block;font-size:12px;color:#e9eaeb;margin-top:20px;font-weight:600}
+
+.workflow{background:var(--paper)}
+.workflow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.workflow-grid>div{background:var(--paper);padding:24px;min-height:175px}
+.workflow-grid span{font:10px/1.4 var(--mono);letter-spacing:.1em;color:var(--accent)}
+.workflow-grid h3{font-size:18px;margin:18px 0 8px}
+.workflow-grid p{font-size:13px;color:var(--muted);margin:0}
+
+.about-row{display:grid;grid-template-columns:180px 1.2fr .8fr;gap:32px;align-items:start;padding-top:10px}
+.about-row p{font-size:16px;line-height:1.65;margin:0;max-width:760px;color:var(--ink2)}
+.tool-list{border-top:1px solid var(--line)}
+.tool-line{display:flex;justify-content:space-between;gap:22px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}
+.tool-line span{font:9px/1.5 var(--mono);letter-spacing:.1em;color:#8c8c86}
+.tool-line b{text-align:right;font-weight:600}
+
+.footer{padding:42px 0 60px;background:var(--bg)}
+.footer-inner{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:13px}
+
+@media(max-width:980px){
+  .hero-grid,.feature{grid-template-columns:1fr}
+  .hero-grid{gap:36px}
+  .feature{min-height:0}
+  .feature-media{aspect-ratio:16/9}
+  .feature-copy{padding:30px}
+  .snapshot-grid{grid-template-columns:1fr 1fr}
+  .snapshot-item:nth-child(2){border-right:0}
+  .snapshot-item:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .snapshot-item:nth-child(3){padding-left:0}
+  .section-head,.about-row{grid-template-columns:1fr}
+  .expertise-grid{grid-template-columns:1fr}
+  .workflow-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:680px){
+  .shell{width:calc(100% - 28px)}
+  .top-inner{height:auto;padding:12px 0}
+  .brand small,.nav{display:none}
+  .hero{padding:52px 0 38px}
+  .hero h1{font-size:clamp(38px,11vw,50px)}
+  .reel{border-radius:14px}
+  .reel-caption{flex-direction:column;gap:2px}
+  .snapshot-grid,.grid-2,.support-grid,.workflow-grid{grid-template-columns:1fr}
+  .snapshot-item{padding:17px 0;border-right:0!important;border-bottom:1px solid var(--line)}
+  .snapshot-item:last-child{border-bottom:0}
+  .section{padding:62px 0}
+  .feature-copy{padding:24px}
+  .feature-copy h3{font-size:28px}
+}
+
+.project-media>img,.feature-media>img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+}
+.project-media .badge,.feature-media .badge{z-index:3}
+.feature-media{position:relative}
+
+
+/* Broader portfolio link */
+.broader-portfolio{
+  margin-top:30px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  flex-wrap:wrap;
+}
+.broader-portfolio-copy{
+  max-width:760px;
+}
+.broader-portfolio-copy span{
+  display:block;
+  margin-bottom:7px;
+  font:9px/1.4 var(--mono);
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:#8c8c86;
+}
+.broader-portfolio-copy p{
+  margin:0;
+  font-size:14px;
+  line-height:1.62;
+  color:var(--muted);
+}
+.broader-portfolio-link{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  border:1px solid #c9c8c2;
+  border-radius:7px;
+  background:#fff;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:600;
+}
+.broader-portfolio-link:hover{
+  border-color:#a9a8a2;
+}
+@media(max-width:680px){
+  .broader-portfolio{
+    align-items:flex-start;
+  }
+}
+
+
+/* NETFLIX CG EXPERIMENTAL — V2 */
+.ai-feature{display:grid;grid-template-columns:1.03fr .97fr;background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:48px}
+.ai-visual{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;padding:28px;background:linear-gradient(145deg,#f7f7f4,#edf1f3)}
+.ai-flow{width:100%;display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.ai-node{min-height:100px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:12px;display:flex;flex-direction:column;justify-content:center}
+.ai-node span{font:9px/1.35 var(--mono);letter-spacing:.08em;color:#7f8588;text-transform:uppercase}
+.ai-node b{font-size:12px;line-height:1.4;margin-top:6px}
+.ai-copy{padding:34px 36px;display:flex;flex-direction:column}
+.ai-copy .num{font:10px/1.4 var(--mono);letter-spacing:.1em;color:var(--accent)}
+.ai-copy h3{font-size:30px;line-height:1.08;letter-spacing:-.035em;margin:12px 0 12px}
+.ai-copy p{font-size:14.5px;line-height:1.68;color:var(--muted);margin:0}
+.ai-proof{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:19px}
+.ai-proof div{background:#fbfbf9;padding:13px 14px}
+.ai-proof span{display:block;font:8px/1.4 var(--mono);letter-spacing:.09em;color:#898f92;text-transform:uppercase}
+.ai-proof b{display:block;font-size:12.5px;line-height:1.42;margin-top:5px}
+.netflix-note{margin:0 0 34px;padding:20px 22px;border:1px solid var(--line);border-radius:14px;background:#eef4f7;display:grid;grid-template-columns:180px 1fr;gap:24px}
+.netflix-note b{font:10px/1.45 var(--mono);letter-spacing:.1em;color:var(--accent);text-transform:uppercase}
+.netflix-note p{font-size:14px;line-height:1.66;color:#465056;margin:0}
+.full-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.full-grid .project-card{height:100%}
+.full-grid .project-media{aspect-ratio:16/9}
+.section-sub{font-size:14px;color:var(--muted);margin-top:10px}
+@media(max-width:980px){.ai-feature{grid-template-columns:1fr}.full-grid{grid-template-columns:1fr}}
+@media(max-width:680px){.ai-flow{grid-template-columns:1fr}.netflix-note{grid-template-columns:1fr;gap:8px}.ai-copy{padding:24px}}
+
+.project-vimeo-loop{position:absolute;inset:0;z-index:2;overflow:hidden;background:#050505}.project-vimeo-loop iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}.feature-media .project-vimeo-loop{z-index:2}.feature-media .badge,.project-media .badge{z-index:4}
+</style>
+</head><body>
+<header class="top"><div class="shell top-inner"><a class="brand" href="Riot_VFX_Artist_II_Portfolio_JonghoonAhn.html">Jonghoon Ahn.<small>Real-Time Technical Artist · VFX / Shaders / Engine</small></a><nav class="nav"><a href="#work">Work</a><a href="#expertise">Expertise</a><a href="#about">About</a><a href="mailto:hoonahncloud@gmail.com">Contact</a></nav></div></header>
+<main>
+<section class="hero"><div class="shell hero-grid"><div><div class="eyebrow">RIOT GAMES · VFX ARTIST II · UNPUBLISHED R&amp;D PRODUCT</div><h1>Visual systems built<br><em>for real-time play.</em></h1><p class="lead">Real-Time Technical Artist working across shaders, engine VFX, character visuals, animation, and rapid visual prototyping.</p><p class="sub">This portfolio reuses my existing Riot technical-art cases but leads with the work most relevant to VFX Artist II: HLSL rendering, runtime visual behavior, Niagara, character materials, real-time look development, production debugging, and engine-side integration.</p><div class="actions"><a class="btn primary" href="#work">Selected Work ↓</a><a class="btn" href="../Jonghoon_Ahn_Riot_VFX_Artist_II_Resume.pdf">Resume PDF</a></div></div><div><div class="reel"><iframe src="https://player.vimeo.com/video/1218450064?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;autopause=0&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;playsinline=1&amp;transparent=0&amp;dnt=1" allow="autoplay; fullscreen; picture-in-picture" title="Jonghoon Ahn technical art showreel"></iframe></div><div class="reel-caption"><span>SELECTED REAL-TIME / TECHNICAL WORK</span><span>Shaders · VFX · Character · Engine</span></div></div></div></section>
+
+<section class="snapshot"><div class="shell snapshot-grid"><div class="snapshot-item"><span>01 / SHADERS</span><b>HLSL · Perlin · Raymarching</b><small>Custom rendering, deformation, real-time visual behavior</small></div><div class="snapshot-item"><span>02 / ENGINE VFX</span><b>Niagara · Unity / Unreal Integration</b><small>Particles, ribbons, scene / character effects, runtime assembly</small></div><div class="snapshot-item"><span>03 / CHARACTER VISUALS</span><b>Materials · Hair · Deformation</b><small>HDRP/URP, skin / eye / hair lookdev, blendshapes</small></div><div class="snapshot-item"><span>04 / PROTOTYPING</span><b>C# · Python · Technical Art</b><small>Rapid iteration, cross-discipline debugging, production delivery</small></div></div></section>
+
+<section class="section" id="work"><div class="shell"><div class="section-head"><span class="eyebrow">SELECTED WORK</span><div><h2>Real-time effects, shaders, character visuals, and production integration.</h2><p>The order is intentionally different from my Technical Animator portfolio: the confidential game R&amp;D case leads, followed by Niagara / character VFX, materials, and large-scale real-time production.</p></div></div>
+<div class="netflix-note"><b>RIOT / VFX FOCUS</b><p>I am not presenting myself as a three-year dedicated game VFX specialist. These cases show the real-time VFX and technical-art work I have actually done: shader authoring, runtime visual systems, Niagara, materials, character visuals, engine integration, rapid prototyping, and production troubleshooting.</p></div>
+
+<a class="feature" href="projects5/confidential-game.html"><div class="feature-media"><div class="project-vimeo-loop" aria-hidden="true"><iframe src="https://player.vimeo.com/video/1219170568?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1" allow="autoplay; fullscreen; picture-in-picture" tabindex="-1" title="Confidential real-time game VFX preview"></iframe></div><span class="badge">01 / FLAGSHIP · REAL-TIME VFX R&amp;D</span></div><div class="feature-copy"><span class="num">04/2025–04/2026 · TECHNICAL ARTIST / TECHNICAL DIRECTOR</span><h3>Erick Oh - Confidential Real-Time Game</h3><p>Unity URP visual R&amp;D across custom HLSL Perlin vertex deformation, C#-driven shader behavior, raymarched field rendering, and a deterministic four-state transformation workflow built for art direction and rapid iteration.</p><div class="evidence"><span>Unity URP</span><span>HLSL</span><span>C#</span><span>Raymarching</span><span>Vertex Deformation</span><span>Maya</span></div><div class="view">View technical case →</div></div></a>
+
+<div class="full-grid">
+<a class="project-card" href="projects5/shininho-jooan.html"><div class="project-media"><div class="project-vimeo-loop" aria-hidden="true"><iframe src="https://player.vimeo.com/video/1219693160?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1" allow="autoplay; fullscreen; picture-in-picture" tabindex="-1" title="Jooan Unreal Niagara and VR preview"></iframe></div><span class="badge">02 / NIAGARA · CHARACTER VFX</span></div><div class="project-body"><span class="project-meta">2025–2026 · TECHNICAL DIRECTOR</span><h3>Digital Human Shininho + Jooan VR</h3><p>Production digital human and performance pipeline extended into Unreal VR, including hand-attached Niagara ribbon effects, real-time lighting, spatial staging, character motion, and headset iteration.</p><div class="evidence"><span>Unreal</span><span>Niagara</span><span>Sequencer</span><span>MetaHuman</span><span>Lighting</span></div><div class="card-view">View case study →</div></div></a>
+<a class="project-card" href="projects5/gang-se-hwang.html"><div class="project-media"><img src="https://jonghoonahn.com/media/gang/hero_portrait_to_digital2.jpg" alt="Gang Se-hwang digital human" onerror="this.style.display='none'"><span class="badge">03 / CHARACTER MATERIALS</span></div><div class="project-body"><span class="project-meta">2022 · TECHNICAL DIRECTOR</span><h3>Gang Se-hwang Digital Human</h3><p>Custom character production with HDRP skin / eye / hair materials, transparency, facial deformation, beard motion, cloth handoff, and real-time presentation in a museum application.</p><div class="evidence"><span>Unity HDRP</span><span>Materials</span><span>Hair</span><span>Blendshapes</span><span>C#</span></div><div class="card-view">View case study →</div></div></a>
+<a class="project-card" href="projects5/row-row-row-your-boat.html"><div class="project-media"><img src="https://jonghoonahn.com/media/row/hero_10_faces.jpg" alt="Ten MetaHuman identities" onerror="this.style.display='none'"><span class="badge">04 / PRODUCTION SCALE</span></div><div class="project-body"><span class="project-meta">2026 · TECHNICAL ARTIST</span><h3>Row, Row, Row Your Boat</h3><p>Ten-character Unreal installation requiring per-character lookdev, lighting variants, animation timing, overlap stability, visual troubleshooting, and final two-channel delivery.</p><div class="evidence"><span>Unreal</span><span>MetaHuman</span><span>Lookdev</span><span>Lighting</span><span>Rendering</span></div><div class="card-view">View case study →</div></div></a>
+<a class="project-card" href="projects5/when-it-seen.html"><div class="project-media"><div class="project-vimeo-loop" aria-hidden="true"><iframe src="https://player.vimeo.com/video/1219183858?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1" allow="autoplay; fullscreen; picture-in-picture" tabindex="-1" title="When It Seen performance preview"></iframe></div><span class="badge">05 / PERFORMANCE INTEGRATION</span></div><div class="project-body"><span class="project-meta">2026 · MOTION CAPTURE SPECIALIST</span><h3>When It Seen</h3><p>Three-performer body / face integration in Unreal with deformation-cache delivery downstream, showing cross-discipline character and animation handoff under production constraints.</p><div class="evidence"><span>Unreal</span><span>Animation</span><span>Deformation</span><span>Alembic</span></div><div class="card-view">View case study →</div></div></a>
+</div></div></section>
+
+<section class="section" style="padding-top:0"><div class="shell"><div class="section-head" style="margin-bottom:24px"><span class="eyebrow">SUPPORTING CHARACTER WORK</span><div><h2 style="font-size:clamp(26px,2.4vw,32px)">Reusable real-time character production.</h2></div></div><div class="support-grid"><a class="project-card support" href="projects5/yaloo.html"><div class="project-media"><img src="https://jonghoonahn.com/media/yaloo/hero_age_states.jpg" alt="Yaloo age variants" onerror="this.style.display='none'"></div><div class="project-body"><span class="project-meta">2024 · TECHNICAL ARTIST</span><h3>Yaloo Digital Human</h3><p>Age-state real-time character work across MetaHuman Identity, child-body integration, and material-driven visual variation.</p><div class="card-view">View →</div></div></a></div></div></section>
+
+<section class="section expertise" id="expertise"><div class="shell"><div class="section-head"><span class="eyebrow">TECHNICAL FIT</span><div><h2>Art decisions implemented directly in the engine.</h2><p>My strongest evidence for this Riot role is in shader / material work, real-time visual systems, rapid prototyping, character visuals, and the technical debugging needed to move work from an idea into a stable engine result.</p></div></div><div class="expertise-grid"><div class="expertise-card"><span class="n">01 / VFX</span><h3>Shaders & Real-Time Effects</h3><p>Custom HLSL, Perlin vertex deformation, raymarched fields, Niagara ribbons, real-time materials and visual systems.</p><strong>HLSL · Niagara · URP / HDRP · Raymarching</strong></div><div class="expertise-card"><span class="n">02 / ENGINE</span><h3>Integration & Debugging</h3><p>Implement visual work directly in Unity / Unreal, connect it to runtime state or animation, and diagnose technical / visual failures across disciplines.</p><strong>Unity · Unreal · C# · Sequencer</strong></div><div class="expertise-card"><span class="n">03 / ART</span><h3>Character Visual Production</h3><p>Character materials, hair, blendshapes, deformation, lookdev, real-time lighting, and visual presentation informed by filmmaking and animation production.</p><strong>Maya · MetaHuman · Materials · Animation</strong></div></div></div></section>
+
+<section class="section workflow"><div class="shell"><div class="section-head"><span class="eyebrow">HOW I WORK</span><div><h2>Prototype → integrate → test → refine.</h2><p>I use technical art as a production bridge: get a visual idea working early, expose constraints, separate rendering from gameplay logic where useful, and iterate toward a controllable final result.</p></div></div><div class="workflow-grid"><div><span>01</span><h3>Prototype</h3><p>Build the fastest visual proof that can answer the art / gameplay question.</p></div><div><span>02</span><h3>Integrate</h3><p>Connect effects, materials, animation, or runtime state directly inside the engine.</p></div><div><span>03</span><h3>Diagnose</h3><p>Surface technical and visual risks before they become expensive production problems.</p></div><div><span>04</span><h3>Refine</h3><p>Preserve readability and art direction while making the result stable and repeatable.</p></div></div></div></section>
+
+<section class="section" id="about"><div class="shell"><div class="about-row"><span class="eyebrow">ABOUT / TOOLSET</span><p>Los Angeles-based Technical Artist working across games, XR, digital humans, animation, real-time installations, and experimental visual systems. My background combines filmmaking / visual judgment with hands-on engine production and technical problem solving.</p><div class="tool-list"><div class="tool-line"><span>ENGINE</span><b>Unreal Engine · Unity URP / HDRP</b></div><div class="tool-line"><span>VFX / RENDER</span><b>Niagara · HLSL · Raymarching · Materials</b></div><div class="tool-line"><span>DCC</span><b>Maya · MotionBuilder · Blender · ZBrush · Wrap</b></div><div class="tool-line"><span>CODE</span><b>C# · Python · C++ working knowledge</b></div></div></div><div class="contact-strip"><span>CONTACT · LOS ANGELES, CA</span><a href="mailto:hoonahncloud@gmail.com">hoonahncloud@gmail.com ↗</a></div></div></section>
+</main><footer class="footer"><div class="shell footer-inner"><span><strong>Jonghoon Ahn</strong> · Real-Time Technical Artist / VFX & Shaders</span><span>Los Angeles, CA · hoonahncloud@gmail.com</span></div></footer>
+</body></html>

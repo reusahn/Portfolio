@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Digital Human Shininho — Jonghoon Ahn</title>
+<style>
+:root{--bg:#f7f7f4;--paper:#fff;--ink:#111;--muted:#686863;--line:#deddd8;--soft:#ecebe6;--accent:#244968;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,"Helvetica Neue",Arial,"Noto Sans KR",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased;word-break:normal}img{display:block;width:100%;height:100%;object-fit:cover}a{color:inherit}.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}.top-inner{width:min(calc(100% - 48px),1320px);height:62px;margin:auto;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:700;text-decoration:none;letter-spacing:-.02em}.nav{display:flex;gap:22px;font-size:13px;color:var(--muted)}.nav a{text-decoration:none}.shell{width:min(calc(100% - 56px),1320px);margin:auto}.narrow{width:min(calc(100% - 56px),1120px);margin:auto}.eyebrow{font:11px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#8a8a84}.hero{padding:72px 0 50px;background:var(--paper);border-bottom:1px solid var(--line)}.hero h1{font-size:clamp(40px,4.8vw,62px);line-height:1.02;letter-spacing:-.045em;margin:16px 0 18px}.lede{font-size:clamp(17px,1.45vw,20px);line-height:1.58;max-width:850px;color:#353532;margin:0}.meta{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:24px;font-size:13px;color:var(--muted)}.meta b{color:var(--ink)}.reel{width:min(1180px,calc(100vw - 48px));aspect-ratio:16/9;margin:42px auto 0;border-radius:22px;overflow:hidden;background:#111;box-shadow:0 16px 48px rgba(0,0,0,.10)}.reel iframe{display:block;width:100%;height:100%;border:0}.reel-cap{width:min(1180px,calc(100vw - 48px));margin:10px auto 0;display:flex;justify-content:space-between;gap:20px;font:11px/1.5 var(--mono);color:#8a8a84}.overview{padding:50px 0 62px;background:var(--paper)}.overview-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:64px}.overview h2{font-size:clamp(27px,2.5vw,36px);line-height:1.15;letter-spacing:-.03em;margin:10px 0 16px}.overview p{color:#484844;margin:0}.scope{border-top:1px solid var(--line)}.scope-row{display:flex;justify-content:space-between;gap:24px;padding:14px 0;border-bottom:1px solid var(--line);font-size:13px}.scope-row span{font:10px/1.5 var(--mono);letter-spacing:.1em;color:#8a8a84}.scope-row strong{text-align:right}.chapter{padding:76px 0;border-top:1px solid var(--line)}.chapter-head{display:grid;grid-template-columns:160px 1fr;gap:32px;align-items:start;margin-bottom:34px}.chapter-num{font:11px/1.5 var(--mono);letter-spacing:.12em;color:var(--accent)}.chapter h2{font-size:clamp(29px,2.8vw,40px);line-height:1.12;letter-spacing:-.032em;margin:0 0 13px}.chapter-head p{font-size:16px;color:#555550;max-width:820px;margin:0}.big-media{position:relative;aspect-ratio:16/8.7;border-radius:18px;overflow:hidden;background:var(--soft);border:1px solid var(--line)}.placeholder{height:100%;padding:28px;display:flex;align-items:flex-end;background:linear-gradient(135deg,#efeee9,#e5e4df);position:relative}.placeholder:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px);background-size:50px 50px}.ph-text{position:relative;z-index:1}.ph-text b{font-size:18px;display:block;line-height:1.3}.ph-text span{font:11px/1.5 var(--mono);color:#74746e}.proofs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}.proof{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;min-height:140px}.proof label{font:10px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#8b8b85}.proof strong{display:block;margin-top:8px;font-size:16px;line-height:1.35}.proof p{font-size:13px;line-height:1.55;color:#686863;margin:6px 0 0}.split{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:34px}.media{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--soft);min-height:320px}.stack{display:grid;grid-template-rows:1fr 1fr;height:100%;min-height:100%}.stack>div{position:relative;overflow:hidden}.stack>div+div{border-top:1px solid var(--line)}.pill{position:absolute;left:14px;bottom:12px;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.88);font:10px/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase}.story{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:24px}.story>div{background:var(--paper);padding:18px;min-height:145px}.story span{font:10px/1.5 var(--mono);letter-spacing:.1em;color:#8a8a84}.story p{font-size:14px;line-height:1.6;margin:8px 0 0;color:#454541}.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--paper)}.panel .visual{aspect-ratio:16/9;background:var(--soft)}.panel .copy{padding:16px 18px 18px}.panel .copy b{font-size:16px}.panel .copy p{font-size:13px;line-height:1.55;color:#6a6a65;margin:6px 0 0}.end{padding:72px 0 96px;background:var(--paper);border-top:1px solid var(--line)}.end .big{font-size:clamp(26px,2.8vw,38px);line-height:1.16;letter-spacing:-.03em;max-width:900px;margin:10px 0 30px}.btn{display:inline-block;text-decoration:none;border:1px solid #c7c6c0;border-radius:4px;padding:10px 16px;font-size:13px}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.pager{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.footer{padding:40px 0 60px}.footer-inner{width:min(calc(100% - 48px),1320px);margin:auto;border-top:1px solid var(--line);padding-top:20px;display:flex;justify-content:space-between;gap:24px;color:var(--muted);font-size:13px}
+@media(max-width:900px){.overview-grid,.chapter-head,.split{grid-template-columns:1fr}.proofs{grid-template-columns:1fr}.story{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.media{min-height:520px}}@media(max-width:560px){.shell,.narrow{width:calc(100% - 28px)}.nav{display:none}.hero{padding-top:52px}.reel,.reel-cap{width:calc(100vw - 18px)}.reel{border-radius:14px}.chapter{padding:60px 0}.story{grid-template-columns:1fr}.reel-cap{flex-direction:column;gap:2px}}
+
+/* V23 — tighter, recruiter-facing typography hierarchy */
+.hero{padding:62px 0 46px}
+.hero h1{
+  font-size:clamp(38px,3.9vw,52px);
+  line-height:1.08;
+  letter-spacing:-.038em;
+  margin:14px 0 16px;
+}
+.lede{
+  font-size:clamp(16px,1.25vw,18px);
+  line-height:1.62;
+  max-width:860px;
+}
+.meta{
+  margin-top:20px;
+  font-size:13.5px;
+  line-height:1.5;
+}
+.reel{margin-top:34px}
+.reel-cap{font-size:10px}
+
+.overview{padding:46px 0 56px}
+.overview h2{
+  font-size:clamp(25px,2.05vw,31px);
+  line-height:1.2;
+  letter-spacing:-.025em;
+  margin:9px 0 14px;
+}
+.overview p{
+  font-size:15px;
+  line-height:1.7;
+}
+.scope-row{
+  padding:13px 0;
+  font-size:13px;
+}
+
+.chapter{padding:66px 0}
+.chapter-head{
+  grid-template-columns:145px 1fr;
+  gap:28px;
+  margin-bottom:28px;
+}
+.chapter h2{
+  font-size:clamp(25px,2.25vw,33px);
+  line-height:1.18;
+  letter-spacing:-.025em;
+  margin-bottom:11px;
+}
+.chapter-head p{
+  font-size:15.5px;
+  line-height:1.65;
+}
+.chapter-num{font-size:10px}
+
+.proof{padding:18px;min-height:132px}
+.proof strong{
+  font-size:15.5px;
+  line-height:1.42;
+}
+.proof p{
+  font-size:13.5px;
+  line-height:1.62;
+}
+.story>div{
+  padding:17px;
+  min-height:132px;
+}
+.story p{
+  font-size:13.5px;
+  line-height:1.62;
+}
+.panel .copy b{font-size:15.5px}
+.panel .copy p{
+  font-size:13.5px;
+  line-height:1.62;
+}
+.ph-text b{font-size:16px}
+.ph-text span{font-size:10px}
+
+.end{padding:64px 0 82px}
+.end .big{
+  font-size:clamp(23px,2.15vw,31px);
+  line-height:1.3;
+  letter-spacing:-.02em;
+  max-width:880px;
+}
+@media(max-width:900px){
+  .chapter-head{grid-template-columns:1fr;gap:12px}
+}
+@media(max-width:560px){
+  .hero h1{font-size:clamp(34px,10vw,44px)}
+  .chapter h2{font-size:clamp(23px,7vw,29px)}
+}
+
+
+/* V24 — media wiring: real assets first, placeholder remains as fallback */
+.big-media,
+.media,
+.panel .visual,
+.stack>div{
+  position:relative;
+}
+.slot-media{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  z-index:2;
+}
+.slot-media.contain{
+  object-fit:contain;
+  background:#f4f4f1;
+}
+.slot-media + .placeholder,
+.slot-media ~ .placeholder{
+  position:absolute;
+  inset:0;
+  z-index:1;
+}
+.slot-media.is-missing{
+  display:none!important;
+}
+
+
+/* V25 — technical deep-dive layer */
+.case-nav{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.case-nav .inner{width:min(calc(100% - 56px),1120px);margin:auto;display:flex;gap:6px;flex-wrap:wrap;padding:14px 0}
+.case-nav a{text-decoration:none;border:1px solid var(--line);background:#fafaf8;border-radius:999px;padding:6px 10px;font:10px/1.3 var(--mono);letter-spacing:.05em;color:#666660}
+.case-nav a:hover{border-color:#a9a8a2;color:var(--ink)}
+.task-deep{display:grid;grid-template-columns:145px 1fr;gap:28px;padding:26px 0;border-top:1px solid var(--line)}
+.task-deep:first-of-type{margin-top:26px}.task-kicker{font:10px/1.45 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}
+.task-deep h3{font-size:20px;line-height:1.22;letter-spacing:-.02em;margin:0 0 10px}.task-deep .summary{font-size:14.5px;line-height:1.68;color:#4e4e49;margin:0 0 16px;max-width:880px}
+.task-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--line);background:var(--line);border-radius:12px;overflow:hidden}
+.task-facts>div{background:var(--paper);padding:14px;min-height:112px}.task-facts label{display:block;font:9px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#8b8b85;margin-bottom:7px}
+.task-facts p{margin:0;font-size:13px;line-height:1.55;color:#484844}.task-facts strong{color:var(--ink);font-weight:650}
+.tech-note{margin-top:14px;padding:14px 16px;border-left:3px solid #b9c8d5;background:#f1f4f6;color:#46525b;font-size:13px;line-height:1.62}
+.result-band{margin-top:18px;display:grid;grid-template-columns:140px 1fr;gap:22px;align-items:start;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:#fbfbf9}
+.result-band span{font:9px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}.result-band p{margin:0;font-size:14px;line-height:1.62;color:#3f3f3b}
+.compare-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}.compare-table th,.compare-table td{border-top:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top}
+.compare-table th{width:18%;font:9px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#85857f;font-weight:500}.compare-table td{color:#474743}.compare-table tr:last-child td,.compare-table tr:last-child th{border-bottom:1px solid var(--line)}
+.chapter-outcome{display:grid;grid-template-columns:145px 1fr;gap:28px;margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}.chapter-outcome .label{font:10px/1.4 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}
+.chapter-outcome p{margin:0;max-width:850px;font-size:15px;line-height:1.68;color:#33332f}
+@media(max-width:900px){.task-deep,.chapter-outcome,.result-band{grid-template-columns:1fr}.task-facts{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.case-nav .inner{width:calc(100% - 28px)}.task-facts{grid-template-columns:1fr}.task-deep{gap:10px}}
+
+
+/* V35 — uniform media system
+   All portfolio image / GIF slots use one 16:9 frame.
+   Recommended source asset: 1920x1080.
+*/
+.big-media{
+  aspect-ratio:16/9;
+}
+.media{
+  min-height:0;
+  aspect-ratio:16/9;
+}
+.panel .visual{
+  aspect-ratio:16/9;
+}
+.uniform-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-top:28px;
+}
+.uniform-card{
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+  background:var(--paper);
+}
+.uniform-card .visual{
+  position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:var(--soft);
+}
+.uniform-card .copy{
+  padding:14px 16px 16px;
+}
+.uniform-card .copy b{
+  display:block;
+  font-size:15px;
+  line-height:1.4;
+}
+.uniform-card .copy p{
+  margin:5px 0 0;
+  font-size:13px;
+  line-height:1.55;
+  color:#686863;
+}
+.uniform-card .visual img,
+.uniform-card .visual .slot-media{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:#f4f4f1;
+  z-index:2;
+}
+.uniform-card.final-art .visual img,
+.uniform-card.final-art .visual .slot-media{
+  object-fit:cover;
+}
+.uniform-card .visual .placeholder{
+  position:absolute;
+  inset:0;
+  z-index:1;
+}
+@media(max-width:900px){
+  .uniform-grid{grid-template-columns:1fr 1fr}
+  .media{min-height:0}
+}
+@media(max-width:560px){
+  .uniform-grid{grid-template-columns:1fr}
+}
+
+
+/* V41 — larger media layout
+   Keep every source asset 1920x1080 / 16:9,
+   but never shrink three technical images into one desktop row.
+*/
+.uniform-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+  margin-top:28px;
+}
+
+/* When a group has an odd number of cards, the final card receives
+   the full row so it is not left as a small half-width orphan. */
+.uniform-grid > .uniform-card:last-child:nth-child(odd){
+  grid-column:1 / -1;
+}
+
+/* Full-width odd card still uses exactly the same 16:9 asset. */
+.uniform-grid > .uniform-card:last-child:nth-child(odd) .visual{
+  aspect-ratio:16/9;
+}
+
+@media(max-width:760px){
+  .uniform-grid{
+    grid-template-columns:1fr;
+  }
+  .uniform-grid > .uniform-card:last-child:nth-child(odd){
+    grid-column:auto;
+  }
+}
+
+
+/* V42 — Technical Animation media removed */
+#animation .story{margin-top:8px;}
+
+
+/* V43 — selected press / exhibitions / public credits */
+.recognition{
+  padding:48px 0 52px;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+.recognition-head{
+  display:grid;
+  grid-template-columns:1fr minmax(280px,420px);
+  gap:36px;
+  align-items:end;
+  margin-bottom:22px;
+}
+.recognition h2{
+  margin:8px 0 0;
+  font-size:clamp(24px,2.15vw,31px);
+  line-height:1.18;
+  letter-spacing:-.026em;
+}
+.recognition-note{
+  margin:0;
+  color:#777771;
+  font-size:12.5px;
+  line-height:1.65;
+}
+.recognition-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  border-top:1px solid var(--line);
+}
+.recognition-item{
+  padding:21px 0 22px;
+  border-bottom:1px solid var(--line);
+}
+.recognition-item:nth-child(odd){
+  padding-right:30px;
+  border-right:1px solid var(--line);
+}
+.recognition-item:nth-child(even){
+  padding-left:30px;
+}
+.recognition-type{
+  display:block;
+  margin-bottom:7px;
+  font:9px/1.4 var(--mono);
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:#8a8a84;
+}
+.recognition-item h3{
+  margin:0;
+  font-size:16px;
+  line-height:1.38;
+  letter-spacing:-.012em;
+}
+.recognition-item p{
+  margin:5px 0 0;
+  color:#62625d;
+  font-size:13px;
+  line-height:1.58;
+}
+.recognition-item .credit{
+  color:#30302d;
+}
+.recognition-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+.recognition-links a{
+  display:inline-block;
+  padding:6px 9px;
+  border:1px solid #c9c9c4;
+  border-radius:999px;
+  text-decoration:none;
+  font:9px/1.3 var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#51514d;
+  background:#fbfbf9;
+}
+.recognition-links a:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+@media(max-width:760px){
+  .recognition-head{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  .recognition-grid{
+    grid-template-columns:1fr;
+  }
+  .recognition-item,
+  .recognition-item:nth-child(odd),
+  .recognition-item:nth-child(even){
+    padding:18px 0;
+    border-right:0;
+  }
+}
+
+
+/* V44 — Shininho hero video upgraded to Row-style controlled background player */
+.reel{
+  position:relative;
+  width:min(1180px,calc(100vw - 48px));
+  aspect-ratio:16/9;
+  margin:34px auto 0;
+  border-radius:22px;
+  overflow:hidden;
+  background:#111;
+  box-shadow:0 16px 48px rgba(0,0,0,.10);
+}
+.reel iframe{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:102%;
+  height:102%;
+  min-width:102%;
+  min-height:102%;
+  transform:translate(-50%,-50%);
+  border:0;
+  display:block;
+  pointer-events:none;
+}
+.reel-controls{
+  position:absolute;
+  left:16px;
+  right:16px;
+  bottom:12px;
+  z-index:10;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:14px;
+  align-items:center;
+  pointer-events:auto;
+}
+.reel-seek{
+  display:flex;
+  align-items:center;
+  height:20px;
+}
+.reel-seek input[type="range"]{
+  width:100%;
+  margin:0;
+  appearance:none;
+  -webkit-appearance:none;
+  height:18px;
+  background:transparent;
+  cursor:pointer;
+}
+.reel-seek input[type="range"]::-webkit-slider-runnable-track{
+  height:3px;
+  border-radius:999px;
+  background:linear-gradient(
+    to right,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.95) var(--seek-progress,0%),
+    rgba(255,255,255,.32) var(--seek-progress,0%),
+    rgba(255,255,255,.32) 100%
+  );
+}
+.reel-seek input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:11px;
+  height:11px;
+  margin-top:-4px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.28);
+}
+.reel-seek input[type="range"]::-moz-range-track{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.32);
+}
+.reel-seek input[type="range"]::-moz-range-progress{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.95);
+}
+.reel-seek input[type="range"]::-moz-range-thumb{
+  width:11px;
+  height:11px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.28);
+}
+.reel-volume{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:170px;
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(0,0,0,.42);
+  backdrop-filter:blur(6px);
+}
+.reel-volume button{
+  appearance:none;
+  border:0;
+  padding:0;
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+  font:9px/1.2 var(--mono);
+  letter-spacing:.08em;
+  min-width:44px;
+}
+.reel-volume input[type="range"]{
+  width:105px;
+  margin:0;
+  appearance:none;
+  -webkit-appearance:none;
+  background:transparent;
+  cursor:pointer;
+}
+.reel-volume input[type="range"]::-webkit-slider-runnable-track{
+  height:3px;
+  border-radius:999px;
+  background:linear-gradient(
+    to right,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.95) var(--volume-progress,0%),
+    rgba(255,255,255,.32) var(--volume-progress,0%),
+    rgba(255,255,255,.32) 100%
+  );
+}
+.reel-volume input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:10px;
+  height:10px;
+  margin-top:-3.5px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+}
+.reel-volume input[type="range"]::-moz-range-track{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.32);
+}
+.reel-volume input[type="range"]::-moz-range-progress{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.95);
+}
+.reel-volume input[type="range"]::-moz-range-thumb{
+  width:10px;
+  height:10px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+}
+@media(max-width:560px){
+  .reel,.reel-cap{width:calc(100vw - 18px)}
+  .reel{border-radius:14px}
+  .reel-controls{
+    left:10px;
+    right:10px;
+    bottom:8px;
+    grid-template-columns:1fr;
+    gap:4px;
+  }
+  .reel-volume{
+    justify-self:end;
+    min-width:150px;
+  }
+  .reel-volume input[type="range"]{
+    width:85px;
+  }
+}
+
+
+/* Facial capture Vimeo loop — replaces heavy GIF */
+.facial-vimeo-loop{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  overflow:hidden;
+  background:#050505;
+}
+.facial-vimeo-loop iframe{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:100%;
+  height:133.34%;
+  transform:translate(-50%,-50%);
+  border:0;
+  display:block;
+  pointer-events:none;
+  background:#050505;
+}
+
+
+/* Jooan VR Vimeo — portfolio-standard controlled player */
+.vr-reel{
+  position:relative;
+  width:min(960px,100%);
+  aspect-ratio:16/9;
+  margin:30px auto 26px;
+  border-radius:18px;
+  overflow:hidden;
+  background:#111;
+  border:1px solid var(--line);
+  box-shadow:0 12px 34px rgba(0,0,0,.08);
+}
+.vr-reel iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+  pointer-events:none;
+}
+.vr-reel-controls{
+  position:absolute;
+  left:16px;
+  right:16px;
+  bottom:12px;
+  z-index:10;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:14px;
+  align-items:center;
+  pointer-events:auto;
+}
+.vr-reel-seek{
+  display:flex;
+  align-items:center;
+  height:20px;
+}
+.vr-reel-seek input[type="range"]{
+  width:100%;
+  margin:0;
+  appearance:none;
+  -webkit-appearance:none;
+  height:18px;
+  background:transparent;
+  cursor:pointer;
+}
+.vr-reel-seek input[type="range"]::-webkit-slider-runnable-track{
+  height:3px;
+  border-radius:999px;
+  background:linear-gradient(
+    to right,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.95) var(--vr-seek-progress,0%),
+    rgba(255,255,255,.32) var(--vr-seek-progress,0%),
+    rgba(255,255,255,.32) 100%
+  );
+}
+.vr-reel-seek input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:11px;
+  height:11px;
+  margin-top:-4px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.28);
+}
+.vr-reel-seek input[type="range"]::-moz-range-track{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.32);
+}
+.vr-reel-seek input[type="range"]::-moz-range-progress{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.95);
+}
+.vr-reel-seek input[type="range"]::-moz-range-thumb{
+  width:11px;
+  height:11px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+}
+.vr-reel-volume{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:170px;
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(0,0,0,.42);
+  backdrop-filter:blur(6px);
+}
+.vr-reel-volume button{
+  appearance:none;
+  border:0;
+  padding:0;
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+  font:9px/1.2 var(--mono);
+  letter-spacing:.08em;
+  min-width:44px;
+}
+.vr-reel-volume input[type="range"]{
+  width:105px;
+  margin:0;
+  appearance:none;
+  -webkit-appearance:none;
+  background:transparent;
+  cursor:pointer;
+}
+.vr-reel-volume input[type="range"]::-webkit-slider-runnable-track{
+  height:3px;
+  border-radius:999px;
+  background:linear-gradient(
+    to right,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.95) var(--vr-volume-progress,0%),
+    rgba(255,255,255,.32) var(--vr-volume-progress,0%),
+    rgba(255,255,255,.32) 100%
+  );
+}
+.vr-reel-volume input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:10px;
+  height:10px;
+  margin-top:-3.5px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+}
+.vr-reel-volume input[type="range"]::-moz-range-track{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.32);
+}
+.vr-reel-volume input[type="range"]::-moz-range-progress{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.95);
+}
+.vr-reel-volume input[type="range"]::-moz-range-thumb{
+  width:10px;
+  height:10px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+}
+.vr-reel-cap{
+  width:min(960px,100%);
+  margin:-16px auto 26px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  font:10px/1.5 var(--mono);
+  color:#8a8a84;
+}
+@media(max-width:560px){
+  .vr-reel{
+    width:100%;
+    border-radius:14px;
+  }
+  .vr-reel-controls{
+    left:10px;
+    right:10px;
+    bottom:8px;
+    grid-template-columns:1fr;
+    gap:4px;
+  }
+  .vr-reel-volume{
+    justify-self:end;
+    min-width:150px;
+  }
+  .vr-reel-volume input[type="range"]{
+    width:85px;
+  }
+  .vr-reel-cap{
+    flex-direction:column;
+    gap:2px;
+  }
+}
+
+</style>
+</head>
+<body>
+<header class="top"><div class="top-inner"><a class="brand" href="../Riot_VFX_Artist_II_Portfolio_JonghoonAhn.html">Jonghoon Ahn.</a><nav class="nav"><a href="../Riot_VFX_Artist_II_Portfolio_JonghoonAhn.html#work">Work</a><a href="../Riot_VFX_Artist_II_Portfolio_JonghoonAhn.html#expertise">Expertise</a><a href="../Riot_VFX_Artist_II_Portfolio_JonghoonAhn.html#about">About</a></nav></div></header>
+<main>
+<section class="hero">
+<div class="narrow">
+<div class="eyebrow">01 / DIGITAL HUMAN · CHARACTER PIPELINE · PERFORMANCE CAPTURE</div>
+<h1>Digital Human Shininho</h1>
+<p class="lede">A digital human pipeline built from real-person scan data through a real-time prototype, production MetaHuman reconstruction, hybrid performance capture, and a later VR extension for Jooan.</p>
+<div class="meta"><span><b>Role</b> Technical Director</span><span><b>Period</b> 2025–2026</span><span><b>Tools</b> Maya · Wrap · MetaHuman · Unreal · Unity · MotionBuilder · OptiTrack · MOVIN TRACIN</span></div>
+</div>
+<div class="reel">
+<iframe allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" id="shininhoHeroPlayer" referrerpolicy="strict-origin-when-cross-origin" src="https://player.vimeo.com/video/1218744311?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1" title="Digital Human Shininho showreel">
+</iframe>
+<div aria-label="Video controls" class="reel-controls">
+<div aria-label="Video timeline" class="reel-seek">
+<input aria-label="Seek video" id="shininhoHeroSeek" max="1000" min="0" step="1" type="range" value="0"/>
+</div>
+<div class="reel-volume">
+<button aria-label="Unmute video" aria-pressed="true" id="shininhoHeroMute" type="button">MUTED</button>
+<input aria-label="Video volume" id="shininhoHeroVolume" max="100" min="0" step="1" type="range" value="0"/>
+</div>
+</div>
+</div>
+<div class="reel-cap"><span>DIGITAL HUMAN SHININHO — SHOWREEL</span><span>Vimeo · 16:9 · autoplay · timeline + volume control</span></div>
+</section>
+<section aria-label="Selected press exhibitions and public credits" class="recognition">
+<div class="narrow">
+<div class="recognition-head">
+<div>
+<div class="eyebrow">SELECTED PRESS · EXHIBITIONS · PUBLIC CREDITS</div>
+<h2>Shininho beyond the production pipeline.</h2>
+</div>
+<p class="recognition-note">
+        Selected external coverage and public presentations of the wider Shininho project.
+        Credit links are included where my contribution is identified publicly.
+      </p>
+</div>
+<div class="recognition-grid">
+<article class="recognition-item">
+<span class="recognition-type">International Presentation · Barcelona · 2026</span>
+<h3>Sónar+D · Expo+D — Project Shininho</h3>
+<p>Project Shininho VR presented by Arts Korea Lab at Sónar+D.</p>
+<p class="credit"><strong>Technical Director — Jonghoon Ahn</strong></p>
+<div class="recognition-links">
+<a href="https://sonar.es/en/news/expo-d-2026" rel="noopener noreferrer" target="_blank">Official ↗</a>
+<a href="https://www.instagram.com/p/DZud8aVDTUy/" rel="noopener noreferrer" target="_blank">Credit ↗</a>
+</div>
+</article>
+<article class="recognition-item">
+<span class="recognition-type">Press · Los Angeles · 2025</span>
+<h3>Hyperallergic — The K-Pop Granny Pirate of the Pacific Rim</h3>
+<p>Independent review of <em>Shininho DOCKING</em> and its digital-human / performance-capture context.</p>
+<div class="recognition-links">
+<a href="https://hyperallergic.com/the-k-pop-granny-pirate-of-the-pacific-rim/" rel="noopener noreferrer" target="_blank">Press ↗</a>
+</div>
+</article>
+<article class="recognition-item">
+<span class="recognition-type">Residency Exhibition · San Francisco · 2024–2025</span>
+<h3>836M — Shininho Destiny</h3>
+<p>Residency exhibition and public presentation of the Shininho project.</p>
+<p class="credit"><strong>Animation help — Jonghoon Ahn</strong></p>
+<div class="recognition-links">
+<a href="https://836m.org/exhibition/shininho-destiny/" rel="noopener noreferrer" target="_blank">Official + Credit ↗</a>
+</div>
+</article>
+<article class="recognition-item">
+<span class="recognition-type">Exhibition · Seoul · 2024–2025</span>
+<h3>SONGEUN — The 24th SONGEUN Art Award Exhibition</h3>
+<p><em>Shininho World Tour</em> presented as part of the 24th SONGEUN Art Award Exhibition.</p>
+<div class="recognition-links">
+<a href="https://www.songeunartspace.org/en/exhibitions/2024-12-17-the-24th-songeun-art-award" rel="noopener noreferrer" target="_blank">Official ↗</a>
+<a href="https://www.instagram.com/p/DGJycCtyI5q/" rel="noopener noreferrer" target="_blank">Project Credit ↗</a>
+</div>
+</article>
+<article class="recognition-item">
+<span class="recognition-type">Exhibition · Seoul · 2026</span>
+<h3>Frieze House Seoul — Shininho World Tour 1.1</h3>
+<p>Shininho presented at Frieze House Seoul in <em>Summer Sparks II: Ignite</em>.</p>
+<div class="recognition-links">
+<a href="https://www.frieze.com/frieze-house-seoul/iah-yaloo-2026" rel="noopener noreferrer" target="_blank">Official ↗</a>
+<a href="https://www.instagram.com/p/DZ_K_zglPh8/" rel="noopener noreferrer" target="_blank">Project Credit ↗</a>
+</div>
+</article>
+<article class="recognition-item">
+<span class="recognition-type">Solo Exhibition · Los Angeles · 2025</span>
+<h3>RIP SPACE — Shininho DOCKING</h3>
+<p>Los Angeles exhibition presenting Shininho and related digital-human work.</p>
+<p class="credit"><strong>Animation Assistant — Jonghoon Ahn</strong></p>
+<div class="recognition-links">
+<a href="https://curate.la/events/30879" rel="noopener noreferrer" target="_blank">Exhibition ↗</a>
+<a href="https://www.instagram.com/p/DHO0n2WyWBa/" rel="noopener noreferrer" target="_blank">Credit ↗</a>
+</div>
+</article>
+<article class="recognition-item">
+<span class="recognition-type">Festival · Los Angeles · 2026</span>
+<h3>Flux Festival — Shininho DOCKING</h3>
+<p>Modified version of <em>Shininho DOCKING</em> presented at Flux Festival.</p>
+<p class="credit"><strong>Animation Assistant — Jonghoon Ahn</strong></p>
+<div class="recognition-links">
+<a href="https://luma.com/fluxfestival2026" rel="noopener noreferrer" target="_blank">Festival ↗</a>
+<a href="https://www.instagram.com/p/DXf_NikFKmE/" rel="noopener noreferrer" target="_blank">Credit ↗</a>
+</div>
+</article>
+<article class="recognition-item">
+<span class="recognition-type">Museum Exhibition · Seoul · 2026</span>
+<h3>Seoul Museum of Art — Shininho Landing</h3>
+<p><em>Shininho Landing</em> presented through SeMA Project V_Yaloo.</p>
+<div class="recognition-links">
+<a href="https://sema.seoul.go.kr/en/whatson/exhibition/detail?exNo=1498398" rel="noopener noreferrer" target="_blank">Official ↗</a>
+<a href="https://www.instagram.com/p/DV0j3frgWZ3/" rel="noopener noreferrer" target="_blank">Project Credit ↗</a>
+</div>
+</article>
+</div>
+</div>
+</section>
+<section class="overview">
+<div class="narrow overview-grid">
+<div><div class="eyebrow">OVERVIEW</div><h2>From a technically successful prototype to an identity-preserving production digital human.</h2><p>The project began with a full-body volumetric scan delivered as one combined face-and-body mesh. My first goal was feasibility rather than final fidelity: could the captured subject be converted into a riggable, animated, real-time digital human with the available source data? I extracted the face in Maya, rebuilt symmetry for auto-rigging, reduced and repaired the mesh, then built a working Unity prototype with rigging, transferred textures, a real-time hair setup, and video-derived markerless animation. Technically, the prototype worked. Creatively, it failed: it no longer felt like Shininho and instead read as a generic game character derived from her scan. That result changed the pipeline. I returned to the original high-resolution source, rebuilt the production character through Wrap and MetaHuman-compatible topology, preserved scan-derived texture information, and moved the final performance workflow into the MetaHuman ecosystem for Live Link, MetaHuman Animator, and Unreal Sequencer integration.</p></div>
+<div class="scope"><div class="scope-row"><span>OWNED</span><strong>Scan cleanup → Unity prototype → MetaHuman → Performance Capture → Unreal</strong></div><div class="scope-row"><span>CAPTURE</span><strong>OptiTrack / Motive · MOVIN TRACIN hands · Rokoko + iPhone face</strong></div><div class="scope-row"><span>ANIMATION</span><strong>Maya · MotionBuilder · Sequencer</strong></div><div class="scope-row"><span>CAPTURE SOURCE</span><strong>External studio volumetric scan → downstream character pipeline</strong></div></div>
+</div>
+</section>
+<nav aria-label="Case study sections" class="case-nav"><div class="inner"><a href="#character">01 Character</a><a href="#likeness">02 Likeness</a><a href="#performance">03 Performance Capture</a><a href="#animation">04 Technical Animation</a><a href="#vr">05 VR Extension</a></div></nav>
+<section class="chapter" id="character"><div class="shell">
+<div class="chapter-head"><div class="chapter-num">01 / CHARACTER</div><div><h2>Single Scan Mesh → Unity Prototype → Production MetaHuman</h2><p>The first version answered whether the source could become a real-time character. The second version answered the harder question: could it still feel like the actual person?</p></div></div>
+<div class="big-media">
+<img alt="Original scan, Unity prototype, and production MetaHuman comparison" class="slot-media contain" data-fallbacks="../media/shininho/03_scan_proto_metahuman.png" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/shininho/03_scan_proto_metahuman.jpg"/>
+<div class="placeholder"><div class="ph-text"><b>ORIGINAL SCAN → UNITY PROTOTYPE → PRODUCTION METAHUMAN</b><span>Feasibility → identity failure → production rebuild</span></div></div>
+</div>
+<div class="proofs">
+<div class="proof"><label>Source</label><strong>One combined face-and-body volumetric mesh</strong><p>The geometry arrived as one mesh, while the scan texture information was already organized through the existing UV/texture layout.</p></div>
+<div class="proof"><label>Prototype Result</label><strong>Rigging, hair, animation, and real-time playback worked in Unity</strong><p>The prototype proved that the scan could become a functional real-time character.</p></div>
+<div class="proof"><label>Critical Failure</label><strong>The character no longer felt like Shininho</strong><p>Technical success was not enough; the reduction and reconstruction process had weakened the subject’s identity.</p></div>
+</div>
+<div class="uniform-grid">
+<div class="uniform-card">
+<div class="visual">
+<img alt="Maya scan separation, symmetry rebuild, cleanup, and wireframe" class="slot-media contain" data-fallbacks="../media/shininho/02_maya_wireframe.png" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/shininho/02_maya_wireframe.jpg"/>
+<div class="placeholder"><div class="ph-text"><b>MAYA SOURCE PREP / SYMMETRY / WIREFRAME</b><span>Face extraction · symmetry rebuild · reduction / retopology</span></div></div>
+</div>
+<div class="copy"><b>Maya source preparation</b><p>Face extraction, bilateral symmetry, reduction, retopology, and cleanup.</p></div>
+</div>
+<div class="uniform-card">
+<div class="visual">
+<img alt="Final neutral MetaHuman" class="slot-media contain" data-fallbacks="../media/shininho/final_neutral.jpg" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/shininho/final_neutral.png"/>
+<div class="placeholder"><div class="ph-text"><b>FINAL PRODUCTION METAHUMAN</b><span>Neutral final character</span></div></div>
+</div>
+<div class="copy"><b>Final production MetaHuman</b><p>Neutral character view displayed without portrait cropping.</p></div>
+</div>
+<div class="uniform-card">
+<div class="visual">
+<img alt="Wrap correspondence and MetaHuman-compatible template fitting" class="slot-media contain" data-fallbacks="../media/shininho/04_wrap_template.jpg" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/shininho/04_wrap_template.jpg"/>
+<div class="placeholder"><div class="ph-text"><b>WRAP / TEMPLATE CORRESPONDENCE</b><span>High-resolution source → production topology</span></div></div>
+</div>
+<div class="copy"><b>Wrap correspondence</b><p>High-resolution scan aligned to MetaHuman-compatible production topology.</p></div>
+</div>
+</div>
+<div class="story">
+<div><span>01 / INPUT</span><p>External studio volumetric capture delivered as a single combined face-and-body mesh.</p></div>
+<div><span>02 / FEASIBILITY</span><p>Maya cleanup and symmetry → auto-rig → Unity real-time prototype.</p></div>
+<div><span>03 / FAILURE TEST</span><p>The prototype performed correctly but lost too much of Shininho’s specific identity.</p></div>
+<div><span>04 / PRODUCTION</span><p>Return to high-resolution source → Wrap → MetaHuman-compatible topology → production rig.</p></div>
+</div>
+<div class="task-deep"><div class="task-kicker">Task 01A / Source Breakdown</div><div>
+<h3>Separating a single full-body scan into a usable downstream character source</h3>
+<p class="summary">The original volumetric capture arrived as one continuous face-and-body mesh. Before I could test rigging or character deformation, I selected the facial polygons in Maya and extracted the face from the original geometry so the head and body could be handled more deliberately. The texture information already existed in the scan and was organized through the UV/texture layout, but the geometry itself was not delivered as a clean production character.</p>
+<div class="task-facts">
+<div><label>Geometry Input</label><p>One combined full-body mesh containing both head and body.</p></div>
+<div><label>Texture Input</label><p>Existing scan-derived texture information organized through the supplied UV/texture structure.</p></div>
+<div><label>First Operation</label><p>Selected the facial region in Maya and extracted it from the combined source mesh.</p></div>
+<div><label>Reason</label><p>Head and body needed different downstream cleanup and rigging considerations.</p></div>
+</div>
+<div class="tech-note">The volumetric capture itself was performed by an external scan studio. My responsibility began with defining downstream character requirements and transforming the delivered scan into a usable real-time character pipeline.</div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 01B / Symmetry &amp; Auto-Rig Preparation</div><div>
+<h3>Rebuilding symmetry because both body and facial auto-rigging depended on it</h3>
+<p class="summary">The source body was hunched and the two sides did not match closely enough for a fast automatic rigging workflow. I deleted one side, rebuilt bilateral symmetry with Maya Duplicate Special, reduced and retopologized the geometry, repaired local problem areas, and reassembled the character into a cleaner feasibility mesh.</p>
+<div class="task-facts">
+<div><label>Body Constraint</label><p>Most of the auto-rigging workflow expected a substantially more symmetrical character than the original scan.</p></div>
+<div><label>Facial Constraint</label><p>I was also preparing an ARKit-oriented facial auto-rig path, so left/right facial consistency mattered for the prototype.</p></div>
+<div><label>Implementation</label><p>Half-mesh rebuild → Duplicate Special symmetry → reduction / retopology → local repair → reassembly and smoothing.</p></div>
+<div><label>Output</label><p>A cleaner, more symmetrical mesh that could be sent through AccuRIG and tested rapidly in engine.</p></div>
+</div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 01C / Unity Feasibility Prototype</div><div>
+<h3>Testing the complete real-time loop—not only whether the mesh could be rigged</h3>
+<p class="summary">The first character was intentionally a feasibility build. After auto-rigging, I brought the prototype into Unity and tested a much broader chain than a static mesh import: character rigging, scan-derived texture migration, a Unity real-time hair solution adapted from an existing demo workflow, hair motion, animation playback, and real-time rendering.</p>
+<div class="task-facts">
+<div><label>Rig</label><p>AccuRIG provided the fast body-rigging path for the cleaned prototype.</p></div>
+<div><label>Textures</label><p>The existing character texture information was reorganized into the material structure required by the Unity prototype.</p></div>
+<div><label>Hair</label><p>Used a Unity real-time hair solution based on an existing Unity demo workflow, with visible secondary motion during playback.</p></div>
+<div><label>Animation Test</label><p>Used third-party video-based markerless motion capture derived from a filmed full-body performance to test animated playback.</p></div>
+</div>
+<div class="result-band"><span>What worked</span><p>The prototype proved that the captured person could become a rigged, textured, animated, hair-enabled real-time character. Performance and runtime feasibility were not the reasons the pipeline was abandoned.</p></div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 01D / Identity Failure</div><div>
+<h3>Recognizing that a technically functional character had failed the more important test</h3>
+<p class="summary">Once the Unity prototype was moving correctly, the main weakness became obvious: it no longer carried enough of Shininho’s specific presence. The mesh had become cleaner and easier to rig, but the simplification and reconstruction made it feel like a game character copied from Shininho rather than Shininho herself.</p>
+<div class="task-facts">
+<div><label>Technical Status</label><p>Rigging, rendering, hair behavior, and animation playback were all functional.</p></div>
+<div><label>Creative Failure</label><p>The result no longer preserved the subject’s specific age, facial character, and recognizable presence strongly enough.</p></div>
+<div><label>Production Judgment</label><p>Further polishing the reduced mesh could improve execution but could not restore identity information that had already been lost.</p></div>
+<div><label>Decision</label><p>Stop promoting the prototype and return to the original high-resolution scan.</p></div>
+</div>
+<div class="tech-note">This became the central production lesson of the project: a real-time character can be technically successful and still fail if the pipeline destroys the identity that made the source valuable.</div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 01E / Wrap + MetaHuman Production Rebuild</div><div>
+<h3>Rebuilding from high-resolution source while gaining a production-ready facial and animation ecosystem</h3>
+<p class="summary">For the final character, I returned to the original high-resolution scan rather than the reduced Unity prototype. In Faceform Wrap, I aligned the scan to a MetaHuman-compatible template using correspondence points, resolved local mesh-fit problems, transferred the scan-derived surface information, and exported geometry suitable for the MetaHuman production workflow. The goal was to preserve the person while gaining a rig that could support Live Link, MetaHuman Animator, and Unreal performance assembly.</p>
+<div class="task-facts">
+<div><label>Source</label><p>Original high-resolution scan, not the simplified feasibility mesh.</p></div>
+<div><label>Wrap Process</label><p>Source / template alignment with correspondence points, local fit correction, wrapped geometry output, and texture transfer.</p></div>
+<div><label>Main Technical Problems</label><p>Keeping the existing UV / texture information usable through the rebuild and solving hair integration around the new production character.</p></div>
+<div><label>Rig Benefit</label><p>MetaHuman provided a much stronger downstream path for Live Link, MetaHuman Animator, and later performance capture integration.</p></div>
+</div>
+<div class="result-band"><span>Production result</span><p>The second pipeline recovered substantially more of Shininho’s recognizable identity while also making the character easier to drive, edit, and assemble with modern facial and body performance tools.</p></div>
+</div></div>
+<div class="chapter-outcome"><div class="label">Chapter outcome</div><p>The first pipeline was valuable because it failed clearly: it proved that the real-time problem was solvable, then exposed identity preservation as the true production constraint. The final pipeline was redesigned around that discovery.</p></div>
+</div></section>
+<section class="chapter" id="likeness"><div class="shell">
+<div class="chapter-head"><div class="chapter-num">02 / LIKENESS</div><div><h2>UV, Texture, Eye &amp; Identity Preservation</h2><p>Once the production topology changed, the problem was no longer simply “make the character detailed.” The goal was to preserve the visual evidence that made the character recognizably Shininho while solving the regions where the source data could not transfer cleanly.</p></div></div>
+<div class="two">
+<div class="panel"><div class="visual">
+<img alt="Scan-derived texture transfer, scalp repair, and final result" class="slot-media contain" data-fallbacks="../media/shininho/05_texture_breakdown.png" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/shininho/05_texture_breakdown.jpg"/>
+<div class="placeholder"><div class="ph-text"><b>SCAN TEXTURE → WRAP TRANSFER → CORRECTED RESULT</b><span>UV / texture continuity · scalp recovery · wrinkle readability</span></div></div>
+</div><div class="copy"><b>Scan-derived identity surface</b><p>The original scan texture remained the primary identity source. The challenge was carrying it through a new topology without replacing the person with a generic digital-human surface.</p></div></div>
+<div class="panel"><div class="visual">
+<img alt="MetaHuman eye alignment before and after correction" class="slot-media contain" data-fallbacks="../media/shininho/06_eye_before_after.png" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/shininho/06_eye_before_after.jpg"/>
+<div class="placeholder"><div class="ph-text"><b>EYE POSITION — BEFORE / AFTER</b><span>Custom scan-derived head vs default MetaHuman eye placement</span></div></div>
+</div><div class="copy"><b>Custom-head eye alignment</b><p>The default MetaHuman eye placement did not naturally fit the scan-derived head, so I treated the eye region as a separate alignment and lookdev problem.</p></div></div>
+</div>
+<div class="task-deep"><div class="task-kicker">Task 02A / UV &amp; Texture Continuity</div><div>
+<h3>Keeping the original scan surface attached to a completely different production topology</h3>
+<p class="summary">Moving from the source scan into Wrap and MetaHuman changed the geometry structure, but the final character still needed the original skin information. One of the main production problems was therefore preserving the scan-derived UV / texture relationship through the topology rebuild rather than accepting a generic replacement material.</p>
+<div class="task-facts">
+<div><label>Identity Data</label><p>The face and body scan textures carried age, skin variation, and small visual cues that were important to likeness.</p></div>
+<div><label>Topology Change</label><p>The production character used MetaHuman-compatible geometry rather than the source scan topology.</p></div>
+<div><label>Transfer</label><p>Used the Wrap workflow to move the source surface information onto the production character structure.</p></div>
+<div><label>Validation</label><p>Checked the transferred surface under final real-time rendering rather than judging only the texture maps in isolation.</p></div>
+</div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 02B / Scalp Recovery &amp; Age Detail</div><div>
+<h3>Repairing source information that the scan itself never captured cleanly</h3>
+<p class="summary">Shininho wore a white head covering during the original scan, so the scalp / upper-head region did not contain the same usable photographic information as the exposed face. I repaired and extended that area in Photoshop with AI-assisted image expansion, then tuned the transferred surface so wrinkles and age detail remained readable in the final character.</p>
+<div class="task-facts">
+<div><label>Source Gap</label><p>White head covering obscured the scalp / hair-region texture information during capture.</p></div>
+<div><label>Repair</label><p>Extended and reconstructed missing upper-head texture information in Photoshop using AI-assisted expansion and manual cleanup.</p></div>
+<div><label>Age Readability</label><p>Adjusted contrast and sharpness where necessary so wrinkles did not disappear after transfer and real-time shading.</p></div>
+<div><label>Goal</label><p>Preserve the subject’s age and identity rather than cosmetically smoothing the scan into a generic digital face.</p></div>
+</div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 02C / Eye Alignment</div><div>
+<h3>Resolving the mismatch between a scan-derived custom head and the default MetaHuman eye setup</h3>
+<p class="summary">The source did not provide a directly reusable final eye solution, and the default MetaHuman eye placement did not sit naturally inside the custom scan-derived head. In some views the eyes could appear to protrude or feel spatially disconnected from the face.</p>
+<div class="task-facts">
+<div><label>Diagnosis</label><p>The issue persisted as a spatial head/eye mismatch rather than simply a lighting artifact.</p></div>
+<div><label>Correction</label><p>Iteratively adjusted eye-position values in Unreal until the eyes sat more naturally inside the head.</p></div>
+<div><label>Lookdev</label><p>Tuned iris and general eye appearance so the eyes belonged more convincingly to the elderly scan-derived face.</p></div>
+<div><label>Boundary</label><p>This was an Unreal alignment and lookdev solution, not a claimed full custom eye-mesh reconstruction.</p></div>
+</div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 02D / Hair Production Trade-off</div><div>
+<h3>Prioritizing identity and performance when groom integration remained unstable</h3>
+<p class="summary">Hair remained one of the more difficult parts of the production rebuild. The Unity prototype had demonstrated real-time hair motion, but the later MetaHuman production character introduced a different groom integration problem. Rather than allowing an imperfect groom to dominate the schedule and distract from the likeness work, the final presentation used a hat as a controlled art-direction solution.</p>
+<div class="result-band"><span>Production judgment</span><p>The trade-off was deliberate: preserve the face, age, performance, and overall identity first; use a contained visual workaround for a lower-priority groom problem that had not reached the same level of stability.</p></div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 02E / Identity Validation</div><div>
+<h3>Judging the rebuild by whether it felt like the real person—not by polygon count</h3>
+<p class="summary">The quality benchmark changed after the Unity prototype. The question was no longer whether the character looked technically advanced; it was whether people who actually knew Shininho recognized her presence in the digital human. The rebuilt production version passed that test much more convincingly.</p>
+<div class="task-facts">
+<div><label>Prototype Read</label><p>Technically functional, but felt like a generic game-character interpretation of the scan.</p></div>
+<div><label>Production Read</label><p>The high-resolution Wrap + MetaHuman rebuild retained substantially more of the subject’s recognizable facial character.</p></div>
+<div><label>Stakeholder Validation</label><p>The artist—Shininho’s granddaughter—responded that the rebuilt character genuinely felt like Shininho.</p></div>
+<div><label>Pipeline Benefit</label><p>The stronger identity was paired with easier performance integration through MetaHuman rigging, Live Link, and MetaHuman Animator.</p></div>
+</div>
+</div></div>
+<div class="chapter-outcome"><div class="label">Chapter outcome</div><p>The final likeness came from treating identity as data that had to survive every technical translation: source mesh separation, topology replacement, UV and texture transfer, eye alignment, real-time shading, and final performance.</p></div>
+</div></section>
+<section class="chapter" id="performance"><div class="shell">
+<div class="chapter-head"><div class="chapter-num">03 / PERFORMANCE</div><div><h2>Capture Direction, Hybrid Body Data &amp; Facial Performance</h2><p>I operated the OptiTrack capture pipeline directly—from marker placement and calibration through Motive skeleton solving—and used MOVIN TRACIN primarily to supplement hand, wrist, and finger motion where optical capture was weaker.</p></div></div>
+<div class="uniform-grid">
+<div class="uniform-card final-art">
+<div class="visual">
+<img alt="OptiTrack capture stage operated for Shininho performance capture" class="slot-media" data-fallbacks="../media/shininho/07_capture_stage.jpg|../media/shininho/01_capture_stage.jpg" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/shininho/capture_stage.jpg"/>
+<div class="placeholder"><div class="ph-text"><b>OPTITRACK CAPTURE STAGE</b><span>Marker placement · calibration · actor direction</span></div></div>
+</div>
+<div class="copy"><b>OptiTrack capture stage</b><p>Performer preparation, marker placement, calibration, and capture direction.</p></div>
+</div>
+<div class="uniform-card">
+<div class="visual">
+<img alt="OptiTrack Motive and MOVIN TRACIN hybrid body performance capture" class="slot-media contain" data-fallbacks="../media/shininho/07_mocap_capture.jpg|../media/shininho/07_mocap_capture.jpg" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/shininho/07_mocap_capture.jpg"/>
+<div class="placeholder"><div class="ph-text"><b>OPTITRACK / MOTIVE + MOVIN TRACIN</b><span>Main body solve + hand / wrist / finger supplementation</span></div></div>
+</div>
+<div class="copy"><b>Hybrid body capture</b><p>Primary OptiTrack body data with MOVIN TRACIN used where hand data was stronger.</p></div>
+</div>
+<div class="uniform-card">
+<div class="visual">
+<div class="placeholder"><div class="ph-text"><b>ROKOKO + IPHONE + METAHUMAN ANIMATOR</b><span>Independent facial performance capture</span></div></div>
+<div class="facial-vimeo-loop">
+<iframe allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" src="https://player.vimeo.com/video/1219180209?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1" tabindex="-1" title="Shininho facial capture">
+</iframe>
+</div>
+</div>
+<div class="copy"><b>Facial capture</b><p>Rokoko head rig, iPhone Live Link Face, and MetaHuman Animator processing.</p></div>
+</div>
+</div>
+<div class="story">
+<div><span>BODY MAIN</span><p>OptiTrack / Motive — primary full-body performance capture, including stage setup, marker placement, calibration, T-pose, skeleton solve, and FBX export.</p></div>
+<div><span>HANDS</span><p>MOVIN TRACIN — used mainly to recover or supplement hand, wrist, and finger motion where the optical solve was weaker.</p></div>
+<div><span>FACE</span><p>Rokoko helmet + iPhone Live Link Face → MetaHuman Animator depth/video processing.</p></div>
+<div><span>SYNC</span><p>Clap reference was visible in both body and facial recordings, allowing independent takes to be mixed intentionally.</p></div>
+</div>
+<div class="task-deep"><div class="task-kicker">Task 03A / Capture Stage Ownership</div><div>
+<h3>Operating the OptiTrack session from performer preparation through solved skeleton data</h3>
+<p class="summary">I did not only receive motion-capture files downstream. I prepared the performers, attached the optical markers, directed the actor through the capture, configured and calibrated the OptiTrack system, performed the T-pose calibration, solved the actor skeleton in Motive, reviewed the result, and exported the captured performance as FBX for cleanup.</p>
+<div class="task-facts">
+<div><label>Performer Prep</label><p>Placed markers directly on the actor’s mocap suit and checked the marker set before capture.</p></div>
+<div><label>Stage Setup</label><p>Handled OptiTrack setup and calibration, including performer T-pose calibration.</p></div>
+<div><label>Motive</label><p>Built / solved the performer skeleton in Motive and reviewed tracking during the session.</p></div>
+<div><label>Direction</label><p>Directed the performer through the required movement and decided when a take needed to be repeated.</p></div>
+</div>
+<div class="result-band"><span>Output</span><p>The primary body-performance data was an OptiTrack / Motive skeleton solve exported as FBX for MotionBuilder and Maya cleanup before final MetaHuman integration.</p></div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 03B / Retake Strategy</div><div>
+<h3>Using live tracking quality to decide when difficult floor movement needed another take</h3>
+<p class="summary">The hardest movement occurred when the performer moved down to or lay on the floor. Optical tracking could become unstable and the solved skeleton could visibly jump. When that failure was obvious during capture, I did not assume it could all be fixed later—I stopped and recorded a new take immediately.</p>
+<div class="task-facts">
+<div><label>Difficult Pose</label><p>Low-to-floor and lying movement created the most severe tracking instability.</p></div>
+<div><label>Live Diagnosis</label><p>Watched the real-time tracking / solve and identified visible jumps during capture.</p></div>
+<div><label>Production Response</label><p>Sent the performer back into the capture volume and recorded another take when the data was clearly unusable.</p></div>
+<div><label>Remaining Risk</label><p>Even good retakes could retain localized errors that later required manual animation reconstruction.</p></div>
+</div>
+<div class="tech-note">The workflow separated problems that were cheaper to solve on stage from problems that were better repaired in animation. Severe tracking failure triggered a retake; localized residual errors were handled downstream.</div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 03C / MOVIN TRACIN Hand Supplement</div><div>
+<h3>Using MOVIN TRACIN where optical body capture was weakest: wrist and finger motion</h3>
+<p class="summary">OptiTrack remained the primary body source, but the optical setup was less convincing around the hands and fingers. Because the performer repeated the same choreography on the same timing, I captured / referenced MOVIN TRACIN data and used its wrist, hand, and finger motion as a complementary source where it produced a better result.</p>
+<table class="compare-table">
+<tr><th>Source</th><th>Primary responsibility</th><th>How I used it</th></tr>
+<tr><th>OptiTrack / Motive</th><td>Main full-body performance</td><td>Primary body solve and the base for the final body animation.</td></tr>
+<tr><th>MOVIN TRACIN</th><td>Hand / wrist / finger supplementation</td><td>Reference or alternate motion source when the optical hand solve was weak; in some cases selected when the markerless result read better.</td></tr>
+<tr><th>Production logic</th><td>Same timed choreography</td><td>Comparable timing made it possible to evaluate corresponding motion across the two capture sources.</td></tr>
+</table>
+<div class="result-band"><span>Why hybrid capture</span><p>The two systems were not treated as interchangeable duplicates. OptiTrack carried the main body performance; MOVIN TRACIN addressed a specific weakness and provided an alternate source when individual segments were stronger.</p></div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 03D / Facial Capture</div><div>
+<h3>Capturing facial performance independently with an iPhone mounted on a Rokoko helmet</h3>
+<p class="summary">Facial performance was captured as a separate asset. The iPhone was mounted to a Rokoko helmet / head rig and recorded through Live Link Face. I then used MetaHuman Animator’s depth/video-processing workflow to generate the production facial performance rather than treating the live ARKit-style preview as the final result.</p>
+<div class="task-facts">
+<div><label>Head Rig</label><p>Rokoko helmet / head-mounted support carrying the iPhone during facial acting.</p></div>
+<div><label>Capture App</label><p>Live Link Face on iPhone.</p></div>
+<div><label>Processing</label><p>MetaHuman Animator depth/video processing for the production facial solve.</p></div>
+<div><label>Editorial Freedom</label><p>Face was captured separately, so the best facial take did not have to be the face recorded alongside the final body take.</p></div>
+</div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 03E / Clap Sync &amp; Take Mixing</div><div>
+<h3>Using a shared clap reference to combine the strongest body and facial performances</h3>
+<p class="summary">The clap was captured by both the body and facial recording setups. I used that common event as the timing anchor when assembling the performance, which made it possible to combine a strong OptiTrack body take with a different facial take when their performance quality differed.</p>
+<div class="task-facts">
+<div><label>Reference</label><p>Same clap event visible / recorded in both body and facial capture.</p></div>
+<div><label>Body</label><p>Selected the strongest cleaned body take rather than automatically keeping the take paired with the face.</p></div>
+<div><label>Face</label><p>Selected facial takes independently based on performance quality and likeness.</p></div>
+<div><label>Assembly</label><p>Aligned the independent streams in Unreal using the shared clap reference and final performance timing.</p></div>
+</div>
+<div class="result-band"><span>Editorial value</span><p>Body Take A + Face Take B could become one final character performance. Capture synchronization therefore supported performance editing, not merely technical alignment.</p></div>
+</div></div>
+<div class="chapter-outcome"><div class="label">Chapter outcome</div><p>The capture workflow combined on-stage technical ownership with editorial flexibility: I operated and evaluated the optical capture directly, supplemented weak hand data with MOVIN TRACIN, captured the face independently, and preserved enough synchronization information to choose the best performance from each source.</p></div>
+</div></section>
+<section class="chapter" id="animation"><div class="shell">
+<div class="chapter-head"><div class="chapter-num">04 / TECHNICAL ANIMATION</div><div><h2>Motive FBX → MotionBuilder Cleanup → Maya HumanIK → Unreal Retarget → Rig Bake</h2><p>The final body performance was not a direct mocap export. I reviewed and filtered the solved data in MotionBuilder, rebuilt damaged motion in Maya, retargeted through HumanIK and Unreal, then baked body and face separately to production rigs for final filtering and performance assembly.</p></div></div>
+<div class="story">
+<div><span>01 / SOLVE</span><p>OptiTrack / Motive skeleton solve → FBX.</p></div>
+<div><span>02 / CLEAN</span><p>MotionBuilder review, filtering, Plot/Bake, and whole-take cleanup.</p></div>
+<div><span>03 / REBUILD</span><p>Maya HumanIK, animation layers, manual key reconstruction, interpolation, and shot-order assembly.</p></div>
+<div><span>04 / FINAL</span><p>Unreal retarget → Sequencer → separate body/face rig bake → final filtering.</p></div>
+</div>
+<div class="task-deep"><div class="task-kicker">Task 04A / MotionBuilder Review &amp; Filtering</div><div>
+<h3>Using MotionBuilder to inspect the full mocap performance before detailed shot editing</h3>
+<p class="summary">MotionBuilder was the most efficient environment for reviewing the complete mocap data as a captured performance. I used it to identify global problems, apply motion cleanup, reduce unnecessary keys, resolve rotation issues, and plot / bake the cleaned result before moving into more detailed Maya animation work.</p>
+<div class="task-facts">
+<div><label>Whole-Take Review</label><p>Evaluated the complete solved performance and located unstable sections before detailed manual editing.</p></div>
+<div><label>Filtering</label><p>Used <strong>Butterworth Filter</strong>, Smooth, and other filtering passes where the data contained high-frequency noise.</p></div>
+<div><label>Curve Management</label><p>Used <strong>Key Reducer</strong> and <strong>Euler Filter</strong> where appropriate to reduce redundant keys and correct rotation discontinuities.</p></div>
+<div><label>Finalization</label><p>Used Plot / Bake workflows to commit the cleaned motion before the next stage.</p></div>
+</div>
+<div class="tech-note">Filtering was selective. A noisy curve could benefit from filtering; a fundamentally broken pose or tracking jump needed manual reconstruction instead.</div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 04B / Maya HumanIK &amp; Animation Editing</div><div>
+<h3>Moving into Maya when animation needed direct artistic control</h3>
+<p class="summary">I preferred Maya for detailed animation work and performance restructuring. The body animation was brought through HumanIK, then edited with animation layers and curve / keyframe tools. Maya was also where I reorganized and combined animation sections into the required sequence rather than treating each mocap take as a fixed final shot.</p>
+<div class="task-facts">
+<div><label>Retargeting</label><p>Used Maya <strong>HumanIK</strong> as part of the body-animation retarget / preparation workflow.</p></div>
+<div><label>Editing</label><p>Used animation layers and direct keyframe editing for localized corrections.</p></div>
+<div><label>Assembly</label><p>Reordered / combined animation sections in Maya to build the desired performance sequence.</p></div>
+<div><label>Bake</label><p>Committed edited animation before export to Unreal for final MetaHuman retargeting.</p></div>
+</div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 04C / Floor-Tracking Reconstruction</div><div>
+<h3>Reconstructing motion manually when even the retake still contained broken tracking</h3>
+<p class="summary">The most difficult cleanup case was the performer lying on the floor. Severe failures were retaken on stage, but some localized tracking damage still remained. When filtering could not recover the motion, I rebuilt the segment by hand rather than smoothing across the failure.</p>
+<div class="task-facts">
+<div><label>Before Failure</label><p>Copied the last reliable pose / motion before tracking broke.</p></div>
+<div><label>After Failure</label><p>Used the next reliable pose after the damaged section as the opposite boundary condition.</p></div>
+<div><label>Manual Reconstruction</label><p>Inserted and adjusted intermediate keys by hand, then refined interpolation until the body read naturally through the missing segment.</p></div>
+<div><label>Reference</label><p>Used the corresponding MOVIN TRACIN motion as an additional reference when useful.</p></div>
+</div>
+<div class="result-band"><span>Why this mattered</span><p>The repaired motion preserved the performer’s intent through a section where no single captured data stream was clean enough to use directly.</p></div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 04D / Error-Specific Cleanup</div><div>
+<h3>Choosing a different correction method for foot float, ankle twist, spikes, and tracking loss</h3>
+<p class="summary">The production data contained multiple failure types, and I avoided treating them all as the same “mocap noise” problem. Contact drift, rotation flips, isolated spikes, and missing tracking each required a different balance of filtering and manual animation.</p>
+<div class="task-facts">
+<div><label>Foot Float</label><p>Re-established contact while preserving the dancer’s weight transfer rather than locking the foot indiscriminately.</p></div>
+<div><label>Ankle Twist</label><p>Used rotation diagnosis / Euler cleanup and manual correction on the affected range.</p></div>
+<div><label>Motion Spikes</label><p>Removed isolated spikes while retaining the surrounding gesture and timing.</p></div>
+<div><label>Tracking Loss</label><p>Used neighboring valid poses, manual keys, interpolation, retakes, and MOVIN TRACIN reference as appropriate.</p></div>
+</div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 04E / Unreal Retarget &amp; Rig Bake</div><div>
+<h3>Retargeting the cleaned HumanIK performance to MetaHuman and baking body and face independently</h3>
+<p class="summary">After Maya preparation, the body animation was brought into Unreal and retargeted to the production MetaHuman. In Sequencer, body and facial animation remained independent long enough to preserve editorial flexibility. Once the final take combination and timing were established, I baked the body and face separately onto their production rigs.</p>
+<div class="task-facts">
+<div><label>Body Path</label><p>Maya HumanIK-prepared body animation → Unreal retarget → MetaHuman body rig.</p></div>
+<div><label>Face Path</label><p>MetaHuman Animator facial performance remained an independent facial track / rig.</p></div>
+<div><label>Sequencer</label><p>Used the shared clap reference to align body and face and combine the chosen takes.</p></div>
+<div><label>Bake Strategy</label><p>Baked body and facial animation separately to preserve control over each performance layer.</p></div>
+</div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 04F / Final Rig Filtering</div><div>
+<h3>Applying a final smoothing pass after the performance was already assembled on the production rigs</h3>
+<p class="summary">The rig bake was not the end of cleanup. Once body and face were on their final rigs in Unreal, I used additional filtering to soften residual high-frequency movement while preserving the edited performance. This included Fourier- and Gaussian-based filtering in the final rig workflow.</p>
+<div class="task-facts">
+<div><label>Stage</label><p>Applied after body / face had been aligned and baked to the production rigs.</p></div>
+<div><label>Fourier</label><p>Used Fourier-based filtering where frequency-domain smoothing helped reduce residual jitter.</p></div>
+<div><label>Gaussian</label><p>Used Gaussian smoothing where a softer local averaging response was appropriate.</p></div>
+<div><label>Constraint</label><p>Final filtering refined already edited motion; it did not replace manual reconstruction of broken tracking.</p></div>
+</div>
+<div class="tech-note">The cleanup stack therefore operated at several levels: better capture / retakes first, MotionBuilder filtering second, Maya manual reconstruction where necessary, then final rig-level filtering after Unreal assembly.</div>
+</div></div>
+<div class="task-deep"><div class="task-kicker">Task 04G / End-to-End Animation Path</div><div>
+<h3>Connecting capture, cleanup, retargeting, editorial selection, and final character animation</h3>
+<p class="summary">The complete body pipeline crossed several tools because each stage served a different purpose. Rather than forcing the entire job into one DCC, I used the environment that made each problem easiest to diagnose and control.</p>
+<div class="result-band"><span>Final body path</span><p><strong>OptiTrack / Motive → FBX → MotionBuilder cleanup → Maya HumanIK + animation editing → Unreal retarget → Sequencer → MetaHuman body rig bake → final filtering.</strong></p></div>
+<div class="result-band"><span>Final face path</span><p><strong>Rokoko helmet + iPhone Live Link Face → MetaHuman Animator depth/video processing → Sequencer alignment → MetaHuman facial rig bake → final filtering.</strong></p></div>
+</div></div>
+<div class="chapter-outcome"><div class="label">Chapter outcome</div><p>The final animation was a deliberately reconstructed performance rather than a mocap export: I controlled capture quality on stage, selected and supplemented data across systems, filtered the solved motion, manually rebuilt broken poses, retargeted the result through HumanIK and Unreal, mixed independent body and facial takes, and finalized both performances on production MetaHuman rigs.</p></div>
+</div></section>
+<section class="chapter" id="vr"><div class="shell"><div class="chapter-head"><div class="chapter-num">05 / VR EXTENSION</div><div><h2>Jooan — Extending Shininho into VR</h2><p>I extended the finished Shininho digital human and performance into Jooan’s VR environment, redesigning camera comfort, 360° attention guidance, dusk lighting, and hand-trail effects for immersive viewing.</p></div></div><div class="uniform-grid">
+<div class="uniform-card final-art">
+<div class="visual">
+<img alt="Final Jooan VR performance" class="slot-media" data-fallbacks="../media/shininho/11_vr_final.jpg|../media/shininho/11_vr_final.jpg" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/shininho/11_vr_final.gif"/>
+<div class="placeholder"><div class="ph-text"><b>VR FINAL PERFORMANCE</b><span>Final Jooan VR presentation</span></div></div>
+</div>
+<div class="copy"><b>Final VR performance</b><p>Final immersive staging, dusk environment, and character presentation.</p></div>
+</div>
+<div class="uniform-card">
+<div class="visual">
+<img alt="Niagara hand emitter and ribbon setup" class="slot-media contain" data-fallbacks="../media/shininho/12a_niagara_hand_emitter.png|../media/shininho/12_niagara_emitter.jpg" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/shininho/12a_niagara_hand_emitter.jpg"/>
+<div class="placeholder"><div class="ph-text"><b>NIAGARA HAND EMITTER</b><span>Emitter / ribbon setup</span></div></div>
+</div>
+<div class="copy"><b>Niagara setup</b><p>Hand-attached emitters and ribbon-trail technical setup.</p></div>
+</div>
+<div class="uniform-card final-art">
+<div class="visual">
+<img alt="Final Niagara ribbon trail" class="slot-media" data-fallbacks="../media/shininho/12_niagara_breakdown.png|../media/shininho/12b_final_ribbon_trail.jpg" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/shininho/12_niagara_breakdown.jpg"/>
+<div class="placeholder"><div class="ph-text"><b>FINAL RIBBON TRAIL</b><span>Final real-time VFX result</span></div></div>
+</div>
+<div class="copy"><b>Final ribbon trail</b><p>Finished hand-driven trail evaluated in the VR environment.</p></div>
+</div>
+</div>
+<div class="vr-reel">
+<iframe allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" id="jooanVrPlayer" referrerpolicy="strict-origin-when-cross-origin" src="https://player.vimeo.com/video/1219693160?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1" title="Jooan VR">
+</iframe>
+<div aria-label="Jooan VR video controls" class="vr-reel-controls">
+<div aria-label="Video timeline" class="vr-reel-seek">
+<input aria-label="Seek Jooan VR video" id="jooanVrSeek" max="1000" min="0" step="1" type="range" value="0"/>
+</div>
+<div class="vr-reel-volume">
+<button aria-label="Unmute video" aria-pressed="true" id="jooanVrMute" type="button">MUTED</button>
+<input aria-label="Jooan VR video volume" id="jooanVrVolume" max="100" min="0" step="1" type="range" value="0"/>
+</div>
+</div>
+</div>
+<div class="vr-reel-cap">
+<span>JOOAN — VR EXTENSION</span>
+<span>Vimeo · 16:9 · autoplay · timeline + volume control</span>
+</div>
+<div class="story"><div><span>COMFORT</span><p>Compared faster and slower camera versions with approximately ten informal testers, then reduced camera speed.</p></div><div><span>STAGING</span><p>Kept the viewer relatively stable while allowing the character to move through the environment.</p></div><div><span>LIGHT</span><p>Used a Skylight + HDRI dusk environment to guide attention across the 360° scene.</p></div><div><span>VFX</span><p>Built a Niagara system with emitters on both hands and ribbon trails, then tuned particle count for VR performance.</p></div></div>
+<div class="task-deep"><div class="task-kicker">Task 05A / VR Comfort</div><div><h3>Re-editing the performance for a viewer who controls their own gaze</h3><p class="summary">The original animation was not designed around VR comfort. In Jooan, camera motion that felt acceptable on a flat screen could become uncomfortable in a headset, so I reduced viewer movement and let the character carry more of the spatial motion.</p><div class="task-facts"><div><label>Test</label><p>Compared faster and slower camera versions with approximately ten informal testers.</p></div><div><label>Decision</label><p>Reduced camera speed after the faster version produced a less comfortable viewing experience.</p></div><div><label>Staging</label><p>Kept the viewer position relatively stable while the character moved through the scene.</p></div><div><label>Platform</label><p>Evaluated the work in a PC-connected headset workflow rather than targeting standalone mobile VR.</p></div></div></div></div>
+<div class="task-deep"><div class="task-kicker">Task 05B / Attention &amp; Lighting</div><div><h3>Using lighting as spatial direction in a 360° environment</h3><p class="summary">A VR viewer can look away from the intended action at any time. I used darkness, contrast, and a dusk environment to make the character easier to locate without forcing the viewer through aggressive camera movement.</p><div class="task-facts"><div><label>Environment</label><p>Skylight + HDRI-based dusk/sunset environment.</p></div><div><label>Attention</label><p>Used brightness and darkness to guide visual focus toward the character.</p></div><div><label>Camera</label><p>Avoided relying on cinematic framing that only works for a fixed 2D view.</p></div><div><label>Goal</label><p>Maintain legibility of the performance while preserving viewer agency.</p></div></div></div></div>
+<div class="task-deep"><div class="task-kicker">Task 05C / Niagara</div><div><h3>Building hand-driven ribbon trails as both motion accent and narrative effect</h3><p class="summary">The hand trails were built as a new Niagara system rather than a baked effect. Separate emitters were attached to both hands, ribbon trails were timed to selected performance moments, and particle count was tuned with VR performance in mind.</p><div class="task-facts"><div><label>System</label><p>Niagara effect built from scratch for the VR extension.</p></div><div><label>Attachment</label><p>Separate emitters attached to the left and right hands.</p></div><div><label>Timing</label><p>Trail visibility was turned on/off at selected animation moments.</p></div><div><label>Optimization</label><p>Particle count was adjusted to balance visual density with VR frame-rate constraints.</p></div></div><div class="result-band"><span>Narrative role</span><p>The ribbon trails amplified the dance into a more ritualistic, data-like visual language while still being driven directly by the performer’s hand motion.</p></div></div></div>
+<div class="chapter-outcome"><div class="label">Chapter outcome</div><p>Jooan demonstrates that the Shininho pipeline was reusable beyond a single rendered character: the same digital human and performance data could be re-staged for an immersive real-time context with new constraints around comfort, attention, and performance.</p></div>
+</div></section>
+<section class="end"><div class="narrow"><div class="eyebrow">TAKEAWAY</div><p class="big">The project became a full digital-human production pipeline: break down imperfect scan data, prototype in Unity, redesign around likeness when the prototype fails, operate and direct optical performance capture, supplement weak hand data with MOVIN TRACIN, reconstruct broken motion across MotionBuilder and Maya, retarget and bake independent body and facial performances in Unreal, and finally re-stage the character for VR.</p><div class="pager"><a class="btn" href="../Riot_VFX_Artist_II_Portfolio_JonghoonAhn.html#work">← Work</a><a class="btn primary" href="row-row-row-your-boat.html">Next project →</a></div></div></section>
+</main>
+<footer class="footer"><div class="footer-inner"><span>Jonghoon Ahn — 3D Visualization &amp; Animation Technical Artist</span><span>Digital Human · Performance Capture · Real-Time Character R&amp;D</span></div></footer>
+<script>
+function tryMediaFallback(img){
+  const list=(img.dataset.fallbacks||"").split("|").filter(Boolean);
+  const i=parseInt(img.dataset.fallbackIndex||"0",10);
+  if(i<list.length){
+    img.dataset.fallbackIndex=String(i+1);
+    img.src=list[i];
+  }else{
+    img.classList.add("is-missing");
+  }
+}
+</script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function(){
+  const iframe = document.getElementById('shininhoHeroPlayer');
+  const seek = document.getElementById('shininhoHeroSeek');
+  const muteBtn = document.getElementById('shininhoHeroMute');
+  const volume = document.getElementById('shininhoHeroVolume');
+
+  if(!iframe || !seek || !muteBtn || !volume || typeof Vimeo === 'undefined') return;
+
+  const player = new Vimeo.Player(iframe);
+  let duration = 0;
+  let dragging = false;
+  let lastNonZeroVolume = 0.7;
+
+  function paintSeek(value){
+    const pct = Math.max(0, Math.min(100, value / 10));
+    seek.style.setProperty('--seek-progress', pct + '%');
+  }
+
+  function paintVolume(value){
+    const pct = Math.max(0, Math.min(100, Number(value)));
+    volume.style.setProperty('--volume-progress', pct + '%');
+  }
+
+  function updateMuteUI(isMuted, vol){
+    const silent = isMuted || vol <= 0.001;
+    muteBtn.textContent = silent ? 'MUTED' : 'SOUND';
+    muteBtn.setAttribute('aria-label', silent ? 'Unmute video' : 'Mute video');
+    muteBtn.setAttribute('aria-pressed', silent ? 'true' : 'false');
+  }
+
+  player.getDuration().then(function(d){
+    duration = d || 0;
+  }).catch(function(){});
+
+  player.on('timeupdate', function(data){
+    if(!dragging && data.duration){
+      duration = data.duration;
+      const value = Math.round((data.seconds / data.duration) * 1000);
+      seek.value = value;
+      paintSeek(value);
+    }
+  });
+
+  seek.addEventListener('pointerdown', function(){ dragging = true; });
+  seek.addEventListener('input', function(){
+    const value = Number(seek.value);
+    paintSeek(value);
+    if(duration > 0){
+      player.setCurrentTime((value / 1000) * duration).catch(function(){});
+    }
+  });
+  seek.addEventListener('change', function(){ dragging = false; });
+  seek.addEventListener('pointerup', function(){ dragging = false; });
+  seek.addEventListener('pointercancel', function(){ dragging = false; });
+
+  muteBtn.addEventListener('click', async function(){
+    try{
+      const isMuted = await player.getMuted();
+      if(isMuted || Number(volume.value) === 0){
+        const restore = Math.max(0.05, lastNonZeroVolume);
+        await player.setMuted(false);
+        await player.setVolume(restore);
+        volume.value = String(Math.round(restore * 100));
+        paintVolume(volume.value);
+        updateMuteUI(false, restore);
+      }else{
+        const current = await player.getVolume();
+        if(current > 0.001) lastNonZeroVolume = current;
+        await player.setMuted(true);
+        volume.value = "0";
+        paintVolume(0);
+        updateMuteUI(true, 0);
+      }
+    }catch(e){}
+  });
+
+  volume.addEventListener('input', async function(){
+    const v = Math.max(0, Math.min(1, Number(volume.value) / 100));
+    paintVolume(volume.value);
+    try{
+      if(v > 0){
+        lastNonZeroVolume = v;
+        await player.setMuted(false);
+        await player.setVolume(v);
+        updateMuteUI(false, v);
+      }else{
+        await player.setMuted(true);
+        updateMuteUI(true, 0);
+      }
+    }catch(e){}
+  });
+
+  seek.value = "0";
+  paintSeek(0);
+  volume.value = "0";
+  paintVolume(0);
+  updateMuteUI(true, 0);
+})();
+</script>
+<script>
+(function(){
+  const iframe = document.getElementById('jooanVrPlayer');
+  const seek = document.getElementById('jooanVrSeek');
+  const muteBtn = document.getElementById('jooanVrMute');
+  const volume = document.getElementById('jooanVrVolume');
+
+  if(!iframe || !seek || !muteBtn || !volume || typeof Vimeo === 'undefined') return;
+
+  const player = new Vimeo.Player(iframe);
+  let duration = 0;
+  let dragging = false;
+  let lastNonZeroVolume = 0.7;
+
+  function paintSeek(value){
+    const pct = Math.max(0, Math.min(100, value / 10));
+    seek.style.setProperty('--vr-seek-progress', pct + '%');
+  }
+
+  function paintVolume(value){
+    const pct = Math.max(0, Math.min(100, Number(value)));
+    volume.style.setProperty('--vr-volume-progress', pct + '%');
+  }
+
+  function updateMuteUI(isMuted, vol){
+    const silent = isMuted || vol <= 0.001;
+    muteBtn.textContent = silent ? 'MUTED' : 'SOUND';
+    muteBtn.setAttribute('aria-label', silent ? 'Unmute video' : 'Mute video');
+    muteBtn.setAttribute('aria-pressed', silent ? 'true' : 'false');
+  }
+
+  player.getDuration().then(function(d){
+    duration = d || 0;
+  }).catch(function(){});
+
+  player.on('timeupdate', function(data){
+    if(!dragging && data.duration){
+      duration = data.duration;
+      const value = Math.round((data.seconds / data.duration) * 1000);
+      seek.value = value;
+      paintSeek(value);
+    }
+  });
+
+  seek.addEventListener('pointerdown', function(){ dragging = true; });
+  seek.addEventListener('input', function(){
+    const value = Number(seek.value);
+    paintSeek(value);
+    if(duration > 0){
+      player.setCurrentTime((value / 1000) * duration).catch(function(){});
+    }
+  });
+  seek.addEventListener('change', function(){ dragging = false; });
+  seek.addEventListener('pointerup', function(){ dragging = false; });
+  seek.addEventListener('pointercancel', function(){ dragging = false; });
+
+  muteBtn.addEventListener('click', async function(){
+    try{
+      const isMuted = await player.getMuted();
+      if(isMuted || Number(volume.value) === 0){
+        const restore = Math.max(0.05, lastNonZeroVolume);
+        await player.setMuted(false);
+        await player.setVolume(restore);
+        volume.value = String(Math.round(restore * 100));
+        paintVolume(volume.value);
+        updateMuteUI(false, restore);
+      }else{
+        const current = await player.getVolume();
+        if(current > 0.001) lastNonZeroVolume = current;
+        await player.setMuted(true);
+        volume.value = "0";
+        paintVolume(0);
+        updateMuteUI(true, 0);
+      }
+    }catch(e){}
+  });
+
+  volume.addEventListener('input', async function(){
+    const v = Math.max(0, Math.min(1, Number(volume.value) / 100));
+    paintVolume(volume.value);
+    try{
+      if(v > 0){
+        lastNonZeroVolume = v;
+        await player.setMuted(false);
+        await player.setVolume(v);
+        updateMuteUI(false, v);
+      }else{
+        await player.setMuted(true);
+        updateMuteUI(true, 0);
+      }
+    }catch(e){}
+  });
+
+  seek.value = "0";
+  paintSeek(0);
+  volume.value = "0";
+  paintVolume(0);
+  updateMuteUI(true, 0);
+})();
+</script>
+</body></html>
