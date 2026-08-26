@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Confidential Real-Time Game Project — Jonghoon Ahn</title>
+<style>
+:root{
+  --bg:#f7f7f4;
+  --paper:#fff;
+  --ink:#111;
+  --muted:#666660;
+  --line:#deddd8;
+  --soft:#ecebe6;
+  --accent:#244968;
+  --dark:#17191b;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,"Helvetica Neue",Arial,sans-serif;
+}
+
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:16px/1.65 var(--sans);
+  -webkit-font-smoothing:antialiased;
+}
+
+a{
+  color:inherit;
+}
+
+img{
+  display:block;
+}
+
+.shell{
+  width:min(calc(100% - 56px),1320px);
+  margin:auto;
+}
+
+.narrow{
+  width:min(calc(100% - 56px),1120px);
+  margin:auto;
+}
+
+.eyebrow{
+  font:10px/1.4 var(--mono);
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:#85857f;
+}
+
+/* TOP */
+
+.top{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+
+.top-inner{
+  height:62px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+
+.brand{
+  text-decoration:none;
+  font-weight:700;
+  letter-spacing:-.02em;
+}
+
+.nav{
+  display:flex;
+  gap:22px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.nav a{
+  text-decoration:none;
+}
+
+/* HERO */
+
+.hero{
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+  padding:62px 0 46px;
+}
+
+.hero-top{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+.hero h1{
+  font-size:clamp(38px,3.9vw,52px);
+  line-height:1.08;
+  letter-spacing:-.038em;
+  margin:14px 0 16px;
+  max-width:900px;
+}
+
+.lede{
+  font-size:clamp(16px,1.25vw,18px);
+  line-height:1.62;
+  max-width:900px;
+  color:#353532;
+  margin:0;
+}
+
+.meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 24px;
+  margin-top:20px;
+  color:var(--muted);
+  font-size:13.5px;
+}
+
+.meta b{
+  color:var(--ink);
+}
+
+.collaboration{
+  margin-top:24px;
+  padding:16px 18px;
+  border-left:3px solid var(--accent);
+  background:#f4f6f8;
+  color:#404a52;
+  font-size:14px;
+  line-height:1.62;
+}
+
+.collaboration strong{
+  color:var(--ink);
+}
+
+.confidential{
+  margin-top:14px;
+  padding:14px 16px;
+  border:1px solid #d5d7d8;
+  border-radius:10px;
+  background:#f2f4f5;
+  color:#4e575d;
+  font-size:13px;
+  line-height:1.62;
+}
+
+.confidential strong{
+  display:inline-block;
+  margin-right:8px;
+  font:9px/1.4 var(--mono);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#40515d;
+}
+
+/* MEDIA */
+
+.hero-media{
+  position:relative;
+  aspect-ratio:16/8.5;
+  margin-top:32px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:var(--soft);
+}
+
+.media{
+  position:relative;
+  aspect-ratio:16/10;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--soft);
+}
+
+.media.wide{
+  aspect-ratio:16/8.5;
+}
+
+.media img,
+.hero-media img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:2;
+}
+
+.media img.contain,
+.hero-media img.contain{
+  object-fit:contain;
+  background:#f4f4f1;
+}
+
+.media img.is-missing,
+.hero-media img.is-missing{
+  display:none!important;
+}
+
+.fallback{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  display:flex;
+  align-items:flex-end;
+  padding:20px;
+  background:linear-gradient(135deg,#efeee9,#e5e4df);
+}
+
+.fallback b{
+  font-size:15px;
+  line-height:1.3;
+}
+
+/* OVERVIEW */
+
+.overview{
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+  padding:48px 0 56px;
+}
+
+.overview-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:56px;
+}
+
+.overview h2{
+  font-size:clamp(25px,2.05vw,31px);
+  line-height:1.2;
+  letter-spacing:-.025em;
+  margin:9px 0 14px;
+}
+
+.overview p{
+  margin:0;
+  color:#484844;
+  font-size:15px;
+  line-height:1.7;
+}
+
+.scope{
+  border-top:1px solid var(--line);
+}
+
+.scope-row{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding:13px 0;
+  border-bottom:1px solid var(--line);
+  font-size:13px;
+}
+
+.scope-row span{
+  font:9px/1.5 var(--mono);
+  letter-spacing:.09em;
+  color:#888882;
+}
+
+.scope-row strong{
+  text-align:right;
+  font-weight:650;
+}
+
+/* PIPELINE */
+
+.pipeline-wrap{
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+
+.pipeline{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+}
+
+.pipe{
+  padding:17px 18px;
+  border-right:1px solid var(--line);
+}
+
+.pipe:last-child{
+  border-right:0;
+}
+
+.pipe span{
+  display:block;
+  font:9px/1.4 var(--mono);
+  letter-spacing:.1em;
+  color:#8a8a84;
+}
+
+.pipe b{
+  display:block;
+  margin-top:6px;
+  font-size:13px;
+  line-height:1.35;
+}
+
+/* CASE NAV */
+
+.case-nav{
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+
+.case-nav .inner{
+  width:min(calc(100% - 56px),1120px);
+  margin:auto;
+  padding:13px 0;
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.case-nav a{
+  text-decoration:none;
+  padding:6px 10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#fafaf8;
+  color:var(--muted);
+  font:10px/1.3 var(--mono);
+}
+
+/* CHAPTERS */
+
+.chapter{
+  padding:68px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.chapter-head{
+  display:grid;
+  grid-template-columns:145px 1fr;
+  gap:28px;
+  margin-bottom:28px;
+}
+
+.chapter-num{
+  font:10px/1.45 var(--mono);
+  letter-spacing:.11em;
+  color:var(--accent);
+}
+
+.chapter h2{
+  margin:0 0 11px;
+  font-size:clamp(25px,2.25vw,33px);
+  line-height:1.18;
+  letter-spacing:-.025em;
+}
+
+.chapter-head p{
+  margin:0;
+  max-width:850px;
+  color:#555550;
+  font-size:15.5px;
+  line-height:1.68;
+}
+
+/* TASK */
+
+.task-deep{
+  display:grid;
+  grid-template-columns:145px 1fr;
+  gap:28px;
+  padding:25px 0;
+  border-top:1px solid var(--line);
+}
+
+.task-kicker{
+  font:10px/1.45 var(--mono);
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+
+.task-deep h3{
+  margin:0 0 9px;
+  font-size:20px;
+  line-height:1.24;
+  letter-spacing:-.02em;
+}
+
+.summary{
+  max-width:880px;
+  margin:0 0 16px;
+  color:#4f4f4a;
+  font-size:14.5px;
+  line-height:1.68;
+}
+
+.fact-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--line);
+}
+
+.fact-grid>div{
+  min-height:112px;
+  padding:14px;
+  background:var(--paper);
+}
+
+.fact-grid label{
+  display:block;
+  margin-bottom:7px;
+  font:9px/1.4 var(--mono);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#898983;
+}
+
+.fact-grid p{
+  margin:0;
+  color:#484844;
+  font-size:13px;
+  line-height:1.57;
+}
+
+.fact-grid strong{
+  color:var(--ink);
+}
+
+.note{
+  margin-top:14px;
+  padding:14px 16px;
+  border-left:3px solid #b8c7d4;
+  background:#f2f5f7;
+  color:#48555f;
+  font-size:13px;
+  line-height:1.62;
+}
+
+.result{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns:125px 1fr;
+  gap:18px;
+  padding:15px 17px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fbfbf9;
+}
+
+.result span{
+  font:9px/1.45 var(--mono);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+
+.result p{
+  margin:0;
+  font-size:14px;
+  line-height:1.62;
+  color:#3f3f3b;
+}
+
+.media-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:18px;
+}
+
+.media-grid.single{
+  grid-template-columns:1fr;
+}
+
+.system-flow{
+  margin-top:17px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:1px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--line);
+}
+
+.system-flow>div{
+  min-height:92px;
+  padding:14px;
+  background:var(--paper);
+}
+
+.system-flow span{
+  font:9px/1.4 var(--mono);
+  letter-spacing:.09em;
+  color:#8a8a84;
+}
+
+.system-flow b{
+  display:block;
+  margin-top:8px;
+  font-size:13px;
+  line-height:1.35;
+}
+
+.chapter-outcome{
+  display:grid;
+  grid-template-columns:145px 1fr;
+  gap:28px;
+  margin-top:28px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+}
+
+.chapter-outcome span{
+  font:10px/1.4 var(--mono);
+  letter-spacing:.11em;
+  color:var(--accent);
+}
+
+.chapter-outcome p{
+  margin:0;
+  max-width:860px;
+  color:#33332f;
+  font-size:15px;
+  line-height:1.68;
+}
+
+/* TAKEAWAY */
+
+.takeaway{
+  padding:64px 0 82px;
+  background:var(--paper);
+}
+
+.takeaway .big{
+  margin:10px 0 30px;
+  max-width:920px;
+  font-size:clamp(23px,2.15vw,31px);
+  line-height:1.3;
+  letter-spacing:-.02em;
+}
+
+.pager{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  display:inline-block;
+  padding:10px 15px;
+  border:1px solid #c8c7c1;
+  border-radius:5px;
+  text-decoration:none;
+  font-size:13px;
+}
+
+.btn.primary{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+}
+
+.footer{
+  padding:40px 0 60px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
+  padding-top:20px;
+  border-top:1px solid var(--line);
+}
+
+@media(max-width:960px){
+
+  .overview-grid,
+  .chapter-head,
+  .task-deep,
+  .chapter-outcome{
+    grid-template-columns:1fr;
+  }
+
+  .fact-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .pipeline{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .pipe:nth-child(3){
+    border-right:0;
+  }
+
+  .pipe:nth-child(-n+3){
+    border-bottom:1px solid var(--line);
+  }
+}
+
+@media(max-width:620px){
+
+  .shell,
+  .narrow,
+  .case-nav .inner{
+    width:calc(100% - 28px);
+  }
+
+  .nav{
+    display:none;
+  }
+
+  .hero h1{
+    font-size:clamp(34px,10vw,44px);
+  }
+
+  .media-grid,
+  .fact-grid,
+  .pipeline,
+  .system-flow{
+    grid-template-columns:1fr;
+  }
+
+  .pipe{
+    border-right:0;
+    border-bottom:1px solid var(--line);
+  }
+
+  .pipe:last-child{
+    border-bottom:0;
+  }
+
+  .result{
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+}
+
+/* V38 — uniform media system
+   One production rule for every Game still / GIF:
+   1920x1080 source, 16:9 display.
+*/
+.hero-media{
+  aspect-ratio:16/9;
+}
+.media,
+.media.wide{
+  aspect-ratio:16/9;
+}
+.hero-media img,
+.media img{
+  object-fit:contain;
+  background:#f4f4f1;
+}
+.hero-media img.final-art,
+.media img.final-art{
+  object-fit:cover;
+}
+.system-flow.four{
+  grid-template-columns:repeat(4,1fr);
+}
+@media(max-width:620px){
+  .hero-media,
+  .media,
+  .media.wide{
+    aspect-ratio:16/9;
+  }
+  .system-flow.four{
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* V42 — Vimeo-only motion media with custom timeline and volume controls. */
+.vimeo-video{
+  position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#050505;
+}
+.vimeo-video iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  background:#050505;
+  display:block;
+  pointer-events:none;
+}
+.vimeo-video.final iframe{
+  background:#050505;
+}
+.video-controls{
+  position:absolute;
+  left:14px;
+  right:14px;
+  bottom:11px;
+  z-index:5;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:12px;
+  align-items:center;
+}
+.video-seek{
+  display:flex;
+  align-items:center;
+}
+.video-seek input,
+.video-volume input{
+  appearance:none;
+  -webkit-appearance:none;
+  background:transparent;
+  cursor:pointer;
+  margin:0;
+}
+.video-seek input{
+  width:100%;
+}
+.video-seek input::-webkit-slider-runnable-track,
+.video-volume input::-webkit-slider-runnable-track{
+  height:3px;
+  border-radius:999px;
+  background:linear-gradient(to right,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.95) var(--progress,0%),
+    rgba(255,255,255,.30) var(--progress,0%),
+    rgba(255,255,255,.30) 100%);
+}
+.video-seek input::-webkit-slider-thumb,
+.video-volume input::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:10px;
+  height:10px;
+  margin-top:-3.5px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+}
+.video-seek input::-moz-range-track,
+.video-volume input::-moz-range-track{
+  height:3px;border-radius:999px;background:rgba(255,255,255,.30);
+}
+.video-seek input::-moz-range-thumb,
+.video-volume input::-moz-range-thumb{
+  width:10px;height:10px;border:0;border-radius:50%;background:#fff;
+}
+.video-volume{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:170px;
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(0,0,0,.48);
+  backdrop-filter:blur(6px);
+}
+.video-volume button{
+  border:0;
+  padding:0;
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+  font:9px/1.2 var(--mono);
+  letter-spacing:.08em;
+  min-width:44px;
+}
+.video-volume input{width:105px}
+.video-cap{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  margin-top:8px;
+  color:#85857f;
+  font:9px/1.5 var(--mono);
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+.evidence-media{
+  margin-top:20px;
+}
+.media-grid.one{
+  grid-template-columns:1fr;
+}
+@media(max-width:620px){
+  .video-controls{
+    grid-template-columns:1fr;
+    gap:4px;
+    left:10px;
+    right:10px;
+    bottom:8px;
+  }
+  .video-volume{
+    justify-self:end;
+    min-width:150px;
+  }
+  .video-volume input{width:85px}
+  .video-cap{
+    flex-direction:column;
+    gap:2px;
+  }
+}
+
+</style>
+<style id="tgc-native-vimeo-override">
+/* thatgamecompany version:
+   Preserve the existing media containers and source videos,
+   but let Vimeo provide its own standard playback UI. */
+.vimeo-video iframe,
+.gang-reel iframe,
+.hero-media.hero-video iframe,
+.reel iframe,
+.vr-reel iframe,
+.hero-vimeo-loop iframe,
+.facial-vimeo-loop iframe{
+  top:0!important;
+  left:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  transform:none!important;
+  pointer-events:auto!important;
+}
+.video-controls,
+.hero-controls,
+.reel-controls,
+.vr-reel-controls,
+.gang-reel-controls,
+.hero-seek,
+.hero-volume,
+.reel-seek,
+.reel-volume,
+.vr-reel-seek,
+.vr-reel-volume,
+.gang-reel-seek,
+.gang-reel-volume{
+  display:none!important;
+}
+</style></head>
+<body>
+<header class="top">
+<div class="shell top-inner">
+<a class="brand" href="../NVIDIA_2027_PhD_Generative_AI_Portfolio_JonghoonAhn.html">Jonghoon Ahn.</a>
+<nav class="nav">
+<a href="../NVIDIA_2027_PhD_Generative_AI_Portfolio_JonghoonAhn.html">Work</a>
+<a href="../NVIDIA_2027_PhD_Generative_AI_Portfolio_JonghoonAhn.html">Expertise</a>
+<a href="../NVIDIA_2027_PhD_Generative_AI_Portfolio_JonghoonAhn.html">About</a>
+</nav>
+</div>
+</header>
+<main>
+<!-- HERO -->
+<section class="hero">
+<div class="narrow">
+<div class="hero-top">
+<span class="eyebrow">
+        04 / CODE · UNITY / C# / HLSL / GRAPHICS R&amp;D
+      </span>
+<span class="eyebrow">
+        APR 2025 – APR 2026
+      </span>
+</div>
+<h1>
+      Confidential Real-Time Game Project
+    </h1>
+<p class="lede">
+      A real-time technical art case focused on the boundary between gameplay logic and graphics:
+      procedural cloud deformation, player-controlled raymarched metaball liquid,
+      and fixed-topology cloud growth authored in Maya and played back in Unity.
+    </p>
+<div class="meta">
+<span>
+<b>Role</b>
+        Technical Artist
+      </span>
+<span>
+<b>Period</b>
+        Apr 2025 – Apr 2026
+      </span>
+<span>
+<b>Collaborator</b>
+        Erick Oh
+      </span>
+<span>
+<b>Engine</b>
+        Unity URP
+      </span>
+<span>
+<b>Code</b>
+        C# · HLSL
+      </span>
+<span>
+<b>DCC</b>
+        Maya
+      </span>
+</div>
+<div class="collaboration">
+<strong>Collaboration — </strong>
+      Worked with Academy Award-nominated filmmaker
+      <strong>Erick Oh</strong> on the project while developing
+      real-time graphics and interaction systems as a Technical Artist.
+    </div>
+<div class="confidential">
+<strong>Confidential project</strong>
+      Project title and selected production visuals remain confidential.
+      This case focuses only on the technical systems developed during my participation.
+    </div>
+</div>
+<div class="shell">
+<div class="vimeo-video final">
+<iframe allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" id="projectContextVimeo" referrerpolicy="strict-origin-when-cross-origin" src="https://player.vimeo.com/video/1219170568?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;playsinline=1&amp;controls=1&amp;dnt=1" title="PROJECT CONTEXT">
+</iframe>
+<div class="video-controls">
+<div class="video-seek">
+<input aria-label="Seek video" class="js-seek" max="1000" min="0" step="1" type="range" value="0"/>
+</div>
+<div class="video-volume">
+<button aria-label="Unmute video" aria-pressed="true" class="js-mute" type="button">MUTED</button>
+<input aria-label="Video volume" class="js-volume" max="100" min="0" step="1" type="range" value="0"/>
+</div>
+</div>
+</div>
+<div class="video-cap"><span>PROJECT CONTEXT</span><span>VIMEO · AUTOPLAY · TIMELINE + VOLUME</span></div>
+</div>
+</section>
+<!-- OVERVIEW -->
+<section class="overview">
+<div class="narrow overview-grid">
+<div>
+<div class="eyebrow">
+        OVERVIEW
+      </div>
+<h2>
+        Three systems, three different production problems.
+      </h2>
+<p>
+        Working with filmmaker Erick Oh, I contributed real-time technical art systems
+        that translated visual direction into controllable Unity behavior.
+        The project required more than a single shader effect:
+        I worked across runtime C# logic, custom HLSL rendering and deformation,
+        collision-driven gameplay behavior, and DCC-authored blendshape animation.
+        The common thread was turning art-direction goals into controllable,
+        real-time systems inside Unity.
+      </p>
+</div>
+<div class="scope">
+<div class="scope-row">
+<span>OWNED</span>
+<strong>
+          C# runtime behavior + HLSL graphics systems
+        </strong>
+</div>
+<div class="scope-row">
+<span>COLLABORATION</span>
+<strong>
+          Erick Oh · Academy Award-nominated filmmaker
+        </strong>
+</div>
+<div class="scope-row">
+<span>ENGINE</span>
+<strong>
+          Unity URP
+        </strong>
+</div>
+<div class="scope-row">
+<span>GRAPHICS</span>
+<strong>
+          Perlin displacement · Fresnel · Raymarching · Metaballs
+        </strong>
+</div>
+<div class="scope-row">
+<span>ANIMATION</span>
+<strong>
+          Maya fixed-topology states · Blendshapes · Unity Timeline
+        </strong>
+</div>
+</div>
+</div>
+</section>
+<!-- PIPELINE -->
+<section class="pipeline-wrap">
+<div class="shell pipeline">
+<div class="pipe">
+<span>01</span>
+<b>Player Input</b>
+</div>
+<div class="pipe">
+<span>02</span>
+<b>C# Runtime Logic</b>
+</div>
+<div class="pipe">
+<span>03</span>
+<b>Shader Parameters</b>
+</div>
+<div class="pipe">
+<span>04</span>
+<b>HLSL Rendering</b>
+</div>
+<div class="pipe">
+<span>05</span>
+<b>Maya Growth States</b>
+</div>
+<div class="pipe">
+<span>06</span>
+<b>Unity Playback</b>
+</div>
+</div>
+</section>
+<!-- NAVIGATION -->
+<nav aria-label="Case study sections" class="case-nav">
+<div class="inner">
+<a href="#cloud">
+      01 Procedural Cloud
+    </a>
+<a href="#metaball">
+      02 Metaball Liquid
+    </a>
+<a href="#growth">
+      03 Cloud Growth
+    </a>
+</div>
+</nav>
+<!-- 01 CLOUD -->
+<section class="chapter" id="cloud">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">
+        01 / PROCEDURAL SURFACE
+      </div>
+<div>
+<h2>
+          Procedural Cloud Surface Shader
+        </h2>
+<p>
+          The cloud was an opaque mesh, not a volumetric raymarched cloud.
+          The goal was to make the surface feel alive and wind-driven
+          while keeping the object responsive to player input.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div>
+<div class="vimeo-video">
+<iframe allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" id="cloudRuntimeVimeo" referrerpolicy="strict-origin-when-cross-origin" src="https://player.vimeo.com/video/1219170733?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;playsinline=1&amp;controls=1&amp;dnt=1" title="PROCEDURAL CLOUD — RUNTIME RESULT">
+</iframe>
+<div class="video-controls">
+<div class="video-seek">
+<input aria-label="Seek video" class="js-seek" max="1000" min="0" step="1" type="range" value="0"/>
+</div>
+<div class="video-volume">
+<button aria-label="Unmute video" aria-pressed="true" class="js-mute" type="button">MUTED</button>
+<input aria-label="Video volume" class="js-volume" max="100" min="0" step="1" type="range" value="0"/>
+</div>
+</div>
+</div>
+<div class="video-cap"><span>PROCEDURAL CLOUD — RUNTIME RESULT</span><span>VIMEO · REAL-TIME CLOUD SURFACE</span></div>
+</div>
+<div>
+<div class="vimeo-video">
+<iframe allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" id="cloudDevVimeo" referrerpolicy="strict-origin-when-cross-origin" src="https://player.vimeo.com/video/1219171139?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;playsinline=1&amp;controls=1&amp;dnt=1" title="UNITY DEVELOPMENT VIEW">
+</iframe>
+<div class="video-controls">
+<div class="video-seek">
+<input aria-label="Seek video" class="js-seek" max="1000" min="0" step="1" type="range" value="0"/>
+</div>
+<div class="video-volume">
+<button aria-label="Unmute video" aria-pressed="true" class="js-mute" type="button">MUTED</button>
+<input aria-label="Video volume" class="js-volume" max="100" min="0" step="1" type="range" value="0"/>
+</div>
+</div>
+</div>
+<div class="video-cap"><span>UNITY DEVELOPMENT VIEW</span><span>VIMEO · RUNTIME / SHADER TEST</span></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">
+        Task 01A / Surface Motion
+      </div>
+<div>
+<h3>
+          Creating cloud-like motion without moving the mesh as a rigid object
+        </h3>
+<p class="summary">
+          The visual requirement was internal surface motion rather than simply
+          translating the whole cloud.
+          I built a custom HLSL surface shader using Perlin-noise-driven vertex displacement
+          so the cloud could deform continuously while the GameObject itself remained in place.
+        </p>
+<div class="fact-grid">
+<div>
+<label>Surface Type</label>
+<p>
+              Opaque mesh surface in Unity URP.
+            </p>
+</div>
+<div>
+<label>Noise</label>
+<p>
+              Perlin noise drives spatial variation in the deformation.
+            </p>
+</div>
+<div>
+<label>Deformation</label>
+<p>
+              Vertex displacement occurs in the shader.
+            </p>
+</div>
+<div>
+<label>Lighting</label>
+<p>
+              Fresnel-based lighting helps reinforce the cloud silhouette
+              and edge response.
+            </p>
+</div>
+</div>
+<div class="result">
+<span>
+            Result
+          </span>
+<p>
+            A lightweight real-time cloud surface with visible internal motion
+            rather than a static mesh or rigid transform animation.
+          </p>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">
+        Task 01B / Runtime Control
+      </div>
+<div>
+<h3>
+          Connecting directional player input to shader behavior
+        </h3>
+<p class="summary">
+          The player needed to influence the direction of the cloud’s internal motion.
+          I kept input and gameplay logic in C#, then passed directional values
+          into the material as shader parameters.
+        </p>
+<div class="system-flow">
+<div>
+<span>01</span>
+<b>Keyboard / WASD Input</b>
+</div>
+<div>
+<span>02</span>
+<b>C# Direction Vector</b>
+</div>
+<div>
+<span>03</span>
+<b>Material Vector / Float Parameters</b>
+</div>
+<div>
+<span>04</span>
+<b>HLSL Noise Flow</b>
+</div>
+<div>
+<span>05</span>
+<b>Directional Surface Motion</b>
+</div>
+</div>
+<div class="result">
+<span>Control Model</span>
+<p>The player's input changes the shader's internal noise-flow direction; the cloud GameObject itself is not simply translated through the scene.</p>
+</div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>
+        CHAPTER OUTCOME
+      </span>
+<p>
+        The cloud shader demonstrates a direct Technical Art handoff
+        between interaction logic and graphics:
+        C# interprets user input, while HLSL turns those parameters
+        into art-directed surface motion.
+      </p>
+</div>
+</div>
+</section>
+<!-- 02 METABALL -->
+<section class="chapter" id="metaball">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">
+        02 / RAYMARCHED LIQUID
+      </div>
+<div>
+<h2>
+          Player-Controlled Raymarched Metaball Liquid
+        </h2>
+<p>
+          The liquid needed to behave as multiple gameplay objects
+          while visually reading as one continuous mass.
+          I separated gameplay representation from rendering representation
+          instead of forcing both responsibilities into the same structure.
+        </p>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">
+        Task 02A / Gameplay Representation
+      </div>
+<div>
+<h3>
+          Keeping droplets as separate controllable objects
+        </h3>
+<p class="summary">
+          Each droplet remained its own GameObject with collision behavior.
+          That made it possible to detect contact,
+          move objects through C#,
+          and maintain gameplay logic independently
+          of how the final liquid was rendered.
+        </p>
+<div class="fact-grid">
+<div>
+<label>Objects</label>
+<p>
+              Similarly sized droplet GameObjects.
+            </p>
+</div>
+<div>
+<label>Collision</label>
+<p>
+              Collider-based contact / proximity recognition in C#.
+            </p>
+</div>
+<div>
+<label>Movement</label>
+<p>
+              Player-driven transform / velocity behavior handled in C#.
+            </p>
+</div>
+<div>
+<label>Grouping</label>
+<p>
+              Collected droplets remain separate underlying objects
+              after joining the group.
+            </p>
+</div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">
+        Task 02B / Group Behavior
+      </div>
+<div>
+<h3>
+          Constraining collected droplets so the cluster moves as one system
+        </h3>
+<p class="summary">
+          After droplets were collected,
+          one droplet acted as the leader / parent reference
+          and the remaining droplets followed the group.
+          C# positional correction prevented individual droplets
+          from drifting too far apart.
+        </p>
+<div class="system-flow">
+<div>
+<span>01</span>
+<b>Player Moves Droplet</b>
+</div>
+<div>
+<span>02</span>
+<b>Collision / Contact</b>
+</div>
+<div>
+<span>03</span>
+<b>Add to Group</b>
+</div>
+<div>
+<span>04</span>
+<b>Leader + Followers</b>
+</div>
+<div>
+<span>05</span>
+<b>Positional Constraint</b>
+</div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">
+        Task 02C / Visual Representation
+      </div>
+<div>
+<h3>
+          Using a raymarched metaball field to visually fuse separate objects
+        </h3>
+<p class="summary">
+          The gameplay objects did not need to merge into one mesh.
+          A custom HLSL raymarched metaball field provided the continuous liquid appearance
+          while C# preserved the individual droplet objects underneath.
+        </p>
+<div class="fact-grid">
+<div>
+<label>Rendering</label>
+<p>
+              Custom HLSL raymarching.
+            </p>
+</div>
+<div>
+<label>Field</label>
+<p>
+              Metaball-style field visually fuses nearby droplets.
+            </p>
+</div>
+<div>
+<label>Separation of Concerns</label>
+<p>
+              C# owns movement, collision, and grouping;
+              HLSL owns the continuous liquid appearance.
+            </p>
+</div>
+<div>
+<label>Result</label>
+<p>
+              Multiple gameplay droplets read as a single
+              player-controlled liquid mass.
+            </p>
+</div>
+</div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>
+        CHAPTER OUTCOME
+      </span>
+<p>
+        The metaball system shows the clearest separation
+        between gameplay logic and rendering in this project:
+        physically separate objects remain easy to control and collide,
+        while the shader provides the illusion of one continuous fluid body.
+      </p>
+</div>
+</div>
+</section>
+<!-- 03 GROWTH -->
+<section class="chapter" id="growth">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">
+        03 / FIXED TOPOLOGY
+      </div>
+<div>
+<h2>
+          Vertex-Preserving Cloud Growth
+        </h2>
+<p>
+          A cloud needed to grow from a small form into a larger one,
+          but topology-changing simulation would break
+          the vertex correspondence required for blendshape animation.
+          I chose a deterministic fixed-topology workflow instead.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div class="media">
+<img alt="Exactly four wireframe cloud growth states with matching topology" class="contain" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/game/06_four_growth_states.jpg"/>
+<div class="fallback"><b>FOUR MATCHING-TOPOLOGY STATES</b></div>
+</div>
+<div class="media">
+<img alt="Maya multi-view validation of fixed-topology cloud form" class="contain" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/game/07_growth_maya_views.jpg"/>
+<div class="fallback"><b>MAYA GROWTH TARGET — MULTI-VIEW VALIDATION</b></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">
+        Task 03A / Topology Constraint
+      </div>
+<div>
+<h3>
+          Designing around blendshape correspondence
+        </h3>
+<p class="summary">
+          A simulated growth process could have produced
+          the desired visual change,
+          but changing topology would make the resulting states
+          unusable as blendshape targets.
+          The technical constraint therefore became part
+          of the art-direction strategy.
+        </p>
+<div class="fact-grid">
+<div>
+<label>Requirement</label>
+<p>
+              Small → large cloud growth.
+            </p>
+</div>
+<div>
+<label>Constraint</label>
+<p>
+              Blendshape targets require consistent
+              vertex count and ordering.
+            </p>
+</div>
+<div>
+<label>Decision</label>
+<p>
+              Do not use topology-changing simulation
+              for the final playback system.
+            </p>
+</div>
+<div>
+<label>Approach</label>
+<p>
+              Author a controlled set of fixed-topology
+              growth states in Maya.
+            </p>
+</div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">
+        Task 03B / Maya Authoring
+      </div>
+<div>
+<h3>
+          Building four growth states while preserving vertex identity
+        </h3>
+<p class="summary">
+          I created exactly four cloud growth states in Maya.
+          Each state preserved the same vertex count and ordering,
+          allowing the shapes to function as reliable blendshape targets.
+        </p>
+<div class="system-flow four">
+<div>
+<span>01</span>
+<b>Growth State 01 · Small</b>
+</div>
+<div>
+<span>02</span>
+<b>Growth State 02 · Mid A</b>
+</div>
+<div>
+<span>03</span>
+<b>Growth State 03 · Mid B</b>
+</div>
+<div>
+<span>04</span>
+<b>Growth State 04 · Large</b>
+</div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">
+        Task 03C / Unity Playback
+      </div>
+<div>
+<h3>
+          Turning DCC-authored states into an art-directable real-time animation
+        </h3>
+<p class="summary">
+          The four Maya states were connected as blendshape targets
+          and animated in Unity using Timeline / Animation keyframes.
+          The growth was therefore deterministic and easy to art-direct
+          rather than being generated procedurally at runtime.
+        </p>
+<div class="fact-grid">
+<div>
+<label>Targets</label>
+<p>
+              Four Maya growth states.
+            </p>
+</div>
+<div>
+<label>Deformation</label>
+<p>
+              Blendshape weights interpolate between
+              the fixed-topology states.
+            </p>
+</div>
+<div>
+<label>Playback</label>
+<p>
+              Weights keyframed through Unity Timeline / Animation.
+            </p>
+</div>
+<div>
+<label>Result</label>
+<p>
+              Stable, repeatable cloud growth
+              without topology changes.
+            </p>
+</div>
+</div>
+<div class="result">
+<span>
+            Production Value
+          </span>
+<p>
+            The solution traded simulation complexity
+            for deterministic control,
+            which made the growth easier to direct,
+            reproduce, and integrate into the real-time sequence.
+          </p>
+</div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>
+        CHAPTER OUTCOME
+      </span>
+<p>
+        This system demonstrates a different Technical Art decision
+        from the shader work:
+        instead of solving the problem entirely in code,
+        I preserved a DCC-authored deformation workflow
+        because it provided the predictability and control the shot needed.
+      </p>
+</div>
+</div>
+</section>
+<!-- TAKEAWAY -->
+<section class="takeaway">
+<div class="narrow">
+<div class="eyebrow">
+      TAKEAWAY
+    </div>
+<p class="big">
+      Working with Academy Award-nominated filmmaker Erick Oh,
+      I built real-time Technical Art systems that connected
+      creative direction to controllable Unity behavior:
+      C# driving shader response,
+      gameplay objects separated from a raymarched visual field,
+      and fixed-topology Maya deformation converted into real-time animation.
+    </p>
+<div class="pager">
+<a class="btn" href="../NVIDIA_2027_PhD_Generative_AI_Portfolio_JonghoonAhn.html">
+        ← Previous
+      </a>
+<a class="btn primary" href="../NVIDIA_2027_PhD_Generative_AI_Portfolio_JonghoonAhn.html">
+        Next project →
+      </a>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="shell footer-inner">
+<span>
+<strong>Jonghoon Ahn</strong>
+      · 3D Visualization &amp; Animation Technical Artist
+    </span>
+<span>
+      Unity · C# · HLSL · Real-Time Graphics R&amp;D
+    </span>
+</div>
+</footer>
+<script>
+
+function tryMediaFallback(img){
+
+  const list =
+    (img.dataset.fallbacks || "")
+    .split("|")
+    .filter(Boolean);
+
+  const i =
+    parseInt(
+      img.dataset.fallbackIndex || "0",
+      10
+    );
+
+  if(i < list.length){
+
+    img.dataset.fallbackIndex =
+      String(i + 1);
+
+    img.src =
+      list[i];
+
+  }else{
+
+    img.classList.add(
+      "is-missing"
+    );
+
+  }
+
+}
+
+</script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function(){
+  document.querySelectorAll('.vimeo-video').forEach(function(root){
+    const iframe = root.querySelector('iframe');
+    const seek = root.querySelector('.js-seek');
+    const muteBtn = root.querySelector('.js-mute');
+    const volume = root.querySelector('.js-volume');
+
+    if(!iframe || !seek || !muteBtn || !volume || typeof Vimeo === 'undefined') return;
+
+    const player = new Vimeo.Player(iframe);
+    let duration = 0;
+    let dragging = false;
+    let lastVolume = .7;
+
+    function paint(input, pct){
+      input.style.setProperty('--progress', Math.max(0,Math.min(100,pct)) + '%');
+    }
+
+    function updateMuteUI(isMuted, vol){
+      const silent = isMuted || vol <= .001;
+      muteBtn.textContent = silent ? 'MUTED' : 'SOUND';
+      muteBtn.setAttribute('aria-label', silent ? 'Unmute video' : 'Mute video');
+      muteBtn.setAttribute('aria-pressed', silent ? 'true' : 'false');
+    }
+
+    player.getDuration().then(function(d){
+      duration = d || 0;
+    }).catch(function(){});
+
+    player.on('timeupdate', function(data){
+      if(!dragging && data.duration){
+        duration = data.duration;
+        const value = Math.round((data.seconds/data.duration)*1000);
+        seek.value = value;
+        paint(seek, value/10);
+      }
+    });
+
+    seek.addEventListener('pointerdown', function(){ dragging = true; });
+
+    seek.addEventListener('input', function(){
+      const value = Number(seek.value);
+      paint(seek, value/10);
+      if(duration > 0){
+        player.setCurrentTime((value/1000)*duration).catch(function(){});
+      }
+    });
+
+    ['change','pointerup','pointercancel'].forEach(function(evt){
+      seek.addEventListener(evt, function(){ dragging = false; });
+    });
+
+    muteBtn.addEventListener('click', async function(){
+      try{
+        const isMuted = await player.getMuted();
+        if(isMuted || Number(volume.value) === 0){
+          const restore = Math.max(.05, lastVolume);
+          await player.setMuted(false);
+          await player.setVolume(restore);
+          volume.value = String(Math.round(restore*100));
+          paint(volume, Number(volume.value));
+          updateMuteUI(false, restore);
+        }else{
+          const current = await player.getVolume();
+          if(current > .001) lastVolume = current;
+          await player.setMuted(true);
+          volume.value = '0';
+          paint(volume, 0);
+          updateMuteUI(true, 0);
+        }
+      }catch(e){}
+    });
+
+    volume.addEventListener('input', async function(){
+      const v = Math.max(0,Math.min(1,Number(volume.value)/100));
+      paint(volume, Number(volume.value));
+      try{
+        if(v > 0){
+          lastVolume = v;
+          await player.setMuted(false);
+          await player.setVolume(v);
+          updateMuteUI(false, v);
+        }else{
+          await player.setMuted(true);
+          updateMuteUI(true, 0);
+        }
+      }catch(e){}
+    });
+
+    volume.value = '0';
+    paint(volume, 0);
+    paint(seek, 0);
+    updateMuteUI(true, 0);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Yaloo Digital Human — Jonghoon Ahn</title>
+<link href="../assets/style.css" rel="stylesheet"/>
+<style>
+/* Yaloo V26 — Sony-facing supporting case */
+:root{
+  --y-ink:#111;
+  --y-muted:#62625d;
+  --y-line:#deddd8;
+  --y-paper:#fff;
+  --y-soft:#f5f5f2;
+  --y-accent:#244968;
+  --y-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+
+.project-hero h1{
+  font-size:clamp(36px,4vw,50px)!important;
+  line-height:1.08!important;
+  letter-spacing:-.035em!important;
+}
+.project-hero .dek{
+  max-width:860px;
+  font-size:17px!important;
+  line-height:1.65!important;
+}
+.meta-row{margin-top:24px}
+
+.case-nav{
+  border-top:1px solid var(--y-line);
+  border-bottom:1px solid var(--y-line);
+  background:var(--y-paper);
+}
+.case-nav .inner{
+  width:min(calc(100% - 56px),1320px);
+  margin:auto;
+  padding:13px 0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+.case-nav a{
+  text-decoration:none;
+  border:1px solid var(--y-line);
+  border-radius:999px;
+  padding:6px 10px;
+  color:var(--y-muted);
+  background:#fafaf8;
+  font:10px/1.3 var(--y-mono);
+  letter-spacing:.05em;
+}
+
+.hero-media{margin-top:30px}
+.media-slot{position:relative;overflow:hidden}
+.media-slot>img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:2;
+}
+.media-slot>img.contain{
+  object-fit:contain;
+  background:#f4f4f1;
+}
+.media-slot>img.is-missing{display:none!important}
+.media-fallback{
+  position:absolute!important;
+  inset:0;
+  z-index:1;
+  display:flex;
+  align-items:flex-end;
+  padding:22px;
+  background:
+    linear-gradient(135deg,#efeee9,#e5e4df);
+}
+.media-fallback strong{
+  font-size:15px;
+  line-height:1.3;
+}
+
+.pipeline-wrap{padding:28px 0}
+.pipeline .pipe-node b{font-size:13px}
+
+.ownership{
+  padding:54px 0;
+}
+.ownership h2{
+  font-size:clamp(25px,2.2vw,31px)!important;
+  line-height:1.2!important;
+}
+.ownership p{
+  font-size:15px;
+  line-height:1.7;
+}
+.boundary{
+  padding:14px 16px;
+  border-left:3px solid #b8c7d4;
+  background:#f2f5f7;
+}
+
+.deep-section{
+  padding:64px 0;
+  border-top:1px solid var(--y-line);
+}
+.deep-head{
+  display:grid;
+  grid-template-columns:145px 1fr;
+  gap:28px;
+  margin-bottom:28px;
+}
+.deep-index{
+  font:10px/1.45 var(--y-mono);
+  letter-spacing:.11em;
+  color:var(--y-accent);
+}
+.deep-head h2{
+  margin:0 0 10px;
+  font-size:clamp(25px,2.3vw,33px);
+  line-height:1.18;
+  letter-spacing:-.025em;
+}
+.deep-head p{
+  margin:0;
+  max-width:850px;
+  color:#555550;
+  font-size:15.5px;
+  line-height:1.68;
+}
+
+.deep-grid{
+  display:grid;
+  grid-template-columns:.82fr 1.18fr;
+  gap:26px;
+  align-items:start;
+}
+.logic-card{
+  border:1px solid var(--y-line);
+  border-radius:14px;
+  background:var(--y-paper);
+  overflow:hidden;
+}
+.logic-row{
+  display:grid;
+  grid-template-columns:110px 1fr;
+  gap:14px;
+  padding:14px 16px;
+  border-bottom:1px solid var(--y-line);
+}
+.logic-row:last-child{border-bottom:0}
+.logic-row span{
+  font:9px/1.45 var(--y-mono);
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:#868680;
+}
+.logic-row p{
+  margin:0;
+  color:#444440;
+  font-size:13.5px;
+  line-height:1.62;
+}
+.logic-row.result p{
+  color:var(--y-ink);
+  font-weight:600;
+}
+
+.media-pair{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.media-pair.single{grid-template-columns:1fr}
+.media-frame{
+  position:relative;
+  aspect-ratio:16/10;
+  border:1px solid var(--y-line);
+  border-radius:14px;
+  overflow:hidden;
+  background:#ecebe6;
+}
+.media-frame.wide{aspect-ratio:16/8.5}
+.media-frame>img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:2;
+}
+.media-frame>img.contain{
+  object-fit:contain;
+  background:#f4f4f1;
+}
+.media-frame>img.is-missing{display:none!important}
+.slot-fallback{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  display:flex;
+  align-items:flex-end;
+  padding:18px;
+  background:linear-gradient(135deg,#efeee9,#e5e4df);
+}
+.slot-fallback b{
+  font-size:14px;
+  line-height:1.3;
+}
+
+.detail-block{
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  border:1px solid var(--y-line);
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--y-line);
+}
+.detail-block>div{
+  padding:15px;
+  background:var(--y-paper);
+  min-height:115px;
+}
+.detail-block label{
+  display:block;
+  font:9px/1.4 var(--y-mono);
+  letter-spacing:.1em;
+  color:#868680;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.detail-block p{
+  margin:0;
+  font-size:13px;
+  line-height:1.58;
+  color:#4b4b46;
+}
+
+.tech-note{
+  margin-top:16px;
+  padding:14px 16px;
+  background:#f2f5f7;
+  border-left:3px solid #b8c7d4;
+  color:#48555f;
+  font-size:13px;
+  line-height:1.62;
+}
+
+.result-band{
+  margin-top:18px;
+  padding:16px 18px;
+  border:1px solid var(--y-line);
+  border-radius:12px;
+  background:#fbfbf9;
+  display:grid;
+  grid-template-columns:125px 1fr;
+  gap:18px;
+}
+.result-band span{
+  font:9px/1.45 var(--y-mono);
+  color:var(--y-accent);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.result-band p{
+  margin:0;
+  font-size:14px;
+  line-height:1.62;
+  color:#3f3f3b;
+}
+
+.takeaway p{
+  font-size:clamp(21px,2vw,28px)!important;
+  line-height:1.35!important;
+  letter-spacing:-.018em!important;
+  max-width:900px;
+}
+
+@media(max-width:900px){
+  .deep-head,.deep-grid{grid-template-columns:1fr}
+  .detail-block{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .case-nav .inner{width:calc(100% - 28px)}
+  .media-pair{grid-template-columns:1fr}
+  .logic-row{grid-template-columns:1fr;gap:6px}
+  .result-band{grid-template-columns:1fr;gap:8px}
+}
+
+/* V40 — uniform media system
+   One production rule for every Yaloo still / GIF:
+   1920x1080 source, 16:9 display.
+*/
+.hero-media .hero-slot,
+.media-frame,
+.media-frame.wide{
+  aspect-ratio:16/9;
+}
+
+.media-slot>img,
+.media-frame>img{
+  object-fit:contain;
+  background:#f4f4f1;
+}
+
+.media-slot>img.final-art,
+.media-frame>img.final-art{
+  object-fit:cover;
+}
+
+@media(max-width:620px){
+  .hero-media .hero-slot,
+  .media-frame,
+  .media-frame.wide{
+    aspect-ratio:16/9;
+  }
+}
+
+
+/* V41 — real surviving media + Vimeo transition */
+.vimeo-video{
+  position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  border:1px solid var(--y-line);
+  border-radius:14px;
+  background:#050505;
+}
+.vimeo-video iframe{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:92%;
+  height:122.67%;
+  transform:translate(-50%,-50%);
+  border:0;
+  background:#050505;
+  display:block;
+  pointer-events:none;
+}
+.video-controls{
+  position:absolute;
+  left:14px;
+  right:14px;
+  bottom:11px;
+  z-index:5;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:12px;
+  align-items:center;
+}
+.video-seek{display:flex;align-items:center}
+.video-seek input,
+.video-volume input{
+  appearance:none;
+  -webkit-appearance:none;
+  background:transparent;
+  cursor:pointer;
+  margin:0;
+}
+.video-seek input{width:100%}
+.video-seek input::-webkit-slider-runnable-track,
+.video-volume input::-webkit-slider-runnable-track{
+  height:3px;border-radius:999px;
+  background:linear-gradient(to right,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.95) var(--progress,0%),
+    rgba(255,255,255,.30) var(--progress,0%),
+    rgba(255,255,255,.30) 100%);
+}
+.video-seek input::-webkit-slider-thumb,
+.video-volume input::-webkit-slider-thumb{
+  -webkit-appearance:none;width:10px;height:10px;margin-top:-3.5px;
+  border:0;border-radius:50%;background:#fff;
+}
+.video-seek input::-moz-range-track,
+.video-volume input::-moz-range-track{
+  height:3px;border-radius:999px;background:rgba(255,255,255,.30);
+}
+.video-seek input::-moz-range-thumb,
+.video-volume input::-moz-range-thumb{
+  width:10px;height:10px;border:0;border-radius:50%;background:#fff;
+}
+.video-volume{
+  display:flex;align-items:center;gap:8px;min-width:170px;
+  padding:5px 8px;border-radius:999px;background:rgba(0,0,0,.48);
+  backdrop-filter:blur(6px);
+}
+.video-volume button{
+  border:0;padding:0;background:transparent;color:#fff;cursor:pointer;
+  font:9px/1.2 var(--y-mono);letter-spacing:.08em;min-width:44px;
+}
+.video-volume input{width:105px}
+.video-cap{
+  display:flex;justify-content:space-between;gap:16px;margin-top:8px;
+  color:#85857f;font:9px/1.5 var(--y-mono);letter-spacing:.05em;text-transform:uppercase;
+}
+.installation-section{
+  padding:64px 0;
+  border-top:1px solid var(--y-line);
+}
+.installation-section .deep-head{margin-bottom:24px}
+@media(max-width:620px){
+  .video-controls{grid-template-columns:1fr;gap:4px;left:10px;right:10px;bottom:8px}
+  .video-volume{justify-self:end;min-width:150px}
+  .video-volume input{width:85px}
+  .video-cap{flex-direction:column;gap:2px}
+}
+
+</style>
+<style id="tgc-native-vimeo-override">
+/* thatgamecompany version:
+   Preserve the existing media containers and source videos,
+   but let Vimeo provide its own standard playback UI. */
+.vimeo-video iframe,
+.gang-reel iframe,
+.hero-media.hero-video iframe,
+.reel iframe,
+.vr-reel iframe,
+.hero-vimeo-loop iframe,
+.facial-vimeo-loop iframe{
+  top:0!important;
+  left:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  transform:none!important;
+  pointer-events:auto!important;
+}
+.video-controls,
+.hero-controls,
+.reel-controls,
+.vr-reel-controls,
+.gang-reel-controls,
+.hero-seek,
+.hero-volume,
+.reel-seek,
+.reel-volume,
+.vr-reel-seek,
+.vr-reel-volume,
+.gang-reel-seek,
+.gang-reel-volume{
+  display:none!important;
+}
+</style></head>
+<body>
+<header class="topbar">
+<div class="shell">
+<a class="brand" href="../Microsoft_Research_Self_Improving_AI_Portfolio_JonghoonAhn.html">Jonghoon Ahn<span>.</span></a>
+<nav class="nav">
+<a href="../Microsoft_Research_Self_Improving_AI_Portfolio_JonghoonAhn.html">Work</a>
+<a href="../Microsoft_Research_Self_Improving_AI_Portfolio_JonghoonAhn.html">Expertise</a>
+<a href="../Microsoft_Research_Self_Improving_AI_Portfolio_JonghoonAhn.html">About</a>
+</nav>
+</div>
+</header>
+<main>
+<section class="project-hero">
+<div class="shell">
+<div class="project-top">
+<span class="eyebrow">05 / SUPPORTING · DIGITAL HUMAN / AGE VARIATION</span>
+<span class="eyebrow">2024</span>
+</div>
+<h1>Yaloo Digital Human</h1>
+<p class="dek">
+      A digital-human age-variation study built from a depth-video MetaHuman identity:
+      a child version using a CC4 body, plus middle-aged and elderly states created through
+      material-driven surface changes rather than separate character rebuilds.
+    </p>
+<div class="meta-row">
+<div class="meta"><div class="k">Role</div><div class="v">Technical Artist</div></div>
+<div class="meta"><div class="k">Period</div><div class="v">2024</div></div>
+<div class="meta"><div class="k">Focus</div><div class="v">Digital Human · Age Variation</div></div>
+<div class="meta"><div class="k">Stack</div><div class="v">MetaHuman Identity · Depth Video · CC4 · Material Lookdev</div></div>
+</div>
+<div class="hero-media">
+<div class="media-slot hero-slot">
+<img alt="Yaloo digital human presented at installation scale" class="final-art" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/yaloo/00_hero_installation.jpg"/>
+<div class="media-fallback"><strong>DIGITAL HUMAN · INSTALLATION CONTEXT</strong></div>
+</div>
+</div>
+</div>
+</section>
+<nav aria-label="Yaloo case study sections" class="case-nav">
+<div class="inner">
+<a href="#identity">01 Identity</a>
+<a href="#child">02 Child Body</a>
+<a href="#age-lookdev">03 Age Lookdev</a>
+<a href="#transition">04 Material Transition</a>
+<a href="#installation">05 Installation Context</a>
+</div>
+</nav>
+<section class="pipeline-wrap">
+<div class="shell">
+<span class="eyebrow">PIPELINE</span>
+<div class="pipeline" style="margin-top:12px">
+<div class="pipe-node"><span class="n">01</span><b>Depth Video</b></div>
+<div class="pipe-node"><span class="n">02</span><b>MetaHuman Identity</b></div>
+<div class="pipe-node"><span class="n">03</span><b>Adult Base</b></div>
+<div class="pipe-node"><span class="n">04</span><b>CC4 Child Body</b></div>
+<div class="pipe-node"><span class="n">05</span><b>Age-State Materials</b></div>
+<div class="pipe-node"><span class="n">06</span><b>Material Transition</b></div>
+</div>
+</div>
+</section>
+<div class="shell">
+<section class="ownership">
+<h2>What I owned</h2>
+<div>
+<p>
+      I built the practical age-variant character pipeline: processing the depth-video source into a
+      MetaHuman identity, adapting a separate child body, developing the middle-aged and elderly surface states,
+      and creating smooth material transitions between age variants.
+    </p>
+<p class="boundary">
+      The middle-aged and elderly versions were material and texture variations of the adult character,
+      not separate reconstructed meshes. The child version used a CC4 child body combined with the MetaHuman head.
+    </p>
+</div>
+</section>
+<section class="deep-section" id="identity">
+<div class="deep-head">
+<div class="deep-index">TASK 01 / IDENTITY</div>
+<div>
+<h2>Depth Video → MetaHuman Identity</h2>
+<p>
+        The first task was to establish a recognizable digital-human base from the available depth-video source
+        without creating a custom character from scratch.
+      </p>
+</div>
+</div>
+<div class="deep-grid">
+<div class="logic-card">
+<div class="logic-row"><span>Problem</span><p>Create a recognizable real-time Yaloo identity from captured source data.</p></div>
+<div class="logic-row"><span>Decision</span><p>Use the depth-video capture as the source for MetaHuman Identity.</p></div>
+<div class="logic-row"><span>Implementation</span><p>Processed the captured facial data through MetaHuman Identity to establish the base face and production character framework.</p></div>
+<div class="logic-row result"><span>Result</span><p>A consistent adult identity that could serve as the shared base for later age states.</p></div>
+</div>
+<div class="media-pair single">
+<div class="media-frame wide">
+<img alt="Yaloo source-to-digital-human identity development evidence" class="contain" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/yaloo/01_identity_evidence.jpg"/>
+<div class="slot-fallback"><b>IDENTITY DEVELOPMENT · SOURCE / DIGITAL HUMAN</b></div>
+</div>
+</div>
+</div>
+<div class="detail-block">
+<div><label>Source</label><p>Depth-video capture of the real subject.</p></div>
+<div><label>Character strategy</label><p>Build one reliable adult identity first, then derive age variants from that shared identity.</p></div>
+<div><label>Production value</label><p>A consistent facial base reduced unnecessary re-authoring across the different age states.</p></div>
+</div>
+</section>
+<section class="deep-section" id="child">
+<div class="deep-head">
+<div class="deep-index">TASK 02 / PROPORTION</div>
+<div>
+<h2>Child Body Adaptation</h2>
+<p>
+        The child state could not be solved convincingly through surface aging alone because the body proportions
+        needed to change. I kept the identity-bearing MetaHuman head and changed the body solution instead.
+      </p>
+</div>
+</div>
+<div class="deep-grid">
+<div class="logic-card">
+<div class="logic-row"><span>Problem</span><p>The adult body proportions did not read as a younger character.</p></div>
+<div class="logic-row"><span>Decision</span><p>Preserve the MetaHuman head while replacing the body with a CC4 child body.</p></div>
+<div class="logic-row"><span>Implementation</span><p>Integrated the CC4 child body with the MetaHuman head to create a younger silhouette and proportion set.</p></div>
+<div class="logic-row result"><span>Result</span><p>A child variant that retained the recognizable facial identity while changing the body proportions.</p></div>
+</div>
+</div>
+<div class="tech-note">
+    The child version represents a structural change in body proportion. This is different from the middle-aged and elderly
+    states, which intentionally reused the adult geometry and changed the surface presentation instead.
+  </div>
+</section>
+<section class="deep-section" id="age-lookdev">
+<div class="deep-head">
+<div class="deep-index">TASK 03 / AGE LOOKDEV</div>
+<div>
+<h2>Middle-Aged &amp; Elderly Surface States</h2>
+<p>
+        For the older states, the goal was not to rebuild the mesh. The production decision was to preserve the adult
+        character geometry and express aging through controlled texture and material variation.
+      </p>
+</div>
+</div>
+<div class="deep-grid">
+<div class="logic-card">
+<div class="logic-row"><span>Problem</span><p>Create clearly different age reads while maintaining a consistent character identity.</p></div>
+<div class="logic-row"><span>Decision</span><p>Keep the adult mesh and create age-specific texture/material states.</p></div>
+<div class="logic-row"><span>Implementation</span><p>Developed separate middle-aged and elderly material variants rather than reconstructing new geometry for each state.</p></div>
+<div class="logic-row result"><span>Result</span><p>Three readable life stages with a shared facial base and lower character-management complexity.</p></div>
+</div>
+</div>
+<div class="detail-block">
+<div><label>Identity continuity</label><p>The same recognizable facial identity remains the anchor across age states.</p></div>
+<div><label>Geometry strategy</label><p>Only the child body required a structural body change; older variants remained material-driven.</p></div>
+<div><label>Trade-off</label><p>This approach prioritizes fast, controllable age variation over separate high-cost character rebuilds.</p></div>
+</div>
+</section>
+<section class="deep-section" id="transition">
+<div class="deep-head">
+<div class="deep-index">TASK 04 / TRANSITION</div>
+<div>
+<h2>Material-Driven Age Transition</h2>
+<p>
+        The age states were designed to transition, not only to exist as separate still characters.
+        I used smooth material fades to move between the middle-aged and elderly surface states without swapping geometry.
+      </p>
+</div>
+</div>
+<div class="deep-grid">
+<div class="logic-card">
+<div class="logic-row"><span>Problem</span><p>Hard switching between age states would make the transformation feel like an asset replacement.</p></div>
+<div class="logic-row"><span>Decision</span><p>Keep the geometry stable and transition the age-specific surface states through material blending.</p></div>
+<div class="logic-row"><span>Implementation</span><p>Prepared separate age materials and animated smooth fade in/out behavior between the states.</p></div>
+<div class="logic-row result"><span>Result</span><p>A continuous visual aging transition without topology changes between the adult age variants.</p></div>
+</div>
+<div class="media-pair single">
+<div>
+<div class="vimeo-video">
+<iframe allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" id="yalooTransitionVimeo" referrerpolicy="strict-origin-when-cross-origin" src="https://player.vimeo.com/video/1219176797?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;playsinline=1&amp;controls=1&amp;dnt=1" title="Yaloo digital human">
+</iframe>
+<div class="video-controls">
+<div class="video-seek">
+<input aria-label="Seek video" class="js-seek" max="1000" min="0" step="1" type="range" value="0"/>
+</div>
+<div class="video-volume">
+<button aria-label="Unmute video" aria-pressed="true" class="js-mute" type="button">MUTED</button>
+<input aria-label="Video volume" class="js-volume" max="100" min="0" step="1" type="range" value="0"/>
+</div>
+</div>
+</div>
+<div class="video-cap"><span>DIGITAL-HUMAN AGE / MATERIAL STUDY</span><span>VIMEO · AUTOPLAY · TIMELINE + VOLUME</span></div>
+</div>
+</div>
+</div>
+<div class="result-band">
+<span>Pipeline result</span>
+<p>
+      The final setup separates the age problem into two production strategies:
+      structural adaptation for the child body, and surface/material adaptation for middle-aged and elderly states.
+      That kept the identity consistent while avoiding unnecessary geometry rebuilds.
+    </p>
+</div>
+</section>
+<section class="installation-section" id="installation">
+<div class="deep-head">
+<div class="deep-index">05 / INSTALLATION CONTEXT</div>
+<div>
+<h2>Digital Human at Installation Scale</h2>
+<p>
+        The final digital-human imagery was also presented at architectural scale.
+        This context made facial silhouette, material response, and expression legibility visible beyond a close-up development viewport.
+      </p>
+</div>
+</div>
+<div class="media-pair single">
+<div class="media-frame wide">
+<img alt="Yaloo digital human shown in installation-scale presentation" class="contain" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/yaloo/02_installation_context.jpg"/>
+<div class="slot-fallback"><b>INSTALLATION-SCALE PRESENTATION</b></div>
+</div>
+</div>
+</section>
+<section class="takeaway">
+<span class="eyebrow">TAKEAWAY</span>
+<p>
+    A compact digital-human case focused on choosing the right level of intervention:
+    rebuild proportions when age changes the body, reuse geometry when surface variation is enough,
+    and keep the underlying identity consistent across the full age range.
+  </p>
+<div class="pager">
+<a class="btn" href="gang-se-hwang.html">← Previous</a>
+<a class="btn primary" href="../Microsoft_Research_Self_Improving_AI_Portfolio_JonghoonAhn.html">Back to Work</a>
+</div>
+</section>
+</div>
+</main>
+<footer class="footer">
+<div class="shell">
+<div>
+<strong>Jonghoon Ahn</strong><br/>
+<small>Ph.D. Research · Human-AI Interaction</small>
+</div>
+<div>
+<small>Digital Human · Performance Capture · Real-Time R&amp;D</small>
+</div>
+</div>
+</footer>
+<script>
+function tryMediaFallback(img){
+  const list=(img.dataset.fallbacks||"").split("|").filter(Boolean);
+  const i=parseInt(img.dataset.fallbackIndex||"0",10);
+  if(i<list.length){
+    img.dataset.fallbackIndex=String(i+1);
+    img.src=list[i];
+  }else{
+    img.classList.add("is-missing");
+  }
+}
+</script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function(){
+  document.querySelectorAll('.vimeo-video').forEach(function(root){
+    const iframe=root.querySelector('iframe');
+    const seek=root.querySelector('.js-seek');
+    const muteBtn=root.querySelector('.js-mute');
+    const volume=root.querySelector('.js-volume');
+    if(!iframe||!seek||!muteBtn||!volume||typeof Vimeo==='undefined') return;
+
+    const player=new Vimeo.Player(iframe);
+    let duration=0, dragging=false, lastVolume=.7;
+
+    function paint(input,pct){
+      input.style.setProperty('--progress',Math.max(0,Math.min(100,pct))+'%');
+    }
+    function updateMuteUI(isMuted,vol){
+      const silent=isMuted||vol<=.001;
+      muteBtn.textContent=silent?'MUTED':'SOUND';
+      muteBtn.setAttribute('aria-label',silent?'Unmute video':'Mute video');
+      muteBtn.setAttribute('aria-pressed',silent?'true':'false');
+    }
+
+    player.getDuration().then(d=>duration=d||0).catch(()=>{});
+    player.on('timeupdate',data=>{
+      if(!dragging&&data.duration){
+        duration=data.duration;
+        const value=Math.round((data.seconds/data.duration)*1000);
+        seek.value=value;
+        paint(seek,value/10);
+      }
+    });
+
+    seek.addEventListener('pointerdown',()=>dragging=true);
+    seek.addEventListener('input',()=>{
+      const value=Number(seek.value);
+      paint(seek,value/10);
+      if(duration>0) player.setCurrentTime((value/1000)*duration).catch(()=>{});
+    });
+    ['change','pointerup','pointercancel'].forEach(evt=>seek.addEventListener(evt,()=>dragging=false));
+
+    muteBtn.addEventListener('click',async()=>{
+      try{
+        const isMuted=await player.getMuted();
+        if(isMuted||Number(volume.value)===0){
+          const restore=Math.max(.05,lastVolume);
+          await player.setMuted(false);
+          await player.setVolume(restore);
+          volume.value=String(Math.round(restore*100));
+          paint(volume,Number(volume.value));
+          updateMuteUI(false,restore);
+        }else{
+          const current=await player.getVolume();
+          if(current>.001) lastVolume=current;
+          await player.setMuted(true);
+          volume.value='0';
+          paint(volume,0);
+          updateMuteUI(true,0);
+        }
+      }catch(e){}
+    });
+
+    volume.addEventListener('input',async()=>{
+      const v=Math.max(0,Math.min(1,Number(volume.value)/100));
+      paint(volume,Number(volume.value));
+      try{
+        if(v>0){
+          lastVolume=v;
+          await player.setMuted(false);
+          await player.setVolume(v);
+          updateMuteUI(false,v);
+        }else{
+          await player.setMuted(true);
+          updateMuteUI(true,0);
+        }
+      }catch(e){}
+    });
+
+    volume.value='0';
+    paint(volume,0);
+    paint(seek,0);
+    updateMuteUI(true,0);
+  });
+})();
+</script>
+</body>
+</html>
