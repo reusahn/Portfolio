@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Row, Row, Row Your Boat — Jonghoon Ahn</title>
+<style>
+:root{
+  --bg:#f7f7f4;--paper:#fff;--ink:#111;--muted:#666660;--line:#deddd8;
+  --soft:#ecebe6;--accent:#244968;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,"Helvetica Neue",Arial,sans-serif
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{display:block}
+.shell{width:min(calc(100% - 56px),1320px);margin:auto}
+.narrow{width:min(calc(100% - 56px),1120px);margin:auto}
+.eyebrow{font:10px/1.4 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:#85857f}
+
+/* navigation */
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-inner{height:62px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{text-decoration:none;font-weight:700;letter-spacing:-.02em}
+.nav{display:flex;gap:22px;font-size:13px;color:var(--muted)}
+.nav a{text-decoration:none}
+
+/* hero */
+.hero{padding:62px 0 46px;background:var(--paper);border-bottom:1px solid var(--line)}
+.hero-top{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.hero h1{font-size:clamp(38px,3.9vw,52px);line-height:1.08;letter-spacing:-.038em;margin:14px 0 16px}
+.lede{font-size:clamp(16px,1.25vw,18px);line-height:1.62;max-width:900px;color:#353532;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:20px;font-size:13.5px;color:var(--muted)}
+.meta b{color:var(--ink)}
+.hero-media{position:relative;aspect-ratio:16/8.5;margin-top:32px;overflow:hidden;border:1px solid var(--line);border-radius:18px;background:var(--soft)}
+
+/* media */
+.hero-media img,.media img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2
+}
+.hero-media img.contain,.media img.contain{object-fit:contain;background:#f4f4f1}
+.hero-media img.is-missing,.media img.is-missing{display:none!important}
+.fallback{position:absolute;inset:0;z-index:1;display:flex;align-items:flex-end;padding:20px;background:linear-gradient(135deg,#efeee9,#e5e4df)}
+.fallback b{font-size:15px;line-height:1.3}
+.media{position:relative;aspect-ratio:16/10;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--soft)}
+.media.wide{aspect-ratio:16/8.5}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.media-grid.single{grid-template-columns:1fr}
+
+/* overview */
+.overview{padding:48px 0 56px;background:var(--paper);border-bottom:1px solid var(--line)}
+.overview-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px}
+.overview h2{font-size:clamp(25px,2.05vw,31px);line-height:1.2;letter-spacing:-.025em;margin:9px 0 14px}
+.overview p{margin:0;color:#484844;font-size:15px;line-height:1.7}
+.scope{border-top:1px solid var(--line)}
+.scope-row{display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px}
+.scope-row span{font:9px/1.5 var(--mono);letter-spacing:.09em;color:#888882}
+.scope-row strong{text-align:right;font-weight:650}
+
+/* pipeline */
+.pipeline-wrap{background:var(--paper);border-bottom:1px solid var(--line)}
+.pipeline{display:grid;grid-template-columns:repeat(6,1fr)}
+.pipe{padding:17px 18px;border-right:1px solid var(--line)}
+.pipe:last-child{border-right:0}
+.pipe span{display:block;font:9px/1.4 var(--mono);letter-spacing:.1em;color:#8a8a84}
+.pipe b{display:block;margin-top:6px;font-size:13px;line-height:1.35}
+
+/* jump nav */
+.case-nav{background:var(--paper);border-bottom:1px solid var(--line)}
+.case-nav .inner{width:min(calc(100% - 56px),1120px);margin:auto;padding:13px 0;display:flex;gap:7px;flex-wrap:wrap}
+.case-nav a{text-decoration:none;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fafaf8;color:var(--muted);font:10px/1.3 var(--mono)}
+
+/* chapters */
+.chapter{padding:68px 0;border-bottom:1px solid var(--line)}
+.chapter-head{display:grid;grid-template-columns:145px 1fr;gap:28px;margin-bottom:28px}
+.chapter-num{font:10px/1.45 var(--mono);letter-spacing:.11em;color:var(--accent)}
+.chapter h2{margin:0 0 11px;font-size:clamp(25px,2.25vw,33px);line-height:1.18;letter-spacing:-.025em}
+.chapter-head p{margin:0;max-width:880px;color:#555550;font-size:15.5px;line-height:1.68}
+
+/* deep tasks */
+.task-deep{display:grid;grid-template-columns:145px 1fr;gap:28px;padding:25px 0;border-top:1px solid var(--line)}
+.task-kicker{font:10px/1.45 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}
+.task-deep h3{margin:0 0 9px;font-size:20px;line-height:1.24;letter-spacing:-.02em}
+.summary{max-width:900px;margin:0 0 16px;color:#4f4f4a;font-size:14.5px;line-height:1.68}
+.fact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--line)}
+.fact-grid>div{min-height:112px;padding:14px;background:var(--paper)}
+.fact-grid label{display:block;margin-bottom:7px;font:9px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#898983}
+.fact-grid p{margin:0;color:#484844;font-size:13px;line-height:1.57}
+.fact-grid strong{color:var(--ink)}
+.note{margin-top:14px;padding:14px 16px;border-left:3px solid #b8c7d4;background:#f2f5f7;color:#48555f;font-size:13px;line-height:1.62}
+.result{margin-top:16px;display:grid;grid-template-columns:125px 1fr;gap:18px;padding:15px 17px;border:1px solid var(--line);border-radius:12px;background:#fbfbf9}
+.result span{font:9px/1.45 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.result p{margin:0;font-size:14px;line-height:1.62;color:#3f3f3b}
+.system-flow{margin-top:17px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--line)}
+.system-flow>div{min-height:92px;padding:14px;background:var(--paper)}
+.system-flow span{font:9px/1.4 var(--mono);letter-spacing:.09em;color:#8a8a84}
+.system-flow b{display:block;margin-top:8px;font-size:13px;line-height:1.35}
+.compare-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}
+.compare-table th,.compare-table td{border-top:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top}
+.compare-table th{width:20%;font:9px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#85857f;font-weight:500}
+.compare-table td{color:#474743}
+.compare-table tr:last-child td,.compare-table tr:last-child th{border-bottom:1px solid var(--line)}
+.chapter-outcome{display:grid;grid-template-columns:145px 1fr;gap:28px;margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
+.chapter-outcome span{font:10px/1.4 var(--mono);letter-spacing:.11em;color:var(--accent)}
+.chapter-outcome p{margin:0;max-width:860px;color:#33332f;font-size:15px;line-height:1.68}
+
+/* takeaway */
+.takeaway{padding:64px 0 82px;background:var(--paper)}
+.takeaway .big{margin:10px 0 30px;max-width:930px;font-size:clamp(23px,2.15vw,31px);line-height:1.3;letter-spacing:-.02em}
+.pager{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:10px 15px;border:1px solid #c8c7c1;border-radius:5px;text-decoration:none;font-size:13px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.footer{padding:40px 0 60px;color:var(--muted);font-size:13px}
+.footer-inner{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:20px;border-top:1px solid var(--line)}
+
+@media(max-width:960px){
+  .overview-grid,.chapter-head,.task-deep,.chapter-outcome{grid-template-columns:1fr}
+  .fact-grid{grid-template-columns:1fr 1fr}
+  .pipeline{grid-template-columns:repeat(3,1fr)}
+  .pipe:nth-child(3){border-right:0}
+  .pipe:nth-child(-n+3){border-bottom:1px solid var(--line)}
+}
+@media(max-width:620px){
+  .shell,.narrow,.case-nav .inner{width:calc(100% - 28px)}
+  .nav{display:none}
+  .hero h1{font-size:clamp(34px,10vw,44px)}
+  .media-grid,.fact-grid,.pipeline,.system-flow{grid-template-columns:1fr}
+  .pipe{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe:last-child{border-bottom:0}
+  .result{grid-template-columns:1fr;gap:8px}
+}
+
+/* V36 — uniform media system
+   One production rule for every Row still / GIF:
+   1920x1080 source, 16:9 display.
+*/
+.hero-media{
+  aspect-ratio:16/9;
+}
+.media,
+.media.wide{
+  aspect-ratio:16/9;
+}
+.hero-media img,
+.media img{
+  object-fit:contain;
+  background:#f4f4f1;
+}
+.hero-media img.final-art,
+.media img.final-art{
+  object-fit:cover;
+}
+@media(max-width:620px){
+  .hero-media,
+  .media,
+  .media.wide{
+    aspect-ratio:16/9;
+  }
+}
+
+
+/* V44 — Row hero is a Vimeo project video, not a still image.
+   Keep the supplied Vimeo 4:3 presentation ratio.
+   All chapter still/GIF media remain 16:9.
+*/
+.hero-media.hero-video{
+  aspect-ratio:4/3;
+  background:#111;
+}
+.hero-media.hero-video iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}
+.hero-video-cap{
+  width:min(calc(100% - 56px),1320px);
+  margin:9px auto 0;
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  font:10px/1.5 var(--mono);
+  letter-spacing:.04em;
+  color:#8a8a84;
+}
+@media(max-width:620px){
+  .hero-media.hero-video{
+    aspect-ratio:16/9;
+  }
+  .hero-video-cap{
+    width:calc(100% - 28px);
+    flex-direction:column;
+    gap:2px;
+  }
+}
+
+
+/* V45 — official presentation / public credit */
+.official-credit{
+  padding:34px 0 38px;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+.official-credit-card{
+  display:grid;
+  grid-template-columns:160px 1fr auto;
+  gap:26px;
+  align-items:center;
+  padding:20px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.official-credit-label{
+  font:9px/1.45 var(--mono);
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:#85857f;
+}
+.official-credit-main h2{
+  margin:0;
+  font-size:18px;
+  line-height:1.35;
+  letter-spacing:-.015em;
+}
+.official-credit-main p{
+  margin:5px 0 0;
+  color:#62625d;
+  font-size:13px;
+  line-height:1.58;
+}
+.official-credit-main strong{color:var(--ink)}
+.official-credit-link{
+  white-space:nowrap;
+  display:inline-block;
+  padding:7px 10px;
+  border:1px solid #c9c9c4;
+  border-radius:999px;
+  text-decoration:none;
+  font:9px/1.3 var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#51514d;
+  background:#fbfbf9;
+}
+.official-credit-link:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+@media(max-width:760px){
+  .official-credit-card{
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+  .official-credit-link{
+    width:max-content;
+    margin-top:4px;
+  }
+}
+
+
+/* V46 — full-bleed autoplay hero video
+   Vimeo background mode removes player chrome / unmute overlay,
+   autoplays muted, and loops.
+*/
+.hero-media.hero-video{
+  position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:#000;
+  border:0;
+  border-radius:18px;
+}
+.hero-media.hero-video iframe{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:102%;
+  height:102%;
+  min-width:102%;
+  min-height:102%;
+  transform:translate(-50%,-50%);
+  border:0;
+  display:block;
+  pointer-events:none;
+}
+.hero-video-cap{
+  margin-top:10px;
+}
+@media(max-width:620px){
+  .hero-media.hero-video{
+    aspect-ratio:16/9;
+  }
+}
+
+
+/* V48 — custom draggable Vimeo seek bar
+   Keep Vimeo in background mode for full-frame autoplay without player chrome,
+   but expose a minimal interactive timeline.
+*/
+.hero-media.hero-video{
+  position:relative;
+}
+.hero-seek{
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:14px;
+  z-index:8;
+  height:18px;
+  display:flex;
+  align-items:center;
+  pointer-events:auto;
+}
+.hero-seek input[type="range"]{
+  width:100%;
+  margin:0;
+  appearance:none;
+  -webkit-appearance:none;
+  height:18px;
+  background:transparent;
+  cursor:pointer;
+}
+.hero-seek input[type="range"]::-webkit-slider-runnable-track{
+  height:3px;
+  border-radius:999px;
+  background:linear-gradient(
+    to right,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.95) var(--seek-progress,0%),
+    rgba(255,255,255,.32) var(--seek-progress,0%),
+    rgba(255,255,255,.32) 100%
+  );
+}
+.hero-seek input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:11px;
+  height:11px;
+  margin-top:-4px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.28);
+}
+.hero-seek input[type="range"]::-moz-range-track{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.32);
+}
+.hero-seek input[type="range"]::-moz-range-progress{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.95);
+}
+.hero-seek input[type="range"]::-moz-range-thumb{
+  width:11px;
+  height:11px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.28);
+}
+.hero-media.hero-video:hover .hero-seek input[type="range"]::-webkit-slider-thumb,
+.hero-seek input[type="range"]:focus-visible::-webkit-slider-thumb{
+  width:13px;
+  height:13px;
+  margin-top:-5px;
+}
+@media(max-width:620px){
+  .hero-seek{
+    left:12px;
+    right:12px;
+    bottom:10px;
+  }
+}
+
+
+/* V49 — custom timeline + sound controls */
+.hero-controls{
+  position:absolute;
+  left:16px;
+  right:16px;
+  bottom:12px;
+  z-index:10;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:14px;
+  align-items:center;
+  pointer-events:auto;
+}
+.hero-seek{
+  position:static;
+  left:auto;
+  right:auto;
+  bottom:auto;
+  height:20px;
+  display:flex;
+  align-items:center;
+}
+.hero-volume{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:170px;
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(0,0,0,.42);
+  backdrop-filter:blur(6px);
+}
+.hero-volume button{
+  appearance:none;
+  border:0;
+  padding:0;
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+  font:9px/1.2 var(--mono);
+  letter-spacing:.08em;
+  min-width:44px;
+}
+.hero-volume input[type="range"]{
+  width:105px;
+  margin:0;
+  appearance:none;
+  -webkit-appearance:none;
+  background:transparent;
+  cursor:pointer;
+}
+.hero-volume input[type="range"]::-webkit-slider-runnable-track{
+  height:3px;
+  border-radius:999px;
+  background:linear-gradient(
+    to right,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.95) var(--volume-progress,0%),
+    rgba(255,255,255,.32) var(--volume-progress,0%),
+    rgba(255,255,255,.32) 100%
+  );
+}
+.hero-volume input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:10px;
+  height:10px;
+  margin-top:-3.5px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+}
+.hero-volume input[type="range"]::-moz-range-track{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.32);
+}
+.hero-volume input[type="range"]::-moz-range-progress{
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.95);
+}
+.hero-volume input[type="range"]::-moz-range-thumb{
+  width:10px;
+  height:10px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+}
+@media(max-width:620px){
+  .hero-controls{
+    left:10px;
+    right:10px;
+    bottom:8px;
+    grid-template-columns:1fr;
+    gap:4px;
+  }
+  .hero-volume{
+    justify-self:end;
+    min-width:150px;
+  }
+  .hero-volume input[type="range"]{
+    width:85px;
+  }
+}
+
+</style>
+</head>
+<body>
+<header class="top">
+<div class="shell top-inner">
+<a class="brand" href="../bmw.html">Jonghoon Ahn.</a>
+<nav class="nav">
+<a href="../bmw.html#work">Work</a>
+<a href="../bmw.html#fit">Expertise</a>
+<a href="../bmw.html#process">About</a>
+</nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="narrow">
+<div class="hero-top">
+<span class="eyebrow">02 / SCALE · 10-PERSON DIGITAL HUMAN PRODUCTION</span>
+<span class="eyebrow">2026</span>
+</div>
+<h1>Row, Row, Row Your Boat</h1>
+<p class="lede">
+      Ten real participants became ten individually tuned MetaHumans and one canon-driven singing ensemble:
+      a production case about scaling capture intake, identity creation, per-character look development,
+      facial performance, editorial timing, head-motion stabilization, and multi-character delivery.
+    </p>
+<div class="meta">
+<span><b>Role</b> Technical Artist</span>
+<span><b>Period</b> 2026</span>
+<span><b>Engine</b> Unreal Engine</span>
+<span><b>Capture</b> iPhone Live Link Face · Depth Capture · Polycam fallback</span>
+<span><b>Character</b> MetaHuman Identity</span>
+<span><b>Performance</b> Live Link Face · MetaHuman facial animation · Body Control Rig</span>
+<span><b>Delivery</b> Two-channel square-panel installation loop</span>
+</div>
+</div>
+<div class="shell">
+<div class="hero-media hero-video">
+<iframe allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" id="rowHeroPlayer" referrerpolicy="strict-origin-when-cross-origin" src="https://player.vimeo.com/video/1219079996?autoplay=1&amp;muted=1&amp;loop=1&amp;controls=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1&amp;dnt=1" title="Row, Row, Row Your Boat — project video">
+</iframe>
+<div aria-label="Video controls" class="hero-controls">
+<div aria-label="Video timeline" class="hero-seek">
+<input aria-label="Seek video" id="rowHeroSeek" max="1000" min="0" step="1" type="range" value="0"/>
+</div>
+<div class="hero-volume">
+<button aria-label="Unmute video" aria-pressed="true" id="rowHeroMute" type="button">MUTED</button>
+<input aria-label="Video volume" id="rowHeroVolume" max="100" min="0" step="1" type="range" value="0"/>
+</div>
+</div>
+</div>
+</div>
+<div class="hero-video-cap">
+<span>ROW, ROW, ROW YOUR BOAT — PROJECT VIDEO</span>
+<span>Vimeo · 16:9 · autoplay · timeline + volume control</span>
+</div>
+</section>
+<section aria-label="Official presentation and public credit" class="official-credit">
+<div class="narrow">
+<div class="official-credit-card">
+<div class="official-credit-label">Official Presentation · Public Credit</div>
+<div class="official-credit-main">
+<h2>Now or Never Melbourne — <em>Row, Row, Row Your Boat</em></h2>
+<p>Official event listing and project credits. <strong>Technical Artist — Jonghoon Ahn</strong></p>
+</div>
+<a class="official-credit-link" href="https://nowornever.melbourne.vic.gov.au/event/row-your-boat" rel="noopener noreferrer" target="_blank">Official + Credit ↗</a>
+</div>
+</div>
+</section>
+<section class="overview">
+<div class="narrow overview-grid">
+<div>
+<div class="eyebrow">OVERVIEW</div>
+<h2>Scaling one facial-capture and MetaHuman workflow across ten different people.</h2>
+<p>
+        The performers were hired and recorded by the project artist using capture guidelines I provided.
+        For each participant, the source package included iPhone Live Link Face depth capture for identity,
+        a head-turn scan clip, a teeth-visible reference, and a separate singing performance recorded to a shared metronome.
+        My work began when those assets arrived: I processed all ten identities, handled corrupted or insufficient source cases,
+        tuned each character’s skin, eyes, teeth, and groom, rebuilt missing editorial beats in Sequencer,
+        stabilized facial head motion against the body setup, and prepared the final two-channel installation renders.
+      </p>
+</div>
+<div class="scope">
+<div class="scope-row"><span>OWNED</span><strong>All 10 MetaHuman identities + lookdev + facial editorial + render delivery</strong></div>
+<div class="scope-row"><span>CAPTURE INPUT</span><strong>Artist-recorded iPhone depth / facial footage following my technical guidelines</strong></div>
+<div class="scope-row"><span>IDENTITY FALLBACK</span><strong>Polycam head data when Live Link source failed</strong></div>
+<div class="scope-row"><span>INSTALLATION</span><strong>Two square panels · two-channel loop · front / side views</strong></div>
+</div>
+</div>
+</section>
+<section class="pipeline-wrap">
+<div class="shell pipeline">
+<div class="pipe"><span>01</span><b>Capture Guidelines + Source Intake</b></div>
+<div class="pipe"><span>02</span><b>10 MetaHuman Identities</b></div>
+<div class="pipe"><span>03</span><b>Per-Person Lookdev</b></div>
+<div class="pipe"><span>04</span><b>Canon Editorial</b></div>
+<div class="pipe"><span>05</span><b>Head / Body Stabilization</b></div>
+<div class="pipe"><span>06</span><b>Lighting + Two-Channel Delivery</b></div>
+</div>
+</section>
+<nav aria-label="Case study sections" class="case-nav">
+<div class="inner">
+<a href="#identity">01 Capture &amp; Identity</a>
+<a href="#lookdev">02 Lookdev &amp; Groom</a>
+<a href="#staging">03 Canon Staging</a>
+<a href="#editorial">04 Facial Editorial</a>
+<a href="#stability">05 Head / Body Stability</a>
+<a href="#delivery">06 Lighting &amp; Delivery</a>
+</div>
+</nav>
+<section class="chapter" id="identity">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">01 / CAPTURE &amp; IDENTITY SCALE</div>
+<div>
+<h2>Capture Guidelines → Ten MetaHuman Identities</h2>
+<p>
+          I did not operate the participant capture sessions directly. The project artist hired and recorded the performers,
+          while I defined the capture requirements and processed the resulting Live Link Face depth data into ten production characters.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div class="media">
+<img alt="Ten MetaHuman identities shown in a consistent grid" class="contain" data-fallbacks="../media/row/01_ten_face_grid.png" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/row/01_ten_face_grid.jpg"/>
+<div class="fallback"><b>10-PERSON IDENTITY GRID</b></div>
+</div>
+<div class="media">
+<img alt="iPhone Live Link Face depth capture to MetaHuman Identity" class="contain" data-fallbacks="../media/row/02_identity_pipeline.jpg" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/row/02_identity_pipeline.jpg"/>
+<div class="fallback"><b>LIVE LINK DEPTH → METAHUMAN IDENTITY → FINAL</b></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 01A / Capture Specification</div>
+<div>
+<h3>Defining the source package before the character work began</h3>
+<p class="summary">
+          The artist recorded the participants on iPhone using Live Link Face / depth capture according to the technical guidelines I provided.
+          The source package was designed to separate identity reconstruction from singing performance rather than asking one clip to serve every purpose.
+        </p>
+<div class="fact-grid">
+<div><label>Capture Operator</label><p>The project artist hired and recorded the participants; I provided the technical capture requirements.</p></div>
+<div><label>Identity Source</label><p>Front-oriented iPhone Live Link Face depth capture with controlled head movement for the MetaHuman Identity solve.</p></div>
+<div><label>Reference Clip</label><p>Additional footage included left/right head turns and a teeth-visible reference for character validation.</p></div>
+<div><label>Performance Clip</label><p>A separate singing take was recorded to a shared metronome so all performers had a common musical reference.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 01B / Ten Identity Builds</div>
+<div>
+<h3>Processing ten different faces through one repeatable MetaHuman Identity workflow</h3>
+<p class="summary">
+          I processed all ten participants through MetaHuman Identity, then evaluated the generated characters against the supplied reference material.
+          The repeated workflow was consistent, but the validation stage was necessarily individual because each source file and face failed differently.
+        </p>
+<div class="fact-grid">
+<div><label>Scale</label><p>Ten real participants processed individually.</p></div>
+<div><label>Identity</label><p>Live Link Face depth source → MetaHuman Identity → production character.</p></div>
+<div><label>Review</label><p>Compared facial proportions, skin, eyes, mouth / teeth visibility, and overall likeness against source footage.</p></div>
+<div><label>Goal</label><p>Keep the workflow repeatable without accepting the generated MetaHuman as automatically final.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 01C / Corrupted-Source Fallback</div>
+<div>
+<h3>Switching capture representation when a Live Link source file could not be used reliably</h3>
+<p class="summary">
+          The depth-capture path was the default, but it was not treated as the only acceptable source.
+          When a participant’s Live Link file failed, I used supplemental Polycam head data instead of forcing a broken input through the standard pipeline.
+        </p>
+<div class="system-flow">
+<div><span>01</span><b>Live Link Depth Source</b></div>
+<div><span>02</span><b>File / Solve Check</b></div>
+<div><span>03</span><b>Source Failure Detected</b></div>
+<div><span>04</span><b>Polycam Head Fallback</b></div>
+<div><span>05</span><b>Continue Identity Build</b></div>
+</div>
+<div class="result">
+<span>Production value</span>
+<p>The pipeline had a practical fallback for unusable capture files, allowing the ten-character build to continue without pretending that every participant arrived with identical source quality.</p>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 01D / Individual Validation</div>
+<div>
+<h3>Checking the specific failure modes that became obvious across ten different faces</h3>
+<p class="summary">
+          Working at this scale made recurring character problems easy to compare. I checked whether the skin tone drifted,
+          whether the groom color was too conspicuous, whether the teeth read correctly during singing,
+          and whether the MetaHuman eyes sat naturally inside the reconstructed face instead of intersecting or protruding through the skin.
+        </p>
+<div class="fact-grid">
+<div><label>Skin</label><p>Checked overall skin tone and whether the face became too bright or too dark under the shared lighting.</p></div>
+<div><label>Eyes</label><p>Checked for visible eye protrusion / intersection against the reconstructed facial surface.</p></div>
+<div><label>Mouth</label><p>Used teeth-visible source footage to judge mouth and teeth presentation during singing.</p></div>
+<div><label>Hair</label><p>Matched groom color and surface response so character differences remained believable rather than visually distracting.</p></div>
+</div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>CHAPTER OUTCOME</span>
+<p>The identity workflow scaled by standardizing capture requirements and MetaHuman processing while preserving a fallback path and per-person validation for the parts that could not be standardized.</p>
+</div>
+</div>
+</section>
+<section class="chapter" id="lookdev">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">02 / LOOKDEV &amp; GROOM STABILITY</div>
+<div>
+<h2>Per-Character Skin, Hair &amp; Five-MetaHuman Overlap</h2>
+<p>
+          The ensemble intentionally stacked five MetaHumans into nearly the same visual region.
+          That made skin balance, bright hair, groom density, shadowing, and unnecessary simulation more consequential than in a single-character render.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div class="media">
+<img alt="Per-character skin and hair look development comparison" class="final-art" data-fallbacks="../media/row/03_skin_hair_before_after.jpg" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/row/03_skin_hair_before_after.jpg"/>
+<div class="fallback"><b>SKIN / HAIR LOOKDEV — BEFORE / AFTER</b></div>
+</div>
+<div class="media">
+<img alt="Five overlapping MetaHumans with stable groom settings" class="final-art" data-fallbacks="../media/row/04_overlap_hair_stability.jpg" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/row/04_overlap_hair_stability.jpg"/>
+<div class="fallback"><b>FIVE-CHARACTER GROOM STABILITY</b></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 02A / Skin Balance</div>
+<div>
+<h3>Using both material response and additional key lighting when skin contrast became too large</h3>
+<p class="summary">
+          A single lighting setup did not produce equally readable skin across all participants.
+          When the visual difference became too strong, I adjusted roughness and, where necessary, introduced or changed key lighting rather than correcting everything with one global exposure.
+        </p>
+<div class="fact-grid">
+<div><label>Problem</label><p>Lighter faces could become overly bright while darker faces could lose readability in the same shared scene.</p></div>
+<div><label>Material Tool</label><p>Roughness adjustment was one of the primary character-level corrections.</p></div>
+<div><label>Lighting Tool</label><p>Added or modified key light contribution where material changes alone were not enough.</p></div>
+<div><label>Goal</label><p>Keep different participants distinct without allowing skin response to break the shared ensemble image.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 02B / Groom Tuning by Hair Type</div>
+<div>
+<h3>Reducing bright-groom response without flattening every character to the same settings</h3>
+<p class="summary">
+          Blonde and light-colored grooms reflected more aggressively and could become visually noisy in the render.
+          I pushed groom roughness toward a non-shiny response and reduced density on the brightest hair,
+          while darker Asian hair generally stayed much closer to the MetaHuman defaults.
+        </p>
+<div class="fact-grid">
+<div><label>Roughness</label><p>Raised toward a matte / non-shiny response when bright hair reflected too strongly.</p></div>
+<div><label>Density</label><p>Bright / blonde hair could be reduced to approximately <strong>0.0001</strong> where needed.</p></div>
+<div><label>Hair Width</label><p>Used an approximate hair-width value around <strong>0.0025</strong> in the tuned groom setup.</p></div>
+<div><label>Dark Hair</label><p>Darker Asian grooms generally remained closer to the default settings.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 02C / Five-Character Render Stability</div>
+<div>
+<h3>Keeping five overlapping MetaHumans at LOD 0 while simplifying unnecessary groom behavior</h3>
+<p class="summary">
+          Each visual group contained five overlapping MetaHumans, so the render had to carry high-detail faces and hair simultaneously.
+          I kept the characters at LOD 0 for the close facial presentation, used Deep Shadow on the grooms,
+          kept hair / shader quality in the Epic range rather than forcing every cinematic setting to maximum,
+          and disabled groom simulation because the characters did not need dynamic hair motion in this composition.
+        </p>
+<div class="fact-grid">
+<div><label>LOD</label><p>All five overlapping MetaHumans remained at <strong>LOD 0</strong>.</p></div>
+<div><label>Hair Shadow</label><p>Used Deep Shadow across the groom setups.</p></div>
+<div><label>Quality Trade-off</label><p>Hair / shader quality stayed in an Epic-level range instead of maximizing every cinematic option under five-character overlap.</p></div>
+<div><label>Simulation</label><p>Disabled groom simulation because overlap made unnecessary motion / instability more costly and the shot did not require it.</p></div>
+</div>
+<div class="result">
+<span>Result</span>
+<p>Five close-up digital humans could occupy the same composition with high-detail faces while groom behavior remained visually controlled and predictable.</p>
+</div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>CHAPTER OUTCOME</span>
+<p>The lookdev system was not one universal preset: shared production settings handled the ensemble baseline, while roughness, density, key lighting, and groom response were adjusted where individual characters visibly broke that baseline.</p>
+</div>
+</div>
+</section>
+<section class="chapter" id="staging">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">03 / CANON-DRIVEN STAGING</div>
+<div>
+<h2>Turning Vocal Entrances into Character Reveals</h2>
+<p>
+          The musical round was translated into a visual accumulation system.
+          Each singer lived under an Empty Actor, and the parent transform was used to reveal the character in time with the canon.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div class="media">
+<img alt="Sequencer canon entrance and Empty Actor reveal timing" class="contain" data-fallbacks="../media/row/05_canon_timeline.jpg" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/row/05_canon_timeline.jpg"/>
+<div class="fallback"><b>CANON ENTRANCE / EMPTY-ACTOR SCALE TIMELINE</b></div>
+</div>
+<div class="media">
+<img alt="Final overlapping five-character composition" class="final-art" data-fallbacks="../media/row/06_overlap_final.png" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/row/06_overlap_final.jpg"/>
+<div class="fallback"><b>INTENTIONAL OVERLAPPING SILHOUETTES</b></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 03A / Two Groups of Five</div>
+<div>
+<h3>Organizing ten people as two dense five-character ensembles</h3>
+<p class="summary">
+          The ten digital humans were divided into two groups of five.
+          Within each group, the characters occupied intentionally close positions so the faces and silhouettes accumulated as new voices entered.
+        </p>
+<div class="fact-grid">
+<div><label>Grouping</label><p>10 characters → two groups of 5.</p></div>
+<div><label>Composition</label><p>Near-overlap was intentional and central to the visual structure.</p></div>
+<div><label>Visual Logic</label><p>Increasing vocal density became increasing facial / silhouette density.</p></div>
+<div><label>Technical Cost</label><p>The same compositional decision created the five-MetaHuman groom and render constraints handled in lookdev.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 03B / Empty-Actor Reveal</div>
+<div>
+<h3>Collapsing and expanding the parent transform instead of building a new visibility system</h3>
+<p class="summary">
+          Each MetaHuman was attached under an Empty Actor.
+          I animated the parent’s X / Y scale so the character could remain visually collapsed inside the composition and expand outward when its vocal entrance arrived.
+        </p>
+<div class="system-flow">
+<div><span>01</span><b>Singer Waiting</b></div>
+<div><span>02</span><b>Empty Actor Collapsed</b></div>
+<div><span>03</span><b>Vocal Entrance</b></div>
+<div><span>04</span><b>X / Y Scale Expands</b></div>
+<div><span>05</span><b>Character Joins Ensemble</b></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 03C / Canon Timing</div>
+<div>
+<h3>Aligning the visual entrance directly to the recorded singer</h3>
+<p class="summary">
+          Because the actual singing performance was preserved in the final audio, the reveal was aligned to the performer’s real vocal entrance rather than an abstract animation cue.
+          Each additional voice therefore changed both the soundtrack and the visible composition.
+        </p>
+<div class="result">
+<span>Result</span>
+<p>The canon became a shared audio-visual timing system: recorded voice, facial performance, and character reveal all referred to the same musical entrance.</p>
+</div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>CHAPTER OUTCOME</span>
+<p>A simple parent-transform mechanism became an editorial tool because its timing was driven by the real structure of the round rather than by arbitrary character animation.</p>
+</div>
+</div>
+</section>
+<section class="chapter" id="editorial">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">04 / FACIAL PERFORMANCE EDITORIAL</div>
+<div>
+<h2>Recorded Singing → Missing Beats → Reconstructed Idle Performance</h2>
+<p>
+          There was no separate body mocap pipeline in this project.
+          The production animation came from the Live Link facial / head performance, and the main editorial problem was that the recorded singing takes did not cover every pause, intro, side-view transition, and ending required by the final installation edit.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div class="media">
+<img alt="Recorded singing performance and reconstructed idle timing" class="contain" data-fallbacks="../media/row/07_timing_rebuild.jpg" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/row/07_timing_rebuild.jpg"/>
+<div class="fallback"><b>RECORDED SINGING → EDITORIAL GAP → IDLE RECONSTRUCTION</b></div>
+</div>
+<div class="media">
+<img alt="Facial animation cleanup and idle transition reconstruction" class="final-art" data-fallbacks="../media/row/08_mocap_fix.jpg|../media/row/08_mocap_fix.png" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/row/08_mocap_fix.jpg"/>
+<div class="fallback"><b>SINGING KEYS → CLEAN IDLE TRANSITION</b></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 04A / Shared Musical Capture</div>
+<div>
+<h3>Using real singing audio recorded against the same metronome</h3>
+<p class="summary">
+          Each participant sang the actual song while the iPhone was fixed on a tripod.
+          A common metronome kept the musical timing consistent across performers, and the recorded singing audio itself remained part of the final work.
+        </p>
+<div class="fact-grid">
+<div><label>Camera</label><p>iPhone fixed on a tripod during the singing performance.</p></div>
+<div><label>Timing</label><p>Shared metronome reference across participants.</p></div>
+<div><label>Audio</label><p>The performers’ actual recorded singing voices were used rather than replacing them with synthetic lip sync.</p></div>
+<div><label>Animation</label><p>Facial and head motion came from the same Live Link performance source.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 04B / Missing Editorial Beats</div>
+<div>
+<h3>Building performance coverage that had not been captured for the final installation structure</h3>
+<p class="summary">
+          The original capture plan did not account for every section required later in the edit:
+          intro time before singing, pauses inside the round, transitions into the side view, and non-singing moments before the next entrance.
+          I created those missing beats from the existing facial performance rather than leaving abrupt gaps.
+        </p>
+<div class="fact-grid">
+<div><label>Intro</label><p>Added usable non-singing time before the performer’s vocal entrance.</p></div>
+<div><label>Canon Pause</label><p>Created quiet bridge sections where the round required a performer to wait before singing again.</p></div>
+<div><label>View Transition</label><p>Extended the performance to support the front-to-side editorial change.</p></div>
+<div><label>Ending</label><p>Created cleaner non-singing coverage rather than ending directly on an active singing pose.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 04C / Singing-to-Idle Reconstruction</div>
+<div>
+<h3>Removing mouth-performance keys while preserving the small movements that keep a digital human alive</h3>
+<p class="summary">
+          To create natural silent sections, I duplicated usable facial animation and removed the keys responsible for singing mouth shapes.
+          I retained eye blinks and subtle head motion, then edited the timing so the character could wait naturally without appearing frozen or continuing to lip-sync.
+        </p>
+<div class="system-flow">
+<div><span>01</span><b>Duplicate Usable Take</b></div>
+<div><span>02</span><b>Remove Singing Mouth Keys</b></div>
+<div><span>03</span><b>Keep Blinks</b></div>
+<div><span>04</span><b>Keep Natural Head Motion</b></div>
+<div><span>05</span><b>Fit New Intro / Pause Length</b></div>
+</div>
+<div class="result">
+<span>Result</span>
+<p>The recorded performance could be extended into believable silent beats without inventing a completely separate body-animation system.</p>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 04D / Sequencer Curve Cleanup</div>
+<div>
+<h3>Reducing residual vibration and unnecessary key density inside Unreal</h3>
+<p class="summary">
+          After rebuilding the editorial timing, I cleaned the remaining curves directly in Unreal Sequencer.
+          Gaussian smoothing and Smart Reduce were used where they improved stability without flattening the small eye and head movements that made the idle sections believable.
+        </p>
+<div class="fact-grid">
+<div><label>Environment</label><p>Unreal Sequencer curve / graph editing.</p></div>
+<div><label>Gaussian</label><p>Used a Gaussian smoothing value around <strong>0.1</strong> in the cleanup pass.</p></div>
+<div><label>Key Reduction</label><p>Used Smart Reduce to simplify dense animation while retaining useful performance changes.</p></div>
+<div><label>Constraint</label><p>Filtering supported editorial cleanup; it did not replace the deliberate deletion / preservation of specific facial keys.</p></div>
+</div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>CHAPTER OUTCOME</span>
+<p>The main animation work was editorial reconstruction: transforming one captured singing performance into a longer installation-ready facial performance with controlled silence, blinking, head motion, and transitions.</p>
+</div>
+</div>
+</section>
+<section class="chapter" id="stability">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">05 / HEAD / BODY STABILITY</div>
+<div>
+<h2>Resolving Head-Motion Conflict Between Facial Animation and the Body Setup</h2>
+<p>
+          Live Link facial performance carried head movement as well as facial deformation.
+          When the head motion represented in the facial animation did not match the body-side head / IK motion,
+          the character could visibly vibrate as the two systems disagreed.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div class="media">
+<img alt="Live Link Face singing performance with head movement" class="final-art" data-fallbacks="../media/row/09_live_link_face.png" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/row/09_live_link_face.jpg"/>
+<div class="fallback"><b>LIVE LINK FACE — FACE + HEAD MOVEMENT</b></div>
+</div>
+<div class="media">
+<img alt="Facial head movement transferred into body Control Rig" class="contain" data-fallbacks="../media/row/10_control_rig_sync.png" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/row/10_control_rig_sync.jpg"/>
+<div class="fallback"><b>FACIAL HEAD MOTION → BODY CONTROL RIG</b></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 05A / Conflict Diagnosis</div>
+<div>
+<h3>Identifying vibration as a disagreement between two representations of head movement</h3>
+<p class="summary">
+          Allowing head movement from the Live Link facial take introduced a second source of head motion.
+          If the facial track and the body / head controls did not carry matching values,
+          the result could read as rapid shaking or vibration rather than intentional performer movement.
+        </p>
+<div class="fact-grid">
+<div><label>Source A</label><p>Head movement contained in the facial / Live Link performance.</p></div>
+<div><label>Source B</label><p>Head / IK-related motion represented on the body-side control setup.</p></div>
+<div><label>Failure</label><p>Mismatched motion produced visible vibration / jitter around the head and neck.</p></div>
+<div><label>Diagnosis</label><p>The problem was not simply facial noise; it came from two motion representations disagreeing.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 05B / Head-Motion Transfer</div>
+<div>
+<h3>Using the facial performance as the authoritative head-motion source</h3>
+<p class="summary">
+          Because the facial recording contained the performer’s real head movement during singing,
+          I copied the relevant head / IK-related motion from the facial performance into the body-side Control Rig setup
+          so the two layers followed the same motion instead of competing with each other.
+        </p>
+<div class="system-flow">
+<div><span>01</span><b>Facial Performance</b></div>
+<div><span>02</span><b>Extract Head Motion</b></div>
+<div><span>03</span><b>Transfer to Body Control Rig</b></div>
+<div><span>04</span><b>Match Head / IK Motion</b></div>
+<div><span>05</span><b>Stable Combined Character</b></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 05C / Final Canon Alignment</div>
+<div>
+<h3>Keeping facial motion, head motion, real audio, and visual reveal on the same timing system</h3>
+<p class="summary">
+          The final performance combined four timing layers: the recorded singing audio, facial deformation,
+          stabilized head motion, and the Empty Actor reveal.
+          The shared metronome and Sequencer editorial made those layers function as one canon performance.
+        </p>
+<div class="result">
+<span>Result</span>
+<p>Ten independent recordings could be offset into a round without the head / body mismatch undermining the facial performance.</p>
+</div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>CHAPTER OUTCOME</span>
+<p>The synchronization problem was not a conventional body-mocap retarget. It was a facial-performance integration problem: preserve authentic head motion from Live Link while making the body-side rig agree with it.</p>
+</div>
+</div>
+</section>
+<section class="chapter" id="delivery">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">06 / LIGHTING &amp; DELIVERY</div>
+<div>
+<h2>Time-of-Day Re-lighting, Alpha Compositing &amp; Two-Channel Installation Delivery</h2>
+<p>
+          The Melbourne presentation used two square display panels and a looping two-channel output.
+          Because different sequences were intended to read at different times of day, I rebuilt HDRI and three-point lighting rather than treating morning, sunset, and night as simple color grades.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div class="media">
+<img alt="Morning sunset and night lighting variants" class="final-art" data-fallbacks="../media/row/11_time_of_day_triptych.png" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/row/11_time_of_day_triptych.jpg"/>
+<div class="fallback"><b>MORNING · SUNSET · NIGHT</b></div>
+</div>
+<div class="media">
+<img alt="Night character alpha pass and Premiere composite" class="contain" data-fallbacks="../media/row/12_alpha_composite.png" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/row/12_alpha_composite.jpg"/>
+<div class="fallback"><b>NIGHT ALPHA PASS → PREMIERE COMPOSITE</b></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 06A / Time-of-Day Re-lighting</div>
+<div>
+<h3>Changing the environment and the three-point lighting together for each time condition</h3>
+<p class="summary">
+          Morning, sunset, and night versions used different HDRIs and different three-point lighting decisions.
+          I adjusted the environment and character lighting together because the work was intended to read differently across the Melbourne display schedule.
+        </p>
+<div class="fact-grid">
+<div><label>Environment</label><p>Changed HDRI for each time-of-day variant.</p></div>
+<div><label>Character Lighting</label><p>Rebuilt the three-point lighting response rather than preserving one fixed rig.</p></div>
+<div><label>Reason</label><p>Different visual versions were intended for different time periods in the Melbourne presentation.</p></div>
+<div><label>Method</label><p>Actual re-lighting, not only post-production color grading.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 06B / Night Alpha Composite</div>
+<div>
+<h3>Rendering characters with alpha when the night sequence required a different background</h3>
+<p class="summary">
+          The night treatment required a separate background solution.
+          I rendered the MetaHuman characters with alpha, kept the background independent, and assembled the final night image in Premiere.
+        </p>
+<div class="system-flow">
+<div><span>01</span><b>MetaHuman Render</b></div>
+<div><span>02</span><b>Alpha Output</b></div>
+<div><span>03</span><b>Separate Night Background</b></div>
+<div><span>04</span><b>Premiere Composite</b></div>
+<div><span>05</span><b>Final Installation Output</b></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 06C / Physical Delivery</div>
+<div>
+<h3>Preparing a loop for two square display panels rather than a conventional single-screen film</h3>
+<p class="summary">
+          The final work was delivered for two square panels as a two-channel loop.
+          Front and side views were sequenced as part of the repeating presentation,
+          and the render decisions were made for the actual installation format rather than for a standard 16:9 cinema frame.
+        </p>
+<div class="fact-grid">
+<div><label>Display</label><p>Two square physical panels.</p></div>
+<div><label>Channels</label><p>Two-channel installation output.</p></div>
+<div><label>Playback</label><p>Looping presentation.</p></div>
+<div><label>Views</label><p>Front and side character views incorporated into the delivery sequence.</p></div>
+</div>
+<div class="note">
+          The exact panel resolution is intentionally not specified here because the final numeric delivery resolution is not currently verified.
+        </div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>CHAPTER OUTCOME</span>
+<p>The project scaled all the way to physical delivery: ten real voices and faces, two five-character ensembles, multiple time-of-day lighting states, front / side views, and a looping two-channel installation format.</p>
+</div>
+</div>
+</section>
+<section class="takeaway">
+<div class="narrow">
+<div class="eyebrow">TAKEAWAY</div>
+<p class="big">
+      The technical point is scale under imperfect production conditions:
+      ten different capture packages, one corrupted-source fallback, ten individualized MetaHumans,
+      five-character groom overlap, missing performance beats reconstructed in Sequencer,
+      facial head motion stabilized against the body rig, and multiple installation variants delivered as a two-channel loop.
+    </p>
+<div class="pager">
+<a class="btn" href="shininho-jooan.html">← Shininho</a>
+<a class="btn primary" href="gang-se-hwang.html">Gang Se-hwang →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="shell footer-inner">
+<span><strong>Jonghoon Ahn</strong> · 3D Visualization &amp; Animation Technical Artist</span>
+<span>10-Person Digital Human Production · Performance Sync · Unreal Rendering</span>
+</div>
+</footer>
+<script>
+function tryMediaFallback(img){
+  const list=(img.dataset.fallbacks||"").split("|").filter(Boolean);
+  const i=parseInt(img.dataset.fallbackIndex||"0",10);
+  if(i<list.length){
+    img.dataset.fallbackIndex=String(i+1);
+    img.src=list[i];
+  }else{
+    img.classList.add("is-missing");
+  }
+}
+</script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function(){
+  const iframe = document.getElementById('rowHeroPlayer');
+  const seek = document.getElementById('rowHeroSeek');
+  const muteBtn = document.getElementById('rowHeroMute');
+  const volume = document.getElementById('rowHeroVolume');
+
+  if(!iframe || !seek || !muteBtn || !volume || typeof Vimeo === 'undefined') return;
+
+  const player = new Vimeo.Player(iframe);
+  let duration = 0;
+  let dragging = false;
+  let lastNonZeroVolume = 0.7;
+
+  function paintSeek(value){
+    const pct = Math.max(0, Math.min(100, value / 10));
+    seek.style.setProperty('--seek-progress', pct + '%');
+  }
+
+  function paintVolume(value){
+    const pct = Math.max(0, Math.min(100, Number(value)));
+    volume.style.setProperty('--volume-progress', pct + '%');
+  }
+
+  function updateMuteUI(isMuted, vol){
+    const silent = isMuted || vol <= 0.001;
+    muteBtn.textContent = silent ? 'MUTED' : 'SOUND';
+    muteBtn.setAttribute('aria-label', silent ? 'Unmute video' : 'Mute video');
+    muteBtn.setAttribute('aria-pressed', silent ? 'true' : 'false');
+  }
+
+  player.getDuration().then(function(d){
+    duration = d || 0;
+  }).catch(function(){});
+
+  player.on('timeupdate', function(data){
+    if(!dragging && data.duration){
+      duration = data.duration;
+      const value = Math.round((data.seconds / data.duration) * 1000);
+      seek.value = value;
+      paintSeek(value);
+    }
+  });
+
+  seek.addEventListener('pointerdown', function(){
+    dragging = true;
+  });
+
+  seek.addEventListener('input', function(){
+    const value = Number(seek.value);
+    paintSeek(value);
+    if(duration > 0){
+      player.setCurrentTime((value / 1000) * duration).catch(function(){});
+    }
+  });
+
+  seek.addEventListener('change', function(){
+    dragging = false;
+  });
+  seek.addEventListener('pointerup', function(){
+    dragging = false;
+  });
+  seek.addEventListener('pointercancel', function(){
+    dragging = false;
+  });
+
+  muteBtn.addEventListener('click', async function(){
+    try{
+      const isMuted = await player.getMuted();
+      if(isMuted || Number(volume.value) === 0){
+        const restore = Math.max(0.05, lastNonZeroVolume);
+        await player.setMuted(false);
+        await player.setVolume(restore);
+        volume.value = String(Math.round(restore * 100));
+        paintVolume(volume.value);
+        updateMuteUI(false, restore);
+      }else{
+        const current = await player.getVolume();
+        if(current > 0.001) lastNonZeroVolume = current;
+        await player.setMuted(true);
+        volume.value = "0";
+        paintVolume(0);
+        updateMuteUI(true, 0);
+      }
+    }catch(e){}
+  });
+
+  volume.addEventListener('input', async function(){
+    const v = Math.max(0, Math.min(1, Number(volume.value) / 100));
+    paintVolume(volume.value);
+    try{
+      if(v > 0){
+        lastNonZeroVolume = v;
+        await player.setMuted(false);
+        await player.setVolume(v);
+        updateMuteUI(false, v);
+      }else{
+        await player.setMuted(true);
+        updateMuteUI(true, 0);
+      }
+    }catch(e){}
+  });
+
+  // Start aligned with muted autoplay.
+  seek.value = "0";
+  paintSeek(0);
+  volume.value = "0";
+  paintVolume(0);
+  updateMuteUI(true, 0);
+})();
+</script>
+</body>
+</html>
