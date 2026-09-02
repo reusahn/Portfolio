@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Gang Se-hwang Digital Human — Jonghoon Ahn</title>
+<style>
+:root{
+  --bg:#f7f7f4;--paper:#fff;--ink:#111;--muted:#666660;--line:#deddd8;
+  --soft:#ecebe6;--accent:#244968;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,"Helvetica Neue",Arial,sans-serif
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{display:block}
+.shell{width:min(calc(100% - 56px),1320px);margin:auto}
+.narrow{width:min(calc(100% - 56px),1120px);margin:auto}
+.eyebrow{font:10px/1.4 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:#85857f}
+
+/* navigation */
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-inner{height:62px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{text-decoration:none;font-weight:700;letter-spacing:-.02em}
+.nav{display:flex;gap:22px;font-size:13px;color:var(--muted)}
+.nav a{text-decoration:none}
+
+/* hero */
+.hero{padding:62px 0 46px;background:var(--paper);border-bottom:1px solid var(--line)}
+.hero-top{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.hero h1{font-size:clamp(38px,3.9vw,52px);line-height:1.08;letter-spacing:-.038em;margin:14px 0 16px}
+.lede{font-size:clamp(16px,1.25vw,18px);line-height:1.62;max-width:900px;color:#353532;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:20px;font-size:13.5px;color:var(--muted)}
+.meta b{color:var(--ink)}
+.hero-media{position:relative;aspect-ratio:16/8.5;margin-top:32px;overflow:hidden;border:1px solid var(--line);border-radius:18px;background:var(--soft)}
+
+/* media */
+.hero-media img,.media img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2
+}
+.hero-media img.contain,.media img.contain{object-fit:contain;background:#f4f4f1}
+.hero-media img.is-missing,.media img.is-missing{display:none!important}
+.fallback{position:absolute;inset:0;z-index:1;display:flex;align-items:flex-end;padding:20px;background:linear-gradient(135deg,#efeee9,#e5e4df)}
+.fallback b{font-size:15px;line-height:1.3}
+.media{position:relative;aspect-ratio:16/10;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--soft)}
+.media.wide{aspect-ratio:16/8.5}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.media-grid.single{grid-template-columns:1fr}
+
+/* overview */
+.overview{padding:48px 0 56px;background:var(--paper);border-bottom:1px solid var(--line)}
+.overview-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px}
+.overview h2{font-size:clamp(25px,2.05vw,31px);line-height:1.2;letter-spacing:-.025em;margin:9px 0 14px}
+.overview p{margin:0;color:#484844;font-size:15px;line-height:1.7}
+.scope{border-top:1px solid var(--line)}
+.scope-row{display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px}
+.scope-row span{font:9px/1.5 var(--mono);letter-spacing:.09em;color:#888882}
+.scope-row strong{text-align:right;font-weight:650}
+
+/* pipeline */
+.pipeline-wrap{background:var(--paper);border-bottom:1px solid var(--line)}
+.pipeline{display:grid;grid-template-columns:repeat(6,1fr)}
+.pipe{padding:17px 18px;border-right:1px solid var(--line)}
+.pipe:last-child{border-right:0}
+.pipe span{display:block;font:9px/1.4 var(--mono);letter-spacing:.1em;color:#8a8a84}
+.pipe b{display:block;margin-top:6px;font-size:13px;line-height:1.35}
+
+/* jump nav */
+.case-nav{background:var(--paper);border-bottom:1px solid var(--line)}
+.case-nav .inner{width:min(calc(100% - 56px),1120px);margin:auto;padding:13px 0;display:flex;gap:7px;flex-wrap:wrap}
+.case-nav a{text-decoration:none;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fafaf8;color:var(--muted);font:10px/1.3 var(--mono)}
+
+/* chapters */
+.chapter{padding:68px 0;border-bottom:1px solid var(--line)}
+.chapter-head{display:grid;grid-template-columns:145px 1fr;gap:28px;margin-bottom:28px}
+.chapter-num{font:10px/1.45 var(--mono);letter-spacing:.11em;color:var(--accent)}
+.chapter h2{margin:0 0 11px;font-size:clamp(25px,2.25vw,33px);line-height:1.18;letter-spacing:-.025em}
+.chapter-head p{margin:0;max-width:860px;color:#555550;font-size:15.5px;line-height:1.68}
+
+.task-deep{display:grid;grid-template-columns:145px 1fr;gap:28px;padding:25px 0;border-top:1px solid var(--line)}
+.task-kicker{font:10px/1.45 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}
+.task-deep h3{margin:0 0 9px;font-size:20px;line-height:1.24;letter-spacing:-.02em}
+.summary{max-width:900px;margin:0 0 16px;color:#4f4f4a;font-size:14.5px;line-height:1.68}
+.fact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--line)}
+.fact-grid>div{min-height:112px;padding:14px;background:var(--paper)}
+.fact-grid label{display:block;margin-bottom:7px;font:9px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#898983}
+.fact-grid p{margin:0;color:#484844;font-size:13px;line-height:1.57}
+.fact-grid strong{color:var(--ink)}
+.note{margin-top:14px;padding:14px 16px;border-left:3px solid #b8c7d4;background:#f2f5f7;color:#48555f;font-size:13px;line-height:1.62}
+.result{margin-top:16px;display:grid;grid-template-columns:125px 1fr;gap:18px;padding:15px 17px;border:1px solid var(--line);border-radius:12px;background:#fbfbf9}
+.result span{font:9px/1.45 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.result p{margin:0;font-size:14px;line-height:1.62;color:#3f3f3b}
+.system-flow{margin-top:17px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--line)}
+.system-flow>div{min-height:92px;padding:14px;background:var(--paper)}
+.system-flow span{font:9px/1.4 var(--mono);letter-spacing:.09em;color:#8a8a84}
+.system-flow b{display:block;margin-top:8px;font-size:13px;line-height:1.35}
+.compare-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}
+.compare-table th,.compare-table td{border-top:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top}
+.compare-table th{width:20%;font:9px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#85857f;font-weight:500}
+.compare-table td{color:#474743}
+.compare-table tr:last-child td,.compare-table tr:last-child th{border-bottom:1px solid var(--line)}
+.chapter-outcome{display:grid;grid-template-columns:145px 1fr;gap:28px;margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
+.chapter-outcome span{font:10px/1.4 var(--mono);letter-spacing:.11em;color:var(--accent)}
+.chapter-outcome p{margin:0;max-width:860px;color:#33332f;font-size:15px;line-height:1.68}
+
+/* takeaway */
+.takeaway{padding:64px 0 82px;background:var(--paper)}
+.takeaway .big{margin:10px 0 30px;max-width:930px;font-size:clamp(23px,2.15vw,31px);line-height:1.3;letter-spacing:-.02em}
+.pager{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:10px 15px;border:1px solid #c8c7c1;border-radius:5px;text-decoration:none;font-size:13px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.footer{padding:40px 0 60px;color:var(--muted);font-size:13px}
+.footer-inner{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:20px;border-top:1px solid var(--line)}
+
+@media(max-width:960px){
+  .overview-grid,.chapter-head,.task-deep,.chapter-outcome{grid-template-columns:1fr}
+  .fact-grid{grid-template-columns:1fr 1fr}
+  .pipeline{grid-template-columns:repeat(3,1fr)}
+  .pipe:nth-child(3){border-right:0}
+  .pipe:nth-child(-n+3){border-bottom:1px solid var(--line)}
+}
+@media(max-width:620px){
+  .shell,.narrow,.case-nav .inner{width:calc(100% - 28px)}
+  .nav{display:none}
+  .hero h1{font-size:clamp(34px,10vw,44px)}
+  .media-grid,.fact-grid,.pipeline,.system-flow{grid-template-columns:1fr}
+  .pipe{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe:last-child{border-bottom:0}
+  .result{grid-template-columns:1fr;gap:8px}
+}
+
+/* V37 — uniform media system
+   One production rule for every Gang Se-hwang still / GIF:
+   1920x1080 source, 16:9 display.
+*/
+.hero-media{
+  aspect-ratio:16/9;
+}
+.media,
+.media.wide{
+  aspect-ratio:16/9;
+}
+.hero-media img,
+.media img{
+  object-fit:contain;
+  background:#f4f4f1;
+}
+.hero-media img.final-art,
+.media img.final-art{
+  object-fit:cover;
+}
+@media(max-width:620px){
+  .hero-media,
+  .media,
+  .media.wide{
+    aspect-ratio:16/9;
+  }
+}
+
+
+/* V38 — real surviving media layout
+   Every delivered portfolio asset is 1920x1080.
+   Pair layouts remain max two-across; comparison logic is composed inside
+   the evidence plates rather than requiring missing production screenshots.
+*/
+.media-grid{gap:18px;margin-top:20px}
+.media{
+  border-radius:16px;
+  background:#efefec;
+}
+.media img{
+  object-fit:contain;
+}
+.media img.final-art{
+  object-fit:contain;
+  background:#111;
+}
+@media(max-width:760px){
+  .media-grid{grid-template-columns:1fr}
+}
+
+
+/* V39 — Gang Se-hwang project video */
+.project-video-section{
+  padding:38px 0 46px;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+.project-video-head{
+  width:min(calc(100% - 56px),1120px);
+  margin:0 auto 16px;
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:24px;
+}
+.project-video-head h2{
+  margin:7px 0 0;
+  font-size:clamp(22px,1.9vw,28px);
+  line-height:1.2;
+  letter-spacing:-.02em;
+}
+.project-video-note{
+  max-width:430px;
+  margin:0;
+  color:#777771;
+  font-size:12px;
+  line-height:1.6;
+  text-align:right;
+}
+.gang-reel{
+  position:relative;
+  width:min(1180px,calc(100vw - 48px));
+  aspect-ratio:16/9;
+  margin:0 auto;
+  border-radius:18px;
+  overflow:hidden;
+  background:#050505;
+  border:1px solid #1a1a1a;
+}
+.gang-reel iframe{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:92%;
+  height:122.67%;
+  min-width:92%;
+  min-height:122.67%;
+  transform:translate(-50%,-50%);
+  border:0;
+  display:block;
+  pointer-events:none;
+  background:#000;
+}
+.gang-reel-controls{
+  position:absolute;
+  left:16px;
+  right:16px;
+  bottom:12px;
+  z-index:10;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:14px;
+  align-items:center;
+  pointer-events:auto;
+}
+.gang-reel-seek{
+  display:flex;
+  align-items:center;
+  height:20px;
+}
+.gang-reel-seek input[type="range"]{
+  width:100%;
+  margin:0;
+  appearance:none;
+  -webkit-appearance:none;
+  height:18px;
+  background:transparent;
+  cursor:pointer;
+}
+.gang-reel-seek input[type="range"]::-webkit-slider-runnable-track{
+  height:3px;border-radius:999px;
+  background:linear-gradient(to right,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.95) var(--seek-progress,0%),
+    rgba(255,255,255,.28) var(--seek-progress,0%),
+    rgba(255,255,255,.28) 100%);
+}
+.gang-reel-seek input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:11px;height:11px;margin-top:-4px;
+  border:0;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.28);
+}
+.gang-reel-seek input[type="range"]::-moz-range-track{
+  height:3px;border-radius:999px;background:rgba(255,255,255,.28);
+}
+.gang-reel-seek input[type="range"]::-moz-range-progress{
+  height:3px;border-radius:999px;background:rgba(255,255,255,.95);
+}
+.gang-reel-seek input[type="range"]::-moz-range-thumb{
+  width:11px;height:11px;border:0;border-radius:50%;background:#fff;
+}
+.gang-reel-volume{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:170px;
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(0,0,0,.48);
+  backdrop-filter:blur(6px);
+}
+.gang-reel-volume button{
+  appearance:none;border:0;padding:0;background:transparent;color:#fff;
+  cursor:pointer;font:9px/1.2 var(--mono);letter-spacing:.08em;min-width:44px;
+}
+.gang-reel-volume input[type="range"]{
+  width:105px;margin:0;appearance:none;-webkit-appearance:none;
+  background:transparent;cursor:pointer;
+}
+.gang-reel-volume input[type="range"]::-webkit-slider-runnable-track{
+  height:3px;border-radius:999px;
+  background:linear-gradient(to right,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.95) var(--volume-progress,0%),
+    rgba(255,255,255,.30) var(--volume-progress,0%),
+    rgba(255,255,255,.30) 100%);
+}
+.gang-reel-volume input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:10px;height:10px;margin-top:-3.5px;
+  border:0;border-radius:50%;background:#fff;
+}
+.gang-reel-volume input[type="range"]::-moz-range-track{
+  height:3px;border-radius:999px;background:rgba(255,255,255,.30);
+}
+.gang-reel-volume input[type="range"]::-moz-range-progress{
+  height:3px;border-radius:999px;background:rgba(255,255,255,.95);
+}
+.gang-reel-volume input[type="range"]::-moz-range-thumb{
+  width:10px;height:10px;border:0;border-radius:50%;background:#fff;
+}
+.gang-reel-cap{
+  width:min(1180px,calc(100vw - 48px));
+  margin:9px auto 0;
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  font:10px/1.5 var(--mono);
+  letter-spacing:.04em;
+  color:#8a8a84;
+}
+@media(max-width:760px){
+  .project-video-head{width:calc(100% - 28px);display:block}
+  .project-video-note{margin-top:8px;text-align:left}
+  .gang-reel{width:calc(100vw - 18px);border-radius:14px}
+  .gang-reel-controls{left:10px;right:10px;bottom:8px;grid-template-columns:1fr;gap:4px}
+  .gang-reel-volume{justify-self:end;min-width:150px}
+  .gang-reel-volume input[type="range"]{width:85px}
+  .gang-reel-cap{width:calc(100vw - 18px);flex-direction:column;gap:2px}
+}
+
+</style>
+</head>
+<body>
+<header class="top">
+<div class="shell top-inner">
+<a class="brand" href="../google-xr.html">Jonghoon Ahn.</a>
+<nav class="nav">
+<a href="../google-xr.html#work">Work</a>
+<a href="../google-xr.html#architecture">Expertise</a>
+<a href="../google-xr.html#architecture">About</a>
+</nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="narrow">
+<div class="hero-top">
+<span class="eyebrow">03 / CUSTOM DIGITAL HUMAN · FACIAL RIG · UNITY HDRP</span>
+<span class="eyebrow">2022</span>
+</div>
+<h1>Gang Se-hwang Digital Human</h1>
+<p class="lede">
+      A custom historical digital human built without a scan:
+      reconstructed from portrait evidence, converted into animation-ready topology,
+      driven by a custom facial system built around the 52 ARKit expression set,
+      dressed through an offline cloth pipeline, rendered in Unity HDRP,
+      and deployed through a fully coded interactive museum kiosk.
+    </p>
+<div class="meta">
+<span><b>Role</b> Technical Director</span>
+<span><b>Period</b> 2022</span>
+<span><b>Engine</b> Unity HDRP</span>
+<span><b>Character</b> ZBrush · ZWrap · Maya · XGen</span>
+<span><b>Performance</b> ARKit · CSV · Python · Custom Blendshapes</span>
+<span><b>Garment</b> Marvelous Designer · Alembic</span>
+<span><b>Interaction</b> C# · WebCamTexture · Unity UI</span>
+</div>
+</div>
+<div class="shell">
+<div class="hero-media">
+<img alt="Historical portrait to final Gang Se-hwang digital human" class="final-art" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/gang/hero_portrait_to_digital.jpg"/>
+<div class="fallback"><b>HISTORICAL PORTRAIT → REAL-TIME DIGITAL HUMAN</b></div>
+</div>
+</div>
+</section>
+<section aria-label="Gang Se-hwang project video" class="project-video-section">
+<div class="project-video-head">
+<div>
+<div class="eyebrow">PROJECT VIDEO</div>
+<h2>Interactive digital-human presentation.</h2>
+</div>
+<p class="project-video-note">
+      Original 9:16 project footage shown inside a 16:9 portfolio frame without cropping the vertical composition.
+    </p>
+</div>
+<div class="gang-reel">
+<iframe allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen="" id="gangHeroPlayer" referrerpolicy="strict-origin-when-cross-origin" src="https://player.vimeo.com/video/1219116281?autoplay=1&amp;muted=1&amp;loop=1&amp;controls=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;playsinline=1&amp;dnt=1" title="Gang Se-hwang project video">
+</iframe>
+<div aria-label="Video controls" class="gang-reel-controls">
+<div class="gang-reel-seek">
+<input aria-label="Seek video" id="gangHeroSeek" max="1000" min="0" step="1" type="range" value="0"/>
+</div>
+<div class="gang-reel-volume">
+<button aria-label="Unmute video" aria-pressed="true" id="gangHeroMute" type="button">MUTED</button>
+<input aria-label="Video volume" id="gangHeroVolume" max="100" min="0" step="1" type="range" value="0"/>
+</div>
+</div>
+</div>
+<div class="gang-reel-cap">
+<span>GANG SE-HWANG — PROJECT VIDEO</span>
+<span>Vimeo · 4:3 source · enlarged in 16:9 frame · autoplay · timeline + volume</span>
+</div>
+</section>
+<section class="overview">
+<div class="narrow overview-grid">
+<div>
+<div class="eyebrow">OVERVIEW</div>
+<h2>Building the character, facial system, rendering stack, and public interface from a portrait.</h2>
+<p>
+        The project began without a living subject or 3D scan. The historical portrait showed a front-facing torso
+        with the head turned away from full frontal view, so I treated the painted face as both likeness reference
+        and spatial evidence. I reconstructed the head in ZBrush, transferred it through ZWrap into a production character,
+        rebuilt UVs and skin maps, authored a custom ARKit-compatible blendshape rig, translated recorded iPhone coefficient data
+        into Maya animation, built portrait-specific hair and clothing, adapted Unity's digital-human rendering structure,
+        and coded the final museum kiosk interaction in C#.
+      </p>
+</div>
+<div class="scope">
+<div class="scope-row"><span>OWNED</span><strong>3D reconstruction → facial rig → lookdev → interaction code</strong></div>
+<div class="scope-row"><span>FACE</span><strong>52 ARKit base shapes + expanded custom expression library</strong></div>
+<div class="scope-row"><span>PERFORMANCE DATA</span><strong>iPhone ARKit CSV → Python-assisted Maya import → custom rig</strong></div>
+<div class="scope-row"><span>DELIVERY</span><strong>HDRP character · Alembic Hanbok · coded museum kiosk</strong></div>
+</div>
+</div>
+</section>
+<section class="pipeline-wrap">
+<div class="shell pipeline">
+<div class="pipe"><span>01</span><b>Portrait Analysis</b></div>
+<div class="pipe"><span>02</span><b>Sculpt + Production Mesh</b></div>
+<div class="pipe"><span>03</span><b>Custom Facial System</b></div>
+<div class="pipe"><span>04</span><b>Hair + Hanbok</b></div>
+<div class="pipe"><span>05</span><b>Unity HDRP Lookdev</b></div>
+<div class="pipe"><span>06</span><b>C# Museum Kiosk</b></div>
+</div>
+</section>
+<nav aria-label="Case study sections" class="case-nav">
+<div class="inner">
+<a href="#reconstruction">01 Reconstruction</a>
+<a href="#surface">02 Topology &amp; Surface</a>
+<a href="#face">03 Facial Rig</a>
+<a href="#costume">04 Hair &amp; Hanbok</a>
+<a href="#lookdev">05 HDRP Lookdev</a>
+<a href="#kiosk">06 Museum Kiosk</a>
+</div>
+</nav>
+<section class="chapter" id="reconstruction">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">01 / HISTORICAL RECONSTRUCTION</div>
+<div>
+<h2>Reading a Historical Portrait as 3D Evidence</h2>
+<p>
+          The portrait provided a recognizable face but not the multi-angle information of photography or scanning.
+          I therefore reconstructed a plausible head by matching the specific painted view first,
+          then testing whether that interpretation could survive rotation and animation.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div class="media">
+<img alt="Historical portrait compared with final digital reconstruction" class="contain" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/gang/01_portrait_reconstruction.jpg"/>
+<div class="fallback"><b>HISTORICAL PORTRAIT → DIGITAL RECONSTRUCTION</b></div>
+</div>
+<div class="media">
+<img alt="Production model rig UV and final surface evidence board" class="contain" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/gang/02_model_rig_evidence.jpg"/>
+<div class="fallback"><b>MODEL · RIG · UV · FINAL SURFACE</b></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 01A / Portrait Geometry Reading</div>
+<div>
+<h3>Inferring depth from a frontal body and turned head</h3>
+<p class="summary">
+          The reference portrait presents the body frontally while the head turns away from a fully frontal view.
+          I used that specific pose as the primary reconstruction target and read facial depth, eye spacing,
+          head rotation, silhouette, and painted light response as clues to the underlying 3D structure.
+        </p>
+<div class="fact-grid">
+<div><label>Primary Source</label><p>Historical portrait used as the main likeness reference.</p></div>
+<div><label>Depth Cues</label><p>Facial depth, nose projection, cheek volume, eye spacing, and visible silhouette.</p></div>
+<div><label>Pose Cue</label><p>Head rotation relative to the front-facing body provided a key spatial reference.</p></div>
+<div><label>Lighting Cue</label><p>Painted light and shadow helped interpret where facial planes turned away from the viewer.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 01B / ZBrush Likeness Sculpt</div>
+<div>
+<h3>Matching the portrait view before optimizing for production</h3>
+<p class="summary">
+          I sculpted the likeness in ZBrush while repeatedly returning to the original portrait composition.
+          The first goal was not generic anatomical realism, but making the reconstructed head read correctly
+          from the historical reference angle before it was translated into a riggable mesh.
+        </p>
+<div class="fact-grid">
+<div><label>Priority</label><p>Match the historical portrait's recognizable proportions and head orientation.</p></div>
+<div><label>Iteration</label><p>Adjusted facial depth and proportions while comparing against the painted view.</p></div>
+<div><label>Unknown Areas</label><p>Unseen depth and rear-head structure were reconstructed as plausible production geometry rather than claimed as historical fact.</p></div>
+<div><label>Output</label><p>A likeness sculpt strong enough to become the identity source for the production character.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 01C / ZWrap Transfer</div>
+<div>
+<h3>Moving the reconstructed identity onto a controllable production structure</h3>
+<p class="summary">
+          Once the likeness was established, I used ZWrap to transfer the sculpted facial identity into geometry
+          that could continue through UV work, blendshape creation, rigging, and Unity rendering.
+        </p>
+<div class="result">
+<span>Result</span>
+<p>The portrait reconstruction stopped being a static sculpture and became the identity source for an animation-ready custom digital human.</p>
+</div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>CHAPTER OUTCOME</span>
+<p>The reconstruction stage separated two questions: what the historical portrait visually supports, and what the production character needs to exist convincingly beyond that single painted view.</p>
+</div>
+</div>
+</section>
+<section class="chapter" id="surface">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">02 / PRODUCTION CHARACTER</div>
+<div>
+<h2>Production UVs, Skin Maps &amp; Surface Identity</h2>
+<p>
+          After the likeness was established in ZBrush, I rebuilt the surface structure required for animation and HDRP.
+          Maya handled the more detailed UV work, while the historical portrait and a digital-human skin reference guided the final surface maps.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div class="media">
+<img alt="Gang Se-hwang face wireframe and Maya UV layout" class="contain" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/gang/03_wireframe_uv.jpg"/>
+<div class="fallback"><b>PRODUCTION WIREFRAME + MAYA UV</b></div>
+</div>
+<div class="media">
+<img alt="Gang Se-hwang skin eye and surface detail closeup" class="final-art" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/gang/04_surface_closeup.jpg"/>
+<div class="fallback"><b>SKIN · EYE · DISPLACEMENT DETAIL</b></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 02A / Production Topology &amp; UV</div>
+<div>
+<h3>Keeping the ZBrush likeness while rebuilding the surface layout for animation</h3>
+<p class="summary">
+          The facial silhouette and major forms remained driven by the ZBrush reconstruction,
+          but the production UV work was refined in Maya so the character could support detailed texture authoring,
+          facial deformation, and predictable real-time material assignment.
+        </p>
+<div class="fact-grid">
+<div><label>Likeness Source</label><p>ZBrush sculpt remained the primary facial-form reference.</p></div>
+<div><label>UV Work</label><p>Production UVs refined in Maya at a higher level of detail than the sculpting stage required.</p></div>
+<div><label>Reason</label><p>Texture maps and facial deformation needed a controlled, repeatable surface layout.</p></div>
+<div><label>Destination</label><p>Custom Unity HDRP character, not a stock MetaHuman character.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 02B / Historical Skin Reconstruction</div>
+<div>
+<h3>Using modern digital-human skin data as a technical reference, not as the identity itself</h3>
+<p class="summary">
+          I used MetaHuman skin data as a technical reference for realistic skin structure,
+          then rebuilt the visible historical character around the portrait.
+          The portrait guided the apparent age, facial surface form, and overall skin read,
+          while Photoshop was used to author displacement and related surface information for the custom face.
+        </p>
+<div class="fact-grid">
+<div><label>Technical Reference</label><p>MetaHuman skin data used as a reference for believable human-skin structure.</p></div>
+<div><label>Identity Reference</label><p>The historical portrait remained the reference for Gang Se-hwang's visible facial character.</p></div>
+<div><label>Authoring</label><p>Displacement and supporting facial surface information painted / built in Photoshop.</p></div>
+<div><label>Goal</label><p>Combine physically believable skin response with a face that still reads as the reconstructed historical figure.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 02C / Surface-to-Engine Continuity</div>
+<div>
+<h3>Building maps around the material system that would actually render them</h3>
+<p class="summary">
+          Skin maps were developed with the final HDRP material structure in mind rather than as standalone texture paintings.
+          Displacement / normal detail, roughness response, and skin color had to survive the transition from DCC authoring into the Unity digital-human shader stack.
+        </p>
+<div class="result">
+<span>Result</span>
+<p>A custom historical skin surface authored around the reconstructed face and designed to respond correctly inside the final HDRP lighting environment.</p>
+</div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>CHAPTER OUTCOME</span>
+<p>The production character retained the sculpted historical identity while gaining the UV structure and skin-map organization required for a custom real-time facial rig.</p>
+</div>
+</div>
+</section>
+<section class="chapter" id="face">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">03 / CUSTOM FACIAL SYSTEM</div>
+<div>
+<h2>52 ARKit Base Shapes → Expanded Custom Facial Rig → CSV Animation</h2>
+<p>
+          The character predated the convenience of simply dropping a standard facial system onto a MetaHuman.
+          I built the custom face around the 52 ARKit expression channels requested by the capture workflow,
+          then expanded that base into a larger production shape library and translated recorded coefficient data into Maya animation.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div class="media">
+<img alt="Performance capture and digital face comparison" class="contain" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/gang/05_face_capture.gif"/>
+<div class="fallback"><b>PERFORMANCE CAPTURE → DIGITAL FACE</b></div>
+</div>
+<div class="media">
+<img alt="Motion capture stage used for performance production" class="contain" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/gang/06_mocap_stage.jpg"/>
+<div class="fallback"><b>MOCAP STAGE / PERFORMANCE SOURCE</b></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 03A / 52-Shape ARKit Foundation</div>
+<div>
+<h3>Building the capture-compatible expression vocabulary first</h3>
+<p class="summary">
+          I began by creating the 52 ARKit facial expression targets required by the mocap workflow.
+          The target definitions followed the capture vendor's requested guide and ARKit/FACS reference material,
+          giving the custom historical face a known coefficient vocabulary that could be driven by iPhone data.
+        </p>
+<div class="fact-grid">
+<div><label>Base Set</label><p><strong>52 ARKit expression channels</strong> established the initial facial-control vocabulary.</p></div>
+<div><label>Reference</label><p>Shape definitions followed the capture vendor's guidance and ARKit / FACS mapping references.</p></div>
+<div><label>Character Constraint</label><p>Every expression had to be rebuilt specifically for the reconstructed historical head.</p></div>
+<div><label>Purpose</label><p>Create a direct bridge between mobile facial coefficients and the custom Maya character.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 03B / Expanded Shape Library</div>
+<div>
+<h3>Extending the 52-channel foundation into a larger production rig</h3>
+<p class="summary">
+          The ARKit set defined the minimum capture interface, but production facial deformation required additional targets.
+          The final rig expanded the base expressions with mirrored, corrective, and combination shapes,
+          resulting in an approximately 256-shape custom facial library.
+        </p>
+<div class="fact-grid">
+<div><label>Foundation</label><p>52 ARKit-compatible base expressions.</p></div>
+<div><label>Expansion</label><p>Additional mirrored, corrective, and combined facial targets.</p></div>
+<div><label>Total</label><p>Approximately <strong>256 custom facial blendshape targets</strong> in the production system.</p></div>
+<div><label>Why</label><p>The custom historical face needed deformation support beyond the raw capture-channel count.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 03C / ARKit CSV Import</div>
+<div>
+<h3>Turning recorded iPhone coefficients into Maya animation</h3>
+<p class="summary">
+          Facial performance was recorded on iPhone and exported as CSV coefficient data.
+          I used a Python-based Maya import tool from an existing GitHub workflow:
+          after selecting the face, the recorded data could be imported and applied to the corresponding blendshape channels.
+        </p>
+<div class="system-flow">
+<div><span>01</span><b>Facial Performance</b></div>
+<div><span>02</span><b>iPhone ARKit Recording</b></div>
+<div><span>03</span><b>CSV Coefficients</b></div>
+<div><span>04</span><b>Python / Maya Import</b></div>
+<div><span>05</span><b>Custom Blendshape Animation</b></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 03D / Naming-Mismatch Debugging</div>
+<div>
+<h3>Fixing a data-import failure caused by coefficient-name case mismatch</h3>
+<p class="summary">
+          The import initially failed because the blendshape names in the recorded CSV did not match the case convention expected by the Maya rig / import tool.
+          I normalized the affected coefficient names in the CSV to lowercase so the Python workflow could resolve the channels and apply the captured values correctly.
+        </p>
+<div class="fact-grid">
+<div><label>Failure</label><p>Recorded coefficient names did not map cleanly to the rig's blendshape names.</p></div>
+<div><label>Diagnosis</label><p>The mismatch came from uppercase / lowercase naming rather than from the facial values themselves.</p></div>
+<div><label>Fix</label><p>Converted the relevant CSV blendshape names to the lowercase convention expected by the import workflow.</p></div>
+<div><label>Result</label><p>Recorded iPhone coefficient data could drive the custom Maya facial rig as intended.</p></div>
+</div>
+<div class="result">
+<span>Technical value</span>
+<p>The problem was solved at the data-interface level rather than by manually recreating the performance after import failed.</p>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 03E / Performance &amp; Voice Split</div>
+<div>
+<h3>Separating physical/facial acting from the final dubbed voice</h3>
+<p class="summary">
+          One performer supplied the visible facial and bodily acting,
+          while a separate professional voice actor provided the final dialogue afterward.
+          The finished character therefore combined captured physical performance with an independently recorded final voice.
+        </p>
+<table class="compare-table">
+<tr><th>Performance actor</th><td>Provided the face and body performance used for the animated character.</td></tr>
+<tr><th>Voice actor</th><td>Provided the final dubbed dialogue as a separate performer.</td></tr>
+<tr><th>Pipeline</th><td>Visual performance was established first; final voice was matched editorially afterward.</td></tr>
+</table>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>CHAPTER OUTCOME</span>
+<p>The facial system was a complete data bridge: a historically reconstructed head was given an ARKit-compatible expression vocabulary, expanded into a production rig, then driven by recorded iPhone coefficient data through a debugged CSV-to-Maya workflow.</p>
+</div>
+</div>
+</section>
+<section class="chapter" id="costume">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">04 / HAIR &amp; GARMENT</div>
+<div>
+<h2>XGen Hair Cards, Rigged Beard &amp; Offline Hanbok Simulation</h2>
+<p>
+          Hair and costume were not solved through the same runtime strategy.
+          The portrait-specific head treatment used authored card geometry and a relatively static Unity setup,
+          while the Hanbok used offline Marvelous simulation because the real-time alternative did not provide convincing enough cloth behavior.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div class="media">
+<img alt="Maya XGen to hair card and beard workflow" class="contain" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/gang/07_hair_cards.jpg"/>
+<div class="fallback"><b>XGEN → HAIR CARDS / BEARD</b></div>
+</div>
+<div class="media">
+<img alt="Hanbok and costume character breakdown" class="contain" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/gang/08_hanbok_breakdown.jpg"/>
+<div class="fallback"><b>HANBOK / COSTUME CHARACTER BREAKDOWN</b></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 04A / XGen-to-Card Hair</div>
+<div>
+<h3>Authoring portrait-specific hair in XGen, then converting it for real-time use</h3>
+<p class="summary">
+          I first built the portrait-driven hair direction and shape in Maya / XGen,
+          then converted that structure into card geometry for Unity.
+          Because the character wore a hat and the historical silhouette was tightly controlled,
+          the production hair did not require a full dynamic-groom system.
+        </p>
+<div class="fact-grid">
+<div><label>Authoring</label><p>Maya / XGen used to establish hair direction and portrait-specific silhouette.</p></div>
+<div><label>Conversion</label><p>XGen result translated into real-time hair-card geometry.</p></div>
+<div><label>Runtime</label><p>Main hair remained attached / controlled rather than relying on a modern groom simulation stack.</p></div>
+<div><label>Reference</label><p>Historical portrait and hat silhouette drove the final visual structure.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 04B / Beard Secondary Motion</div>
+<div>
+<h3>Adding rigged secondary motion only where it materially improved the face</h3>
+<p class="summary">
+          Facial hair needed more visible motion than the hat-covered hairstyle.
+          I used a Unity-side rigged secondary-motion / cloth-style solution for the beard so it could react during performance
+          without requiring the entire hair system to become dynamically simulated.
+        </p>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 04C / Marvelous Hanbok</div>
+<div>
+<h3>Building traditional clothing around the animated production body</h3>
+<p class="summary">
+          The Hanbok was built in Marvelous Designer using the production character as the garment avatar.
+          The animated character motion was brought into the cloth workflow so the fabric could react to the actual performance rather than to a generic pose sequence.
+        </p>
+<div class="fact-grid">
+<div><label>Garment</label><p>Hanbok authored in Marvelous Designer.</p></div>
+<div><label>Avatar</label><p>Production Gang Se-hwang body used as the cloth-simulation character.</p></div>
+<div><label>Animation</label><p>Shot performance imported to drive the garment simulation.</p></div>
+<div><label>Priority</label><p>Historical clothing silhouette and believable cloth response over generic real-time garment motion.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 04D / Per-Shot Alembic Delivery</div>
+<div>
+<h3>Choosing deterministic offline cloth when real-time simulation did not look convincing enough</h3>
+<p class="summary">
+          Real-time cloth did not provide the visual realism required for the Hanbok,
+          so I simulated the garment shot by shot in Marvelous Designer,
+          exported the results as Alembic caches,
+          imported them into Unity, and synchronized each cache to the corresponding performance through Timeline.
+        </p>
+<div class="system-flow">
+<div><span>01</span><b>Animated Character</b></div>
+<div><span>02</span><b>Marvelous Cloth Sim</b></div>
+<div><span>03</span><b>Per-Shot Alembic</b></div>
+<div><span>04</span><b>Unity Import</b></div>
+<div><span>05</span><b>Timeline Sync</b></div>
+</div>
+<div class="result">
+<span>Decision</span>
+<p>Garment motion was treated as controlled simulation cache data rather than sacrificing cloth realism for an unnecessary fully real-time solve.</p>
+</div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>CHAPTER OUTCOME</span>
+<p>Hair and clothing used different production representations because their visual requirements were different: card-based real-time character assets for the head, and deterministic simulated geometry for the Hanbok.</p>
+</div>
+</div>
+</section>
+<section class="chapter" id="lookdev">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">05 / UNITY HDRP LOOKDEV</div>
+<div>
+<h2>Adapting Unity's Digital-Human Rendering Structure to a Custom Historical Character</h2>
+<p>
+          The project used the structure of Unity's contemporary digital-human demo workflow as the rendering foundation.
+          I followed that material architecture, then adapted its skin, eye, hair, and lighting behavior around a completely custom reconstructed head.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div class="media">
+<img alt="Final Gang Se-hwang Unity HDRP character portrait" class="final-art" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/gang/09_final_lookdev.jpg"/>
+<div class="fallback"><b>FINAL HDRP LOOKDEV</b></div>
+</div>
+<div class="media">
+<img alt="Unity editor and HDRP character preview" class="contain" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/gang/10_unity_hdrp_preview.jpg"/>
+<div class="fallback"><b>UNITY HDRP CHARACTER PREVIEW</b></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 05A / Digital-Human Rendering Foundation</div>
+<div>
+<h3>Reusing a proven material architecture while replacing the character-specific content</h3>
+<p class="summary">
+          I followed the material and rendering structure demonstrated by Unity's Enemies-era digital-human project
+          instead of reinventing the complete HDRP human shader stack.
+          The technical foundation was reused; the reconstructed character, maps, proportions, and final visual response were custom to this project.
+        </p>
+<div class="fact-grid">
+<div><label>Foundation</label><p>Unity digital-human / Enemies-style HDRP material architecture.</p></div>
+<div><label>Reused</label><p>General material structure and rendering approach for high-quality real-time human skin and eyes.</p></div>
+<div><label>Custom</label><p>Gang Se-hwang geometry, skin maps, displacement/detail, eyes, hair cards, beard, and final parameter tuning.</p></div>
+<div><label>Goal</label><p>Apply a proven real-time human-rendering stack to a nonstandard historical character.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 05B / Skin SSS &amp; Surface Response</div>
+<div>
+<h3>Balancing subsurface response against painted historical skin detail</h3>
+<p class="summary">
+          The skin used HDRP subsurface-scattering behavior together with roughness, specular,
+          normal / detail-normal, and custom displacement information.
+          The challenge was keeping the face human and dimensional without allowing the real-time SSS response
+          to wash out the portrait-derived age and surface character.
+        </p>
+<div class="fact-grid">
+<div><label>Skin</label><p>HDRP SSS / diffusion-style skin response.</p></div>
+<div><label>Micro Surface</label><p>Roughness, specular, normal, and detail-normal tuning.</p></div>
+<div><label>Macro Surface</label><p>Custom displacement / facial-form information authored around the portrait reconstruction.</p></div>
+<div><label>Evaluation</label><p>Maps and shader values judged under the final scene lighting, not only in neutral material preview.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 05C / Eye &amp; Hair Integration</div>
+<div>
+<h3>Making separate human-material systems read as one face</h3>
+<p class="summary">
+          Eye/cornea response and hair-card shading were tuned against the same lighting environment as the skin.
+          This prevented the eyes, beard, and hair from reading as disconnected material demonstrations attached to the reconstructed face.
+        </p>
+<div class="fact-grid">
+<div><label>Eyes</label><p>Custom eye appearance tuned within the digital-human HDRP material structure.</p></div>
+<div><label>Cornea</label><p>Corneal highlight / reflective response balanced against the face lighting.</p></div>
+<div><label>Hair</label><p>Card-based hair and beard shading tuned for translucency / specular response in the final scene.</p></div>
+<div><label>Integration</label><p>Skin, eye, and hair lookdev evaluated together under the same HDRI / scene-lighting setup.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 05D / Final Lighting</div>
+<div>
+<h3>Building the museum character as one real-time lighting system</h3>
+<p class="summary">
+          HDRI, scene lights, material values, and final color response were tuned together
+          until the custom historical head remained readable and human at the intended public viewing scale.
+        </p>
+<div class="result">
+<span>Result</span>
+<p>A custom historical character rendered through a high-end real-time digital-human stack without depending on a stock MetaHuman character or prebuilt historical asset.</p>
+</div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>CHAPTER OUTCOME</span>
+<p>The lookdev work demonstrates adaptation rather than reinvention for its own sake: I used an existing high-quality Unity rendering architecture, then rebuilt and tuned the character-specific layers required for this historical face.</p>
+</div>
+</div>
+</section>
+<section class="chapter" id="kiosk">
+<div class="shell">
+<div class="chapter-head">
+<div class="chapter-num">06 / PUBLIC INTERACTION</div>
+<div>
+<h2>Fully Coded Museum Kiosk, Live Camera Composite &amp; Visitor UI</h2>
+<p>
+          The final character was deployed as an interactive public system rather than a rendered film.
+          I coded the kiosk behavior in Unity: live camera input, on-screen compositing, public UI,
+          animation triggers, a magnifier interaction, and timed content behavior.
+        </p>
+</div>
+</div>
+<div class="media-grid">
+<div class="media">
+<img alt="Deployed Gang Se-hwang kiosks and visitor interaction" class="final-art" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/gang/11_kiosk_installation.jpg"/>
+<div class="fallback"><b>DEPLOYED KIOSKS + VISITOR INTERACTION</b></div>
+</div>
+<div class="media">
+<img alt="Unity kiosk UI and live camera digital human composite" class="contain" onerror="tryMediaFallback(this)" src="https://jonghoonahn.com/media/gang/12_live_camera_composite.jpg"/>
+<div class="fallback"><b>UNITY UI + LIVE CAMERA COMPOSITE</b></div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 06A / Direct Live Camera Layer</div>
+<div>
+<h3>Compositing the visitor with the character without a green screen</h3>
+<p class="summary">
+          The kiosk used the live camera feed directly as the visitor background.
+          There was no green screen or chroma-key stage.
+          Unity's WebCamTexture / texture-display workflow brought the camera image into the UI,
+          while the rendered digital-human layer was presented over that live feed.
+        </p>
+<div class="system-flow">
+<div><span>01</span><b>Physical Camera</b></div>
+<div><span>02</span><b>WebCamTexture</b></div>
+<div><span>03</span><b>Unity UI Display</b></div>
+<div><span>04</span><b>Digital Human Layer</b></div>
+<div><span>05</span><b>Visitor + Character View</b></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 06B / Public Interaction Code</div>
+<div>
+<h3>Owning the kiosk behavior rather than handing off a rendered character to another developer</h3>
+<p class="summary">
+          I implemented the kiosk interaction code in Unity / C#,
+          including camera presentation, UI behavior, animation triggers,
+          timed media / animation durations, and the public interaction states used by the installation.
+        </p>
+<div class="fact-grid">
+<div><label>Camera</label><p>C# / Unity connection between the live camera texture and the public display UI.</p></div>
+<div><label>Animation</label><p>Touch interaction triggered the prepared character response / pose.</p></div>
+<div><label>Timing</label><p>Interactive media and animation durations were controlled as part of the kiosk flow.</p></div>
+<div><label>UI</label><p>Public-facing interface behavior implemented as part of the same Unity application.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 06C / Magnifier &amp; Content UI</div>
+<div>
+<h3>Adding museum-specific viewing tools beyond a single pose button</h3>
+<p class="summary">
+          The application included a magnifier-style interaction and additional visual-content UI alongside the digital-human experience.
+          These functions made the kiosk a small museum interface rather than a single animation trigger embedded in a character demo.
+        </p>
+<div class="fact-grid">
+<div><label>Magnifier</label><p>Interactive magnifier / close-view function included in the kiosk UI.</p></div>
+<div><label>Content</label><p>Still-image / visual-content presentation integrated into the public interface.</p></div>
+<div><label>Character</label><p>Digital-human interaction remained one component within the larger kiosk experience.</p></div>
+<div><label>Ownership</label><p>Interaction logic and UI implementation were handled within the Unity project I developed.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 06D / Visitor Photo Moment</div>
+<div>
+<h3>Designing the character response around a visitor-facing photo experience</h3>
+<p class="summary">
+          A public touch interaction triggered the character's V-pose so visitors could frame themselves with the digital human on screen
+          and photograph the composed kiosk display using their own phones.
+        </p>
+<div class="fact-grid">
+<div><label>Input</label><p>Touch-button interaction.</p></div>
+<div><label>Response</label><p>Prepared Gang Se-hwang V-pose / character animation state.</p></div>
+<div><label>Composite</label><p>Visitor remained visible in the direct camera background with the character rendered in the same display.</p></div>
+<div><label>Photo</label><p>Visitors could photograph the shared screen composition with their own devices.</p></div>
+</div>
+</div>
+</div>
+<div class="task-deep">
+<div class="task-kicker">Task 06E / Public Deployment</div>
+<div>
+<h3>Moving the system from development to a stable museum installation</h3>
+<p class="summary">
+          The completed Unity application was deployed publicly as the museum kiosk.
+          The installation did not require major post-deployment technical recovery,
+          indicating that the character, camera, UI, and interaction systems were stable enough for the intended public operation.
+        </p>
+<div class="result">
+<span>Delivery result</span>
+<p>A custom historical digital human, custom facial system, real-time renderer, camera composite, and public interaction code operated together as one deployed museum application.</p>
+</div>
+</div>
+</div>
+<div class="chapter-outcome">
+<span>CHAPTER OUTCOME</span>
+<p>The project closed the entire stack: historical portrait analysis became custom geometry, custom animation data, real-time rendering, and finally a C#-driven public interface visitors could use directly.</p>
+</div>
+</div>
+</section>
+<section class="takeaway">
+<div class="narrow">
+<div class="eyebrow">TAKEAWAY</div>
+<p class="big">
+      This project was not only a character model. I reconstructed a historical identity from a portrait,
+      built the ARKit-compatible facial system and CSV-to-Maya data bridge,
+      authored hair and simulated clothing, adapted a high-end Unity HDRP human-rendering stack,
+      and coded the public museum application that delivered the final digital human.
+    </p>
+<div class="pager">
+<a class="btn" href="../google-xr.html#work">← Row, Row, Row Your Boat</a>
+<a class="btn primary" href="../google-xr.html#work">When It Seen →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="shell footer-inner">
+<span><strong>Jonghoon Ahn</strong> · 3D Visualization &amp; Animation Technical Artist</span>
+<span>Custom Digital Human · Facial Rig · Unity HDRP · Interactive Systems</span>
+</div>
+</footer>
+<script>
+function tryMediaFallback(img){
+  const list=(img.dataset.fallbacks||"").split("|").filter(Boolean);
+  const i=parseInt(img.dataset.fallbackIndex||"0",10);
+  if(i<list.length){
+    img.dataset.fallbackIndex=String(i+1);
+    img.src=list[i];
+  }else{
+    img.classList.add("is-missing");
+  }
+}
+</script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function(){
+  const iframe=document.getElementById('gangHeroPlayer');
+  const seek=document.getElementById('gangHeroSeek');
+  const muteBtn=document.getElementById('gangHeroMute');
+  const volume=document.getElementById('gangHeroVolume');
+  if(!iframe||!seek||!muteBtn||!volume||typeof Vimeo==='undefined') return;
+
+  const player=new Vimeo.Player(iframe);
+  let duration=0, dragging=false, lastNonZeroVolume=.7;
+
+  function paintSeek(v){
+    const pct=Math.max(0,Math.min(100,v/10));
+    seek.style.setProperty('--seek-progress',pct+'%');
+  }
+  function paintVolume(v){
+    const pct=Math.max(0,Math.min(100,Number(v)));
+    volume.style.setProperty('--volume-progress',pct+'%');
+  }
+  function updateMuteUI(isMuted,vol){
+    const silent=isMuted||vol<=.001;
+    muteBtn.textContent=silent?'MUTED':'SOUND';
+    muteBtn.setAttribute('aria-label',silent?'Unmute video':'Mute video');
+    muteBtn.setAttribute('aria-pressed',silent?'true':'false');
+  }
+
+  player.getDuration().then(d=>duration=d||0).catch(()=>{});
+  player.on('timeupdate',data=>{
+    if(!dragging&&data.duration){
+      duration=data.duration;
+      const value=Math.round((data.seconds/data.duration)*1000);
+      seek.value=value;
+      paintSeek(value);
+    }
+  });
+
+  seek.addEventListener('pointerdown',()=>dragging=true);
+  seek.addEventListener('input',()=>{
+    const value=Number(seek.value);
+    paintSeek(value);
+    if(duration>0) player.setCurrentTime((value/1000)*duration).catch(()=>{});
+  });
+  ['change','pointerup','pointercancel'].forEach(evt=>seek.addEventListener(evt,()=>dragging=false));
+
+  muteBtn.addEventListener('click',async()=>{
+    try{
+      const isMuted=await player.getMuted();
+      if(isMuted||Number(volume.value)===0){
+        const restore=Math.max(.05,lastNonZeroVolume);
+        await player.setMuted(false);
+        await player.setVolume(restore);
+        volume.value=String(Math.round(restore*100));
+        paintVolume(volume.value);
+        updateMuteUI(false,restore);
+      }else{
+        const current=await player.getVolume();
+        if(current>.001) lastNonZeroVolume=current;
+        await player.setMuted(true);
+        volume.value='0';
+        paintVolume(0);
+        updateMuteUI(true,0);
+      }
+    }catch(e){}
+  });
+
+  volume.addEventListener('input',async()=>{
+    const v=Math.max(0,Math.min(1,Number(volume.value)/100));
+    paintVolume(volume.value);
+    try{
+      if(v>0){
+        lastNonZeroVolume=v;
+        await player.setMuted(false);
+        await player.setVolume(v);
+        updateMuteUI(false,v);
+      }else{
+        await player.setMuted(true);
+        updateMuteUI(true,0);
+      }
+    }catch(e){}
+  });
+
+  paintSeek(0);
+  paintVolume(0);
+  updateMuteUI(true,0);
+})();
+</script>
+</body>
+</html>
