@@ -1,0 +1,129 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jonghoon Ahn | Senior Technical Artist | Unreal Engine 5</title>
+<meta name="description" content="Senior Technical Artist portfolio focused on Unreal Engine 5, digital humans, technical animation, character pipelines, shaders, rendering, VFX, tools and production troubleshooting.">
+<style>
+*{box-sizing:border-box}
+:root{
+  --bg:#0d1012;--panel:#14191c;--panel2:#101417;--text:#f2f5f6;--muted:#a7b0b5;
+  --line:#273036;--accent:#74c7e5;--accent2:#2a8fb5;--max:1240px;
+}
+html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--text);
+font-family:Inter,Arial,Helvetica,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}.wrap{max-width:var(--max);margin:auto;padding:0 28px}
+nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);background:rgba(13,16,18,.88);border-bottom:1px solid var(--line)}
+nav .inner{max-width:var(--max);margin:auto;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.brand{font-weight:800;text-decoration:none}.navlinks{display:flex;gap:18px;flex-wrap:wrap}
+.navlinks a{font-size:13px;color:var(--muted);text-decoration:none}.navlinks a:hover{color:var(--text)}
+.kicker,.eyebrow,.meta-label{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);font-weight:800}
+.hero{padding:84px 0 66px;border-bottom:1px solid var(--line);background:
+radial-gradient(circle at 80% 15%,rgba(31,108,139,.18),transparent 34%),
+radial-gradient(circle at 10% 70%,rgba(60,86,96,.14),transparent 30%)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center}
+h1{font-size:clamp(46px,7vw,86px);line-height:.96;letter-spacing:-3.5px;margin:14px 0 22px}
+.lead{font-size:19px;line-height:1.55;color:#c8d0d4;max-width:820px}
+.sub{color:var(--muted);font-size:14px;line-height:1.65}
+.video{aspect-ratio:16/9;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#050607}
+.video iframe{width:100%;height:100%;border:0;display:block}
+section{padding:72px 0;border-bottom:1px solid var(--line)}
+.section-head{display:grid;grid-template-columns:210px 1fr;gap:30px;margin-bottom:30px}
+.section-head h2{font-size:36px;line-height:1.08;letter-spacing:-1.3px;margin:0;max-width:900px}
+.section-head p{color:var(--muted);margin:10px 0 0;max-width:850px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.card .media{position:relative;aspect-ratio:16/9;background:#070809;overflow:hidden}
+.card .media iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.card .media img{width:100%;height:100%;object-fit:cover;display:block}
+.card .copy{padding:20px}.card h3{font-size:23px;line-height:1.12;margin:6px 0 9px}
+.card p{font-size:13.5px;color:var(--muted);margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{font-size:10px;border:1px solid #334149;border-radius:999px;padding:5px 8px;color:#c0cbd0}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.fact{background:var(--panel);padding:16px;min-height:122px}.fact b{font-size:13px;display:block;margin:6px 0}.fact p{font-size:12.5px;color:var(--muted);margin:0}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.step{background:var(--panel);padding:16px;min-height:130px}.step span{font-size:10px;color:var(--accent)}.step b{display:block;font-size:14px;margin:7px 0}.step p{font-size:12px;color:var(--muted);margin:0}
+.note{border-left:3px solid var(--accent);background:#11191d;padding:15px 17px;color:#c3cdd1;font-size:13px;margin-top:16px}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.gallery img{width:100%;border:1px solid var(--line);border-radius:10px;background:#08090a}
+.gallery .video{border-radius:10px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.btn{display:inline-block;padding:10px 14px;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;background:#12171a}.btn.primary{background:var(--text);color:#111;border-color:var(--text)}
+footer{padding:38px 0 58px;color:#707a7f;font-size:12px}
+@media(max-width:900px){.hero-grid,.section-head,.grid2{grid-template-columns:1fr}.grid3,.facts{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}.gallery{grid-template-columns:1fr}}
+@media(max-width:600px){.wrap,nav .inner{padding-left:18px;padding-right:18px}.navlinks{display:none}.grid3,.facts,.steps{grid-template-columns:1fr}h1{letter-spacing:-2px}}
+
+.projects{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.project{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.18s}
+.project:hover{transform:translateY(-3px);border-color:#42525b;box-shadow:0 16px 40px rgba(0,0,0,.22)}
+.hit{position:absolute;inset:0;z-index:5}.project .media{aspect-ratio:16/9;background:#050607;position:relative}.project iframe{width:100%;height:100%;border:0;pointer-events:none}
+.project .copy{padding:20px}.project h3{font-size:25px;margin:7px 0 9px;letter-spacing:-.6px}.project p{font-size:13.5px;color:var(--muted);margin:0}
+.hero-main{min-height:74vh;display:flex;align-items:center}.hero-main .hero-grid{grid-template-columns:1.12fr .88fr}
+.hero-main h1{font-size:clamp(52px,8vw,98px)}.hero-side{border-left:1px solid var(--line);padding-left:26px}.hero-side .v{font-size:15px;margin:4px 0 17px}
+.systems{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.sys{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;min-height:170px}.sys h3{font-size:18px;margin:26px 0 8px}.sys p{font-size:13px;color:var(--muted);margin:0}
+@media(max-width:900px){.projects,.hero-main .hero-grid{grid-template-columns:1fr}.systems{grid-template-columns:1fr 1fr}.hero-side{border-left:0;border-top:1px solid var(--line);padding:20px 0 0}}
+@media(max-width:600px){.projects,.systems{grid-template-columns:1fr}}
+
+.feature{position:relative;display:grid;grid-template-columns:1.15fr .85fr;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.18s;margin-bottom:18px}
+.feature:hover{transform:translateY(-3px);border-color:#42525b;box-shadow:0 16px 40px rgba(0,0,0,.22)}
+.feature .media{position:relative;min-height:470px;background:#050607}.feature .media iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+.feature .copy{padding:30px;display:flex;flex-direction:column}.feature h3{font-size:34px;line-height:1.05;letter-spacing:-1.2px;margin:10px 0 12px}
+.feature .copy p{font-size:14px;color:var(--muted);margin:0}.view{margin-top:auto;padding-top:24px;font-size:12px;font-weight:800;color:#d8f1fb}
+.proof{margin-top:18px;border-top:1px solid var(--line)}.proofrow{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.proofrow span{font-size:10px;letter-spacing:1px;color:#7d898f;text-transform:uppercase}.proofrow b{text-align:right}
+.detail-hero{padding:62px 0 46px}.detail-hero h1{font-size:clamp(42px,5.5vw,72px)}.detail-hero .hero-grid{grid-template-columns:.92fr 1.08fr}
+.meta{display:flex;gap:10px 22px;flex-wrap:wrap;margin-top:18px;color:var(--muted);font-size:13px}.meta b{color:var(--text)}
+.detail-panels{display:grid;grid-template-columns:1fr 1fr;gap:14px}.detail-panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}.detail-panel h3{font-size:18px;margin:6px 0 8px}.detail-panel p{font-size:13px;color:var(--muted);margin:0}
+.detail-media{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.detail-media img{width:100%;min-height:240px;object-fit:cover;border:1px solid var(--line);border-radius:10px;background:#070809}.detail-media .video{border-radius:10px}
+.full{grid-column:1/-1}.pager{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:24px}
+.priority-note{margin:0 0 18px;border-left:3px solid var(--accent);background:#11191d;padding:14px 16px;color:#c3cdd1;font-size:13px}
+@media(max-width:900px){.feature,.detail-hero .hero-grid,.detail-panels{grid-template-columns:1fr}.feature .media{min-height:330px}}
+@media(max-width:600px){.detail-media{grid-template-columns:1fr}.full{grid-column:auto}}
+</style></head><body>
+<nav><div class="inner"><a class="brand" href="index.html">JONGHOON AHN</a><div class="navlinks"><a href="#work">Selected Work</a><a href="#systems">Systems</a><a href="#skills">Skills</a><a href="mailto:hoonahncloud@gmail.com">Contact</a></div></div></nav>
+
+<header class="hero hero-main"><div class="wrap hero-grid"><div>
+<div class="kicker">Senior Technical Artist · Unreal Engine 5</div>
+<h1>Real-time systems for art that has to ship.</h1>
+<p class="lead">I work between art and engineering across Unreal character pipelines, technical animation, performance capture, materials, VFX, runtime graphics, DCC handoff, and production troubleshooting.</p>
+<p class="sub">For this application, Unreal work leads. Unity work appears only where it adds evidence of shader, runtime, or full-stack technical-art depth.</p>
+<div class="cta"><a class="btn primary" href="#work">View Selected Work</a><a class="btn" href="mailto:hoonahncloud@gmail.com">Contact</a></div>
+</div><div class="video"><iframe src="https://player.vimeo.com/video/1218450064?autoplay=1&muted=1&loop=1&controls=1&title=0&byline=0&portrait=0&playsinline=1&dnt=1" allow="autoplay; fullscreen; picture-in-picture" title="Technical Art Showreel"></iframe></div></div></header>
+
+<section id="work"><div class="wrap">
+<div class="section-head"><div class="eyebrow">Selected Work</div><div><h2>Unreal-first evidence, ordered by direct relevance to Snail Games.</h2><p>The Technical Art Showreel is not a separate project anymore. It is integrated into the flagship Shininho + Jooan case because that case best represents the full scope of my technical-art practice.</p></div></div>
+
+<a class="feature" href="Projects28/shininho-jooan.html">
+<div class="media"><iframe src="https://player.vimeo.com/video/1218744311?autoplay=1&muted=1&loop=1&background=1" allow="autoplay; fullscreen; picture-in-picture" title="Shininho Unreal Digital Human"></iframe></div>
+<div class="copy"><div class="eyebrow">01 · FLAGSHIP · UNREAL ENGINE 5 · CHARACTER + VR</div><h3>Shininho + Jooan — Unreal Production</h3>
+<p>Real-person character and performance pipeline from source scan through MetaHuman reconstruction, OptiTrack and supplemental capture, MotionBuilder / Maya cleanup, HumanIK, Unreal retargeting, Sequencer assembly, body-face integration, eye / hair troubleshooting, Niagara, lighting, C++ / Blueprints, and VR re-staging.</p>
+<div class="tags"><span class="tag">Unreal Engine 5</span><span class="tag">MetaHuman</span><span class="tag">MotionBuilder</span><span class="tag">Mocap</span><span class="tag">C++ / Blueprints</span><span class="tag">Niagara</span><span class="tag">VR</span></div>
+<div class="proof"><div class="proofrow"><span>Role</span><b>Technical Director</b></div><div class="proofrow"><span>Primary Evidence</span><b>DCC-to-Unreal character + performance ownership</b></div><div class="proofrow"><span>Showreel</span><b>Integrated inside this case study</b></div></div>
+<div class="view">Open complete technical case →</div></div></a>
+
+<div class="projects">
+<article class="project"><a class="hit" href="Projects28/row-row-row-your-boat.html"></a><div class="media"><iframe src="https://player.vimeo.com/video/1219079996?autoplay=1&muted=1&loop=1&background=1" allow="autoplay; fullscreen; picture-in-picture" title="Row Row Row Your Boat"></iframe></div><div class="copy"><div class="eyebrow">02 · UNREAL · PRODUCTION SCALE</div><h3>Row, Row, Row Your Boat</h3><p>Ten MetaHuman identities and facial performances integrated into a two-channel Unreal installation, resolving head-body conflicts, missing performance ranges, timing issues, animation artifacts, lookdev consistency, and final multi-character staging.</p><div class="tags"><span class="tag">10 MetaHumans</span><span class="tag">Control Rig</span><span class="tag">Facial Performance</span><span class="tag">Lookdev</span><span class="tag">Unreal</span></div></div></article>
+
+<article class="project"><a class="hit" href="Projects28/when-it-seen.html"></a><div class="media"><iframe src="https://player.vimeo.com/video/1219183858?autoplay=1&muted=1&loop=1&background=1" allow="autoplay; fullscreen; picture-in-picture" title="When It Seen"></iframe></div><div class="copy"><div class="eyebrow">03 · UNREAL · TECHNICAL ANIMATION</div><h3>When It Seen</h3><p>Three-performer animation pipeline combining separately captured MOVIN TRACIN body motion with Rokoko / iPhone facial performances, synchronized per character, validated in Unreal, and delivered as full-character Alembic deformation caches for Houdini cloth work.</p><div class="tags"><span class="tag">3 Performers</span><span class="tag">Body + Face</span><span class="tag">Unreal</span><span class="tag">Alembic</span><span class="tag">Houdini</span></div></div></article>
+
+<article class="project"><a class="hit" href="Projects28/gang-se-hwang.html"></a><div class="media"><iframe src="https://player.vimeo.com/video/1219116281?autoplay=1&muted=1&loop=1&background=1" allow="autoplay; fullscreen; picture-in-picture" title="Gang Se-hwang"></iframe></div><div class="copy"><div class="eyebrow">04 · FULL CHARACTER PIPELINE</div><h3>Gang Se-hwang Digital Human</h3><p>Custom historical character with portrait reconstruction, production topology / UVs, approximately 256 custom blendshapes, ARKit-based facial data, Python tooling, hair cards, Hanbok cloth, real-time skin / eye / hair lookdev, and final interactive deployment.</p><div class="tags"><span class="tag">Maya</span><span class="tag">Blendshapes</span><span class="tag">Python</span><span class="tag">Hair / Cloth</span><span class="tag">Real-Time Character</span></div></div></article>
+
+<article class="project"><a class="hit" href="Projects28/erick-oh-game.html"></a><div class="media"><iframe src="https://player.vimeo.com/video/1219170733?autoplay=1&muted=1&loop=1&background=1" allow="autoplay; fullscreen; picture-in-picture" title="Erick Oh Shader Systems"></iframe></div><div class="copy"><div class="eyebrow">05 · SUPPORTING GRAPHICS R&amp;D · UNITY</div><h3>Erick Oh — Procedural Shader Systems</h3><p>Supporting evidence of rendering and runtime systems depth: C# input / collision / grouping logic, custom HLSL, Perlin vertex deformation, Fresnel response, raymarched metaballs, and deterministic fixed-topology transformation states built in Maya.</p><div class="tags"><span class="tag">Unity URP</span><span class="tag">HLSL</span><span class="tag">C#</span><span class="tag">Raymarching</span><span class="tag">Procedural Graphics</span></div></div></article>
+</div></div></section>
+
+<section id="systems"><div class="wrap"><div class="section-head"><div class="eyebrow">Production Systems</div><div><h2>Technical art as connected production infrastructure.</h2><p>The role fit is strongest where art, engineering, animation, and asset production overlap.</p></div></div>
+<div class="systems">
+<div class="sys"><div class="eyebrow">01</div><h3>Character / Animation Pipeline</h3><p>MetaHuman, Maya, MotionBuilder, HumanIK, body / facial capture, retargeting, Control Rig, animation repair, engine integration.</p></div>
+<div class="sys"><div class="eyebrow">02</div><h3>Rendering / Materials / VFX</h3><p>Skin / eye / hair lookdev, lighting, Niagara, custom HLSL, procedural deformation, raymarching, runtime visual control.</p></div>
+<div class="sys"><div class="eyebrow">03</div><h3>Production Troubleshooting</h3><p>Topology / UV continuity, head-body conflicts, missing animation ranges, eye / hair problems, capture synchronization, cross-DCC handoff.</p></div>
+<div class="sys"><div class="eyebrow">04</div><h3>Tools / Runtime Systems</h3><p>Python, C#, Blueprints, C++ working knowledge, data bridges, artist-facing technical setup, repeatable workflows.</p></div>
+<div class="sys"><div class="eyebrow">05</div><h3>Asset Integration</h3><p>Characters, grooms, clothing, animation, materials, VFX, Alembic, lighting, runtime scenes, public installation delivery.</p></div>
+<div class="sys"><div class="eyebrow">06</div><h3>Cross-Discipline Ownership</h3><p>Technical direction across artists, animation, engineering, capture, FX, lighting, XR, and final output.</p></div>
+</div></div></section>
+
+<section id="skills"><div class="wrap"><div class="section-head"><div class="eyebrow">Technical Stack</div><div><h2>Unreal-centered, with broad DCC and scripting coverage.</h2></div></div>
+<div class="facts">
+<div class="fact"><div class="eyebrow">Engine</div><b>Unreal Engine 5 · Unity</b><p>MetaHuman, Sequencer, Control Rig, Niagara, VR, materials, lighting, Blueprints.</p></div>
+<div class="fact"><div class="eyebrow">DCC</div><b>Maya · MotionBuilder · ZBrush · Houdini</b><p>Character cleanup, topology, UVs, rigging / retargeting, Alembic, downstream handoff.</p></div>
+<div class="fact"><div class="eyebrow">Code</div><b>Python · C# · HLSL · C++</b><p>Pipeline scripting, runtime logic, shader R&amp;D, technical prototyping.</p></div>
+<div class="fact"><div class="eyebrow">Capture</div><b>OptiTrack · MOVIN · Rokoko · iPhone</b><p>Body / face capture, synchronization, cleanup, validation, and delivery.</p></div>
+</div></div></section>
+
+<footer><div class="wrap">Jonghoon Ahn · Senior Technical Artist · California, USA · U.S. Permanent Resident · hoonahncloud@gmail.com</div></footer>
+</body></html>

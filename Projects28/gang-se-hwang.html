@@ -1,0 +1,82 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gang Se-hwang Digital Human — Jonghoon Ahn</title><style>
+*{box-sizing:border-box}
+:root{
+  --bg:#0d1012;--panel:#14191c;--panel2:#101417;--text:#f2f5f6;--muted:#a7b0b5;
+  --line:#273036;--accent:#74c7e5;--accent2:#2a8fb5;--max:1240px;
+}
+html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--text);
+font-family:Inter,Arial,Helvetica,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}.wrap{max-width:var(--max);margin:auto;padding:0 28px}
+nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);background:rgba(13,16,18,.88);border-bottom:1px solid var(--line)}
+nav .inner{max-width:var(--max);margin:auto;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.brand{font-weight:800;text-decoration:none}.navlinks{display:flex;gap:18px;flex-wrap:wrap}
+.navlinks a{font-size:13px;color:var(--muted);text-decoration:none}.navlinks a:hover{color:var(--text)}
+.kicker,.eyebrow,.meta-label{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);font-weight:800}
+.hero{padding:84px 0 66px;border-bottom:1px solid var(--line);background:
+radial-gradient(circle at 80% 15%,rgba(31,108,139,.18),transparent 34%),
+radial-gradient(circle at 10% 70%,rgba(60,86,96,.14),transparent 30%)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center}
+h1{font-size:clamp(46px,7vw,86px);line-height:.96;letter-spacing:-3.5px;margin:14px 0 22px}
+.lead{font-size:19px;line-height:1.55;color:#c8d0d4;max-width:820px}
+.sub{color:var(--muted);font-size:14px;line-height:1.65}
+.video{aspect-ratio:16/9;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#050607}
+.video iframe{width:100%;height:100%;border:0;display:block}
+section{padding:72px 0;border-bottom:1px solid var(--line)}
+.section-head{display:grid;grid-template-columns:210px 1fr;gap:30px;margin-bottom:30px}
+.section-head h2{font-size:36px;line-height:1.08;letter-spacing:-1.3px;margin:0;max-width:900px}
+.section-head p{color:var(--muted);margin:10px 0 0;max-width:850px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.card .media{position:relative;aspect-ratio:16/9;background:#070809;overflow:hidden}
+.card .media iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.card .media img{width:100%;height:100%;object-fit:cover;display:block}
+.card .copy{padding:20px}.card h3{font-size:23px;line-height:1.12;margin:6px 0 9px}
+.card p{font-size:13.5px;color:var(--muted);margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{font-size:10px;border:1px solid #334149;border-radius:999px;padding:5px 8px;color:#c0cbd0}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.fact{background:var(--panel);padding:16px;min-height:122px}.fact b{font-size:13px;display:block;margin:6px 0}.fact p{font-size:12.5px;color:var(--muted);margin:0}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.step{background:var(--panel);padding:16px;min-height:130px}.step span{font-size:10px;color:var(--accent)}.step b{display:block;font-size:14px;margin:7px 0}.step p{font-size:12px;color:var(--muted);margin:0}
+.note{border-left:3px solid var(--accent);background:#11191d;padding:15px 17px;color:#c3cdd1;font-size:13px;margin-top:16px}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.gallery img{width:100%;border:1px solid var(--line);border-radius:10px;background:#08090a}
+.gallery .video{border-radius:10px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.btn{display:inline-block;padding:10px 14px;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;background:#12171a}.btn.primary{background:var(--text);color:#111;border-color:var(--text)}
+footer{padding:38px 0 58px;color:#707a7f;font-size:12px}
+@media(max-width:900px){.hero-grid,.section-head,.grid2{grid-template-columns:1fr}.grid3,.facts{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}.gallery{grid-template-columns:1fr}}
+@media(max-width:600px){.wrap,nav .inner{padding-left:18px;padding-right:18px}.navlinks{display:none}.grid3,.facts,.steps{grid-template-columns:1fr}h1{letter-spacing:-2px}}
+
+.projects{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.project{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.18s}
+.project:hover{transform:translateY(-3px);border-color:#42525b;box-shadow:0 16px 40px rgba(0,0,0,.22)}
+.hit{position:absolute;inset:0;z-index:5}.project .media{aspect-ratio:16/9;background:#050607;position:relative}.project iframe{width:100%;height:100%;border:0;pointer-events:none}
+.project .copy{padding:20px}.project h3{font-size:25px;margin:7px 0 9px;letter-spacing:-.6px}.project p{font-size:13.5px;color:var(--muted);margin:0}
+.hero-main{min-height:74vh;display:flex;align-items:center}.hero-main .hero-grid{grid-template-columns:1.12fr .88fr}
+.hero-main h1{font-size:clamp(52px,8vw,98px)}.hero-side{border-left:1px solid var(--line);padding-left:26px}.hero-side .v{font-size:15px;margin:4px 0 17px}
+.systems{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.sys{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;min-height:170px}.sys h3{font-size:18px;margin:26px 0 8px}.sys p{font-size:13px;color:var(--muted);margin:0}
+@media(max-width:900px){.projects,.hero-main .hero-grid{grid-template-columns:1fr}.systems{grid-template-columns:1fr 1fr}.hero-side{border-left:0;border-top:1px solid var(--line);padding:20px 0 0}}
+@media(max-width:600px){.projects,.systems{grid-template-columns:1fr}}
+
+.feature{position:relative;display:grid;grid-template-columns:1.15fr .85fr;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.18s;margin-bottom:18px}
+.feature:hover{transform:translateY(-3px);border-color:#42525b;box-shadow:0 16px 40px rgba(0,0,0,.22)}
+.feature .media{position:relative;min-height:470px;background:#050607}.feature .media iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+.feature .copy{padding:30px;display:flex;flex-direction:column}.feature h3{font-size:34px;line-height:1.05;letter-spacing:-1.2px;margin:10px 0 12px}
+.feature .copy p{font-size:14px;color:var(--muted);margin:0}.view{margin-top:auto;padding-top:24px;font-size:12px;font-weight:800;color:#d8f1fb}
+.proof{margin-top:18px;border-top:1px solid var(--line)}.proofrow{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.proofrow span{font-size:10px;letter-spacing:1px;color:#7d898f;text-transform:uppercase}.proofrow b{text-align:right}
+.detail-hero{padding:62px 0 46px}.detail-hero h1{font-size:clamp(42px,5.5vw,72px)}.detail-hero .hero-grid{grid-template-columns:.92fr 1.08fr}
+.meta{display:flex;gap:10px 22px;flex-wrap:wrap;margin-top:18px;color:var(--muted);font-size:13px}.meta b{color:var(--text)}
+.detail-panels{display:grid;grid-template-columns:1fr 1fr;gap:14px}.detail-panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}.detail-panel h3{font-size:18px;margin:6px 0 8px}.detail-panel p{font-size:13px;color:var(--muted);margin:0}
+.detail-media{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.detail-media img{width:100%;min-height:240px;object-fit:cover;border:1px solid var(--line);border-radius:10px;background:#070809}.detail-media .video{border-radius:10px}
+.full{grid-column:1/-1}.pager{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:24px}
+.priority-note{margin:0 0 18px;border-left:3px solid var(--accent);background:#11191d;padding:14px 16px;color:#c3cdd1;font-size:13px}
+@media(max-width:900px){.feature,.detail-hero .hero-grid,.detail-panels{grid-template-columns:1fr}.feature .media{min-height:330px}}
+@media(max-width:600px){.detail-media{grid-template-columns:1fr}.full{grid-column:auto}}
+</style></head><body>
+<nav><div class="inner"><a class="brand" href="../index.html">JONGHOON AHN</a><div class="navlinks"><a href="../index.html#work">All Work</a><a href="#overview">Overview</a><a href="#technical">Technical</a><a href="mailto:hoonahncloud@gmail.com">Contact</a></div></div></nav>
+<header class="hero detail-hero"><div class="wrap hero-grid"><div><div class="kicker">FULL CHARACTER PIPELINE · FACIAL SYSTEM · MATERIALS</div><h1>Gang Se-hwang Digital Human</h1><p class="lead">A custom historical digital human built from portrait evidence through sculpting, production topology, facial deformation, hair, clothing, real-time lookdev, scripting, and public deployment.</p><div class="meta"><span><b>Role:</b> Technical Director</span><span><b>Engine:</b> Unity HDRP</span><span><b>Tools:</b> ZBrush · Maya · Python · C# · Marvelous Designer · Hair Cards · ARKit</span></div><div class="cta"><a class="btn" href="../index.html#work">← Back to Portfolio</a></div></div><div class="video"><iframe src="https://player.vimeo.com/video/1219116281?autoplay=1&muted=1&loop=1&controls=1&title=0&byline=0&portrait=0&playsinline=1&dnt=1" allow="autoplay; fullscreen; picture-in-picture" title="Gang Se-hwang Digital Human"></iframe></div></div></header>
+<section id="overview"><div class="wrap"><div class="section-head"><div class="eyebrow">Case Overview</div><div><h2>What I owned and why the work mattered.</h2><p>This case broadens the portfolio beyond Unreal while staying directly relevant to a broad Technical Artist role. I owned the full character stack: historical reconstruction, controlled topology / UVs, approximately 256 custom facial blendshapes, Python-assisted facial data import, hair / beard, Hanbok cloth, real-time skin / eye / hair materials, runtime code, and museum deployment.</p></div></div><div class="detail-panels"><div class="detail-panel"><div class="eyebrow">01</div><h3>Character Build</h3><p>Portrait reconstruction, ZBrush sculpt, Maya production topology, UVs, and deformation support.</p></div><div class="detail-panel"><div class="eyebrow">02</div><h3>Facial System</h3><p>Approximately 256 custom blendshapes built from ARKit-style foundations and connected to performance data.</p></div><div class="detail-panel"><div class="eyebrow">03</div><h3>Surface / Cloth</h3><p>Skin SSS, eye / cornea, hair cards, beard, Hanbok cloth, displacement, and real-time material response.</p></div><div class="detail-panel"><div class="eyebrow">04</div><h3>Deployment</h3><p>C# runtime, camera composite, animation triggers, UI, and final public museum kiosk.</p></div></div></div></section>
+<section id="technical"><div class="wrap"><div class="section-head"><div class="eyebrow">Technical Breakdown</div><div><h2>From source problem to validated production result.</h2></div></div><div class="steps"><div class="step"><span>01</span><b>Reconstruct</b><p>Translate historical portrait evidence into a believable custom 3D identity.</p></div><div class="step"><span>02</span><b>Productionize</b><p>Build controlled topology / UVs and deformation support for rigging and facial animation.</p></div><div class="step"><span>03</span><b>Build Performance</b><p>Create facial shapes and bridge ARKit-style data into the character workflow.</p></div><div class="step"><span>04</span><b>Lookdev + Cloth</b><p>Hair, beard, Hanbok, skin / eye / hair materials, and final real-time presentation.</p></div><div class="step"><span>05</span><b>Deploy</b><p>Integrate the character into a working public-facing real-time application.</p></div></div><div class="detail-media"><img class="" src="https://jonghoonahn.com/media/gang/01_portrait_reconstruction.jpg" alt="Portrait reconstruction" onerror="this.style.display='none'"><img class="" src="https://jonghoonahn.com/media/gang/02_model_rig_evidence.jpg" alt="Model and rig evidence" onerror="this.style.display='none'"><img class="" src="https://jonghoonahn.com/media/gang/03_wireframe_uv.jpg" alt="Wireframe and UV" onerror="this.style.display='none'"><img class="" src="https://jonghoonahn.com/media/gang/04_surface_closeup.jpg" alt="Surface closeup" onerror="this.style.display='none'"><img class="" src="https://jonghoonahn.com/media/gang/07_hair_cards.jpg" alt="Hair cards" onerror="this.style.display='none'"><img class="" src="https://jonghoonahn.com/media/gang/08_hanbok_breakdown.jpg" alt="Hanbok breakdown" onerror="this.style.display='none'"><img class="" src="https://jonghoonahn.com/media/gang/09_final_lookdev.jpg" alt="Final lookdev" onerror="this.style.display='none'"><img class="" src="https://jonghoonahn.com/media/gang/10_unity_hdrp_preview.jpg" alt="Unity HDRP preview" onerror="this.style.display='none'"><img class="" src="https://jonghoonahn.com/media/gang/11_kiosk_installation.jpg" alt="Kiosk installation" onerror="this.style.display='none'"><img class="" src="https://jonghoonahn.com/media/gang/12_live_camera_composite.jpg" alt="Live camera composite" onerror="this.style.display='none'"></div></div></section>
+<section><div class="wrap"><div class="section-head"><div class="eyebrow">Takeaway</div><div><h2>The relevance is full-stack technical-art ownership across character construction, deformation, materials, cloth, scripting, engine integration, debugging, and final delivery.</h2><div class="pager"><a class="btn" href="when-it-seen.html">← Previous</a><a class="btn primary" href="erick-oh-game.html">Next →</a></div></div></div></div></section>
+<footer><div class="wrap">Jonghoon Ahn · Senior Technical Artist · Projects28</div></footer></body></html>
