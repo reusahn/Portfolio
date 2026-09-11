@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Jonghoon Ahn — Real-Time Technical Artist</title>
-<meta name="description" content="Digital Human, Performance Capture, Technical Animation, and Real-Time R&D portfolio by Jonghoon Ahn.">
+<title>Jonghoon Ahn | 3D Visualization & Animation Technical Artist</title>
+<meta name="description" content="Digital Human, Performance Capture, Technical Animation, Neural Graphics, and Real-Time R&D portfolio by Jonghoon Ahn.">
 <style>
 :root{
   --bg:#f5f5f2;--paper:#fff;--ink:#111;--ink2:#33332f;--muted:#6f6f68;
@@ -87,6 +87,21 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .support .project-body{padding:20px 22px 22px}
 .support h3{font-size:19px}
 
+.research-band{background:#eef1f3}
+.research-panel{display:grid;grid-template-columns:1.12fr .88fr;background:var(--paper);border:1px solid #d4d9dd;border-radius:20px;overflow:hidden}
+.research-visual{background:#f7f8f8;padding:18px;display:flex;align-items:center;justify-content:center;min-height:460px}
+.research-visual img{width:100%;height:auto;object-fit:contain;border-radius:12px}
+.research-copy{padding:42px;display:flex;flex-direction:column;justify-content:center}
+.research-copy .num{font:10px/1.4 var(--mono);letter-spacing:.11em;color:var(--accent)}
+.research-copy h3{font-size:clamp(28px,2.4vw,36px);line-height:1.1;letter-spacing:-.035em;margin:14px 0 14px}
+.research-copy p{font-size:14.5px;color:var(--muted);margin:0 0 12px}
+.research-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0 0}
+.research-metric{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fafaf8}
+.research-metric b{display:block;font-size:21px;letter-spacing:-.025em}
+.research-metric span{display:block;margin-top:3px;font:9px/1.45 var(--mono);letter-spacing:.06em;color:#797974;text-transform:uppercase}
+.research-note{margin-top:18px!important;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px!important}
+.research-links{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+
 .expertise{background:var(--dark);color:#fff;border-bottom:0}
 .expertise .eyebrow{color:#8ea5b8}
 .expertise .section-head h2{max-width:820px}
@@ -116,11 +131,12 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .footer-inner{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:13px}
 
 @media(max-width:980px){
-  .hero-grid,.feature{grid-template-columns:1fr}
+  .hero-grid,.feature,.research-panel{grid-template-columns:1fr}
   .hero-grid{gap:36px}
   .feature{min-height:0}
   .feature-media{aspect-ratio:16/9}
-  .feature-copy{padding:30px}
+  .feature-copy,.research-copy{padding:30px}
+  .research-visual{min-height:0}
   .snapshot-grid{grid-template-columns:1fr 1fr}
   .snapshot-item:nth-child(2){border-right:0}
   .snapshot-item:nth-child(-n+2){border-bottom:1px solid var(--line)}
@@ -137,12 +153,13 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   .hero h1{font-size:clamp(38px,11vw,50px)}
   .reel{border-radius:14px}
   .reel-caption{flex-direction:column;gap:2px}
-  .snapshot-grid,.grid-2,.support-grid,.workflow-grid{grid-template-columns:1fr}
+  .snapshot-grid,.grid-2,.support-grid,.workflow-grid,.research-metrics{grid-template-columns:1fr}
   .snapshot-item{padding:17px 0;border-right:0!important;border-bottom:1px solid var(--line)}
   .snapshot-item:last-child{border-bottom:0}
   .section{padding:62px 0}
-  .feature-copy{padding:24px}
+  .feature-copy,.research-copy{padding:24px}
   .feature-copy h3{font-size:28px}
+  .research-visual{padding:8px}
 }
 
 .project-media>img,.feature-media>img{
@@ -151,108 +168,24 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .project-media .badge,.feature-media .badge{z-index:3}
 .feature-media{position:relative}
 
-
 /* Broader portfolio link */
-.broader-portfolio{
-  margin-top:30px;
-  padding-top:22px;
-  border-top:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:24px;
-  flex-wrap:wrap;
-}
-.broader-portfolio-copy{
-  max-width:760px;
-}
-.broader-portfolio-copy span{
-  display:block;
-  margin-bottom:7px;
-  font:9px/1.4 var(--mono);
-  letter-spacing:.11em;
-  text-transform:uppercase;
-  color:#8c8c86;
-}
-.broader-portfolio-copy p{
-  margin:0;
-  font-size:14px;
-  line-height:1.62;
-  color:var(--muted);
-}
-.broader-portfolio-link{
-  flex:0 0 auto;
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 14px;
-  border:1px solid #c9c8c2;
-  border-radius:7px;
-  background:#fff;
-  text-decoration:none;
-  font-size:13px;
-  font-weight:600;
-}
-.broader-portfolio-link:hover{
-  border-color:#a9a8a2;
-}
-@media(max-width:680px){
-  .broader-portfolio{
-    align-items:flex-start;
-  }
-}
-
+.broader-portfolio{margin-top:30px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.broader-portfolio-copy{max-width:760px}
+.broader-portfolio-copy span{display:block;margin-bottom:7px;font:9px/1.4 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:#8c8c86}
+.broader-portfolio-copy p{margin:0;font-size:14px;line-height:1.62;color:var(--muted)}
+.broader-portfolio-link{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid #c9c8c2;border-radius:7px;background:#fff;text-decoration:none;font-size:13px;font-weight:600}
+.broader-portfolio-link:hover{border-color:#a9a8a2}
+@media(max-width:680px){.broader-portfolio{align-items:flex-start}}
 
 /* Vimeo thumbnail loops */
-.project-vimeo-loop{
-  position:absolute;
-  inset:0;
-  z-index:2;
-  overflow:hidden;
-  background:#050505;
-}
-.project-vimeo-loop iframe{
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:100%;
-  height:133.34%;
-  transform:translate(-50%,-50%);
-  border:0;
-  display:block;
-  pointer-events:none;
-  background:#050505;
-}
-
+.project-vimeo-loop{position:absolute;inset:0;z-index:2;overflow:hidden;background:#050505}
+.project-vimeo-loop iframe{position:absolute;top:50%;left:50%;width:100%;height:133.34%;transform:translate(-50%,-50%);border:0;display:block;pointer-events:none;background:#050505}
 
 /* Contact */
-.contact-strip{
-  margin-top:18px;
-  padding:18px 0 0;
-  border-top:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  flex-wrap:wrap;
-}
-.contact-strip span{
-  font:9px/1.4 var(--mono);
-  letter-spacing:.11em;
-  text-transform:uppercase;
-  color:#8c8c86;
-}
-.contact-strip a{
-  font-size:14px;
-  font-weight:650;
-  text-decoration:none;
-  border-bottom:1px solid #bdbcb6;
-}
-.contact-strip a:hover{
-  border-bottom-color:var(--accent);
-  color:var(--accent);
-}
-
+.contact-strip{margin-top:18px;padding:18px 0 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.contact-strip span{font:9px/1.4 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:#8c8c86}
+.contact-strip a{font-size:14px;font-weight:650;text-decoration:none;border-bottom:1px solid #bdbcb6}
+.contact-strip a:hover{border-bottom-color:var(--accent);color:var(--accent)}
 </style>
 </head>
 <body>
@@ -261,6 +194,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
     <a class="brand" href="DigitalHuman_Portfolio_Jonghoonahn.html">Jonghoon Ahn.<small>3D Visualization &amp; Animation Technical Artist</small></a>
     <nav class="nav">
       <a href="#work">Work</a>
+      <a href="#neural-rd">Neural R&amp;D</a>
       <a href="#expertise">Expertise</a>
       <a href="#about">About</a>
       <a href="mailto:hoonahncloud@gmail.com">Contact</a>
@@ -272,12 +206,13 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 <section class="hero">
   <div class="shell hero-grid">
     <div>
-      <div class="eyebrow">3D VISUALIZATION &amp; ANIMATION TECHNICAL ARTIST · DIGITAL HUMAN / PERFORMANCE CAPTURE / REAL-TIME R&amp;D</div>
+      <div class="eyebrow">3D VISUALIZATION &amp; ANIMATION TECHNICAL ARTIST · DIGITAL HUMAN / PERFORMANCE CAPTURE / NEURAL GRAPHICS / REAL-TIME R&amp;D</div>
       <h1>Human performance into<br><em>production-ready 3D.</em></h1>
-      <p class="lead">Technical Artist connecting Digital Humans, Performance Capture, Technical Animation, and Real-Time Graphics.</p>
-      <p class="sub">I turn captured human geometry, textures, and motion into production-ready characters, animation, and real-time systems across Maya, MotionBuilder, Unreal Engine, and Unity.</p>
+      <p class="lead">Technical Artist connecting Digital Humans, Performance Capture, Technical Animation, Real-Time Graphics, and Neural Graphics R&amp;D.</p>
+      <p class="sub">I turn captured human geometry, textures, and motion into production-ready characters, animation, and real-time systems across Maya, MotionBuilder, Unreal Engine, and Unity, while researching Gaussian Splatting and neural scene representations for emerging 3D content workflows.</p>
       <div class="actions">
         <a class="btn primary" href="#work">Selected Work ↓</a>
+        <a class="btn" href="#neural-rd">Neural Graphics R&amp;D</a>
         <a class="btn" href="#expertise">Technical Fit</a>
         <a class="btn" href="mailto:hoonahncloud@gmail.com">Email ↗</a>
       </div>
@@ -287,7 +222,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
         <iframe src="https://player.vimeo.com/video/1218450064?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;autopause=0&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;playsinline=1&amp;transparent=0&amp;dnt=1"
           allow="autoplay; fullscreen; picture-in-picture" title="Jonghoon Ahn technical art showreel"></iframe>
       </div>
-      <div class="reel-caption"><span>SELECTED TECHNICAL WORK — SHOWREEL</span><span>Digital Human · Mocap · Real-Time</span></div>
+      <div class="reel-caption"><span>SELECTED TECHNICAL WORK · SHOWREEL</span><span>Digital Human · Mocap · Real-Time</span></div>
     </div>
   </div>
 </section>
@@ -297,7 +232,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
     <div class="snapshot-item"><span>01 / DIGITAL HUMAN</span><b>Scan / Depth → MetaHuman / Custom Human</b><small>Likeness, topology, texture, eye, hair, lookdev</small></div>
     <div class="snapshot-item"><span>02 / PERFORMANCE</span><b>OptiTrack · MOVIN TRACIN · Rokoko · iPhone</b><small>Capture, cleanup, retarget, body/face assembly</small></div>
     <div class="snapshot-item"><span>03 / ENGINE</span><b>Unreal Engine · Unity</b><small>Sequencer · Control Rig · HDRP/URP · VR · real-time delivery</small></div>
-    <div class="snapshot-item"><span>04 / R&amp;D</span><b>C# · HLSL · Python · C++</b><small>Runtime systems, shaders, technical prototyping</small></div>
+    <div class="snapshot-item"><span>04 / NEURAL R&amp;D</span><b>3DGS · NeRF · CUDA · Python</b><small>Neural scene benchmarking, training efficiency, compression, and systems evaluation</small></div>
   </div>
 </section>
 
@@ -306,7 +241,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
     <div class="section-head">
       <span class="eyebrow">SELECTED WORK</span>
       <div>
-        <h2>Selected work in Digital Humans, Performance Capture, and Real-Time R&D.</h2>
+        <h2>Selected work in Digital Humans, Performance Capture, and Real-Time R&amp;D.</h2>
         <p>From a single-subject digital human pipeline to a ten-character production and a custom historical reconstruction, each project addresses a different production problem.</p>
       </div>
     </div>
@@ -317,7 +252,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
         <span class="badge">01 / FLAGSHIP · DIGITAL HUMAN</span>
       </div>
       <div class="feature-copy">
-        <span class="num">2025–2026 · TECHNICAL DIRECTOR</span>
+        <span class="num">2025-2026 · TECHNICAL DIRECTOR</span>
         <h3>Digital Human Shininho</h3>
         <p>An end-to-end digital human case built from a real-person volumetric source through a Unity prototype, Wrap + MetaHuman reconstruction, hybrid body/facial capture, Maya/MotionBuilder cleanup, and Unreal performance assembly.</p>
         <div class="evidence"><span>MetaHuman</span><span>Wrap</span><span>OptiTrack</span><span>MOVIN TRACIN</span><span>MotionBuilder</span><span>Unreal</span><span>Unity</span></div>
@@ -368,7 +303,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
     <div class="support-grid">
       <a class="project-card support" href="projects/confidential-game.html">
         <div class="project-media"><div class="placeholder"><div class="ph"><b>C# + HLSL REAL-TIME R&amp;D</b></div></div><img src="media/game/hero_metaball.gif" alt="Raymarched metaball liquid system" onerror="this.style.display='none'"></div>
-        <div class="project-body"><span class="project-meta">2024–2025 · TECHNICAL ARTIST</span><h3>Confidential Real-Time Game</h3><p>Perlin vertex displacement, runtime directional flow, raymarched metaball liquid, fixed-topology cloud growth.</p><div class="card-view">View →</div></div>
+        <div class="project-body"><span class="project-meta">2024-2025 · TECHNICAL ARTIST</span><h3>Confidential Real-Time Game</h3><p>Perlin vertex displacement, runtime directional flow, raymarched metaball liquid, fixed-topology cloud growth.</p><div class="card-view">View →</div></div>
       </a>
       <a class="project-card support" href="projects/when-it-seen.html">
         <div class="project-media">
@@ -393,19 +328,55 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   </div>
 </section>
 
+<section class="section research-band" id="neural-rd">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">EMERGING 3D / 4D R&amp;D</span>
+      <div>
+        <h2>From captured humans to neural 3D representations.</h2>
+        <p>I am extending my capture and real-time pipeline work into Gaussian Splatting, NeRF, neural rendering, compression, and GPU systems. The current studies benchmark static 3D scenes and establish the representation, coding, and systems layer I would extend toward dynamic human and 4D capture workflows.</p>
+      </div>
+    </div>
+
+    <div class="research-panel">
+      <div class="research-visual">
+        <img src="Projects29/assets/neural-scene/neural-scene-summary.png" alt="Held-out comparison of ground truth, Splatfacto Gaussian Splatting, and Nerfacto NeRF on Bonsai and Garden">
+      </div>
+      <div class="research-copy">
+        <span class="num">2026 · NEURAL GRAPHICS RESEARCH</span>
+        <h3>Gaussian Splatting, Neural Scene Representation &amp; Delivery</h3>
+        <p>I built a connected set of experiments around a practical question: how can reconstructed 3D content retain visual quality while becoming faster to optimize, smaller to deliver, and easier to execute in real-time systems?</p>
+        <p><strong>NeuralScene Bench</strong> compares Splatfacto 3DGS and Nerfacto NeRF under the same Nerfstudio data and evaluation protocol. <strong>Gaussian Growth Efficiency</strong> studies training and densification budgets across scenes. <strong>SplatStream Lab</strong> evaluates pruning, FP16/INT8 quantization, payload size, and held-out reconstruction quality using full CUDA rendering. <strong>Ray-Scene Acceleration</strong> implements and profiles spatial acceleration structures in C++17.</p>
+        <div class="evidence"><span>3D Gaussian Splatting</span><span>NeRF</span><span>Nerfstudio</span><span>gsplat</span><span>PyTorch</span><span>CUDA</span><span>Python</span><span>C++17</span></div>
+        <div class="research-metrics">
+          <div class="research-metric"><b>2.65×</b><span>payload reduction at selected 3DGS operating point</span></div>
+          <div class="research-metric"><b>+2.14 dB</b><span>Bonsai PSNR, Splatfacto vs Nerfacto at matched 5K steps</span></div>
+          <div class="research-metric"><b>444×</b><span>SAH BVH speedup in clustered systems benchmark</span></div>
+        </div>
+        <p class="research-note">Research claims are intentionally bounded: matched iterations are not matched convergence, compressed payload measurements are experimental coding results, and static-scene benchmarks are not presented as completed 4D human reconstruction.</p>
+        <div class="research-links">
+          <a class="btn primary" href="Video_Algorithms.html">Open Neural Graphics Research →</a>
+          <a class="btn" href="https://github.com/reusahn/splatstream-lab" target="_blank" rel="noopener">SplatStream GitHub ↗</a>
+          <a class="btn" href="https://github.com/reusahn/ray-scene-acceleration" target="_blank" rel="noopener">Graphics Systems GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section expertise" id="expertise">
   <div class="shell">
     <div class="section-head">
       <span class="eyebrow">TECHNICAL FIT</span>
       <div>
-        <h2>I work at the intersection of character, animation, and engine.</h2>
-        <p>My role is less about a single software package and more about finding production bottlenecks across the pipeline, connecting disciplines, and turning solutions into repeatable workflows.</p>
+        <h2>I work across character, capture, graphics, and R&amp;D.</h2>
+        <p>My role is less about a single software package and more about finding production bottlenecks across the pipeline, connecting art and research teams, and turning experiments into documented, repeatable workflows.</p>
       </div>
     </div>
     <div class="expertise-grid">
-      <div class="expertise-card"><span class="n">01 / HUMAN</span><h3>Digital Human Pipeline</h3><p>Scan/depth source cleanup, topology/UV, Wrap, MetaHuman Identity/From Template, custom reconstruction, texture·eye·hair troubleshooting.</p><strong>Maya · ZBrush · Wrap · MetaHuman · CC4</strong></div>
-      <div class="expertise-card"><span class="n">02 / MOTION</span><h3>Performance &amp; Technical Animation</h3><p>Optical/markerless/facial capture, cleanup, reconstruction, retargeting, body-face synchronization, Sequencer and Control Rig assembly.</p><strong>OptiTrack · MOVIN TRACIN · Rokoko · MotionBuilder · Unreal</strong></div>
-      <div class="expertise-card"><span class="n">03 / REAL-TIME</span><h3>Rendering &amp; R&amp;D</h3><p>Real-time lookdev, hair/material optimization, runtime interaction, shaders, raymarching, production troubleshooting and technical prototyping.</p><strong>Unity HDRP/URP · Unreal · C# · HLSL · Python · C++</strong></div>
+      <div class="expertise-card"><span class="n">01 / HUMAN</span><h3>Digital Human Pipeline</h3><p>Scan/depth source cleanup, topology/UV, Wrap, MetaHuman Identity/From Template, custom reconstruction, texture, eye, and hair troubleshooting.</p><strong>Maya · ZBrush · Wrap · MetaHuman · CC4</strong></div>
+      <div class="expertise-card"><span class="n">02 / MOTION</span><h3>Performance &amp; Technical Animation</h3><p>Optical, markerless, and facial capture, cleanup, reconstruction, retargeting, body-face synchronization, Sequencer and Control Rig assembly.</p><strong>OptiTrack · MOVIN TRACIN · Rokoko · MotionBuilder · Unreal</strong></div>
+      <div class="expertise-card"><span class="n">03 / GRAPHICS R&amp;D</span><h3>Rendering, Neural Graphics &amp; Systems</h3><p>Real-time lookdev, shaders, raymarching, Gaussian Splatting, NeRF evaluation, CUDA-backed rendering experiments, compression, profiling, and production-oriented technical prototyping.</p><strong>3DGS · NeRF · CUDA · PyTorch · Unity · Unreal · C# · HLSL · Python · C++</strong></div>
     </div>
   </div>
 </section>
@@ -414,13 +385,13 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   <div class="shell">
     <div class="section-head">
       <span class="eyebrow">HOW I WORK</span>
-      <div><h2>Problem → Decision → Implementation → Result.</h2><p>Each case study shows the production problem, the reasoning behind the chosen approach, how it was implemented, and what changed in the final result.</p></div>
+      <div><h2>Problem → Decision → Implementation → Result.</h2><p>Each case study shows the production problem, the reasoning behind the chosen approach, how it was implemented, how the experiment was measured, and what changed in the final result.</p></div>
     </div>
     <div class="workflow-grid">
-      <div><span>01</span><h3>Problem</h3><p>What failed, broke, or blocked production?</p></div>
-      <div><span>02</span><h3>Decision</h3><p>Why this tool, pipeline, or trade-off?</p></div>
-      <div><span>03</span><h3>Implementation</h3><p>How was the solution connected across character, animation, and engine?</p></div>
-      <div><span>04</span><h3>Result</h3><p>What became more usable, stable, or repeatable?</p></div>
+      <div><span>01</span><h3>Problem</h3><p>What failed, broke, or blocked production or research?</p></div>
+      <div><span>02</span><h3>Decision</h3><p>Why this representation, tool, pipeline, or trade-off?</p></div>
+      <div><span>03</span><h3>Implementation</h3><p>How was the solution connected across capture, character, graphics, and engine?</p></div>
+      <div><span>04</span><h3>Result</h3><p>What became more usable, measurable, efficient, or repeatable?</p></div>
     </div>
   </div>
 </section>
@@ -429,11 +400,12 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   <div class="shell">
     <div class="about-row">
       <span class="eyebrow">ABOUT / TOOLSET</span>
-      <p>I work between artistic goals and engineering constraints. My focus is digital humans and performance capture, solving the technical problems that appear as characters move from source data to animation, rendering, and real-time deployment.</p>
+      <p>I work between artistic goals and engineering constraints. My focus is digital humans and performance capture, solving technical problems as characters move from captured source data to animation, rendering, and real-time deployment. My current neural graphics research extends that same pipeline thinking into 3D Gaussian Splatting, NeRF, compression, and GPU-based evaluation.</p>
       <div class="tool-list">
         <div class="tool-line"><span>DCC</span><b>Maya · MotionBuilder · Blender · ZBrush · Wrap</b></div>
         <div class="tool-line"><span>ENGINE</span><b>Unreal Engine · Unity</b></div>
         <div class="tool-line"><span>CAPTURE</span><b>OptiTrack · MOVIN TRACIN · Rokoko · iPhone</b></div>
+        <div class="tool-line"><span>NEURAL</span><b>3DGS · NeRF · Nerfstudio · gsplat · PyTorch · CUDA</b></div>
         <div class="tool-line"><span>CODE</span><b>Python · C# · C++ · HLSL</b></div>
       </div>
     </div>
@@ -441,20 +413,13 @@ img{display:block;width:100%;height:100%;object-fit:cover}
     <div class="broader-portfolio">
       <div class="broader-portfolio-copy">
         <span>MORE WORK</span>
-        <p>Additional work in film, installation, and media art.</p>
+        <p>Additional work in film, installation, media art, and neural graphics research.</p>
       </div>
-      <a
-        class="broader-portfolio-link"
-        href="https://jonghoonahn.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Open broader portfolio at jonghoonahn.com">
-        Broader Portfolio — Film / Installation / Media Art ↗
-      </a>
+      <a class="broader-portfolio-link" href="https://jonghoonahn.com" target="_blank" rel="noopener noreferrer" aria-label="Open broader portfolio at jonghoonahn.com">Broader Portfolio · Film / Installation / Media Art ↗</a>
     </div>
 
     <div class="contact-strip" id="contact">
-      <span>CONTACT · LOS ANGELES, CA</span>
+      <span>CONTACT · CALIFORNIA</span>
       <a href="mailto:hoonahncloud@gmail.com">hoonahncloud@gmail.com ↗</a>
     </div>
   </div>
@@ -464,7 +429,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 <footer class="footer">
   <div class="shell footer-inner">
     <span><strong>Jonghoon Ahn</strong> · 3D Visualization &amp; Animation Technical Artist</span>
-    <span><a href="mailto:hoonahncloud@gmail.com">hoonahncloud@gmail.com</a> · Los Angeles, CA</span>
+    <span><a href="mailto:hoonahncloud@gmail.com">hoonahncloud@gmail.com</a> · California</span>
   </div>
 </footer>
 </body>
