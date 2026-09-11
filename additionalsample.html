@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jonghoon Ahn | Unity Mobile Character Runtime | Histoury Supplementary</title>
+<meta name="description" content="Supplementary Unity mobile real-time animation, rigging, and cloth demo for Histoury.">
+<style>
+:root {
+  --bg:#0c0d0d;
+  --panel:#141616;
+  --panel2:#191b1b;
+  --line:#2a2d2c;
+  --text:#f0eee8;
+  --muted:#a9aaa4;
+  --bronze:#c39a56;
+  --bronze2:#8f6d38;
+  --green:#c6f038;
+  --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,Helvetica,sans-serif;line-height:1.55}
+a{color:inherit}
+.wrap{width:min(calc(100% - 40px),var(--max));margin:0 auto}
+nav{position:sticky;top:0;z-index:20;background:rgba(12,13,13,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.navin{height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-weight:800;letter-spacing:.02em}
+.navmeta{font-size:13px;color:var(--muted);text-align:right}
+.hero{padding:86px 0 54px}
+.kicker{font-size:13px;letter-spacing:.17em;text-transform:uppercase;color:var(--green);font-weight:800}
+h1{font-size:clamp(44px,7vw,86px);line-height:.96;margin:16px 0 24px;letter-spacing:-.055em;max-width:1020px}
+.lead{font-size:clamp(18px,2.3vw,25px);color:#d1d0ca;max-width:900px;margin:0}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0 0}
+.badge{padding:8px 11px;border:1px solid #383b39;background:#141616;border-radius:999px;font-size:12px;color:#dddcd6}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:7px;padding:13px 18px;font-weight:800;font-size:14px;border:1px solid #4a4d49}
+.btn.primary{background:var(--green);color:#0b0c0b;border-color:var(--green)}
+.btn.secondary{background:#171919;color:#fff}
+.note{margin-top:34px;padding:22px 24px;border-left:3px solid var(--bronze);background:linear-gradient(90deg,rgba(195,154,86,.12),rgba(195,154,86,.025));color:#d9d7d0;max-width:980px}
+.note strong{color:#fff}
+section{padding:54px 0;border-top:1px solid var(--line)}
+.section-head{display:grid;grid-template-columns:200px 1fr;gap:32px;margin-bottom:32px}
+.num{color:var(--bronze);font-size:13px;letter-spacing:.16em;font-weight:800;text-transform:uppercase}
+h2{font-size:clamp(30px,4vw,52px);line-height:1.02;letter-spacing:-.035em;margin:0}
+.sub{font-size:17px;color:var(--muted);max-width:780px;margin:14px 0 0}
+.video{position:relative;padding:75% 0 0 0;background:#050505;border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 20px 70px rgba(0,0,0,.35)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:20px}
+.card h3{font-size:17px;margin:0 0 9px}
+.card p{font-size:14px;color:var(--muted);margin:0}
+.card .tag{display:inline-block;color:var(--green);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+.pipeline{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:24px}
+.step{min-height:112px;padding:15px;border:1px solid var(--line);background:var(--panel);border-radius:8px}
+.step b{display:block;font-size:13px;margin-bottom:7px}
+.step span{font-size:12px;color:var(--muted)}
+.gallery2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.figure{margin:0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--panel)}
+.figure img{display:block;width:100%;height:auto;background:#111}
+.figure figcaption{padding:15px 17px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+.figure figcaption strong{display:block;color:var(--text);font-size:14px;margin-bottom:3px}
+.techrow{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:start}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.metric{padding:16px 17px;background:var(--panel2);border:1px solid var(--line);border-radius:8px}
+.metric .mname{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.metric .mval{font-size:18px;margin-top:5px;font-weight:800}
+.codebox{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;white-space:pre-wrap;background:#080909;border:1px solid var(--line);border-radius:8px;padding:18px;color:#cfd0ca}
+.scope{background:linear-gradient(135deg,#151816,#101111);border:1px solid #343833;border-radius:10px;padding:30px}
+.scope p{color:#c5c5bf;max-width:930px}
+.scope strong{color:#fff}
+.footer{padding:52px 0 72px;color:var(--muted);font-size:13px}
+.small{font-size:12px;color:#81837e}
+@media(max-width:850px){
+ .section-head{grid-template-columns:1fr;gap:8px}
+ .grid3,.pipeline{grid-template-columns:1fr 1fr}
+ .gallery2,.techrow{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+ .wrap{width:min(calc(100% - 24px),var(--max))}
+ .hero{padding-top:58px}
+ .grid3,.pipeline,.metrics{grid-template-columns:1fr}
+ .navmeta{display:none}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap navin">
+    <div class="brand">JONGHOON AHN</div>
+    <div class="navmeta">Histoury Supplementary Portfolio · Unity Mobile Character Runtime</div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Focused Technical Response</div>
+    <h1>Unity Mobile<br>Character Runtime</h1>
+    <p class="lead">A focused Roman historical character demo built to directly demonstrate Unity mobile real-time animation, humanoid rigging, runtime cloth, interaction, and Android deployment.</p>
+
+    <div class="badges">
+      <span class="badge">Unity URP</span>
+      <span class="badge">Android APK</span>
+      <span class="badge">CC4 Character</span>
+      <span class="badge">Humanoid Rig</span>
+      <span class="badge">Runtime Animation</span>
+      <span class="badge">Unity Cloth</span>
+      <span class="badge">Skin Weight Cleanup</span>
+      <span class="badge">Touch Camera</span>
+    </div>
+
+    <div class="actions">
+      <a class="btn primary" href="#demo">Watch Runtime Demo</a>
+      <a class="btn secondary" href="https://drive.google.com/file/d/1E1IVVPJeCKgIAp8dSVbVZnaayxKmJ78G/view?usp=drivesdk" target="_blank" rel="noopener">Open Android APK</a>
+    </div>
+
+    <div class="note">
+      <strong>Why I built a new sample.</strong>
+      Several of my prior projects were built as real-time systems, but much of the production material is confidential. Also, a recorded cloth simulation does not by itself demonstrate that the simulation is running at runtime. To remove that ambiguity, I built this focused CC4 and Unity mobile character test in approximately six hours specifically in response to Histoury’s request.
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="demo">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="num">01 · Runtime Demo</div>
+      <div>
+        <h2>Actual mobile character runtime.</h2>
+        <p class="sub">The video shows the interactive Android build. The character can switch animation states at runtime while the cape continues to simulate inside Unity rather than replaying a baked cloth cache.</p>
+      </div>
+    </div>
+
+    <div class="video">
+      <iframe src="https://player.vimeo.com/video/1225894277?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        title="Histoury Unity Mobile Character Runtime Demo"></iframe>
+    </div>
+
+    <div class="actions">
+      <a class="btn primary" href="https://drive.google.com/file/d/1E1IVVPJeCKgIAp8dSVbVZnaayxKmJ78G/view?usp=drivesdk" target="_blank" rel="noopener">Android APK · v1.apk</a>
+      <a class="btn secondary" href="https://drive.google.com/drive/folders/1EnBnMZHAWHuw-UV8bMeGpOvJygEfA87l?usp=sharing" target="_blank" rel="noopener">Google Drive Folder</a>
+    </div>
+    <p class="small">The shared Drive folder contains the Android APK for hands-on testing.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="num">02 · Scope</div>
+      <div>
+        <h2>One character. Full runtime proof.</h2>
+        <p class="sub">The goal was not to make another beauty render. The goal was to prove that I can generate, integrate, animate, troubleshoot, and deploy a character inside a mobile Unity runtime.</p>
+      </div>
+    </div>
+
+    <div class="grid3">
+      <div class="card"><div class="tag">Character</div><h3>CC4 Character Setup</h3><p>The base character was created and prepared in Character Creator, then adapted for the Roman historical outfit and Unity mobile runtime.</p></div>
+      <div class="card"><div class="tag">Rigging</div><h3>Humanoid + Skin Weights</h3><p>The cape’s base deformation and influences were cleaned before export so runtime cloth could operate from a stable skinned pose.</p></div>
+      <div class="card"><div class="tag">Animation</div><h3>Five Runtime States</h3><p>ARGUE, DANCE, FIGHT, POINT, and TALK can be triggered interactively with runtime transitions.</p></div>
+      <div class="card"><div class="tag">Cloth</div><h3>Unity Runtime Simulation</h3><p>The cape uses Unity Cloth with constraint painting, body collision, solver tuning, damping, stiffness, and world-motion response.</p></div>
+      <div class="card"><div class="tag">Interaction</div><h3>Camera + Look At</h3><p>The build includes touch orbit and zoom, talk close-up behavior, look-at control, cloth control, and runtime UI.</p></div>
+      <div class="card"><div class="tag">Deployment</div><h3>Android Build</h3><p>The system is packaged as an APK so the animation and cloth behavior can be evaluated outside the Unity Editor.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="num">03 · Pipeline</div>
+      <div>
+        <h2>Character generation to Android runtime.</h2>
+        <p class="sub">The test was intentionally structured around the parts of a production character pipeline that have to survive outside a DCC tool.</p>
+      </div>
+    </div>
+
+    <div class="pipeline">
+      <div class="step"><b>01 · Character</b><span>CC4 base character preparation</span></div>
+      <div class="step"><b>02 · Costume</b><span>Roman armor / cape asset adaptation</span></div>
+      <div class="step"><b>03 · Rig</b><span>Humanoid skeleton and skin-weight cleanup</span></div>
+      <div class="step"><b>04 · Motion</b><span>Retargeted runtime animation clips</span></div>
+      <div class="step"><b>05 · Cloth</b><span>Unity real-time cape simulation</span></div>
+      <div class="step"><b>06 · Mobile</b><span>URP scene and Android APK deployment</span></div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="num">04 · Character & Costume</div>
+      <div>
+        <h2>Roman character asset integration.</h2>
+        <p class="sub">For this focused technical test, I used a CC4 base character and a sourced Roman armor/cape outfit, then concentrated the work on fitting, deformation, runtime animation, cloth behavior, and mobile integration rather than costume modeling.</p>
+      </div>
+    </div>
+
+    <div class="gallery2">
+      <figure class="figure">
+        <img src="projects30/armor_reference.png" alt="Roman armor and cape character reference">
+        <figcaption><strong>Historical costume setup</strong>Roman armor and long cape selected specifically to expose rigid armor, skinned deformation, and a large cloth region in the same mobile character.</figcaption>
+      </figure>
+      <figure class="figure">
+        <img src="projects30/skin_weights.png" alt="CC4 cape skin weight editing">
+        <figcaption><strong>Costume adaptation</strong>The cape’s skin influences were cleaned so the garment could retain a stable attachment while the lower region was handed off to Unity runtime cloth.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="num">05 · Rigging</div>
+      <div>
+        <h2>Base deformation before physics.</h2>
+        <p class="sub">The cape is not treated as an isolated effect. Its skinned base state first needs stable bone influences. This makes the runtime cloth predictable when the animation changes.</p>
+      </div>
+    </div>
+
+    <div class="techrow">
+      <figure class="figure">
+        <img src="projects30/skin_weights.png" alt="CC4 cape skin weight editing">
+        <figcaption><strong>Cape skin-weight cleanup</strong>Editing the base cape influences before Unity export. The goal is to avoid unwanted foot and lower-leg influence while preserving a stable attachment to the torso.</figcaption>
+      </figure>
+
+      <div>
+        <div class="metrics">
+          <div class="metric"><div class="mname">Skeleton</div><div class="mval">Humanoid</div></div>
+          <div class="metric"><div class="mname">Cape Base</div><div class="mval">Skinned Mesh</div></div>
+          <div class="metric"><div class="mname">Animation States</div><div class="mval">5 Runtime</div></div>
+          <div class="metric"><div class="mname">Delivery</div><div class="mval">Android APK</div></div>
+        </div>
+
+        <div class="codebox" style="margin-top:12px">ARGUE
+DANCE
+FIGHT
+POINT
+TALK
+
+Runtime state switching
+Humanoid retargeting
+Touch orbit / zoom
+Talk close-up
+Look-at toggle
+Real-time cape simulation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="num">06 · Real-Time Cloth</div>
+      <div>
+        <h2>The cloth is solved inside Unity.</h2>
+        <p class="sub">This is the central reason for the new test. The cape is not an offline simulation exported as a recorded cache. Animation changes drive the character, and Unity continues to calculate the cape’s secondary motion at runtime.</p>
+      </div>
+    </div>
+
+    <div class="techrow">
+      <figure class="figure">
+        <img src="projects30/cloth_settings.png" alt="Unity Cloth settings">
+        <figcaption><strong>Unity Cloth tuning</strong>One captured tuning pass showing stiffness, damping, world-motion response, continuous collision, virtual particles, and solver frequency. Values were iterated during runtime testing.</figcaption>
+      </figure>
+
+      <div class="scope">
+        <h3 style="font-size:26px;margin:0 0 12px">Runtime cloth implementation</h3>
+        <p><strong>Constraint authoring.</strong> The upper cape remains tightly controlled while the lower region receives progressively more freedom.</p>
+        <p><strong>Character collision.</strong> Body colliders keep the cape responding to the animated character rather than passing freely through the body.</p>
+        <p><strong>Solver tuning.</strong> Bending, damping, world velocity response, collision behavior, and solver frequency were tuned while testing multiple character motions.</p>
+        <p><strong>Animation-independent behavior.</strong> The same cape simulation responds to ARGUE, DANCE, FIGHT, POINT, and TALK without requiring a separate baked cloth cache for each motion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="num">07 · Attribution</div>
+      <div>
+        <h2>What I built and what I adapted.</h2>
+      </div>
+    </div>
+
+    <div class="scope">
+      <p><strong>Base character:</strong> created and prepared in Character Creator.</p>
+      <p><strong>Historical costume and armor:</strong> sourced Roman character assets adapted for this real-time Unity mobile test rather than modeled from scratch.</p>
+      <p><strong>My technical work:</strong> character and costume fitting, humanoid integration, skin-weight cleanup, motion integration and runtime switching, Unity Cloth setup and tuning, camera interaction, look-at behavior, UI, and Android deployment.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="num">08 · Closing</div>
+      <div>
+        <h2>Built to answer one production question.</h2>
+        <p class="sub">Can I take a historical character into Unity mobile and make the rig, animation, cloth, interaction, and deployment work as a runtime system? This focused test is my direct answer.</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="btn primary" href="https://drive.google.com/file/d/1E1IVVPJeCKgIAp8dSVbVZnaayxKmJ78G/view?usp=drivesdk" target="_blank" rel="noopener">Test the Android APK</a>
+      <a class="btn secondary" href="#demo">Replay Demo Video</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    Jonghoon Ahn · Technical Artist / Technical Director · Real-Time Character & Digital Human Workflows
+  </div>
+</footer>
+</body>
+</html>
