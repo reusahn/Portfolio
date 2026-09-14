@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jonghoon Ahn | Real-Time Technical Art + Graphics Research | Gaucho Game Lab</title>
+<meta name="description" content="Real-time Technical Artist / Technical Director portfolio by Jonghoon Ahn: Unity, Unreal Engine, digital humans, character pipelines, shaders, XR, optimization, 3D Gaussian Splatting and interactive 4D humans.">
+<style>
+:root{
+  --bg:#f4f4f1;--paper:#fff;--ink:#111;--ink2:#34342f;--muted:#6f6f68;
+  --line:#deddd7;--soft:#ecebe6;--accent:#244968;--accent2:#dbe7ee;--dark:#151719;
+  --max:1320px;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,"Helvetica Neue",Arial,"Noto Sans KR",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.62 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{display:block;width:100%;height:100%;object-fit:cover}
+.shell{width:min(calc(100% - 56px),var(--max));margin:auto}
+.eyebrow{font:10px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:#85857f}
+.top{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-inner{height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:baseline;gap:12px;text-decoration:none;font-weight:750;letter-spacing:-.025em}
+.brand small{font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.015em}
+.nav{display:flex;align-items:center;gap:22px}
+.nav a{text-decoration:none;font-size:12.5px;color:var(--muted)}
+.nav a:hover{color:var(--ink)}
+
+.hero{background:var(--paper);padding:70px 0 48px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:.86fr 1.14fr;gap:58px;align-items:center}
+.hero h1{font-size:clamp(42px,4.6vw,66px);line-height:1.01;letter-spacing:-.05em;margin:16px 0 20px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{font-size:clamp(17px,1.3vw,20px);line-height:1.55;color:var(--ink2);max-width:660px;margin:0}
+.hero .sub{font-size:14px;line-height:1.7;color:var(--muted);max-width:660px;margin:18px 0 0}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;text-decoration:none;border:1px solid #c9c8c2;background:#fff;border-radius:7px;padding:10px 14px;font-size:13px;font-weight:600}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
+.reel{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#090a0b;box-shadow:0 18px 52px rgba(0,0,0,.12)}
+.reel iframe,.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.reel-cap{display:flex;justify-content:space-between;gap:16px;margin-top:9px;color:#898983;font:10px/1.5 var(--mono);letter-spacing:.04em}
+
+.snapshot{background:var(--paper);border-bottom:1px solid var(--line)}
+.snapshot-grid{display:grid;grid-template-columns:repeat(5,1fr)}
+.snapshot-item{padding:20px 20px 22px;border-right:1px solid var(--line)}
+.snapshot-item:first-child{padding-left:0}.snapshot-item:last-child{border-right:0;padding-right:0}
+.snapshot-item span{display:block;font:9px/1.4 var(--mono);letter-spacing:.1em;color:#92928b;text-transform:uppercase}
+.snapshot-item b{display:block;font-size:14px;line-height:1.4;margin-top:7px}
+
+.section{padding:76px 0;border-bottom:1px solid var(--line)}
+.section-head{display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;margin-bottom:36px}
+.section-head h2{font-size:clamp(29px,2.65vw,39px);line-height:1.14;letter-spacing:-.034em;margin:0;max-width:920px}
+.section-head p{font-size:15px;color:var(--muted);max-width:820px;margin:14px 0 0}
+
+.fit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.fit-card{background:var(--paper);padding:26px;min-height:245px}
+.fit-card .n{font:10px/1.4 var(--mono);letter-spacing:.1em;color:var(--accent)}
+.fit-card h3{font-size:20px;line-height:1.16;letter-spacing:-.025em;margin:20px 0 10px}
+.fit-card p{font-size:13.5px;color:var(--muted);margin:0}
+.fit-card strong{display:block;margin-top:18px;font-size:12px}
+
+.feature{display:grid;grid-template-columns:1.26fr .74fr;min-height:540px;background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;text-decoration:none}
+.feature-media{position:relative;overflow:hidden;background:#111}
+.feature-media img{position:absolute;inset:0}
+.feature-video{position:absolute;inset:0;z-index:2;background:#070808}
+.feature-video iframe{position:absolute;top:50%;left:50%;width:100%;height:133.34%;transform:translate(-50%,-50%);border:0;pointer-events:none}
+.badge{position:absolute;left:16px;top:16px;z-index:5;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);font:9px/1 var(--mono);letter-spacing:.08em}
+.feature-copy{padding:40px;display:flex;flex-direction:column}
+.feature-copy .num{font:10px/1.4 var(--mono);letter-spacing:.11em;color:var(--accent)}
+.feature-copy h3{font-size:clamp(28px,2.4vw,36px);line-height:1.1;letter-spacing:-.035em;margin:14px 0 12px}
+.feature-copy p{font-size:14.5px;color:var(--muted);margin:0}
+.scope-list{margin-top:20px;border-top:1px solid var(--line)}
+.scope-row{display:grid;grid-template-columns:100px 1fr;gap:16px;padding:10px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.scope-row span{font:9px/1.5 var(--mono);letter-spacing:.08em;color:#8b8b84;text-transform:uppercase}
+.scope-row b{font-weight:600}
+.view{margin-top:auto;padding-top:25px;font-size:12.5px;font-weight:700}
+.evidence{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.evidence span{border:1px solid var(--line);border-radius:999px;padding:5px 8px;font:9px/1.3 var(--mono);letter-spacing:.04em;color:#62625e;background:#fafaf8}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+.project-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;min-height:100%}
+.project-media{position:relative;aspect-ratio:16/9;background:var(--soft);overflow:hidden}
+.project-media img{position:absolute;inset:0}
+.project-video{position:absolute;inset:0;background:#060707}
+.project-video iframe{position:absolute;top:50%;left:50%;width:100%;height:133.34%;transform:translate(-50%,-50%);border:0;pointer-events:none}
+.project-body{padding:22px 24px 26px;display:flex;flex-direction:column;flex:1}
+.project-meta{font:9px/1.4 var(--mono);letter-spacing:.1em;color:#8b8b85;text-transform:uppercase}
+.project-card h3{font-size:22px;line-height:1.15;letter-spacing:-.028em;margin:10px 0 8px}
+.project-card p{font-size:13.5px;color:var(--muted);margin:0}
+.project-card .card-view{font-size:12px;font-weight:650;margin-top:auto;padding-top:18px}
+
+.mobile-proof{background:#111416;color:#fff;border-color:#2e3336}
+.mobile-proof .project-body{padding:25px}
+.mobile-proof .project-meta{color:#9fc1d5}
+.mobile-proof p{color:#b6bcc0}
+.mobile-proof .evidence span{border-color:#40464a;background:#1a1e21;color:#d4d8da}
+
+.xr-band{background:#fff}
+.xr-card .project-media{aspect-ratio:16/10}
+
+.research-band{background:#edf1f3}
+.research-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+.research-card{background:var(--paper);border:1px solid #d4dadd;border-radius:20px;overflow:hidden}
+.research-visual{background:#f8f9f9;padding:20px;min-height:360px;display:flex;align-items:center}
+.research-visual img{height:auto;object-fit:contain;border-radius:10px}
+.research-copy{padding:30px}
+.research-copy .num{font:10px/1.4 var(--mono);letter-spacing:.11em;color:var(--accent)}
+.research-copy h3{font-size:28px;line-height:1.12;letter-spacing:-.03em;margin:12px 0 12px}
+.research-copy p{font-size:14px;color:var(--muted);margin:0}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
+.metric{background:#fafaf8;border:1px solid var(--line);border-radius:10px;padding:13px}
+.metric b{display:block;font-size:18px;letter-spacing:-.02em}
+.metric span{display:block;margin-top:3px;font:8px/1.4 var(--mono);letter-spacing:.06em;color:#777772;text-transform:uppercase}
+.rq{margin-top:18px;padding:15px 16px;border-left:3px solid #9bb0bd;background:#f3f6f7;font-size:13px;color:#4f606a}
+.repo-link{display:inline-flex;margin-top:18px;text-decoration:none;font-size:12.5px;font-weight:700}
+
+.rd-chart{padding:26px;background:#111416;color:#fff;min-height:360px}
+.rd-chart svg{width:100%;height:auto}
+.rd-legend{font:9px/1.4 var(--mono);letter-spacing:.07em;color:#9ba6ac;margin-top:10px}
+.ray-table{width:100%;border-collapse:collapse;margin-top:18px;font-size:12.5px}
+.ray-table td,.ray-table th{padding:10px 8px;border-top:1px solid var(--line);text-align:right}
+.ray-table th:first-child,.ray-table td:first-child{text-align:left}
+.ray-table th{font:9px/1.4 var(--mono);letter-spacing:.07em;color:#81817b;text-transform:uppercase}
+
+.bridge{background:var(--dark);color:#fff;border-bottom:0}
+.bridge .section-head p{color:#afb3b5}
+.bridge .eyebrow{color:#8ea5b8}
+.bridge-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
+.bridge-card{border:1px solid #33383b;border-radius:18px;background:#1a1d20;padding:30px}
+.bridge-card h3{font-size:24px;letter-spacing:-.025em;margin:10px 0 12px}
+.bridge-card p{font-size:14px;color:#b5b9bb;margin:0}
+.bridge-card ul{margin:18px 0 0;padding-left:18px;color:#d9dbdc;font-size:13px}
+.bridge-card li+li{margin-top:7px}
+
+.exp-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:36px}
+.exp-list{border-top:1px solid var(--line)}
+.exp-item{padding:16px 0;border-bottom:1px solid var(--line)}
+.exp-item b{display:block;font-size:15px}
+.exp-item span{display:block;margin-top:3px;font:9px/1.5 var(--mono);letter-spacing:.06em;color:#83837d;text-transform:uppercase}
+.exp-item p{font-size:13px;color:var(--muted);margin:7px 0 0}
+.skills{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.skill{background:#fff;padding:19px}
+.skill span{font:9px/1.4 var(--mono);letter-spacing:.08em;color:#85857f;text-transform:uppercase}
+.skill b{display:block;font-size:13.5px;line-height:1.55;margin-top:7px}
+
+.final{padding:72px 0;background:#fff}
+.final-grid{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end}
+.final h2{font-size:clamp(30px,3vw,43px);line-height:1.1;letter-spacing:-.038em;margin:10px 0 0;max-width:900px}
+.final p{font-size:15px;color:var(--muted);max-width:780px;margin:16px 0 0}
+.footer{padding:38px 0 55px}
+.footer-inner{border-top:1px solid var(--line);padding-top:20px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;color:var(--muted);font-size:12.5px}
+
+@media(max-width:1050px){
+ .hero-grid,.feature,.research-grid,.bridge-grid,.exp-grid{grid-template-columns:1fr}
+ .feature-media{aspect-ratio:16/9}
+ .snapshot-grid{grid-template-columns:1fr 1fr}
+ .snapshot-item:nth-child(even){border-right:0}
+ .fit-grid{grid-template-columns:1fr 1fr}
+ .grid-3{grid-template-columns:1fr 1fr}
+}
+@media(max-width:720px){
+ .shell{width:calc(100% - 28px)}
+ .top-inner{height:auto;padding:12px 0}.brand small,.nav{display:none}
+ .hero{padding:50px 0 36px}.hero h1{font-size:clamp(39px,12vw,54px)}
+ .snapshot-grid,.fit-grid,.grid-2,.grid-3,.metrics,.skills{grid-template-columns:1fr}
+ .snapshot-item{border-right:0!important;border-bottom:1px solid var(--line);padding:16px 0}
+ .section{padding:60px 0}.section-head{grid-template-columns:1fr;gap:8px}
+ .feature-copy{padding:26px}.scope-row{grid-template-columns:1fr;gap:4px}
+ .final-grid{grid-template-columns:1fr}
+ .reel-cap{flex-direction:column;gap:2px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="shell top-inner">
+    <a class="brand" href="gaucho-game-lab.html">Jonghoon Ahn.<small>Real-Time Technical Artist / Technical Director + Graphics Research</small></a>
+    <nav class="nav">
+      <a href="#production">Production</a>
+      <a href="#game-xr">Game / XR</a>
+      <a href="#research">Graphics R&amp;D</a>
+      <a href="#experience">Experience</a>
+      <a href="Jonghoon_Ahn_Gaucho_Game_Lab_Resume.pdf">Resume</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="shell hero-grid">
+    <div>
+      <span class="eyebrow">UCSB MAT PHD · INCOMING FALL 2026 · GAUCHO GAME LAB PORTFOLIO</span>
+      <h1>Production technical art,<br><em>extended into graphics research.</em></h1>
+      <p class="lead">I build real-time character, animation, shader, XR, and interaction systems in Unity and Unreal. My current research extends that production practice into 3D Gaussian Splatting, interactive 4D humans, and real-time graphics systems.</p>
+      <p class="sub">The contribution I can bring to a game team is practical: character technical art, retargeting and mocap, facial animation, shaders and VFX, runtime integration, profiling-oriented troubleshooting, asset-pipeline support, and communication between artists and programmers.</p>
+      <div class="actions">
+        <a class="btn primary" href="#production">View production work</a>
+        <a class="btn" href="#research">View graphics research</a>
+        <a class="btn" href="Jonghoon_Ahn_Gaucho_Game_Lab_Resume.pdf">Resume PDF</a>
+        <a class="btn" href="https://github.com/reusahn" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div>
+      <div class="reel">
+        <iframe src="https://player.vimeo.com/video/1218744311?autoplay=1&muted=1&loop=1&background=1&controls=0&title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" title="Shininho digital human real-time technical art reel"></iframe>
+      </div>
+      <div class="reel-cap"><span>SHININHO · DIGITAL HUMAN / REAL-TIME PIPELINE</span><span>Unreal Engine · MetaHuman · Mocap · Facial</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="snapshot">
+  <div class="shell snapshot-grid">
+    <div class="snapshot-item"><span>Engines</span><b>Unity URP / HDRP · Unreal Engine 5</b></div>
+    <div class="snapshot-item"><span>Character</span><b>MetaHuman · Rigging · Retargeting · Facial</b></div>
+    <div class="snapshot-item"><span>Realtime</span><b>C# · C++ · HLSL · Niagara · VFX</b></div>
+    <div class="snapshot-item"><span>Capture / XR</span><b>OptiTrack · Rokoko · OpenXR · Kinect</b></div>
+    <div class="snapshot-item"><span>Graphics R&amp;D</span><b>3DGS · PyTorch / CUDA · BVH · 4D Humans</b></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">CONTRIBUTION PROFILE</span>
+      <div><h2>I can enter a student game team as a production contributor, not as someone starting from zero.</h2><p>My strongest role is the artist-programmer bridge: owning character and real-time visual problems end to end, then translating them into engine-ready systems that other artists and engineers can actually use.</p></div>
+    </div>
+    <div class="fit-grid">
+      <div class="fit-card"><span class="n">01 / CHARACTER TA</span><h3>Characters that survive the engine.</h3><p>Digital-human construction, rigging, skinning, blendshapes, retargeting, body/face synchronization, cloth, groom/material repair, and runtime character integration.</p><strong>MetaHuman · Maya · CC4 · Live Link Face · Rokoko</strong></div>
+      <div class="fit-card"><span class="n">02 / GRAPHICS + VFX</span><h3>Real-time look and behavior.</h3><p>Custom HLSL, procedural deformation, raymarched metaballs, Perlin-based effects, Niagara/VFX systems, HDRI lighting, rendering troubleshooting, and visual polish.</p><strong>HLSL · Niagara · Shader Graph · URP / HDRP</strong></div>
+      <div class="fit-card"><span class="n">03 / PIPELINE + SYSTEMS</span><h3>From DCC to stable runtime.</h3><p>Asset handoff, C# / C++ integration, scene and animation state logic, Alembic, mobile deployment, sensor I/O, CV/ML inference, TCP, profiling-minded technical debugging.</p><strong>C# · C++ · Python · Git · Android</strong></div>
+      <div class="fit-card"><span class="n">04 / TEAM BRIDGE</span><h3>Technical mentoring and triage.</h3><p>Experience supporting artists through real-time workflows, explaining constraints, debugging scenes, and turning visual goals into concrete implementation steps.</p><strong>CalArts TA · CultureHub LA Mentor</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="production">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">PRODUCTION WORK · DIGITAL HUMANS / CHARACTERS</span>
+      <div><h2>Character pipelines built for real-time production, not only final renders.</h2><p>These projects cover scanning, topology, MetaHuman identity, custom rigs, mocap, facial animation, skin/eye/hair correction, runtime systems, lighting, and multi-character delivery across Unity and Unreal.</p></div>
+    </div>
+
+    <a class="feature" href="https://jonghoonahn.com/projects/shininho-jooan.html" target="_blank" rel="noopener">
+      <div class="feature-media">
+        <img src="https://jonghoonahn.com/media/shininho/hero.jpg" alt="Shininho digital human">
+        <div class="feature-video"><iframe src="https://player.vimeo.com/video/1218744311?autoplay=1&muted=1&loop=1&background=1&controls=0&title=0&byline=0&portrait=0" allow="autoplay; fullscreen" title="Shininho"></iframe></div>
+        <span class="badge">01 / FLAGSHIP · DIGITAL HUMAN PIPELINE</span>
+      </div>
+      <div class="feature-copy">
+        <span class="num">TECHNICAL DIRECTOR / DIGITAL HUMAN PIPELINE R&amp;D</span>
+        <h3>Shininho + Jooan</h3>
+        <p>Performance-capture and digital-human work spanning Unity and Unreal: scan and topology preparation, MetaHuman wrapping, body and facial capture, retargeting, cleanup, real-time staging, lighting, and VR presentation.</p>
+        <div class="scope-list">
+          <div class="scope-row"><span>Pipeline</span><b>scan → Maya → Unity / UE5 → MetaHuman → performance capture → Sequencer</b></div>
+          <div class="scope-row"><span>Body</span><b>OptiTrack / Motive · Move.AI · retargeting · cleanup</b></div>
+          <div class="scope-row"><span>Face</span><b>Rokoko + iPhone Live Link Face · body/face synchronization</b></div>
+          <div class="scope-row"><span>Realtime</span><b>Niagara · HDRI / Skylight · VR staging · eye / hair correction</b></div>
+        </div>
+        <div class="evidence"><span>Unreal Engine 5</span><span>Unity</span><span>MetaHuman</span><span>Maya</span><span>OptiTrack</span><span>Live Link Face</span><span>Niagara</span></div>
+        <div class="view">Open full technical case study →</div>
+      </div>
+    </a>
+
+    <div class="grid-2">
+      <a class="project-card" href="https://jonghoonahn.com/projects/row-row-row-your-boat.html" target="_blank" rel="noopener">
+        <div class="project-media"><img src="https://jonghoonahn.com/media/row/hero_10_faces.jpg" alt="Row Row Row Your Boat ten MetaHuman identities"><span class="badge">02 / MULTI-CHARACTER PRODUCTION</span></div>
+        <div class="project-body"><span class="project-meta">TECHNICAL ARTIST · UNREAL ENGINE 5</span><h3>Row, Row, Row Your Boat</h3><p>Ten real participants processed into MetaHuman-based characters. I handled identity processing, head/body setup, skin/eye/teeth/groom correction, animation cleanup, 5×2 staging, and morning/sunset/night delivery for the Melbourne Town Hall installation.</p><div class="evidence"><span>MetaHuman Identity</span><span>Live Link Face</span><span>Maya</span><span>10 Characters</span></div><div class="card-view">Open case →</div></div>
+      </a>
+
+      <a class="project-card" href="https://jonghoonahn.com/projects/gang-se-hwang.html" target="_blank" rel="noopener">
+        <div class="project-media"><img src="https://jonghoonahn.com/media/gang/hero_portrait_to_digital2.jpg" alt="Gang Se-hwang portrait to digital human"><span class="badge">03 / CUSTOM UNITY CHARACTER</span></div>
+        <div class="project-body"><span class="project-meta">DIRECTOR / TECHNICAL ARTIST · UNITY HDRP</span><h3>Gang Se-hwang Digital Human</h3><p>Historical portrait reconstructed as a custom real-time character: ZBrush/ZWrap/Maya construction, custom ARKit-compatible facial rig, Python facial-data import, XGen/hair, Marvelous cloth, Alembic/Timeline, and C# museum-kiosk interaction.</p><div class="evidence"><span>Unity HDRP</span><span>Python</span><span>C#</span><span>ARKit</span><span>ZBrush / ZWrap</span></div><div class="card-view">Open case →</div></div>
+      </a>
+
+      <a class="project-card" href="https://jonghoonahn.com/projects/yaloo.html" target="_blank" rel="noopener">
+        <div class="project-media"><img src="https://jonghoonahn.com/media/yaloo/hero_age_states.jpg" alt="Yaloo multi-age digital human"><span class="badge">04 / LONG-RUNNING COLLABORATION</span></div>
+        <div class="project-body"><span class="project-meta">TECHNICAL ARTIST / DIGITAL HUMAN TD · UNITY + UNREAL</span><h3>Yaloo Multi-Age Digital Humans</h3><p>Long-term digital-human collaboration across childhood, adult, middle-aged, and elderly representations, with real-time look development, animation integration, materials, lighting, and exhibition/cinematic delivery.</p><div class="evidence"><span>Unity</span><span>Unreal</span><span>MetaHuman</span><span>Lookdev</span><span>Age Variants</span></div><div class="card-view">Open case →</div></div>
+      </a>
+
+      <a class="project-card" href="https://jonghoonahn.com/projects/confidential-game.html" target="_blank" rel="noopener">
+        <div class="project-media"><img src="https://jonghoonahn.com/media/game/hero_metaball.gif" alt="Real-time metaball shader system"><span class="badge">05 / GAME TECHNICAL ART</span></div>
+        <div class="project-body"><span class="project-meta">TECHNICAL ARTIST / TECHNICAL DIRECTOR · UNITY URP</span><h3>Independent Real-Time Game</h3><p>Public-safe technical work from a confidential collaboration: C# runtime systems, custom HLSL, Perlin vertex deformation, Fresnel, raymarched metaballs, procedural behavior, input-to-shader logic, and Maya blendshape state authoring.</p><div class="evidence"><span>Unity URP</span><span>C#</span><span>HLSL</span><span>Raymarching</span><span>Procedural</span></div><div class="card-view">Open public case →</div></div>
+      </a>
+
+      <a class="project-card" href="https://jonghoonahn.com/projects/when-it-seen.html" target="_blank" rel="noopener">
+        <div class="project-media"><div class="project-video"><iframe src="https://player.vimeo.com/video/1219183858?autoplay=1&muted=1&loop=1&background=1&controls=0&title=0&byline=0&portrait=0" allow="autoplay; fullscreen" title="When It Seen"></iframe></div><span class="badge">06 / PERFORMANCE CAPTURE</span></div>
+        <div class="project-body"><span class="project-meta">MOTION CAPTURE SPECIALIST · UNREAL ENGINE</span><h3>When It Seen</h3><p>Three dancers captured as separate body and face streams, synchronized per performer in Unreal, then prepared as full-character Alembic deformation handoff. My scope covers capture, synchronization, cleanup, and character deformation handoff, not the downstream Houdini cloth simulation.</p><div class="evidence"><span>MOVIN TRACIN</span><span>Rokoko</span><span>iPhone Face</span><span>Alembic</span></div><div class="card-view">Open case →</div></div>
+      </a>
+
+      <a class="project-card mobile-proof" href="https://jonghoonahn.com/additionalsample" target="_blank" rel="noopener">
+        <div class="project-media"><div class="project-video"><iframe src="https://player.vimeo.com/video/1225894277?autoplay=1&muted=1&loop=1&background=1&controls=0&title=0&byline=0&portrait=0" allow="autoplay; fullscreen" title="Unity Mobile Character Runtime"></iframe></div><span class="badge">07 / DIRECT UNITY RUNTIME PROOF</span></div>
+        <div class="project-body"><span class="project-meta">UNITY URP · ANDROID APK · MOBILE CHARACTER</span><h3>Unity Mobile Character Runtime</h3><p>Focused runtime proof built around a CC4 character: humanoid rig, retargeted animation states, real-time cape Cloth, skin-weight cleanup, LookAt, touch camera, runtime UI, and Android APK deployment.</p><div class="evidence"><span>Unity URP</span><span>CC4</span><span>Humanoid</span><span>Unity Cloth</span><span>Android</span></div><div class="card-view">Open runtime case + APK →</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section xr-band" id="game-xr">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">GAME / XR / INTERACTION</span>
+      <div><h2>Unity is also my interaction platform.</h2><p>Before the current digital-human focus, I built VR games, data-driven installations, AI-driven characters, sensor interaction, computer-vision systems, and public museum experiences in Unity.</p></div>
+    </div>
+    <div class="grid-3">
+      <a class="project-card xr-card" href="https://jonghoonahn.com/google-projects/fineo-vr.html" target="_blank" rel="noopener">
+        <div class="project-media"><img src="https://jonghoonahn.com/assets/images/xr1.jpg" alt="Fineo Translated Universe VR"><span class="badge">VR · GRAND PRIZE</span></div>
+        <div class="project-body"><span class="project-meta">DIRECTOR / TECHNICAL ARTIST · UNITY VR</span><h3>Fineo, Translated Universe</h3><p>Interactive VR data visualization using harmonograph-inspired procedural mapping to translate periodic-table data into spatial form. Grand Prize at Kookmin University Art &amp; Design Exhibition.</p><div class="card-view">Open case →</div></div>
+      </a>
+      <a class="project-card xr-card" href="https://jonghoonahn.com/google-projects/escape-metro.html" target="_blank" rel="noopener">
+        <div class="project-media"><img src="https://jonghoonahn.com/assets/images/xr4.jpg" alt="Escape Metro Unity VR game"><span class="badge">AI NPC · VR GAME</span></div>
+        <div class="project-body"><span class="project-meta">DIRECTOR / TECHNICAL ARTIST · UNITY VR</span><h3>Escape Metro</h3><p>Interactive narrative VR game combining puzzle/navigation systems with AI-NPC conversation, ChatGPT API integration, and experimental Web3 elements.</p><div class="card-view">Open case →</div></div>
+      </a>
+      <a class="project-card xr-card" href="https://jonghoonahn.com" target="_blank" rel="noopener">
+        <div class="project-media"><div class="project-video"><iframe src="https://player.vimeo.com/video/666369383?autoplay=1&muted=1&loop=1&background=1&controls=0&title=0&byline=0&portrait=0" allow="autoplay; fullscreen" title="To Eternity"></iframe></div><span class="badge">SENSOR · PUBLIC INSTALLATION</span></div>
+        <div class="project-body"><span class="project-meta">UNITY · AZURE KINECT · OPENCV</span><h3>To Eternity + Interaction Systems</h3><p>Gesture-driven museum installation using Azure Kinect, OpenCV, Unity C#, GPU composition, and archival imagery. Related work includes Silhak Dance, Beads Wall, AR style transfer, Graffiti Freedom, and Narci, Be Narci.</p><div class="card-view">View broader portfolio →</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section research-band" id="research">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">GRAPHICS RESEARCH · CURRENT</span>
+      <div><h2>Research grows out of the same real-time problems I handle in production.</h2><p>The current questions are not detached from game production: how to make neural/explicit scene representations smaller, controllable, temporally coherent, and useful inside interactive systems.</p></div>
+    </div>
+
+    <div class="research-card" style="display:grid;grid-template-columns:1.05fr .95fr;margin-bottom:18px">
+      <div class="rd-chart">
+        <span class="eyebrow" style="color:#8ea5b8">SPLATSTREAM LAB · FULL-SCENE CUDA RATE-DISTORTION</span>
+        <svg viewBox="0 0 760 370" role="img" aria-label="PSNR versus payload size for full-scene 3D Gaussian Splatting compression">
+          <rect x="0" y="0" width="760" height="370" rx="12" fill="#111416"/>
+          <line x1="82" y1="292" x2="715" y2="292" stroke="#4a5155" stroke-width="1"/>
+          <line x1="82" y1="52" x2="82" y2="292" stroke="#4a5155" stroke-width="1"/>
+          <text x="82" y="325" fill="#9da5a9" font-size="12" font-family="monospace">10 MiB</text>
+          <text x="655" y="325" fill="#9da5a9" font-size="12" font-family="monospace">185 MiB</text>
+          <text x="24" y="63" fill="#9da5a9" font-size="12" font-family="monospace">30 dB</text>
+          <text x="24" y="292" fill="#9da5a9" font-size="12" font-family="monospace">17 dB</text>
+          <polyline points="715,57 307,97 220,174 129,281 83,283" fill="none" stroke="#7fa8c3" stroke-width="3"/>
+          <circle cx="715" cy="57" r="6" fill="#fff"/><circle cx="307" cy="97" r="8" fill="#b7d5e7"/><circle cx="220" cy="174" r="6" fill="#7fa8c3"/><circle cx="129" cy="281" r="6" fill="#7fa8c3"/><circle cx="83" cy="283" r="6" fill="#7fa8c3"/>
+          <text x="520" y="42" fill="#fff" font-size="12" font-family="monospace">BASELINE 185.43 MiB / 29.77 dB</text>
+          <text x="323" y="91" fill="#d8edf8" font-size="13" font-weight="700" font-family="monospace">25% PRUNE + FP16</text>
+          <text x="323" y="110" fill="#9fc3d8" font-size="12" font-family="monospace">70.04 MiB · 2.65× · 27.62 dB</text>
+          <text x="95" y="348" fill="#9da5a9" font-size="11" font-family="monospace">PAYLOAD SIZE →</text>
+          <text transform="translate(17,230) rotate(-90)" fill="#9da5a9" font-size="11" font-family="monospace">HELD-OUT PSNR →</text>
+        </svg>
+        <div class="rd-legend">Measured zlib-backed experimental payload · Mip-NeRF 360 / Bonsai · 947,033 Gaussian baseline</div>
+      </div>
+      <div class="research-copy">
+        <span class="num">01 / 3D GAUSSIAN SPLATTING · COMPRESSION / STREAMING</span>
+        <h3>SplatStream Lab</h3>
+        <p>Full-scene 3DGS systems study using pruning, FP16/INT8 quantization, compact payload accounting, and held-out CUDA evaluation. The selected 25% pruning + FP16 operating point reduced the measured payload from 185.43 MiB to 70.04 MiB while retaining 27.6234 dB PSNR, 0.9007 SSIM, and 0.1659 LPIPS.</p>
+        <div class="metrics"><div class="metric"><b>2.65×</b><span>payload reduction</span></div><div class="metric"><b>27.62 dB</b><span>PSNR</span></div><div class="metric"><b>947K</b><span>baseline Gaussians</span></div></div>
+        <div class="rq"><strong>Game / real-time direction:</strong> how can Gaussian or neural scene representations become practical, streamable representations for interactive environments rather than offline captures?</div>
+        <a class="repo-link" href="https://github.com/reusahn/splatstream-lab" target="_blank" rel="noopener">GitHub / reproducible CUDA pipeline →</a>
+      </div>
+    </div>
+
+    <div class="research-grid">
+      <div class="research-card">
+        <div class="research-visual"><img src="https://raw.githubusercontent.com/reusahn/interactive-digital-humans/main/experiments/01-baseline/figures/01_joint_axis_leakage.svg" alt="Interactive digital humans HUGS locality leakage chart"></div>
+        <div class="research-copy">
+          <span class="num">02 / INTERACTION-READY 4D HUMANS</span>
+          <h3>Interactive Digital Humans</h3>
+          <p>Baseline v1 probes locality in a real-time Gaussian-human representation by perturbing SMPL joints and measuring whether Gaussian motion remains inside the expected kinematic subtree. The current Seattle/frame-0 baseline contains 36 probe measurements over 472,958 human Gaussians.</p>
+          <div class="metrics"><div class="metric"><b>36</b><span>saved probes</span></div><div class="metric"><b>472,958</b><span>human Gaussians</span></div><div class="metric"><b>11.21%</b><span>wrist-z leakage</span></div></div>
+          <div class="rq"><strong>Current question:</strong> can a real-time 4D human expose semantically meaningful local control while preserving identity, temporal coherence, and rendering quality?</div>
+          <a class="repo-link" href="https://github.com/reusahn/interactive-digital-humans" target="_blank" rel="noopener">GitHub / experiment + data manifest →</a>
+        </div>
+      </div>
+
+      <div class="research-card">
+        <div class="research-copy">
+          <span class="num">03 / REAL-TIME RENDERING FUNDAMENTALS · C++17</span>
+          <h3>Ray-Scene Acceleration Structures</h3>
+          <p>Spatial acceleration implemented from scratch: brute-force intersections, median BVH, binned-SAH BVH, uniform grid, 3D-DDA, instrumentation, and differential correctness tests.</p>
+          <table class="ray-table">
+            <thead><tr><th>Structure</th><th>Tests/ray</th><th>Trace</th><th>vs brute</th></tr></thead>
+            <tbody><tr><td>Brute force</td><td>99,972</td><td>28,665 ms</td><td>1.0×</td></tr><tr><td>BVH median</td><td>32.5</td><td>143.7 ms</td><td>199×</td></tr><tr><td><strong>BVH binned SAH</strong></td><td><strong>12.8</strong></td><td><strong>64.6 ms</strong></td><td><strong>444×</strong></td></tr></tbody>
+          </table>
+          <div class="rq">Benchmarked on a 99,972-triangle procedural scene with 50,000 rays. Differential test suite: 34 checks, 0 failures.</div>
+          <a class="repo-link" href="https://github.com/reusahn/ray-scene-acceleration" target="_blank" rel="noopener">GitHub / source + benchmark methodology →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bridge">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">PRODUCTION ↔ RESEARCH BRIDGE</span>
+      <div><h2>The research direction is a continuation of technical art: controllable representations that can ship into interactive systems.</h2><p>I am interested in a practical bridge between neural graphics and game-engine production, especially where representations must be editable, responsive, and robust enough for characters and environments.</p></div>
+    </div>
+    <div class="bridge-grid">
+      <div class="bridge-card"><span class="eyebrow">NEAR-TERM QUESTIONS</span><h3>Gaussian / neural assets inside a game loop.</h3><ul><li>Can Gaussian representations be compressed and streamed at rates suitable for interactive scenes?</li><li>Can 4D Gaussian humans expose local semantic controls that behave like production-friendly rig regions?</li><li>How do we bridge these representations with animation states, physics, shaders, collision, and gameplay logic?</li><li>What profiling and LOD policies are necessary before neural representations become practical production assets?</li></ul></div>
+      <div class="bridge-card"><span class="eyebrow">WHAT I BRING TO A LAB TEAM</span><h3>Research that stays connected to production constraints.</h3><p>I already work with the failure modes that appear after an asset reaches a real engine: retargeting mismatch, deformation errors, body/face sync, shader cost, asset handoff, runtime state logic, mobile constraints, and artist-engineer communication. Those constraints shape the research questions I want to pursue.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="experience">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">EXPERIENCE + TOOLKIT</span>
+      <div><h2>Production, teaching, XR development, and public deployment.</h2></div>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-list">
+        <div class="exp-item"><b>Independent / Contract Technical Artist &amp; Technical Director</b><span>Selected collaborations · 2024–2026</span><p>Digital humans, real-time character pipelines, performance capture, Unity/Unreal integration, shader/VFX systems, and exhibition/game delivery for artists and directors including Yaloo, Erick Oh, and Jung Hyejeong.</p></div>
+        <div class="exp-item"><b>Technical Art Mentor / Workshop Instructor</b><span>CultureHub Los Angeles · Jan 2026</span><p>Mentored artists working with real-time media and creative technology; project critique, workflow troubleshooting, and technical implementation support.</p></div>
+        <div class="exp-item"><b>Graduate Teaching Assistant</b><span>California Institute of the Arts · 2024–2025</span><p>Supported MFA productions through Unity/UE5, XR, real-time rendering, and AI-assisted workflow troubleshooting.</p></div>
+        <div class="exp-item"><b>XR Game Developer</b><span>RedFlight AI · 2024</span><p>Prototyped NLP-driven character scenes and real-time XR interaction in Unity for Meta Quest 3.</p></div>
+        <div class="exp-item"><b>Lead Developer · Research Program</b><span>Kookmin University · 2019–2022</span><p>Real-time AR/MR and museum installation development using Unity, Python, C#, OpenCV, Azure Kinect, ML inference, GPU image processing, and networked display systems.</p></div>
+      </div>
+      <div class="skills">
+        <div class="skill"><span>Engines</span><b>Unity URP / HDRP · Unreal Engine 5 · Sequencer · Timeline</b></div>
+        <div class="skill"><span>Languages</span><b>C# · C++ · Python · HLSL · Blueprints</b></div>
+        <div class="skill"><span>Characters</span><b>MetaHuman · Maya · MotionBuilder · CC4 · ZBrush · ZWrap · XGen · Marvelous</b></div>
+        <div class="skill"><span>Capture</span><b>OptiTrack / Motive · Rokoko · Live Link Face · MOVIN TRACIN · Move.AI</b></div>
+        <div class="skill"><span>Realtime FX</span><b>Niagara · VFX Graph · Shader Graph · custom HLSL · raymarching</b></div>
+        <div class="skill"><span>XR / Vision</span><b>OpenXR · AR Foundation · Azure Kinect · OpenCV · Barracuda · Meta Quest 3</b></div>
+        <div class="skill"><span>Graphics R&amp;D</span><b>PyTorch · CUDA · 3D Gaussian Splatting · BVH / SAH · neural graphics</b></div>
+        <div class="skill"><span>Education</span><b>UCSB MAT PhD, incoming Fall 2026 · CalArts MFA 2025 · Kookmin BFA 2022</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="shell final-grid">
+    <div>
+      <span class="eyebrow">JONGHOON AHN · UCSB MEDIA ARTS &amp; TECHNOLOGY</span>
+      <h2>Production-ready technical art, with a research path toward the next generation of real-time graphics.</h2>
+      <p>I am interested in contributing directly to Gaucho Game Lab projects while developing research that connects neural/explicit graphics representations to practical real-time characters and environments.</p>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="Jonghoon_Ahn_Gaucho_Game_Lab_Resume.pdf">Resume PDF</a>
+      <a class="btn" href="https://jonghoonahn.com/DigitalHuman_Portfolio_Jonghoonahn.html" target="_blank" rel="noopener">Digital Human portfolio</a>
+      <a class="btn" href="https://github.com/reusahn" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="shell footer-inner">
+    <span>Jonghoon Ahn · Real-Time Technical Artist / Technical Director · Incoming UCSB MAT PhD</span>
+    <span><a href="mailto:reusahn@gmail.com">reusahn@gmail.com</a> · <a href="https://jonghoonahn.com">jonghoonahn.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
