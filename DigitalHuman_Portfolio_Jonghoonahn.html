@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Jonghoon Ahn | 3D Visualization & Animation Technical Artist</title>
-<meta name="description" content="Digital Human, Performance Capture, Technical Animation, Neural Graphics, and Real-Time R&D portfolio by Jonghoon Ahn.">
+<title>Jonghoon Ahn | Digital Human & 4D Human Technical Artist</title>
+<meta name="description" content="Digital Human, Performance Capture, 4D Human Representation, Gaussian Avatars, Neural Graphics, Technical Animation, and Real-Time R&D portfolio by Jonghoon Ahn.">
 <style>
 :root{
   --bg:#f5f5f2;--paper:#fff;--ink:#111;--ink2:#33332f;--muted:#6f6f68;
@@ -89,6 +89,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 
 .research-band{background:#eef1f3}
 .research-panel{display:grid;grid-template-columns:1.12fr .88fr;background:var(--paper);border:1px solid #d4d9dd;border-radius:20px;overflow:hidden}
+.research-panel+.research-panel{margin-top:18px}
 .research-visual{background:#f7f8f8;padding:18px;display:flex;align-items:center;justify-content:center;min-height:460px}
 .research-visual img{width:100%;height:auto;object-fit:contain;border-radius:12px}
 .research-copy{padding:42px;display:flex;flex-direction:column;justify-content:center}
@@ -191,10 +192,10 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 <body>
 <header class="top">
   <div class="shell top-inner">
-    <a class="brand" href="DigitalHuman_Portfolio_Jonghoonahn.html">Jonghoon Ahn.<small>3D Visualization &amp; Animation Technical Artist</small></a>
+    <a class="brand" href="DigitalHuman_Portfolio_Jonghoonahn.html">Jonghoon Ahn.<small>Digital Human &amp; 4D Human Technical Artist</small></a>
     <nav class="nav">
       <a href="#work">Work</a>
-      <a href="#neural-rd">Neural R&amp;D</a>
+      <a href="#neural-rd">4D / Neural R&amp;D</a>
       <a href="#expertise">Expertise</a>
       <a href="#about">About</a>
       <a href="mailto:hoonahncloud@gmail.com">Contact</a>
@@ -206,13 +207,13 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 <section class="hero">
   <div class="shell hero-grid">
     <div>
-      <div class="eyebrow">3D VISUALIZATION &amp; ANIMATION TECHNICAL ARTIST · DIGITAL HUMAN / PERFORMANCE CAPTURE / NEURAL GRAPHICS / REAL-TIME R&amp;D</div>
+      <div class="eyebrow">DIGITAL HUMAN · PERFORMANCE CAPTURE · 4D HUMAN REPRESENTATION · NEURAL GRAPHICS · REAL-TIME R&amp;D</div>
       <h1>Human performance into<br><em>production-ready 3D.</em></h1>
-      <p class="lead">Technical Artist connecting Digital Humans, Performance Capture, Technical Animation, Real-Time Graphics, and Neural Graphics R&amp;D.</p>
-      <p class="sub">I turn captured human geometry, textures, and motion into production-ready characters, animation, and real-time systems across Maya, MotionBuilder, Unreal Engine, and Unity, while researching Gaussian Splatting and neural scene representations for emerging 3D content workflows.</p>
+      <p class="lead">Technical Artist connecting Digital Humans, Performance Capture, Technical Animation, Real-Time Graphics, and 4D Human Representation R&amp;D.</p>
+      <p class="sub">I turn captured human geometry, textures, and motion into production-ready characters, animation, and real-time systems across Maya, MotionBuilder, Unreal Engine, and Unity. My current research extends that pipeline into Gaussian avatars, SMPL/LBS deformation, semantic locality, neural scene representations, and interaction-ready 4D humans.</p>
       <div class="actions">
         <a class="btn primary" href="#work">Selected Work ↓</a>
-        <a class="btn" href="#neural-rd">Neural Graphics R&amp;D</a>
+        <a class="btn" href="#neural-rd">4D Human &amp; Neural R&amp;D</a>
         <a class="btn" href="#expertise">Technical Fit</a>
         <a class="btn" href="mailto:hoonahncloud@gmail.com">Email ↗</a>
       </div>
@@ -232,7 +233,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
     <div class="snapshot-item"><span>01 / DIGITAL HUMAN</span><b>Scan / Depth → MetaHuman / Custom Human</b><small>Likeness, topology, texture, eye, hair, lookdev</small></div>
     <div class="snapshot-item"><span>02 / PERFORMANCE</span><b>OptiTrack · MOVIN TRACIN · Rokoko · iPhone</b><small>Capture, cleanup, retarget, body/face assembly</small></div>
     <div class="snapshot-item"><span>03 / ENGINE</span><b>Unreal Engine · Unity</b><small>Sequencer · Control Rig · HDRP/URP · VR · real-time delivery</small></div>
-    <div class="snapshot-item"><span>04 / NEURAL R&amp;D</span><b>3DGS · NeRF · CUDA · Python</b><small>Neural scene benchmarking, training efficiency, compression, and systems evaluation</small></div>
+    <div class="snapshot-item"><span>04 / 4D HUMAN + NEURAL R&amp;D</span><b>Gaussian Avatars · SMPL/LBS · 3DGS</b><small>Representation, learned deformation, semantic locality, compression, and GPU evaluation</small></div>
   </div>
 </section>
 
@@ -331,10 +332,33 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 <section class="section research-band" id="neural-rd">
   <div class="shell">
     <div class="section-head">
-      <span class="eyebrow">EMERGING 3D / 4D R&amp;D</span>
+      <span class="eyebrow">4D HUMAN / NEURAL GRAPHICS R&amp;D</span>
       <div>
-        <h2>From captured humans to neural 3D representations.</h2>
-        <p>I am extending my capture and real-time pipeline work into Gaussian Splatting, NeRF, neural rendering, compression, and GPU systems. The current studies benchmark static 3D scenes and establish the representation, coding, and systems layer I would extend toward dynamic human and 4D capture workflows.</p>
+        <h2>From captured humans to interaction-ready 4D representations.</h2>
+        <p>I am extending digital-human production work into Gaussian human representations, semantic control, learned deformation, neural rendering, compression, and GPU systems. The goal is to connect high-fidelity human capture with representations that remain controllable and efficient enough for real-time interaction.</p>
+      </div>
+    </div>
+
+    <div class="research-panel">
+      <div class="research-visual">
+        <img src="https://raw.githubusercontent.com/reusahn/interactive-digital-humans/main/experiments/04-k6-support-mapping/figures/13E_wrist_weight_target_vs_learned.svg" alt="Comparison of SMPL-derived K6 target and learned HUGS wrist influence in a 4D human deformation diagnostic">
+      </div>
+      <div class="research-copy">
+        <span class="num">2026 · 4D HUMAN REPRESENTATION R&amp;D</span>
+        <h3>Interaction-Ready 4D Humans</h3>
+        <p>I am investigating whether real-time Gaussian human representations expose sufficiently local and semantically meaningful control for embodied interaction. Starting from Apple's pretrained HUGS baseline on NeuMan Seattle, I built diagnostic tooling around SMPL/LBS semantics, canonical Gaussian assignment, articulation locality, and learned deformation behavior.</p>
+        <p>A controlled left-wrist perturbation revealed a stable cross-body response that was substantially larger than an SMPL-only control. I then reconstructed the model's SMPL-derived K=6 support target and the exact pretrained checkpoint forward path for all 472,958 Gaussians. The learned deformation field introduces small cross-joint wrist components on right-arm Gaussians that remain overwhelmingly right-arm weighted, and those components are strongly associated with the measured contralateral displacement.</p>
+        <div class="evidence"><span>4D Humans</span><span>Gaussian Avatars</span><span>HUGS</span><span>SMPL / LBS</span><span>PyTorch</span><span>Semantic Locality</span><span>Learned Deformation</span><span>Diagnostic Instrumentation</span></div>
+        <div class="research-metrics">
+          <div class="research-metric"><b>5.69×</b><span>mean contralateral displacement amplification vs SMPL-only control</span></div>
+          <div class="research-metric"><b>0.997</b><span>Spearman correlation, learned wrist influence vs right-arm displacement</span></div>
+          <div class="research-metric"><b>472,958</b><span>Gaussians in exact pretrained checkpoint reconstruction</span></div>
+        </div>
+        <p class="research-note">Current result: strong mechanism-level evidence, not yet causal proof. The next experiment is a counterfactual LBS ablation that removes the learned cross-joint wrist component while holding the rest of the representation fixed.</p>
+        <div class="research-links">
+          <a class="btn primary" href="https://github.com/reusahn/interactive-digital-humans" target="_blank" rel="noopener">Open 4D Human Research →</a>
+          <a class="btn" href="https://github.com/reusahn/interactive-digital-humans/tree/main/experiments/04-k6-support-mapping" target="_blank" rel="noopener">Deformation Study ↗</a>
+        </div>
       </div>
     </div>
 
@@ -343,7 +367,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
         <img src="Projects29/assets/neural-scene/neural-scene-summary.png" alt="Held-out comparison of ground truth, Splatfacto Gaussian Splatting, and Nerfacto NeRF on Bonsai and Garden">
       </div>
       <div class="research-copy">
-        <span class="num">2026 · NEURAL GRAPHICS RESEARCH</span>
+        <span class="num">2026 · NEURAL GRAPHICS &amp; SYSTEMS</span>
         <h3>Gaussian Splatting, Neural Scene Representation &amp; Delivery</h3>
         <p>I built a connected set of experiments around a practical question: how can reconstructed 3D content retain visual quality while becoming faster to optimize, smaller to deliver, and easier to execute in real-time systems?</p>
         <p><strong>NeuralScene Bench</strong> compares Splatfacto 3DGS and Nerfacto NeRF under the same Nerfstudio data and evaluation protocol. <strong>Gaussian Growth Efficiency</strong> studies training and densification budgets across scenes. <strong>SplatStream Lab</strong> evaluates pruning, FP16/INT8 quantization, payload size, and held-out reconstruction quality using full CUDA rendering. <strong>Ray-Scene Acceleration</strong> implements and profiles spatial acceleration structures in C++17.</p>
@@ -369,14 +393,14 @@ img{display:block;width:100%;height:100%;object-fit:cover}
     <div class="section-head">
       <span class="eyebrow">TECHNICAL FIT</span>
       <div>
-        <h2>I work across character, capture, graphics, and R&amp;D.</h2>
-        <p>My role is less about a single software package and more about finding production bottlenecks across the pipeline, connecting art and research teams, and turning experiments into documented, repeatable workflows.</p>
+        <h2>I work across character, capture, 4D representation, graphics, and R&amp;D.</h2>
+        <p>My role is less about a single software package and more about finding production and representation bottlenecks across the pipeline, connecting art and research teams, and turning experiments into documented, repeatable workflows.</p>
       </div>
     </div>
     <div class="expertise-grid">
       <div class="expertise-card"><span class="n">01 / HUMAN</span><h3>Digital Human Pipeline</h3><p>Scan/depth source cleanup, topology/UV, Wrap, MetaHuman Identity/From Template, custom reconstruction, texture, eye, and hair troubleshooting.</p><strong>Maya · ZBrush · Wrap · MetaHuman · CC4</strong></div>
       <div class="expertise-card"><span class="n">02 / MOTION</span><h3>Performance &amp; Technical Animation</h3><p>Optical, markerless, and facial capture, cleanup, reconstruction, retargeting, body-face synchronization, Sequencer and Control Rig assembly.</p><strong>OptiTrack · MOVIN TRACIN · Rokoko · MotionBuilder · Unreal</strong></div>
-      <div class="expertise-card"><span class="n">03 / GRAPHICS R&amp;D</span><h3>Rendering, Neural Graphics &amp; Systems</h3><p>Real-time lookdev, shaders, raymarching, Gaussian Splatting, NeRF evaluation, CUDA-backed rendering experiments, compression, profiling, and production-oriented technical prototyping.</p><strong>3DGS · NeRF · CUDA · PyTorch · Unity · Unreal · C# · HLSL · Python · C++</strong></div>
+      <div class="expertise-card"><span class="n">03 / 4D + GRAPHICS R&amp;D</span><h3>Human Representation, Neural Graphics &amp; Systems</h3><p>Gaussian human representations, SMPL/LBS deformation analysis, semantic locality, real-time lookdev, shaders, 3DGS/NeRF evaluation, CUDA-backed rendering experiments, compression, profiling, and technical prototyping.</p><strong>4D Humans · 3DGS · HUGS · SMPL/LBS · NeRF · CUDA · PyTorch · Python · C++</strong></div>
     </div>
   </div>
 </section>
@@ -400,12 +424,12 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   <div class="shell">
     <div class="about-row">
       <span class="eyebrow">ABOUT / TOOLSET</span>
-      <p>I work between artistic goals and engineering constraints. My focus is digital humans and performance capture, solving technical problems as characters move from captured source data to animation, rendering, and real-time deployment. My current neural graphics research extends that same pipeline thinking into 3D Gaussian Splatting, NeRF, compression, and GPU-based evaluation.</p>
+      <p>I work between artistic goals and engineering constraints. My focus is digital humans and performance capture, solving technical problems as characters move from captured source data to animation, rendering, and real-time deployment. My current R&amp;D extends that same pipeline thinking into interaction-ready 4D humans, Gaussian avatars, SMPL/LBS learned deformation, 3D Gaussian Splatting, NeRF, compression, and GPU-based evaluation.</p>
       <div class="tool-list">
         <div class="tool-line"><span>DCC</span><b>Maya · MotionBuilder · Blender · ZBrush · Wrap</b></div>
         <div class="tool-line"><span>ENGINE</span><b>Unreal Engine · Unity</b></div>
         <div class="tool-line"><span>CAPTURE</span><b>OptiTrack · MOVIN TRACIN · Rokoko · iPhone</b></div>
-        <div class="tool-line"><span>NEURAL</span><b>3DGS · NeRF · Nerfstudio · gsplat · PyTorch · CUDA</b></div>
+        <div class="tool-line"><span>4D / NEURAL</span><b>Gaussian Avatars · HUGS · SMPL/LBS · 3DGS · NeRF · Nerfstudio · gsplat · PyTorch · CUDA</b></div>
         <div class="tool-line"><span>CODE</span><b>Python · C# · C++ · HLSL</b></div>
       </div>
     </div>
@@ -428,7 +452,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 
 <footer class="footer">
   <div class="shell footer-inner">
-    <span><strong>Jonghoon Ahn</strong> · 3D Visualization &amp; Animation Technical Artist</span>
+    <span><strong>Jonghoon Ahn</strong> · Digital Human &amp; 4D Human Technical Artist</span>
     <span><a href="mailto:hoonahncloud@gmail.com">hoonahncloud@gmail.com</a> · California</span>
   </div>
 </footer>
