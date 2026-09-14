@@ -20,14 +20,14 @@ This repository hosts my portfolio site. For GitHub visitors, the projects below
 
 ### Digital Humans / Real-Time Graphics
 
+- **[Interactive Digital Humans](https://github.com/reusahn/interactive-digital-humans)**  
+  Active research on interaction-ready 4D human representations, Gaussian avatars, semantic control, temporal coherence, embodied interaction, and real-time response.
+
 - **[Digital Human & Real-Time R&D Portfolio](https://jonghoonahn.com/DigitalHuman_Portfolio_Jonghoonahn.html)**  
   Digital humans, performance capture, technical animation, real-time character pipelines, shaders, and neural graphics R&D.
 
 - **[Unity-Unreal Interaction Research](https://github.com/reusahn/Unity-Unreal-Interaction-Research)**  
   Real-time engine and interaction research across Unity and Unreal workflows.
-
-- **[Neural Style Transfer](https://github.com/reusahn/Neural-Style-Transfer)**  
-  Computer-vision and neural style-transfer experimentation in Python, including image-processing and inference workflows.
 
 ### Interactive / Media Systems
 
@@ -39,7 +39,7 @@ This repository hosts my portfolio site. For GitHub visitors, the projects below
 
 ## Current Technical Focus
 
-`3D Gaussian Splatting` · `NeRF` · `Python` · `PyTorch` · `CUDA` · `C++` · `HLSL` · `Unreal Engine` · `Unity` · `Digital Humans` · `Performance Capture`
+`Interactive 4D Humans` · `3D Gaussian Splatting` · `NeRF` · `Python` · `PyTorch` · `CUDA` · `C++` · `HLSL` · `Unreal Engine` · `Unity` · `Digital Humans` · `Performance Capture`
 
 ## Portfolio
 
