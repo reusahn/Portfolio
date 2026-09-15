@@ -1,82 +1,67 @@
-name: Fix K-Art recognition layout
+name: Fix K-Art layout
 on:
   push:
-    branches: [gh-pages]
-    paths: ['.github/workflows/fix-kart-layout.yml']
+    branches:
+      - gh-pages
 permissions:
   contents: write
 jobs:
   patch:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
-      - name: Update index and remove temporary workflow
+      - name: Patch K-Art recognition
         env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          BRANCH: gh-pages
-          WORKFLOW_PATH: .github/workflows/fix-kart-layout.yml
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python - <<'PY'
-          import os, json, base64, urllib.request
+          import base64
+          import json
+          import re
+          import urllib.request
 
-          token=os.environ['GH_TOKEN']
-          repo=os.environ['REPO']
-          branch=os.environ['BRANCH']
-          workflow_path=os.environ['WORKFLOW_PATH']
-          headers={
-              'Authorization':f'Bearer {token}',
-              'Accept':'application/vnd.github+json',
-              'X-GitHub-Api-Version':'2022-11-28',
-              'User-Agent':'kart-layout-fix'
+          repo = 'reusahn/Portfolio'
+          branch = 'gh-pages'
+          token = __import__('os').environ['GH_TOKEN']
+          headers = {
+              'Authorization': f'Bearer {token}',
+              'Accept': 'application/vnd.github+json',
+              'X-GitHub-Api-Version': '2022-11-28',
+              'User-Agent': 'kart-layout-fix'
           }
 
-          def api(method, path, payload=None):
-              url=f'https://api.github.com/repos/{repo}/{path}'
-              data=None if payload is None else json.dumps(payload).encode()
-              req=urllib.request.Request(url,data=data,headers=headers,method=method)
+          def call(method, path, payload=None):
+              url = f'https://api.github.com/repos/{repo}/{path}'
+              data = None if payload is None else json.dumps(payload).encode('utf-8')
+              req = urllib.request.Request(url, data=data, headers=headers, method=method)
               with urllib.request.urlopen(req) as r:
                   return json.load(r)
 
-          meta=api('GET',f'contents/index.html?ref={branch}')
-          s=base64.b64decode(meta['content']).decode('utf-8-sig')
+          meta = call('GET', f'contents/index.html?ref={branch}')
+          html = base64.b64decode(meta['content']).decode('utf-8-sig')
 
-          strip_old='.intro-recognition .recognition-strip{display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:18px;margin:0;max-width:none}'
-          strip_new='.intro-recognition .recognition-strip{display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:18px;margin:0;max-width:none;flex-wrap:wrap}'
-          if strip_old in s:
-              s=s.replace(strip_old,strip_new,1)
+          old_strip = '.intro-recognition .recognition-strip{display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:18px;margin:0;max-width:none}'
+          new_strip = '.intro-recognition .recognition-strip{display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:18px;margin:0;max-width:none;flex-wrap:wrap}'
+          if old_strip in html:
+              html = html.replace(old_strip, new_strip, 1)
 
-          old_css='''/* K-Art recognition */
-.intro-recognition .kart-item{flex-basis:100%;justify-content:flex-end;gap:10px;margin-top:3px;padding-top:11px;border-top:1px solid var(--line);font-size:12.8px;line-height:1.3;color:#333}
-.intro-recognition .kart-item .kart-mark{flex:0 0 auto;width:auto;min-width:48px;height:28px;padding:0 8px;border:0;border-radius:2px;background:#1f5f91;color:#fff;font-family:Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.02em}
-.intro-recognition .kart-item .recognition-copy{color:#333;font-weight:520}
-.intro-recognition .kart-item .recognition-copy strong{font-size:12.8px;font-weight:720;color:#111}
-@media(max-width:1050px){.intro-recognition .kart-item{justify-content:flex-start}}
-@media(max-width:680px){.intro-recognition .kart-item{flex-basis:100%;justify-content:flex-start;margin-top:2px;padding-top:10px;font-size:11.2px}.intro-recognition .kart-item .kart-mark{min-width:44px;height:26px;font-size:9px}.intro-recognition .kart-item .recognition-copy strong{font-size:11.2px}}'''
-          new_css='''/* K-Art recognition */
+          new_css = '''/* K-Art recognition */
 .intro-recognition .kart-item{flex-basis:100%;justify-content:flex-start}
 .kart-mark{border:1px solid #d5d5d5;background:#fff;color:#1f5f91;font-family:Arial,sans-serif;font-size:9px;font-weight:800;letter-spacing:-.02em}
 @media(max-width:680px){.intro-recognition .kart-item{flex-basis:100%;justify-content:flex-start}}'''
-          if old_css not in s:
-              raise SystemExit('Current K-Art CSS block not found')
-          s=s.replace(old_css,new_css,1)
+          html, n = re.subn(r'/\* K-Art recognition \*/.*?(?=</style>)', new_css + '\n', html, count=1, flags=re.S)
+          if n != 1:
+              raise SystemExit('K-Art CSS block not found')
 
-          old_item='''<div class="recognition-item kart-item"><span class="recognition-mark kart-mark" aria-hidden="true">K·ART</span><span class="recognition-copy" title="K-ART Young Creators Support Program · Selected Artist ’26" data-en="K-ART Young Creators Support Program ’26 · Selected Artist" data-ko="K-ART 청년 창작자 지원사업 선정자 ’26"><strong>K-ART ’26</strong> · Selected Artist</span></div>'''
-          new_item='''<div class="recognition-item kart-item"><span class="recognition-mark kart-mark" aria-hidden="true">K</span><span class="recognition-copy" title="K-ART · Selected Artist ’26" data-en="K-ART ’26 · Selected Artist" data-ko="K-ART 청년 창작자 지원사업 선정자 ’26"><strong>K-ART ’26</strong> · Selected Artist</span></div>'''
-          if old_item not in s:
-              raise SystemExit('Current K-Art item not found')
-          s=s.replace(old_item,new_item,1)
+          new_item = '''<div class="recognition-item kart-item"><span class="recognition-mark kart-mark" aria-hidden="true">K</span><span class="recognition-copy" title="K-ART · Selected Artist ’26" data-en="K-ART ’26 · Selected Artist" data-ko="K-ART 청년 창작자 지원사업 선정자 ’26"><strong>K-ART ’26</strong> · Selected Artist</span></div>'''
+          html, n = re.subn(r'<div class="recognition-item kart-item">.*?</div>', new_item, html, count=1, flags=re.S)
+          if n != 1:
+              raise SystemExit('K-Art recognition item not found')
 
-          api('PUT','contents/index.html',{
-              'message':'Unify K-Art recognition with hero awards',
-              'content':base64.b64encode(s.encode()).decode(),
-              'sha':meta['sha'],
-              'branch':branch
-          })
-
-          wf=api('GET',f'contents/{workflow_path}?ref={branch}')
-          api('DELETE',f'contents/{workflow_path}',{
-              'message':'Remove temporary K-Art layout workflow',
-              'sha':wf['sha'],
-              'branch':branch
+          call('PUT', 'contents/index.html', {
+              'message': 'Place K-Art below hero recognitions',
+              'content': base64.b64encode(html.encode('utf-8')).decode('ascii'),
+              'sha': meta['sha'],
+              'branch': branch
           })
           PY
