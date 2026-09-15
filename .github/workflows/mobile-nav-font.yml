@@ -22,14 +22,7 @@ jobs:
           from pathlib import Path
           p = Path('index.html')
           s = p.read_text(encoding='utf-8-sig')
-          css = '''
-/* Mobile header navigation type adjustment */
-@media(max-width:680px){
-  .head-nav{gap:9px}
-  .head-nav>a,.lang button{font-size:11px;line-height:1.25}
-  .lang{gap:5px;padding-left:10px}
-}
-'''
+          css = "\n/* Mobile header navigation type adjustment */\n@media(max-width:680px){.head-nav{gap:9px}.head-nav>a,.lang button{font-size:11px;line-height:1.25}.lang{gap:5px;padding-left:10px}}\n"
           if '/* Mobile header navigation type adjustment */' not in s:
               s = s.replace('</style>', css + '</style>', 1)
           p.write_text(s, encoding='utf-8')
