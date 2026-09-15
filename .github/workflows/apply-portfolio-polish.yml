@@ -1,0 +1,98 @@
+name: Apply portfolio polish
+
+on:
+  push:
+    branches: [gh-pages]
+
+permissions:
+  contents: write
+
+jobs:
+  polish:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - name: Update main page and all detail pages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          # Main page: remove the Artist label column, keep the name as the first element,
+          # and show the biography portrait in its original color.
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8-sig')
+          s=s.replace('.artist-grid{display:grid;grid-template-columns:180px minmax(0,1fr) minmax(300px,.8fr);gap:30px;align-items:start}',
+                      '.artist-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.8fr);gap:30px;align-items:start}')
+          s=s.replace('<section class="artist"><div class="shell artist-grid"><div class="label" data-en="Artist" data-ko="작가">Artist</div><div><h1>Jonghoon Ahn<small>안종훈</small></h1></div>',
+                      '<section class="artist"><div class="shell artist-grid"><div><h1>Jonghoon Ahn<small>안종훈</small></h1></div>')
+          s=s.replace('.bio-photo img{aspect-ratio:4/5;object-fit:cover;filter:grayscale(100%)}',
+                      '.bio-photo img{aspect-ratio:4/5;object-fit:cover;filter:none}')
+          s=s.replace('The series is presented in relation to the Art Korea Lab media-wall program. Until moving-image documentation is complete, the work is shown through a sequence of still images.',
+                      'Presented through the Art Korea Lab media-wall program, the series unfolds as shifting particle landscapes built from waves, reconstructed places, and fragments of memory.')
+          s=s.replace('아트코리아랩 미디어월을 통해 선보이는 연작이다. 영상 기록을 정리하는 동안 작품의 장면을 스틸 이미지로 먼저 소개한다.',
+                      '아트코리아랩 미디어월을 통해 선보이는 영상 연작이다. 파도와 재구성된 장소, 기억의 파편이 입자의 흐름 속에서 서로 다른 풍경으로 이어진다.')
+          p.write_text(s,encoding='utf-8')
+
+          # Shared detail styling: roomier metadata cells, proper light-theme text,
+          # and EN/KR controls for legacy pages.
+          css=Path('assets/css/museum-detail.css')
+          c=css.read_text(encoding='utf-8-sig')
+          marker='/* 2026 bilingual detail polish */'
+          if marker not in c:
+              c += r'''
+
+/* 2026 bilingual detail polish */
+.detail-meta-item{padding:18px 22px 19px!important;min-height:96px!important;justify-content:center!important}
+.detail-meta-label{margin-bottom:4px!important;line-height:1.35!important}
+.detail-meta-value{line-height:1.55!important}
+.sec-label{font-family:inherit!important;font-size:12px!important;font-weight:700!important;letter-spacing:.03em!important;text-transform:uppercase!important;color:#1f5f91!important;border-bottom:1px solid #111!important;padding-bottom:12px!important;margin-bottom:18px!important}
+.pipeline-info{background:#f5f7f8!important;color:#111!important;padding:34px!important}
+.pipeline-num,.tech-block-icon{color:#1f5f91!important}
+.pipeline-title{color:#111!important}
+.pipeline-desc{color:#444!important}
+.ptag{color:#555!important;border-color:#cfd2d4!important;background:#fff!important}
+.collab-block{background:#f5f7f8!important;border-left:3px solid #1f5f91!important;color:#333!important;padding:24px 28px!important}
+.collab-block p{color:#333!important}
+.collab-block a{color:#1f5f91!important;font-weight:700!important;text-decoration:none!important;border-bottom:1px solid #87a8c0!important}
+.collab-block a:hover{color:#153f60!important;border-color:#153f60!important}
+.detail-quote{border-left-color:#1f5f91!important}.detail-quote p{color:#333!important}.detail-quote cite{color:#666!important}
+.detail-language{display:flex!important;align-items:center!important;gap:7px!important;margin-left:auto!important;padding-left:14px!important;border-left:1px solid #d9d9d9!important;list-style:none!important}
+.detail-language button{appearance:none!important;border:0!important;background:transparent!important;color:#555!important;font-family:inherit!important;font-size:12px!important;padding:0!important;cursor:pointer!important;line-height:1.4!important}
+.detail-language button:hover,.detail-language button.active{color:#1f5f91!important}.detail-language button.active{font-weight:700!important}
+@media(max-width:768px){.detail-meta-item{padding:15px 16px 16px!important;min-height:84px!important}.nav-links .detail-language{padding:14px 0 0!important;margin:8px 0 0!important;border-left:0!important;border-top:1px solid #d9d9d9!important}.pipeline-info{padding:24px!important}}
+'''
+          css.write_text(c,encoding='utf-8')
+
+          script='<script src="../assets/js/detail-i18n.js"></script>'
+          changed=[]
+          for path in sorted(Path('detail_pages').glob('*.html')):
+              if path.name == 'flower-of-waves.html':
+                  continue
+              text=path.read_text(encoding='utf-8-sig',errors='replace')
+              old=text
+              # Remove an accidental unified-diff header that had become literal page text.
+              text=re.sub(r'^@\s+-\d+,\d+\s+\+\d+,\d+\s+@@\s*\n','',text,count=1)
+              if script not in text:
+                  text=text.replace('</body>',f'  {script}\n</body>',1)
+              if text != old:
+                  path.write_text(text,encoding='utf-8')
+                  changed.append(str(path))
+          print('Updated detail pages:',len(changed))
+          for x in changed: print(x)
+          PY
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/css/museum-detail.css detail_pages
+          git commit -m "Polish artist homepage and add bilingual detail pages"
+          git push origin gh-pages
