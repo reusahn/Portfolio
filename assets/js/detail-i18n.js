@@ -247,7 +247,7 @@
   function translationFor(text){
     const key = normalized(text);
     if (!key) return null;
-    const page = PAGE[file] || {};
+    const page = {...(PAGE[file] || {}), ...((window.DETAIL_I18N_EXTRA && window.DETAIL_I18N_EXTRA[file]) || {})};
     return page[key] ?? COMMON[key] ?? null;
   }
 
