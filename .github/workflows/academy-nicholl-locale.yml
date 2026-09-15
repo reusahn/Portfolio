@@ -1,0 +1,40 @@
+name: Academy Nicholl and locale adjustment
+on:
+  push:
+    branches: [gh-pages]
+permissions:
+  contents: write
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Update recognition and default locale
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8-sig')
+          s=s.replace('data-en="Nicholl ’25 · Entrant" data-ko="니콜 ’25 · Entrant"><strong>Nicholl ’25</strong> · Entrant','data-en="Academy Nicholl ’25 · Entrant" data-ko="아카데미 니콜 ’25 · Entrant"><strong>Academy Nicholl ’25</strong> · Entrant',1)
+          old="if(tz==='Asia/Seoul'){setLang('ko',false);return}if(tz.startsWith('America/')){setLang('en',false);return}setLang((navigator.language||'en').toLowerCase().startsWith('ko')?'ko':'en',false)"
+          new="if(tz==='Asia/Seoul'){setLang('ko',false);return}setLang('en',false)"
+          if old in s:
+              s=s.replace(old,new,1)
+          else:
+              old2="if(z==='Asia/Seoul')return setLang('ko',false);if(z.startsWith('America/'))return setLang('en',false);setLang((navigator.language||'en').toLowerCase().startsWith('ko')?'ko':'en',false)"
+              new2="if(z==='Asia/Seoul')return setLang('ko',false);setLang('en',false)"
+              if old2 in s:
+                  s=s.replace(old2,new2,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Use Academy Nicholl label and Korea-only Korean default"
+          git push origin gh-pages
