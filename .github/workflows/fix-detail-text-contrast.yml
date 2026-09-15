@@ -25,16 +25,16 @@ jobs:
             exit 0
           fi
           cat >> assets/css/museum-detail.css <<'CSS'
-
-/* 2026 detail contrast safety */
-/* Legacy pages previously used dark backgrounds. Keep all text readable
-   after the white museum-style migration, including old inline white text. */
-.detail-content,.detail-body,.detail-desc,.detail-meta,.process-section,.tech-section,.detail-awards,.press-section,body>.container,.description,.image-text-block,.image-text-block .text,.card,.panel,.info-card,.project-info,.pipeline-info,.collab-block,.detail-quote{color:#111!important}
-.detail-content p,.detail-content li,.detail-content span:not(.detail-meta-label):not(.tech-tag):not(.ptag),.detail-body p,.detail-body li,.detail-body span:not(.detail-meta-label),.detail-desc p,.detail-desc li,.process-section p,.process-section li,.tech-section p,.tech-section li,.detail-awards p,.detail-awards li,.press-section p,.press-section li,body>.container p,body>.container li,body>.container span,.description p,.description li,.image-text-block p,.image-text-block li,.image-text-block .text,.card p,.card li,.card span,.panel p,.panel li,.panel span,.info-card p,.info-card li,.info-card span,.project-info p,.project-info li,.project-info span,.pipeline-info p,.pipeline-info li,.pipeline-info span,.collab-block p,.collab-block li,.collab-block span,.detail-quote p{color:#333!important}
-.detail-content h1,.detail-content h2,.detail-content h3,.detail-content h4,.detail-content h5,.detail-content h6,.detail-body h1,.detail-body h2,.detail-body h3,.detail-body h4,.detail-body h5,.detail-body h6,.process-section h1,.process-section h2,.process-section h3,.process-section h4,.tech-section h1,.tech-section h2,.tech-section h3,.tech-section h4,.detail-awards h1,.detail-awards h2,.detail-awards h3,.detail-awards h4,.press-section h1,.press-section h2,.press-section h3,.press-section h4,body>.container h1,body>.container h2,body>.container h3,body>.container h4,.card h1,.card h2,.card h3,.card h4,.panel h1,.panel h2,.panel h3,.panel h4,.info-card h1,.info-card h2,.info-card h3,.info-card h4,.project-info h1,.project-info h2,.project-info h3,.project-info h4,.pipeline-title,.collab-block strong,.detail-quote strong{color:#111!important}
-.detail-cat,.process-label,.tech-label,.detail-awards-title,.press-label,.sec-label,.tech-block-title,.pipeline-num,.tech-block-icon,.collab-block a,.press-link:hover,.detail-nav .back{color:#1f5f91!important}
-.detail-content a:not(.press-link),.detail-body a,body>.container a,.card a,.panel a,.info-card a,.project-info a{color:#1f5f91!important}
-CSS
+          
+          /* 2026 detail contrast safety */
+          /* Legacy pages previously used dark backgrounds. Keep all text readable
+             after the white museum-style migration, including old inline white text. */
+          .detail-content,.detail-body,.detail-desc,.detail-meta,.process-section,.tech-section,.detail-awards,.press-section,body>.container,.description,.image-text-block,.image-text-block .text,.card,.panel,.info-card,.project-info,.pipeline-info,.collab-block,.detail-quote{color:#111!important}
+          .detail-content p,.detail-content li,.detail-content span:not(.detail-meta-label):not(.tech-tag):not(.ptag),.detail-body p,.detail-body li,.detail-body span:not(.detail-meta-label),.detail-desc p,.detail-desc li,.process-section p,.process-section li,.tech-section p,.tech-section li,.detail-awards p,.detail-awards li,.press-section p,.press-section li,body>.container p,body>.container li,body>.container span,.description p,.description li,.image-text-block p,.image-text-block li,.image-text-block .text,.card p,.card li,.card span,.panel p,.panel li,.panel span,.info-card p,.info-card li,.info-card span,.project-info p,.project-info li,.project-info span,.pipeline-info p,.pipeline-info li,.pipeline-info span,.collab-block p,.collab-block li,.collab-block span,.detail-quote p{color:#333!important}
+          .detail-content h1,.detail-content h2,.detail-content h3,.detail-content h4,.detail-content h5,.detail-content h6,.detail-body h1,.detail-body h2,.detail-body h3,.detail-body h4,.detail-body h5,.detail-body h6,.process-section h1,.process-section h2,.process-section h3,.process-section h4,.tech-section h1,.tech-section h2,.tech-section h3,.tech-section h4,.detail-awards h1,.detail-awards h2,.detail-awards h3,.detail-awards h4,.press-section h1,.press-section h2,.press-section h3,.press-section h4,body>.container h1,body>.container h2,body>.container h3,body>.container h4,.card h1,.card h2,.card h3,.card h4,.panel h1,.panel h2,.panel h3,.panel h4,.info-card h1,.info-card h2,.info-card h3,.info-card h4,.project-info h1,.project-info h2,.project-info h3,.project-info h4,.pipeline-title,.collab-block strong,.detail-quote strong{color:#111!important}
+          .detail-cat,.process-label,.tech-label,.detail-awards-title,.press-label,.sec-label,.tech-block-title,.pipeline-num,.tech-block-icon,.collab-block a,.press-link:hover,.detail-nav .back{color:#1f5f91!important}
+          .detail-content a:not(.press-link),.detail-body a,body>.container a,.card a,.panel a,.info-card a,.project-info a{color:#1f5f91!important}
+          CSS
       - name: Commit changes
         run: |
           if git diff --quiet; then
