@@ -16,3 +16,24 @@ body>.container{width:min(calc(100% - max(40px,8vw)),1460px)!important;max-width
 /* Pagination */
 .detail-nav,nav.pagination{position:static!important;min-height:0!important;max-width:1460px!important;margin:0 auto!important;padding:24px 0 0!important;border:0!important;border-top:1px solid #111!important;background:#fff!important;backdrop-filter:none!important;display:flex!important;justify-content:space-between!important;align-items:center!important;gap:20px!important}.detail-nav{padding:24px max(24px,4vw) 70px!important}.detail-nav a,nav.pagination a{font-family:inherit!important;font-size:13px!important;letter-spacing:0!important;text-transform:none!important;color:#555!important;text-decoration:none!important}.detail-nav a:hover,.detail-nav .back,nav.pagination a:hover{color:#1f5f91!important}.r{opacity:1!important;transform:none!important;transition:none!important}.card,.panel,.info-card,.project-info{background:#fff!important;border-color:#d9d9d9!important;color:#111!important}.tag,.pill{background:#fff!important;color:#555!important;border-color:#cfd2d4!important}
 @media(max-width:768px){body>nav:not(.pagination),body>.nav{padding:12px 20px!important;min-height:58px!important}.nav-links{background:#fff!important;border-left:1px solid #d9d9d9!important;padding:72px 24px 24px!important}.nav-links a{font-size:14px!important;border-bottom:1px solid #d9d9d9!important}.detail-hero{padding:42px 20px 0!important}.detail-video,.detail-banner,.detail-content,.detail-nav,.wide-img-wrap{padding-left:20px!important;padding-right:20px!important}.detail-body{grid-template-columns:1fr!important;gap:24px!important}.detail-meta{grid-template-columns:1fr 1fr!important}body>.container{width:calc(100% - 40px)!important;padding-top:42px!important}.container>h1{font-size:clamp(40px,12vw,60px)!important}.process-body,.process-body.three,.process-body.four{grid-template-columns:1fr!important}}
+
+
+/* 2026 bilingual detail polish */
+.detail-meta-item{padding:18px 22px 19px!important;min-height:96px!important;justify-content:center!important}
+.detail-meta-label{margin-bottom:4px!important;line-height:1.35!important}
+.detail-meta-value{line-height:1.55!important}
+.sec-label{font-family:inherit!important;font-size:12px!important;font-weight:700!important;letter-spacing:.03em!important;text-transform:uppercase!important;color:#1f5f91!important;border-bottom:1px solid #111!important;padding-bottom:12px!important;margin-bottom:18px!important}
+.pipeline-info{background:#f5f7f8!important;color:#111!important;padding:34px!important}
+.pipeline-num,.tech-block-icon{color:#1f5f91!important}
+.pipeline-title{color:#111!important}
+.pipeline-desc{color:#444!important}
+.ptag{color:#555!important;border-color:#cfd2d4!important;background:#fff!important}
+.collab-block{background:#f5f7f8!important;border-left:3px solid #1f5f91!important;color:#333!important;padding:24px 28px!important}
+.collab-block p{color:#333!important}
+.collab-block a{color:#1f5f91!important;font-weight:700!important;text-decoration:none!important;border-bottom:1px solid #87a8c0!important}
+.collab-block a:hover{color:#153f60!important;border-color:#153f60!important}
+.detail-quote{border-left-color:#1f5f91!important}.detail-quote p{color:#333!important}.detail-quote cite{color:#666!important}
+.detail-language{display:flex!important;align-items:center!important;gap:7px!important;margin-left:auto!important;padding-left:14px!important;border-left:1px solid #d9d9d9!important;list-style:none!important}
+.detail-language button{appearance:none!important;border:0!important;background:transparent!important;color:#555!important;font-family:inherit!important;font-size:12px!important;padding:0!important;cursor:pointer!important;line-height:1.4!important}
+.detail-language button:hover,.detail-language button.active{color:#1f5f91!important}.detail-language button.active{font-weight:700!important}
+@media(max-width:768px){.detail-meta-item{padding:15px 16px 16px!important;min-height:84px!important}.nav-links .detail-language{padding:14px 0 0!important;margin:8px 0 0!important;border-left:0!important;border-top:1px solid #d9d9d9!important}.pipeline-info{padding:24px!important}}
