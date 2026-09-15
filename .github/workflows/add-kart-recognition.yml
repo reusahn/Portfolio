@@ -1,0 +1,42 @@
+name: Add K-Art recognition
+on:
+  push:
+    branches: [gh-pages]
+permissions:
+  contents: write
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Add K-Art selected artist item
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8-sig')
+
+          css='''\n/* K-Art recognition */\n.kart-mark{border:0;background:#1f5f91;color:#fff;font-family:Arial,sans-serif;font-size:9px;font-weight:800;letter-spacing:-.02em}\n.intro-recognition .kart-item{flex-basis:100%;justify-content:flex-start}\n@media(max-width:680px){.intro-recognition .kart-item{flex-basis:100%}}\n'''
+          if '/* K-Art recognition */' not in s:
+              s=s.replace('</style>',css+'</style>',1)
+
+          if 'K-ART 청년 창작자 지원사업 선정자' not in s:
+              needle='''<span class="recognition-copy" title="CJ & TIFF K-Story Fund · Shortlist ’25" data-en="TIFF K-Story ’25 · Shortlist" data-ko="TIFF K-Story ’25 · 쇼트리스트"><strong>TIFF K-Story ’25</strong> · Shortlist</span></div>'''
+              item='''<span class="recognition-copy" title="CJ & TIFF K-Story Fund · Shortlist ’25" data-en="TIFF K-Story ’25 · Shortlist" data-ko="TIFF K-Story ’25 · 쇼트리스트"><strong>TIFF K-Story ’25</strong> · Shortlist</span></div><div class="recognition-item kart-item"><span class="recognition-mark kart-mark" aria-hidden="true">K</span><span class="recognition-copy" title="K-Art Young Artist Creation Support · Selected Artist ’26" data-en="K-Art Young Artist Creation Support ’26 · Selected Artist" data-ko="K-ART 청년 창작자 지원사업 선정자 ’26"><strong>K-Art ’26</strong> · Selected Artist</span></div>'''
+              if needle not in s:
+                  raise SystemExit('TIFF recognition anchor not found')
+              s=s.replace(needle,item,1)
+
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Add K-Art selected artist recognition"
+          git push origin gh-pages
