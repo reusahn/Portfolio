@@ -1,0 +1,92 @@
+name: Update artist bio
+
+on:
+  push:
+    branches: [gh-pages]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - name: Update bilingual artist introduction
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8-sig')
+
+          hero_en_1 = "Jonghoon Ahn is a filmmaker and media artist based between Seoul and Los Angeles. Working across film, XR, and digital performance, he uses motion capture, digital humans, real-time engines, and generative imaging technologies to create works in which audiences move beyond spectatorship and become part of the experience."
+          hero_ko_1 = "안종훈은 서울과 로스앤젤레스를 기반으로 활동하는 영화감독이자 미디어 아티스트다. 영화, XR, 디지털 퍼포먼스를 중심으로 모션캡처, 디지털 휴먼, 실시간 엔진, 생성형 이미지 기술을 활용해 관객이 단순한 감상자를 넘어 작품에 개입하는 방식을 탐구해왔다."
+
+          hero_en_2 = "He has worked as a technical artist on a game project with Academy Award-nominated animator Erick Oh, and as technical director on digital-human projects by media artist Yaloo, whose work has been featured in Hyperallergic. His short film Non-done Record was selected as a finalist for the 2024 Sundance Ignite × Adobe Fellowship, while his feature screenplay was selected as a 2025 Academy Nicholl Fellowships Partner Entrant and shortlisted for the CJ & TIFF K-Story Fund. He received an MFA in Art and Technology from California Institute of the Arts and is currently pursuing a PhD in Media Arts and Technology at the University of California, Santa Barbara."
+          hero_ko_2 = "아카데미상 후보에 오른 애니메이터 에릭 오와의 게임 프로젝트에서 테크니컬 아티스트로 참여했고, Hyperallergic에 소개된 미디어 아티스트 Yaloo의 디지털 휴먼 프로젝트에서는 테크니컬 디렉터로 활동했다. 단편영화 Non-done Record는 2024 Sundance Ignite × Adobe Fellowship 파이널리스트에 선정되었고, 장편 시나리오는 2025 Academy Nicholl Fellowships 파트너 추천작과 CJ & TIFF K-Story Fund 쇼트리스트에 올랐다. California Institute of the Arts에서 Art and Technology MFA를 졸업했으며, 현재 University of California, Santa Barbara의 Media Arts and Technology 박사과정에 재학 중이다."
+
+          full_en_1 = "Jonghoon Ahn is a filmmaker and media artist based between Seoul and Los Angeles. Working across film, XR, and digital performance, he uses motion capture, digital humans, real-time engines, and generative imaging technologies to create works in which audiences move beyond spectatorship and become part of the experience. He has worked as a technical artist on a game project with Academy Award-nominated animator Erick Oh, and as technical director on digital-human projects by media artist Yaloo, whose work has been featured in Hyperallergic."
+          full_ko_1 = "안종훈은 서울과 로스앤젤레스를 기반으로 활동하는 영화감독이자 미디어 아티스트다. 영화, XR, 디지털 퍼포먼스를 작업해 왔으며, 모션캡처, 디지털 휴먼, 실시간 엔진, 생성형 이미지 기술을 활용해 관객이 단순한 감상자를 넘어 작품에 개입하는 방식에 관심을 두고 있다. 아카데미상 후보에 오른 애니메이터 에릭 오와의 게임 프로젝트에서 테크니컬 아티스트로 참여했고, Hyperallergic에 소개된 미디어 아티스트 Yaloo의 디지털 휴먼 프로젝트에서는 테크니컬 디렉터로 활동했다."
+
+          full_en_2 = "Alongside his technology-driven practice, Ahn has continued to develop his work in storytelling and directing. His short film Non-done Record was selected as a finalist for the 2024 Sundance Ignite × Adobe Fellowship, while his feature screenplay was selected as a 2025 Academy Nicholl Fellowships Partner Entrant and shortlisted for the CJ & TIFF K-Story Fund. He received an MFA in Art and Technology from California Institute of the Arts and is currently pursuing a PhD in Media Arts and Technology at the University of California, Santa Barbara. His current practice brings cinematic storytelling and real-time technologies together in new media work."
+          full_ko_2 = "기술 기반 작업과 함께 최근에는 스토리텔링과 연출 영역도 확장하고 있다. 단편영화 Non-done Record는 2024 Sundance Ignite × Adobe Fellowship 파이널리스트에 선정되었고, 장편 시나리오는 2025 Academy Nicholl Fellowships 파트너 추천작과 CJ & TIFF K-Story Fund 쇼트리스트로 선정되며 영화와 시나리오 분야에서도 작업을 이어가고 있다. California Institute of the Arts에서 Art and Technology MFA를 졸업했으며, 현재 University of California, Santa Barbara의 Media Arts and Technology 박사과정에 재학 중이다. 이를 바탕으로 영화적 스토리텔링과 실시간 기술을 결합한 뉴미디어 작업을 확장하고 있다."
+
+          def esc(x):
+              return x.replace('&', '&amp;').replace('"', '&quot;')
+
+          s, n1 = re.subn(
+              r'<p class="bio-lead" data-en="[^"]*" data-ko="[^"]*">.*?</p>',
+              f'<p class="bio-lead" data-en="{esc(hero_en_1)}" data-ko="{esc(hero_ko_1)}">{hero_en_1}</p>',
+              s,
+              count=1,
+              flags=re.S,
+          )
+          s, n2 = re.subn(
+              r'<p class="bio-sub" data-en="[^"]*" data-ko="[^"]*">.*?</p>',
+              f'<p class="bio-sub" data-en="{esc(hero_en_2)}" data-ko="{esc(hero_ko_2)}">{hero_en_2}</p>',
+              s,
+              count=1,
+              flags=re.S,
+          )
+
+          new_bio = (
+              '<div class="bio-copy">'
+              f'<p data-en="{esc(full_en_1)}" data-ko="{esc(full_ko_1)}">{full_en_1}</p>'
+              f'<p data-en="{esc(full_en_2)}" data-ko="{esc(full_ko_2)}">{full_en_2}</p>'
+              '</div><figure class="bio-photo"'
+          )
+          s, n3 = re.subn(
+              r'<div class="bio-copy">.*?</div><figure class="bio-photo"',
+              new_bio,
+              s,
+              count=1,
+              flags=re.S,
+          )
+
+          s = s.replace('data-en="Media Artist · Filmmaker · Researcher" data-ko="미디어 아티스트 · 영화감독 · 연구자">Media Artist · Filmmaker · Researcher',
+                        'data-en="Filmmaker · Media Artist · Researcher" data-ko="영화감독 · 미디어 아티스트 · 연구자">Filmmaker · Media Artist · Researcher')
+          s = s.replace('content="Jonghoon Ahn is a media artist, filmmaker, and researcher working across moving image, interactive media, digital humans, real-time 3D, and 4D human representation."',
+                        'content="Jonghoon Ahn is a filmmaker and media artist working across film, XR, digital performance, real-time technologies, and digital humans."')
+
+          if (n1, n2, n3) != (1, 1, 1):
+              raise SystemExit(f'Unexpected replacements: hero lead={n1}, hero sub={n2}, bio={n3}')
+
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Rewrite bilingual artist biography"
+          git push origin gh-pages
