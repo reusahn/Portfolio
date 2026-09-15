@@ -1,0 +1,36 @@
+name: Add Academy Nicholl news link
+on:
+  push:
+    branches: [gh-pages]
+permissions:
+  contents: write
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Add Academy Nicholl item to News
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8-sig')
+          item='''    <div class="news-row"><div class="news-source">Academy of Motion Picture Arts and Sciences · 2025</div><div class="news-title" data-en="Academy Nicholl Fellowships · 2025 Ceremony" data-ko="아카데미 니콜 펠로우십 · 2025 Ceremony">Academy Nicholl Fellowships · 2025 Ceremony</div><a class="news-link" href="https://www.oscars.org/nicholl/ceremonies/2025#field-tabbed-content-tab-2" target="_blank" rel="noopener" data-en="Open ↗" data-ko="보기 ↗">Open ↗</a></div>\n'''
+          marker='  <div class="news-list">\n'
+          if 'https://www.oscars.org/nicholl/ceremonies/2025' not in s:
+              if marker not in s:
+                  raise SystemExit('news list marker not found')
+              s=s.replace(marker, marker+item, 1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Add Academy Nicholl ceremony to News"
+          git push origin gh-pages
