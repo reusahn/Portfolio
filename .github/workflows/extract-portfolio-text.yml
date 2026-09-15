@@ -1,0 +1,72 @@
+name: Extract portfolio text inventory
+
+on:
+  push:
+    branches: [gh-pages]
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - name: Extract visible text and linked detail pages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          import json, re
+
+          class TextParser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.skip=0
+                  self.text=[]
+              def handle_starttag(self, tag, attrs):
+                  if tag in {'script','style','svg','noscript'}:
+                      self.skip += 1
+              def handle_endtag(self, tag):
+                  if tag in {'script','style','svg','noscript'} and self.skip:
+                      self.skip -= 1
+              def handle_data(self, data):
+                  if not self.skip:
+                      s=' '.join(data.split())
+                      if s:
+                          self.text.append(s)
+
+          out={}
+          for path in sorted(Path('detail_pages').glob('*.html')):
+              html=path.read_text(encoding='utf-8-sig', errors='replace')
+              p=TextParser(); p.feed(html)
+              # ordered unique visible strings, skip tiny punctuation-only fragments
+              seen=set(); items=[]
+              for s in p.text:
+                  if s in seen: continue
+                  if not re.search(r'[A-Za-z가-힣0-9]', s): continue
+                  seen.add(s); items.append(s)
+              out[path.name]=items
+
+          idx=Path('index.html').read_text(encoding='utf-8-sig', errors='replace')
+          refs=[]
+          for m in re.finditer(r'<a class="work" href="(detail_pages/[^"]+)".*?</a>', idx, re.S):
+              block=m.group(0)
+              title=re.search(r'<h4[^>]*>(.*?)</h4>', block, re.S)
+              desc=re.search(r'<p[^>]*>(.*?)</p>', block, re.S)
+              clean=lambda x: re.sub(r'<[^>]+>','',x).strip() if x else ''
+              refs.append({'href':m.group(1),'title':clean(title.group(1)) if title else '', 'description':clean(desc.group(1)) if desc else ''})
+
+          Path('_detail_text_inventory.json').write_text(json.dumps({'linked_from_index':refs,'pages':out},ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+      - name: Commit inventory
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _detail_text_inventory.json
+          git commit -m "Extract detail page text inventory"
+          git push origin gh-pages
