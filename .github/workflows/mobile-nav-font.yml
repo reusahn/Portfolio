@@ -1,0 +1,47 @@
+name: Mobile nav font adjustment
+
+on:
+  push:
+    branches: [gh-pages]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - name: Reduce mobile header navigation type only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8-sig')
+          css = '''
+/* Mobile header navigation type adjustment */
+@media(max-width:680px){
+  .head-nav{gap:9px}
+  .head-nav>a,.lang button{font-size:11px;line-height:1.25}
+  .lang{gap:5px;padding-left:10px}
+}
+'''
+          if '/* Mobile header navigation type adjustment */' not in s:
+              s = s.replace('</style>', css + '</style>', 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Reduce mobile header navigation font size"
+          git push origin gh-pages
