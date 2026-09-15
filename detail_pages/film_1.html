@@ -10,191 +10,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Syne:wght@600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #080808;
-      --surface: #111;
-      --border: rgba(255,255,255,0.07);
-      --text: #f0ede8;
-      --muted: #555;
-      --accent: #e8ff47;
-      --font-display: 'Syne', sans-serif;
-      --font-mono: 'Space Mono', monospace;
-      --font-body: 'DM Sans', sans-serif;
-    }
-    html { scroll-behavior: smooth; }
-    body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-weight:300; line-height:1.6; overflow-x:hidden; }
-
-    /* NAV */
-    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:22px 48px; background:rgba(8,8,8,.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
-    .nav-back { font-family:var(--font-mono); font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; display:flex; align-items:center; gap:8px; }
-    .nav-back:hover { color:var(--accent); }
-    .nav-links { display:flex; gap:24px; list-style:none; }
-    .nav-links a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
-    .nav-links a:hover { color:var(--text); }
-    .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
-    .nav-toggle span { width:24px; height:1px; background:var(--text); }
-    @media(max-width:768px){
-      nav { padding:18px 24px; }
-      .nav-toggle { display:flex; }
-      .nav-links { display:none; flex-direction:column; position:fixed; top:0; right:0; bottom:0; width:70vw; max-width:280px; background:rgba(8,8,8,.97); backdrop-filter:blur(20px); padding:80px 32px 32px; border-left:1px solid var(--border); gap:0; }
-      .nav-links.open { display:flex; }
-      .nav-links a { font-size:1rem; padding:14px 0; border-bottom:1px solid var(--border); }
-    }
-
-    /* HERO */
-    .detail-hero { padding: 120px 48px 0; max-width:1200px; margin:0 auto; }
-    @media(max-width:768px){ .detail-hero{ padding:100px 24px 0; } }
-
-    .detail-cat { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
-    .detail-title { font-family:'Bebas Neue', sans-serif; font-size:clamp(3.5rem,8vw,7rem); font-weight:400; letter-spacing:.04em; line-height:.9; margin-bottom:24px; }
-    .detail-meta { display:flex; gap:32px; flex-wrap:wrap; padding:20px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:48px; }
-    .detail-meta-item { display:flex; flex-direction:column; gap:4px; }
-    .detail-meta-label { font-family:var(--font-mono); font-size:.58rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
-    .detail-meta-value { font-size:.9rem; color:var(--text); }
-
-    /* VIDEO */
-    .detail-video { max-width:1200px; margin:0 auto; padding:0 48px 60px; }
-    @media(max-width:768px){ .detail-video{ padding:0 24px 48px; } }
-    .video-wrap { position:relative; padding:56.25% 0 0 0; background:var(--surface); }
-    .video-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
-
-    /* CONTENT */
-    .detail-content { max-width:1200px; margin:0 auto; padding:0 48px 120px; }
-    @media(max-width:768px){ .detail-content{ padding:0 24px 80px; } }
-
-    .detail-body { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-bottom:60px; }
-    @media(max-width:768px){ .detail-body{ grid-template-columns:1fr; gap:32px; } }
-
-    .detail-desc { font-size:1.05rem; color:rgba(240,237,232,.75); line-height:1.8; }
-    .detail-desc p { margin-bottom:16px; }
-    .detail-desc p:last-child { margin-bottom:0; }
-
-    /* IMAGES */
-    .detail-images { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:60px; }
-    .detail-images img { width:100%; aspect-ratio:12/18; object-fit:cover; display:block; filter:brightness(.85); transition:filter .3s; }
-    .detail-images img:hover { filter:brightness(1); }
-    .detail-images .full { grid-column:span 2; }
-    @media(max-width:600px){ .detail-images{ grid-template-columns:1fr; } .detail-images .full{ grid-column:span 1; } }
-
-    /* AWARDS */
-    .detail-awards { border-top:1px solid var(--border); padding-top:32px; margin-bottom:60px; }
-    .detail-awards-title { font-family:var(--font-mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:20px; }
-    .award-row { display:flex; align-items:baseline; gap:16px; padding:10px 0; border-bottom:1px solid var(--border); }
-    .award-row span { font-size:.95rem; }
-    .award-row .bullet { color:var(--accent); font-size:.7rem; }
-
-    /* PAGINATION */
-    .detail-nav { display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:32px; }
-    .detail-nav a { font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
-    .detail-nav a:hover { color:var(--accent); }
-    .detail-nav .back { color:var(--text); }
-
-    /* REVEAL */
-    .r { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
-    .r.on { opacity:1; transform:none; }
+    :root {--bg:#080808;--surface:#111;--border:rgba(255,255,255,0.07);--text:#f0ede8;--muted:#555;--accent:#e8ff47;--font-display:'Syne',sans-serif;--font-mono:'Space Mono',monospace;--font-body:'DM Sans',sans-serif}
+    html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;line-height:1.6;overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:22px 48px;background:rgba(8,8,8,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.nav-back{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:8px}.nav-back:hover{color:var(--accent)}.nav-links{display:flex;gap:24px;list-style:none}.nav-links a{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}.nav-links a:hover{color:var(--text)}.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}.nav-toggle span{width:24px;height:1px;background:var(--text)}
+    @media(max-width:768px){nav{padding:18px 24px}.nav-toggle{display:flex}.nav-links{display:none;flex-direction:column;position:fixed;top:0;right:0;bottom:0;width:70vw;max-width:280px;background:rgba(8,8,8,.97);backdrop-filter:blur(20px);padding:80px 32px 32px;border-left:1px solid var(--border);gap:0}.nav-links.open{display:flex}.nav-links a{font-size:1rem;padding:14px 0;border-bottom:1px solid var(--border)}}
+    .detail-hero{padding:120px 48px 0;max-width:1200px;margin:0 auto}.detail-cat{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}.detail-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,8vw,7rem);font-weight:400;letter-spacing:.04em;line-height:.9;margin-bottom:24px}.detail-meta{display:flex;gap:32px;flex-wrap:wrap;padding:20px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:48px}.detail-meta-item{display:flex;flex-direction:column;gap:4px}.detail-meta-label{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}.detail-meta-value{font-size:.9rem;color:var(--text)}
+    .detail-video{max-width:1200px;margin:0 auto;padding:0 48px 60px}.video-wrap{position:relative;padding:56.25% 0 0 0;background:var(--surface)}.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}.detail-content{max-width:1200px;margin:0 auto;padding:0 48px 120px}.detail-body{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-bottom:60px}.detail-desc{font-size:1.05rem;color:rgba(240,237,232,.75);line-height:1.8}.detail-desc p{margin-bottom:16px}.detail-desc p:last-child{margin-bottom:0}.detail-images{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:60px}.detail-images img{width:100%;aspect-ratio:12/18;object-fit:cover;display:block;filter:brightness(.85);transition:filter .3s}.detail-images img:hover{filter:brightness(1)}.detail-images .full{grid-column:span 2}.detail-awards{border-top:1px solid var(--border);padding-top:32px;margin-bottom:60px}.detail-awards-title{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}.award-row{display:flex;align-items:baseline;gap:16px;padding:10px 0;border-bottom:1px solid var(--border)}.award-row span{font-size:.95rem}.award-row .bullet{color:var(--accent);font-size:.7rem}.detail-nav{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:32px}.detail-nav a{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}.detail-nav a:hover{color:var(--accent)}.detail-nav .back{color:var(--text)}.r{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}.r.on{opacity:1;transform:none}
+    @media(max-width:768px){.detail-hero{padding:100px 24px 0}.detail-video{padding:0 24px 48px}.detail-content{padding:0 24px 80px}.detail-body{grid-template-columns:1fr;gap:32px}}@media(max-width:600px){.detail-images{grid-template-columns:1fr}.detail-images .full{grid-column:span 1}}
   </style>
+  <link rel="stylesheet" href="../assets/css/museum-detail.css">
 </head>
 <body>
-
-<!-- NAV -->
-<nav>
-  <a href="../index.html" class="nav-back">← Portfolio</a>
-  <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="../index.html#interactive">Interactive</a></li>
-    <li><a href="../index.html#film">Film</a></li>
-    <li><a href="../index.html#media">Media Art</a></li>
-    <li><a href="../index.html#xr">XR · Game</a></li>
-    <li><a href="../index.html#vfx">3D / VFX</a></li>
-    <li><a href="../index.html#about">About</a></li>
-  </ul>
-</nav>
-
-<!-- HEADER -->
-<div class="detail-hero">
-  <div class="detail-cat r">Film</div>
-  <h1 class="detail-title r">Non-Done<br>Record</h1>
-  <div class="detail-meta r">
-    <div class="detail-meta-item">
-      <span class="detail-meta-label">Year</span>
-      <span class="detail-meta-value">2024</span>
-    </div>
-    <div class="detail-meta-item">
-      <span class="detail-meta-label">Type</span>
-      <span class="detail-meta-value">Live Action Short Film</span>
-    </div>
-    <div class="detail-meta-item">
-      <span class="detail-meta-label">Runtime</span>
-      <span class="detail-meta-value">8 min</span>
-    </div>
-    <div class="detail-meta-item">
-      <span class="detail-meta-label">Role</span>
-      <span class="detail-meta-value">Director</span>
-    </div>
-  </div>
-</div>
-
-<!-- VIDEO -->
-<div class="detail-video r">
-  <div class="video-wrap">
-    <iframe src="https://player.vimeo.com/video/981967949?h=8e345cc9ee&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
-      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      title="Non-Done Record">
-    </iframe>
-  </div>
-</div>
-
-<!-- CONTENT -->
-<div class="detail-content">
-  <div class="detail-body r">
-    <div class="detail-desc">
-      <p>A young aspiring filmmaker meets someone seemingly superior, which reignites his drive to pursue his dreams. However, overwhelmed by feelings of inferiority and disillusionment, he chooses to end his life. In his final moments, his fading consciousness is reconstructed as a completed film, where unfinished memories loop meaninglessly in an undefined space.</p>
-    </div>
-    <div class="detail-desc">
-      <p>Two mysterious men, Cheongchun (30s) and San-A (40s), emerge in this surreal landscape. They encounter Gaeul, a woman who now lives out Cheongchun's unfulfilled dream of becoming a screenwriter. Through repetitive time shifts, minimalist front-facing camera angles, and surreal elements like Crest Line and experimental music, the narrative blurs reality and dream.</p>
-      <p>The film plays with time, spatial repetition, and existential reflection. Visually restrained, it uses symmetry and frontal compositions to express the emotional stagnation of its characters.</p>
-    </div>
-  </div>
-
-  <!-- IMAGES -->
-  <div class="detail-images r">
-    <img src="../assets/images/film1_1.jpg" alt="Non-Done Record Still 1">
-  </div>
-
-  <!-- AWARDS -->
-  <div class="detail-awards r">
-    <div class="detail-awards-title">Recognition</div>
-    <div class="award-row"><span class="bullet">—</span><span>Sundance Ignite × Adobe Fellowship 2024 — Finalist</span></div>
-    <div class="award-row"><span class="bullet">—</span><span>Independent Shorts Awards — Silver Award, Best Student Male Director</span></div>
-    <div class="award-row"><span class="bullet">—</span><span>Flickers' Rhode Island International Film Festival — Semi-finalist</span></div>
-  </div>
-
-  <!-- PAGINATION -->
-  <div class="detail-nav r">
-    <a href="../index.html" class="back">← All Work</a>
-    <a href="film_2.html">Next Project →</a>
-  </div>
-</div>
-
-<script>
-  /* MOBILE NAV */
-  const toggle = document.getElementById('navToggle');
-  const links = document.getElementById('navLinks');
-  toggle.addEventListener('click', () => links.classList.toggle('open'));
-  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
-
-  /* SCROLL REVEAL */
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('on'), i * 80);
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.r').forEach(el => io.observe(el));
-</script>
-<script src="https://player.vimeo.com/api/player.js"></script>
-</body>
-</html>
+<nav><a href="../index.html" class="nav-back">← Portfolio</a><div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div><ul class="nav-links" id="navLinks"><li><a href="../index.html#interactive">Interactive</a></li><li><a href="../index.html#film">Film</a></li><li><a href="../index.html#media-art">Media Art</a></li><li><a href="../index.html#xr">XR · Game</a></li><li><a href="../index.html#vfx">3D / VFX</a></li><li><a href="../index.html#bio">Biography</a></li></ul></nav>
+<div class="detail-hero"><div class="detail-cat r">Film</div><h1 class="detail-title r">Non-Done<br>Record</h1><div class="detail-meta r"><div class="detail-meta-item"><span class="detail-meta-label">Year</span><span class="detail-meta-value">2024</span></div><div class="detail-meta-item"><span class="detail-meta-label">Type</span><span class="detail-meta-value">Live Action Short Film</span></div><div class="detail-meta-item"><span class="detail-meta-label">Runtime</span><span class="detail-meta-value">8 min</span></div><div class="detail-meta-item"><span class="detail-meta-label">Role</span><span class="detail-meta-value">Director</span></div></div></div>
+<div class="detail-video r"><div class="video-wrap"><iframe src="https://player.vimeo.com/video/981967949?h=8e345cc9ee&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Non-Done Record"></iframe></div></div>
+<div class="detail-content"><div class="detail-body r"><div class="detail-desc"><p>A young aspiring filmmaker meets someone seemingly superior, which reignites his drive to pursue his dreams. However, overwhelmed by feelings of inferiority and disillusionment, he chooses to end his life. In his final moments, his fading consciousness is reconstructed as a completed film, where unfinished memories loop meaninglessly in an undefined space.</p></div><div class="detail-desc"><p>Two mysterious men, Cheongchun (30s) and San-A (40s), emerge in this surreal landscape. They encounter Gaeul, a woman who now lives out Cheongchun's unfulfilled dream of becoming a screenwriter. Through repetitive time shifts, minimalist front-facing camera angles, and surreal elements like Crest Line and experimental music, the narrative blurs reality and dream.</p><p>The film plays with time, spatial repetition, and existential reflection. Visually restrained, it uses symmetry and frontal compositions to express the emotional stagnation of its characters.</p></div></div><div class="detail-images r"><img src="../assets/images/film1_1.jpg" alt="Non-Done Record Still 1"></div><div class="detail-awards r"><div class="detail-awards-title">Recognition</div><div class="award-row"><span class="bullet">•</span><span>Sundance Ignite × Adobe Fellowship 2024 · Finalist</span></div><div class="award-row"><span class="bullet">•</span><span>Independent Shorts Awards · Silver Award, Best Student Male Director</span></div><div class="award-row"><span class="bullet">•</span><span>Flickers' Rhode Island International Film Festival · Semi-finalist</span></div></div><div class="detail-nav r"><a href="../index.html" class="back">← All Work</a><a href="film_2.html">Next Project →</a></div></div>
+<script>const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');toggle.addEventListener('click',()=>links.classList.toggle('open'));links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));const io=new IntersectionObserver(entries=>entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*80);io.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.r').forEach(el=>io.observe(el));</script><script src="https://player.vimeo.com/api/player.js"></script>
+</body></html>
