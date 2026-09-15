@@ -1,0 +1,44 @@
+name: Update portfolio bio tense
+on:
+  push:
+    branches: [gh-pages]
+    paths: ['.github/workflows/update-bio-tense.yml']
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Update Erick Oh and Yaloo bio wording
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8-sig')
+
+          old_en='He has worked as a technical artist on a game project with Academy Award-nominated animator Erick Oh, and as technical director on digital-human projects by media artist Yaloo, whose work has been featured in Hyperallergic.'
+          new_en='He worked as a technical artist on a game project with Academy Award-nominated animator Erick Oh and currently works as a technical director on digital-human projects with media artist Yaloo, whose work has been featured in Hyperallergic.'
+          old_ko='아카데미상 후보에 오른 애니메이터 에릭 오와의 게임 프로젝트에서 테크니컬 아티스트로 참여했고, Hyperallergic에 소개된 미디어 아티스트 Yaloo의 디지털 휴먼 프로젝트에서는 테크니컬 디렉터로 활동했다.'
+          new_ko='아카데미상 후보에 오른 애니메이터 에릭 오와의 게임 프로젝트에서 테크니컬 아티스트로 참여했고, Hyperallergic에 소개된 미디어 아티스트 Yaloo와는 디지털 휴먼 프로젝트의 테크니컬 디렉터로 현재도 협업하고 있다.'
+
+          en_count=s.count(old_en)
+          ko_count=s.count(old_ko)
+          if en_count < 2:
+              raise SystemExit(f'Expected at least 2 English bio occurrences, found {en_count}')
+          if ko_count < 2:
+              raise SystemExit(f'Expected at least 2 Korean bio occurrences, found {ko_count}')
+          s=s.replace(old_en,new_en)
+          s=s.replace(old_ko,new_ko)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Clarify completed Erick Oh and ongoing Yaloo work"
+          git push origin gh-pages
