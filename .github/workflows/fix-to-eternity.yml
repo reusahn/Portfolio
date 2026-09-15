@@ -1,0 +1,57 @@
+name: Fix To Eternity page
+
+on:
+  push:
+    branches: [gh-pages]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - name: Correct layout and technical description
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('detail_pages/interactive_1.html')
+          s = p.read_text(encoding='utf-8')
+
+          stray = '<div style="padding:56.25% 0 0 0;position:relative;" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="To Eternity"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>\n\n\n'
+          s = s.replace(stray, '')
+
+          s = s.replace(
+              '          <span class="tech-tag">TouchDesigner</span>',
+              '          <span class="tech-tag">Unity UI</span>\n          <span class="tech-tag">ProRes 4444 Alpha</span>'
+          )
+
+          old = '''      <div class="tech-block">\n        <div class="tech-block-title">Shader Composition</div>\n        <p>GPU-based blending shader controls transparency, luminance mapping, and time-based fade-in. Unity and TouchDesigner pipeline synchronized for projection and visual fading.</p>\n      </div>'''
+          new = '''      <div class="tech-block">\n        <div class="tech-block-title">UI &amp; Alpha Compositing</div>\n        <p>Unity UI controlled the layered composition and screen transitions. ProRes 4444 media with alpha channels preserved transparency and enabled fades to be handled directly inside Unity.</p>\n      </div>'''
+          if old not in s:
+              raise SystemExit('Expected old technical block not found')
+          s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+
+          j = Path('assets/js/detail-i18n.js')
+          t = j.read_text(encoding='utf-8')
+          old_map = "'Shader Composition':'셰이더 구성','GPU-based blending shader controls transparency, luminance mapping, and time-based fade-in. Unity and TouchDesigner pipeline synchronized for projection and visual fading.':'GPU 기반 블렌딩 셰이더로 투명도와 휘도 매핑, 시간에 따른 페이드인을 제어했다. Unity와 TouchDesigner를 동기화해 프로젝션과 화면 전환을 구성했다.'"
+          new_map = "'UI & Alpha Compositing':'UI · 알파 합성','Unity UI controlled the layered composition and screen transitions. ProRes 4444 media with alpha channels preserved transparency and enabled fades to be handled directly inside Unity.':'Unity UI 시스템으로 레이어 구성과 화면 전환을 제어했다. 알파 채널이 포함된 ProRes 4444 영상을 사용해 투명도를 유지하고 페이드 효과를 Unity 내부에서 처리했다.'"
+          if old_map not in t:
+              raise SystemExit('Expected old i18n mapping not found')
+          t = t.replace(old_map, new_map, 1)
+          j.write_text(t, encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add detail_pages/interactive_1.html assets/js/detail-i18n.js
+          git commit -m "Fix To Eternity layout and technical description"
+          git push origin gh-pages
