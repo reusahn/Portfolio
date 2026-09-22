@@ -1,30 +1,30 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gang Se-hwang Digital Human — Jonghoon Ahn</title><link rel="stylesheet" href="vrchat.css"></head><body>
-<header class="top"><div class="shell topin"><a class="brand" href="../vrchat.html">Jonghoon Ahn.<small>VRChat Portfolio</small></a><nav class="nav"><a href="../vrchat.html#work">Selected Work</a><a href="mailto:hoonahncloud@gmail.com">Contact</a></nav></div></header>
-<section class="detail-hero"><div class="shell"><div class="eyebrow">UNITY HDRP / DIGITAL HUMAN / INTERACTIVE DEPLOYMENT</div><h1>Gang Se-hwang Digital Human</h1><p class="lead">A custom historical digital human reconstructed from portrait evidence, prepared for facial performance, rendered in Unity HDRP, and delivered as an interactive museum experience.</p><div class="meta"><span>Unity HDRP</span><span>C#</span><span>Maya</span><span>Facial Blendshapes</span><span>Materials</span><span>Interactive UI</span></div></div></section>
-<section class="section"><div class="shell"><div class="media"><iframe src="https://player.vimeo.com/video/1011866123?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" title="Gang Se-hwang"></iframe></div>
+<header class="top"><div class="shell topin"><a class="brand" href="../vrchat.html">Jonghoon Ahn.<small>VRChat Portfolio</small></a><nav class="nav"><a href="../vrchat.html#core">Core Evidence</a><a href="../vrchat.html#unity">Unity Index</a><a href="mailto:hoonahncloud@gmail.com">Contact</a></nav></div></header>
+<section class="detail-hero"><div class="shell"><div class="eyebrow">DCC → UNITY / DIGITAL HUMAN / INTERACTIVE DEPLOYMENT</div><h1>Gang Se-hwang Digital Human</h1><p class="lead">A custom historical digital human reconstructed from portrait evidence, prepared for facial and body performance, integrated into Unity, and deployed as an interactive museum experience.</p><div class="meta"><span>Unity</span><span>C#</span><span>Maya</span><span>Facial Blendshapes</span><span>Materials</span><span>Interactive UI</span></div></div></section>
+<section class="section"><div class="shell">
+<div class="media dual"><img src="../assets/images/GangSehwang_unity_01.jpg" alt="Gang Se-hwang Unity integration"><img src="../assets/images/GangSehwang_unity_02.jpg" alt="Gang Se-hwang Unity runtime"></div>
 <div class="detail-grid"><div class="side">ROLE
 Technical Director
 
 FOCUS
 Custom character asset
-Facial performance
-HDRP look development
+Facial / body performance
+Unity integration
 Interactive deployment</div><div class="content">
-<h2>Custom asset to real-time application</h2><p>The character was not a stock MetaHuman. Portrait-based reconstruction moved through custom topology and UV work, skin maps, hair cards, facial blendshapes, performance data, garment delivery, and final Unity HDRP implementation.</p>
-<h2>Unity-side work</h2><ul><li>HDRP skin, eye, hair, and lighting look development.</li><li>Facial animation using a custom blendshape system driven from ARKit-based performance data.</li><li>C# presentation logic for camera, UI, animation state, and interactive kiosk behavior.</li><li>Final installation deployment and presentation tuning.</li></ul>
-<div class="evidence"><figure><img src="../assets/images/GangSehwang_unity_01.jpg" alt="Gang Se-hwang Unity preview"><figcaption>Unity HDRP character integration.</figcaption></figure><figure><img src="../assets/images/GangSehwang_unity_02.jpg" alt="Gang Se-hwang Unity lookdev"><figcaption>Real-time material / lighting evaluation.</figcaption></figure></div>
-<h2>Production decision-making</h2><p>Different asset components used different representations based on the quality target. Hair remained a real-time card-based asset; the historical Hanbok used deterministic offline cloth caches when that produced a more convincing result than forcing every component into the same runtime solution.</p>
-<div class="flow">Portrait Reconstruction
+<h2>Asset-to-runtime ownership</h2><p>The character was built as a custom production asset rather than a stock character. Portrait-based reconstruction moved through topology, UVs, skin and hair assets, facial deformation, performance data, costume delivery, and final Unity integration.</p>
+<h2>Unity-side implementation</h2><ul><li>Imported the character, animation, materials, hair, and costume assets into Unity.</li><li>Implemented interactive animation triggers and presentation behavior through C#.</li><li>Integrated speech-driven and proximity-driven responses for a real-time museum docent.</li><li>Validated the final experience as a deployed installation rather than an Editor-only character showcase.</li></ul>
+<div class="evidence"><figure><img src="../assets/images/GangSehwang_Mocap_02.jpg" alt="Gang Se-hwang motion capture"><figcaption>Performance capture feeding the character-animation pipeline.</figcaption></figure><figure><img src="../assets/images/GangSehwang_install_01.jpg" alt="Gang Se-hwang museum installation"><figcaption>Final museum deployment.</figcaption></figure></div>
+<h2>Why it matters for a content pipeline</h2><p>This project demonstrates the handoff points that frequently break real-time content: topology and skinning, animation compatibility, materials, asset import, runtime state, and final installation behavior. My role was to keep those layers coherent from source asset through deployed Unity experience.</p>
+<div class="flow">Portrait / DCC Reconstruction
 ↓
-Topology / UV / Maps
+Topology · UV · Materials · Rig
 ↓
-Facial Rig + Performance Data
+Body + Facial Performance
 ↓
-Hair / Garment Delivery
+Unity Asset Integration
 ↓
-Unity HDRP Materials + Lighting
+C# Interaction / Animation Triggers
 ↓
-C# Interactive Presentation
-↓
-Museum Deployment</div>
+Museum Runtime Deployment</div>
+<p class="note">The old Vimeo embed has been intentionally removed from this role-specific case page because that legacy player is currently unavailable. All media shown here are repository-hosted project images.</p>
 </div></div></div></section></body></html>
