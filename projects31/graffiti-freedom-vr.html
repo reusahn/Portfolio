@@ -1,0 +1,30 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="vrchat.css"><title>Graffiti Freedom — Jonghoon Ahn</title><meta name="description" content="Unity VR technical art case study: particle spray, collision mapping, RenderTexture painting, and custom surface shaders."></head><body>
+<header class="top"><div class="shell topin"><a class="brand" href="../vrchat.html">Jonghoon Ahn.<small>Unity VR / XR Case Study</small></a><nav class="nav"><a href="../vrchat.html#worlds">VR Worlds</a><a href="../vrchat.html#depth">Technical Depth</a><a href="mailto:hoonahncloud@gmail.com">Contact</a></nav></div></header>
+<section class="detail-hero"><div class="shell"><div class="eyebrow">UNITY VR · PARTICLES · RENDERTEXTURE · INTERACTIVE SHADER</div><h1>Graffiti Freedom</h1><p class="lead">A VR street-art experience where the player paints directly onto virtual subway surfaces, turning a static environment asset into persistent user-authored world content.</p><div class="meta"><span>Unity</span><span>C#</span><span>VR</span><span>Particle System</span><span>RenderTexture</span><span>Custom Shader</span></div></div></section>
+<section class="section"><div class="shell">
+<div class="media"><img src="https://raw.githubusercontent.com/reusahn/Unity-Unreal-Interaction-Research/main/04_Interactive_VR_Experience/Graffiti_Freedom/media/GraffitiFreedom_01.jpg" alt="Graffiti Freedom VR"></div>
+<div class="detail-grid"><aside class="side">ROLE
+Technical Artist
+
+TYPE
+Interactive VR
+
+FOCUS
+User-modifiable
+world surfaces</aside><div class="content">
+<h2>Making the environment writable</h2><p>The core system lets a player spray paint directly onto world geometry. Instead of swapping a decal or triggering a canned animation, interaction data is converted into persistent texture information used by the wall material.</p>
+<h2>Technical implementation</h2><ul><li>Built particle-based spray feedback in Unity.</li><li>Used collision points to determine where paint should land on a surface.</li><li>Updated a dynamic RenderTexture from player interaction.</li><li>Used a custom wall shader to read the evolving paint mask.</li><li>Separated input / collision, particle feedback, texture state, and final material rendering into distinct runtime responsibilities.</li></ul>
+<div class="flow">VR Input
+↓
+Spray Particles
+↓
+Surface Collision Coordinates
+↓
+Dynamic RenderTexture
+↓
+Wall Shader Paint Mask
+↓
+Persistent Modified World Surface</div>
+<h2>Why this matters for VRChat</h2><p>This is directly relevant to social-world content because the environment is not merely viewed; users alter it. The system demonstrates technical art across interaction, VFX, shader logic, and persistent visual state.</p>
+<div class="hero-actions"><a class="btn" href="be-narci-vr.html">← Be NARCI</a><a class="btn primary" href="fineo-vr.html">Next: Fineo →</a></div>
+</div></div></div></section></body></html>
