@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Real-Time Graphics Systems — Jonghoon Ahn</title><link rel="stylesheet" href="vrchat.css"></head><body>
+<header class="top"><div class="shell topin"><a class="brand" href="../vrchat.html">Jonghoon Ahn.<small>VRChat Portfolio</small></a><nav class="nav"><a href="../vrchat.html#work">Selected Work</a><a href="mailto:hoonahncloud@gmail.com">Contact</a></nav></div></header>
+<section class="detail-hero"><div class="shell"><div class="eyebrow">UNITY URP / HLSL / C# / RUNTIME GRAPHICS</div><h1>Confidential Real-Time Game — Graphics Systems</h1><p class="lead">A production case centered on controllable real-time visuals in Unity: shader behavior, runtime parameters, animation state, and interaction logic designed as separate but coordinated systems.</p><div class="meta"><span>Unity URP</span><span>HLSL</span><span>C#</span><span>Raymarching</span><span>Runtime Debugging</span></div></div></section>
+<section class="section"><div class="shell"><div class="media"><iframe src="https://player.vimeo.com/video/1219170733?title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" title="Real-time game graphics work"></iframe></div>
+<div class="detail-grid"><div class="side">ROLE
+Technical Artist / Technical Director (Contract)
+
+PERIOD
+04/2025 – 04/2026
+
+ENGINE
+Unity URP</div><div class="content">
+<h2>Runtime graphics built for iteration</h2><p>The project needed expressive visual behavior that could react to runtime state while remaining controllable enough for production iteration.</p>
+<h2>Implementation</h2><ul><li>Built an opaque mesh-cloud system using custom HLSL Perlin-based vertex displacement and Fresnel-based presentation.</li><li>Connected C# input to internal shader noise-flow direction rather than merely translating the GameObject.</li><li>Prototyped a raymarched metaball field while keeping visual-field rendering separate from gameplay collision / proximity logic.</li><li>Built a deterministic four-state transformation system using fixed-topology Maya blendshape targets and Unity Timeline / Animation keyframes.</li></ul>
+<div class="flow">Runtime Input
+↓
+C# State / Parameters
+↓
+HLSL Shader Behavior
+↓
+GPU Visual Response
+
+Visual rendering
+≠
+Gameplay collision / proximity logic</div>
+<h2>Why this is pipeline evidence</h2><p>The hard part was not writing one shader. It was deciding which layer should own each behavior, keeping the visual system controllable by production, and debugging whether a failure belonged to shader math, runtime state, animation, or interaction logic.</p>
+<div class="note">Project title and selected production details remain confidential. This page presents only technical systems already cleared for portfolio use.</div>
+</div></div></div></section></body></html>
