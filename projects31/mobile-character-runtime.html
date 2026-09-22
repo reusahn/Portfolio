@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mobile Real-Time Character Pipeline — Jonghoon Ahn</title><link rel="stylesheet" href="vrchat.css"></head><body>
+<header class="top"><div class="shell topin"><a class="brand" href="../vrchat.html">Jonghoon Ahn.<small>VRChat Portfolio</small></a><nav class="nav"><a href="../vrchat.html#work">Selected Work</a><a href="mailto:hoonahncloud@gmail.com">Contact</a></nav></div></header>
+<section class="detail-hero"><div class="shell"><div class="eyebrow">UNITY / ANDROID / CHARACTER RUNTIME</div><h1>Mobile Real-Time Character Pipeline</h1><p class="lead">A focused Unity URP character test built to prove that animation, rigging, cloth, camera interaction, and performance behavior work as a real Android runtime rather than only as an Editor presentation.</p>
+<div class="meta"><span>Unity URP</span><span>Android APK</span><span>C#</span><span>Humanoid</span><span>Runtime Cloth</span><span>Skin Weights</span></div></div></section>
+<section class="section"><div class="shell"><div class="media"><iframe src="https://player.vimeo.com/video/1225894277?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" title="Unity mobile character runtime"></iframe></div>
+<div class="detail-grid"><div class="side">ROLE
+Technical Artist
+
+FOCUS
+Runtime animation
+Character integration
+Cloth simulation
+Mobile validation</div><div class="content">
+<h2>Why this test matters</h2><p>The goal was not another offline character render. The system had to continue behaving correctly while the user changed animation states, camera framing, cloth state, and character count on an Android build.</p>
+<h2>Character + animation pipeline</h2><ul><li>Prepared a CC4 character and costume for Unity.</li><li>Adjusted character and garment skin weights before runtime cloth.</li><li>Configured a Humanoid rig and integrated retargeted animation clips.</li><li>Built interactive ARGUE, DANCE, FIGHT, POINT, and TALK runtime states.</li></ul>
+<div class="flow">Character + Costume
+↓
+Skin-Weight Cleanup
+↓
+Humanoid Rig / Retargeting
+↓
+Unity Runtime Animation States
+↓
+Unity Cloth + Collision
+↓
+Touch Camera / Look-At / UI
+↓
+Android Build + Device Validation</div>
+<h2>Real-time cloth</h2><p>The cape uses Unity Cloth rather than replaying a baked garment cache. Constraint regions, collision, skinning, stiffness, damping, and solver behavior were tuned so the same garment responds to multiple animations at runtime.</p>
+<div class="evidence"><figure><img src="../projects30/skin_weights.png" alt="Cape skin-weight cleanup"><figcaption>Skin-weight cleanup before cloth simulation.</figcaption></figure><figure><img src="../projects30/cloth_settings.png" alt="Unity Cloth settings"><figcaption>Runtime cloth tuning inside Unity.</figcaption></figure></div>
+<h2>Platform proof</h2><p>The final system was built as an Android APK and tested on-device. It also includes runtime camera controls, cloth controls, look-at behavior, and multi-character testing so the sample can be evaluated as an application rather than a captured Editor scene.</p>
+<div class="actions"><a class="btn secondary" href="https://drive.google.com/drive/folders/1EnBnMZHAWHuw-UV8bMeGpOvJygEfA87l?usp=sharing" target="_blank">Android APK ↗</a></div>
+</div></div></div></section></body></html>
