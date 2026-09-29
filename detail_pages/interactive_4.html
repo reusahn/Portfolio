@@ -134,6 +134,19 @@
     .r.on { opacity:1; transform:none; }
   </style>
   <link rel="stylesheet" href="../assets/css/museum-detail.css">
+
+  <style>
+    .core-model{margin:22px 0 34px;padding:26px;border:1px solid var(--border);background:var(--surface);}
+    .core-model-kicker{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2);margin-bottom:18px;}
+    .core-flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;align-items:stretch;}
+    .core-node{position:relative;border:1px solid var(--border);padding:18px 16px;min-height:150px;background:rgba(255,255,255,.025);}
+    .core-node:not(:last-child)::after{content:"→";position:absolute;right:-19px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);color:var(--accent);font-size:1rem;}
+    .core-node-num{font-family:var(--font-mono);font-size:.66rem;color:var(--accent);letter-spacing:.1em;}
+    .core-node b{display:block;margin:9px 0 7px;font-size:.92rem;line-height:1.25;}
+    .core-node p{margin:0;color:var(--muted);font-size:.78rem;line-height:1.55;}
+    .core-model-loop{margin-top:16px;padding-top:15px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:.72rem;line-height:1.7;color:var(--accent2);}
+    @media(max-width:900px){.core-flow{grid-template-columns:1fr}.core-node:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-23px;transform:translateX(-50%)}}
+  </style>
 </head>
 <body>
 
@@ -221,7 +234,17 @@
   <!-- CORE STRUCTURE -->
   <div class="r">
     <div class="sec-label">Core Structure — Expanded Information Model</div>
-    <img src="../assets/images/AIZOO_ct.png" alt="AI ZOO Core Structure Diagram" class="full-img" style="margin-bottom:32px;">
+    <div class="core-model" role="img" aria-label="Expanded information model from nonlinear information source through encoding, interface, human decoding, and psychological reality">
+      <div class="core-model-kicker">Expanded Information Model · Affect → Encoding → Interface → Human Interpretation</div>
+      <div class="core-flow">
+        <div class="core-node"><span class="core-node-num">01</span><b>Nonlinear Information Source</b><p>Expectation, affective latent state, prewritten messages, autonomous motion, and the digital human's repeated calls for help.</p></div>
+        <div class="core-node"><span class="core-node-num">02</span><b>Encoding Space</b><p>Text, gesture, proximity, and repeated actions are translated into machine-readable affective values.</p></div>
+        <div class="core-node"><span class="core-node-num">03</span><b>Interface Channel</b><p>Voice, motor-driven sphere motion, light, timing, and delay make the encoded state physically perceptible.</p></div>
+        <div class="core-node"><span class="core-node-num">04</span><b>Decoding Human Receiver</b><p>The audience interprets motion and sound as pain, anger, loneliness, anxiety, or intention.</p></div>
+        <div class="core-node"><span class="core-node-num">05</span><b>Psychological Reality</b><p>Pity, guilt, discomfort, control, responsibility, and relational meaning emerge inside the viewer.</p></div>
+      </div>
+      <div class="core-model-loop">Feedback loop: Audience input → affective state → physical / vocal response → audience interpretation → new input</div>
+    </div>
     <div class="detail-body">
       <div class="detail-desc">
         <p>AI ZOO builds on Claude Shannon's classical model of information transmission but extends it to include affect and psychological reality. Instead of assuming that information moves cleanly from sender to receiver, the project begins from the condition that affect already exists prior to information.</p>
