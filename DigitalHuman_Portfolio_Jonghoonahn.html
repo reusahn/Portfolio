@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Jonghoon Ahn | Digital Human & 4D Human Technical Artist</title>
-<meta name="description" content="Digital Human, Performance Capture, 4D Human Representation, Gaussian Avatars, Neural Graphics, Technical Animation, and Real-Time R&D portfolio by Jonghoon Ahn.">
+<title>Jonghoon Ahn | Digital Human, Virtual Human Interaction & 4D Human R&D</title>
+<meta name="description" content="Digital Human, Virtual Human Interaction, Human-AI Perception, Performance Capture, 4D Human Representation, Gaussian Avatars, Neural Graphics, Technical Animation, and Real-Time R&D portfolio by Jonghoon Ahn.">
 <style>
 :root{
   --bg:#f5f5f2;--paper:#fff;--ink:#111;--ink2:#33332f;--muted:#6f6f68;
@@ -87,6 +87,29 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .support .project-body{padding:20px 22px 22px}
 .support h3{font-size:19px}
 
+.humanai-band{background:#f2efe9}
+.humanai-panel{display:grid;grid-template-columns:1.02fr .98fr;background:var(--paper);border:1px solid #d9d3c8;border-radius:20px;overflow:hidden}
+.humanai-copy{padding:42px;display:flex;flex-direction:column;justify-content:center}
+.humanai-copy .num{font:10px/1.4 var(--mono);letter-spacing:.11em;color:#765c3e}
+.humanai-copy h3{font-size:clamp(29px,2.55vw,38px);line-height:1.08;letter-spacing:-.038em;margin:14px 0 14px}
+.humanai-copy p{font-size:14.5px;color:var(--muted);margin:0 0 12px}
+.humanai-visual{position:relative;min-height:470px;background:#171717;overflow:hidden}
+.humanai-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.humanai-caption{position:absolute;left:18px;right:18px;bottom:16px;z-index:2;padding:10px 12px;border-radius:9px;background:rgba(17,17,17,.78);backdrop-filter:blur(8px);color:#fff;font:9px/1.45 var(--mono);letter-spacing:.06em}
+.humanai-note{margin-top:16px!important;padding-top:15px;border-top:1px solid var(--line);font-size:12.5px!important}
+.humanai-cases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+.humanai-case{background:var(--paper);border:1px solid #d9d3c8;border-radius:16px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column}
+.humanai-case-media{aspect-ratio:16/10;background:#ddd8cf;overflow:hidden}
+.humanai-case-media img{width:100%;height:100%;object-fit:cover}
+.humanai-case-copy{padding:20px 21px 22px;display:flex;flex-direction:column;flex:1}
+.humanai-case-copy span{font:9px/1.4 var(--mono);letter-spacing:.09em;color:#8b765f;text-transform:uppercase}
+.humanai-case-copy h3{font-size:19px;line-height:1.16;letter-spacing:-.025em;margin:10px 0 8px}
+.humanai-case-copy p{font-size:13.5px;line-height:1.58;color:var(--muted);margin:0}
+.humanai-case-copy b{margin-top:auto;padding-top:16px;font-size:12px}
+.humanai-bridge{margin-top:18px;padding:18px 20px;border:1px solid #d9d3c8;border-radius:14px;background:rgba(255,255,255,.55);display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:start}
+.humanai-bridge strong{font:10px/1.4 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:#765c3e}
+.humanai-bridge p{margin:0;font-size:13.5px;line-height:1.62;color:#5f5b55}
+
 .research-band{background:#eef1f3}
 .research-panel{display:grid;grid-template-columns:1.12fr .88fr;background:var(--paper);border:1px solid #d4d9dd;border-radius:20px;overflow:hidden}
 .research-panel+.research-panel{margin-top:18px}
@@ -132,7 +155,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .footer-inner{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:13px}
 
 @media(max-width:980px){
-  .hero-grid,.feature,.research-panel{grid-template-columns:1fr}
+  .hero-grid,.feature,.research-panel,.humanai-panel{grid-template-columns:1fr}
   .hero-grid{gap:36px}
   .feature{min-height:0}
   .feature-media{aspect-ratio:16/9}
@@ -144,6 +167,8 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   .snapshot-item:nth-child(3){padding-left:0}
   .section-head,.about-row{grid-template-columns:1fr}
   .expertise-grid{grid-template-columns:1fr}
+  .humanai-cases{grid-template-columns:1fr}
+  .humanai-bridge{grid-template-columns:1fr}
   .workflow-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:680px){
@@ -158,7 +183,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   .snapshot-item{padding:17px 0;border-right:0!important;border-bottom:1px solid var(--line)}
   .snapshot-item:last-child{border-bottom:0}
   .section{padding:62px 0}
-  .feature-copy,.research-copy{padding:24px}
+  .feature-copy,.research-copy,.humanai-copy{padding:24px}
   .feature-copy h3{font-size:28px}
   .research-visual{padding:8px}
 }
@@ -195,6 +220,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
     <a class="brand" href="DigitalHuman_Portfolio_Jonghoonahn.html">Jonghoon Ahn.<small>Digital Human &amp; 4D Human Technical Artist</small></a>
     <nav class="nav">
       <a href="#work">Work</a>
+      <a href="#human-ai">Human / AI</a>
       <a href="#neural-rd">4D / Neural R&amp;D</a>
       <a href="#expertise">Expertise</a>
       <a href="#about">About</a>
@@ -207,12 +233,13 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 <section class="hero">
   <div class="shell hero-grid">
     <div>
-      <div class="eyebrow">DIGITAL HUMAN · PERFORMANCE CAPTURE · 4D HUMAN REPRESENTATION · NEURAL GRAPHICS · REAL-TIME R&amp;D</div>
-      <h1>Human performance into<br><em>production-ready 3D.</em></h1>
-      <p class="lead">Technical Artist connecting Digital Humans, Performance Capture, Technical Animation, Real-Time Graphics, and 4D Human Representation R&amp;D.</p>
-      <p class="sub">I turn captured human geometry, textures, and motion into production-ready characters, animation, and real-time systems across Maya, MotionBuilder, Unreal Engine, and Unity. My current research extends that pipeline into Gaussian avatars, SMPL/LBS deformation, semantic locality, neural scene representations, and interaction-ready 4D humans.</p>
+      <div class="eyebrow">DIGITAL HUMAN · VIRTUAL HUMAN INTERACTION · PERFORMANCE CAPTURE · 4D HUMAN REPRESENTATION · NEURAL GRAPHICS</div>
+      <h1>Human performance into<br><em>computational presence.</em></h1>
+      <p class="lead">Technical Artist and practice-based researcher connecting Digital Humans, Performance Capture, Virtual Human Interaction, Real-Time Graphics, and 4D Human Representation R&amp;D.</p>
+      <p class="sub">I build production-ready digital humans and real-time systems, then use those systems to ask human-centered questions about presence, recognition, agency, identity, and machine-mediated perception. My technical research extends the same practice into Gaussian avatars, SMPL/LBS deformation, semantic locality, neural scene representations, and interaction-ready 4D humans.</p>
       <div class="actions">
         <a class="btn primary" href="#work">Selected Work ↓</a>
+        <a class="btn" href="#human-ai">Human–AI / Perception Research</a>
         <a class="btn" href="#neural-rd">4D Human &amp; Neural R&amp;D</a>
         <a class="btn" href="#expertise">Technical Fit</a>
         <a class="btn" href="mailto:hoonahncloud@gmail.com">Email ↗</a>
@@ -329,6 +356,57 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   </div>
 </section>
 
+<section class="section humanai-band" id="human-ai">
+  <div class="shell">
+    <div class="section-head">
+      <span class="eyebrow">VIRTUAL HUMAN INTERACTION / HUMAN–AI PERCEPTION</span>
+      <div>
+        <h2>What makes a virtual human feel present, recognizable, or alive?</h2>
+        <p>Alongside production and neural-graphics research, I use digital humans as practice-based research instruments for studying presence, identity, agency, relational recognition, and machine-mediated perception. The question is not only how faithfully a human can be rendered, but which cues people rely on when deciding that a virtual figure feels socially real.</p>
+      </div>
+    </div>
+
+    <div class="humanai-panel">
+      <div class="humanai-copy">
+        <span class="num">2025–2026 · PRACTICE-BASED RESEARCH</span>
+        <h3>Between Human Perception and Machine Interpretation</h3>
+        <p>My working framework treats the digital human as a perceptual probe. When a reconstruction is technically convincing but still feels wrong, that mismatch can expose layers of human judgment that are not captured by geometry, image quality, or motion fidelity alone.</p>
+        <p>Across my projects, recurring questions involve historical embodiment, relational memory, biological vulnerability, and the authority of machine-generated images. I use these cases to formulate testable questions about presence and recognition rather than to assume that technical fidelity alone determines human response.</p>
+        <div class="evidence"><span>Presence</span><span>Avatars &amp; Agents</span><span>Social Interaction</span><span>Human–AI Interaction</span><span>Embodiment</span><span>Identity</span><span>Relational Recognition</span></div>
+        <p class="humanai-note"><strong>Research status:</strong> conceptual and practice-based. These observations are not presented as a completed controlled human-subjects study; they are being developed toward measurable HCI questions and experimental manipulations.</p>
+        <div class="research-links">
+          <a class="btn primary" href="human-ai-perception.html">Open Human–AI / Perception Research →</a>
+          <a class="btn" href="detail_pages/interactive_4.html">AI ZOO case ↗</a>
+        </div>
+      </div>
+      <div class="humanai-visual">
+        <img src="assets/images/AI_ZOO_05.jpg" alt="AI ZOO interactive digital human installation" onerror="this.src='assets/images/interactive4.jpg'">
+        <div class="humanai-caption">AI ZOO · INTERACTION, AFFECT, AGENCY, AND PERCEIVED VULNERABILITY</div>
+      </div>
+    </div>
+
+    <div class="humanai-cases">
+      <a class="humanai-case" href="detail_pages/interactive_4.html">
+        <div class="humanai-case-media"><img src="assets/images/interactive4.jpg" alt="AI ZOO installation"></div>
+        <div class="humanai-case-copy"><span>01 / AGENCY + AFFECT</span><h3>AI ZOO</h3><p>An interactive digital human synchronizes dialogue, voice, gesture, lighting, and physical response. The research lens asks how viewers attribute emotion and agency to a computational body, and which cues make simulated distress socially consequential.</p><b>View project →</b></div>
+      </a>
+      <a class="humanai-case" href="projects/shininho-jooan.html">
+        <div class="humanai-case-media"><img src="media/shininho/hero.jpg" alt="Shininho digital human reconstruction"></div>
+        <div class="humanai-case-copy"><span>02 / RELATIONAL RECOGNITION</span><h3>Shininho</h3><p>Real-person reconstruction becomes a question of recognition: anatomical and motion accuracy can be compared with remembered gesture, timing, affect, and the judgments of people who knew the person beyond the captured data.</p><b>View project →</b></div>
+      </a>
+      <a class="humanai-case" href="projects/gang-se-hwang.html">
+        <div class="humanai-case-media"><img src="media/gang/hero_portrait_to_digital2.jpg" alt="Gang Se-hwang historical portrait and digital human"></div>
+        <div class="humanai-case-copy"><span>03 / HISTORICAL EMBODIMENT</span><h3>Gang Se-hwang</h3><p>Historical reconstruction asks what remains inaccessible when identity is rebuilt from portraits and records rather than lived interaction: cultural mannerism, habitual bodily rhythm, linguistic nuance, and temporal context.</p><b>View project →</b></div>
+      </a>
+    </div>
+
+    <div class="humanai-bridge">
+      <strong>BRIDGE TO 4D HUMAN RESEARCH</strong>
+      <p>Controllable 4D human representations can become more than rendering technology: they can become experimental instruments. Semantically local deformation, motion control, and identity-preserving representations could allow one perceptual cue to be manipulated while others remain stable, connecting neural graphics research to questions about embodiment, social presence, and human judgment.</p>
+    </div>
+  </div>
+</section>
+
 <section class="section research-band" id="neural-rd">
   <div class="shell">
     <div class="section-head">
@@ -393,8 +471,8 @@ img{display:block;width:100%;height:100%;object-fit:cover}
     <div class="section-head">
       <span class="eyebrow">TECHNICAL FIT</span>
       <div>
-        <h2>I work across character, capture, 4D representation, graphics, and R&amp;D.</h2>
-        <p>My role is less about a single software package and more about finding production and representation bottlenecks across the pipeline, connecting art and research teams, and turning experiments into documented, repeatable workflows.</p>
+        <h2>I work across character, capture, human interaction, 4D representation, graphics, and R&amp;D.</h2>
+        <p>My role is less about a single software package and more about connecting production, representation, and human-centered questions: how a virtual human is built, how it behaves, how people perceive it, and how those observations can become documented, repeatable research or production workflows.</p>
       </div>
     </div>
     <div class="expertise-grid">
@@ -424,7 +502,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   <div class="shell">
     <div class="about-row">
       <span class="eyebrow">ABOUT / TOOLSET</span>
-      <p>I work between artistic goals and engineering constraints. My focus is digital humans and performance capture, solving technical problems as characters move from captured source data to animation, rendering, and real-time deployment. My current R&amp;D extends that same pipeline thinking into interaction-ready 4D humans, Gaussian avatars, SMPL/LBS learned deformation, 3D Gaussian Splatting, NeRF, compression, and GPU-based evaluation.</p>
+      <p>I work between artistic goals, engineering constraints, and questions about human perception. My focus is digital humans and performance capture, solving technical problems as characters move from captured source data to animation, rendering, and real-time deployment, while also studying how virtual humans are recognized, trusted, and experienced as social presences. My current R&amp;D connects that human-centered inquiry with interaction-ready 4D humans, Gaussian avatars, SMPL/LBS learned deformation, 3D Gaussian Splatting, NeRF, compression, and GPU-based evaluation.</p>
       <div class="tool-list">
         <div class="tool-line"><span>DCC</span><b>Maya · MotionBuilder · Blender · ZBrush · Wrap</b></div>
         <div class="tool-line"><span>ENGINE</span><b>Unreal Engine · Unity</b></div>
@@ -452,7 +530,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 
 <footer class="footer">
   <div class="shell footer-inner">
-    <span><strong>Jonghoon Ahn</strong> · Digital Human &amp; 4D Human Technical Artist</span>
+    <span><strong>Jonghoon Ahn</strong> · Digital Human · Virtual Human Interaction · 4D Human R&amp;D</span>
     <span><a href="mailto:hoonahncloud@gmail.com">hoonahncloud@gmail.com</a> · California</span>
   </div>
 </footer>
