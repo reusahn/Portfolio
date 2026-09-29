@@ -97,6 +97,15 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .humanai-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .humanai-caption{position:absolute;left:18px;right:18px;bottom:16px;z-index:2;padding:10px 12px;border-radius:9px;background:rgba(17,17,17,.78);backdrop-filter:blur(8px);color:#fff;font:9px/1.45 var(--mono);letter-spacing:.06em}
 .humanai-note{margin-top:16px!important;padding-top:15px;border-top:1px solid var(--line);font-size:12.5px!important}
+.humanai-models{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.humanai-model{border:1px solid #d9d3c8;border-radius:12px;background:#faf8f4;padding:14px}
+.humanai-model span{display:block;font:9px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#8b765f}
+.humanai-model b{display:block;margin-top:7px;font:700 12px/1.55 var(--mono);color:#3f3932}
+.xlayer-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.xlayer-mini{border:1px solid #d9d3c8;border-radius:12px;background:rgba(255,255,255,.72);padding:15px}
+.xlayer-mini span{font:9px/1.4 var(--mono);letter-spacing:.08em;color:#765c3e}
+.xlayer-mini b{display:block;font-size:14px;margin:7px 0 5px}
+.xlayer-mini p{font-size:12.5px!important;line-height:1.52;color:#6b655d!important;margin:0!important}
 .humanai-cases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
 .humanai-case{background:var(--paper);border:1px solid #d9d3c8;border-radius:16px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column}
 .humanai-case-media{aspect-ratio:16/10;background:#ddd8cf;overflow:hidden}
@@ -168,6 +177,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   .section-head,.about-row{grid-template-columns:1fr}
   .expertise-grid{grid-template-columns:1fr}
   .humanai-cases{grid-template-columns:1fr}
+  .humanai-models,.xlayer-strip{grid-template-columns:1fr}
   .humanai-bridge{grid-template-columns:1fr}
   .workflow-grid{grid-template-columns:1fr 1fr}
 }
@@ -370,13 +380,17 @@ img{display:block;width:100%;height:100%;object-fit:cover}
       <div class="humanai-copy">
         <span class="num">2025–2026 · PRACTICE-BASED RESEARCH</span>
         <h3>Between Human Perception and Machine Interpretation</h3>
-        <p>My working framework treats the digital human as a perceptual probe. When a reconstruction is technically convincing but still feels wrong, that mismatch can expose layers of human judgment that are not captured by geometry, image quality, or motion fidelity alone.</p>
-        <p>Across my projects, recurring questions involve historical embodiment, relational memory, biological vulnerability, and the authority of machine-generated images. I use these cases to formulate testable questions about presence and recognition rather than to assume that technical fidelity alone determines human response.</p>
-        <div class="evidence"><span>Presence</span><span>Avatars &amp; Agents</span><span>Social Interaction</span><span>Human–AI Interaction</span><span>Embodiment</span><span>Identity</span><span>Relational Recognition</span></div>
-        <p class="humanai-note"><strong>Research status:</strong> conceptual and practice-based. These observations are not presented as a completed controlled human-subjects study; they are being developed toward measurable HCI questions and experimental manipulations.</p>
+        <p>My research uses the digital human as a perceptual probe. When a reconstruction is technically convincing but still fails to feel fully real, that gap can expose nonlinear criteria through which people judge presence, identity, and reality.</p>
+        <p>I describe these criteria as <strong>X-Layers</strong>: perceptual structures that sit between a human subject and machine-produced image or sound. The framework asks both how digital humans reveal these layers and how AI-generated representations can begin to reorganize them.</p>
+        <div class="humanai-models">
+          <div class="humanai-model"><span>MODEL A / HUMAN → MACHINE</span><b>Human ≥ Digital Human ≥ X₁ ≥ X₂ ≥ X₃ ≥ · · · ≥ Sound ≥ Image ≥ AI</b></div>
+          <div class="humanai-model"><span>MODEL B / MACHINE → HUMAN</span><b>AI ≥ Image ≥ Sound ≥ Human · “Post Realism”</b></div>
+        </div>
+        <div class="evidence"><span>X-Layers</span><span>Presence</span><span>Avatars &amp; Agents</span><span>Human–AI Interaction</span><span>Embodiment</span><span>Identity</span><span>Perceptual Autonomy</span></div>
+        <p class="humanai-note"><strong>Research status:</strong> conceptual and practice-based. The framework comes from production-based case studies and is being developed toward measurable HCI questions rather than presented as completed controlled human-subjects evidence.</p>
         <div class="research-links">
-          <a class="btn primary" href="human-ai-perception.html">Open Human–AI / Perception Research →</a>
-          <a class="btn" href="detail_pages/interactive_4.html">AI ZOO case ↗</a>
+          <a class="btn primary" href="human-ai-perception.html">Open Research Framework →</a>
+          <a class="btn" href="https://drive.google.com/file/d/1IQotTXHWDL7gH9mvvvEvAPlivWWUWfWG/view?usp=sharing" target="_blank" rel="noopener">Writing Sample PDF ↗</a>
         </div>
       </div>
       <div class="humanai-visual">
@@ -385,19 +399,10 @@ img{display:block;width:100%;height:100%;object-fit:cover}
       </div>
     </div>
 
-    <div class="humanai-cases">
-      <a class="humanai-case" href="detail_pages/interactive_4.html">
-        <div class="humanai-case-media"><img src="assets/images/interactive4.jpg" alt="AI ZOO installation"></div>
-        <div class="humanai-case-copy"><span>01 / AGENCY + AFFECT</span><h3>AI ZOO</h3><p>An interactive digital human synchronizes dialogue, voice, gesture, lighting, and physical response. The research lens asks how viewers attribute emotion and agency to a computational body, and which cues make simulated distress socially consequential.</p><b>View project →</b></div>
-      </a>
-      <a class="humanai-case" href="projects/shininho-jooan.html">
-        <div class="humanai-case-media"><img src="media/shininho/hero.jpg" alt="Shininho digital human reconstruction"></div>
-        <div class="humanai-case-copy"><span>02 / RELATIONAL RECOGNITION</span><h3>Shininho</h3><p>Real-person reconstruction becomes a question of recognition: anatomical and motion accuracy can be compared with remembered gesture, timing, affect, and the judgments of people who knew the person beyond the captured data.</p><b>View project →</b></div>
-      </a>
-      <a class="humanai-case" href="projects/gang-se-hwang.html">
-        <div class="humanai-case-media"><img src="media/gang/hero_portrait_to_digital2.jpg" alt="Gang Se-hwang historical portrait and digital human"></div>
-        <div class="humanai-case-copy"><span>03 / HISTORICAL EMBODIMENT</span><h3>Gang Se-hwang</h3><p>Historical reconstruction asks what remains inaccessible when identity is rebuilt from portraits and records rather than lived interaction: cultural mannerism, habitual bodily rhythm, linguistic nuance, and temporal context.</p><b>View project →</b></div>
-      </a>
+    <div class="xlayer-strip">
+      <div class="xlayer-mini"><span>X₁</span><b>History &amp; Records</b><p>Historical reconstruction can approximate appearance from archives while leaving lived temporal and cultural context unresolved.</p></div>
+      <div class="xlayer-mini"><span>X₂</span><b>Relational Approval</b><p>For a remembered person, authenticity is also judged through familiarity, memory, gesture, and the recognition of those who knew them.</p></div>
+      <div class="xlayer-mini"><span>X₃</span><b>Biological Finitude</b><p>Mortality, fatigue, decay, risk, and irreversibility become perceptual anchors that computational bodies can simulate but do not biologically undergo.</p></div>
     </div>
 
     <div class="humanai-bridge">
