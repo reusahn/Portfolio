@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mobile Real-Time Character Pipeline — Jonghoon Ahn</title><link rel="stylesheet" href="../projects31/vrchat.css"></head><body>
+<header class="top"><div class="shell topin"><a class="brand" href="../game-engineering.html">Jonghoon Ahn.<small>Game Software &amp; Real-Time Systems</small></a><nav class="nav"><a href="../game-engineering.html#work">Engineering Work</a><a href="../game-engineering.html#systems">Systems</a><a href="mailto:hoonahncloud@gmail.com">Contact</a></nav></div></header>
+<section class="detail-hero"><div class="shell"><div class="eyebrow">UNITY / ANDROID / CHARACTER RUNTIME</div><h1>Mobile Real-Time Character Pipeline</h1><p class="lead">A focused Unity URP character application built to validate animation, rigging, cloth, camera interaction, and runtime behavior on Android rather than only inside the Editor.</p>
+<div class="meta"><span>Unity URP</span><span>Android APK</span><span>C#</span><span>Humanoid</span><span>Runtime Cloth</span><span>Runtime UI</span></div></div></section>
+<section class="section"><div class="shell"><div class="media"><iframe src="https://player.vimeo.com/video/1225894277?badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture" title="Unity mobile character runtime"></iframe></div>
+<div class="detail-grid"><div class="side">ROLE
+Technical Artist / Developer
+
+FOCUS
+Runtime animation
+Character integration
+Cloth simulation
+Mobile validation</div><div class="content">
+<h2>Application-level validation</h2><p>The system was designed to keep working while the user changed animation states, camera framing, cloth state, and character count on an Android build. The goal was to prove runtime behavior and target-device stability, not just produce a recorded character render.</p>
+<h2>Character + animation pipeline</h2><ul><li>Prepared a CC4 character and costume for Unity.</li><li>Adjusted character and garment skin weights before runtime cloth.</li><li>Configured a Humanoid rig and integrated retargeted animation clips.</li><li>Built interactive ARGUE, DANCE, FIGHT, POINT, and TALK runtime states.</li><li>Added touch camera, look-at control, runtime UI, and multi-character testing.</li></ul>
+<div class="flow">Character + Costume
+↓
+Skin-Weight Cleanup
+↓
+Humanoid Rig / Retargeting
+↓
+C# Runtime Animation States
+↓
+Unity Cloth + Collision
+↓
+Touch Camera / Look-At / UI
+↓
+Android Build + Device Validation</div>
+<h2>Real-time cloth</h2><p>The cape uses Unity Cloth rather than a baked garment cache. Constraint regions, collision, skinning, stiffness, damping, and solver behavior were tuned so the garment responds to multiple runtime animation states.</p>
+<div class="evidence"><figure><img src="../projects30/skin_weights.png" alt="Cape skin-weight cleanup"><figcaption>Skin-weight cleanup before cloth simulation.</figcaption></figure><figure><img src="../projects30/cloth_settings.png" alt="Unity Cloth settings"><figcaption>Runtime cloth tuning inside Unity.</figcaption></figure></div>
+<h2>Delivery</h2><p>The final application was packaged as an Android APK and tested on-device, providing direct evidence of build validation beyond the Unity Editor.</p>
+<div class="hero-actions"><a class="btn" href="../game-engineering.html#work">← Back to Engineering Portfolio</a></div>
+</div></div></div></section></body></html>
