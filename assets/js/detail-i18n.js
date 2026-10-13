@@ -304,6 +304,10 @@
 
   function setLang(lang,manual=false){
     textNodes().forEach(n=>replaceNode(n,lang)); replaceAttrs(lang);
+    document.querySelectorAll('[data-en][data-ko]').forEach(el=>{
+      const text=el.getAttribute(lang==='ko'?'data-ko':'data-en');
+      if(text!==null && el.textContent!==text) el.textContent=text;
+    });
     document.documentElement.lang=lang==='ko'?'ko':'en';
     document.querySelectorAll('.detail-language button').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
     if(manual) localStorage.setItem('jonghoon-lang',lang);
