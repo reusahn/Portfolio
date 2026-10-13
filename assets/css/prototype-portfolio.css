@@ -88,7 +88,7 @@ img[loading="lazy"]{content-visibility:auto}
 .pp-tech-card{background:#fff;border:1px solid #d4dfe0;text-decoration:none;display:flex;flex-direction:column;min-width:0}
 .pp-tech-card:hover{box-shadow:0 15px 33px rgba(15,40,50,.09)}
 .pp-tech-card .pp-art{aspect-ratio:16/10;overflow:hidden;background:#1b2227}
-.pp-tech-card .pp-art img{width:100%;height:100%;object-fit:cover}
+.pp-tech-card .pp-art img,.pp-tech-card .pp-art iframe{display:block;width:100%;height:100%;object-fit:cover;border:0}.pp-tech-card .pp-art iframe{pointer-events:none}
 .pp-tech-copy{padding:25px;display:flex;flex-direction:column;flex:1}
 .pp-tech-copy h3{font-size:clamp(21px,1.9vw,28px);line-height:1.14;letter-spacing:-.034em;margin:12px 0}
 .pp-tech-copy p{font-size:14px;line-height:1.7;color:var(--pp-muted);margin:0}
