@@ -97,3 +97,16 @@ img[loading="lazy"]{content-visibility:auto}
 .pp-tech-footer a{font-size:13px;text-decoration:underline;text-underline-offset:4px;color:#355e72}
 @media(max-width:960px){.pp-tech-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:720px){.pp-tech{padding:54px 0}.pp-tech-grid{grid-template-columns:1fr}}
+
+/* Compact mobile global navigation: keep one work route, CV, and language switch. */
+@media(max-width:680px){
+.site-head .head-main{min-height:60px;gap:10px;align-items:center}
+.site-head .wordmark{font-size:14px;white-space:nowrap}
+.site-head .wordmark-ko{display:none}
+.site-head .head-nav{gap:10px}
+.site-head .head-nav>a{display:none!important}
+.site-head .head-nav>a[href="#selected"],.site-head .head-nav>a[href="#cv"]{display:inline-block!important;font-size:11px}
+.site-head .lang{padding-left:9px;gap:5px}
+.site-head .lang button{font-size:11px}
+.pp-screen-meta{font-size:9px}
+}
