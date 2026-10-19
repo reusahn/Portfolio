@@ -10,11 +10,12 @@
 2. **Unity camera tool and editor — FrameFlow.** Current browser camera sandbox works; build the corresponding Unity C# controller + ScriptableObject CameraProfile + scene gizmos/custom inspector and record a designer changing a level.
 3. **Real C# / HLSL gameplay capture — Erick Oh game.** Existing implementation; 45–60 s input-to-visible-effect recording and C# shader-parameter binding / collision separation screenshots.
 4. **Real Unreal Blueprint graph.** Existing documented Blueprint triggers/loops; insert actual readable graph screenshot and 20–40 s in-engine outcome.
-5. **Gameplay/NPC footage — Escape Metro.** XR navigation, player voice, in-world NPC response, character animation and game progression in a single traceable sequence.
+5. **Gameplay/NPC footage — Escape Metro.** Show an actual player interrogation of the NPC, clue/password discovery and progression/escape along with Unity XR interaction and character response.
 6. **Runtime cloth / APK — Mobile Character Runtime.** Record animation-state changes and live cape simulation on Android.
 7. **Maya wireframe, HumanIK and UV — Shininho + Gang Se-hwang.** Current Maya process images already exist; add authentic HumanIK/rig setup and animation timeline views if available.
 8. **Direct-feedback demos — Graffiti Freedom / NARCI.** Actual headset painting plus RenderTexture debug; hand-tracking input and its visual state change.
-9. **Deployed hardware — Gang Se-hwang.** Existing installation photographs; add actual visitor interaction and Unity scene logic if available.
+9. **Existing multi-user networked installation — Jemulpo Photo Studio.** Public deployment for up to 4 visitors in resume; existing public case documents TCP delivery to an exhibition wall. Add source/Unity captures for the sender/receiver, process boundaries and session/archiving behavior. Distinct from commercial online live-game operations.
+10. **Deployed character application — Gang Se-hwang.** Retain as supplementary Maya/character/deployment case; not a main networked-game card.
 
 ## Ready-to-use case-study pages
 
@@ -25,7 +26,8 @@
 | FrameFlow | `thatgamecompany-frameflow.html` | `frameflow_unity_runtime.mp4`, `frameflow_editor_tool.mp4`, `frameflow_profiles.png` |
 | Blueprint Interaction Systems | `thatgamecompany-blueprint.html` | `blueprint_real_graph.png`, `blueprint_trigger_result.mp4` |
 | Windward | `thatgamecompany-windward.html` | `windward_two_clients.mp4`, `windward_network_inspector.png`, `windward_patch_notes.png` |
-| Public-Facing Unity Deployment | `thatgamecompany-live-installation.html` | `gang_visitor_interaction.mp4`, `gang_unity_scene.png` |
+| Jemulpo Photo Studio | `thatgamecompany-jemulpo.html` | `jemulpo_multivisitor_demo.mp4`, `jemulpo_tcp_receiver.png`, `jemulpo_archive_pipeline.png` |
+| Public-Facing Unity Deployment (supplemental) | `thatgamecompany-live-installation.html` | `gang_visitor_interaction.mp4`, `gang_unity_scene.png` |
 | Maya Character & Animation Pipeline | `thatgamecompany-maya-pipeline.html` | `shininho_humanik.png`, `shininho_animations.mp4`, `gang_maya_facial_rig.png` |
 | Mobile Character Runtime | `thatgamecompany-character-runtime.html` | `mobile_cloth_android.mp4`, `mobile_unity_cloth_settings.png` |
 | Escape Metro | `thatgamecompany-escape-metro.html` | `escape_metro_full_loop.mp4`, `escape_npc_pipeline.png` |
@@ -33,7 +35,7 @@
 
 ## Windward implementation milestones
 
-**Stage 0 — done:** Local, interactive browser controls / seed physics / obstacle contacts / failure & retry / destination in `thatgamecompany-windward-playtest.html`. This is *not* multiplayer.
+**Stage 0 — done:** Local interactive browser controls / seed physics / obstacle contacts / failure & retry / destination in `thatgamecompany-windward-playtest.html`. This is *not* multiplayer. The game page now includes a proposed three-beat 90-second vertical slice: first updraft → alternating gap → shelter.
 
 **Stage 1:** Unity scene with seed Rigidbody and colliders, GameManager (goal, fail, retry), 2 independent control sources, camera and shader feedback.
 
