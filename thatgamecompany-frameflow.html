@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FrameFlow — Camera & Level Designer Toolkit | Jonghoon Ahn</title>
+<meta name="description" content="FrameFlow working-title technical design prototype: a tunable camera system and level-authoring tool concept, including a live browser sandbox for camera follow, damping, framing and look-ahead.">
+<style>
+:root{--bg:#f7f8f6;--paper:#fff;--ink:#1c2824;--muted:#54625d;--line:#dce3dd;--accent:#315e53;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}a{color:inherit}.shell{width:min(1020px,calc(100% - 48px));margin:auto}
+header{height:64px;background:#fff;border-bottom:1px solid var(--line)}header .shell{height:100%;display:flex;align-items:center;justify-content:space-between}.brand{text-decoration:none;font-size:16px;font-weight:720;letter-spacing:-.03em}.back{text-decoration:none;font-size:12px;color:var(--accent)}.hero{padding:55px 0 39px;background:#fff;border-bottom:1px solid var(--line)}.kicker,.eyebrow{font:10px/1.6 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}h1{font-size:clamp(42px,5.8vw,62px);line-height:1.05;letter-spacing:-.055em;margin:14px 0 18px}h2{font-size:27px;letter-spacing:-.035em;line-height:1.17;margin:12px 0 17px}h3{font-size:17px;margin:0 0 8px}.hero p{font-size:16px;color:#475a51;max-width:760px;margin:0 0 18px}.status{display:inline-block;font:10px var(--mono);letter-spacing:.06em;padding:6px 10px;border:1px solid #bfd5c6;color:var(--accent);border-radius:4px}.section{padding:46px 0;border-bottom:1px solid var(--line)}.section p{color:var(--muted);max-width:850px;margin:0 0 16px}.workspace{display:grid;grid-template-columns:1fr 290px;gap:0;border:1px solid var(--line);background:#fff;border-radius:7px;overflow:hidden;margin-top:24px}.view{min-width:0;position:relative;background:#253c39}.view canvas{display:block;width:100%;height:400px}.view .viewtag{position:absolute;top:15px;left:18px;color:#c4d8cc;font:10px var(--mono);letter-spacing:.06em}.panel{padding:19px 19px 23px;border-left:1px solid var(--line);background:#fff}.panel .eyebrow{margin-bottom:16px;display:block}.control{margin-bottom:16px}.control label{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:630;margin-bottom:6px}.control output{color:var(--accent);font-family:var(--mono);font-size:11px}.control input[type=range]{width:100%;accent-color:#356b5a}.control select{background:#fff;width:100%;border:1px solid #cad6ce;border-radius:4px;padding:8px 6px;font:12px var(--mono);color:#2c443a}.buttons{display:flex;gap:8px;flex-wrap:wrap}.btn{background:#f4f8f4;border:1px solid #cbd9ce;border-radius:4px;padding:8px 10px;color:#3b6254;font-size:11.5px;cursor:pointer;text-decoration:none}.btn:hover{background:#e7efe9}.btn.dark{background:#203a32;color:#fff;border-color:#203a32}.hint{color:#81948a;font:10px/1.6 var(--mono);margin-top:13px}.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:21px}.detail{padding:20px;border:1px solid var(--line);background:#fff;border-radius:5px}.detail p{font-size:13px;line-height:1.7;margin:0}.map{background:#fff;border:1px solid var(--line);border-radius:5px;padding:17px 20px;display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;align-items:center}.map span{font:11px var(--mono);border:1px solid #d0dbd4;background:#f5f8f5;padding:7px 9px;border-radius:3px;color:#426154}.map i{font-style:normal;color:#b07d65}.checklist{list-style:none;padding:0;margin:14px 0 0}.checklist li{display:grid;grid-template-columns:88px 1fr;gap:14px;border-bottom:1px solid var(--line);padding:12px 0;font-size:13px;color:#4b6054}.checklist li strong{font:10px/1.6 var(--mono);text-transform:uppercase;color:var(--accent);padding-top:2px}.note{margin-top:21px;padding:16px 18px;background:#eaf1eb;border:1px solid #d4e3d5;border-radius:4px;font-size:12.5px;color:#465c51}.footer{padding:38px 0 24px;display:flex;justify-content:space-between;gap:12px}.footer a{text-decoration:none;color:var(--accent);font-weight:650;font-size:12px}@media(max-width:750px){.workspace{grid-template-columns:1fr}.panel{border-left:0;border-top:1px solid var(--line)}.view canvas{height:315px}.detail-grid{grid-template-columns:1fr}.checklist li{grid-template-columns:72px 1fr;gap:7px}.shell{width:calc(100% - 32px)}.hero{padding:43px 0 32px}}
+</style></head><body>
+<header><div class="shell"><a class="brand" href="thatgamecompany-game-design.html">Jonghoon Ahn.</a><a class="back" href="thatgamecompany-game-design.html">← Portfolio</a></div></header>
+<main>
+<section class="hero"><div class="shell"><div class="kicker">WORKING TITLE / DESIGNER TOOLS / CAMERA · GAMEPLAY</div><h1>FrameFlow.</h1>
+<p>A camera and level-design toolkit concept for fast gameplay iteration. The goal is to let designers change follow behavior, look-ahead, framing, and encounter presets without rewriting game logic.</p>
+<span class="status">BROWSER INTERACTION MOCK COMPLETE · UNITY IMPLEMENTATION PROPOSED</span></div></section>
+<section class="section"><div class="shell">
+<div class="eyebrow">01 / INTERACTIVE DESIGN SANDBOX</div><h2>Tune the camera. Feel the difference.</h2>
+<p>Move the target with A / D or the left / right arrow keys, or use Auto Move to test the response. Try a preset, then change damping, lead and framing. This is a functioning browser-based behavioral mock for design review—not a Unity gameplay build.</p>
+<div class="workspace">
+ <div class="view"><div class="viewtag">CAMERA TEST SCENE · BROWSER MOCK</div><canvas id="scene" role="img" aria-label="Live camera preview: moving player, follow camera frame, foreground obstacles and virtual world."></canvas></div>
+ <div class="panel"><span class="eyebrow">DESIGNER CONTROLS</span>
+   <div class="control"><label for="preset">Camera profile</label><select id="preset"><option value="exploration">Exploration</option><option value="precise">Precision platforming</option><option value="cinematic">Wide cinematic</option></select></div>
+   <div class="control"><label for="damping">Follow damping <output id="dampingVal">0.12</output></label><input id="damping" type="range" min=".02" max=".9" step=".01" value=".12"></div>
+   <div class="control"><label for="lookahead">Look-ahead <output id="lookaheadVal">65</output></label><input id="lookahead" type="range" min="0" max="150" step="5" value="65"></div>
+   <div class="control"><label for="zoom">Camera zoom <output id="zoomVal">1.00</output></label><input id="zoom" type="range" min=".65" max="1.6" step=".05" value="1"></div>
+   <div class="buttons"><button class="btn dark" id="toggle">Pause auto move</button><button class="btn" id="reset">Reset</button><button class="btn" id="copy">Copy preset JSON</button></div>
+   <div class="hint" id="hint">A / D · ← / → to steer · auto motion enabled</div>
+ </div>
+</div>
+<div class="map"><span>PLAYER POSITION + VELOCITY</span><i>→</i><span>CAMERA PROFILE</span><i>→</i><span>FOLLOW + LOOK-AHEAD</span><i>→</i><span>ON-SCREEN FRAMING</span></div>
+</div></section>
+<section class="section"><div class="shell">
+<span class="eyebrow">02 / INTENDED UNITY FEATURE</span><h2>A reusable camera feature, not a one-off level script.</h2>
+<p>In a production Unity version, the camera behavior would be split into a runtime controller and designer-authored data. Each encounter could request a camera profile; designers could preview changes within a level and commit them as reusable assets.</p>
+<div class="detail-grid">
+ <div class="detail"><h3>Runtime camera controller</h3><p>Position smoothing, velocity-based look-ahead, bounded focus, zoom, transitions, and obstruction checks. Parameter-driven C# behavior separate from the visual scene.</p></div>
+ <div class="detail"><h3>Designer-authored profiles</h3><p>ScriptableObject camera presets expose damping, offset, zoom and zone boundaries, with consistent application across content and test scenes.</p></div>
+ <div class="detail"><h3>Editor toolset</h3><p>A custom inspector and scene gizmos would allow designers to visualize target frames and edit zone volumes in level context without code changes.</p></div>
+ <div class="detail"><h3>Validation and handoff</h3><p>Capture baseline/modified camera clips, evaluate obstacle visibility, frame timing and transitions, and document reproducible adjustments for the rest of the design team.</p></div>
+</div>
+</div></section>
+<section class="section"><div class="shell">
+<span class="eyebrow">03 / IMPLEMENTATION CHECKLIST</span><h2>From design mock to technical proof.</h2>
+<ul class="checklist">
+<li><strong>Available</strong><span>Interactive browser mock demonstrating tunable camera profiles, damping, look-ahead, zoom, and editable JSON parameters.</span></li>
+<li><strong>Next</strong><span>Port controls to a Unity C# follow rig with ScriptableObject profiles and repeatable camera state transitions.</span></li>
+<li><strong>Next</strong><span>Add Unity Editor inspector/scene controls, author two gameplay test levels, and capture before/after tuning footage.</span></li>
+<li><strong>Next</strong><span>Package source, demo scene and designer-facing documentation for a reproducible handoff.</span></li>
+</ul>
+<div class="note"><strong>Evidence boundary:</strong> The interactive preview above runs in a web browser. It does not imply that the corresponding Unity Editor extension, C# controller, or playable game scene has been completed.</div>
+</div></section>
+</main>
+<div class="shell footer"><a href="thatgamecompany-game-design.html">← All portfolio projects</a><a href="mailto:hoonahncloud@gmail.com">Email ↗</a></div>
+<script>
+(function(){
+'use strict';
+var canvas=document.getElementById('scene'),ctx=canvas.getContext('2d');
+var values={damping:.12,lookahead:65,zoom:1};
+var x=0,cam=0,velocity=0,auto=true,left=false,right=false,dir=1,prev=0,elapsed=0;
+var profiles={exploration:{damping:.12,lookahead:65,zoom:1},precise:{damping:.035,lookahead:25,zoom:1.35},cinematic:{damping:.3,lookahead:120,zoom:.75}};
+var controls={damping:document.getElementById('damping'),lookahead:document.getElementById('lookahead'),zoom:document.getElementById('zoom')};
+function apply(v){Object.keys(controls).forEach(function(k){controls[k].value=v[k];values[k]=Number(v[k]);document.getElementById(k+'Val').textContent=values[k].toFixed(k==='lookahead'?0:2);});}
+Object.keys(controls).forEach(function(k){controls[k].addEventListener('input',function(){values[k]=Number(this.value);document.getElementById(k+'Val').textContent=values[k].toFixed(k==='lookahead'?0:2);});});
+document.getElementById('preset').addEventListener('change',function(){apply(profiles[this.value]);});
+document.getElementById('toggle').addEventListener('click',function(){auto=!auto;this.textContent=auto?'Pause auto move':'Resume auto move';});
+document.getElementById('reset').addEventListener('click',function(){x=0;cam=0;velocity=0;dir=1;auto=true;document.getElementById('toggle').textContent='Pause auto move';document.getElementById('preset').value='exploration';apply(profiles.exploration);});
+document.getElementById('copy').addEventListener('click',function(){var data=JSON.stringify({profile:document.getElementById('preset').value,followDamping:values.damping,lookAhead:values.lookahead,zoom:values.zoom},null,2);if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(data).then(function(){document.getElementById('hint').textContent='Preset JSON copied';}).catch(function(){document.getElementById('hint').textContent=data;});}else{document.getElementById('hint').textContent=data;}});
+document.addEventListener('keydown',function(e){if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT')return;if(e.key==='a'||e.key==='ArrowLeft'){left=true;auto=false;document.getElementById('toggle').textContent='Resume auto move';e.preventDefault();}if(e.key==='d'||e.key==='ArrowRight'){right=true;auto=false;document.getElementById('toggle').textContent='Resume auto move';e.preventDefault();}});
+document.addEventListener('keyup',function(e){if(e.key==='a'||e.key==='ArrowLeft')left=false;if(e.key==='d'||e.key==='ArrowRight')right=false;});
+function line(x1,y1,x2,y2,color,width){ctx.strokeStyle=color;ctx.lineWidth=width||1;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}
+function paint(now){var dt=Math.min(.04,(now-prev)/1000||.016);prev=now;elapsed+=dt;
+ var w=canvas.clientWidth,h=canvas.clientHeight,dpr=Math.max(1,Math.min(2,window.devicePixelRatio||1));if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}ctx.setTransform(dpr,0,0,dpr,0,0);
+ if(auto){velocity=135*dir;if(x>550)dir=-1;if(x< -550)dir=1;}else{var inp=(right?1:0)-(left?1:0);velocity+=(inp*180-velocity)*Math.min(1,dt*5);}
+ x+=velocity*dt;
+ var centerTarget=x+Math.sign(velocity)*Math.min(values.lookahead,Math.abs(velocity)/180*values.lookahead);
+ var alpha=1-Math.exp(-dt/Math.max(.01,values.damping));cam+=(centerTarget-cam)*alpha;
+ var scale=values.zoom*1.05,cy=h*.7;
+ ctx.fillStyle='#263b40';ctx.fillRect(0,0,w,h);
+ for(var i=0;i<18;i++){var star=i*213.7-1600;var sx=(star-cam*.14)*scale+w/2,sy=42+(i*51)%170;ctx.fillStyle='rgba(179,204,197,.3)';ctx.fillRect(sx,sy,2,2);}
+ ctx.fillStyle='#38514e';ctx.fillRect(0,cy,w,h-cy);
+ for(var k=-7;k<9;k++){var world=k*175,sx2=(world-cam)*scale+w/2;line(sx2,cy,sx2,cy+40,'#55736b',1);ctx.fillStyle=k%3===0?'#577469':'#49655b';var high=50+((k+12)*71)%80;ctx.fillRect(sx2-17,cy-high,34,high);}
+ line(0,cy,w,cy,'#87a89b',1.6);
+ var px=(x-cam)*scale+w/2;
+ ctx.fillStyle='#e5cba9';ctx.beginPath();ctx.arc(px,cy-24,13,0,Math.PI*2);ctx.fill();ctx.fillStyle='#eadac5';ctx.fillRect(px-8,cy-11,16,13);
+ line(px,cy-2,px-10,cy+9,'#e5cba9',2);line(px,cy-2,px+10,cy+9,'#e5cba9',2);
+ var focus=w/2;ctx.strokeStyle='#9dcbb5';ctx.setLineDash([6,8]);ctx.strokeRect(focus-64,cy-135,128,135);ctx.setLineDash([]);
+ line(px,cy-45,focus,cy-45,'rgba(179,229,194,.4)',1);
+ ctx.fillStyle='#e1eee4';ctx.font='11px monospace';ctx.fillText('PLAYER',px-22,cy-56);ctx.fillStyle='#b4d5c2';ctx.fillText('CAMERA FOCUS',focus-45,cy-147);
+ ctx.fillStyle='rgba(17,39,36,.72)';ctx.fillRect(12,h-36,Math.min(w-24,360),23);
+ ctx.fillStyle='#d0e2d8';ctx.font='10px monospace';ctx.fillText('World x '+x.toFixed(0)+'  |  Camera x '+cam.toFixed(0),22,h-21);
+ requestAnimationFrame(paint);
+}
+apply(profiles.exploration);requestAnimationFrame(paint);
+})();
+</script>
+</body></html>
