@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jemulpo Photo Studio — Multi-User Unity Systems | Jonghoon Ahn</title>
+<meta name="description" content="A deployed Unity multi-participant installation. C#, Python, OpenCV, Barracuda segmentation, TCP display delivery, automatic portrait archiving, and public-facing live operation.">
+<link rel="icon" href="assets/images/favicon.png">
+<link rel="stylesheet" href="thatgamecompany-case.css">
+<style>
+.proof-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:17px}.proof-grid .figure img{aspect-ratio:16/9;object-fit:cover}
+.statline .stamp{border:1px solid #ceddd1;border-radius:3px;padding:5px 9px;background:#f3f7f2}
+.hero-video{aspect-ratio:16/8.3}.gallery .real{border-style:solid}.network-title{font-size:19px;font-weight:710;letter-spacing:-.025em;margin:0 0 14px}
+.note-head{font-weight:720;color:#3d5a46}.tech-evidence{border-left:3px solid #6b9981;padding-left:15px;font-size:13px;color:#546c5d}
+@media(max-width:750px){.proof-grid{grid-template-columns:1fr}.hero-video{aspect-ratio:16/9}}
+</style></head>
+<body>
+<header class="top"><div class="wrap topin"><a class="brand" href="thatgamecompany-game-design.html">Jonghoon Ahn.</a><a class="back" href="thatgamecompany-game-design.html">← Technical Game Design Portfolio</a></div></header>
+<main>
+<section class="hero"><div class="wrap">
+<div class="kicker">MULTI-USER SYSTEMS / UNITY C# / REAL-TIME DEPLOYMENT</div>
+<h1>Jemulpo Photo Studio.</h1>
+<p class="lead">A live, visitor-facing portrait system designed for up to four simultaneous participants. Unity and computer-vision processing transform each visitor into a stylized period portrait, then distribute the result to a continuously updated display wall.</p>
+<div class="statline">
+<span><strong>ROLE</strong>Technical Director / Unity Developer</span>
+<span><strong>YEAR</strong>2022</span>
+<span><strong>VENUE</strong>Incheon Metropolitan Museum</span>
+<span><strong>SYSTEM</strong>Unity C# · Python · OpenCV · Barracuda · TCP/UDP</span>
+</div>
+<div class="hero-media hero-video"><iframe title="Jemulpo Photo Studio existing video documentation" src="https://player.vimeo.com/video/1011870114?h=e6a92f4ef4&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" loading="lazy" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe></div>
+<p class="hero-caption">Existing exhibition footage · Multi-participant interactive portrait pipeline</p>
+</div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><span class="eyebrow">01 / DESIGN INTENT</span><div><h2>Many visitors. One continuously changing installation.</h2>
+<p>Visitors actively generate the work. Each session captures and transforms a portrait, while a separate wall display accumulates the resulting images. The interaction, vision pipeline, storage and external presentation must operate together without manual file transfer.</p></div></div>
+<div class="split">
+<div class="panel"><h3>Interaction and content</h3>
+<p>Visitors stand at an interactive portrait station. The system identifies and separates a person, applies the visual treatment, saves an image and adds the result to the gallery.</p></div>
+<div class="panel"><h3>Technical ownership</h3>
+<p>Technical direction and Unity C# system integration, connecting the visitor-facing application with OpenCV/Barracuda image processing, output management, network delivery and exhibition playback.</p></div>
+</div></div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><span class="eyebrow">02 / SYSTEM DESIGN</span><div><h2>The real-time pipeline.</h2><p>Network communication was part of a larger content system. A completed portrait moves between processes and screens; the gallery continues to update as visitors participate.</p></div></div>
+<div class="pipeline">
+<span>Visitor capture</span><i>→</i><span>Face detection / OpenCV</span><i>→</i><span>Person segmentation / Barracuda</span><i>→</i><span>Stylized portrait</span><i>→</i><span>Local archive</span><i>→</i><span>TCP delivery</span><i>→</i><span>Gallery display</span>
+</div>
+<div class="split" style="margin-top:20px">
+<div class="panel"><h3>Capture + segmentation</h3><p>OpenCV face/head-region detection and Barracuda person segmentation prepare the image for stylized composition with period-inspired graphic treatments.</p></div>
+<div class="panel"><h3>Cross-device output</h3><p>Processed portraits are saved automatically into timestamped folders and sent via TCP to an external display system, creating an accumulating gallery display without manual intervention.</p></div>
+<div class="panel"><h3>Multi-participant format</h3><p>The application was developed for a deployment with up to four simultaneous participants, according to the project resume. This is multi-user exhibition software—not synchronized online game simulation.</p></div>
+<div class="panel"><h3>Operational continuity</h3><p>Production adjustments included resolving audio buffering and playback interruptions so the exhibition experience could continue between visitor sessions.</p></div>
+</div></div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><span class="eyebrow">03 / DESIGN–ENGINEERING DECISIONS</span><div><h2>Make a complex system usable by visitors.</h2><p>Each technical boundary carries an interaction requirement: the person must see feedback, the generated content must persist and the public display must receive it.</p></div></div>
+<div class="decisions">
+<div class="decision"><b>Keep the visitor loop immediate.</b><p>Capture, segmentation and visual transformation are presented as one experience rather than a disconnected offline image-processing task.</p></div>
+<div class="decision"><b>Separate capture from presentation.</b><p>Portrait creation and wall display are different responsibilities. Transmitting completed images allows the exhibition wall to update independently.</p></div>
+<div class="decision"><b>Make output reproducible.</b><p>Timestamped folders and automatic archival make the finished images available for continued display and exhibition management.</p></div>
+</div></div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><span class="eyebrow">04 / PRODUCTION MEDIA</span><div><h2>The installed experience.</h2><p>Existing project assets are shown below; separate technical captures can be added when available.</p></div></div>
+<div class="gallery">
+<figure class="figure real"><img loading="lazy" src="assets/images/interactive3_1.jpg" alt="Existing Jemulpo Photo Studio exhibition documentation"><figcaption><b>Public installation</b>Existing exhibition image of the portrait experience.</figcaption></figure>
+<figure class="figure real"><img loading="lazy" src="assets/images/interactive3_2.jpg" alt="Existing Jemulpo Photo Studio interactive display"><figcaption><b>Interactive environment</b>Visitor-facing presentation and generated portrait output.</figcaption></figure>
+<figure class="figure"><div class="slot"><span class="number">CAPTURE TO ADD / 01</span><strong>Unity C# runtime</strong><span>State flow and visitor capture/segmentation integration</span></div><figcaption><b>Code + editor</b>Uncut event-to-output recording beside Unity Inspector or source code.</figcaption></figure>
+<figure class="figure"><div class="slot"><span class="number">CAPTURE TO ADD / 02</span><strong>Network delivery</strong><span>TCP sender / receiving wall process / output folders</span></div><figcaption><b>Technical diagram / evidence</b>Actual sending/receiving implementation and archiving folder structure, with any sensitive network details removed.</figcaption></figure>
+</div></div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><span class="eyebrow">05 / RELEVANCE TO GAME DEVELOPMENT</span><div><h2>Shipped interactive software across machines.</h2><p>The transferable experience is in making a real-time application coordinate inputs, media processing, networked outputs and public-facing operation. It is materially relevant to gameplay tools and multiplayer workflows, while remaining distinct from shipping a commercial online game.</p></div></div>
+<div class="listrows">
+<div class="listrow"><b>What this demonstrates</b><p>Unity C# integration · Multi-participant deployment · TCP content delivery · Operational debugging · Repeatable content flow.</p></div>
+<div class="listrow"><b>What it does not imply</b><p>Host-authoritative multiplayer physics, replicated gameplay state, matchmaking, or continuous commercial live-service administration.</p></div>
+<div class="listrow"><b>Next technical material</b><p>Capture the actual Unity interaction state machine, network sender/receiver structure, deployment configuration and a full participant-to-gallery sequence.</p></div>
+</div>
+<div class="small-note"><span class="note-head">Documentation note:</span> The prior resume records TCP/UDP multi-user work and up to four simultaneous participants. The current public case study specifically documents TCP image delivery to an external display. Protocol-specific implementation captures should be added before making more detailed claims about UDP gameplay behavior.</div>
+</div></section>
+<section class="cta"><div class="wrap"><div class="actions">
+<a class="button" href="thatgamecompany-game-design.html">← All Projects</a>
+<a class="button primary" href="Project27/jemulpo-photo-studio.html">Existing technical case ↗</a>
+<a class="button" href="detail_pages/interactive_3.html">Installation archive ↗</a>
+</div></div></section>
+</main><footer class="foot"><div class="wrap">© 2026 Jonghoon Ahn · Technical Game Design · Unity Multi-User Systems</div></footer>
+</body></html>
