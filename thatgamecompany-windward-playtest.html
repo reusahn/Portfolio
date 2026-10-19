@@ -1,0 +1,52 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Windward — Playable Mechanics Sandbox | Jonghoon Ahn</title>
+<meta name="description" content="Windward local browser gameplay prototype testing lift and steering, shared physics, collision, success and retry. Unity online multiplayer implementation is planned.">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f8f6;color:#1e2d27;font:14px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{width:min(1100px,calc(100% - 36px));margin:auto}header{border-bottom:1px solid #dce6dd;background:white}header .wrap{min-height:63px;display:flex;justify-content:space-between;align-items:center;gap:12px}header strong{font-size:16px}a{color:#315e50;text-decoration:none}header a{font-size:12px}.intro{padding:38px 0 24px}.eyebrow{color:#3c7057;letter-spacing:.09em;font:10px monospace}.intro h1{font-size:clamp(37px,5vw,60px);line-height:1.05;letter-spacing:-.055em;margin:10px 0}.intro p{max-width:780px;margin:0;color:#506356;font-size:15px}.game{border:1px solid #dce6dd;border-radius:5px;overflow:hidden;background:white}canvas{display:block;width:100%;height:auto;aspect-ratio:16/8.4;background:#253d3e}.hud{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px 16px}.hud span{font:11px monospace;color:#496c57}.controls{display:flex;flex-wrap:wrap;gap:7px}.controls button{padding:9px 13px;background:white;border:1px solid #cbdbcf;border-radius:3px;font:11px monospace;cursor:pointer;color:#375c49}.controls button.down,.controls button:active{background:#315e50;color:white}.controls #reset{background:#223b30;color:white}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}.tile{background:#fff;border:1px solid #dce6dd;border-radius:4px;padding:19px}.tile h3{font-size:14px;margin:0 0 8px}.tile p{font-size:12.5px;color:#617467;margin:0}.note{margin:18px 0 50px;background:#e9f1e9;padding:14px 17px;border-radius:4px;color:#526d58;font-size:12.5px}footer{padding:22px 0;border-top:1px solid #dce6dd;color:#819087;font-size:11px}@media(max-width:700px){.grid{grid-template-columns:1fr}canvas{aspect-ratio:16/12}.intro{padding-top:28px}.hud{padding:10px}.controls button{padding:8px}}
+</style></head><body>
+<header><div class="wrap"><strong>Windward — Local Mechanics Test</strong><a href="thatgamecompany-windward.html">← Game case study</a></div></header>
+<main><div class="wrap">
+<section class="intro"><div class="eyebrow">INTERACTIVE BROWSER PROTOTYPE / GAME DESIGN STUDY</div><h1>Two forces. One seed.</h1>
+<p>Two different inputs control the same seed. Player 01 generates lift; Player 02 steers. Coordinate both to navigate obstacles and reach the goal. This is a playable local mechanics prototype, not an online multiplayer game.</p></section>
+<div class="game"><canvas id="game" width="1100" height="575" aria-label="Playable seed flight prototype. Space lifts the seed, left/right arrows steer, R restarts."></canvas>
+<div class="hud"><span id="status">PLAYING</span><div class="controls"><button id="left">← STEER</button><button id="lift">LIFT / SPACE</button><button id="right">STEER →</button><button id="reset">RESTART (R)</button></div></div></div>
+<div class="grid">
+<div class="tile"><h3>01 / Player A — Lift</h3><p>Hold Space (or the lift button) for upward force. Release to allow gravity to pull the seed down.</p></div>
+<div class="tile"><h3>02 / Player B — Steer</h3><p>Left / Right arrows (or buttons) create horizontal wind. Momentum remains after input stops.</p></div>
+<div class="tile"><h3>03 / Shared outcome</h3><p>Stay between obstacles and enter the shelter ring. Contact with a wall or the ground ends the attempt.</p></div></div>
+<div class="note"><b>Implementation scope:</b> This runnable browser sandbox tests two-input game feel, movement, collision, goal state and retries. Network transport, server authority, two independent clients and online release management are separate Unity development milestones.</div>
+</div></main><footer><div class="wrap">Jonghoon Ahn · Windward / Working Title · Gameplay Systems</div></footer>
+<script>
+(function(){
+"use strict";
+var canvas=document.getElementById("game"),ctx=canvas.getContext("2d"),status=document.getElementById("status");
+var worldW=1630,ground=505,obstacles=[{x:330,y:0,w:65,h:235},{x:590,y:360,w:65,h:145},{x:850,y:0,w:65,h:270},{x:1100,y:345,w:65,h:160}];
+var goal={x:1430,y:265,r:55},keys={lift:false,left:false,right:false};
+var seed,cam,ended,won,attempt,previous=0,clock=0;
+function reset(){seed={x:105,y:260,vx:0,vy:0,r:13};cam=0;ended=false;won=false;clock=0;attempt=(attempt||0)+1;status.textContent="PLAYING · ATTEMPT "+attempt;status.style.color="#436a55";}
+function bind(id,key){var el=document.getElementById(id);function set(v){keys[key]=v;el.classList.toggle("down",v);}el.addEventListener("pointerdown",function(e){e.preventDefault();set(true);if(el.setPointerCapture)el.setPointerCapture(e.pointerId);});["pointerup","pointercancel","lostpointercapture","pointerleave"].forEach(function(name){el.addEventListener(name,function(){set(false);});});}
+bind("lift","lift");bind("left","left");bind("right","right");document.getElementById("reset").addEventListener("click",reset);
+document.addEventListener("keydown",function(e){if(["Space","ArrowLeft","ArrowRight","KeyR"].includes(e.code))e.preventDefault();if(e.code==="Space")keys.lift=true;if(e.code==="ArrowLeft")keys.left=true;if(e.code==="ArrowRight")keys.right=true;if(e.code==="KeyR")reset();});
+document.addEventListener("keyup",function(e){if(e.code==="Space")keys.lift=false;if(e.code==="ArrowLeft")keys.left=false;if(e.code==="ArrowRight")keys.right=false;});
+window.addEventListener("blur",function(){keys.lift=keys.left=keys.right=false;});
+function collide(){if(seed.y+seed.r>ground||seed.y-seed.r<25)return true;for(var i=0;i<obstacles.length;i++){var o=obstacles[i],x=Math.max(o.x,Math.min(seed.x,o.x+o.w)),y=Math.max(o.y,Math.min(seed.y,o.y+o.h));if((seed.x-x)*(seed.x-x)+(seed.y-y)*(seed.y-y)<seed.r*seed.r)return true;}return false;}
+function step(dt){if(ended)return;clock+=dt;var axis=(keys.right?1:0)-(keys.left?1:0);seed.vx+=(axis*445-seed.vx*.8)*dt;seed.vy+=(150-(keys.lift?395:0)-seed.vy*.24)*dt;seed.vx=Math.max(-215,Math.min(215,seed.vx));seed.vy=Math.max(-225,Math.min(225,seed.vy));seed.x=Math.max(30,seed.x+seed.vx*dt);seed.y+=seed.vy*dt;cam+=(Math.max(0,Math.min(worldW-1100,seed.x-430))-cam)*Math.min(1,dt*5);
+if(collide()){ended=true;won=false;status.textContent="COLLISION — PRESS R TO RETRY";status.style.color="#b27463";}
+else if(Math.hypot(seed.x-goal.x,seed.y-goal.y)<goal.r-seed.r+2){ended=true;won=true;status.textContent="LEVEL CLEAR — SEED DELIVERED";status.style.color="#387d57";}}
+function circle(x,y,r,color){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();}
+function draw(){ctx.fillStyle="#263e42";ctx.fillRect(0,0,1100,575);ctx.save();ctx.translate(-cam,0);
+for(var i=0;i<16;i++){var cx=55+i*121,cy=90+(i*57)%235;circle(cx,cy,22+(i%3)*6,"rgba(160,198,192,.15)");circle(cx+22,cy+5,29,"rgba(160,198,192,.09)");}
+ctx.fillStyle="#3b574d";ctx.fillRect(0,ground,worldW,575-ground);ctx.fillStyle="#779c83";ctx.fillRect(0,ground,worldW,3);
+for(var j=0;j<obstacles.length;j++){var o=obstacles[j];ctx.fillStyle="#4b675d";ctx.fillRect(o.x,o.y,o.w,o.h);ctx.fillStyle="#779585";ctx.fillRect(o.x,o.y,7,o.h);}
+ctx.strokeStyle="#abd5b8";ctx.lineWidth=4;ctx.beginPath();ctx.arc(goal.x,goal.y,goal.r,0,Math.PI*2);ctx.stroke();
+ctx.font="13px monospace";ctx.textAlign="center";ctx.fillStyle="#cde0d1";ctx.fillText("SHELTER",goal.x,goal.y-74);
+if(keys.lift){ctx.strokeStyle="rgba(177,221,208,.65)";for(var k=0;k<5;k++){var dx=seed.x+(k-2)*13,dy=seed.y+75-((clock*170+k*21)%130);ctx.beginPath();ctx.moveTo(dx,dy+18);ctx.lineTo(dx+3,dy);ctx.stroke();}}
+if(keys.left||keys.right){ctx.strokeStyle="#e4caa8";for(var n=0;n<3;n++){var sign=keys.left?-1:1;ctx.beginPath();ctx.moveTo(seed.x-sign*40,seed.y-14+n*13);ctx.lineTo(seed.x-sign*20,seed.y-14+n*13);ctx.stroke();}}
+circle(seed.x,seed.y,seed.r,ended&&!won?"#bc8c81":"#e8d9af");ctx.fillStyle="#b6d4af";ctx.beginPath();ctx.moveTo(seed.x-3,seed.y-12);ctx.quadraticCurveTo(seed.x-19,seed.y-32,seed.x-3,seed.y-36);ctx.quadraticCurveTo(seed.x+13,seed.y-29,seed.x-3,seed.y-12);ctx.fill();ctx.fillStyle="#deede2";ctx.font="11px monospace";ctx.fillText("SHARED SEED",seed.x,seed.y-49);
+ctx.restore();
+ctx.fillStyle="rgba(17,36,31,.72)";ctx.fillRect(18,18,330,65);ctx.textAlign="left";ctx.fillStyle="#d2e5d8";ctx.font="12px monospace";ctx.fillText("P1  LIFT : "+(keys.lift?"ON":"OFF"),30,43);ctx.fillText("P2  WIND : "+(keys.left?"LEFT":keys.right?"RIGHT":"NONE"),30,66);
+if(ended){ctx.fillStyle="rgba(18,36,31,.78)";ctx.fillRect(240,208,620,150);ctx.textAlign="center";ctx.fillStyle="#f2f6ed";ctx.font="bold 28px sans-serif";ctx.fillText(won?"SEED DELIVERED":"TRY AGAIN",550,273);ctx.font="15px sans-serif";ctx.fillText("Press R or RESTART",550,306);}}
+function loop(time){var dt=Math.min(.035,(time-previous)/1000||.016);previous=time;step(dt);draw();requestAnimationFrame(loop);}
+reset();requestAnimationFrame(loop);
+})();
+</script></body></html>
