@@ -28,19 +28,19 @@ header{border-bottom:1px solid var(--border);background:var(--white)}.topbar{min
   <div class="connect"><a href="mailto:hoonahncloud@gmail.com">Email ↗</a><a href="https://github.com/reusahn/Unity-Unreal-Interaction-Research" target="_blank" rel="noopener">GitHub ↗</a></div>
 </div></section>
 <section class="works" id="projects"><div class="container">
-  <div class="works-head"><h2>Selected Projects</h2><p>Ten projects organized by technical game design disciplines</p></div>
+  <div class="works-head"><h2>Selected Projects</h2><p>10 projects · game systems, tools, networking and character technology</p></div>
 <section class="work-group" id="gameplay"><div class="work-heading"><div class="work-num">01 / REQUIREMENT AREA</div><div><h3>3D gameplay programming &amp; player feedback</h3><p>C# prototyping · Interactive mechanics · Rich and legible feedback</p></div></div><div class="grid">
 <a class="card" href="thatgamecompany-gameplay-system.html">
       <div class="media"><iframe src="https://player.vimeo.com/video/1219170733?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;playsinline=1" title="Unity shader-driven responsive game systems" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
       <div class="card-copy"><div class="meta">UNITY GAME · GAMEPLAY FEEDBACK</div><h3>Real-Time Game Systems</h3>
-      <p class="description">For Erick Oh’s independent game, I connected player input, C# runtime states, and HLSL response. Directional control drives material deformation; collision / proximity logic coordinates raymarched visuals; four character states remain repeatable for iteration.</p>
-      <div class="stack">Unity URP · C# · HLSL · Raymarching · Runtime States</div><div class="req"><b>Relevant systems</b>Unity C# 3D systems · Rapid prototyping · Rich player feedback</div><div class="read">View code-to-feedback system breakdown →</div></div>
+      <p class="description">For Erick Oh’s independent game, I built player-responsive C# and HLSL systems: directional inputs alter mesh flow, proximity coordinates raymarched effects, and four fixed-topology states support consistent transformation.</p>
+      <div class="stack">Unity URP · C# · HLSL · Raymarching · Runtime States</div><div class="req"><b>Relevant systems</b>Directional input → Runtime parameters → HLSL deformation → Player feedback</div><div class="read">View code-to-feedback system breakdown →</div></div>
     </a>
 <a class="card" href="thatgamecompany-graffiti.html">
       <div class="media"><img src="assets/images/xr5.jpg" alt="Graffiti Freedom painting interaction in Unity VR" loading="lazy"></div>
       <div class="card-copy"><div class="meta">GAME INTERACTION · VISUAL FEEDBACK</div><h3>Graffiti Freedom</h3>
       <p class="description">A VR spray-painting mechanic that allows players to change the environment directly. Particle collisions update a RenderTexture paint mask, while a custom shader retains and displays the resulting marks on world surfaces.</p>
-      <div class="stack">Unity · C# · Particles · RenderTexture · Shader</div><div class="req"><b>Role requirements demonstrated</b>Direct player interaction · Readable, persistent visual response</div><div class="read">View painting mechanic breakdown →</div></div>
+      <div class="stack">Unity · C# · Particles · RenderTexture · Shader</div><div class="req"><b>Role requirements demonstrated</b>VR spray input → Collision / UV → RenderTexture → Painted surface</div><div class="read">View painting mechanic breakdown →</div></div>
     </a>
 </div></section>
 <section class="work-group" id="tools"><div class="work-heading"><div class="work-num">02 / REQUIREMENT AREA</div><div><h3>Designer-facing tools &amp; visual scripting</h3><p>Camera features · Design iteration · Unreal Blueprint systems</p></div></div><div class="grid">
@@ -62,7 +62,7 @@ header{border-bottom:1px solid var(--border);background:var(--white)}.topbar{min
       <div class="card-copy"><div class="meta">CAMERA FEATURE · DESIGNER TOOLING <span class="status">Browser demo / Unity planned</span></div><h3>FrameFlow <span style="font-size:13px;font-weight:450;color:#708079">— Working Title</span></h3>
       <p class="description">Camera and level-design tool concept with a working interactive browser sandbox. Change follow damping, look-ahead and framing presets, observe their effect in motion, and export settings. The planned Unity version exposes reusable camera profiles through inspector and level tools.</p>
       <div class="stack">Camera controls · Designer presets · Tooling · C# architecture</div>
-      <div class="req"><b>Tool prototype</b>Interactive browser camera tuner · Unity/level-editor tool <em>(planned)</em></div>
+      <div class="req"><b>Tool prototype</b>Playable camera parameter demo → C# / Unity Editor extension <em>(next build)</em></div>
       <div class="read">Try interactive camera demo →</div></div>
     </a>
 <a class="card" href="thatgamecompany-blueprint.html">
@@ -70,11 +70,11 @@ header{border-bottom:1px solid var(--border);background:var(--white)}.topbar{min
       <div class="card-copy"><div class="meta">UNREAL ENGINE · VISUAL SCRIPTING</div><h3>Blueprint Interaction Systems</h3>
       <p class="description">Implemented Blueprint trigger, state-transition and playback-loop logic for a real-time digital-human production. Unreal Sequencer, character animation, camera and lighting content connect through editable in-engine systems.</p>
       <div class="stack">Unreal Engine 5 · Blueprints · Sequencer · Animation</div>
-      <div class="req"><b>Role requirements demonstrated</b>Unreal Blueprint visual scripting · Playback / event state logic</div>
+      <div class="req"><b>Role requirements demonstrated</b>Blueprint trigger → State transition → Sequencer / animation</div>
       <div class="read">View visual-scripting case →</div></div>
     </a>
 </div></section>
-<section class="work-group" id="network"><div class="work-heading"><div class="work-num">03 / REQUIREMENT AREA</div><div><h3>Multiplayer development &amp; production delivery</h3><p>Windward plans networked play and post-release iteration. The deployed installation is existing production evidence, not online-game operations.</p></div></div><div class="grid">
+<section class="work-group" id="network"><div class="work-heading"><div class="work-num">03 / REQUIREMENT AREA</div><div><h3>Multiplayer, networking &amp; deployed systems</h3><p>Existing multi-participant Unity/network delivery · Planned two-client online co-op gameplay</p></div></div><div class="grid">
 <a class="card" href="thatgamecompany-windward.html">
       <div class="media"><div class="concept" role="img" aria-label="Concept drawing of two players working together to guide a shared seed; not a gameplay screenshot.">
         <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -93,14 +93,16 @@ header{border-bottom:1px solid var(--border);background:var(--white)}.topbar{min
         <div class="concept-meta">GAMEPLAY CONCEPT / ONLINE CO-OP</div><div class="concept-name">Windward <small>WORKING TITLE · TWO-PLAYER PROTOTYPE</small></div>
       </div></div>
       <div class="card-copy"><div class="meta">MULTIPLAYER · GAMEPLAY + OPERATIONS <span class="status">Working title / Design</span></div><h3>Windward</h3>
-      <p class="description">Two players must coordinate different wind forces to deliver a shared seed through an obstacle course. A planned multiplayer vertical slice covers host-authoritative movement, synchronized interactions, responsive effects, playtest builds, patch tracking, and session diagnostics.</p>
-      <div class="stack">Unity C# · Netcode (planned) · Shared simulation · Builds &amp; patches</div><div class="req"><b>In-development scope</b>Multiplayer programming · Online game operation · Co-op controls <em>(planned)</em></div><div class="read">View network &amp; operations development plan →</div></div>
+      <p class="description">Two players contribute different forces to guide one seed through an obstacle course. The local mechanics demo is playable; the Unity version will add synchronized inputs, authoritative physics, real network sessions and release iteration.</p>
+      <div class="stack">Unity C# · Netcode (planned) · Shared simulation · Builds &amp; patches</div><div class="req"><b>In-development scope</b>Local co-op mechanics → Unity Netcode → Two-client tests <em>(in development)</em></div><div class="read">View network &amp; operations development plan →</div></div>
     </a>
-<a class="card" href="thatgamecompany-live-installation.html">
-      <div class="media"><img src="assets/images/GangSehwang_install_01.jpg" alt="Gang Se-hwang deployed Unity interactive museum installation" loading="lazy"></div>
-      <div class="card-copy"><div class="meta">INTERACTIVE CHARACTER · PHYSICAL DEPLOYMENT</div><h3>Public-Facing Unity Deployment</h3>
-      <p class="description">An existing visitor-facing Unity installation integrating a digital human, camera staging, animation triggers, interactive UI and physical exhibition hardware. Real-world software deployment, separate from commercial online live-game operations.</p>
-      <div class="stack">Unity HDRP · C# · Character Animation · Interactive Systems</div><div class="req"><b>Role requirements demonstrated</b>Production integration · Public runtime operation · Cross-disciplinary delivery</div><div class="read">View delivered real-time installation →</div></div>
+<a class="card" href="thatgamecompany-jemulpo.html">
+      <div class="media"><iframe src="https://player.vimeo.com/video/1011870114?h=e6a92f4ef4&amp;background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;playsinline=1" title="Jemulpo Photo Studio multi-user Unity installation" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-copy"><div class="meta">MULTI-USER UNITY SYSTEM · DEPLOYED / 2022</div><h3>Jemulpo Photo Studio</h3>
+      <p class="description">A public installation designed for up to four simultaneous visitors. I integrated Unity C#, computer-vision processing, automatic image archiving and TCP delivery to an external display wall—an operational, cross-device interactive system.</p>
+      <div class="stack">Unity C# · TCP/UDP · OpenCV · Barracuda · Live Installation</div>
+      <div class="req"><b>Implemented system</b>Multiple participants → Portrait processing → TCP output → Live gallery</div>
+      <div class="read">See multi-user pipeline &amp; deployment →</div></div>
     </a>
 </div></section>
 <section class="work-group" id="characters"><div class="work-heading"><div class="work-num">04 / REQUIREMENT AREA</div><div><h3>Maya, character animation &amp; cloth</h3><p>Maya or 3D engines · Rigging and retargeting · Runtime simulation</p></div></div><div class="grid">
@@ -108,27 +110,27 @@ header{border-bottom:1px solid var(--border);background:var(--white)}.topbar{min
       <div class="media"><img src="media/shininho/02_maya_wireframe.jpg" alt="Actual Maya wireframe: volumetric scan cleanup, symmetry rebuild and character preparation" loading="lazy"></div>
       <div class="card-copy"><div class="meta">MAYA · TECHNICAL CHARACTER PRODUCTION</div><h3>Maya Character &amp; Animation Pipeline</h3>
       <p class="description">Actual Maya work from Shininho and Gang Se-hwang: scanned-mesh preparation, symmetry rebuild, retopology, UV and facial-rig work, HumanIK motion cleanup, and delivery to Unity and Unreal.</p>
-      <div class="stack">Maya · HumanIK · Retopology · Blendshapes · MotionBuilder</div><div class="req"><b>Role requirements demonstrated</b>Autodesk Maya · Character/animation pipelines · DCC-to-engine collaboration</div><div class="read">See the real Maya wireframes &amp; implementation →</div></div>
+      <div class="stack">Maya · HumanIK · Retopology · Blendshapes · MotionBuilder</div><div class="req"><b>Role requirements demonstrated</b>Scan cleanup → Maya HumanIK / retarget → Real-time engine</div><div class="read">See the real Maya wireframes &amp; implementation →</div></div>
     </a>
 <a class="card" href="thatgamecompany-character-runtime.html">
       <div class="media"><iframe src="https://player.vimeo.com/video/1225894277?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;playsinline=1" title="Unity Android character animation runtime and cloth" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
       <div class="card-copy"><div class="meta">CHARACTER SYSTEMS · REAL-TIME CLOTH</div><h3>Mobile Character Runtime</h3>
       <p class="description">A playable Unity Android character sample testing multiple animation states, humanoid retargeting, runtime cloth, look-at behavior, and touch camera controls. The pipeline was verified in an APK rather than only in the editor.</p>
-      <div class="stack">Unity URP · C# · Animator · Cloth · Android</div><div class="req"><b>Role requirements demonstrated</b>Runtime cloth · Animation state controls · On-device validation</div><div class="read">View runtime character and cloth case →</div></div>
+      <div class="stack">Unity URP · C# · Animator · Cloth · Android</div><div class="req"><b>Role requirements demonstrated</b>Animation control → Unity Cloth / collisions → Android runtime</div><div class="read">View runtime character and cloth case →</div></div>
     </a>
 </div></section>
 <section class="work-group" id="interaction"><div class="work-heading"><div class="work-num">05 / REQUIREMENT AREA</div><div><h3>NPCs &amp; experimental interaction</h3><p>NPC behavior · Player interaction · Experimental game concepts</p></div></div><div class="grid">
 <a class="card" href="thatgamecompany-escape-metro.html">
       <div class="media"><img src="assets/images/xr4.jpg" alt="Escape Metro Unity VR subway game" loading="lazy"></div>
       <div class="card-copy"><div class="meta">VR GAME · INTERACTIVE NPC</div><h3>Escape Metro</h3>
-      <p class="description">A Unity VR escape experience bringing together spatial puzzles, exploratory progression, player voice, and AI-driven NPC dialogue. Character animation, lip-sync, real-time audio and interactions were integrated into a Quest-oriented runtime.</p>
-      <div class="stack">Unity C# · XR Interaction Toolkit · NPC AI · Meta Quest</div><div class="req"><b>Role requirements demonstrated</b>AI NPC interaction · Unity gameplay states · Player immersion</div><div class="read">View dialogue and game-progression breakdown →</div></div>
+      <p class="description">A Unity VR escape game in which conversation becomes a puzzle: players question an AI NPC to uncover password information and progress toward escape. Voice, dialogue, character performance and spatial exploration form a single player loop.</p>
+      <div class="stack">Unity C# · XR Interaction Toolkit · NPC AI · Meta Quest</div><div class="req"><b>Role requirements demonstrated</b>Player question → NPC response → Password discovery → Escape progression</div><div class="read">View dialogue and game-progression breakdown →</div></div>
     </a>
 <a class="card" href="thatgamecompany-narci.html">
       <div class="media"><img src="assets/images/xr2.jpg" alt="NARCI immersive Unity VR experience" loading="lazy"></div>
       <div class="card-copy"><div class="meta">VR MECHANICS · PLAYER AGENCY</div><h3>NARCI / Be NARCI</h3>
       <p class="description">Paired Unity VR experiences using tracked hands, material response, and spatial staging as interactive mechanics. Touch, pinch, and grab events are translated into runtime states and visible changes inside the environment.</p>
-      <div class="stack">Unity URP · C# · Hand Tracking · XR · Shaders</div><div class="req"><b>Role requirements demonstrated</b>Experimental mechanics · Hand interactions · Spatial immersion</div><div class="read">View embodied interaction design →</div></div>
+      <div class="stack">Unity URP · C# · Hand Tracking · XR · Shaders</div><div class="req"><b>Role requirements demonstrated</b>Tracked hands → Unity XR events → Visual / spatial feedback</div><div class="read">View embodied interaction design →</div></div>
     </a>
 </div></section>
 </div></section>
