@@ -40,7 +40,7 @@ header{height:64px;background:#fff;border-bottom:1px solid var(--line)}header .s
 <div class="note"><strong>Available now:</strong> interactive browser camera sandbox. <strong>Unity build targets:</strong> runtime camera source, zone/profile switching, custom inspector, and editor demonstration video.</div>
 </div></section>
 <section class="section"><div class="shell">
-<span class="eyebrow">02 / INTENDED UNITY FEATURE</span><h2>A reusable camera feature, not a one-off level script.</h2>
+<span class="eyebrow">03 / INTENDED UNITY FEATURE</span><h2>A reusable camera feature, not a one-off level script.</h2>
 <p>In a production Unity version, the camera behavior would be split into a runtime controller and designer-authored data. Each encounter could request a camera profile; designers could preview changes within a level and commit them as reusable assets.</p>
 <div class="detail-grid">
  <div class="detail"><h3>Runtime camera controller</h3><p>Position smoothing, velocity-based look-ahead, bounded focus, zoom, transitions, and obstruction checks. Parameter-driven C# behavior separate from the visual scene.</p></div>
@@ -50,7 +50,7 @@ header{height:64px;background:#fff;border-bottom:1px solid var(--line)}header .s
 </div>
 </div></section>
 <section class="section"><div class="shell">
-<span class="eyebrow">03 / IMPLEMENTATION CHECKLIST</span><h2>From design mock to technical proof.</h2>
+<span class="eyebrow">04 / IMPLEMENTATION CHECKLIST</span><h2>From design mock to technical proof.</h2>
 <ul class="checklist">
 <li><strong>Available</strong><span>Interactive browser mock demonstrating tunable camera profiles, damping, look-ahead, zoom, and editable JSON parameters.</span></li>
 <li><strong>Next</strong><span>Port controls to a Unity C# follow rig with ScriptableObject profiles and repeatable camera state transitions.</span></li>
@@ -60,7 +60,7 @@ header{height:64px;background:#fff;border-bottom:1px solid var(--line)}header .s
 <div class="note"><strong>Evidence boundary:</strong> The interactive preview above runs in a web browser. It does not imply that the corresponding Unity Editor extension, C# controller, or playable game scene has been completed.</div>
 </div></section>
 <section class="section" id="tool-architecture"><div class="shell">
-<span class="eyebrow">04 / CAMERA TOOL IMPLEMENTATION SPEC</span><h2>Separate runtime behavior from designer-owned data.</h2>
+<span class="eyebrow">05 / CAMERA TOOL IMPLEMENTATION SPEC</span><h2>Separate runtime behavior from designer-owned data.</h2>
 <p>FrameFlow is designed to follow the same production workflow described in a technical game-design role: implement a new camera behavior, evaluate it inside a level, and expose the controls so content designers can reuse it across future scenes.</p>
 <div class="detail-grid">
 <div class="detail"><h3>CameraProfile (ScriptableObject)</h3><p>Serializable designer parameters: follow half-life, look-ahead distance, horizontal/vertical offsets, zoom, dead zone, collision response and transition duration.</p></div>
@@ -72,7 +72,7 @@ header{height:64px;background:#fff;border-bottom:1px solid var(--line)}header .s
 </div><div class="note"><b>Current state:</b> Camera behavior and tunable presets can be interacted with in the browser demo above. The listed C# components and custom Unity Editor tool are implementation specifications for the next build.</div>
 </div></section>
 <section class="section" id="tool-media"><div class="shell">
-<span class="eyebrow">05 / FUTURE MEDIA</span><h2>What the final technical review will show.</h2>
+<span class="eyebrow">06 / FUTURE MEDIA</span><h2>What the final technical review will show.</h2>
 <div class="detail-grid">
 <div class="detail"><span class="eyebrow">VIDEO 01</span><h3>Before / after camera feel</h3><p>Side-by-side runtime capture of default and tuned follow behavior with identical player movement.</p></div>
 <div class="detail"><span class="eyebrow">VIDEO 02</span><h3>Designer workflow</h3><p>Recorded Inspector/scene-view adjustment of camera damping, framing, collision and zone priorities inside a Unity level.</p></div>
