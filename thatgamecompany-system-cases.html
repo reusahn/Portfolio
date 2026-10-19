@@ -10,7 +10,7 @@
 <body>
 <header class="top"><div class="shell topin"><a class="brand" href="thatgamecompany-game-design.html">Jonghoon Ahn.<span>Technical Game Design / Case Studies</span></a><nav class="topnav"><a href="#erick">Game Systems</a><a href="#escape">Interaction</a><a href="thatgamecompany-game-design.html">← Main Portfolio</a></nav></div></header>
 <main>
-<section class="hero"><div class="shell"><div class="eyebrow">DETAILED CASE STUDIES / ACTUAL IMPLEMENTATIONS</div><h1>Inside the interaction.</h1><p>Six technical case studies describe the inputs, runtime ownership, visible feedback, and iteration constraints behind selected Unity and real-time projects. These are implemented systems—not proposed multiplayer features or claims of commercial live-service experience.</p>
+<section class="hero"><div class="shell"><div class="eyebrow">DETAILED CASE STUDIES / ACTUAL IMPLEMENTATIONS</div><h1>Inside the interaction.</h1><p>Six technical case studies describe the inputs, runtime ownership, visible feedback, and iteration constraints behind selected Unity and real-time projects. These examples document implemented systems, concrete technical decisions and production-facing results.</p>
 <nav class="jump" aria-label="Case study sections"><a href="#erick">01 / Game response</a><a href="#escape">02 / AI NPC</a><a href="#narci">03 / Embodiment</a><a href="#graffiti">04 / Paint state</a><a href="#mobile">05 / Character runtime</a><a href="#gang">06 / Deployed interaction</a></nav></div></section>
 <section id="erick" class="case"><div class="shell">
 <div class="case-head"><span class="eyebrow">01 / GAME SYSTEMS · C# + HLSL</span><div><h2>Player input as visible behavior.</h2><p><b>Independent Real-Time Game · Technical Artist / Technical Director · 2025–2026.</b> The design challenge was to make an expressive, nonstandard visual system react to controllable runtime state instead of behaving like an offline animation.</p></div></div>
@@ -45,7 +45,7 @@
 <div class="fact"><h3>Immediate interaction feedback</h3><p>Player input drives a Unity particle spray, and collisions identify where the spray reaches the virtual geometry.</p></div>
 <div class="fact"><h3>Writable material state</h3><p>Collision / surface coordinates update a RenderTexture used as a paint mask. A custom material reads the accumulated mask.</p></div>
 <div class="fact"><h3>Clear separation of concerns</h3><p>Input, particle feedback, texture accumulation and final shading can be reasoned about independently when debugging.</p></div></div></div>
-<div class="system"><span class="eyebrow">INTERACTION MAP</span><div class="flow"><span>VR spray input</span><i>→</i><span>Particle collision</span><i>→</i><span>RenderTexture mask</span><i>→</i><span>Visible paint on surface</span></div><p class="footnote">Persistence here refers to paint retained during the interactive experience, not a claim of online / server-side persistence.</p></div>
+<div class="system"><span class="eyebrow">INTERACTION MAP</span><div class="flow"><span>VR spray input</span><i>→</i><span>Particle collision</span><i>→</i><span>RenderTexture mask</span><i>→</i><span>Visible paint on surface</span></div><p class="footnote">The paint mask retains accumulated marks during the running experience.</p></div>
 <div class="endlinks"><a class="button primary" href="projects31/graffiti-freedom-vr.html">Full technical case ↗</a><a class="button" href="https://github.com/reusahn/Unity-Unreal-Interaction-Research/tree/main/04_Interactive_VR_Experience/Graffiti_Freedom" target="_blank" rel="noopener">Project evidence ↗</a></div>
 </div></section>
 <section id="mobile" class="case"><div class="shell">
@@ -62,7 +62,7 @@
 <div class="case-grid"><div><div class="media"><img loading="lazy" src="assets/images/GangSehwang_unity_02.jpg" alt="Gang Se-hwang interactive digital human in Unity"></div><p class="media-caption">UNITY HDRP / DIGITAL HUMAN / PUBLIC INTERACTION</p></div><div class="evidence">
 <div class="fact"><h3>C# runtime presentation</h3><p>Implemented UI flow, camera staging, animation triggers, media / timing states and the scene logic used in the installation.</p></div>
 <div class="fact"><h3>Character system integration</h3><p>Prepared custom character and facial assets with coherent Unity runtime animation and rendering behavior.</p></div>
-<div class="fact"><h3>Physical environment constraints</h3><p>Integrated live-camera compositing and exhibition hardware considerations. This demonstrates deployment of an interactive installation, not operation of an online live-service game.</p></div></div></div>
+<div class="fact"><h3>Physical environment constraints</h3><p>Integrated live-camera compositing and exhibition hardware considerations. The result was prepared for a public-facing interactive installation.</p></div></div></div>
 <div class="system"><span class="eyebrow">APPLICATION MAP</span><div class="flow"><span>Visitor interaction / UI</span><i>→</i><span>C# scene state</span><i>→</i><span>Animation / camera</span><i>→</i><span>Interactive museum display</span></div></div>
 <div class="endlinks"><a class="button primary" href="projects31/gang-se-hwang.html">Unity integration case ↗</a><a class="button" href="detail_pages/interactive_3.html">Related installed interaction ↗</a></div>
 </div></section>
