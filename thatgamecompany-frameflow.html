@@ -28,6 +28,17 @@ header{height:64px;background:#fff;border-bottom:1px solid var(--line)}header .s
 </div>
 <div class="map"><span>PLAYER POSITION + VELOCITY</span><i>→</i><span>CAMERA PROFILE</span><i>→</i><span>FOLLOW + LOOK-AHEAD</span><i>→</i><span>ON-SCREEN FRAMING</span></div>
 </div></section>
+<section class="section" id="designer-workflow"><div class="shell">
+<span class="eyebrow">02 / DESIGNER WORKFLOW</span><h2>From a camera request to a reusable feature.</h2>
+<p>A gameplay designer requests a camera that anticipates the player's direction before a narrow passage. The tool should make it possible to implement the behavior once, test it in context, and reuse the tuned profile in later levels without duplicating code.</p>
+<div class="detail-grid">
+<div class="detail"><h3>01 — Prototype the response</h3><p>Adjust follow damping, look-ahead and zoom in the live browser sandbox. Compare profile changes while the target moves.</p></div>
+<div class="detail"><h3>02 — Integrate with a level</h3><p>In the planned Unity build, a CameraZone requests a CameraProfile when the player enters an encounter and blends out when they leave.</p></div>
+<div class="detail"><h3>03 — Give designers control</h3><p>Expose framing bounds, camera offsets, damping and transition duration through ScriptableObject data and Scene-view handles.</p></div>
+<div class="detail"><h3>04 — Validate and hand off</h3><p>Record identical player input with two camera presets, inspect target visibility and transition timing, and save a reusable profile for the next scene.</p></div>
+</div>
+<div class="note"><strong>Available now:</strong> interactive browser camera sandbox. <strong>Unity build targets:</strong> runtime camera source, zone/profile switching, custom inspector, and editor demonstration video.</div>
+</div></section>
 <section class="section"><div class="shell">
 <span class="eyebrow">02 / INTENDED UNITY FEATURE</span><h2>A reusable camera feature, not a one-off level script.</h2>
 <p>In a production Unity version, the camera behavior would be split into a runtime controller and designer-authored data. Each encounter could request a camera profile; designers could preview changes within a level and commit them as reusable assets.</p>
@@ -48,7 +59,7 @@ header{height:64px;background:#fff;border-bottom:1px solid var(--line)}header .s
 </ul>
 <div class="note"><strong>Evidence boundary:</strong> The interactive preview above runs in a web browser. It does not imply that the corresponding Unity Editor extension, C# controller, or playable game scene has been completed.</div>
 </div></section>
-<section class="section" id="tool-architecture"<div class="shell">
+<section class="section" id="tool-architecture"><div class="shell">
 <span class="eyebrow">04 / CAMERA TOOL IMPLEMENTATION SPEC</span><h2>Separate runtime behavior from designer-owned data.</h2>
 <p>FrameFlow is designed to follow the same production workflow described in a technical game-design role: implement a new camera behavior, evaluate it inside a level, and expose the controls so content designers can reuse it across future scenes.</p>
 <div class="detail-grid">
