@@ -60,5 +60,16 @@
 </ol>
 <div class="note" style="margin-top:25px"><strong>Project status:</strong> This page presents a working-title design and implementation plan. Gameplay captures, two-client synchronization results, shipped builds, and playtest metrics will be added only after the corresponding systems are built and tested.</div>
 </div></section>
+<section id="operations" class="section"><div class="shell">
+<span class="eyebrow">04 / POST-DEPLOYMENT DESIGN · LIVE OPERATIONS PLAN</span><h2>A multiplayer build is only the beginning.</h2>
+<p>The planned operating cycle treats the prototype as a small online game that must be tested, updated and kept available for repeat sessions. These are implementation targets and acceptance criteria, not claims of prior commercial live-service ownership.</p>
+<div class="modules">
+<div class="module"><h3>Build &amp; release</h3><p>Ship repeatable Windows builds with version identifiers, tracked release notes, a documented host/client setup, and rollback-ready artifacts.</p></div>
+<div class="module"><h3>Session monitoring</h3><p>Record session join/leave, disconnect, desync symptoms, seed resets, checkpoint completion and errors in structured local or server-side logs.</p></div>
+<div class="module"><h3>Post-test fixes</h3><p>Reproduce issues from two independent clients, isolate ownership or synchronization failures, fix them, and publish a patched build with concise change notes.</p></div>
+<div class="module"><h3>Designer-facing iteration</h3><p>Adjust camera and wind presets independently of networking code, collect observed player behavior, and retune a level without recompiling gameplay rules when feasible.</p></div>
+</div>
+<div class="note" style="margin-top:23px"><strong>Planned deliverables:</strong> Versioned builds · playable two-client demo · deployment instructions · recorded test session · issue log · at least one documented post-test patch. Operational evidence will be linked here after the tests are completed.</div>
+</div></section>
 <section class="end"><div class="shell"><div class="actions"><a class="button dark" href="thatgamecompany-game-design.html">← Portfolio overview</a><a class="button" href="mailto:hoonahncloud@gmail.com">Contact ↗</a></div></div></section>
 </main><footer class="foot"><div class="shell">Jonghoon Ahn · Technical Game Design · Working-title project brief</div></footer></body></html>
