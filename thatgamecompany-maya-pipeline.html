@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maya Character & Animation Pipeline — Jonghoon Ahn</title>
+<meta name="description" content="Maya production case studies: scanned mesh cleanup, topology, UV, character rigging, HumanIK animation retargeting, facial blendshapes, XGen and real-time Unity/Unreal delivery.">
+<link rel="icon" href="assets/images/favicon.png">
+<style>
+:root{--paper:#fff;--bg:#f7f8f6;--ink:#1d2a25;--muted:#5b6d61;--green:#345f53;--line:#dee5df;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.72 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit}img{width:100%;display:block}.shell{max-width:1080px;width:calc(100% - 52px);margin:auto}.top{background:#fff;border-bottom:1px solid var(--line)}.top .shell{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:25px}.brand{text-decoration:none;letter-spacing:-.035em;font-weight:760;font-size:17px}.back{text-decoration:none;font-size:12px;color:var(--green)}.hero{background:#fff;padding:57px 0 43px;border-bottom:1px solid var(--line)}.kicker{font:10px/1.6 var(--mono);text-transform:uppercase;letter-spacing:.11em;color:var(--green)}h1{font-size:clamp(40px,5vw,64px);letter-spacing:-.06em;line-height:1.04;margin:13px 0 19px}h2{font-size:clamp(28px,3vw,38px);line-height:1.17;letter-spacing:-.04em;margin:8px 0 15px}h3{font-size:17px;line-height:1.3;margin:0 0 8px}.hero p{font-size:16px;line-height:1.72;color:#4b6255;max-width:770px;margin:0}.tagbar{display:flex;gap:6px;flex-wrap:wrap;margin-top:23px}.tag{padding:5px 8px;border:1px solid #d3dfd6;border-radius:3px;font:10px var(--mono);color:#4f6a59}.section{padding:56px 0;border-bottom:1px solid var(--line)}.sectionhead{margin-bottom:25px}.sectionhead p{max-width:825px;color:var(--muted);margin:0;font-size:14px}.gallery{display:grid;grid-template-columns:1fr 1fr;gap:17px}.photo{margin:0;background:#fff;border:1px solid var(--line);border-radius:5px;overflow:hidden}.photo img{width:100%;aspect-ratio:16/10;object-fit:contain;background:#e9ece8}.photo figcaption{padding:13px 16px;font-size:12px;color:#687a6c;line-height:1.5}.captiontitle{display:block;color:#1e3026;font-weight:710;font-size:13px;margin-bottom:3px}.proof{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:19px}.proof article{background:#fff;border:1px solid var(--line);padding:20px;border-radius:5px}.proof p{color:var(--muted);font-size:13px;line-height:1.68;margin:0}.flow{margin-top:20px;border:1px solid var(--line);border-radius:5px;padding:18px 20px;background:#fff;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.flow span{font:11px/1.6 var(--mono);padding:6px 8px;background:#eff4ef;border:1px solid #dbe5dc;color:#496456}.flow i{color:#a17d5f;font-style:normal}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.btn{font-weight:650;text-decoration:none;border:1px solid #bacbbe;padding:9px 13px;border-radius:4px;font-size:12px;color:#335e51;background:#fff}.btn.primary{background:#203b30;color:#fff;border-color:#203b30}.bottom{padding:42px 0}.bottom a{font-size:12px;color:var(--green);text-decoration:none}.note{padding:14px 17px;background:#edf2ed;border:1px solid #dbe6dc;color:#56705f;font-size:12.5px;border-radius:4px;margin-top:18px}@media(max-width:700px){.shell{width:calc(100% - 32px)}.hero{padding:42px 0 35px}.section{padding:43px 0}.gallery,.proof{grid-template-columns:1fr}.photo img{aspect-ratio:16/10}.top .shell{min-height:58px}}
+</style></head>
+<body>
+<header class="top"><div class="shell"><a class="brand" href="thatgamecompany-game-design.html">Jonghoon Ahn.</a><a class="back" href="thatgamecompany-game-design.html">← Technical Game Design Portfolio</a></div></header>
+<main>
+<section class="hero"><div class="shell">
+<div class="kicker">MAYA / CHARACTER PRODUCTION / MOTION SYSTEMS</div>
+<h1>From source geometry to a working character.</h1>
+<p>Hands-on Maya work across scanned-mesh cleanup, symmetry, rigging, retargeting, facial animation, UV preparation and export to Unity and Unreal. These production cases show what happened in the DCC tools—not only what the final engine renders looked like.</p>
+<div class="tagbar"><span class="tag">Autodesk Maya</span><span class="tag">HumanIK</span><span class="tag">Retopology</span><span class="tag">Blendshapes</span><span class="tag">XGen</span><span class="tag">MotionBuilder</span><span class="tag">Unity / Unreal</span></div>
+</div></section>
+<section class="section" id="shininho"><div class="shell">
+<div class="sectionhead"><span class="kicker">01 / SHININHO · CHARACTER TECHNICAL DIRECTION</span><h2>Rebuild, rig, retarget, deploy.</h2>
+<p>Starting with difficult volumetric scan data, I performed face separation and a bilateral-symmetry rebuild in Maya, cleaned the mesh for feasibility rigging, and tested the character in Unity before preparing more detailed character production for Unreal.</p></div>
+<div class="gallery">
+<figure class="photo"><img loading="lazy" src="media/shininho/02_maya_wireframe.jpg" alt="Actual Maya scan cleanup, face extraction, symmetry rebuild and wireframe production evidence"><figcaption><span class="captiontitle">Maya — scan extraction and wireframe</span>Source separation, symmetry rebuild, topology reduction and cleanup before rigging.</figcaption></figure>
+<figure class="photo"><img loading="lazy" src="media/shininho/03_scan_proto_metahuman.jpg" alt="Scan and real-time character prototype comparison"><figcaption><span class="captiontitle">Scan → real-time prototype</span>Feasibility work connecting the cleaned source character to an engine-ready rig.</figcaption></figure>
+<figure class="photo"><img loading="lazy" src="media/shininho/07_mocap_capture.jpg" alt="OptiTrack Motive motion capture for character performance"><figcaption><span class="captiontitle">Body motion capture</span>Motive skeleton solve exported for MotionBuilder and Maya correction.</figcaption></figure>
+<figure class="photo"><img loading="lazy" src="media/shininho/04_wrap_template.jpg" alt="Character correspondence and rig-compatible template preparation"><figcaption><span class="captiontitle">Rig-compatible transfer</span>Character shape correspondence and a production-compatible animation target.</figcaption></figure>
+</div>
+<div class="proof">
+<article><h3>Maya rig feasibility</h3><p>Separated the face from scanned geometry, reconstructed usable bilateral symmetry with Duplicate Special, reduced and retopologized geometry, and prepared a working character for automatic rigging and engine testing.</p></article>
+<article><h3>HumanIK + body performance</h3><p>Used Maya HumanIK and animation layers after MotionBuilder cleanup to repair and adjust captured body performance before Unreal retargeting and baking.</p></article>
+</div>
+<div class="flow"><span>Volumetric scan</span><i>→</i><span>Maya extraction / symmetry</span><i>→</i><span>Rig &amp; HumanIK cleanup</span><i>→</i><span>Unity test / Unreal performance</span></div>
+<div class="actions"><a class="btn primary" href="projects12/shininho-jooan.html">View complete production breakdown ↗</a><a class="btn" href="projects7/shininho-jooan-xr.html">Real-time VR delivery ↗</a></div>
+</div></section>
+<section class="section" id="gang"><div class="shell">
+<div class="sectionhead"><span class="kicker">02 / GANG SE-HWANG · CHARACTER + FACIAL PIPELINE</span><h2>Technical modeling and facial animation in Maya.</h2>
+<p>Reconstructed a historical figure for an interactive Unity installation. Maya was used for detailed UV and rig production, XGen hair direction, and facial animation integration. The work continued into real-time character delivery and a visitor-facing interactive system.</p></div>
+<div class="gallery">
+<figure class="photo"><img loading="lazy" src="media/gang/02_model_rig_evidence.jpg" alt="Gang Se-hwang original modeling and rigging evidence"><figcaption><span class="captiontitle">Maya character / rigging evidence</span>Production geometry and rig development for the historical character.</figcaption></figure>
+<figure class="photo"><img loading="lazy" src="media/gang/03_wireframe_uv.jpg" alt="Maya UV layout and wireframe evidence for Gang Se-hwang"><figcaption><span class="captiontitle">Topology &amp; UV</span>Maya-authored UV refinement to support detailed material and texture work.</figcaption></figure>
+<figure class="photo"><img loading="lazy" src="media/gang/07_hair_cards.jpg" alt="Maya XGen and hair cards process evidence"><figcaption><span class="captiontitle">XGen &amp; hair cards</span>Portrait-driven hair and beard development adapted for real-time rendering.</figcaption></figure>
+<figure class="photo"><img loading="lazy" src="media/gang/10_unity_hdrp_preview.jpg" alt="Gang Se-hwang Unity HDRP character integration preview"><figcaption><span class="captiontitle">Real-time result</span>The Maya-authored character delivered to Unity HDRP for the final installation.</figcaption></figure>
+</div>
+<div class="proof">
+<article><h3>Facial rig and data</h3><p>Extended a facial blendshape rig and connected recorded iPhone ARKit coefficient data to Maya animation using a Python-assisted CSV workflow, including blendshape-name troubleshooting.</p></article>
+<article><h3>Asset-to-engine collaboration</h3><p>Worked across Maya modeling, surface and hair preparation, captured performance, runtime materials, Unity behavior, and public display constraints.</p></article>
+</div>
+<div class="flow"><span>Portrait / sculpt</span><i>→</i><span>Maya UV / facial rig</span><i>→</i><span>ARKit performance</span><i>→</i><span>Unity HDRP interactive character</span></div>
+<div class="actions"><a class="btn primary" href="projects12/gang-se-hwang.html">Full Maya / Unity project breakdown ↗</a><a class="btn" href="thatgamecompany-system-cases.html#gang">Interactive deployment evidence ↗</a></div>
+</div></section>
+</main>
+<footer class="bottom"><div class="shell"><a href="thatgamecompany-game-design.html">← Back to technical game design portfolio</a></div></footer>
+</body></html>
