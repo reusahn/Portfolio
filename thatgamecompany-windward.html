@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Windward (Working Title) — Co-op Game Prototype | Jonghoon Ahn</title>
+<meta name="description" content="Windward: a two-player cooperative gameplay prototype concept for Unity, with networked interaction, shared physics, designer-authored camera tools, and repeatable playtest builds.">
+<style>
+:root{--bg:#f7f8f6;--paper:#fff;--ink:#15211f;--muted:#5c6965;--line:#dce2de;--accent:#3d6c62;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}a{color:inherit}.shell{width:min(calc(100% - 52px),980px);margin:auto}.top{height:68px;border-bottom:1px solid var(--line);background:#fff}.topin{display:flex;height:100%;align-items:center;justify-content:space-between;gap:20px}.brand{font-weight:720;text-decoration:none;letter-spacing:-.03em}.back{text-decoration:none;font-size:12px;color:var(--muted)}.back:hover{color:var(--accent)}.hero{padding:66px 0 42px;background:#fff;border-bottom:1px solid var(--line)}.kicker,.eyebrow{font:10px/1.6 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}h1{font-size:clamp(42px,5.7vw,66px);font-weight:720;letter-spacing:-.06em;line-height:1.02;margin:14px 0 16px}.hero p{font-size:17px;max-width:740px;color:#425550;margin:0 0 21px}.status{display:inline-block;font:10px var(--mono);letter-spacing:.07em;color:#58756b;padding:7px 10px;border:1px solid #bed2c6;border-radius:4px}.concept{margin-top:36px;aspect-ratio:16/7;position:relative;background:#25343b;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden}.concept svg{display:block;position:absolute;width:100%;height:100%;inset:0}.concept .label{position:absolute;left:26px;bottom:22px;color:#e2ede9;font:11px var(--mono);letter-spacing:.08em}.section{padding:51px 0;border-bottom:1px solid var(--line)}.section h2{font-size:28px;line-height:1.2;letter-spacing:-.035em;margin:11px 0 16px}.section p{color:#4d615a;max-width:800px;margin:0 0 18px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}.step,.module{background:#fff;border:1px solid var(--line);padding:20px;border-radius:6px}.step span{font:10px var(--mono);color:var(--accent)}.step h3,.module h3{font-size:17px;margin:10px 0 9px;line-height:1.22}.step p,.module p{font-size:13px;line-height:1.65;margin:0}.table{border-top:1px solid var(--line)}.trow{display:grid;grid-template-columns:210px 1fr;gap:26px;border-bottom:1px solid var(--line);padding:19px 0}.trow strong{font-size:13.5px}.trow p{font-size:13.5px;margin:0}.modules{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:19px}.module h3{margin-top:0}.milestones{margin:18px 0 0;padding:0;list-style:none;counter-reset:milestone}.milestones li{counter-increment:milestone;border-bottom:1px solid var(--line);padding:14px 0;display:grid;grid-template-columns:42px 1fr;gap:10px;color:#43534e;font-size:13.8px}.milestones li:before{content:counter(milestone,decimal-leading-zero);color:var(--accent);font:12px var(--mono);padding-top:2px}.note{background:#ebf1ed;border:1px solid #d7e4d9;color:#425b50;border-radius:5px;padding:18px 20px;font-size:13px;line-height:1.7}.end{background:#fff;padding:52px 0}.actions{display:flex;gap:10px;flex-wrap:wrap}.button{display:inline-block;padding:10px 14px;border:1px solid #becbc3;text-decoration:none;font-size:12px;font-weight:660;border-radius:4px}.button.dark{color:white;background:#1b2d28;border-color:#1b2d28}.foot{padding:23px 0;font-size:11px;color:var(--muted)}@media(max-width:680px){.shell{width:calc(100% - 34px)}.hero{padding:43px 0 32px}.concept{aspect-ratio:16/10}.steps,.modules,.trow{grid-template-columns:1fr}.trow{gap:6px}.section{padding:40px 0}.concept .label{font-size:9px;left:15px;bottom:14px}}
+</style></head><body>
+<header class="top"><div class="shell topin"><a class="brand" href="thatgamecompany-game-design.html">Jonghoon Ahn.</a><a class="back" href="thatgamecompany-game-design.html">← Back to portfolio</a></div></header>
+<main>
+<section class="hero"><div class="shell">
+<div class="kicker">WORKING TITLE · UNITY C# · TWO-PLAYER ONLINE CO-OP</div>
+<h1>Windward.</h1>
+<p>Two players, two complementary forces, one shared goal. An online co-op prototype in which one player lifts a drifting seed while the other steers it through a sequence of floating environments.</p>
+<div class="status">PROPOSED GAMEPLAY PROTOTYPE — DEVELOPMENT BRIEF</div>
+<div class="concept" role="img" aria-label="Concept diagram showing two players controlling complementary wind currents around one shared seed. This is a design diagram, not a gameplay screenshot.">
+<svg viewBox="0 0 1040 430" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect width="1040" height="430" fill="#25343b"/>
+<path d="M0 320 Q220 274 395 324 T705 335 T1040 294 V430 H0Z" fill="#35494c"/>
+<path d="M70 160 Q280 100 490 169 T940 150" fill="none" stroke="#9cbdc1" opacity=".34" stroke-width="2"/>
+<path d="M60 235 Q250 181 438 231 T954 210" fill="none" stroke="#9cbdc1" opacity=".22" stroke-width="2"/>
+<circle cx="255" cy="225" r="48" fill="none" stroke="#9ad9cb" stroke-width="2.5"/><circle cx="784" cy="225" r="48" fill="none" stroke="#e0c3a5" stroke-width="2.5"/>
+<path d="M255 242 v-55 m-11 12 11-12 11 12" stroke="#9ad9cb" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M760 224 h50 m-13-11 13 11 -13 11" stroke="#e0c3a5" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="518" cy="216" r="17" fill="#e4dabd"/><path d="M516 199 q-17 -18 -1 -32 q14 17 1 32" fill="#9cc7ac"/><path d="M520 201 q9 -19 21 -14 q-4 17 -21 14" fill="#bcd8b9"/>
+<path d="M304 220 C364 220 413 207 486 213" stroke="#9ad9cb" opacity=".7" stroke-dasharray="6 11" fill="none" stroke-width="2"/>
+<path d="M734 224 C658 228 589 216 549 216" stroke="#e0c3a5" opacity=".7" stroke-dasharray="6 11" fill="none" stroke-width="2"/>
+<g fill="#ddece5" font-family="Arial,sans-serif" font-size="16" text-anchor="middle"><text x="255" y="308">PLAYER 01 · LIFT</text><text x="518" y="280">SHARED SEED</text><text x="784" y="308">PLAYER 02 · STEER</text></g>
+</svg>
+<span class="label">GAMEPLAY RELATIONSHIP DIAGRAM · NOT A GAMEPLAY SCREENSHOT</span>
+</div></div></section>
+<section class="section"><div class="shell">
+<span class="eyebrow">01 / PLAYER EXPERIENCE</span><h2>A small mechanic with genuine interdependence.</h2>
+<p>The game is designed around cooperation rather than two players doing the same thing. Neither can complete a level alone: vertical lift and horizontal steering must be combined to move a fragile seed past obstacles into a safe landing zone.</p>
+<div class="steps">
+<div class="step"><span>PLAYER A</span><h3>Lift the seed</h3><p>Generate updrafts to control height, slow a fall, and navigate changing elevation.</p></div>
+<div class="step"><span>PLAYER B</span><h3>Shape its direction</h3><p>Apply horizontal wind to steer, correct momentum, and guide the seed around obstacles.</p></div>
+<div class="step"><span>SHARED GOAL</span><h3>Reach the next shelter</h3><p>Coordinate timing and force across an obstacle course. A failed attempt resets the current checkpoint.</p></div>
+</div></div></section>
+<section class="section"><div class="shell">
+<span class="eyebrow">02 / DESIGN × ENGINEERING</span><h2>Proposed technical architecture.</h2>
+<p>A compact vertical slice that demonstrates gameplay systems, multiplayer synchronization, authored tools, readable feedback, and repeatable playtest delivery.</p>
+<div class="modules">
+<div class="module"><h3>Shared simulation</h3><p>Unity C# physics state for seed position, velocity, airflow and collisions. A host-authoritative simulation distributes a canonical world state to both clients.</p></div>
+<div class="module"><h3>Networked co-op</h3><p>Planned Unity Netcode for GameObjects integration with multiplayer input ownership, interpolation, disconnect behavior and a two-client verification run.</p></div>
+<div class="module"><h3>Player feedback</h3><p>Wind force affects shader motion, cloud density, particles, audio and camera response so an invisible force has a readable consequence.</p></div>
+<div class="module"><h3>Designer-facing controls</h3><p>Inspector-driven presets for camera damping, wind strength, obstacle spacing, checkpoint rules and difficulty, allowing new level layouts without code changes.</p></div>
+<div class="module"><h3>Testing &amp; operation</h3><p>Versioned multiplayer builds, structured issue logging, reproducible playtests and a patch/change log to track post-test improvements.</p></div>
+<div class="module"><h3>Performance boundaries</h3><p>Separate physics and network state from shader rendering so visual fidelity can be tuned independently of synchronized interaction.</p></div>
+</div></div></section>
+<section class="section"><div class="shell">
+<span class="eyebrow">03 / IMPLEMENTATION PLAN</span><h2>Evidence the prototype is intended to produce.</h2>
+<ol class="milestones">
+<li><div><strong>Playable local loop</strong> — seed motion, complementary wind controls, obstacle collision, checkpoints and failure/retry states.</div></li>
+<li><div><strong>Two-client multiplayer test</strong> — remote players sharing the same seed and level, with synchronized input effects and visible latency behavior.</div></li>
+<li><div><strong>Game-feel iteration</strong> — side-by-side tuning of camera, force response, shader readability, audio and failure feedback.</div></li>
+<li><div><strong>Designer tooling</strong> — configurable wind/camera presets, level parameters and reproducible content setup.</div></li>
+<li><div><strong>Playtest and build history</strong> — playable release candidate, test results, fixes, version notes and a documented update.</div></li>
+</ol>
+<div class="note" style="margin-top:25px"><strong>Project status:</strong> This page presents a working-title design and implementation plan. Gameplay captures, two-client synchronization results, shipped builds, and playtest metrics will be added only after the corresponding systems are built and tested.</div>
+</div></section>
+<section class="end"><div class="shell"><div class="actions"><a class="button dark" href="thatgamecompany-game-design.html">← Portfolio overview</a><a class="button" href="mailto:hoonahncloud@gmail.com">Contact ↗</a></div></div></section>
+</main><footer class="foot"><div class="shell">Jonghoon Ahn · Technical Game Design · Working-title project brief</div></footer></body></html>
