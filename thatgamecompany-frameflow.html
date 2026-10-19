@@ -49,6 +49,27 @@ header{height:64px;background:#fff;border-bottom:1px solid var(--line)}header .s
 <div class="note"><strong>Evidence boundary:</strong> The interactive preview above runs in a web browser. It does not imply that the corresponding Unity Editor extension, C# controller, or playable game scene has been completed.</div>
 </div></section>
 </main>
+<section class="section" id="tool-architecture"><div class="shell">
+<span class="eyebrow">04 / CAMERA TOOL IMPLEMENTATION SPEC</span><h2>Separate runtime behavior from designer-owned data.</h2>
+<p>FrameFlow is designed to follow the same production workflow described in a technical game-design role: implement a new camera behavior, evaluate it inside a level, and expose the controls so content designers can reuse it across future scenes.</p>
+<div class="detail-grid">
+<div class="detail"><h3>CameraProfile (ScriptableObject)</h3><p>Serializable designer parameters: follow half-life, look-ahead distance, horizontal/vertical offsets, zoom, dead zone, collision response and transition duration.</p></div>
+<div class="detail"><h3>FollowCameraController (C#)</h3><p>Reads a target's position/velocity, resolves the active camera profile, clamps movement against optional zone bounds, and smooths the camera state each frame.</p></div>
+<div class="detail"><h3>CameraZone (Level Authoring)</h3><p>Level-defined volumes request a profile on enter, maintain priorities when overlapping, and restore the previous profile when the player exits.</p></div>
+<div class="detail"><h3>CameraToolsEditor (Inspector)</h3><p>Scene-view handles, frame guides and preset preview controls allow designers to adjust camera framing alongside geometry without manually editing controller code.</p></div>
+<div class="detail"><h3>Transition Rules</h3><p>One-shot cinematic framing can override the follow profile during a scripted beat and return control through an explicit blend, avoiding abrupt pops.</p></div>
+<div class="detail"><h3>Acceptance Review</h3><p>Test the same path with different presets: target stays visible, transitions do not jump, obstacles do not cover critical play, and a second designer can modify the camera without touching C#.</p></div>
+</div><div class="note"><b>Current state:</b> Camera behavior and tunable presets can be interacted with in the browser demo above. The listed C# components and custom Unity Editor tool are implementation specifications for the next build.</div>
+</div></section>
+<section class="section" id="tool-media"><div class="shell">
+<span class="eyebrow">05 / FUTURE MEDIA</span><h2>What the final technical review will show.</h2>
+<div class="detail-grid">
+<div class="detail"><span class="eyebrow">VIDEO 01</span><h3>Before / after camera feel</h3><p>Side-by-side runtime capture of default and tuned follow behavior with identical player movement.</p></div>
+<div class="detail"><span class="eyebrow">VIDEO 02</span><h3>Designer workflow</h3><p>Recorded Inspector/scene-view adjustment of camera damping, framing, collision and zone priorities inside a Unity level.</p></div>
+<div class="detail"><span class="eyebrow">IMAGE 01</span><h3>Editor tool screenshot</h3><p>Custom camera profile fields and editable zone gizmos, alongside the corresponding game view.</p></div>
+<div class="detail"><span class="eyebrow">IMAGE 02</span><h3>Runtime architecture</h3><p>Diagram of target, active CameraProfile, CameraZone, FollowCameraController and final render transform.</p></div>
+</div>
+</div></section>
 <div class="shell footer"><a href="thatgamecompany-game-design.html">← All portfolio projects</a><a href="mailto:hoonahncloud@gmail.com">Email ↗</a></div>
 <script>
 (function(){
