@@ -1,143 +1,107 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <title>Jonghoon Ahn — Technical Game Design | Systems, Feedback &amp; Interaction</title>
-  <meta name="description" content="Technical game design portfolio by Jonghoon Ahn. Unity C# gameplay systems, rich visual feedback, interactive characters, XR mechanics, repeatable pipelines and real-time iteration.">
-  <link rel="icon" href="assets/images/favicon.png">
-  <style>
-    :root{--bg:#f5f5f0;--paper:#fff;--ink:#182326;--secondary:#3d5054;--muted:#617274;--line:#d7dfdb;--green:#2d685e;--mint:#e1efea;--coral:#cc805e;--deep:#122723;--max:1180px;--sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 var(--sans);-webkit-font-smoothing:antialiased}a{color:inherit}img{max-width:100%;display:block}button{font:inherit}
-    .shell{width:min(calc(100% - 64px),var(--max));margin-inline:auto}.eyebrow,.kicker{font:10px/1.6 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--green)}.kicker{color:var(--muted)}.top{position:sticky;top:0;z-index:40;background:#f8f9f5f0;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.topin{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:67px}.brand{text-decoration:none;font-size:17px;letter-spacing:-.04em;font-weight:800;white-space:nowrap}.brand span{font-weight:500;color:var(--green);font-size:12px;letter-spacing:0;margin-left:13px}.nav{display:flex;gap:25px;align-items:center}.nav a{font-size:12px;text-decoration:none;color:#546664;white-space:nowrap}.nav a:hover,.textlink:hover{color:#14806d}.nav a:last-child{background:var(--ink);color:#fff;padding:8px 12px;border-radius:5px}
-    .hero{padding:64px 0 46px;background:linear-gradient(135deg,#fff 0%,#f5f7f1 70%,#ebf1eb 100%);border-bottom:1px solid var(--line);overflow:hidden}.hero-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:52px;align-items:center}.hero h1{font-size:clamp(43px,4.6vw,69px);line-height:1.035;letter-spacing:-.065em;font-weight:710;margin:17px 0 20px}.hero h1 em{font-style:normal;color:var(--green)}.lead{font-size:17px;line-height:1.57;max-width:580px;margin:0;color:var(--secondary)}.intro{font-size:13.7px;line-height:1.76;color:var(--muted);max-width:590px;margin:13px 0 0}.buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:25px}.button{display:inline-flex;align-items:center;justify-content:center;min-height:39px;padding:9px 14px;border:1px solid #b9cbc3;background:#fff;text-decoration:none;font-size:12px;font-weight:650;border-radius:5px;transition:transform .16s,background .16s}.button:hover{transform:translateY(-2px)}.button.primary{background:var(--ink);border-color:var(--ink);color:white}.button.ghost{background:transparent}
-    .hero-visual{position:relative}.hero-visual:before{content:"";position:absolute;inset:-18px -19px 28px 35px;border:1px solid #c9d8d0;border-radius:18px;transform:rotate(3deg);pointer-events:none}.hero-frame{aspect-ratio:16/10;border-radius:13px;overflow:hidden;background:#0b1515;position:relative;box-shadow:0 22px 48px #263f3630}.hero-frame iframe{border:0;width:100%;height:100%;display:block}.video-label{display:flex;justify-content:space-between;gap:16px;margin-top:11px;font:10px/1.5 var(--mono);color:#70827a;letter-spacing:.02em}.video-label span:last-child{text-align:right}
-    .facts{background:white;border-bottom:1px solid var(--line)}.facts-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}.fact{padding:18px 20px;border-right:1px solid var(--line)}.fact:first-child{padding-left:0}.fact:last-child{border:0}.fact span{display:block;font:9px/1.5 var(--mono);letter-spacing:.12em;color:var(--green)}.fact b{display:block;font-size:13px;margin-top:6px;line-height:1.35}.fact small{display:block;font-size:11.2px;line-height:1.5;margin-top:4px;color:var(--muted)}
-    .section{padding:76px 0;border-bottom:1px solid var(--line)}.section-head{display:grid;grid-template-columns:160px 1fr;gap:36px;margin-bottom:31px}.section-head h2{font-size:clamp(29px,3.15vw,41px);line-height:1.15;letter-spacing:-.05em;margin:0;font-weight:700}.section-head p{max-width:760px;color:var(--muted);margin:12px 0 0;font-size:14px}.flow{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--line);gap:1px}.step{background:#fff;padding:24px 21px 23px;min-height:187px;position:relative}.step:not(:last-child):after{content:"→";position:absolute;right:-10px;top:27px;font-size:18px;color:var(--coral);z-index:2}.step span{font:10px/1.6 var(--mono);color:var(--green)}.step h3{font-size:18px;line-height:1.2;letter-spacing:-.03em;margin:11px 0 9px}.step p{font-size:12.5px;line-height:1.6;color:var(--muted);margin:0}.system-note{background:#e8efe8;margin-top:14px;border:1px solid #d2e0d6;border-radius:9px;padding:15px 18px;display:flex;gap:24px;justify-content:space-between;align-items:center}.system-note p{margin:0;font-size:12.8px;color:#415650}.system-note a{color:var(--green);text-decoration:none;font-weight:700;white-space:nowrap;font-size:12px}
-    .feature{display:grid;grid-template-columns:1.06fr .94fr;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:13px;margin-bottom:22px}.feature-media{background:#101d1a;min-height:370px}.feature-media iframe{display:block;width:100%;height:100%;min-height:370px;border:0}.feature-copy{padding:37px 37px 33px;display:flex;flex-direction:column}.feature h3{font-size:clamp(28px,2.6vw,37px);line-height:1.1;letter-spacing:-.05em;margin:9px 0 14px}.feature-copy>p{color:var(--secondary);font-size:14px;line-height:1.65;margin:0 0 20px}.feature-evidence{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#e4eae7;border:1px solid #e4eae7;border-radius:8px;overflow:hidden;margin-bottom:20px}.feature-evidence>div{background:#f9fbf9;padding:12px 13px}.feature-evidence span{display:block;font:9px var(--mono);letter-spacing:.08em;color:#779087;text-transform:uppercase}.feature-evidence b{font-size:12px;line-height:1.45;display:block;margin-top:6px}.tag-list{display:flex;flex-wrap:wrap;gap:6px}.tag{font:10px/1.35 var(--mono);border:1px solid #d8e2dc;background:#f4f7f3;padding:5px 8px;color:#49625a;border-radius:4px}.textlink{display:inline-block;font-size:13px;color:var(--green);font-weight:700;text-decoration:none}.feature-copy .textlink{margin-top:auto;padding-top:22px}
-    .project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.project{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:11px;overflow:hidden;min-width:0}.thumb{aspect-ratio:16/8;overflow:hidden;background:#142b27}.thumb img{height:100%;width:100%;object-fit:cover;transition:transform .35s}.thumb iframe{width:100%;height:100%;border:0;pointer-events:none;display:block}.project:hover .thumb img{transform:scale(1.035)}.proj-body{padding:21px 24px 23px;display:flex;flex:1;flex-direction:column}.proj-body h3{font-size:23px;line-height:1.2;letter-spacing:-.035em;margin:9px 0 8px}.proj-body p{color:var(--muted);font-size:13px;line-height:1.65;margin:0 0 16px}.proj-body ul{margin:0 0 18px;padding-left:17px;color:#415652;font-size:12px;line-height:1.7}.proj-body .textlink{margin-top:auto;padding-top:20px}.project .tag-list{margin-top:auto}
-    .practice{background:var(--deep);color:#f2f7f2}.practice .section-head h2{color:#fff}.practice .section-head p{color:#b3c6bd}.practice .eyebrow{color:#9fceb4}.practice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.method{border:1px solid #3b5b4d;background:#18352e;border-radius:10px;padding:25px 23px}.method>span{font:10px var(--mono);color:#a3d4b7}.method h3{margin:18px 0 11px;font-size:20px;letter-spacing:-.03em;line-height:1.19}.method p{color:#b4c8c0;margin:0;font-size:12.7px}.method strong{font-weight:650;display:block;color:#e5eee9;font-size:11.5px;margin-top:14px}
-    .role-fit{display:grid;grid-template-columns:1fr 1fr;gap:17px}.fit-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:25px 28px}.fit-card h3{font-size:19px;margin:8px 0 12px;letter-spacing:-.03em}.fit-card p{font-size:13px;color:var(--secondary);margin:0 0 12px}.fit-list{list-style:none;padding:0;margin:0}.fit-list li{border-top:1px solid var(--line);padding:11px 0;font-size:12.5px;color:#4d5d5b}.fit-list li b{color:#22352f}.fit-card.alt{background:#ebf1eb}.fit-card.alt .eyebrow{color:#8c674f}
-    .more-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:26px;align-items:start}.more-grid p{max-width:590px;color:var(--secondary);margin:0 0 20px}.details{border-top:1px solid var(--line)}.details details{border-bottom:1px solid var(--line);padding:13px 0}.details summary{cursor:pointer;font-size:14px;font-weight:680;list-style:none}.details summary:after{content:"+";float:right;color:var(--green);font-weight:400;font-size:19px;line-height:1}.details details[open] summary:after{content:"−"}.details p{font-size:12.8px;margin:10px 0 3px;color:var(--muted)}.tools{border-top:1px solid var(--line)}.tool{display:grid;grid-template-columns:136px 1fr;gap:15px;padding:11px 0;border-bottom:1px solid var(--line)}.tool span{font:10px var(--mono);color:var(--green);padding-top:3px;text-transform:uppercase}.tool b{font-size:12.8px;line-height:1.5;font-weight:600}
-    .contact{background:#fff;padding:64px 0 76px}.contact-inner{display:flex;justify-content:space-between;align-items:center;gap:32px}.contact h2{font-size:clamp(29px,3vw,40px);letter-spacing:-.05em;line-height:1.1;margin:10px 0}.contact p{margin:0;color:var(--muted);font-size:13px}.foot{border-top:1px solid var(--line);padding:18px 0 28px;color:var(--muted);font:11px/1.5 var(--mono)}.footin{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.foot a{text-decoration:none}
-    @media(max-width:1000px){.hero-grid,.feature,.more-grid{grid-template-columns:1fr}.hero-frame{max-height:480px}.hero-visual{max-width:720px}.feature-media,.feature-media iframe{min-height:0;aspect-ratio:16/9}.practice-grid{grid-template-columns:1fr 1fr}.hero{padding-top:50px}.hero h1{max-width:800px}}
-    @media(max-width:750px){.shell{width:calc(100% - 34px)}.topin{min-height:57px}.brand span{display:none}.nav{gap:13px}.nav a{font-size:11px}.nav a:nth-child(2),.nav a:nth-child(3),.nav a:nth-child(4){display:none}.hero{padding:43px 0 33px}.hero-grid{gap:35px}.hero h1{font-size:clamp(38px,9.2vw,57px)}.lead{font-size:16px}.facts-grid,.project-grid,.role-fit,.practice-grid,.flow{grid-template-columns:1fr}.fact{padding:13px 0;border-right:0;border-bottom:1px solid var(--line)}.fact:last-child{border-bottom:0}.section{padding:52px 0}.section-head{grid-template-columns:1fr;gap:10px;margin-bottom:25px}.step{min-height:0;padding:20px}.step:not(:last-child):after{content:"↓";right:20px;top:auto;bottom:-15px}.system-note,.contact-inner{align-items:flex-start;flex-direction:column}.feature-copy{padding:26px 22px}.feature-evidence{grid-template-columns:1fr}.project .thumb{aspect-ratio:16/9}.contact{padding:48px 0 60px}.tool{grid-template-columns:103px 1fr}.video-label{font-size:9px}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button,.thumb img{transition:none}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jonghoon Ahn — Technical Game Designer</title>
+<meta name="description" content="Technical game design portfolio by Jonghoon Ahn — Unity C#, responsive gameplay systems, character interactions, real-time graphics, VR games, and a planned online co-op prototype.">
+<link rel="icon" href="assets/images/favicon.png">
+<style>
+:root{--bg:#f7f8f6;--white:#fff;--ink:#192420;--secondary:#465450;--muted:#697772;--border:#dce2dc;--accent:#315d52;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 var(--sans);-webkit-font-smoothing:antialiased}a{color:inherit}img{display:block;width:100%}.container{width:min(1180px,calc(100% - 56px));margin:auto}
+header{border-bottom:1px solid var(--border);background:var(--white)}.topbar{min-height:66px;display:flex;justify-content:space-between;align-items:center;gap:28px}.brand{font-weight:750;letter-spacing:-.035em;text-decoration:none;font-size:17px}.links{display:flex;gap:26px}.links a{color:var(--secondary);font-size:12px;text-decoration:none}.links a:hover,.card:hover .read{color:#276d56}
+.intro{background:#fff;border-bottom:1px solid var(--border);padding:69px 0 66px}.intro .label,.section-label,.meta{font:10px/1.55 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent)}.intro h1{font-size:clamp(44px,5vw,69px);line-height:1.05;letter-spacing:-.06em;font-weight:720;margin:12px 0 20px}.intro h1 span{display:block;font-size:clamp(20px,2.2vw,28px);font-weight:480;letter-spacing:-.035em;margin-top:10px;color:#4a5c54}.intro p{font-size:16px;max-width:790px;color:var(--secondary);line-height:1.74;margin:0}.intro .connect{display:flex;gap:23px;align-items:center;margin-top:23px;font-size:12px}.intro .connect a{text-decoration:none;border-bottom:1px solid #9cafa4;color:var(--accent);padding-bottom:3px}
+.works{padding:54px 0 75px}.works-head{margin-bottom:23px;display:flex;align-items:baseline;justify-content:space-between;gap:25px}.works h2{font-size:31px;line-height:1.1;letter-spacing:-.04em;font-weight:700;margin:5px 0}.works-head p{font-size:12px;color:var(--muted);margin:0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:23px}.card{background:#fff;border:1px solid var(--border);border-radius:5px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;transition:border-color .18s,transform .18s}.card:hover{border-color:#acbbb2;transform:translateY(-2px)}.media{aspect-ratio:16/9;overflow:hidden;background:#dfe6e1;position:relative}.media img{height:100%;object-fit:cover}.media iframe{width:100%;height:100%;border:0;display:block;pointer-events:none}.card-copy{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}.card h3{font-size:25px;line-height:1.2;letter-spacing:-.04em;margin:8px 0 10px;font-weight:720}.card .description{color:var(--secondary);font-size:13.7px;line-height:1.73;margin:0}.stack{color:#7b8982;font-size:11px;line-height:1.6;margin-top:16px}.read{font-weight:700;font-size:12px;color:var(--accent);margin-top:auto;padding-top:21px}.status{display:inline-block;margin-left:8px;border:1px solid #cbd7cd;color:#64786e;border-radius:3px;padding:2px 6px;font:9px var(--mono);vertical-align:middle;letter-spacing:0;text-transform:none}
+.concept{background:#303e42;width:100%;height:100%;position:relative;overflow:hidden}.concept svg{position:absolute;inset:0;width:100%;height:100%}.concept-meta{position:absolute;left:24px;top:20px;color:#c1d7d4;font:10px/1.4 var(--mono);letter-spacing:.11em}.concept-name{position:absolute;left:24px;bottom:24px;color:#f0f4f0;font-size:29px;line-height:1;letter-spacing:-.05em;font-weight:670}.concept-name small{display:block;font:11px var(--mono);color:#b6c6c1;letter-spacing:.04em;margin-top:10px}
+.about{background:#fff;border-top:1px solid var(--border);padding:45px 0}.about-inner{display:grid;grid-template-columns:180px 1fr;gap:40px}.about h2{margin:3px 0 0;font-size:21px;letter-spacing:-.04em}.about p{color:var(--secondary);margin:0 0 13px;font-size:13.5px;max-width:780px}.tech{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}.tech span{border:1px solid var(--border);padding:5px 9px;color:#5b6d62;font:11px var(--mono)}.footer{background:#fff;border-top:1px solid var(--border);padding:23px 0 35px;color:#859087;font-size:11px}.footin{display:flex;justify-content:space-between;gap:18px}.footin a{text-decoration:none}
+@media(max-width:750px){.container{width:calc(100% - 34px)}.intro{padding:46px 0 44px}.intro h1{font-size:43px}.intro h1 span{font-size:21px}.intro p{font-size:15px}.grid{grid-template-columns:1fr;gap:17px}.works{padding:42px 0 50px}.works-head{display:block}.works-head p{margin-top:9px}.card-copy{padding:19px 19px 22px}.about-inner{grid-template-columns:1fr;gap:10px}.links{gap:14px}.links a{font-size:11px}.footin{display:block}.footin span{display:block;margin-bottom:6px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card{transition:none}}
+</style>
 </head>
 <body>
-<header class="top"><div class="shell topin">
-  <a class="brand" href="thatgamecompany-game-design.html">Jonghoon Ahn.<span>Technical Game Design</span></a>
-  <nav class="nav" aria-label="Main navigation"><a href="#systems">Systems</a><a href="#work">Selected Work</a><a href="#approach">Approach</a><a href="#toolset">Toolset</a><a href="#contact">Contact ↗</a></nav>
-</div></header>
+<header><div class="container topbar"><a class="brand" href="thatgamecompany-game-design.html">Jonghoon Ahn.</a><nav class="links"><a href="#projects">Projects</a><a href="#about">About</a><a href="mailto:hoonahncloud@gmail.com">Contact ↗</a></nav></div></header>
 <main>
-<section class="hero"><div class="shell hero-grid">
-  <div>
-    <div class="eyebrow">TECHNICAL GAME DESIGN / DESIGN × ENGINEERING / UNITY &amp; UNREAL</div>
-    <h1>Build the system.<br><em>Make it felt.</em></h1>
-    <p class="lead">I turn player actions and creative intent into responsive real-time systems: movement, character behavior, visual feedback, spatial interactions, and repeatable states.</p>
-    <p class="intro">My background spans technical art, game-engine scripting, XR game development, and character production. I work between design and engineering—implementing ideas in Unity C#, testing behavior in-engine, and tuning the result until the interaction reads clearly.</p>
-    <div class="buttons"><a class="button primary" href="#work">Explore selected work ↓</a><a class="button ghost" href="#systems">How I build systems</a><a class="button" href="mailto:hoonahncloud@gmail.com">Email ↗</a></div>
-  </div>
-  <div class="hero-visual">
-    <div class="hero-frame"><iframe title="Real-time gameplay and responsive visual systems reel" src="https://player.vimeo.com/video/1219170733?autoplay=1&amp;muted=1&amp;loop=1&amp;controls=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
-    <div class="video-label"><span>REAL-TIME GAME / UNITY C# + HLSL</span><span>PLAY TO EXPLORE THE WORK ↗</span></div>
-  </div>
+<section class="intro"><div class="container">
+  <div class="label">PORTFOLIO / TECHNICAL GAME DESIGN</div>
+  <h1>Jonghoon Ahn<span>Technical Game Designer · Real-Time Technical Artist</span></h1>
+  <p>I build interactive systems for games and immersive experiences, connecting player input to responsive characters, animation, cameras, shaders, and game logic. My work combines Unity C# development with an art and design background, taking an idea from prototype through in-engine iteration and deployment.</p>
+  <div class="connect"><a href="mailto:hoonahncloud@gmail.com">Email ↗</a><a href="https://github.com/reusahn/Unity-Unreal-Interaction-Research" target="_blank" rel="noopener">GitHub ↗</a><a href="https://jonghoonahn.com">Main Portfolio ↗</a></div>
 </div></section>
-<section class="facts"><div class="shell facts-grid">
-  <div class="fact"><span>01 / IMPLEMENTATION</span><b>Unity C# runtime</b><small>Input, states, interactions, camera &amp; character behavior</small></div>
-  <div class="fact"><span>02 / PLAYER FEEDBACK</span><b>HLSL / Shader Graph</b><small>Real-time response, deformation, effects and legibility</small></div>
-  <div class="fact"><span>03 / GAME EXPERIENCE</span><b>VR / XR mechanics</b><small>AI NPCs, spatial interaction, puzzles and embodied input</small></div>
-  <div class="fact"><span>04 / PRODUCTION</span><b>Cross-disciplinary pipeline</b><small>Animation, DCC, engine assembly, debugging and delivery</small></div>
-</div></section>
-<section class="section" id="systems"><div class="shell">
-  <div class="section-head"><span class="eyebrow">01 / DESIGN INTO CODE</span><div><h2>The feedback loop is the feature.</h2><p>A technical mechanic succeeds when player input produces a clear, controllable response—and the team can refine that response without rebuilding the feature. This is how I approach runtime behavior across my work.</p></div></div>
-  <div class="flow" aria-label="Runtime implementation flow">
-    <div class="step"><span>01 / INPUT</span><h3>Player action</h3><p>Direction, gesture, proximity, collision, voice or a change of perspective enters the system.</p></div>
-    <div class="step"><span>02 / LOGIC</span><h3>State &amp; rules</h3><p>C# translates inputs into deterministic states, scene events, triggers and reusable parameters.</p></div>
-    <div class="step"><span>03 / RESPONSE</span><h3>Visible behavior</h3><p>Shaders, animation, particles, camera framing and NPC response make system state perceptible.</p></div>
-    <div class="step"><span>04 / ITERATE</span><h3>Test &amp; tune</h3><p>Revisit timing, readability, collision, material behavior, runtime constraints and user feedback.</p></div>
-  </div>
-  <div class="system-note"><p><b>Concrete example:</b> In a Unity game prototype, directional input changed the flow inside a procedural mesh-cloud shader rather than simply moving the GameObject. This made input legible through the material itself.</p><a href="thatgamecompany-system-cases.html#erick">Technical breakdown ↗</a></div>
-</div></section>
-<section class="section" id="work"><div class="shell">
-  <div class="section-head"><span class="eyebrow">02 / SELECTED WORK</span><div><h2>Playable interactions and the systems behind them.</h2><p>Existing implementations, organized by the problem being solved. Game logic comes first, followed by character behavior, real-time feedback, and production workflows.</p></div></div>
-  <article class="feature">
-    <div class="feature-media"><iframe title="Unity responsive game graphics and input behavior" src="https://player.vimeo.com/video/1219170733?autoplay=0&amp;controls=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
-    <div class="feature-copy">
-      <span class="eyebrow">FEATURED / PLAYER INPUT → RUNTIME FEEDBACK / 2025–2026</span><h3>Independent Real-Time Game</h3>
-      <p>On Erick Oh's independent game project, I implemented Unity C# and HLSL systems that turn directional input, proximity and character state into expressive visual responses. The challenge was keeping an unusual visual language responsive and controllable during iteration.</p>
-      <div class="feature-evidence"><div><span>Input → Feedback</span><b>Directional control drives shader noise flow and mesh deformation.</b></div><div><span>Interaction</span><b>Collision / proximity logic coordinates with a separate raymarched visual field.</b></div><div><span>State design</span><b>Four fixed-topology blendshape states for predictable transitions.</b></div><div><span>Production</span><b>Repeatable parameters for director-led tuning in Unity.</b></div></div>
-      <div class="tag-list"><span class="tag">Unity URP</span><span class="tag">C#</span><span class="tag">HLSL</span><span class="tag">Interaction States</span><span class="tag">Raymarching</span></div>
-      <a class="textlink" href="thatgamecompany-system-cases.html#erick">Open technical case study ↗</a>
-    </div>
-  </article>
-  <div class="project-grid">
-    <article class="project">
-      <a class="thumb" href="thatgamecompany-system-cases.html#escape"><img src="assets/images/xr4.jpg" loading="lazy" alt="Escape Metro Unity VR subway environment"></a>
-      <div class="proj-body"><span class="eyebrow">03 / AI NPC · PUZZLE · PLAYER PROGRESSION</span><h3>Escape Metro</h3><p>A VR escape experience where exploration, spatial puzzles and AI character dialogue affect how players understand and progress through the environment.</p><ul><li>Integrated player voice input, conversational response and NPC animation in a Unity XR runtime.</li><li>Coordinated character state, game-space navigation and environmental feedback under Quest constraints.</li></ul><div class="tag-list"><span class="tag">Unity C#</span><span class="tag">XR Toolkit</span><span class="tag">AI NPC</span><span class="tag">Quest</span></div><a class="textlink" href="thatgamecompany-system-cases.html#escape">Interaction &amp; runtime case ↗</a></div>
-    </article>
-    <article class="project">
-      <a class="thumb" href="thatgamecompany-system-cases.html#narci"><img src="assets/images/xr2.jpg" loading="lazy" alt="NARCI hand-tracked Unity XR immersive experience"></a>
-      <div class="proj-body"><span class="eyebrow">04 / EMBODIED INPUT · GAME FEEL</span><h3>NARCI / Be NARCI</h3><p>Two connected VR experiences using player agency, encounters, hand tracking, reflection and spatial constraint to make the user's role part of the mechanic.</p><ul><li>Mapped controller-free hand interactions to C# states and responsive materials.</li><li>Iterated scale, pacing and player attention inside the headset.</li></ul><div class="tag-list"><span class="tag">Unity URP</span><span class="tag">Hand Tracking</span><span class="tag">C#</span><span class="tag">Spatial Design</span></div><a class="textlink" href="thatgamecompany-system-cases.html#narci">Embodied interaction case ↗</a></div>
-    </article>
-    <article class="project">
-      <a class="thumb" href="thatgamecompany-system-cases.html#graffiti"><img src="assets/images/xr5.jpg" loading="lazy" alt="Graffiti Freedom VR painting system"></a>
-      <div class="proj-body"><span class="eyebrow">05 / DIRECT INPUT · PERSISTENT FEEDBACK</span><h3>Graffiti Freedom</h3><p>An environment becomes playable when a surface responds to the user's input. In this Unity VR prototype, spray collisions write an evolving paint mask onto the world.</p><ul><li>Input and particle feedback resolve to surface collision coordinates.</li><li>Dynamic RenderTexture and shader state retain visible painting during the experience.</li></ul><div class="tag-list"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">RenderTexture</span><span class="tag">Shaders</span></div><a class="textlink" href="thatgamecompany-system-cases.html#graffiti">Persistent world-state case ↗</a></div>
-    </article>
-    <article class="project">
-      <a class="thumb" href="thatgamecompany-system-cases.html#mobile"><iframe src="https://player.vimeo.com/video/1225894277?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0" loading="lazy" title="Unity mobile character animation and runtime cloth sample" tabindex="-1" aria-hidden="true"></iframe></a>
-      <div class="proj-body"><span class="eyebrow">06 / PROCEDURAL FEEL · CHARACTER RUNTIME</span><h3>Mobile Character Runtime</h3><p>A focused Unity test of the systems beneath believable character interaction: reusable animation states, real-time cloth, look-at behavior and camera controls.</p><ul><li>Humanoid animation retargeting, skin-weight cleanup, Unity Cloth and collider tuning.</li><li>Runtime controls validated in an Android APK, beyond editor-only playback.</li></ul><div class="tag-list"><span class="tag">Unity URP</span><span class="tag">Humanoid</span><span class="tag">Cloth</span><span class="tag">Android</span></div><a class="textlink" href="thatgamecompany-system-cases.html#mobile">Runtime character case ↗</a></div>
-    </article>
-    <article class="project">
-      <a class="thumb" href="thatgamecompany-system-cases.html#gang"><img src="assets/images/GangSehwang_unity_02.jpg" loading="lazy" alt="Gang Se-hwang Unity digital human in exhibition"></a>
-      <div class="proj-body"><span class="eyebrow">07 / DEPLOYED INTERACTIVE EXPERIENCE</span><h3>Gang Se-hwang</h3><p>Unity-based visitor-facing historical character system connecting animation, camera, UI and interactive triggers in a public museum installation.</p><ul><li>Built runtime presentation and interaction behavior in C#.</li><li>Integrated custom digital-human assets into an installation requiring dependable live operation.</li></ul><div class="tag-list"><span class="tag">Unity HDRP</span><span class="tag">C#</span><span class="tag">Animation</span><span class="tag">Public Deployment</span></div><a class="textlink" href="thatgamecompany-system-cases.html#gang">Production &amp; deployment case ↗</a></div>
-    </article>
-    <article class="project">
-      <a class="thumb" href="projects7/shininho-jooan-xr.html"><img src="assets/images/Sin12.png" loading="lazy" alt="Shininho and Jooan real-time virtual character production"></a>
-      <div class="proj-body"><span class="eyebrow">08 / ANIMATION &amp; DESIGN-ENGINEERING BRIDGE</span><h3>Shininho + Jooan</h3><p>Real-time digital-human performance work across motion capture, animation, retargeting and VR sequencing. Complex character pipelines translated into controllable engine content.</p><ul><li>OptiTrack/Motive capture and MotionBuilder / Maya HumanIK retargeting.</li><li>Assembled facial/body performance, lighting and sequence timing in Unreal.</li></ul><div class="tag-list"><span class="tag">Unreal Engine</span><span class="tag">Maya</span><span class="tag">Mocap</span><span class="tag">Sequencer</span></div><a class="textlink" href="projects7/shininho-jooan-xr.html">Character workflow case ↗</a></div>
-    </article>
-  </div>
-</div></section>
-<section class="section practice" id="approach"><div class="shell">
-  <div class="section-head"><span class="eyebrow">03 / DESIGN PRACTICE</span><div><h2>Tools should multiply a team's creative range.</h2><p>My technical-art background is useful when a new gameplay feature touches animation, art content, shader state and engine logic at once. I focus on clean boundaries, inspectable inputs and workflows that collaborators can understand.</p></div></div>
-  <div class="practice-grid">
-    <div class="method"><span>01 / RAPID PROTOTYPING</span><h3>Make a mechanic testable.</h3><p>Reduce the interaction to input, state and response. Implement a working loop in-engine before expanding the content around it.</p><strong>Evidence: real-time game / Escape Metro</strong></div>
-    <div class="method"><span>02 / RICH FEEDBACK</span><h3>Make change perceptible.</h3><p>Use animation, graphics, sound and camera / spatial framing to communicate what the system is doing and what the player can do next.</p><strong>Evidence: shader system / NARCI / Graffiti</strong></div>
-    <div class="method"><span>03 / REUSABLE PIPELINES</span><h3>Make iteration affordable.</h3><p>Keep behavior and visual representation separable; expose parameters; test character states and runtime assets inside the target engine.</p><strong>Evidence: four-state prototype / mobile character</strong></div>
+<section class="works" id="projects"><div class="container">
+  <div class="works-head"><h2>Selected Projects</h2><p>Gameplay systems · Interaction · Real-time characters · Technical art</p></div>
+  <div class="grid">
+    <a class="card" href="thatgamecompany-windward.html">
+      <div class="media"><div class="concept" role="img" aria-label="Concept drawing of two players working together to guide a shared seed; not a gameplay screenshot.">
+        <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="640" height="360" fill="#303e42"/>
+          <path d="M0 250 Q160 214 322 261 T640 246 V360 H0Z" fill="#43565a"/>
+          <path d="M40 118 Q185 70 327 131 T600 110" stroke="#86aea9" opacity=".35" fill="none" stroke-width="2"/>
+          <path d="M45 180 Q200 150 328 175 T603 170" stroke="#86aea9" opacity=".2" fill="none" stroke-width="2"/>
+          <circle cx="170" cy="173" r="34" stroke="#a3d7cc" stroke-width="2" fill="none"/>
+          <path d="M170 191 v-39 m-10 11 10-11 10 11" stroke="#a3d7cc" stroke-width="2" fill="none"/>
+          <circle cx="480" cy="173" r="34" stroke="#e5c6a3" stroke-width="2" fill="none"/>
+          <path d="M465 173 h30 m-9-9 9 9 -9 9" stroke="#e5c6a3" stroke-width="2" fill="none"/>
+          <path d="M207 173 H300 M444 173 H341" stroke="#9fbcb9" opacity=".5" stroke-width="2" stroke-dasharray="5 9"/>
+          <circle cx="322" cy="173" r="13" fill="#e6ddc3"/><path d="M320 161q-12-19 1-28q9 13-1 28" fill="#b5d1a8"/>
+          <g font-size="11" fill="#d9e8e3" font-family="Arial,sans-serif" text-anchor="middle"><text x="170" y="227">PLAYER 01</text><text x="322" y="223">SHARED SEED</text><text x="480" y="227">PLAYER 02</text></g>
+        </svg>
+        <div class="concept-meta">GAMEPLAY CONCEPT / ONLINE CO-OP</div><div class="concept-name">Windward <small>WORKING TITLE · TWO-PLAYER PROTOTYPE</small></div>
+      </div></div>
+      <div class="card-copy"><div class="meta">ONLINE CO-OP · UNITY C# <span class="status">Planned prototype</span></div><h3>Windward</h3>
+      <p class="description">A two-player cooperation game built around complementary wind controls. One player lifts a shared seed while the other steers it through obstacles. Planned technical focus: networked input, shared simulation, immediate visual feedback, designer-tunable camera and level controls, and versioned playtest builds.</p>
+      <div class="stack">Unity · C# · Multiplayer networking · Gameplay tools · Playtesting</div><div class="read">View concept &amp; technical plan →</div></div>
+    </a>
+    <a class="card" href="thatgamecompany-system-cases.html#erick">
+      <div class="media"><iframe src="https://player.vimeo.com/video/1219170733?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;playsinline=1" title="Unity shader-driven responsive game systems" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-copy"><div class="meta">UNITY GAME · GAMEPLAY FEEDBACK</div><h3>Real-Time Game Systems</h3>
+      <p class="description">Technical art and gameplay-adjacent systems for Erick Oh’s independent game. C# input drives HLSL deformation and noise flow; collision and proximity events coordinate raymarched visual feedback. A four-state character transformation pipeline supports repeatable iteration.</p>
+      <div class="stack">Unity URP · C# · HLSL · Raymarching · Runtime States</div><div class="read">View system case study →</div></div>
+    </a>
+    <a class="card" href="thatgamecompany-system-cases.html#escape">
+      <div class="media"><img src="assets/images/xr4.jpg" alt="Escape Metro Unity VR subway game" loading="lazy"></div>
+      <div class="card-copy"><div class="meta">VR GAME · INTERACTIVE NPC</div><h3>Escape Metro</h3>
+      <p class="description">A Unity VR escape experience bringing together spatial puzzles, exploratory progression, player voice, and AI-driven NPC dialogue. Character animation, lip-sync, real-time audio and interactions were integrated into a Quest-oriented runtime.</p>
+      <div class="stack">Unity C# · XR Interaction Toolkit · NPC AI · Meta Quest</div><div class="read">View gameplay case study →</div></div>
+    </a>
+    <a class="card" href="thatgamecompany-system-cases.html#graffiti">
+      <div class="media"><img src="assets/images/xr5.jpg" alt="Graffiti Freedom painting interaction in Unity VR" loading="lazy"></div>
+      <div class="card-copy"><div class="meta">GAME INTERACTION · VISUAL FEEDBACK</div><h3>Graffiti Freedom</h3>
+      <p class="description">A VR spray-painting mechanic that allows players to change the environment directly. Particle collisions update a RenderTexture paint mask, while a custom shader retains and displays the resulting marks on world surfaces.</p>
+      <div class="stack">Unity · C# · Particles · RenderTexture · Shader</div><div class="read">View interaction case study →</div></div>
+    </a>
+    <a class="card" href="thatgamecompany-system-cases.html#mobile">
+      <div class="media"><iframe src="https://player.vimeo.com/video/1225894277?background=1&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;controls=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;playsinline=1" title="Unity Android character animation runtime and cloth" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-copy"><div class="meta">CHARACTER SYSTEMS · REAL-TIME CLOTH</div><h3>Mobile Character Runtime</h3>
+      <p class="description">A playable Unity Android character sample testing multiple animation states, humanoid retargeting, runtime cloth, look-at behavior, and touch camera controls. The pipeline was verified in an APK rather than only in the editor.</p>
+      <div class="stack">Unity URP · C# · Animator · Cloth · Android</div><div class="read">View runtime case study →</div></div>
+    </a>
+    <a class="card" href="thatgamecompany-system-cases.html#narci">
+      <div class="media"><img src="assets/images/xr2.jpg" alt="NARCI immersive Unity VR experience" loading="lazy"></div>
+      <div class="card-copy"><div class="meta">VR MECHANICS · PLAYER AGENCY</div><h3>NARCI / Be NARCI</h3>
+      <p class="description">Paired Unity VR experiences using tracked hands, material response, and spatial staging as interactive mechanics. Touch, pinch, and grab events are translated into runtime states and visible changes inside the environment.</p>
+      <div class="stack">Unity URP · C# · Hand Tracking · XR · Shaders</div><div class="read">View VR interaction case study →</div></div>
+    </a>
+    <a class="card" href="thatgamecompany-system-cases.html#gang">
+      <div class="media"><img src="assets/images/GangSehwang_unity_02.jpg" alt="Gang Se-hwang real-time character in a Unity exhibition" loading="lazy"></div>
+      <div class="card-copy"><div class="meta">INTERACTIVE CHARACTER · LIVE DEPLOYMENT</div><h3>Gang Se-hwang</h3>
+      <p class="description">An interactive historical character built for a public museum installation. Unity integrates a custom digital human with camera staging, animation triggers, visitor-facing UI, and reliable runtime behavior.</p>
+      <div class="stack">Unity HDRP · C# · Character Animation · Interactive Systems</div><div class="read">View technical production case →</div></div>
+    </a>
+    <a class="card" href="projects7/shininho-jooan-xr.html">
+      <div class="media"><img src="assets/images/Sin12.png" alt="Shininho and Jooan digital human performance work" loading="lazy"></div>
+      <div class="card-copy"><div class="meta">CHARACTER PIPELINE · ENGINE PRODUCTION</div><h3>Shininho + Jooan</h3>
+      <p class="description">Real-time character production across motion capture, retargeting, facial and body animation, and VR presentation. A cross-disciplinary pipeline connecting character assets, performance data, and engine-side iteration.</p>
+      <div class="stack">Unreal Engine · MetaHuman · Maya · MotionBuilder · Sequencer</div><div class="read">View character pipeline case →</div></div>
+    </a>
   </div>
 </div></section>
-<section class="section" id="fit"><div class="shell">
-  <div class="section-head"><span class="eyebrow">04 / ROLE ALIGNMENT</span><div><h2>Technical design at the art–engineering boundary.</h2><p>A cross-disciplinary implementation practice built around gameplay behavior, immediate player feedback and iteration-friendly content systems.</p></div></div>
-  <div class="role-fit">
-    <div class="fit-card"><span class="eyebrow">DEMONSTRATED IN THE PORTFOLIO</span><h3>Implemented, tested, delivered.</h3><ul class="fit-list"><li><b>3D gameplay prototyping:</b> C# player input, state logic, runtime interaction</li><li><b>Rich game feel:</b> deformation, VFX, hand tracking, spatial feedback</li><li><b>NPC / character systems:</b> conversational interaction, animation, cloth, retargeting</li><li><b>Cross-disciplinary workflow:</b> art direction → DCC → engine behavior → iteration</li><li><b>Live interactive deployment:</b> public installations and device builds</li></ul></div>
-    <div class="fit-card alt"><span class="eyebrow">DESIGN-ENGINEERING COLLABORATION</span><h3>Give the team something it can tune.</h3><p>My strongest contribution is moving between a creative requirement and the systems behind it: runtime state, shader parameters, animation, camera, collision and asset integration.</p><p>I build with iteration in mind—separating graphics from interaction logic, preparing repeatable states, and checking behavior in the target engine or device. These workflows help designers and artists refine an experience without treating each revision as a new implementation.</p><a class="textlink" href="thatgamecompany-system-cases.html">Review implementation breakdowns ↗</a></div>
+<section class="about" id="about"><div class="container about-inner">
+  <h2>About</h2>
+  <div><p>I am a California-based technical artist and developer working across games, VR, interactive installations, and digital humans. My focus is on making expressive ideas work as clear, responsive real-time systems—and helping art, design, and engineering work together through production.</p>
+  <p>Currently pursuing a PhD in Media Arts and Technology at UC Santa Barbara, following an MFA in Art and Technology from CalArts. Authorized to work in the U.S.; no sponsorship required.</p>
+  <div class="tech"><span>Unity / Unreal</span><span>C#</span><span>HLSL / Shaders</span><span>Gameplay Interaction</span><span>VR / XR</span><span>Animation / Rigging</span><span>Camera Systems</span><span>Technical Art</span></div>
   </div>
 </div></section>
-<section class="section" id="toolset"><div class="shell">
-  <div class="section-head"><span class="eyebrow">05 / EXPERIENCE &amp; TOOLS</span><div><h2>From creative direction to working runtime behavior.</h2><p>My experience covers real-time game development, XR, character animation, interactive installations, and hands-on technical production—especially where an art decision becomes a system requirement.</p></div></div>
-  <div class="more-grid">
-    <div>
-      <p><b>Jonghoon Ahn</b> — Technical Artist, Technical Director and real-time developer. I have contributed to game prototypes, XR interaction, character pipelines, museum installations and experimental media, translating visual intention into C# runtime behavior, shader logic, animation states and production-ready scene content.</p>
-      <div class="details">
-        <details><summary>Real-time game work</summary><p>Unity C#/HLSL implementation on Erick Oh's independent game project; character-state integration and visual feedback tuned with the director.</p></details>
-        <details><summary>Immersive design and XR</summary><p>Escape Metro, NARCI/Be NARCI, Graffiti Freedom, and other Unity XR systems spanning player input, interactions, AI NPCs, scene logic and headset validation.</p></details>
-        <details><summary>Character and production systems</summary><p>Unity/Unreal character integration, facial/body animation, retargeting, MetaHuman, shader/material workflows and public installation troubleshooting.</p></details>
-      </div>
-    </div>
-    <div class="tools">
-      <div class="tool"><span>ENGINE</span><b>Unity URP / HDRP · Unreal Engine 5</b></div>
-      <div class="tool"><span>CODE</span><b>C# · HLSL · Python · C++ working knowledge</b></div>
-      <div class="tool"><span>INTERACTION</span><b>Player input · States · XR · AI NPCs · Runtime cameras</b></div>
-      <div class="tool"><span>CHARACTER</span><b>Maya · MotionBuilder · MetaHuman · Retargeting · Unity Cloth</b></div>
-      <div class="tool"><span>PIPELINE</span><b>Animation · Shaders · Engine debugging · Device testing · Git</b></div>
-      <div class="tool"><span>LOCATION</span><b>California · U.S. work authorized, no sponsorship required</b></div>
-      <div class="tool"><span>EDUCATION</span><b>UCSB MAT PhD (in progress) · CalArts MFA · Kookmin BFA</b></div>
-    </div>
-  </div>
-</div></section>
-<section class="contact" id="contact"><div class="shell contact-inner"><div><div class="eyebrow">LET'S BUILD THE INTERACTION</div><h2>Design intent, translated into play.</h2><p>Technical game design · Unity C# · Real-time characters · Gameplay feedback</p></div><div class="buttons"><a class="button primary" href="mailto:hoonahncloud@gmail.com">hoonahncloud@gmail.com ↗</a><a class="button" href="https://github.com/reusahn/Unity-Unreal-Interaction-Research" target="_blank" rel="noopener noreferrer">Research &amp; code ↗</a></div></div></section>
 </main>
-<footer class="foot"><div class="shell footin"><span>© 2026 Jonghoon Ahn · Technical Game Design Portfolio</span><span><a href="https://jonghoonahn.com">Main portfolio ↗</a> · California, USA</span></div></footer>
+<footer class="footer"><div class="container footin"><span>© 2026 Jonghoon Ahn</span><span><a href="mailto:hoonahncloud@gmail.com">hoonahncloud@gmail.com</a> · <a href="https://jonghoonahn.com">jonghoonahn.com</a></span></div></footer>
 </body></html>
