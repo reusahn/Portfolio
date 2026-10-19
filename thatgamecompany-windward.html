@@ -38,17 +38,19 @@
 <div class="step"><span>PLAYER B</span><h3>Shape its direction</h3><p>Apply horizontal wind to steer, correct momentum, and guide the seed around obstacles.</p></div>
 <div class="step"><span>SHARED GOAL</span><h3>Reach the next shelter</h3><p>Coordinate timing and force across an obstacle course. A failed attempt resets the current checkpoint.</p></div>
 </div></div></section>
-<section class="section"><div class="shell">
-<span class="eyebrow">02 / DESIGN × ENGINEERING</span><h2>Proposed technical architecture.</h2>
-<p>A compact vertical slice that demonstrates gameplay systems, multiplayer synchronization, authored tools, readable feedback, and repeatable playtest delivery.</p>
+<section class="section" id="vertical-slice"><div class="shell">
+<span class="eyebrow">02 / FIRST PLAYABLE LEVEL</span><h2>Wind Corridor — a 90-second co-op challenge.</h2>
+<p>The first proposed multiplayer level is designed to teach interdependence without relying on text. Three readable encounters introduce the two inputs, require coordination, and end in a shared success moment. The existing local browser sandbox already tests dual-input movement, obstacles, collision and retry; the full Unity level below is the next production target.</p>
 <div class="modules">
-<div class="module"><h3>Shared simulation</h3><p>Unity C# physics state for seed position, velocity, airflow and collisions. A host-authoritative simulation distributes a canonical world state to both clients.</p></div>
-<div class="module"><h3>Networked co-op</h3><p>Planned Unity Netcode for GameObjects integration with multiplayer input ownership, interpolation, disconnect behavior and a two-client verification run.</p></div>
-<div class="module"><h3>Player feedback</h3><p>Wind force affects shader motion, cloud density, particles, audio and camera response so an invisible force has a readable consequence.</p></div>
-<div class="module"><h3>Designer-facing controls</h3><p>Inspector-driven presets for camera damping, wind strength, obstacle spacing, checkpoint rules and difficulty, allowing new level layouts without code changes.</p></div>
-<div class="module"><h3>Testing &amp; operation</h3><p>Versioned multiplayer builds, structured issue logging, reproducible playtests and a patch/change log to track post-test improvements.</p></div>
-<div class="module"><h3>Performance boundaries</h3><p>Separate physics and network state from shader rendering so visual fidelity can be tuned independently of synchronized interaction.</p></div>
-</div></div></section>
+<div class="module"><span class="eyebrow">BEAT 01 / UNDERSTAND</span><h3>The first updraft</h3><p>An open starting area lets Player A discover that lift changes altitude but does not advance the seed. Player B's horizontal wind immediately creates progress when combined with lift.</p></div>
+<div class="module"><span class="eyebrow">BEAT 02 / COORDINATE</span><h3>The alternating gap</h3><p>A high barrier followed by a low opening requires one player to control altitude while the other adjusts horizontal momentum. Collisions trigger clear audio/visual failure feedback and a retry.</p></div>
+<div class="module"><span class="eyebrow">BEAT 03 / ARRIVE</span><h3>The shared shelter</h3><p>Both players guide the seed to a visible destination ring. Its response confirms completion, and the game presents a shared replay state rather than separate individual scores.</p></div>
+<div class="module"><span class="eyebrow">DESIGNER PARAMETERS</span><h3>What should be editable</h3><p>Wind/lift acceleration, air drag, seed maximum velocity, obstacle positions, checkpoint response, camera damping and goal radius—configurable without rewriting the interaction system.</p></div>
+<div class="module"><span class="eyebrow">GAME-FEEL PARAMETERS</span><h3>Make invisible force readable</h3><p>HLSL cloud motion, wind-line particles, seed wobble, camera anticipation and audio intensity all derive from the same input/state data. Visual polish can be tuned independently of physics authority.</p></div>
+<div class="module"><span class="eyebrow">OBSERVABLE PLAYTEST</span><h3>Is cooperation necessary?</h3><p>Test whether either player can complete the route alone, where communication breaks down, how retries are interpreted, and which camera/framing parameters make the seed easier to follow.</p></div>
+</div>
+<div class="note" style="margin-top:19px"><strong>Current playable evidence:</strong> <a href="thatgamecompany-windward-playtest.html">Local co-op mechanics sandbox ↗</a> — keyboard/buttons controlling one seed, obstacle collisions and retry. Unity network sessions, player ownership, synchronized physics and release telemetry are specified separately below.</div>
+</div></section>
 <section class="section"><div class="shell">
 <span class="eyebrow">03 / IMPLEMENTATION PLAN</span><h2>Evidence the prototype is intended to produce.</h2>
 <ol class="milestones">
