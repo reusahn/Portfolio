@@ -13,7 +13,7 @@
 <div class="kicker">WORKING TITLE · UNITY C# · TWO-PLAYER ONLINE CO-OP</div>
 <h1>Windward.</h1>
 <p>Two players, two complementary forces, one shared goal. An online co-op prototype in which one player lifts a drifting seed while the other steers it through a sequence of floating environments.</p>
-<div class="status">PROPOSED GAMEPLAY PROTOTYPE — DEVELOPMENT BRIEF</div>
+<div class="status">ONLINE CO-OP IN DESIGN · LOCAL MECHANICS DEMO PLAYABLE</div><div class="actions" style="margin-top:17px"><a class="button dark" href="thatgamecompany-windward-playtest.html">Play the local mechanics sandbox ↗</a></div>
 <div class="concept" role="img" aria-label="Concept diagram showing two players controlling complementary wind currents around one shared seed. This is a design diagram, not a gameplay screenshot.">
 <svg viewBox="0 0 1040 430" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 <rect width="1040" height="430" fill="#25343b"/>
@@ -58,8 +58,38 @@
 <li><div><strong>Designer tooling</strong> — configurable wind/camera presets, level parameters and reproducible content setup.</div></li>
 <li><div><strong>Playtest and build history</strong> — playable release candidate, test results, fixes, version notes and a documented update.</div></li>
 </ol>
-<div class="note" style="margin-top:25px"><strong>Project status:</strong> This page presents a working-title design and implementation plan. Gameplay captures, two-client synchronization results, shipped builds, and playtest metrics will be added only after the corresponding systems are built and tested.</div>
+<div class="note" style="margin-top:25px"><strong>Project status:</strong> The mechanics are playable in a separate local browser prototype. The online Unity build, two-client synchronization tests, shipped multiplayer sessions and release history will be added when implemented and validated.</div>
 </div></section>
+<section id="architecture" class="section"><div class="shell">
+<span class="eyebrow">04 / MULTIPLAYER IMPLEMENTATION SPECIFICATION</span><h2>One authoritative simulation. Two complementary inputs.</h2>
+<p>The browser sandbox tests the shared-control mechanic. The Unity multiplayer version is designed around a host-authoritative seed with separate player input ownership, a synced checkpoint/goal state, and visual feedback derived from client-observed data.</p>
+<div class="modules">
+<div class="module"><h3>PlayerInput / ownership</h3><p>Each client owns only its input channel: Player A requests lift; Player B requests lateral wind. The server/host validates and combines those commands.</p></div>
+<div class="module"><h3>SeedMotor / physics</h3><p>The authoritative Unity C# simulation applies gravity, combined wind acceleration, drag, collision and checkpoint rules at a fixed update rate.</p></div>
+<div class="module"><h3>NetworkSeed / replicated state</h3><p>Position, velocity, level state and attempt/checkpoint events are synchronized. Clients interpolate render position; late input never directly overwrites authoritative physics state.</p></div>
+<div class="module"><h3>WindVFX / player feedback</h3><p>Shader flow, cloud deformation, particles, sound and camera response read a normalized wind vector and seed state. Rendering quality can change without modifying the rules of the game.</p></div>
+<div class="module"><h3>DesignerConfig / content</h3><p>ScriptableObjects or Inspector presets contain wind-force ranges, camera damping, obstacle layout and retry rules. These values support repeatable comparison across level variants.</p></div>
+<div class="module"><h3>Session / update workflow</h3><p>Build version, host/client join and leave, disconnect state, level restarts and session errors are recorded for debugging. Playtest observations lead to a documented update cycle.</p></div>
+</div>
+<div class="note" style="margin-top:20px"><strong>Implementation boundary:</strong> The local browser game is playable now. NetworkSeed, authoritative Unity session synchronization, two-client tests, designer Inspector tools and live deployment logs are the defined build targets, not completed features.</div>
+</div></section>
+<section id="acceptance" class="section"><div class="shell">
+<span class="eyebrow">05 / REVIEWABLE TEST PLAN</span><h2>What a finished vertical slice will prove.</h2>
+<div class="modules">
+<div class="module"><h3>Two independent players</h3><p>Open two independent builds or computers, connect both to one session and verify that each player's controls influence one shared seed.</p></div>
+<div class="module"><h3>State under adverse conditions</h3><p>Test latency and disconnect scenarios; compare both screen captures to confirm authoritative collision and checkpoint outcomes remain consistent.</p></div>
+<div class="module"><h3>Designer iteration</h3><p>Use level and camera presets to change wind strength, framing and obstacle spacing; document a tuned revision without rewriting the movement logic.</p></div>
+<div class="module"><h3>Patch / operations</h3><p>Issue a versioned build, record session bugs, reproduce and fix a defect, deploy a revision and compare before/after gameplay footage.</p></div>
+</div>
+</div></section>
+<section id="media" class="section"><div class="shell">
+<span class="eyebrow">06 / GAMEPLAY FOOTAGE & MEDIA SLOTS</span><h2>Gameplay material to insert.</h2><p>Planned captures are specified now so the portfolio can be completed by replacing the media panels as implementation progresses.</p>
+<div class="modules">
+<div class="module"><span class="eyebrow">VIDEO 01 · 60–90 SEC</span><h3>Two-player co-op gameplay</h3><p>Split-screen recording of two independent clients connecting, moving a shared seed, reaching one checkpoint and finishing the level.</p></div>
+<div class="module"><span class="eyebrow">VIDEO 02 · 30 SEC</span><h3>Input → feedback</h3><p>Show player wind input, seed acceleration, deformation, particles, camera and sound in a single comparison clip.</p></div>
+<div class="module"><span class="eyebrow">IMAGE 01</span><h3>Netcode / Unity architecture</h3><p>Annotated screenshot of input ownership, seed sync component, scene structure and Inspector tuning parameters.</p></div>
+<div class="module"><span class="eyebrow">IMAGE 02</span><h3>Build and update history</h3><p>Release notes, test log and a before/after comparison for at least one corrected multiplayer problem.</p></div>
+</div></div></section>
 <section id="operations" class="section"><div class="shell">
 <span class="eyebrow">04 / POST-DEPLOYMENT DESIGN · LIVE OPERATIONS PLAN</span><h2>A multiplayer build is only the beginning.</h2>
 <p>The planned operating cycle treats the prototype as a small online game that must be tested, updated and kept available for repeat sessions. These are implementation targets and acceptance criteria, not claims of prior commercial live-service ownership.</p>
