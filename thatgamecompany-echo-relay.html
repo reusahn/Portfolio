@@ -1,0 +1,113 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Echo Relay — Time-Offset Gameplay Systems | Jonghoon Ahn</title>
+<meta name="description" content="Echo Relay: a temporal-companion puzzle game design. Play a browser mechanics prototype while reviewing a proposed Unity C# player recording, ghost playback, deterministic event, and 3D puzzle architecture.">
+<link rel="stylesheet" href="thatgamecompany-case.css">
+<style>
+.game{border:1px solid var(--border);background:white;border-radius:5px;overflow:hidden;margin-top:24px}.game canvas{width:100%;height:auto;aspect-ratio:16/8.6;display:block;background:#263a36;touch-action:none}.gamebar{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:13px;flex-wrap:wrap}.gamebar .status{font:11px/1.65 var(--mono);color:#466754}.buttons{display:flex;gap:7px;flex-wrap:wrap}.buttons button{padding:9px 11px;background:#f8faf8;border:1px solid #c7d7cb;border-radius:3px;color:#3c614d;font:11px var(--mono);cursor:pointer}.buttons .primary{background:#274534;color:white;border-color:#274534}.control-descrip{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font:11px var(--mono);color:#57705d}.control-descrip b{font-weight:720;color:#294b35}.grid-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.stepbox{border:1px solid var(--border);background:white;border-radius:4px;padding:20px}.stepbox .num{font:10px var(--mono);color:#78917f}.stepbox h3{margin:8px 0;font-size:16px}.stepbox p{margin:0;color:#617268;font-size:12.5px}.warning{background:#ecf2ec;border:1px solid #d5e2d5;padding:16px 18px;margin-top:18px;color:#4d6452;font-size:13px;border-radius:4px}.warning strong{color:#254c36}@media(max-width:750px){.game canvas{aspect-ratio:16/11}.grid-guide{grid-template-columns:1fr}.gamebar{gap:8px}.buttons button{padding:8px}}
+</style></head><body>
+<header class="top"><div class="wrap topin"><a class="brand" href="thatgamecompany-final-target.html">Jonghoon Ahn.</a><a class="back" href="thatgamecompany-final-target.html">← Full portfolio target</a></div></header>
+<main>
+<section class="hero"><div class="wrap">
+<div class="kicker">INDEPENDENT GAMEPLAY PROJECT / TEMPORAL PUZZLE / UNITY C# TARGET</div>
+<h1>Echo Relay.</h1>
+<p class="lead">A spatial puzzle where a player leaves a moving record of their past self. What they do now becomes an action another version of themselves can perform later. The challenge is to synchronize present decisions with a time-delayed companion—not simply replay a cinematic ghost.</p>
+<div class="statline"><span><strong>DESIGN ROLE</strong>Gameplay systems &amp; level design</span><span><strong>UNITY TARGET</strong>3D C# · Action replay · Trigger logic</span><span><strong>CURRENT DEMO</strong>Playable browser timing sandbox</span></div>
+</div></section>
+<section class="section" id="demo"><div class="wrap">
+<div class="section-head"><span class="eyebrow">01 / CORE INTERACTION</span><div><h2>Build cooperation with your own past.</h2><p>Walk onto the pressure plate, press <strong>E</strong> to commit your recorded path, then reach the exit while your echo retraces the path and holds the gate open. The first action creates the opportunity for the second.</p></div></div>
+<div class="game"><canvas id="stage" width="1100" height="590" aria-label="Playable Echo Relay temporal mechanics demonstration: move with WASD or arrows, E commits an echo, R restarts"></canvas>
+<div class="gamebar"><span class="status" id="status">RECORDING · MOVE TOWARD THE PLATE</span><div class="buttons"><button id="left">←</button><button id="up">↑</button><button id="down">↓</button><button id="right">→</button><button class="primary" id="echo">COMMIT ECHO (E)</button><button id="reset">RESET (R)</button></div></div></div>
+<div class="control-descrip"><span><b>WASD / ARROWS</b> move</span><span><b>E</b> record echo &amp; rewind</span><span><b>R</b> restart</span><span><b>OBJECTIVE</b> place echo on plate, cross gate, reach light</span></div>
+<div class="grid-guide"><div class="stepbox"><span class="num">01 / ACT</span><h3>Record a path.</h3><p>Move from the start to the pressure plate. Your movement is sampled as position over time.</p></div>
+<div class="stepbox"><span class="num">02 / RETURN</span><h3>Commit the echo.</h3><p>Press E. You return to the starting point; the recorded companion begins replaying the path.</p></div>
+<div class="stepbox"><span class="num">03 / COOPERATE</span><h3>Cross the gate.</h3><p>The echo activates the plate and opens the gate. Your new movement can exploit that earlier action.</p></div></div>
+<div class="warning"><strong>What is actually built:</strong> a functioning 2D browser prototype with recorded positions, playback interpolation, timed triggers, collision and a success state. The intended <strong>Unity 3D C# version is a separate development target</strong>. This is intentionally distinct from Windward's two-client networked multiplayer.</div>
+</div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><span class="eyebrow">02 / GAME DESIGN</span><div><h2>What makes the mechanic worth exploring.</h2><p>A ghost must change the space, not just mirror a player's animation. A successful puzzle depends on recording useful actions and then performing complementary actions at the right moment.</p></div></div>
+<div class="split">
+<div class="panel"><h3>Time becomes an actor.</h3><p>Movement from the first pass becomes a replayable actor with a stable schedule. The player reasons about what their past action will activate, not merely where the character will stand.</p></div>
+<div class="panel"><h3>Present and past have separate responsibility.</h3><p>The echo owns a timed trigger, while the present player traverses the gate. Both are necessary, creating cooperation without a second connected player.</p></div>
+<div class="panel"><h3>Failure teaches the timing rule.</h3><p>If the player reaches a closed gate before the echo activates the plate, they can observe what must change. In the full game, the feedback would include a light/sound response and visible replay trail.</p></div>
+<div class="panel"><h3>Future puzzle vocabulary.</h3><p>Multiple echoes, moving pressure plates, timed switches, narrow passages, interaction recording, and limited echo memory. Add only when the basic mechanic proves readable in playtests.</p></div>
+</div></div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><span class="eyebrow">03 / TARGET UNITY ARCHITECTURE</span><div><h2>A deterministic time-offset gameplay system.</h2><p>The engine implementation separates input sampling, action recording, playback and world-state evaluation. Recording should use fixed simulation ticks so level triggers remain reproducible.</p></div></div>
+<div class="pipeline"><span>Player input</span><i>→</i><span>Tick-indexed movement records</span><i>→</i><span>Ghost replay actor</span><i>→</i><span>Pressure plate evaluation</span><i>→</i><span>Gate / level state</span></div>
+<div class="decisions">
+<div class="decision"><b>PlayerRecorder.cs</b><p>Samples authoritative movement state and discrete interact events into a bounded recording window. A completed take is immutable until re-recorded.</p></div>
+<div class="decision"><b>EchoPlayback.cs</b><p>Replays the exact tick/time index, reconstructs transforms and issues only permitted echo interactions. Rendering is interpolated independently of gameplay checks.</p></div>
+<div class="decision"><b>PuzzleTrigger.cs</b><p>Classifies player and echo contacts, evaluates authorable conditions, drives world changes, and resets cleanly after failed attempts.</p></div>
+<div class="decision"><b>LevelTestTools.cs</b><p>A designer selects memory duration, echo count, trigger intervals and route geometry with visual previews in-scene rather than adjusting custom puzzle scripts.</p></div>
+<div class="decision"><b>Playback correctness</b><p>Test repeat-run consistency, framerate variance, pausing, stale input and echo reset. Prefer tick-indexed state over floating-time assumptions for physics-critical switches.</p></div>
+<div class="decision"><b>Production handoff</b><p>Provide a Unity level and short design sheet: puzzle objective, intended player discovery, failure points, exact code responsibilities and an iteration captured after testing.</p></div>
+</div></div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><span class="eyebrow">04 / FINAL CASE MEDIA PLAN</span><div><h2>Evidence a gameplay programmer can defend.</h2><p>Planned media for the future Unity build. Unlike the browser sandbox, these assets must be captured from the actual Unity implementation.</p></div></div>
+<div class="gallery">
+<figure class="figure"><div class="slot"><span class="number">UNITY GAMEPLAY</span><strong>First puzzle, uncut</strong><span>Record path → echo → gate → exit</span></div><figcaption><b>60–90 second gameplay recording</b>Show how players understand the loop, how failure looks, and how completion resolves.</figcaption></figure>
+<figure class="figure"><div class="slot"><span class="number">SOURCE WALKTHROUGH</span><strong>C# replay system</strong><span>Recorder, ghost actor, trigger evaluator</span></div><figcaption><b>Inspectable implementation</b>Readable source, scene hierarchy and fixed-timestep playback explanation.</figcaption></figure>
+<figure class="figure"><div class="slot"><span class="number">LEVEL ITERATION</span><strong>Before / after puzzle</strong><span>Observed playtest misunderstanding → revision</span></div><figcaption><b>Game design decisions</b>Show one genuine usability issue and the changed level or interaction feedback.</figcaption></figure>
+<figure class="figure"><div class="slot"><span class="number">EDITOR SCREENSHOT</span><strong>Echo and switch settings</strong><span>Recording horizon / trigger types / feedback</span></div><figcaption><b>Designer handoff</b>Demonstrate level parameterization without exposing gameplay logic to nonprogrammers.</figcaption></figure>
+</div></div></section>
+<section class="cta"><div class="wrap"><div class="actions"><a class="button primary" href="thatgamecompany-final-target.html">← Target portfolio</a><a class="button" href="thatgamecompany-windward.html">Compare independent multiplayer game ↗</a></div></div></section>
+</main><footer class="foot"><div class="wrap">© 2026 Jonghoon Ahn · Echo Relay · Technical Game Design</div></footer>
+<script>
+(function(){
+'use strict';
+const cvs=document.getElementById('stage'),ctx=cvs.getContext('2d'),status=document.getElementById('status');
+const world={W:1100,H:590,playerStart:{x:120,y:280},doorX:620,doorY:226,doorH:112,plate:{x:365,y:280,r:32},goal:{x:965,y:285,r:39}};
+let player,tracking=[],ghost=null,ghostT=0,recordT=0,opened=false,finished=false,last=0,tries=0;
+const keys={up:false,down:false,left:false,right:false};
+const rects=[{x:620,y:0,w:27,h:226},{x:620,y:338,w:27,h:252}];
+const colors={ink:'#273f3b',line:'#b5d5c0',light:'#e6d6b2',echo:'#b3e2ce'};
+function init(){player={...world.playerStart};tracking=[{t:0,x:player.x,y:player.y}];ghost=null;ghostT=0;recordT=0;opened=false;finished=false;tries++;status.textContent='RECORDING · MOVE ONTO THE PRESSURE PLATE';}
+function collideCircle(rect,x,y,r){const px=Math.max(rect.x,Math.min(x,rect.x+rect.w)),py=Math.max(rect.y,Math.min(y,rect.y+rect.h));return Math.hypot(px-x,py-y)<r;}
+function canMove(x,y,doorOpen){if(x<18||x>world.W-18||y<30||y>world.H-34)return false;for(const wall of rects)if(collideCircle(wall,x,y,13))return false;if(!doorOpen&&collideCircle({x:620,y:226,w:27,h:112},x,y,13))return false;return true;}
+function sample(t){if(!ghost||!ghost.length)return null;if(t>=ghost[ghost.length-1].t)return ghost[ghost.length-1];let lo=0,hi=ghost.length-1;while(lo<hi){let m=Math.floor((lo+hi+1)/2);if(ghost[m].t<=t)lo=m;else hi=m-1;}let a=ghost[lo],b=ghost[Math.min(lo+1,ghost.length-1)],f=Math.max(0,Math.min(1,(t-a.t)/Math.max(.00001,b.t-a.t)));return{x:a.x+(b.x-a.x)*f,y:a.y+(b.y-a.y)*f};}
+function commit(){if(ghost)return;if(tracking.length<5){status.textContent='MOVE FIRST, THEN COMMIT';return;}ghost=tracking.slice();ghostT=0;player={...world.playerStart};opened=false;status.textContent='ECHO RECORDED · FOLLOW YOUR PAST SELF';}
+function advance(dt){if(finished)return;const speed=220,dx=(keys.right?1:0)-(keys.left?1:0),dy=(keys.down?1:0)-(keys.up?1:0),length=Math.hypot(dx,dy)||1,vx=dx/length*speed*dt,vy=dy/length*speed*dt;
+if(ghost)ghostT+=dt;const e=sample(ghostT);
+opened=!!(e&&Math.hypot(e.x-world.plate.x,e.y-world.plate.y)<world.plate.r+3);
+if(canMove(player.x+vx,player.y,opened))player.x+=vx;
+if(canMove(player.x,player.y+vy,opened))player.y+=vy;
+if(!ghost){recordT+=dt;if(tracking.length===0||recordT-tracking[tracking.length-1].t>=1/40){tracking.push({t:recordT,x:player.x,y:player.y});}}
+if(Math.hypot(player.x-world.goal.x,player.y-world.goal.y)<world.goal.r){finished=true;status.textContent=ghost?'LEVEL CLEARED · COOPERATED WITH YOUR PAST':'RECORD AN ECHO TO REACH THE LIGHT';}
+else if(ghost)status.textContent=opened?'ECHO ON PLATE · GATE OPEN':'ECHO REPLAYING · GATE CLOSED';
+}
+function circle(x,y,r,fill){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=fill;ctx.fill();}
+function draw(){
+const W=cvs.width,H=cvs.height;
+ctx.fillStyle=colors.ink;ctx.fillRect(0,0,W,H);
+for(let i=0;i<13;i++){let x=i*91+35,y=65+(i*73)%380;circle(x,y,25+(i%3)*9,'rgba(165,207,180,.07)');}
+ctx.fillStyle='#3a5b4e';ctx.fillRect(0,H-44,W,44);
+ctx.fillStyle='#5e8572';rects.forEach(r=>ctx.fillRect(r.x,r.y,r.w,r.h));
+ctx.fillStyle=opened?'rgba(147,229,169,.12)':'#b08f7a';ctx.fillRect(620,226,27,112);
+ctx.strokeStyle=opened?'#a4d3b1':'#d0b8a4';ctx.lineWidth=3;ctx.strokeRect(618,224,31,116);
+ctx.strokeStyle='#d4bb9a';ctx.lineWidth=3;ctx.beginPath();ctx.arc(world.plate.x,world.plate.y,world.plate.r,0,Math.PI*2);ctx.stroke();
+circle(world.plate.x,world.plate.y,world.plate.r-4,opened?'rgba(169,232,187,.3)':'rgba(222,192,153,.17)');
+ctx.strokeStyle='#c7dfc9';ctx.beginPath();ctx.arc(world.goal.x,world.goal.y,world.goal.r,0,Math.PI*2);ctx.stroke();
+ctx.fillStyle='#c4dfc7';ctx.textAlign='center';ctx.font='13px monospace';ctx.fillText('REACH THE LIGHT',world.goal.x,world.goal.y-61);
+ctx.fillText('PRESSURE PLATE',world.plate.x,world.plate.y-55);
+ctx.font='11px monospace';ctx.fillText(opened?'OPEN':'LOCKED',634,205);
+if(tracking.length>1){ctx.lineWidth=2;ctx.strokeStyle=ghost?'rgba(169,230,203,.38)':'rgba(223,203,166,.37)';ctx.beginPath();ctx.moveTo(tracking[0].x,tracking[0].y);for(let i=1;i<tracking.length;i+=2)ctx.lineTo(tracking[i].x,tracking[i].y);ctx.stroke();}
+const echo=sample(ghostT);
+if(echo){circle(echo.x,echo.y,19,'rgba(146,218,185,.13)');circle(echo.x,echo.y,12,colors.echo);ctx.fillStyle='#a2cdb7';ctx.font='12px monospace';ctx.fillText('ECHO',echo.x,echo.y-29);}
+circle(player.x,player.y,15,colors.light);ctx.fillStyle='#456951';ctx.beginPath();ctx.ellipse(player.x-5,player.y-18,5,12,-.3,0,Math.PI*2);ctx.fill();
+ctx.fillStyle='#e3e5d7';ctx.font='12px monospace';ctx.fillText('YOU',player.x,player.y-31);
+ctx.fillStyle='rgba(15,40,30,.67)';ctx.fillRect(16,17,370,75);ctx.fillStyle='#d5e7d7';ctx.textAlign='left';ctx.fillText(ghost?'ECHO TRACK / PLAYBACK':'LIVE TRACK / RECORDING',29,40);
+ctx.fillText(ghost?'ECHO TIME  '+ghostT.toFixed(1)+'s':'REC TIME   '+recordT.toFixed(1)+'s',29,62);
+if(finished){ctx.fillStyle='rgba(22,48,37,.86)';ctx.fillRect(275,215,550,170);ctx.fillStyle='#f3eed9';ctx.font='bold 28px sans-serif';ctx.textAlign='center';ctx.fillText('YOU WERE HERE BEFORE.',550,282);ctx.font='15px sans-serif';ctx.fillText('Press R to restart the encounter.',550,318);}
+}
+function loop(ts){let dt=Math.min(.04,(ts-last)/1000||.016);last=ts;advance(dt);draw();requestAnimationFrame(loop);}
+function bind(id,k){const b=document.getElementById(id);function set(v){keys[k]=v;}b.addEventListener('pointerdown',e=>{e.preventDefault();set(true);b.setPointerCapture?.(e.pointerId)});for(const ev of ['pointerup','pointercancel','lostpointercapture','pointerleave'])b.addEventListener(ev,()=>set(false));}
+[['up','up'],['down','down'],['left','left'],['right','right']].forEach(p=>bind(...p));
+document.getElementById('echo').addEventListener('click',commit);
+document.getElementById('reset').addEventListener('click',init);
+const mappings={ArrowUp:'up',KeyW:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right'};
+document.addEventListener('keydown',e=>{if(mappings[e.code]){keys[mappings[e.code]]=true;e.preventDefault();}if(e.code==='KeyE'){commit();e.preventDefault();}if(e.code==='KeyR'){init();e.preventDefault();}});
+document.addEventListener('keyup',e=>{if(mappings[e.code]){keys[mappings[e.code]]=false;e.preventDefault();}});
+window.addEventListener('blur',()=>Object.keys(keys).forEach(k=>keys[k]=false));
+init();requestAnimationFrame(loop);
+})();
+</script></body></html>
