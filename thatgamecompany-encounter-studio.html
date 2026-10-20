@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Encounter Studio — Gameplay Tools & Systems | Jonghoon Ahn</title>
+<meta name="description" content="An authoring-tool prototype for cooperative gameplay. Build and test encounter conditions and reactions for Windward: player input, shared state, procedural creature feedback, Cinemachine cues, and designer-tunable gameplay rules.">
+<link rel="icon" href="assets/images/favicon.png"><link rel="stylesheet" href="thatgamecompany-case.css">
+<style>
+.tool-layout{display:grid;grid-template-columns:minmax(0,1.4fr) 310px;background:#fff;border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-top:24px}
+.preview{background:#263d3b;position:relative;min-height:430px}.preview canvas{display:block;width:100%;height:430px}.corner{position:absolute;left:18px;top:14px;font:10px var(--mono);color:#c5d8cb;letter-spacing:.08em;pointer-events:none}
+.editor{padding:19px;background:#fff;border-left:1px solid var(--border)}.editor>h3{font-size:16px}.control{margin-top:16px}.control label{display:flex;justify-content:space-between;gap:10px;color:#3f584a;font-weight:650;font-size:12px;margin-bottom:6px}.control output{font:11px var(--mono);color:#44725c}.control input[type=range]{width:100%;accent-color:#3b7960}.control select{width:100%;background:white;border:1px solid #cbd7cf;color:#264e3b;padding:9px 7px;border-radius:4px;font:12px var(--mono)}
+.smallbuttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:19px}.smallbuttons button{font:11px var(--mono);padding:9px 11px;border:1px solid #c7d6cb;background:#f9fbf8;color:#3d644f;border-radius:3px;cursor:pointer}.smallbuttons .primary{color:white;background:#264b38;border-color:#264b38}
+.statusbar{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap;background:#edf2ed;border:1px solid #dce6dd;padding:12px 15px;margin-top:12px;border-radius:4px;font:11px var(--mono);color:#486c55}.statusbar strong{color:#285340}
+.sequence{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px}.sequence div{padding:15px 10px;text-align:center;border:1px solid var(--border);background:#fff;border-radius:3px;font:11px var(--mono);color:#506556}.sequence strong{display:block;font:10px var(--mono);color:#9aaa9a;margin-bottom:8px}
+.node-preview{margin-top:20px;background:white;border:1px solid var(--border);padding:19px;border-radius:5px}.node-preview h3{margin:0 0 13px}.node-preview pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#263b33;color:#e6eee8;padding:17px;margin:0;font:11px/1.8 var(--mono);border-radius:4px}
+.activity{display:flex;flex-direction:column;gap:8px;margin-top:12px}.activity div{background:white;border:1px solid var(--border);padding:8px 12px;color:#52675a;font:11px var(--mono);border-radius:3px}
+.stage-label{margin-top:20px;font:11px var(--mono);color:#75917c}.tool-note{padding:14px 17px;border:1px solid #cbdaca;background:#edf4ed;border-radius:4px;color:#4e6655;font-size:12.5px;margin-top:18px}
+@media(max-width:820px){.tool-layout{grid-template-columns:1fr}.editor{border-left:0;border-top:1px solid var(--border)}.preview,.preview canvas{min-height:315px;height:315px}.sequence{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style></head><body>
+<header class="top"><div class="wrap topin"><a class="brand" href="thatgamecompany-game-design.html">Jonghoon Ahn.</a><a class="back" href="thatgamecompany-game-design.html">← Technical Game Design Portfolio</a></div></header>
+<main>
+<section class="hero"><div class="wrap"><div class="kicker">TECHNICAL GAME DESIGN / LEVEL-AUTHORING TOOLS / UNITY C#</div>
+<h1>Encounter Studio.</h1>
+<p class="lead">A designer-facing system for authoring cooperative encounters in <i>Windward</i>. Instead of asking engineers to hard-code every puzzle, a designer combines player conditions, shared-world actions, and audiovisual feedback in reusable encounter presets.</p>
+<div class="statline"><span><strong>FORMAT</strong>Working-title technical design sample</span><span><strong>DEMO</strong>Interactive browser rule preview</span><span><strong>UNITY BUILD</strong>Planned C# Editor extension</span></div>
+</div></section>
+<section class="section" id="sandbox"><div class="wrap">
+<div class="section-head"><span class="eyebrow">01 / INTERACTIVE RULE PREVIEW</span><div><h2>Change the rule. See the encounter change.</h2>
+<p>Adjust each player's simulated input and the encounter's authoring parameters. The preview evaluates conditions over time, activates world reactions, and records events. These are live browser interactions illustrating the future Unity tool—not captures of a finished Unity Inspector.</p></div></div>
+<div class="tool-layout">
+  <div class="preview"><div class="corner">SIMULATED ENCOUNTER · DESIGNER PREVIEW</div><canvas id="world" role="img" aria-label="Interactive visualization of two players controlling wind, a shared seed, an encounter gate and a reactive creature"></canvas></div>
+  <aside class="editor">
+    <div class="eyebrow">ENCOUNTER PROFILE</div>
+    <div class="control"><label for="preset">Encounter type</label><select id="preset"><option value="gate">Shared gate</option><option value="bridge">Wind bridge</option><option value="creature">Quiet guardian</option></select></div>
+    <div class="control"><label for="a">Player A · Lift <output id="aV">0%</output></label><input id="a" type="range" min="0" max="100" value="0" step="5"></div>
+    <div class="control"><label for="b">Player B · Wind <output id="bV">0%</output></label><input id="b" type="range" min="-100" max="100" value="0" step="5"></div>
+    <div class="control"><label for="threshold">Required input <output id="thresholdV">55%</output></label><input id="threshold" type="range" min="20" max="90" step="5" value="55"></div>
+    <div class="control"><label for="hold">Activation hold <output id="holdV">1.2 s</output></label><input id="hold" type="range" min=".2" max="3" step=".1" value="1.2"></div>
+    <div class="control"><label for="feedback">Feedback preset</label><select id="feedback"><option value="soft">Soft / responsive</option><option value="strong">Strong / clear</option><option value="quiet">Minimal / subtle</option></select></div>
+    <div class="smallbuttons"><button class="primary" id="test">Run / restart</button><button id="copy">Copy encounter JSON</button></div>
+  </aside>
+</div>
+<div class="statusbar"><span>RULE STATE: <strong id="ruleState">WAITING FOR INPUT</strong></span><span>CHARGE: <strong id="charge">0%</strong></span><span>RESPONSE: <strong id="action">IDLE</strong></span></div>
+<div class="sequence"><div><strong>01 / SENSE</strong>Input channels</div><div><strong>02 / EVALUATE</strong>Rule + timer</div><div><strong>03 / CHANGE</strong>World state</div><div><strong>04 / EXPRESS</strong>Camera · VFX · sound</div></div>
+<div class="node-preview"><h3>Editable encounter asset — preview structure</h3><pre id="json"></pre></div>
+<div class="tool-note"><strong>Implementation boundary:</strong> This is a functioning browser rules sandbox with a state evaluator and a visual preview. Unity C# runtime components, custom inspectors, multiplayer integration, and actual Cinemachine/VFX/Audio hooks are the next build. The browser preview is not presented as a Unity Editor extension.</div>
+</div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><span class="eyebrow">02 / GAME DESIGN PROBLEM</span><div><h2>Cooperation must be authored, not hard-coded.</h2>
+<p>A prototype can have a single scripted door. A production tool must let a designer create new encounters—by composing player conditions, rule timing, world actions and response presets—without requesting a new C# class for each level.</p></div></div>
+<div class="split">
+<div class="panel"><h3>Encounter A — Shared Gate</h3><p>The lift and horizontal force must satisfy a combined condition for a sustained interval. The gate opens, a soft wind motif plays, and the camera widens for the reveal. Each player's input alone is insufficient.</p></div>
+<div class="panel"><h3>Encounter B — Wind Bridge</h3><p>Both inputs shape a temporary passage. High lift stabilizes the seed while a controlled lateral current extends a traversable bridge. The bridge collapses if the cooperative force is not maintained.</p></div>
+<div class="panel"><h3>Encounter C — Quiet Guardian</h3><p>An AI creature responds to restraint, not maximum force. Low disturbance encourages approach; abrupt force makes it withdraw. Gaze, head pose and stepping are procedural reaction channels.</p></div>
+<div class="panel"><h3>Reusability</h3><p>One authoring format produces three different encounters. A designer edits thresholds, timing, action targets and feedback independently, rather than duplicating custom encounter scripts.</p></div></div>
+</div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><span class="eyebrow">03 / PROPOSED UNITY SYSTEM</span><div><h2>Runtime contract and level-editor workflow.</h2>
+<p>Designed to work alongside Unity's existing systems rather than replace them. Cinemachine continues to own camera follow and framing. Animator / Animation Rigging own character playback and procedural pose adjustments. The toolkit owns game-specific cooperative conditions, event ordering and designer-facing authoring.</p></div></div>
+<div class="pipeline"><span>Owned player inputs</span><i>→</i><span>Host-validated game state</span><i>→</i><span>Encounter evaluator</span><i>→</i><span>Encounter action</span><i>→</i><span>Feedback adapters</span></div>
+<div class="decisions">
+<div class="decision"><b>EncounterDefinition : ScriptableObject</b><p>Serializes conditions, thresholds, hold times, target IDs, action ordering and feedback preset references as reusable data assets.</p></div>
+<div class="decision"><b>EncounterEvaluator : C# runtime</b><p>Consumes canonical game-state snapshots, maintains condition timers, dispatches one-shot state transitions and supports reset/checkpoint semantics.</p></div>
+<div class="decision"><b>EncounterEditor : EditorWindow</b><p>Lists authored encounters, previews triggers in a sandbox scene, shows rule evaluation over time, exposes handles for volumes and validates missing references.</p></div>
+<div class="decision"><b>Game-feel adapters</b><p>Pure gameplay state events drive Cinemachine profiles, HLSL material parameters, VFX Graph or Niagara-equivalent Unity effects, audio cues and Animator triggers.</p></div>
+<div class="decision"><b>Procedural creature adapter</b><p>Maps proximity, movement intensity and cooperation to approach/flee states, head/eye targets and foot placement through animation layers and Unity Animation Rigging.</p></div>
+<div class="decision"><b>Multiplayer state inspection</b><p>Read-only visualization compares two players' inputs with host-authoritative encounter outcomes, including latency/disconnect traces. This remains a planned test tool.</p></div>
+</div>
+</div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><span class="eyebrow">04 / DESIGNER ACCEPTANCE TEST</span><div><h2>How the tool earns its place in production.</h2><p>The evaluation is not “does a custom inspector exist?” It is whether another designer can build and revise a meaningful encounter independently and whether the outcome remains deterministic for both players.</p></div></div>
+<div class="listrows">
+<div class="listrow"><b>Make an encounter</b><p>Using only the editor, author a new gate with different thresholds and feedback. No changes to core C# code.</p></div>
+<div class="listrow"><b>Change the feel</b><p>Retune charge duration, camera anticipation and audio/VFX intensity in a test scene. Show the same input replay before and after.</p></div>
+<div class="listrow"><b>Network consistency</b><p>Two connected clients receive the same authoritative encounter result; a delayed input cannot independently trigger an unauthorized world state.</p></div>
+<div class="listrow"><b>Debuggable states</b><p>Display each rule's operands, timer, activation edge and reset cause. Reproduce a failure from captured input and session events.</p></div>
+<div class="listrow"><b>Designer handoff</b><p>Write a one-page quick-start guide, ask another person to create a variant encounter, observe blockers and make one improvement based on feedback.</p></div>
+</div></div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><span class="eyebrow">05 / CAPTURES TO ADD</span><div><h2>Source, in-editor demo and player-facing result.</h2><p>These placeholders reserve the exact media to replace once the Unity implementation is built.</p></div></div>
+<div class="gallery">
+<figure class="figure"><div class="slot"><span class="number">01 / VIDEO TO RECORD</span><strong>Designer creates an encounter</strong><span>Unity Editor → play mode → in-game reaction</span></div><figcaption><b>Tool authoring flow</b>Uncut screen recording showing thresholds, authored volumes and rule preview.</figcaption></figure>
+<figure class="figure"><div class="slot"><span class="number">02 / VIDEO TO RECORD</span><strong>Two-client co-op trigger</strong><span>Both clients · shared world-state change</span></div><figcaption><b>Multiplayer correctness</b>Side-by-side test including event logs, authority and delayed inputs.</figcaption></figure>
+<figure class="figure"><div class="slot"><span class="number">03 / IMAGE TO CAPTURE</span><strong>C# evaluator + Inspector</strong><span>Rules data / evaluator logic / trace</span></div><figcaption><b>Implementation detail</b>Readable code and visible serialized data corresponding to a tested rule.</figcaption></figure>
+<figure class="figure"><div class="slot"><span class="number">04 / VIDEO TO RECORD</span><strong>Quiet Guardian behavior</strong><span>Approach / gaze / animation layers</span></div><figcaption><b>Creature reaction</b>Same level, different player behavior, visibly different creature response.</figcaption></figure>
+</div></div></section>
+<section class="cta"><div class="wrap"><div class="actions">
+<a class="button primary" href="thatgamecompany-windward.html">View Windward gameplay concept ↗</a>
+<a class="button" href="thatgamecompany-frameflow.html">Earlier camera-only sandbox ↗</a>
+<a class="button" href="thatgamecompany-game-design.html">← Back to portfolio</a>
+</div></div></section>
+</main><footer class="foot"><div class="wrap">© 2026 Jonghoon Ahn · Technical Game Design · Encounter Studio working title</div></footer>
+<script>
+(function(){
+"use strict";
+const ids=['preset','a','b','threshold','hold','feedback'];
+const el=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
+const c=document.getElementById('world'),ctx=c.getContext('2d');
+const names={gate:'Shared Gate',bridge:'Wind Bridge',creature:'Quiet Guardian'};
+let t=0,charge=0,active=false,prev=0,lastEvent='';
+function parameters(){return {name:names[el.preset.value],type:el.preset.value,playerA:{channel:'lift',value:Number(el.a.value)/100},playerB:{channel:'wind',value:Number(el.b.value)/100},condition:{inputThreshold:Number(el.threshold.value)/100,holdSeconds:Number(el.hold.value)},onEnter:el.preset.value==='gate'?['OpenGate','CinemachineWide','SoftWindCue']:el.preset.value==='bridge'?['EnableBridge','WindFX','CameraTrack']:['CreatureApproach','LookAtPlayer','SoftChime'],onExit:el.preset.value==='creature'?['CreatureRetreat']:['Deactivate'],feedbackPreset:el.feedback.value};}
+function print(){let p=parameters();document.getElementById('aV').textContent=Math.round(p.playerA.value*100)+'%';document.getElementById('bV').textContent=Math.round(p.playerB.value*100)+'%';document.getElementById('thresholdV').textContent=Math.round(p.condition.inputThreshold*100)+'%';document.getElementById('holdV').textContent=p.condition.holdSeconds.toFixed(1)+' s';document.getElementById('json').textContent=JSON.stringify({id:p.type,condition:p.condition,actions:p.onEnter,feedback:p.feedbackPreset},null,2);}
+function reset(){t=0;charge=0;active=false;lastEvent='';document.getElementById('ruleState').textContent='WAITING FOR INPUT';document.getElementById('action').textContent='IDLE';print();}
+ids.forEach(id=>el[id].addEventListener('input',()=>{if(id==='preset')reset();else print();}));
+document.getElementById('test').addEventListener('click',reset);
+document.getElementById('copy').addEventListener('click',()=>{let val=document.getElementById('json').textContent;if(navigator.clipboard?.writeText){navigator.clipboard.writeText(val).then(()=>{document.getElementById('action').textContent='JSON COPIED'}).catch(()=>{document.getElementById('action').textContent='COPY NOT AVAILABLE'});}else{document.getElementById('action').textContent='COPY NOT AVAILABLE';}});
+function render(now){let dt=Math.min(.04,(now-prev)/1000||.016);prev=now;t+=dt;const p=parameters();const a=p.playerA.value,b=p.playerB.value,thr=p.condition.inputThreshold;
+let satisfied=p.type==='creature'?(a<=1-thr&&Math.abs(b)<=1-thr):(a>=thr&&Math.abs(b)>=thr);
+if(satisfied){charge=Math.min(p.condition.holdSeconds,charge+dt);}else{charge=Math.max(0,charge-dt*2);active=false;}
+if(!active&&charge>=p.condition.holdSeconds){active=true;lastEvent=p.onEnter[0];}
+const pct=Math.round(charge/p.condition.holdSeconds*100);
+document.getElementById('charge').textContent=pct+'%';
+document.getElementById('ruleState').textContent=active?'TRIGGERED':satisfied?'CONDITION ACTIVE':'WAITING FOR INPUT';
+document.getElementById('action').textContent=active?lastEvent:'IDLE';
+let w=c.clientWidth,h=c.clientHeight,dpr=Math.min(2,window.devicePixelRatio||1);if(c.width!==Math.round(w*dpr)||c.height!==Math.round(h*dpr)){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr)}ctx.setTransform(dpr,0,0,dpr,0,0);
+ctx.fillStyle='#263d3b';ctx.fillRect(0,0,w,h);
+for(let i=0;i<15;i++){let x=(i*119+30)%Math.max(w,1),y=55+(i*71)%Math.max(h-90,1);ctx.fillStyle='rgba(184,217,192,.08)';ctx.beginPath();ctx.arc(x,y,22+(i%3)*7,0,Math.PI*2);ctx.fill();}
+const floor=h*.79;ctx.fillStyle='#39554b';ctx.fillRect(0,floor,w,h-floor);
+ctx.fillStyle='#88a892';ctx.fillRect(0,floor,w,2);
+const cx=w*.39,cy=h*.56;
+ctx.fillStyle='#e7dbbd';ctx.beginPath();ctx.arc(cx,cy,12,0,Math.PI*2);ctx.fill();ctx.fillStyle='#a8cca8';ctx.beginPath();ctx.ellipse(cx-5,cy-18,5,13,-.5,0,Math.PI*2);ctx.fill();
+const wind=Math.abs(b)*95, lift=a*70;
+ctx.strokeStyle='rgba(174,223,195,.65)';ctx.lineWidth=2;
+for(let i=0;i<4;i++){let xx=cx-35+i*15;ctx.beginPath();ctx.moveTo(xx,cy+45);ctx.lineTo(xx+4,cy+45-lift);ctx.stroke();}
+for(let i=0;i<4;i++){let yy=cy-20+i*14;ctx.beginPath();ctx.moveTo(cx-45*Math.sign(b||1),yy);ctx.lineTo(cx-45*Math.sign(b||1)+wind*Math.sign(b),yy);ctx.stroke();}
+const tx=w*.74;
+if(p.type==='gate'){ctx.fillStyle='#587968';ctx.fillRect(tx-20,floor-117,40,117);ctx.fillStyle=active?'#abd7b5':'#d5bfa0';let op=active?.22:1;ctx.globalAlpha=op;ctx.fillRect(tx-8,floor-112,16,110);ctx.globalAlpha=1;}
+else if(p.type==='bridge'){ctx.fillStyle=active?'#a1d7bd':'#668775';ctx.fillRect(w*.54,floor-44,w*.31,active?10:3);ctx.fillStyle=active?'#7abd9b':'#405b50';ctx.fillRect(w*.68,floor-8,w*.17,8);}
+else{let bx=tx+(active?-35:15)+Math.sin(t*.8)*4;ctx.fillStyle=active?'#bdd9bd':'#718b79';ctx.beginPath();ctx.ellipse(bx,floor-34,31,30,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#293e34';ctx.fillRect(bx-9,floor-44,4,4);ctx.fillRect(bx+6,floor-44,4,4);ctx.strokeStyle='#bed5bb';ctx.beginPath();ctx.moveTo(bx-13,floor-60);ctx.lineTo(bx-23,floor-78);ctx.moveTo(bx+13,floor-60);ctx.lineTo(bx+23,floor-78);ctx.stroke();}
+ctx.fillStyle='#cde2d2';ctx.font='11px monospace';ctx.textAlign='left';ctx.fillText('P1 / LIFT  '+Math.round(a*100)+'%',18,h-35);ctx.fillText('P2 / WIND  '+Math.round(b*100)+'%',18,h-18);
+ctx.textAlign='center';ctx.fillText(p.name.toUpperCase(),tx,floor-135);
+ctx.strokeStyle='#b5d4bb';ctx.strokeRect(20,44,Math.max(30,w-40),10);ctx.fillStyle=active?'#bde0c0':'#7fac92';ctx.fillRect(20,44,Math.max(0,w-40)*pct/100,10);
+ctx.fillStyle='#c8daca';ctx.textAlign='left';ctx.fillText(active?'RULE FIRED':'EVALUATING '+pct+'%',20,39);
+requestAnimationFrame(render);}
+print();requestAnimationFrame(render);
+})();
+</script></body></html>
