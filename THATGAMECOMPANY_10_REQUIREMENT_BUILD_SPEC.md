@@ -23,6 +23,17 @@ Game systems to develop:
 Current status: local *browser* seed-control demo exists; Unity network game / resonance / guardian extensions are not yet complete.
 Live brief: https://jonghoonahn.com/thatgamecompany-windward.html
 
+## Independent Gameplay Case: Echo Relay — time-offset puzzle
+
+**Distinct from Windward:** Echo Relay is a single-player deterministic replay puzzle, not another network co-op chapter. This provides an independently reviewable gameplay programming and level-design example.
+
+- **Core loop currently demonstrated in browser:** record a spatial path, commit the previous self as a replay actor, use the echo to activate a pressure plate, cross the gate and reach the goal.
+- **Signature second-level extension (to implement in Unity):** past echoes are only physically interactive when illuminated by the present player's light cone. The current player must record a route then deliberately position/aim the light to materialize earlier actions at the right instant.
+- **Target Unity C# architecture:** PlayerRecorder; fixed-tick EchoPlayback; PuzzleTrigger; EchoCollisionWindow (range/facing/occlusion); editor-authored level timing/trigger presets.
+- **Target media:** real Unity 3D uncut puzzle, inspector/recording samples, two-level progression and a before/after genuine playtest.
+- **Current status:** browser first-level preview implemented; real Unity scene and light-gated materialization are not yet implemented.
+- **URL:** https://jonghoonahn.com/thatgamecompany-echo-relay.html
+
 ## Flagship 2: Encounter Studio — designer-facing tool
 
 Why it exists: Unity provides Cinemachine and visual scripting already. Instead of cloning them, this tool offers a **game-specific authored co-op encounter workflow** that is reusable across levels.
@@ -46,9 +57,9 @@ Live brief: https://jonghoonahn.com/thatgamecompany-encounter-studio.html
 
 | # | Required or emphasized capability | Portfolio | What must be demonstrated |
 |---|---|---|---|
-| 1 | C# rapid 3D gameplay programming | Erick Oh + Windward | Inspectable C# source, scene and player input → state → response |
+| 1 | C# rapid 3D gameplay programming | Erick Oh + Windward + Echo Relay | Inspectable C# source, scene and player input → state → response |
 | 2 | Fluid controls and game feel | Graffiti + Windward | Real input recording and before/after visual/audio/camera feel |
-| 3 | Technical systems enabling gameplay | Windward | Playable loop with failure, reset, checkpoint and design constraints |
+| 3 | Technical systems enabling gameplay | Windward + Echo Relay | Playable loop with failure, reset, checkpoint and design constraints |
 | 4 | Designer pipeline / level editor tools | Encounter Studio | Unity EditorWindow, reusable assets, another designer tuning without code edits |
 | 5 | Visual scripting | Unreal Blueprint | Readable REAL Blueprint node graph and captured event response |
 | 6 | Multiplayer game development | Windward | Two independently connected clients, host authority, latency/disconnect test |
