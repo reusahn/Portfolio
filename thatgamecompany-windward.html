@@ -30,6 +30,17 @@
 </svg>
 <span class="label">GAMEPLAY RELATIONSHIP DIAGRAM · NOT A GAMEPLAY SCREENSHOT</span>
 </div></div></section>
+<section class="section" id="technical-chapters"><div class="shell">
+<span class="eyebrow">ONE GAME / FOUR PRODUCTION DEEP DIVES</span><h2>From playable systems to designer tools and live updates.</h2>
+<p>This portfolio treats Windward as one complete-game target rather than counting its camera, creature and operations features as separate shipped titles. Each technical chapter must show implementation choices, actual in-engine material, and the outcome it creates for players or collaborators.</p>
+<div class="modules">
+<div class="module"><h3>01 / Online cooperative simulation</h3><p>Independent clients and owned inputs, host-authoritative seed physics, replication/interpolation, reconnect, fail and retry. This is the foundation of the game.</p><p style="margin-top:12px"><a href="#architecture">Read networking architecture ↗</a></p></div>
+<div class="module"><h3>02 / Designer-authored encounters</h3><p>ScriptableObject rules, evaluation trace, scene-view authoring and reusable conditions: gates, wind bridges and creature responses. The same system powers multiple level moments.</p><p style="margin-top:12px"><a href="thatgamecompany-encounter-studio.html">Read Encounter Studio ↗</a></p></div>
+<div class="module"><h3>03 / Camera and procedural creature AI</h3><p>Gameplay-aware Cinemachine shot intent preserves clarity when two players separate; the guardian's procedural gaze, IK and behavior express a response to cooperation.</p><p style="margin-top:12px"><a href="thatgamecompany-camera-director.html">Camera Director ↗</a> · <a href="thatgamecompany-quiet-guardian.html">Quiet Guardian ↗</a></p></div>
+<div class="module"><h3>04 / Operating and improving the live game</h3><p>Versioned releases, online session logs, documented incidents, recovery and patch cycles. The case is evaluated on genuine operating records, not only an invented update plan.</p><p style="margin-top:12px"><a href="thatgamecompany-live-operations.html">Read operating-system deep dive ↗</a></p></div>
+</div>
+<div class="note" style="margin-top:20px"><strong>Current implementation status:</strong> the local browser mechanics sandbox is playable. Networked Unity sessions, camera extension, guardian system, production EditorWindow and actual live release evidence remain build targets and must be verified before marking this complete.</div>
+</div></section>
 <section class="section"><div class="shell">
 <span class="eyebrow">01 / PLAYER EXPERIENCE</span><h2>A small mechanic with genuine interdependence.</h2>
 <p>The game is designed around cooperation rather than two players doing the same thing. Neither can complete a level alone: vertical lift and horizontal steering must be combined to move a fragile seed past obstacles into a safe landing zone.</p>
