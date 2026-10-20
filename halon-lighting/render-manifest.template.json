@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "case_id": "",
+  "project_title": "",
+  "status": "capture_pending",
+  "engine": {
+    "version": "",
+    "project_revision": ""
+  },
+  "assets": [
+    {
+      "name": "",
+      "creator": "",
+      "source_url": "",
+      "contribution": ""
+    }
+  ],
+  "viewing_context": {
+    "output_mode": "",
+    "intended_platform": "",
+    "headset_if_applicable": ""
+  },
+  "hardware": {
+    "cpu": "",
+    "gpu": "",
+    "ram_gb": null
+  },
+  "camera": {
+    "shot_id": "",
+    "focal_length_mm": null,
+    "aperture": null,
+    "shutter": "",
+    "iso": null,
+    "exposure_mode": "",
+    "ev100": null,
+    "exposure_compensation": null
+  },
+  "render": {
+    "resolution_width": null,
+    "resolution_height": null,
+    "frame_rate": null,
+    "frame_range": "",
+    "gi_method": "",
+    "reflection_method": "",
+    "scalability": "",
+    "anti_aliasing": "",
+    "spatial_samples": null,
+    "temporal_samples": null,
+    "engine_warm_up_frames": null,
+    "render_warm_up_frames": null,
+    "color_output": ""
+  },
+  "measurement": {
+    "recorded": false,
+    "capture_tool": "",
+    "gpu_frame_time_ms": null,
+    "cpu_frame_time_ms": null,
+    "observations": []
+  },
+  "revision": {
+    "version": "",
+    "note": "",
+    "visual_change": "",
+    "tradeoff": ""
+  },
+  "files": []
+}
