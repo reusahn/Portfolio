@@ -1,104 +1,91 @@
-# Technical Game Designer — Final Portfolio Target Review
+# thatgamecompany Technical Game Designer — 10/10 Target Portfolio
 
-**Project:** thatgamecompany / Technical Game Designer, remote US/Canada
-**Portfolio target:** https://jonghoonahn.com/thatgamecompany-final-target.html
-**Current public page:** https://jonghoonahn.com/thatgamecompany-game-design.html
-**Review assumption:** every proposed feature, game, tool, release and test in the target portfolio has actually been developed, documented and shown in genuine source/video.
+**Updated:** 2026-10-19
+**Target-state portfolio (design preview):** https://jonghoonahn.com/thatgamecompany-final-target.html
+**Current actual portfolio:** https://jonghoonahn.com/thatgamecompany-game-design.html
+**Important:** “10/10” is the standard for a complete, defensible role-targeted body of work, *not* a factual employer score or guarantee of an interview. The target assumes real Unity builds, code reviews, gameplay tests, designer handoffs, and genuine release/incident records. Unfinished projects remain labelled.
 
-## The hiring-manager recommendation
+## Hiring-lead decision
 
-**12 case studies in 6 categories, with 3 hiring-critical products at the center.**
+Retire the version where one Windward game occupied five of twelve project cards. It inflates project count and leaves independent gameplay-programming proof weak.
 
-1. **Windward** — a compelling playable asymmetric online co-op, distinct from a shared joystick. Player decision, movement, failure recovery, state replication and clear emotional feedback are all real systems.
-2. **Encounter Studio + Adaptive Camera Director** — demonstrates the full loop: designer requests a feature → developer codes it → tests it in the game → exposes it as reusable content-authoring capabilities. Use Cinemachine, do not re-implement it.
-3. **Windward Live Operations** — distinct documented operating case for the *same* game, including session events, versioned updates, a reproduced bug and genuine patch cycle. Not a fabricated commercial LiveOps job.
+**Final target = 10 cards / 5 distinct disciplines.**
 
-A fourth technical showcase, **Quiet Guardian**, makes full use of Maya/rigging and procedural motion while covering creature AI that was explicitly mentioned in the posting. It should be a feature within Windward, not a second unrelated game.
+| Section | Case study 1 | Case study 2 | Hiring reason |
+|---|---|---|---|
+| 01 Playable games & programming | **Windward** | **Echo Relay** | Two independent playable systems: network co-op and deterministic time-offset puzzle |
+| 02 Production gameplay systems | Erick Oh — Responsive Game Systems | Escape Metro | Prior C# / HLSL work + AI dialogue used to resolve a real puzzle |
+| 03 Tools & visual scripting | **Encounter Studio** | Unreal Blueprint Interaction Systems | Designer-owned level authoring + existing visual scripting |
+| 04 Networked deployment & interaction | Jemulpo Photo Studio | Graffiti Freedom | Real TCP/Unity visitor deployments and direct input→persistent world response |
+| 05 Character & animation | Shininho/Gang — Maya Pipeline | Mobile Character Runtime | DCC, HumanIK, retargeting, Cloth/Animator, on-device delivery |
 
-The six areas and 12 cards:
-- 01 Gameplay & game feel: Windward / Responsive Game Systems (Erick Oh)
-- 02 Designer tools & camera features: Encounter Studio / Adaptive Camera Director
-- 03 Multiplayer & live operations: Windward Live Operations / Jemulpo Photo Studio
-- 04 AI creatures, procedural animation & cloth: Quiet Guardian / Mobile Character Runtime
-- 05 Visual scripting, Maya & animation: Blueprint Interaction Systems / Maya Character Pipeline
-- 06 NPC interactions and immersive play: Escape Metro / Graffiti Freedom
+### One complete game with four **technical chapters**
+The Windward case should link related engineering work as subcases, not misrepresent them as four other games:
 
-NARCI / Be NARCI remains reachable as additional VR work, but it does not take a core hiring-case card.
+1. **Networked Gameplay:** authoritative physics, independent owned inputs, two clients, interpolation, collisions, save/retry.
+2. **Designer Authoring:** Encounter Studio, ScriptableObjects and EditorWindow, authoring new level rules without bespoke code.
+3. **Camera & Creature:** Cinemachine-based gameplay framing, Quiet Guardian behavior and procedural character animation. See target details at `thatgamecompany-camera-director.html` and `thatgamecompany-quiet-guardian.html`.
+4. **Live Operations:** genuinely available online sessions, versioned build/content, compatibility, logs, defects and patches. See `thatgamecompany-live-operations.html`.
 
-## Hypothetical completed-portfolio scorecard (not current readiness)
+This is why **the main list needs only 10 projects**, not 12 or 15. The underlying engineering evidence is still comprehensive.
 
-These weights are an assessment framework, not the employer's official rubric:
+### Independent game — Echo Relay
+A single-player temporal-companion puzzle that does NOT share Windward's core technology or narrative premise. Record a player path, replay it as a ghost, create a time-offset cooperative condition that opens a door, navigate and finish.
 
-| Category | Weight | What would satisfy a 10/10 final presentation |
-|---|---:|---|
-| Gameplay design + C# implementation | 20 | Windward is fun in independent playtests, source reviewable, clear input/feedback and complete playable loop |
-| Designer-facing tools + iteration | 20 | Another designer authors a new encounter and camera treatment without C# changes; actual Unity Editor demo |
-| Multiplayer engineering | 15 | Two independent clients, authority, interpolation, lag and disconnect tests, no divergent win/fail |
-| Live-game operations | 15 | Real accessible game sessions, versioned content release, genuine incident, patch and follow-up |
-| AI, NPC, procedural motion + cloth | 10 | Player-driven creature behavior, IK and authored clips, prior Android cloth demonstration |
-| Visual scripting + DCC/engines | 10 | Inspectable real Blueprint graph with interactive behavior; real Maya rig and assets |
-| Feedback, expressive player feel | 5 | Before/after captures link player input to actual camera/VFX/audio tuning decisions |
-| Collaboration and handoff | 5 | A designer/tester uses tooling; actual feedback changes documented and demonstrated |
-| **Total** | **100** | **10/10 target only if the listed evidence exists and passes technical scrutiny** |
+- Existing: browser mechanics demo with recorded path, position interpolation, collision, gate/plate trigger, success/retry.
+- Required Unity build: C# input recording (fixed ticks), ghost actor playback, deterministic trigger state, authored puzzle parameters, 3D scene, genuine playtest, final footage and source walkthrough.
+- Page: https://jonghoonahn.com/thatgamecompany-echo-relay.html
+- Why it matters: shows independent gameplay-code design, state-machine and level-system competence rather than only artistic rendering or a single cooperative network prototype.
 
-**Non-negotiable nuance:** a genuinely released solo live game shows some relevant live operations, but does not automatically demonstrate maintaining a commercial live-service with a large production team. The distinction must be candid during an interview.
+### Designer tool — Encounter Studio
+Do not implement a redundant new Cinemachine or general Visual Scripting clone. Build a specific tool solving production problems:
+- Runtime C# encounter evaluator for owned input and canonical world state
+- Designer-authored conditions, hold timers, world actions, feedback profiles
+- Unity EditorWindow/ScriptableObject workflow with preview and validation
+- Actual test where a second designer authors a new encounter without editing gameplay source
+- Unity integration with existing Cinemachine/Animator/VFX systems
+- Current browser rule preview is not equivalent to the Unity editor tool.
 
-## Why these additions, not more unrelated projects
+## Full job requirement coverage (what a completed 10/10 review *requires*)
 
-- **Adaptive Camera Director:** the job description literally uses a new camera feature plus editor workflow as the exemplar week. A fully integrated, game-aware Cinemachine extension makes that example concrete. Simple follow/look-ahead sliders alone are insufficient.
-- **Quiet Guardian:** AI creature + Maya rig + procedural gaze/foot placement + player-readable intent, combined in one playable situation. Better than a decorative technical animation reel.
-- **Windward Live Operations:** required competency that is not established by Jemulpo's TCP portrait gallery. The operational history must be genuine, dated and reviewable.
-- **Encounter Studio:** keeps art, code, and design collaboration linked to real reused content rather than a generic duplicate of Visual Scripting.
+| Job competence | Where hiring reviewer finds it | Acceptance artifact |
+|---|---|---|
+| 3D gameplay programming in C/C++/C# | Windward + Echo Relay | Actual C# project sources, playable builds, end-to-end logic |
+| Rapid 3D prototypes and iteration | Two games + Erick Oh | Before/after player-feel playtests, design rationale |
+| Visual scripting | Unreal Blueprint | Actual node graph and triggered gameplay/sequence |
+| Multiplayer game development | Windward | Two physically independent clients, network session, authority & consistency tests |
+| Online live-game operations | Windward operations chapter | Genuinely hosted playable build, real players/sessions, logs, versioned release, reproducible bug and patch |
+| Maya/3D production | Shininho, Gang, Mobile | Maya wireframe/UV/HumanIK rig, animation and Unity/Unreal result |
+| Camera feature + editor tools | Adaptive Camera chapter (inside Windward), Encounter Studio | Actual Unity/Cinemachine extension and no-code editor iteration by a designer |
+| Procedural animation / cloth | Quiet Guardian chapter + Mobile Character Runtime | AI state + IK/gaze and Android runtime Cloth demo |
+| AI creatures & NPC interaction | Quiet Guardian + Escape Metro | Behavior changes on player actions + conversational password puzzle |
+| Expressive player feel | Windward, Erick Oh, Graffiti | Direct input→response recordings and actual feedback tuning |
+| Collaboration, risk-taking | Encounter Studio + deployed works | Designer handoff & real feedback, documented decisions and changes |
 
-## Submission evidence — exact sequence for each flagship
+**C++ preferred not compulsory:** original role accepts C/C#. No unverified C++ claim should be added.
 
-### Windward: candidate plays for 60–90 seconds
-1. First two-player encounter: each role moves independently.
-2. Wind Resonance solves a situation that cannot be solved by holding one button.
-3. Fail/retry and visual clarity work without UI exposition.
-4. Camera and creature respond to the shared action.
-5. A working Unity build and C# controller / authoritative state snippet accompany the footage.
+## 90-second hiring review sequence
 
-### Encounter Studio: candidate acts as a tool-building teammate
-1. In Unity Editor, select an existing encounter asset and duplicate it.
-2. Modify its co-op threshold, hold time, world action and feedback profile.
-3. Place/resize a trigger volume in Scene view and run the encounter.
-4. Show the changed gameplay plus the rule evaluation/debug display.
-5. Give the tool to a second designer/tester; show a genuine iteration from their feedback.
+1. **Windward:** first 60 seconds show the actual *two-client game* and the non-trivial interdependence of Wind Resonance.
+2. **Echo Relay:** 30 seconds show a completely different independent programming challenge—recorded actions, ghost replay, puzzle resolution.
+3. **Encounter Studio:** reviewer can immediately see a designer changing an encounter in Unity Editor and the resulting gameplay without modifying C#.
+4. From these three, reviewer opens detailed code, Unreal Blueprint, Maya and live-operations tabs to verify specialist requirements.
 
-### Adaptive Camera Director: candidate demonstrates a feature request lifecycle
-1. Before: a single follow camera hides the seed or a newly approaching creature.
-2. New feature: an explicit shot-intent arbitrator using Cinemachine target framing.
-3. In level editor: a designer adjusts priority, transition and zone boundaries.
-4. After: same recorded input, clearer gameplay visibility, no disruptive camera jump.
-5. Show actual code or a diagram precise enough to discuss Cinemachine responsibilities.
+## Definitions of “completed”
+- **Windward:** publicly/repeatably playable Unity network co-op with filmed two clients and consistent game state, human playtests, bugfixes.
+- **Echo Relay:** playable Unity 3D puzzle with reproducible ghost replay, authored level and test revisions.
+- **Encounter Studio:** functioning Unity Editor extension and another person's recorded use.
+- **Adaptive Camera Director:** real Cinemachine-backed feature, editor handles, input-controlled before/after camera visibility.
+- **Quiet Guardian:** actual reactive creature AI/animation, not a static cinematic render.
+- **Live Ops:** real dated online releases and incident response, with player impact and credible version history; no fictitious telemetry.
+- **Existing production projects:** each with role ownership, clean media, inspectable source/graph/rig visuals where permissible.
 
-### Windward Live Operations: candidate demonstrates shipping discipline
-1. A public or controlled live online session with build/version numbers.
-2. One encountered defect (not staged as a real incident) with reproducible steps.
-3. Diagnostic logs, a tested fix and a regression scenario.
-4. New content or gameplay adjustment with release notes.
-5. Real, dated patch announcement and replay footage. Do not invent player counts or telemetry.
+## Remaining non-portfolio risks
+- A solo game's beta/patches still may not count as **commercial live-service ownership at studio scale**. A hiring lead may consider it a must-have gap even if all work is excellent.
+- The applicant's ability to pass an actual C# gameplay test, discuss profiling and debugging, and communicate tradeoffs in English are evaluated independently of the website.
+- Do not tell the user that this structure guarantees an offer or a numeric “10/10” from the employer.
 
-### Quiet Guardian: candidate demonstrates AI + animation
-1. Two different wind/player behavior inputs.
-2. Observe→approach vs observe→retreat decisions with explainable thresholds.
-3. Side-by-side game footage and state/rig visualization.
-4. Maya/Animator/Animation Rigging integration, readable eye/head/feet targets.
-5. State flicker, obstacle, ground alignment and reset test.
-
-## Final technical interview risk items
-
-- **C++:** job prefers C++, but C# satisfies the language alternative. Do not invent C++ engine experience. A credible C# technical code walk matters much more than writing buzzwords.
-- **Unreal Blueprints:** an interactive event/state scene and a real node-graph walkthrough are stronger than showing only a Sequencer cinematic.
-- **Live operations:** authentic ongoing operation should include player-impact, not only a private simulation.
-- **Design rationale:** mechanics need documented reason and evidence from a playtest; “two player inputs” alone does not equal a compelling co-op game.
-- **Scope:** 12 cards represent 8–9 past productions plus modular case studies from *one* new Windward game/tooling ecosystem; do not imply 12 independent shipped games.
-
-## Output conventions
-
-- Existing works remain described in truthful terms.
-- New target-state cases retain a **TARGET PORTFOLIO** notice and clearly specified media/checkpoint slots.
-- Do not remove target warnings until their Unity implementation and actual release evidence exist.
-- Preserve old public job-specific page and unrelated `index.html`.
-- A perfect-looking website does not guarantee an interview or an offer; its score is an internal objective, not an employer probability.
+## Safe publishing
+- `thatgamecompany-final-target.html` is the proposed eventual finished layout; leave target-state disclosure until real implementation exists.
+- `thatgamecompany-game-design.html` is the separately maintained current public submission page; do not silently migrate unbuilt claims.
+- Do not modify unrelated `index.html`.
