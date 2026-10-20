@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Executable, deterministic synthetic gameplay anomaly detection baseline with precision, recall and failure analysis."><title>Game Signal Anomaly Lab — Jonghoon Ahn</title><link rel="stylesheet" href="site.css"></head>
+<body data-track="ml"><a class="skip" href="#main">Skip to main content</a><header class="site-header"><div class="shell nav"><a href="ml.html" class="identity">Jonghoon Ahn<span>Game Anomaly Lab / Synthetic baseline</span></a><nav class="navlinks" aria-label="Main navigation"><a href="ml.html">← ML portfolio</a><a href="#lab">Run baseline</a><a href="#protocol">Protocol</a><a href="accessibility.html">Accessibility</a></nav></div></header>
+<main id="main"><div class="lab-intro"><div class="shell"><div class="eyebrow" style="color:#bacbff">Executable research instrument / Deterministic toy data</div><h1>Game Signal Anomaly Lab</h1><p>A controlled test of one question: can a detector distinguish game-state mismatch from unusual but valid motion? This workbench uses synthesized controller and movement signals with labeled events. It does not use gameplay video, a pretrained vision-language model, or a published model.</p></div></div>
+<section class="section" id="lab"><div class="shell"><div class="lab-layout"><aside class="controls"><h2 style="font-size:21px">Experiment controls</h2><div style="margin-bottom:21px"><label for="scenario">Injected bug scenario</label><select id="scenario"><option value="stall">Stall: input without movement</option><option value="spike">Unexpected velocity spike</option><option value="reverse">Direction disagreement</option><option value="normal">No injected bug</option></select></div><div style="margin-bottom:20px"><label for="noise">Signal noise: <output id="noise-out">0.20</output></label><input type="range" min="0" max="0.70" step="0.05" id="noise" value="0.20"></div><div style="margin-bottom:21px"><label for="threshold">Detection threshold: <output id="thresh-out">0.70</output></label><input type="range" min="0.1" max="2.5" step="0.05" id="threshold" value="0.70"></div><fieldset><legend>Model context</legend><label class="checkline" style="font-size:13px"><input type="checkbox" id="context"> Account for intentional boost</label><p class="fine">An unmodeled boost can look like a bug. Check this to add known game-state context to the expected-motion baseline.</p></fieldset><button type="button" class="btn" id="export" style="width:100%">Export current synthetic trace (.csv)</button><p class="fine">Fixed random seed (2027), 64 timesteps at 2 Hz. No external data, model inference, analytics, or server uploads.</p></aside>
+<div class="stage"><div class="eyebrow">Frame-level baseline / measured motion vs expected motion</div><h2>Motion consistency trace</h2><p id="description" class="section-intro" style="font-size:14px">The trace includes normal input, an intentional boost, and one labeled bug interval. Scores are absolute residuals.</p>
+<svg id="chart" viewBox="0 0 800 310" class="chart" role="img" aria-labelledby="chart-title chart-desc"><title id="chart-title">Synthetic motion trace and detected anomalies</title><desc id="chart-desc">Changes to the controls update a graph and the accessible numeric results table below.</desc><g id="chartcontent"></g></svg>
+<div class="tagrow"><span class="tag">Blue line: measured velocity</span><span class="tag">Dashed line: expected velocity</span><span class="tag">Amber shading: labeled bug</span><span class="tag">Red circles: detector alarms</span></div>
+<div class="metric-row"><div class="metric"><strong id="precision">—</strong><span>Frame precision</span></div><div class="metric"><strong id="recall">—</strong><span>Frame recall</span></div><div class="metric"><strong id="falsealarms">—</strong><span>False-positive frames</span></div></div>
+<div role="status" aria-live="polite" aria-atomic="true" id="summary" class="status">Calculating the synthetic baseline.</div>
+<table class="small-table" aria-label="Computed confusion matrix summary"><thead><tr><th>Ground-truth event</th><th class="num">Predicted alarm</th><th class="num">Predicted normal</th></tr></thead><tbody><tr><th>Bug</th><td id="tp" class="num"></td><td id="fn" class="num"></td></tr><tr><th>Normal / valid boost</th><td id="fp" class="num"></td><td id="tn" class="num"></td></tr></tbody></table>
+<p class="fine">Metrics are calculated from the current 64-frame synthetic trace, including any intentional boost as normal ground truth. If the scenario has no positive bug frames, recall is undefined rather than zero.</p></div></div></div></section>
+<section class="section" id="protocol"><div class="shell"><div class="section-head"><div><div class="eyebrow">Transparent experimental specification</div><h2>One baseline; clear failure modes.</h2></div><p>This is the first rung on a research ladder, intentionally designed so a reviewer can understand exactly what is—and is not—being measured.</p></div>
+<div class="two-column"><div class="panel"><h3>Data-generation protocol</h3><p>The input trace has smooth periodic variation. Actual velocity follows a scaled version of that input plus seeded noise, except during an intentional speed boost (frames 9–14) and optional labeled bug episode (frames 30–36). No hidden test-set selection, trained parameters, or proprietary game data are involved.</p><p>Bug classes: <strong>stall</strong> forces low velocity; <strong>spike</strong> adds unexpected positive velocity; <strong>reverse</strong> flips the expected direction. A fourth negative-control condition injects no bug.</p><p>The intended boost is not a bug. Treating it as one exposes a classic confound: unusual action need not mean erroneous action.</p></div><div class="panel"><h3>Detector and measures</h3><p>Predicted motion is 1.75 × control input, plus a known boost term only when the context option is enabled. The anomaly score is the absolute difference between predicted and measured velocity. A frame raises an alarm when score exceeds the selected threshold.</p><p>Ground truth is a per-frame boolean label for the injected bug segment. Counts: true positives, false positives, false negatives and true negatives. Precision = TP/(TP+FP); recall = TP/(TP+FN). When no positives exist, the corresponding measure is reported as undefined.</p><p>This design tests interpretation and threshold behavior, not deep learning quality.</p></div></div>
+<div class="explain"><div class="n">FAILURE CASE</div><div><h3>Intentional speed boosts create false positives without context.</h3><p>Try the no-bug scenario with context disabled. Lower the threshold to observe how a real but legal game mechanic can be misclassified. Turn on game-state context and compare alarm counts. This is why a future model should consume game actions or state transitions alongside visual features.</p></div></div><div class="explain"><div class="n">NEXT EXPERIMENT</div><div><h3>Replace toy traces with aligned video, audio and controller data.</h3><p>Build a rights-safe labeled capture set, explicit failure ontology and held-out game sequences. Compare visual-only, controller-only and multimodal methods; report event-level rather than exclusively frame-level metrics, false alarms per hour, detection delay, and calibration on expected mechanics.</p></div></div><div class="explain"><div class="n">REPRODUCIBILITY</div><div><h3>Export the current trace.</h3><p>The CSV includes timestep, input signal, measured motion, baseline expectation, boost flag, ground-truth bug label, residual anomaly score, and detector decision. Settings are embedded as header comments. This permits a quick external check of the displayed counts.</p></div></div><div class="note"><p><strong>Limitation:</strong> synthetic labels are known because the code generates them. Any numerical result on this page is a baseline sanity check, not evidence of generalization to gameplay bugs, accessibility outcomes, or the GameLens platform.</p></div></div></section>
+</main><footer class="footer"><div class="shell"><h2>Research starts with a falsifiable baseline.</h2><p><a href="ml.html">Return to the machine learning research portfolio ↗</a></p><p class="fine">Jonghoon Ahn · Independent candidate research prototype · Not affiliated with Sony Interactive Entertainment.</p></div></footer>
+<script>
+(function(){
+"use strict";
+var ns="http://www.w3.org/2000/svg",last=[];
+function el(name,attrs,text){var e=document.createElementNS(ns,name);Object.keys(attrs||{}).forEach(function(k){e.setAttribute(k,attrs[k])});if(text!==undefined)e.textContent=text;return e}
+function rand(seed){var s=seed>>>0;return function(){s=(1664525*s+1013904223)>>>0;return s/4294967296}}
+function fixed(v){return v===null?"N/A":(100*v).toFixed(1)+"%"}
+function makeData(){
+ var scenario=document.getElementById("scenario").value,noise=+document.getElementById("noise").value,threshold=+document.getElementById("threshold").value,hasContext=document.getElementById("context").checked;
+ var random=rand(2027),data=[];
+ for(var i=0;i<64;i++){
+ var input=0.56+0.18*Math.sin(i*.23)+0.09*Math.cos(i*.53), boost=(i>=8&&i<=13),truth=(scenario!=="normal"&&i>=29&&i<=35);
+ var target=1.75*input+(boost?1.15:0), motion=target+(random()-.5)*noise*2;
+ if(truth&&scenario==="stall")motion=(random()-.5)*noise*.25;
+ if(truth&&scenario==="spike")motion+=1.95;
+ if(truth&&scenario==="reverse")motion=-1.75*input+(random()-.5)*noise*.3;
+ var expected=1.75*input+(boost&&hasContext?1.15:0),score=Math.abs(motion-expected);
+ data.push({frame:i,input:input,motion:motion,expected:expected,boost:boost,truth:truth,score:score,alarm:score>threshold})
+ }
+ return data
+}
+function draw(data){
+ var g=document.getElementById("chartcontent");g.replaceChildren();
+ var W=800,H=310,left=56,right=20,top=18,bottom=35,low=-2.1,high=3.3;
+ var x=function(i){return left+(W-left-right)*i/63},y=function(v){return top+(H-top-bottom)*(high-v)/(high-low)};
+ for(var n=-2;n<=3;n++){g.appendChild(el("line",{x1:left,y1:y(n),x2:W-right,y2:y(n),stroke:"#d4dce5","stroke-width":1}));g.appendChild(el("text",{x:10,y:y(n)+5,fill:"#4f5e6b","font-size":12},n.toFixed(0)))}
+ for(var z of [0,10,20,30,40,50,60]){g.appendChild(el("text",{x:x(z),y:H-10,"text-anchor":"middle",fill:"#4f5e6b","font-size":12},String(z)))}
+ if(data.some(function(v){return v.truth})){g.appendChild(el("rect",{x:x(29)-3,y:top,width:x(35)-x(29)+6,height:H-top-bottom,fill:"#f8cb94",opacity:.58}))}
+ var poly=function(key,color,dash){var pts=data.map(function(v){return x(v.frame)+","+y(v[key])}).join(" ");var at={points:pts,fill:"none",stroke:color,"stroke-width":3,"stroke-linecap":"round","stroke-linejoin":"round"};if(dash)at["stroke-dasharray"]="9 7";g.appendChild(el("polyline",at))};
+ poly("expected","#566681",true);poly("motion","#2652b6",false);
+ data.filter(function(d){return d.alarm}).forEach(function(d){g.appendChild(el("circle",{cx:x(d.frame),cy:y(d.motion),r:4.3,fill:"#b92231",stroke:"#fff","stroke-width":1.4}))});
+ g.appendChild(el("text",{x:W/2,y:H-1,"text-anchor":"middle","font-size":12,fill:"#526070"},"Frame (2 Hz synthetic trace)"))
+}
+function update(){
+ document.getElementById("noise-out").textContent=(+document.getElementById("noise").value).toFixed(2);
+ document.getElementById("thresh-out").textContent=(+document.getElementById("threshold").value).toFixed(2);
+ last=makeData();draw(last);
+ var tp=0,fp=0,fn=0,tn=0;
+ last.forEach(function(d){if(d.truth&&d.alarm)tp++;else if(!d.truth&&d.alarm)fp++;else if(d.truth&&!d.alarm)fn++;else tn++});
+ var p=(tp+fp)?tp/(tp+fp):null,r=(tp+fn)?tp/(tp+fn):null;
+ [["tp",tp],["fp",fp],["fn",fn],["tn",tn],["precision",fixed(p)],["recall",fixed(r)],["falsealarms",fp]].forEach(function(v){document.getElementById(v[0]).textContent=String(v[1])});
+ var text="Computed: "+tp+" true-positive, "+fp+" false-positive, "+fn+" missed bug, "+tn+" correctly normal frames.";
+ if(!document.getElementById("context").checked)text+=" Expected-motion baseline ignores the legitimate boost.";
+ else text+=" Context-aware baseline accounts for the legitimate boost.";
+ document.getElementById("summary").textContent=text;
+ document.getElementById("chart-desc").textContent=text+" Labeled bug window is frames 30 through 36 when a bug scenario is chosen.";
+}
+["scenario","noise","threshold","context"].forEach(function(id){document.getElementById(id).addEventListener("input",update)});
+document.getElementById("export").addEventListener("click",function(){
+ var cols=["frame","input","measured_velocity","expected_velocity","intentional_boost","bug_ground_truth","anomaly_score","predicted_alarm"];
+ var meta="# synthetic game signal baseline, random_seed=2027, scenario="+document.getElementById("scenario").value+", noise="+document.getElementById("noise").value+", threshold="+document.getElementById("threshold").value+", contextual_boost="+document.getElementById("context").checked+"\n";
+ var lines=last.map(function(d){return [d.frame,d.input.toFixed(6),d.motion.toFixed(6),d.expected.toFixed(6),+d.boost,+d.truth,d.score.toFixed(6),+d.alarm].join(",")});
+ var blob=new Blob([meta+cols.join(",")+"\n"+lines.join("\n")+"\n"],{type:"text/csv;charset=utf-8"});
+ var u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download="game-signal-anomaly-synthetic.csv";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},3000)
+});
+update();
+})();
+</script></body></html>
