@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Signal Path — a playable, keyboard-operable interaction prototype with redundant feedback and display preferences."><title>Signal Path — Accessibility Interaction Prototype</title><link rel="stylesheet" href="site.css"></head>
+<body data-track="accessibility"><a class="skip" href="#main">Skip to main content</a><header class="site-header"><div class="shell nav"><a href="accessibility.html" class="identity">Jonghoon Ahn<span>Signal Path / A design probe</span></a><nav class="navlinks" aria-label="Main navigation"><a href="accessibility.html">← Accessibility portfolio</a><a href="#game">Play</a><a href="#decisions">Design notes</a><a href="ml.html">ML research</a></nav></div></header>
+<main id="main"><div class="lab-intro"><div class="shell"><div class="eyebrow" style="color:#bcead7">Working web prototype / Not a user-validated accessibility result</div><h1>Signal Path</h1><p>Find a route around the barriers. Move with arrow keys, WASD, or on-screen buttons. State changes are always expressed in text, not only in color or motion. Try the display preferences and request a hint if needed.</p></div></div>
+<section class="section" id="game"><div class="shell"><div class="lab-layout"><aside class="controls" aria-label="Display preferences"><h2 style="font-size:20px;margin-bottom:18px">Display preferences</h2><label class="checkline"><input type="checkbox" id="contrast"> High contrast</label><label class="checkline"><input type="checkbox" id="big"> Larger text</label><label class="checkline"><input type="checkbox" id="motion"> Reduced motion</label><p class="fine">Preferences affect this demonstration only. They are optional and do not change puzzle difficulty. System reduced-motion preference is also respected by the stylesheet.</p><hr style="border:0;border-top:1px solid #d7dcda;margin:25px 0"><h3 style="font-size:16px">Task</h3><p>Start on the left. Reach the goal on the right. Wall tiles cannot be crossed. Moves are turn-based; there is no timer.</p><p class="fine">Keyboard: ← ↑ ↓ → or W A S D. H for hint. R to restart. Keyboard shortcuts do not intercept typing in form controls.</p></aside>
+<div class="stage"><div class="eyebrow">Play / Step-by-step wayfinding</div><h2>Navigate to the goal.</h2><div class="status" id="status" role="status" aria-live="polite" aria-atomic="true">You are at column 1, row 2. Find the goal at column 5, row 2.</div>
+<div id="board" tabindex="0" role="group" aria-label="Five column by three row puzzle board" aria-describedby="board-guide" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;max-width:570px;margin:22px auto;"></div>
+<p id="board-guide" class="fine">Board labels: YOU is your current position; GOAL is your destination; WALL cannot be entered. Each tile has a spoken label.</p>
+<div class="lab-buttons" role="group" aria-label="Movement controls" style="max-width:460px;margin-inline:auto"><button type="button" class="btn" data-move="up" aria-label="Move up">↑ Up</button><button type="button" class="btn" data-move="left" aria-label="Move left">← Left</button><button type="button" class="btn" data-move="down" aria-label="Move down">↓ Down</button><button type="button" class="btn" data-move="right" aria-label="Move right">→ Right</button></div>
+<div class="lab-buttons"><button type="button" class="btn ghost" id="hint" aria-keyshortcuts="H">Give me a hint</button><button type="button" class="btn subtle" id="restart" aria-keyshortcuts="R">Restart</button></div>
+<div class="feedback"><h3 style="font-size:17px">Session information (local only)</h3><p id="counter" style="margin-bottom:6px">0 moves · 0 blocked attempts · 0 hints</p><p class="fine">Nothing is uploaded or logged to a server. These counters are descriptive affordances, not participant data or accessibility outcomes.</p></div></div></div></div></section>
+<section class="section" id="decisions"><div class="shell"><div class="section-head"><div><div class="eyebrow">Design decisions / Prototype rationale</div><h2>Why the interface behaves this way.</h2></div><p>This sample isolates a few testable interaction choices. No automated checklist can establish that a game is accessible to everyone.</p></div><div class="steps"><div class="step"><h3>Equivalent input choices</h3><p>Arrow keys, WASD and on-screen buttons operate the same state transition. No path requires pointer precision, a microphone, or timed input.</p></div><div class="step"><h3>Redundant state cues</h3><p>Tiles use explicit words and visible boundaries, with a live text description. The goal and obstruction remain identifiable when color differs or cannot be perceived.</p></div><div class="step"><h3>Recovery and cognitive support</h3><p>Blocked moves do not end the task; the reason is announced, and the hint uses a shortest-path search to provide the next permitted move. Restart is always available.</p></div></div><div class="two-column" style="margin-top:28px"><div class="panel"><h3>Proposed inclusive research session</h3><ol><li>Ask participant about preferred interface and input method without assuming needs.</li><li>Observe route discovery with no explanation; document unclear instructions.</li><li>Offer hint and preference controls; observe whether the alternatives remain understandable.</li><li>Conduct a neutral interview about clarity, control, effort, and points of friction.</li><li>Prioritize findings with UX/design/engineering and implement a revision.</li></ol><p class="fine">This is a plan, not a session that has already been conducted.</p></div><div class="panel"><h3>Useful measures—still uncollected</h3><div class="proof"><strong>Completion</strong><span>Task completion by participant-preferred input route</span></div><div class="proof"><strong>Repair</strong><span>Blocked-action frequency, recovery steps, and hint use</span></div><div class="proof"><strong>Comprehension</strong><span>Correct understanding of wall, player, and goal state</span></div><div class="proof"><strong>Preference</strong><span>Comfort and agency reported directly by participants</span></div></div></div><div class="note" style="margin-top:25px"><p><strong>Limitations:</strong> this short web sample does not test VR comfort, screen reader compatibility across device/browser combinations, controller remapping, motor fatigue, or full game accessibility. A thorough evaluation needs opt-in player participation, platform testing, and expert guidance.</p></div></div></section>
+</main><footer class="footer"><div class="shell"><h2>Make interaction choices visible.</h2><p>Built as an independent applicant prototype. <a href="accessibility.html">Return to portfolio ↗</a></p><p class="fine">Jonghoon Ahn · Not affiliated with Sony Interactive Entertainment. No user study is represented.</p></div></footer>
+<script>
+(function(){
+"use strict";
+var cols=5,rows=3, walls=new Set(["2,1","3,0"]), pos={x:0,y:1}, moves=0,blocked=0,hints=0,won=false;
+var board=document.getElementById("board"),status=document.getElementById("status"),counter=document.getElementById("counter");
+function name(x,y){return "column "+(x+1)+", row "+(y+1)}
+function cell(x,y){return x+","+y}
+function usable(x,y){return x>=0&&x<cols&&y>=0&&y<rows&&!walls.has(cell(x,y))}
+function message(s){status.textContent=s}
+function update(){
+ board.replaceChildren();
+ for(var y=0;y<rows;y++){for(var x=0;x<cols;x++){
+ var isMe=pos.x===x&&pos.y===y,isGoal=x===4&&y===1,isWall=walls.has(cell(x,y));
+ var d=document.createElement("div");
+ d.setAttribute("aria-label",name(x,y)+": "+(isMe?"Player position":isGoal?"Goal":isWall?"Wall":"Open tile"));
+ d.style.cssText="min-height:76px;border:2px solid "+(isMe?"var(--accent)":isWall?"#535b59":"var(--stroke)")+";background:"+(isMe?"var(--tint)":isWall?"#d9dedd":"#fff")+";display:flex;align-items:center;justify-content:center;text-align:center;padding:5px;font-weight:700;font-size:clamp(10px,1.7vw,14px);";
+ d.textContent=isMe?"YOU":isGoal?"GOAL":isWall?"WALL":"·";
+ board.appendChild(d);
+ }}
+ counter.textContent=moves+" moves · "+blocked+" blocked attempts · "+hints+" hints";
+}
+var dirs={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
+function step(direction){
+ if(won){message("You reached the goal. Restart to play again.");return}
+ var delta=dirs[direction],x=pos.x+delta[0],y=pos.y+delta[1];
+ if(!usable(x,y)){blocked++;message("Blocked: you cannot move "+direction+" from "+name(pos.x,pos.y)+". Choose another direction.");update();return}
+ pos={x:x,y:y};moves++;
+ if(x===4&&y===1){won=true;message("Goal reached in "+moves+" moves! You can restart and try another route.")}
+ else message("Moved "+direction+". You are now at "+name(x,y)+". Goal: column 5, row 2.");
+ update();
+}
+function bfs(){
+ var q=[{x:pos.x,y:pos.y,first:null}],seen=new Set([cell(pos.x,pos.y)]);
+ while(q.length){var p=q.shift();if(p.x===4&&p.y===1)return p.first;
+ for(var k of ["right","down","up","left"]){var x=p.x+dirs[k][0],y=p.y+dirs[k][1],id=cell(x,y);if(!usable(x,y)||seen.has(id))continue;seen.add(id);q.push({x:x,y:y,first:p.first||k})}}
+ return null;
+}
+document.querySelectorAll("[data-move]").forEach(function(b){b.addEventListener("click",function(){step(b.dataset.move)})});
+document.getElementById("hint").addEventListener("click",function(){hints++;var next=bfs();message(next?"Suggested next move: "+next+". This is one shortest route.":"Goal already reached.");update()});
+document.getElementById("restart").addEventListener("click",function(){pos={x:0,y:1};moves=blocked=hints=0;won=false;message("Puzzle restarted. You are at column 1, row 2. Goal: column 5, row 2.");update();board.focus()});
+document.addEventListener("keydown",function(e){if(e.ctrlKey||e.altKey||e.metaKey)return;var el=e.target;if(el&&/INPUT|SELECT|TEXTAREA/.test(el.tagName))return;var k=e.key.toLowerCase(),map={arrowup:"up",w:"up",arrowleft:"left",a:"left",arrowdown:"down",s:"down",arrowright:"right",d:"right"};if(map[k]){e.preventDefault();step(map[k])}else if(k==="h"){e.preventDefault();document.getElementById("hint").click()}else if(k==="r"){e.preventDefault();document.getElementById("restart").click()}});
+[["contrast","high-contrast"],["big","large-text"],["motion","reduce-motion"]].forEach(function(pair){document.getElementById(pair[0]).addEventListener("change",function(e){document.body.classList.toggle(pair[1],e.target.checked)})});
+update();
+})();
+</script></body></html>
