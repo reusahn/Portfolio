@@ -29,8 +29,24 @@
 <div class="panel"><h3>Time becomes an actor.</h3><p>Movement from the first pass becomes a replayable actor with a stable schedule. The player reasons about what their past action will activate, not merely where the character will stand.</p></div>
 <div class="panel"><h3>Present and past have separate responsibility.</h3><p>The echo owns a timed trigger, while the present player traverses the gate. Both are necessary, creating cooperation without a second connected player.</p></div>
 <div class="panel"><h3>Failure teaches the timing rule.</h3><p>If the player reaches a closed gate before the echo activates the plate, they can observe what must change. In the full game, the feedback would include a light/sound response and visible replay trail.</p></div>
-<div class="panel"><h3>Future puzzle vocabulary.</h3><p>Multiple echoes, moving pressure plates, timed switches, narrow passages, interaction recording, and limited echo memory. Add only when the basic mechanic proves readable in playtests.</p></div>
+<div class="panel"><h3>Future puzzle vocabulary.</h3><p>Light-gated materialization, moving switches, overlapping recordings and limited echo memory. A level only adds another rule when the earlier one is readable and satisfying.</p></div>
 </div></div></section>
+<section class="section" id="causal-light"><div class="wrap">
+<div class="section-head"><span class="eyebrow">LEVEL 02 / SIGNATURE MECHANIC</span><div><h2>Light makes memory physical.</h2>
+<p>The first puzzle teaches recording and replay. The next level adds a rule that makes the echo genuinely interactive: a remembered body can press switches or hold an object <strong>only while the present player illuminates it</strong>. The player must plan a past route and then actively support it from a different position.</p></div></div>
+<div class="split">
+<div class="panel"><h3>Past self — a scheduled path</h3><p>The replay follows its immutable recorded movement, visible as a soft trail. Without directed light from the present player it passes through most interactive objects without activating them.</p></div>
+<div class="panel"><h3>Present self — materializes the memory</h3><p>The player points or positions a bounded light cone across the echo. While illuminated, the recorded body becomes tangible to switches and moveable puzzle objects. Moving the light away releases them.</p></div>
+<div class="panel"><h3>The coordination problem</h3><p>Record a path through two switches, then relocate to a vantage point that can illuminate the right portions of the path at different times. Position and timing create tension without requiring a second player.</p></div>
+<div class="panel"><h3>Game-design constraints</h3><p>Provide explicit light-cone feedback, avoid unsolvable recordings, make the rewind/reset cost low, and ensure the player can infer which actions require illumination. Replaying a path alone should not complete the puzzle.</p></div>
+</div>
+<div class="decisions">
+<div class="decision"><b>EchoCollisionWindow.cs</b><p>Checks recorded ghost position against the present player's cone using range, facing angle and occlusion. Publishes tangible/not-tangible as a gameplay state rather than merely a material effect.</p></div>
+<div class="decision"><b>Deterministic overlap</b><p>Reconstructs the echo pose by fixed tick; uses authoritative overlap tests to activate switches only during valid light windows. Visual interpolation does not affect rule evaluation.</p></div>
+<div class="decision"><b>Expressive feedback</b><p>Footsteps gain weight, the ghost silhouette grows solid and the illuminated path resonates when both times overlap. Presentation follows the gameplay state rather than pretending to be the system itself.</p></div>
+</div>
+<div class="small-note"><strong>Development distinction:</strong> The browser demo demonstrates the first puzzle's record/replay/switch mechanic. Light-gated materialization and the second authored level are target Unity features, not implemented in that browser build.</div>
+</div></section>
 <section class="section"><div class="wrap">
 <div class="section-head"><span class="eyebrow">03 / TARGET UNITY ARCHITECTURE</span><div><h2>A deterministic time-offset gameplay system.</h2><p>The engine implementation separates input sampling, action recording, playback and world-state evaluation. Recording should use fixed simulation ticks so level triggers remain reproducible.</p></div></div>
 <div class="pipeline"><span>Player input</span><i>→</i><span>Tick-indexed movement records</span><i>→</i><span>Ghost replay actor</span><i>→</i><span>Pressure plate evaluation</span><i>→</i><span>Gate / level state</span></div>
