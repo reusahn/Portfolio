@@ -62,8 +62,35 @@
 </ol>
 <div class="note" style="margin-top:25px"><strong>Project status:</strong> The mechanics are playable in a separate local browser prototype. The online Unity build, two-client synchronization tests, shipped multiplayer sessions and release history will be added when implemented and validated.</div>
 </div></section>
+<section class="section" id="resonance"><div class="shell">
+<span class="eyebrow">03 / SIGNATURE MECHANIC — WIND RESONANCE</span><h2>Coordination changes what the wind can do.</h2>
+<p>Splitting vertical and horizontal controls is not enough to make a compelling co-op game. The next iteration introduces a deliberately coupled system: high lift gives altitude but introduces turbulence; carefully timed lateral flow redirects that energy into a stable current. Neither player can maintain the ideal path by holding one input permanently.</p>
+<div class="modules">
+<div class="module"><h3>Player A — Lift / turbulence</h3><p>Increasing lift prevents the seed from falling, but sustained maximum force increases sway. Releasing lift at the right moment allows the seed to settle into a controllable glide.</p></div>
+<div class="module"><h3>Player B — Flow / redirection</h3><p>Steering changes horizontal motion and redirects the updraft. Large, abrupt corrections disrupt stability. Smaller sustained corrections support a coherent current.</p></div>
+<div class="module"><h3>Shared resonance state</h3><p>A stable combination of altitude, vertical speed and directional correction produces a brief resonance window: reduced sway, more efficient travel and stronger environmental feedback. It is an outcome of movement—not an arbitrary two-button gate.</p></div>
+<div class="module"><h3>Nonverbal communication</h3><p>The seed's pose, trailing wind ribbon, environmental sound and color intensity communicate whether both players are cooperating successfully, without requiring text chat or an explicit score.</p></div>
+</div>
+<div class="table" style="margin-top:24px">
+<div class="trow"><strong>Core player verbs</strong><p>Lift, ease, steer, correct, hold, release. Every verb has immediate physical and audiovisual consequences.</p></div>
+<div class="trow"><strong>Player decision</strong><p>How much force is enough to cross an obstacle without losing stability? When should one player yield control to the other?</p></div>
+<div class="trow"><strong>State model (design)</strong><p>Grounded → Airborne → Turbulent / Stable → Resonance → Shelter / Collision. These are proposed gameplay states, not presently implemented Unity components.</p></div>
+<div class="trow"><strong>Design failure to avoid</strong><p>If one person can hold lift while the other steers, the intended cooperation has failed. Test and retune force coupling before adding more levels.</p></div>
+</div></div></section>
+<section class="section" id="guardian"><div class="shell">
+<span class="eyebrow">04 / INTERACTIVE CREATURE EXTENSION</span><h2>The Quiet Guardian.</h2>
+<p>An optional creature encounter makes player behavior—not a dialogue menu—the interaction. The creature reacts to disturbance in the local wind field. It approaches when players create a calm, stable passage and withdraws when they produce abrupt turbulence.</p>
+<div class="modules">
+<div class="module"><h3>Behavior evaluation</h3><p>Unity C# reads proximity, change in wind force, resonance stability and obstruction. A compact decision state chooses Idle, Observe, Approach, Guide or Retreat, with cooldown and hysteresis to prevent constant switching.</p></div>
+<div class="module"><h3>Procedural performance</h3><p>Maya-authored walk/idle clips form the base. Unity Animation Rigging layers procedural head look-at, eye target, torso orientation and simple foot placement onto the underlying animation.</p></div>
+<div class="module"><h3>Game function</h3><p>Instead of merely decorating the scene, the guardian responds to skilled cooperative movement and may reveal a safe route through a turbulent passage. Player behavior is the input to the creature AI.</p></div>
+<div class="module"><h3>Authoring through Encounter Studio</h3><p>A designer adjusts calm thresholds, approach distance, response delays and feedback presets from reusable encounter data. The camera relies on Cinemachine rather than a redundant custom camera rig.</p></div>
+</div>
+<div class="note" style="margin-top:19px"><strong>Scope:</strong> The guardian, procedural behavior and resonance mechanic are newly specified extensions for the Unity build. They have not been implemented in the current local browser seed-control demo.</div>
+<div class="actions" style="margin-top:17px"><a class="button dark" href="thatgamecompany-encounter-studio.html">Open Encounter Studio — interactive rule preview ↗</a></div>
+</div></section>
 <section id="architecture" class="section"><div class="shell">
-<span class="eyebrow">04 / MULTIPLAYER IMPLEMENTATION SPECIFICATION</span><h2>One authoritative simulation. Two complementary inputs.</h2>
+<span class="eyebrow">05 / MULTIPLAYER IMPLEMENTATION SPECIFICATION</span><h2>One authoritative simulation. Two complementary inputs.</h2>
 <p>The browser sandbox tests the shared-control mechanic. The Unity multiplayer version is designed around a host-authoritative seed with separate player input ownership, a synced checkpoint/goal state, and visual feedback derived from client-observed data.</p>
 <div class="modules">
 <div class="module"><h3>PlayerInput / ownership</h3><p>Each client owns only its input channel: Player A requests lift; Player B requests lateral wind. The server/host validates and combines those commands.</p></div>
@@ -76,7 +103,7 @@
 <div class="note" style="margin-top:20px"><strong>Implementation boundary:</strong> The local browser game is playable now. NetworkSeed, authoritative Unity session synchronization, two-client tests, designer Inspector tools and live deployment logs are the defined build targets, not completed features.</div>
 </div></section>
 <section id="acceptance" class="section"><div class="shell">
-<span class="eyebrow">05 / REVIEWABLE TEST PLAN</span><h2>What a finished vertical slice will prove.</h2>
+<span class="eyebrow">06 / REVIEWABLE TEST PLAN</span><h2>What a finished vertical slice will prove.</h2>
 <div class="modules">
 <div class="module"><h3>Two independent players</h3><p>Open two independent builds or computers, connect both to one session and verify that each player's controls influence one shared seed.</p></div>
 <div class="module"><h3>State under adverse conditions</h3><p>Test latency and disconnect scenarios; compare both screen captures to confirm authoritative collision and checkpoint outcomes remain consistent.</p></div>
@@ -85,7 +112,7 @@
 </div>
 </div></section>
 <section id="media" class="section"><div class="shell">
-<span class="eyebrow">06 / GAMEPLAY FOOTAGE & MEDIA SLOTS</span><h2>Gameplay material to insert.</h2><p>Planned captures are specified now so the portfolio can be completed by replacing the media panels as implementation progresses.</p>
+<span class="eyebrow">07 / GAMEPLAY FOOTAGE & MEDIA SLOTS</span><h2>Gameplay material to insert.</h2><p>Planned captures are specified now so the portfolio can be completed by replacing the media panels as implementation progresses.</p>
 <div class="modules">
 <div class="module"><span class="eyebrow">VIDEO 01 · 60–90 SEC</span><h3>Two-player co-op gameplay</h3><p>Split-screen recording of two independent clients connecting, moving a shared seed, reaching one checkpoint and finishing the level.</p></div>
 <div class="module"><span class="eyebrow">VIDEO 02 · 30 SEC</span><h3>Input → feedback</h3><p>Show player wind input, seed acceleration, deformation, particles, camera and sound in a single comparison clip.</p></div>
@@ -93,7 +120,7 @@
 <div class="module"><span class="eyebrow">IMAGE 02</span><h3>Build and update history</h3><p>Release notes, test log and a before/after comparison for at least one corrected multiplayer problem.</p></div>
 </div></div></section>
 <section id="operations" class="section"><div class="shell">
-<span class="eyebrow">04 / POST-DEPLOYMENT DESIGN · LIVE OPERATIONS PLAN</span><h2>A multiplayer build is only the beginning.</h2>
+<span class="eyebrow">08 / POST-DEPLOYMENT DESIGN · LIVE OPERATIONS PLAN</span><h2>A multiplayer build is only the beginning.</h2>
 <p>The planned operating cycle treats the prototype as a small online game that must be tested, updated and kept available for repeat sessions. These are implementation targets and acceptance criteria, not claims of prior commercial live-service ownership.</p>
 <div class="modules">
 <div class="module"><h3>Build &amp; release</h3><p>Ship repeatable Windows builds with version identifiers, tracked release notes, a documented host/client setup, and rollback-ready artifacts.</p></div>
