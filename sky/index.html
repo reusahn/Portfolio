@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>The Sky Has Sides — p5 study</title>
+  <style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f8f8f5}canvas{display:block;touch-action:none}#startup{position:fixed;left:20px;top:20px;max-width:min(580px,calc(100vw - 40px));padding:12px 15px;background:white;color:#29353b;border:1px solid #d5dadd;border-radius:8px;font:13px/1.5 Arial,sans-serif;z-index:10;overflow-wrap:anywhere}</style>
+</head>
+<body>
+  <div id="startup" role="status">Loading sketch…</div>
+  <script>
+    function showStartupError(message){
+      window.skyStartupError=true;
+      const box=document.getElementById('startup');
+      if(box){box.style.display='block';box.textContent='Sketch could not start: '+message;}
+    }
+    window.addEventListener('error',e=>showStartupError(e.message||'A script did not load. Check your internet connection.'));
+    window.addEventListener('unhandledrejection',e=>showStartupError(String(e.reason?.message||e.reason)));
+    window.addEventListener('load',()=>{
+      setTimeout(()=>{
+        if(window.skySetupEntered||window.skyStartupError)return;
+        if(typeof window.p5!=='function'){
+          showStartupError('p5.js did not load from the CDN.');return;
+        }
+        if(typeof window.setup!=='function'){
+          showStartupError('sketch.js did not load beside index.html.');return;
+        }
+        if(!window.p5.instance){
+          try{new window.p5();}
+          catch(err){console.error(err);showStartupError('p5 start: '+String(err?.message||err));}
+        }
+      },500);
+      setTimeout(()=>{
+        if(window.skyFirstFrame||window.skyStartupError)return;
+        if(!window.skySetupEntered)showStartupError('p5 loaded, but setup() was never called.');
+        else if(!window.skyDrawEntered)showStartupError('setup() ran, but p5 never called draw().');
+        else showStartupError('draw() began, but the first frame did not finish.');
+      },3500);
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.min.js" onerror="showStartupError('p5.js did not download. Check your internet connection.')"></script>
+  <script src="sketch.js?v=16" onerror="showStartupError('sketch.js was not found. Keep it beside index.html.')"></script>
+</body>
+</html>
