@@ -305,16 +305,27 @@ function drawpad() {
   noStroke();
   fill(132, 140, 143);
   textAlign(LEFT, TOP);
-  textSize(9);
+  textSize(10);
   text(
     draft
-      ? 'PULL FROM CENTER'
+      ? 'GRAB CENTER · PULL BACK'
       : camstate === 'on'
         ? 'MOUSE / TOUCH PAD'
-        : 'DRAW HERE',
+        : 'DRAW PAD',
     pad.x + 18,
     pad.y + 17
   );
+  if (!draft && action?.type !== 'drawing') {
+    textAlign(CENTER, CENTER);
+    fill(83, 94, 100);
+    textSize(width < 360 ? 14 : 17);
+    text('Draw anything here',
+      pad.x + pad.w / 2, pad.y + pad.h / 2 - 3);
+    fill(146, 154, 158);
+    textSize(11);
+    text('a line or a curve',
+      pad.x + pad.w / 2, pad.y + pad.h / 2 + 22);
+  }
   const rgb = getrgb(draft ? draft.color : ink);
   const colx = pad.x + pad.w - 26;
   const coly = pad.y + 27;
@@ -472,15 +483,17 @@ function drawtop() {
   textStyle(NORMAL);
   const title = 'ROOM FOR ONE MORE';
   text(title, 20, 20);
-  const progx = 20 + textWidth(title) + 18;
-  const progside = progx + 92 < width - 100;
-  fill(120, 128, 135);
-  textSize(10);
-  text(
-    floor(fillpct * 100) + '%  →  97%',
-    progside ? progx : 21,
-    progside ? 24 : 46
-  );
+  fill(49, 57, 62);
+  textSize(mobile ? 20 : 24);
+  text(floor(fillpct * 100) + '% / 97%', 20, 46);
+  const barw = mobile ? max(70, width - 200) : 250;
+  noStroke();
+  fill(221, 226, 227);
+  rect(20, 80, barw, 6, 3);
+  if (fillpct > 0) {
+    fill(59, 71, 77);
+    rect(20, 80, barw * constrain(fillpct / fillmax, 0, 1), 6, 3);
+  }
   for (const b of ui) {
     const on = b.id === 'hand' && camstate === 'on';
     noStroke();
