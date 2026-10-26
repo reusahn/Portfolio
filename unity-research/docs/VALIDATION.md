@@ -9,7 +9,7 @@
 - This tests the actual JavaScript task model used by the browser explanation. It does not compile or execute the C# implementation.
 - JavaScript syntax: site.js, context-gate-model.js, context-gate-demo.js, and tools/check_browser_model.cjs parsed successfully.
 - HTML source structure: 11 pages checked for tag balance, document essentials, duplicate IDs, image alternative text, and local reference targets.
-- Local references: 304 resolved against the existing repository tree and new files, including 71 page fragments. No missing target or fragment was found. The source bundle and this record were planned outputs at the time of this check.
+- Local references: 290 resolved against the existing repository tree and new files, including 71 page fragments. 14 repository document links were also checked against the tracked file set. No missing target or fragment was found. Document links point directly to repository files to avoid depending on how GitHub Pages renders Markdown.
 - Existing project images were visually inspected for the main selection. Maya views and installation images are labeled according to their source.
 - Every new path is under unity-research/. Existing home and company-specific page contents are outside the change scope.
 
