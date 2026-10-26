@@ -1,0 +1,13 @@
+{
+  "name": "Jonghoon.ContextGate.Tests",
+  "references": [
+    "Jonghoon.ContextGate"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}
