@@ -15,6 +15,12 @@ GROUPS = {
     "humans": ("Digital humans & conversational AI", "Coordinate a character, a response, and the person encountering it.", "03"),
     "xr-worlds": ("VR worlds & critical interaction", "Use a constructed world to change what an action can mean.", "04"),
 }
+HOME_GROUPS = {
+    "graphics": ("Real-time Graphics", "Shape light, motion, and form."),
+    "sensing": ("Sensing & Vision", "Turn physical presence into a response."),
+    "humans": ("Digital Humans & AI", "Connect a character, a voice, and a person."),
+    "xr-worlds": ("VR & Interaction", "Build worlds around human choices."),
+}
 
 
 def e(value):
@@ -64,7 +70,8 @@ def video(p):
 
 def card(p, number):
     query = ' '.join([p['title'], p['idea'], p['implementation'], p['role']] + p['tags'] + p.get('aliases', []))
-    return f'''<article class="project-card" data-project="{p['id']}" data-group="{p['group']}" data-search="{e(query.lower())}"><a class="project-photo" href="{p['id']}.html" aria-label="Open {e(p['title'])}"><img src="../{p['image']}" alt="{e(p['alt'])}" width="1920" height="1080" loading="lazy"><span class="photo-index">{number:02d}</span></a><div class="project-card-body"><p class="card-meta">{e(p['medium'])}{' / ' + p['year'] if p['year'] else ''}</p><h3><a href="{p['id']}.html">{e(p['title'])}</a></h3><p class="card-idea">{e(p['idea'])}</p>{tags(p)}<p class="card-role">{e(p['role'])}</p><a class="card-link" href="{p['id']}.html">Concept, system & development <span aria-hidden="true">↗</span></a></div></article>'''
+    techniques = '<p class="card-tech">' + ' · '.join(e(t) for t in p['tags'][:3]) + '</p>'
+    return f'''<article class="project-card" data-project="{p['id']}" data-group="{p['group']}" data-search="{e(query.lower())}"><a class="project-photo" href="{p['id']}.html" aria-label="Open {e(p['title'])}"><img src="../{p['image']}" alt="{e(p['alt'])}" width="1920" height="1080" loading="lazy"><span class="photo-index">{number:02d}</span></a><div class="project-card-body"><h3><a href="{p['id']}.html">{e(p['title'])}</a></h3><p class="card-idea">{e(p['teaser'])}</p>{techniques}<div class="card-foot"><p class="card-role">{e(p['role'])}</p><a class="card-link" href="{p['id']}.html" aria-label="Read {e(p['title'])} case study"><span aria-hidden="true">↗</span></a></div></div></article>'''
 
 
 def research_feature():
@@ -83,18 +90,15 @@ def home(route="all"):
     group_order = {"all": list(GROUPS), "xr": ["xr-worlds", "sensing", "graphics", "humans"],
                    "human": ["humans", "xr-worlds", "sensing", "graphics"]}[route]
     hero = {
-        "all": ("Questions become<br>interactive systems.", "I develop Unity systems for media art, games, digital humans, and embodied interaction. Across these works, an artistic question becomes a sensor mapping, a shader, a conversation, or a world someone can enter."),
-        "xr": ("Spatial experiences.<br>Inspectable systems.", "A reading route through the same 15 works, beginning with constructed worlds and live sensing. It foregrounds the relationship between an input, a spatial representation, and a controllable runtime."),
-        "human": ("An artificial response.<br>A human encounter.", "A reading route through the same 15 works, beginning with digital humans and conversational interaction. It connects AI responses to bodily presence, task rules, and the meaning a person brings to an encounter."),
+        "all": ("Ideas into<br>real-time experiences.", "I design and develop Unity systems across graphics, sensing, digital humans, and VR."),
+        "xr": ("Worlds to enter.<br>Systems to inspect.", "Unity experiences built around spatial interaction, body tracking, and the choices people make."),
+        "human": ("A synthetic character.<br>A human encounter.", "Unity systems that connect AI dialogue, digital bodies, and real-time interaction."),
     }[route]
-    highlights = [BY_ID[x] for x in ["flowers-waves", "to-eternity", "ai-choi", "fineo"]]
-    mosaic = ''.join(f'<a href="{p["id"]}.html"><img src="../{p["image"]}" alt="{e(p["alt"])}" width="960" height="540"><span>{e(p["title"])}</span></a>' for p in highlights)
-    filter_names = {"graphics": "Graphics", "sensing": "Sensing & vision", "humans": "Digital humans & AI", "xr-worlds": "VR worlds"}
-    controls = ''.join(f'<button type="button" data-filter="{key}" aria-pressed="false">{e(filter_names[key])}</button>' for key in GROUPS)
+    controls = ''.join(f'<button type="button" data-filter="{key}" aria-pressed="false"><strong>{e(HOME_GROUPS[key][0])}</strong><span>{e(HOME_GROUPS[key][1])}</span><b aria-hidden="true">↗</b></button>' for key in group_order)
     count = 0
     groups = []
     for group_number, group in enumerate(group_order, 1):
-        name, desc, idx = GROUPS[group]
+        name, desc = HOME_GROUPS[group]
         idx = f'{group_number:02d}'
         projects = [p for p in PROJECTS if p['group'] == group]
         if route == "human":
@@ -107,16 +111,15 @@ def home(route="all"):
         for p in projects:
             count += 1
             cards.append(card(p, count))
-        groups.append(f'<section class="catalog-group" data-catalog-group="{group}" id="{group}"><div class="group-heading"><div><span class="section-no">{idx} / {len(projects):02d} works</span><h2>{name}</h2></div><p>{desc}</p></div><div class="project-grid">{"".join(cards)}</div></section>')
-    route_note = '' if route == "all" else '<p class="route-context">This order is an editorial interpretation of the lab’s public research. It is not an affiliation, endorsement, or funding announcement. <a href="research.html">Research context ↗</a></p>'
-    page = header("Unity, media art & interaction", hero[1]) + f'''<main id="main" class="wrap">
-<section class="portfolio-hero"><div><p class="eyebrow">Jonghoon Ahn / artist, developer, researcher</p><h1>{hero[0]}</h1><p class="lead">{hero[1]}</p><div class="credential-line"><span>UCSB · PhD, Media Arts & Technology</span><span>CalArts · MFA, Art & Technology</span></div><div class="actions"><a class="button" href="#selected-work">Explore all 15 works <span>↓</span></a><a class="text-link" href="approach.html">From concept to implementation ↗</a></div></div><div class="work-mosaic" aria-label="Four examples across the portfolio">{mosaic}</div></section>
-<div class="catalog-route-bar"><span class="mono">Same works / different starting points</span>{route_options(route)}</div>{route_note}
-<section id="selected-work"><div class="catalog-intro"><div><p class="eyebrow">15 existing works / four connected practices</p><h2>Explore the work.</h2></div><a class="text-link" href="systems.html">View the technical map ↗</a></div>
-<div class="catalog-controls"><div class="category-buttons" aria-label="Filter works by practice"><button type="button" data-filter="all" aria-pressed="true">All 15</button>{controls}</div><div class="catalog-search"><label class="sr-only" for="work-search">Find a work, technique, or idea</label><input id="work-search" type="search" placeholder="Find a work, technique, or idea" autocomplete="off"><button id="clear-filters" type="button">Reset</button></div></div><p class="results-count" id="result-count" aria-live="polite">15 works</p>
+        groups.append(f'<section class="catalog-group" data-catalog-group="{group}" id="{group}"><div class="group-heading"><h2>{name}</h2><span class="section-no">{len(projects):02d} works</span></div><div class="project-grid">{"".join(cards)}</div></section>')
+    route_note = '' if route == "all" else '<p class="route-context">An editorial reading route based on public research. <a href="research.html">Context & sources ↗</a></p>'
+    page = header("Unity, media art & interaction", hero[1]).replace('<body>', '<body class="portfolio-index">') + f'''<main id="main" class="wrap">
+<section class="portfolio-hero"><div><p class="eyebrow">Unity developer / media artist / researcher</p><h1>{hero[0]}</h1></div><div class="hero-profile"><p class="lead">{hero[1]}</p><div class="credential-line"><span>PhD researcher · UCSB Media Arts & Technology</span><span>MFA · CalArts Art & Technology</span></div></div></section>
+<section id="selected-work" aria-label="Portfolio works"><div class="category-buttons" role="group" aria-label="Filter works by practice">{controls}</div>
+<div class="catalog-controls"><div class="catalog-selection"><button class="all-work-filter" type="button" data-filter="all" aria-pressed="true">All work</button><p class="results-count" id="result-count" aria-live="polite">15 works</p></div><div class="catalog-search"><label class="sr-only" for="work-search">Find a work or technique</label><input id="work-search" type="search" placeholder="Find a work or technique" autocomplete="off"><button id="clear-filters" type="button">Reset</button></div></div>
 <div id="project-catalog">{''.join(groups)}</div><div id="no-results" hidden><h3>No works match this combination.</h3><p>Try a project name, a technique such as Kinect, or reset the filters.</p></div></section>
-{research_feature()}
-<section class="about-grid" id="about"><div><p class="eyebrow">A practice across art and engineering</p><h2>The question and<br>the system belong together.</h2></div><div><p>I am an artist, developer, and PhD researcher in Media Arts and Technology at UC Santa Barbara. I hold an MFA in Art and Technology from CalArts.</p><p>I work with the conditions of an encounter: what someone can do, how a system perceives that action, and how its response becomes meaningful. Unity and C# let me translate those questions into real-time experiences.</p><p>The projects include collaborations, directed works, and technical-development roles. Each case identifies my contribution. Unreal and MetaHuman work on Shininho and Jooan is documented separately.</p><div class="actions"><a class="button secondary" href="mailto:hoonahncloud@gmail.com">Discuss a research or development project ↗</a><a class="text-link" href="evidence.html">Evidence and current status ↗</a></div></div></section>
+<div class="catalog-route-bar"><span class="mono">Reading routes</span>{route_options(route)}</div>{route_note}
+<section class="index-contact" id="about"><h2>From an idea to a working system.</h2><div><a href="approach.html">My approach ↗</a><a href="code.html">Inspect the source ↗</a><a href="mailto:hoonahncloud@gmail.com">Let’s talk ↗</a></div></section>
 </main><script src="portfolio.js" defer></script>''' + footer()
     return page
 

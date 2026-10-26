@@ -75,7 +75,8 @@
     "aliases": [
       "꽃의 알고리즘과 파도의 문법",
       "꽃알파문"
-    ]
+    ],
+    "teaser": "Waves and flowers shaped through particles, shaders, and repetition."
   },
   {
     "id": "beads-wall",
@@ -153,7 +154,8 @@
     "aliases": [
       "비즈월",
       "BeadsWall"
-    ]
+    ],
+    "teaser": "A webcam image becomes a living field of particles."
   },
   {
     "id": "fall-of-minds",
@@ -231,7 +233,8 @@
     "aliases": [
       "폴오브마인드",
       "폴 오브 마인드"
-    ]
+    ],
+    "teaser": "Shopping-mall noise drives a changing visual landscape."
   },
   {
     "id": "erick-oh",
@@ -322,7 +325,8 @@
       "에릭 오",
       "구름",
       "메타볼"
-    ]
+    ],
+    "teaser": "Cloud shaders and raymarched droplets for an artist-led game."
   },
   {
     "id": "to-eternity",
@@ -401,7 +405,8 @@
       "투이터니티",
       "투 이터니티",
       "타임라인"
-    ]
+    ],
+    "teaser": "A visitor’s body carries images of collective memory."
   },
   {
     "id": "jemulpo",
@@ -491,7 +496,8 @@
       "제물포 사진관",
       "스타일트랜스퍼",
       "바라쿠다"
-    ]
+    ],
+    "teaser": "AI style transfer turns visitors’ portraits into another era."
   },
   {
     "id": "silhak-dance",
@@ -569,7 +575,8 @@
     "aliases": [
       "실학댄스",
       "실학 댄스"
-    ]
+    ],
+    "teaser": "Body tracking brings a historical character into shared movement."
   },
   {
     "id": "track-6",
@@ -647,7 +654,8 @@
     "aliases": [
       "트랙6",
       "트랙 6"
-    ]
+    ],
+    "teaser": "Dance redraws a geometric world in real time."
   },
   {
     "id": "gang-se-hwang",
@@ -725,7 +733,8 @@
     "aliases": [
       "강세황",
       "AI 강세황"
-    ]
+    ],
+    "teaser": "A historical portrait becomes a performing digital human."
   },
   {
     "id": "ai-zoo",
@@ -809,7 +818,8 @@
       "에이아이주",
       "아두이노",
       "서보모터"
-    ]
+    ],
+    "teaser": "Conversation, hand sensing, and servos stage an encounter with AI."
   },
   {
     "id": "ai-choi",
@@ -894,7 +904,8 @@
       "메이아이 최정훈",
       "메이아이최정훈",
       "JANNABI"
-    ]
+    ],
+    "teaser": "A digital likeness listens, speaks, and performs in real time."
   },
   {
     "id": "fineo",
@@ -974,7 +985,8 @@
       "피네오",
       "주기율표",
       "가상세계"
-    ]
+    ],
+    "teaser": "The periodic table becomes a navigable virtual universe."
   },
   {
     "id": "escape-metro",
@@ -1066,7 +1078,8 @@
       "RedFlight",
       "방탈출",
       "제일브레이킹"
-    ]
+    ],
+    "teaser": "Break an AI guard’s rules to find a way out."
   },
   {
     "id": "narci",
@@ -1149,7 +1162,8 @@
     "aliases": [
       "나르시",
       "나르시시스트"
-    ]
+    ],
+    "teaser": "VR role reversal examines control and narcissistic relationships."
   },
   {
     "id": "graffiti-freedom",
@@ -1232,6 +1246,7 @@
       "그래피티 메트로",
       "Graffiti Metro",
       "그래피티"
-    ]
+    ],
+    "teaser": "Paint a virtual subway without marking a physical space."
   }
 ]
