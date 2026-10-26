@@ -1,37 +1,47 @@
-# Jonghoon Ahn / Unity systems & interaction research
+# Jonghoon Ahn / Unity, media art & interaction
 
-A separate portfolio directory for research discussions with Tobias Höllerer and Misha Sra. Existing home and company-specific pages are preserved.
+An expanded portfolio of 15 existing works. Each case connects its artistic question, personal implementation, system flow, development decisions, project media, and a proposed research direction.
 
-## Open the site
+## Read
 
-- [Main portfolio](https://jonghoonahn.com/unity-research/)
-- [XR systems route](https://jonghoonahn.com/unity-research/xr.html)
-- [Human + AI route](https://jonghoonahn.com/unity-research/human-ai.html)
-- [Context Gate](https://jonghoonahn.com/unity-research/context-gate.html)
-- [Source index](https://jonghoonahn.com/unity-research/code.html)
+- [All 15 works](https://jonghoonahn.com/unity-research/)
+- [Four Eyes reading route](https://jonghoonahn.com/unity-research/xr.html)
+- [HAX reading route](https://jonghoonahn.com/unity-research/human-ai.html)
+- [Development approach](https://jonghoonahn.com/unity-research/approach.html)
+- [Technical map](https://jonghoonahn.com/unity-research/systems.html)
+- [Source and setup](https://jonghoonahn.com/unity-research/code.html)
 
-Three primary cases: Erick Oh collaboration, Jemulpo Photo Studio, Escape Metro. Supporting notes cover NARCI / Be NARCI, Graffiti Freedom, AI ZOO, and Gang Se-hwang. Unreal / MetaHuman work remains separate.
+## Four practices
 
-## Source bundle
+| Practice | Works |
+| --- | --- |
+| Real-time graphics & environments | Algorithm of Flowers and Grammar of Waves, Beads Wall, Fall of Minds, Erick Oh |
+| Sensing, bodies & image transformation | To Eternity, Jemulpo Photo Studio, Silhak Dance, Track 6 |
+| Digital humans & conversational AI | AI Gang Se-hwang, AI ZOO, AI Choi Jung-hoon |
+| VR worlds & critical interaction | Fineo, Escape Metro, NARCI / Be NARCI, Graffiti Freedom |
 
-Download [Unity_Research_Source.zip](downloads/Unity_Research_Source.zip). This is a source ZIP, not a Unity executable or .unitypackage.
+Every reading route retains all 15 works. Escape Metro / RedFlight is one project. NARCI / Be NARCI is one connected case. Unreal / MetaHuman work stays separate.
 
-Copy the ZIP's unity/Assets folders into a Unity 2022.3 LTS project's Assets folder. Then run Tools > Jonghoon Research > Create Context Gate Demo. See [setup](docs/UNITY_SETUP.md).
+## Editorial source
 
-## Status
+Project descriptions: content/projects.json. Within the complete repository checkout, rebuild pages and project development notes with:
 
-- Existing implementation: project scope confirmed by the owner and archival documentation.
-- Implemented in this update: site, independent samples, Context Gate C# source, scene generator, tests, browser explanation, documentation.
-- Additional production needed: original runtime / Inspector captures and executable builds.
-- Verification required: Unity compilation, C# tests, shader execution, exports, desktop and Quest behavior.
+    python tools/build_portfolio.py
 
-The new C# and shader files were not compiled or executed in Unity during this session. Browser concept checks do not verify Unity. No performance improvement, participant result, endorsement, or funded opening is asserted.
+The generator retains the existing Context Gate and source pages. New development notes are retrospective design analyses. They are not recovered original production documents.
+
+## Source prototype
+
+Context Gate is a separate new research instrument. The [Unity source bundle](downloads/Unity_Research_Source.zip) contains independent samples, tests, tools, and setup notes. It contains no private production source.
+
+The C# files, shader, scene generator, and Unity tests have not been executed in Unity. Browser-model checks do not verify Unity. No fabricated performance, participant result, clinical effect, professor endorsement, or funded vacancy is asserted.
 
 ## Documentation
 
-- [Unity setup](docs/UNITY_SETUP.md)
-- [Research protocol draft](docs/RESEARCH_PROTOCOL.md)
+- [Project development notes](docs/PROJECT_DEVELOPMENT_NOTES.md)
 - [한국어 촬영 가이드](docs/EVIDENCE_CAPTURE_KO.md)
-- [A–D 가상 검토와 제작 판단](docs/DESIGN_REVIEW_KO.md)
+- [A–D 가상 검토](docs/DESIGN_REVIEW_KO.md)
 - [Sources and claims](docs/SOURCES_AND_CLAIMS.md)
 - [Validation record](docs/VALIDATION.md)
+
+Changes remain inside unity-research/. The existing home and company-specific pages are preserved.

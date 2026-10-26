@@ -2,6 +2,14 @@
 
 Reviewed 26 October 2026. Public research is evidence of a research direction, not a funded vacancy or a professor's evaluation of this portfolio.
 
+## Expanded scope / artist clarification on 26 October 2026
+
+The current portfolio includes all 15 works. The artist clarified VFX Graph and shaders for Flowers and Waves, Azure Kinect and Timeline for To Eternity, Unity HDRP for Gang Se-hwang, Barracuda/style transformation/filters for Jemulpo, hand sensing and Arduino servos with LLM/digital-human output for AI ZOO, Kinect v2 for Silhak Dance and Track 6, webcam/VFX Graph for Beads Wall, spoken LLM conversation for AI Choi Jung-hoon, live ambient-audio visuals for Fall of Minds, and the cloud/metaball rendering split in Erick Oh. These current statements take precedence over older generalized hardware lists.
+
+Fineo was additionally read in detail: https://github.com/reusahn/Unity-Unreal-Interaction-Research/tree/main/04_Interactive_VR_Experience/Fineo_Translated_Universe . Its periodic-table, harmonograph, constructed-world premise and collaborative credit are retained. Old hardware claims and inconsistent equations are excluded.
+
+The project development notes are newly prepared retrospective analyses. Research comparisons remain proposals. The canonical archive titles AI Choi Jung-hoon and Graffiti Freedom are retained for the works the artist identified as 메이아이 최정훈 and 그래피티 메트로.
+
 ## Evidence hierarchy
 
 1. The user's current, explicit description establishes intended scope and corrects older descriptions.

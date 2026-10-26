@@ -1,0 +1,1237 @@
+[
+  {
+    "id": "flowers-waves",
+    "group": "graphics",
+    "title": "Algorithm of Flowers and Grammar of Waves",
+    "year": "2026",
+    "medium": "Particle-based moving-image series",
+    "role": "Artist / Unity developer",
+    "tags": [
+      "VFX Graph",
+      "Shaders",
+      "Unity"
+    ],
+    "image": "assets/images/flower-waves/flower-waves-card.jpg",
+    "alt": "Waves and a coastal landscape reconstructed through particles",
+    "video": "1226788498",
+    "hash": "",
+    "archive": "detail_pages/flower-of-waves.html",
+    "idea": "A landscape persists through change. Waves repeat, particles disperse, and a place returns without ever becoming the same image.",
+    "implementation": "I developed the particle imagery in Unity using VFX Graph and shaders. The work moves between recognizable landscapes and dispersed visual fields. The engine-side system becomes a moving-image series for the Art Korea Lab media wall.",
+    "question": "How can a landscape retain the memory of an earlier state while its visible form keeps changing?",
+    "context": "The work connects the repetition of waves with the appearance and disappearance of flowers. Its interest is in continuity through transformation: a new image carries traces of the image that preceded it. Particles provide a material vocabulary for gathering, drifting, and losing a contour.",
+    "system": [
+      [
+        "Source imagery",
+        "Landscape and wave material"
+      ],
+      [
+        "Graph / shader",
+        "Particle generation and visual treatment"
+      ],
+      [
+        "Art direction",
+        "Density, movement, and dissolution"
+      ],
+      [
+        "Presentation",
+        "A sequence for the media wall"
+      ]
+    ],
+    "technical": [
+      [
+        "A graph as an image-making system",
+        "VFX Graph and shader work are the implementation focus. They organize the transition between an identifiable place and a particle field, rather than serving only as a final decorative layer."
+      ],
+      [
+        "Separate the tool from the exhibition format",
+        "The Unity system is the production environment. The documented media-wall work is a moving-image presentation. That distinction keeps the generative implementation visible without implying that the wall was a live audience-controlled installation."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Start from a visual relation",
+        "Place repetition, growth, and disappearance in the same visual language. Decide which details make a place recognizable."
+      ],
+      [
+        "Find the useful range",
+        "Prepare variations in density and movement. Judge where a contour becomes unstable and where the source disappears completely."
+      ],
+      [
+        "Compose a series",
+        "Use the range of states to build transitions and differences between scenes, then assess the sequence at the scale of the wall."
+      ]
+    ],
+    "research": {
+      "question": "How does the persistence of a source contour affect recognition during particle-based transformation?",
+      "change": "The degree and duration of contour preservation.",
+      "keep": "The source sequence, viewing duration, and presentation scale."
+    },
+    "capture": [
+      "Show the VFX Graph, exposed properties, and Game view together. Change one parameter through the recognizable-to-dispersed range.",
+      "Show a shader or graph contribution in isolation, then the combined result. Label any final rendered sequence separately from the live Unity view."
+    ],
+    "note": "VFX Graph and shader implementation are confirmed by the artist. No particle-count, performance, or interaction-effect claim is attached.",
+    "aliases": [
+      "꽃의 알고리즘과 파도의 문법",
+      "꽃알파문"
+    ]
+  },
+  {
+    "id": "beads-wall",
+    "group": "graphics",
+    "title": "Beads Wall",
+    "year": "2025",
+    "medium": "Webcam-driven media installation",
+    "role": "Artist / Unity developer",
+    "tags": [
+      "VFX Graph",
+      "Webcam mapping",
+      "Unity"
+    ],
+    "image": "assets/images/interactive10_2.jpg",
+    "alt": "Live imagery mapped into a colorful bead-like field",
+    "video": "1055793366",
+    "hash": "92b0f81f7f",
+    "archive": "detail_pages/interactive_10.html",
+    "idea": "A passing body can become an image without stopping to perform. The camera's view is redistributed into a field of small, luminous forms.",
+    "implementation": "I mapped live webcam imagery into a Unity VFX Graph system. The incoming image supplies the material for a bead-like visual field, making the relation between the camera, the moving person, and the display immediately visible.",
+    "question": "What remains of a person's presence when a camera image becomes a field of discrete visual units?",
+    "context": "The installation treats an ordinary encounter with a camera as a temporary act of image-making. A figure can remain recognizable while its surface becomes fragmented and tactile. The work brings the passing visitor into the composition without requiring a separate instruction-heavy interface.",
+    "system": [
+      [
+        "Webcam",
+        "Live image input"
+      ],
+      [
+        "Image mapping",
+        "Camera frame enters the visual system"
+      ],
+      [
+        "VFX Graph",
+        "Bead-like particles and material behavior"
+      ],
+      [
+        "Display",
+        "A changing image of the surrounding space"
+      ]
+    ],
+    "technical": [
+      [
+        "Image input and particle output",
+        "The important boundary is the mapping from a camera frame to the VFX Graph result. The image supplies a changing source rather than a sequence of pre-rendered effects."
+      ],
+      [
+        "Legibility within abstraction",
+        "The visual treatment has to preserve enough structure for a visitor to connect a movement with its visible trace. Particle form and image correspondence carry different parts of that feedback."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Choose the encounter",
+        "Begin with people passing through a camera's view rather than a formal start button."
+      ],
+      [
+        "Set the mapping",
+        "Compare the live source and its particle representation. Decide which image relationships should remain readable."
+      ],
+      [
+        "Judge the display",
+        "Assess recognition, scale, and movement from where a passerby actually sees the work."
+      ]
+    ],
+    "research": {
+      "question": "How does image fragmentation change a visitor's recognition of their own movement?",
+      "change": "Particle scale and the spatial resolution of the camera mapping.",
+      "keep": "Camera position, live input, display size, and viewing distance."
+    },
+    "capture": [
+      "Record the webcam source, VFX Graph mapping, and final display at the same time.",
+      "Move across the camera view and pause. Show which parts of the image update and how the bead field responds."
+    ],
+    "note": "This case uses the artist-confirmed webcam and VFX Graph scope. Azure Kinect and particular segmentation algorithms are not assumed.",
+    "aliases": [
+      "비즈월",
+      "BeadsWall"
+    ]
+  },
+  {
+    "id": "fall-of-minds",
+    "group": "graphics",
+    "title": "Fall of Minds",
+    "year": "",
+    "medium": "Sound-reactive public installation",
+    "role": "Coding director / artist",
+    "tags": [
+      "Live audio",
+      "Visual mapping",
+      "Unity"
+    ],
+    "image": "assets/images/media3.jpg",
+    "alt": "Fall of Minds displayed as a vertical visual installation in a shopping mall",
+    "video": "666368634",
+    "hash": "6bb1e585c9",
+    "archive": "detail_pages/media_3.html",
+    "idea": "A shopping mall's ambient noise becomes a shared visual environment. The surrounding activity continuously changes the image.",
+    "implementation": "I developed a real-time visualizer that responds to ambient sound in the installation space. Live audio drives the behavior of a cascading, cloud-like visual form, connecting the public soundscape to the movement and density of the displayed image.",
+    "question": "Can an image make the collective activity of a space perceptible through its sound?",
+    "context": "The input is the ordinary acoustic life of the venue. Visitors contribute through their presence and activity rather than through a dedicated controller. The waterfall-like form gives that dispersed input a shared surface, making a temporary portrait of the space's intensity.",
+    "system": [
+      [
+        "Ambient sound",
+        "The venue's live acoustic input"
+      ],
+      [
+        "Audio analysis",
+        "Sound becomes control data"
+      ],
+      [
+        "Visual mapping",
+        "Control data changes the generative image"
+      ],
+      [
+        "Public display",
+        "A continuously responding environment"
+      ]
+    ],
+    "technical": [
+      [
+        "The room is the input device",
+        "The visualizer must be considered in relation to an occupied venue, where background activity and sudden changes are part of the material."
+      ],
+      [
+        "Translate rather than illustrate",
+        "The response is a generative form rather than a literal waveform. The technical task is the connection between live sound and useful visual variation. The precise feature extraction remains a code-capture task."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Listen to the site",
+        "Define the acoustic setting and how quiet, ordinary, and busy conditions should differ visually."
+      ],
+      [
+        "Choose the visual vocabulary",
+        "Find a form that can change continuously as the public soundscape changes."
+      ],
+      [
+        "Rehearse in context",
+        "Check the relationship between the sound being heard and the image being seen at the actual installation scale."
+      ]
+    ],
+    "research": {
+      "question": "Which sound-to-image mappings make changes in collective activity easiest to perceive?",
+      "change": "The visual parameter controlled by the same audio signal.",
+      "keep": "Recorded sound input, display sequence length, and viewing conditions."
+    },
+    "capture": [
+      "Show the actual live audio input, the values used for control, and the visual output in one recording.",
+      "Compare quiet and busy input without changing the visual configuration. Retain the actual mapping rather than assuming FFT or a particular feature set."
+    ],
+    "note": "The shopping-mall sound-reactive scope is confirmed by the artist. Older pages disagree on dates, so no single production year or unsupported audio algorithm is asserted here.",
+    "aliases": [
+      "폴오브마인드",
+      "폴 오브 마인드"
+    ]
+  },
+  {
+    "id": "erick-oh",
+    "group": "graphics",
+    "title": "Erick Oh game collaboration",
+    "year": "",
+    "medium": "Collaborative game development",
+    "role": "Unity technical artist / developer",
+    "tags": [
+      "HLSL",
+      "Raymarching",
+      "Metaballs",
+      "C#"
+    ],
+    "image": "media/game/06_four_growth_states.jpg",
+    "alt": "Four authored cloud growth states shown in wireframe",
+    "video": "1219170733",
+    "hash": "",
+    "archive": "projects7/erick-oh-real-time-graphics.html",
+    "idea": "An artist's idea of a changing form becomes something a player can act on. Rendering and runtime behavior have to support the same expressive intent.",
+    "implementation": "I developed cloud-form shaders and a raymarched metaball implementation for droplet-like forms in Unity. C# controls connect interaction and runtime parameters to visual feedback. The archive also documents authored growth states prepared with consistent mesh topology.",
+    "question": "How can a continuously changing visual form remain controllable enough for both art direction and interaction?",
+    "context": "This collaboration required technical decisions to preserve a particular visual character while making it work as a real-time system. Cloud deformation and droplet fusion are different rendering problems. Treating them separately makes their behavior easier to direct and their limitations easier to inspect.",
+    "system": [
+      [
+        "Interaction",
+        "Explicit C# runtime state"
+      ],
+      [
+        "Visual control",
+        "Flow and transformation parameters"
+      ],
+      [
+        "Rendering",
+        "Cloud deformation or a metaball field"
+      ],
+      [
+        "Feedback",
+        "A responsive form in the game"
+      ]
+    ],
+    "technical": [
+      [
+        "Cloud form and internal flow",
+        "The documented cloud work controls a shader's internal noise flow rather than making object translation stand in for all visual movement. The shape can change while the object's transform remains a distinct control."
+      ],
+      [
+        "Droplet fusion through an implicit field",
+        "Raymarched metaballs support the appearance of forms merging continuously. That visual fusion does not automatically produce an equivalent collision shape, so rendering and interaction logic remain distinct responsibilities."
+      ],
+      [
+        "Authored transformation states",
+        "Fixed-topology growth targets preserve vertex correspondence. They provide a different kind of control from procedural deformation and let the intended form be edited directly."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Translate the direction",
+        "Describe the behavior the artist wants to see, then separate shape, movement, and interaction requirements."
+      ],
+      [
+        "Prototype the rendering approach",
+        "Compare explicit mesh deformation with an implicit field according to the visual behavior each can express."
+      ],
+      [
+        "Return to runtime control",
+        "Expose the parameters that matter to direction and inspect the rendered response alongside the game state."
+      ]
+    ],
+    "research": {
+      "question": "How do different visual deformation methods affect the legibility of an object's interactive state?",
+      "change": "The visual representation used for the same state change.",
+      "keep": "Input action, state transition, camera, and presentation timing."
+    },
+    "capture": [
+      "Record Game view, Transform, and shader control values while reversing the field direction and changing intensity.",
+      "Show the droplet field and the separate contact or proximity logic. Identify the actual Maya growth states and their Unity controls."
+    ],
+    "note": "The existing collaboration and public technical media are distinct from the independent shader example supplied below. No private production source or performance benchmark is included.",
+    "sample": {
+      "path": "unity/Assets/ResearchSamples/ShaderFlowController.cs",
+      "related": "unity/Assets/ResearchSamples/ResponsiveField.shader",
+      "label": "C# to shader control",
+      "description": "An independent flow controller and simplified URP shader illustrate parameter control. This is source authored for the portfolio, not the production cloud or metaball implementation. Unity compilation is still pending."
+    },
+    "aliases": [
+      "에릭오",
+      "에릭 오",
+      "구름",
+      "메타볼"
+    ]
+  },
+  {
+    "id": "to-eternity",
+    "group": "sensing",
+    "title": "To Eternity",
+    "year": "2020",
+    "medium": "Interactive memorial installation",
+    "role": "Coding director / Unity developer",
+    "tags": [
+      "Azure Kinect",
+      "Timeline",
+      "Live compositing"
+    ],
+    "image": "assets/images/interactive1_3.jpg",
+    "alt": "A participant's form becomes a mosaic of archival photographs",
+    "video": "666369383",
+    "hash": "69a48ffe55",
+    "archive": "detail_pages/interactive_1.html",
+    "idea": "Remembrance becomes an embodied action. The visitor's live image carries archival photographs of the Gwangju Democratization Movement.",
+    "implementation": "I connected Azure Kinect sensing to Unity and integrated live interaction with Timeline-based media sequencing. Body input, archival-image composition, and timed presentation work together so the memorial responds to the participant rather than playing as a fixed video.",
+    "question": "How can a person enter an archive through a gesture rather than only look at it?",
+    "context": "The work commemorates the Gwangju Democratization Movement. Its central relation is between a person present now and photographs of people and events in the past. The archive is carried by the visitor's silhouette, making participation an act of attention and remembrance.",
+    "system": [
+      [
+        "Azure Kinect",
+        "Live body and depth input"
+      ],
+      [
+        "Interaction state",
+        "Recognized participation becomes an event"
+      ],
+      [
+        "Unity / Timeline",
+        "Media sequence and live composition"
+      ],
+      [
+        "Projection",
+        "A memorial image shaped by presence"
+      ]
+    ],
+    "technical": [
+      [
+        "A sensor event inside a timed sequence",
+        "Timeline organizes authored media over time, while the sensor introduces events that arrive according to a participant's actions. Integrating those two modes is the central implementation problem."
+      ],
+      [
+        "Live presence and archival material",
+        "The participant's body supplies a changing visual structure for historical imagery. Tracking, composition, and sequence state must remain understandable as separate stages."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Define the commemorative act",
+        "Use the relation between a body, a gesture, and archival imagery as the brief for the interaction."
+      ],
+      [
+        "Map participation to sequence",
+        "Decide which parts of the presentation are authored in time and which begin in response to live input."
+      ],
+      [
+        "Rehearse the transitions",
+        "Inspect arrival, recognition, image transformation, and return to a state ready for another participant."
+      ]
+    ],
+    "research": {
+      "question": "How does gesture-triggered sequencing change the experience of participating in a digital memorial?",
+      "change": "Gesture-triggered versus fixed-time presentation.",
+      "keep": "Archival material, visual composition, and presentation duration."
+    },
+    "capture": [
+      "Show Azure Kinect input, the relevant Unity event, and the Timeline playhead in one recording.",
+      "Record the participant-to-memorial transition and reset. Show the actual recognition rule without borrowing thresholds from an unverified older description."
+    ],
+    "note": "Azure Kinect connection and Timeline integration are confirmed by the artist. No recognition-accuracy percentage or measured emotional effect is claimed.",
+    "aliases": [
+      "투이터니티",
+      "투 이터니티",
+      "타임라인"
+    ]
+  },
+  {
+    "id": "jemulpo",
+    "group": "sensing",
+    "title": "Jemulpo Photo Studio",
+    "year": "2022",
+    "medium": "Interactive portrait installation",
+    "role": "Technical director / Unity developer",
+    "tags": [
+      "Barracuda",
+      "Style transfer",
+      "OpenCV",
+      "Filters"
+    ],
+    "image": "assets/images/interactive3_1.jpg",
+    "alt": "Transformed visitor portraits displayed across the installation wall",
+    "video": "1011870114",
+    "hash": "e6a92f4ef4",
+    "archive": "detail_pages/interactive_3.html",
+    "idea": "A visitor's portrait enters the visual language of an earlier era. Image transformation becomes a way to inhabit a historical representation.",
+    "implementation": "I developed the Unity portrait pipeline using Barracuda-based AI processing, Python/OpenCV, style transformation, and visual filters. The system composes a processed portrait and connects it to archival output and an external display. The installation supports up to four simultaneous participants.",
+    "question": "What happens when a contemporary face is translated into the graphic conventions of a historical portrait?",
+    "context": "The project draws on early modern Incheon and the visual culture of New Women magazines. A visitor is both the subject of the image and a participant in its construction. The changing gallery places individual portraits within a collectively produced historical fiction.",
+    "system": [
+      [
+        "Portrait capture",
+        "A live visitor image"
+      ],
+      [
+        "AI / image processing",
+        "Barracuda and OpenCV stages"
+      ],
+      [
+        "Style / composition",
+        "Transformation, filters, and layout"
+      ],
+      [
+        "Gallery output",
+        "Saved portrait and networked display"
+      ]
+    ],
+    "technical": [
+      [
+        "AI processing and visual filters",
+        "Model-based image processing and artistic filters contribute different parts of the result. The case is about composing those operations into a usable Unity portrait pipeline, rather than presenting every effect as a single AI model."
+      ],
+      [
+        "Composition as part of the system",
+        "The transformed face needs to belong to the image's framing, background, and graphic style. The output is a composed portrait, not an isolated inference result."
+      ],
+      [
+        "Move a portrait between processes",
+        "Completed portraits move from the creation pipeline to a separate public display. Capture, transformation, output, and presentation each have a distinct responsibility within the visitor experience."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Choose the visual reference",
+        "Identify the historical image conventions the participant should be able to enter."
+      ],
+      [
+        "Separate the transformation stages",
+        "Plan the relationship between model processing, image filtering, and the final portrait layout."
+      ],
+      [
+        "Follow a portrait through the venue",
+        "Rehearse capture, transformation, local output, and arrival on the public display as one visitor experience."
+      ]
+    ],
+    "research": {
+      "question": "How do different transformation layers affect recognition and identification with a historical portrait?",
+      "change": "The contribution of style transformation and graphic filtering.",
+      "keep": "Portrait input, target composition, and display conditions."
+    },
+    "capture": [
+      "Show the actual Barracuda model asset and processing stage, its input/output textures, the style or filter stage, and the final composition.",
+      "Toggle the relevant processing layers for the same portrait. Separately record the capture-to-gallery path and actual participant routing."
+    ],
+    "note": "The artist confirms Barracuda, style transformation, filters, and the installation scope. Model architecture and its exact preprocessing contract are not inferred. The TCP sample below illustrates only a secondary process boundary.",
+    "sample": {
+      "path": "unity/Assets/ResearchSamples/PortraitInbox.cs",
+      "related": "tools/send_portrait.py",
+      "label": "A separate transport example",
+      "description": "This independent one-sender TCP receiver illustrates complete-frame transfer and main-thread texture decoding. It is not the Barracuda/style-transfer implementation or the original four-participant system. Unity execution is pending."
+    },
+    "aliases": [
+      "제물포 사진관",
+      "스타일트랜스퍼",
+      "바라쿠다"
+    ]
+  },
+  {
+    "id": "silhak-dance",
+    "group": "sensing",
+    "title": "Silhak Dance",
+    "year": "2019",
+    "medium": "Body-driven museum interaction",
+    "role": "Technical artist / Unity developer",
+    "tags": [
+      "Kinect v2",
+      "Body mapping",
+      "Character animation"
+    ],
+    "image": "assets/images/interactive7.jpg",
+    "alt": "A museum visitor moving in front of the Silhak Dance display",
+    "video": "666366919",
+    "hash": "507e60e6ca",
+    "archive": "detail_pages/interactive_7.html",
+    "idea": "A historical scholar is encountered through a shared movement. The visitor meets the character by moving with it.",
+    "implementation": "I connected Kinect v2 body tracking to a Unity character interaction. The digital Kim Yuk follows the visitor's movement, bringing live body input and character animation into a museum presentation.",
+    "question": "Can moving with a historical character offer a different encounter from reading about one?",
+    "context": "The work introduces the Silhak scholar Kim Yuk through bodily play. The visitor's movement becomes a bridge between the present-day body and the historical figure on screen. Educational material sits within that encounter rather than remaining entirely separate from it.",
+    "system": [
+      [
+        "Kinect v2",
+        "Tracked body input"
+      ],
+      [
+        "Body mapping",
+        "Sensor movement becomes character control"
+      ],
+      [
+        "Unity character",
+        "Real-time performance"
+      ],
+      [
+        "Museum display",
+        "A visitor and a historical figure move together"
+      ]
+    ],
+    "technical": [
+      [
+        "A body-to-character mapping",
+        "The implemented relation is between a tracked person and a real-time character. Sensor coordinates and the animated figure belong to different spaces and must be connected through an explicit mapping."
+      ],
+      [
+        "Legibility at human scale",
+        "A visitor needs to recognize the relationship between their action and the character's response. The encounter's success depends on that correspondence, not only on the character's visual quality."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Begin with a shared action",
+        "Frame movement as the way a visitor approaches the historical figure."
+      ],
+      [
+        "Design the correspondence",
+        "Decide which aspects of the body the character should follow and how the movement reads on the display."
+      ],
+      [
+        "Test the encounter",
+        "Rehearse entering the sensing area, moving, pausing, and leaving from the visitor's actual position."
+      ]
+    ],
+    "research": {
+      "question": "How does movement correspondence affect engagement with a historical digital character?",
+      "change": "The mapping between the visitor's pose and the character's movement.",
+      "keep": "Character identity, scene, task duration, and educational material."
+    },
+    "capture": [
+      "Record Kinect v2 tracking and the corresponding Unity character movement side by side.",
+      "Show the actual body-to-character mapping component and how the application behaves when a person enters or leaves the tracked area."
+    ],
+    "note": "Kinect v2 is confirmed by the artist. This case is distinct from the Azure Kinect implementation in To Eternity.",
+    "aliases": [
+      "실학댄스",
+      "실학 댄스"
+    ]
+  },
+  {
+    "id": "track-6",
+    "group": "sensing",
+    "title": "Track 6",
+    "year": "2019",
+    "medium": "Interactive dance installation",
+    "role": "Director / technical artist",
+    "tags": [
+      "Kinect v2",
+      "Motion mapping",
+      "Unity"
+    ],
+    "image": "assets/images/interactive8.jpg",
+    "alt": "A tracked body represented by colored geometric forms in Track 6",
+    "video": "1107679795",
+    "hash": "58b433143e",
+    "archive": "detail_pages/interactive_8.html",
+    "idea": "The body becomes a way to draw and disturb a virtual environment. Dance is translated into a changing geometric system.",
+    "implementation": "I used Kinect v2 to capture body movement and map it into Unity's geometric visual environments. The installation connects six music tracks with a space in which movement can produce deliberately altered visual relationships.",
+    "question": "What kind of performance emerges when a body no longer appears under familiar visual rules?",
+    "context": "Track 6 places the participant between bodily movement and an abstract representation of that movement. The visible body is no longer a direct likeness. A gesture can become a geometric relation, letting the participant explore a different relation to motion, space, and rhythm.",
+    "system": [
+      [
+        "Kinect v2",
+        "Full-body tracking"
+      ],
+      [
+        "Movement mapping",
+        "Pose enters the visual environment"
+      ],
+      [
+        "Geometry / music",
+        "A changing performance context"
+      ],
+      [
+        "Display",
+        "An alternate visual body"
+      ]
+    ],
+    "technical": [
+      [
+        "Representation rather than imitation",
+        "The tracking data does not need to reproduce a realistic character. It can drive geometric forms, making the mapping itself an expressive part of the work."
+      ],
+      [
+        "Keep the movement readable",
+        "Changing the visual rules still requires a relationship the participant can discover. The engineering boundary is where body data becomes a visible and usable control."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Define the alternate body",
+        "Choose how a person should appear when represented through geometric forms."
+      ],
+      [
+        "Relate rhythm and mapping",
+        "Consider how each musical context changes the participant's reading of movement."
+      ],
+      [
+        "Rehearse the action",
+        "Observe the same body movement under the selected visual mappings and adjust their legibility."
+      ]
+    ],
+    "research": {
+      "question": "How does an abstract body representation change exploratory movement?",
+      "change": "The mapping from tracked pose to geometric form.",
+      "keep": "Input recording, musical context, display, and exposure time."
+    },
+    "capture": [
+      "Show Kinect v2 input and the resulting geometric representation simultaneously.",
+      "Replay one motion through two actual mappings. Identify which behavior is an artistic transformation rather than a physical simulation."
+    ],
+    "note": "Kinect v2 and body-to-geometry interaction are confirmed. No physical accuracy or measured behavioral effect is asserted.",
+    "aliases": [
+      "트랙6",
+      "트랙 6"
+    ]
+  },
+  {
+    "id": "gang-se-hwang",
+    "group": "humans",
+    "title": "AI Gang Se-hwang",
+    "year": "2022",
+    "medium": "Museum digital-human installation",
+    "role": "Technical director / Unity integration",
+    "tags": [
+      "Unity HDRP",
+      "Digital human",
+      "Animation integration"
+    ],
+    "image": "assets/images/interactive2.jpg",
+    "alt": "The historical digital human Gang Se-hwang",
+    "video": "1011866123",
+    "hash": "8336cf2a0c",
+    "archive": "detail_pages/interactive_2.html",
+    "idea": "A historical portrait becomes a figure that can perform and respond. Cultural memory is encountered through a real-time digital body.",
+    "implementation": "I brought the digital human into Unity HDRP and integrated character assets, body and facial performance, animation, and museum interaction. The work connects the prepared character to a running presentation rather than stopping at a rendered likeness.",
+    "question": "What changes when a historical representation can move, speak, and share an encounter with a visitor?",
+    "context": "Gang Se-hwang is known through historical images and records. A responsive character adds movement and temporal presence to those references. The installation therefore asks how an interpretation of a historical person becomes legible as a visitor-facing digital guide.",
+    "system": [
+      [
+        "Character assets",
+        "Model, materials, and performance data"
+      ],
+      [
+        "Unity HDRP",
+        "Character and animation integration"
+      ],
+      [
+        "Interaction state",
+        "Visitor-facing presentation behavior"
+      ],
+      [
+        "Museum runtime",
+        "A responsive digital figure"
+      ]
+    ],
+    "technical": [
+      [
+        "From asset to runtime",
+        "A character model, animation clips, facial performance, and materials are separate production elements. The Unity integration makes them behave as one presented figure."
+      ],
+      [
+        "Animation within an encounter",
+        "The character's performance needs to belong to the interaction state. The technical case is the coordination between prepared performance and runtime presentation, supported by existing Unity and installation images."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Anchor the representation",
+        "Use historical visual references to establish what the digital figure needs to communicate."
+      ],
+      [
+        "Plan the performance pipeline",
+        "Separate source assets and recorded performance from Unity-side playback and interaction logic."
+      ],
+      [
+        "Inspect the final encounter",
+        "Judge the character in the actual visitor-facing presentation, including transition into and out of an interaction."
+      ]
+    ],
+    "research": {
+      "question": "How does responsive animation change the perceived presence of a historical digital figure?",
+      "change": "The relation between visitor input and character performance.",
+      "keep": "Character model, dialogue material, display, and scene."
+    },
+    "capture": [
+      "Show the character rig, Animator or actual animation-control system, and one interaction-triggered transition in Unity.",
+      "Connect that Editor capture to the installed kiosk or display. Label source performance assets separately from runtime logic."
+    ],
+    "note": "This is Unity HDRP work. Shininho and Jooan's Unreal / MetaHuman production remains separate. Older venue-name differences are not resolved by guessing.",
+    "aliases": [
+      "강세황",
+      "AI 강세황"
+    ]
+  },
+  {
+    "id": "ai-zoo",
+    "group": "humans",
+    "title": "AI ZOO",
+    "year": "2024",
+    "medium": "Embodied AI installation",
+    "role": "Director / technical artist",
+    "tags": [
+      "LLM dialogue",
+      "Arduino servos",
+      "Hand sensing",
+      "Digital human"
+    ],
+    "image": "assets/images/interactive4.jpg",
+    "alt": "AI ZOO's digital-human display and motor-driven transparent sphere",
+    "video": "1026374193",
+    "hash": "",
+    "archive": "detail_pages/interactive_4.html",
+    "idea": "A confined artificial figure can make a visitor feel concern, discomfort, or responsibility. The work asks where those feelings actually arise.",
+    "implementation": "I connected a Unity digital human and real-time LLM conversation with hand sensing, generated voice, Arduino servo motors, and lighting. Unity and Python coordinate the inputs and outputs so a reply can become a physical, vocal, and visual event.",
+    "question": "Why can a person feel responsible for an artificial entity whose feelings cannot be assumed?",
+    "context": "AI ZOO places a digital human, a moving transparent form, voice, and visitor input in the same space. The encounter begins before the visitor says anything: confinement and a request for help already establish expectations. Motor motion, speech, and delay then provide signals the person may interpret as affect.",
+    "system": [
+      [
+        "Visitor input",
+        "Language and hand sensing"
+      ],
+      [
+        "Response state",
+        "LLM output and system coordination"
+      ],
+      [
+        "Embodied output",
+        "Digital human, voice, light, servos"
+      ],
+      [
+        "Human interpretation",
+        "The visitor decides how to respond"
+      ]
+    ],
+    "technical": [
+      [
+        "One encounter across several devices",
+        "A model reply, an audio response, an animated face, and a servo command do not naturally share the same execution path. The implementation connects those subsystems into a live installation."
+      ],
+      [
+        "Make internal control perceptible",
+        "Movement, light, voice, and timing give a system state a physical presence. They are control signals and performed behavior, not proof that the machine experiences the emotion attributed to it."
+      ],
+      [
+        "Preserve the sensing boundary",
+        "Hand input is part of the interaction loop. The hand-sensing path remains distinct from the language path even when both contribute to the same response."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Stage the asymmetry",
+        "Define the visitor's ability to intervene and the artificial figure's apparent inability to leave."
+      ],
+      [
+        "Choose an output vocabulary",
+        "Assign expressive roles to movement, light, voice, and response timing."
+      ],
+      [
+        "Connect the bench to the encounter",
+        "Inspect one input through each output channel, then judge how the combined response is read in the installation."
+      ]
+    ],
+    "research": {
+      "question": "How does adding physical motion change the interpretation of the same AI response?",
+      "change": "The servo-driven movement accompanying a fixed response.",
+      "keep": "Dialogue, digital-human appearance, response timing, and spatial setting."
+    },
+    "capture": [
+      "Record a hand or language input, the response/control state, and servo, light, voice, and digital-human output together.",
+      "Show the Arduino connection and one controlled motor command. Also show the implemented interrupted-input and reset behavior."
+    ],
+    "note": "The artist confirms the LLM, digital-human, hand-sensing, Arduino servo, and light integration. Emotional responses are artistic and research questions, not reported study results.",
+    "aliases": [
+      "에이아이주",
+      "아두이노",
+      "서보모터"
+    ]
+  },
+  {
+    "id": "ai-choi",
+    "group": "humans",
+    "title": "AI Choi Jung-hoon",
+    "year": "2024",
+    "medium": "Conversational digital-human prototype",
+    "role": "Artist / technical director",
+    "tags": [
+      "Spoken dialogue",
+      "LLM",
+      "Digital human",
+      "Unity"
+    ],
+    "image": "assets/images/interactive9.jpg",
+    "alt": "The real-time digital representation of Choi Jung-hoon",
+    "video": "933305770",
+    "hash": "b3cef8f513",
+    "archive": "detail_pages/interactive_9.html",
+    "idea": "Admiration changes when a mediated likeness appears able to answer. An existing emotional relation becomes the context for a synthetic encounter.",
+    "implementation": "I integrated a real-time digital human in Unity with spoken input, GPT-based replies, synthesized speech, and facial performance. The project brings the conversation into a visibly performing character rather than presenting a text-only chat interface.",
+    "question": "What does it feel like when a representation of a performer I admire appears to speak directly to me?",
+    "context": "The project begins from my own fandom of JANNABI vocalist Choi Jung-hoon. Familiarity with a real performer's face and voice changes what an artificial response can mean. The character is a constructed representation, while the admiration and expectations brought to the encounter belong to the person addressing it.",
+    "system": [
+      [
+        "Spoken input",
+        "The visitor addresses the figure"
+      ],
+      [
+        "Language response",
+        "Speech transcription and GPT dialogue"
+      ],
+      [
+        "Voice / performance",
+        "Synthesized audio and facial animation"
+      ],
+      [
+        "Unity presentation",
+        "A real-time conversational character"
+      ]
+    ],
+    "technical": [
+      [
+        "Turn speech into performance",
+        "Transcription, response generation, voice synthesis, and facial playback are different operations. Their coordination makes the exchange visible as a character's response."
+      ],
+      [
+        "Timing is part of the interface",
+        "A generated sentence and its performed audio do not arrive as a single synchronized object. The archive describes Unity sequencing that organizes those handoffs."
+      ],
+      [
+        "Recognizable form and responsive behavior",
+        "Recognizable form and responsive behavior contribute different parts of the encounter. The project connects those requirements in a single real-time character."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Begin with recognition",
+        "Use a personally meaningful figure to make familiarity part of the premise."
+      ],
+      [
+        "Prepare the performable character",
+        "Move from a visual reference to an animation-ready figure that can articulate new responses."
+      ],
+      [
+        "Assemble one complete turn",
+        "Inspect incoming speech, model reply, spoken output, and facial performance as one exchange."
+      ]
+    ],
+    "research": {
+      "question": "How does familiarity with a represented person affect the interpretation of conversational responsiveness?",
+      "change": "Familiar versus unfamiliar character presentation.",
+      "keep": "Dialogue content, response timing, voice presentation, and interaction duration."
+    },
+    "capture": [
+      "Show microphone input, recognized text, generated reply, audio playback, and facial performance during one turn.",
+      "Show the actual Unity response-sequencing components. Avoid describing the representation as the real performer's participation or an official collaboration."
+    ],
+    "note": "The canonical archive title is AI Choi Jung-hoon. This is the spoken-dialogue digital-human case identified by the artist as 메이아이 최정훈. No measured intimacy or identity-equivalence result is claimed.",
+    "aliases": [
+      "최정훈",
+      "메이아이 최정훈",
+      "메이아이최정훈",
+      "JANNABI"
+    ]
+  },
+  {
+    "id": "fineo",
+    "group": "xr-worlds",
+    "title": "Fineo, Translated Universe",
+    "year": "2019",
+    "medium": "Data visualization / VR world",
+    "role": "Co-artist / developer",
+    "tags": [
+      "VR worldbuilding",
+      "Harmonograph",
+      "Data translation"
+    ],
+    "image": "assets/images/xr1.jpg",
+    "alt": "A viewer exploring Fineo's spatial field of generated forms",
+    "video": "666371092",
+    "hash": "5759d8c3ae",
+    "archive": "detail_pages/xr_1.html",
+    "idea": "A periodic table becomes the material for another universe. Numerical relationships are translated into forms that can be encountered as a world.",
+    "implementation": "I contributed to the collaborative data-visualization and Unity VR work. Elemental data is translated through harmonograph-based form generation, then organized into a speculative spatial system. The contribution is both a visual translation method and the construction of an inhabitable virtual world.",
+    "question": "What kind of world becomes possible when scientific classification is treated as material for construction?",
+    "context": "Fineo begins with the periodic table but does not stop at displaying its entries. Data becomes generated forms, which can be related as larger structures and constellations. The work proposes a constructed material world: a translation from numerical order into an experienced spatial order. Numerical differences become forms, and forms become an explorable order.",
+    "system": [
+      [
+        "Elemental data",
+        "A structured source of differences"
+      ],
+      [
+        "Harmonograph forms",
+        "Data mapped into generative geometry"
+      ],
+      [
+        "Constructed relations",
+        "Forms become a larger spatial system"
+      ],
+      [
+        "VR encounter",
+        "The viewer enters the translated world"
+      ]
+    ],
+    "technical": [
+      [
+        "A translation rule with a point of view",
+        "Mapping data to a generative function is a design decision. The rule gives the world consistency while also determining what kinds of relationships it makes visible."
+      ],
+      [
+        "From isolated form to world",
+        "The generated object is only the first level. The project then organizes forms into larger relations that can be explored in VR, making composition and spatial experience part of the visualization."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Set the proposition",
+        "Treat data as a source of constructed matter rather than a table that must stay on a flat page."
+      ],
+      [
+        "Design the translation",
+        "Choose the relation between data differences, generated form, and the visual vocabulary of the world."
+      ],
+      [
+        "Compose across scales",
+        "Move from individual forms to clusters and a navigable setting. Judge whether the translation remains perceptible across those scales."
+      ]
+    ],
+    "research": {
+      "question": "How does entering a data-derived world change the relationships a viewer notices?",
+      "change": "A flat arrangement versus an explorable spatial arrangement of the same generated forms.",
+      "keep": "Source data, form-generation rules, labeling, and exposure time."
+    },
+    "capture": [
+      "Show one actual data entry, its generation parameters, the resulting form, and its placement in the Unity world.",
+      "Connect that sequence to VR navigation. Confirm the original data-to-parameter mapping before presenting any equation as production code."
+    ],
+    "note": "The harmonograph, periodic-table, collaborative authorship, and VR premise are documented. Old hardware lists and inconsistent equations are not used as implementation evidence.",
+    "credits": "Geum Jaesung · Jonghoon Ahn · Yu Hwanjun / Choco Loading",
+    "aliases": [
+      "피네오",
+      "주기율표",
+      "가상세계"
+    ]
+  },
+  {
+    "id": "escape-metro",
+    "group": "xr-worlds",
+    "title": "Escape Metro",
+    "year": "2024",
+    "medium": "VR escape game / conversational puzzle",
+    "role": "Game developer / technical director",
+    "tags": [
+      "LLM jailbreaking",
+      "VR",
+      "NPC dialogue",
+      "C#"
+    ],
+    "image": "assets/images/xr4.jpg",
+    "alt": "The virtual subway setting in Escape Metro",
+    "video": "1107998609",
+    "hash": "",
+    "archive": "detail_pages/xr_4.html",
+    "idea": "Conversation becomes an escape mechanic. The player tries to persuade an AI guard to reveal information it is meant to withhold.",
+    "implementation": "I developed the Unity VR experience and connected GPT-based NPC dialogue to puzzles and progression. The LLM jailbreaking premise gives the player a practical objective: uncover a protected password or clue and use it to move toward escape.",
+    "question": "What happens when negotiating with an AI's rules becomes the rule of a game?",
+    "context": "The subway is both a spatial environment and a setting for a language-based constraint. A player does not progress only by finding an object or following a dialogue tree. They experiment with how to address the NPC, turning the tension between instruction and persuasion into a playable situation.",
+    "system": [
+      [
+        "Player speech",
+        "A question or persuasive attempt"
+      ],
+      [
+        "GPT NPC",
+        "A response within the character's constraints"
+      ],
+      [
+        "Puzzle state",
+        "Information linked to a progression condition"
+      ],
+      [
+        "World feedback",
+        "Character performance and escape flow"
+      ]
+    ],
+    "technical": [
+      [
+        "A conversation with a consequence",
+        "The AI dialogue is part of a puzzle rather than an ambient addition. Its relationship to the password and progression gives interaction a concrete purpose."
+      ],
+      [
+        "A model response and a game rule",
+        "The original integration links conversation to gameplay. The independent example below demonstrates a stricter separation between presentation cues and game-authorized progression without claiming it reproduces the private source."
+      ],
+      [
+        "An experimental game premise",
+        "Jailbreaking is the artistic and gameplay concept in this controlled fiction. It is not a claim that the project trained a model or evaluated the security of a deployed service."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Write the constraint",
+        "Define what the guard knows, what it should protect, and why the player needs that information."
+      ],
+      [
+        "Build the conversational objective",
+        "Connect the exchange to a password, clue, and escape condition that can be inspected in the game."
+      ],
+      [
+        "Keep the exchange in the world",
+        "Coordinate the NPC's response and presentation with the player's ongoing VR task."
+      ]
+    ],
+    "research": {
+      "question": "How do players understand and negotiate a conversational constraint when it determines game progression?",
+      "change": "The way the NPC explains or withholds its rule.",
+      "keep": "Puzzle goal, protected information, world, and response presentation."
+    },
+    "capture": [
+      "Record an ordinary question and an attempt that produces a useful clue, with the corresponding puzzle state visible.",
+      "Show the actual condition that permits progression. Record the response and world change in the same sequence."
+    ],
+    "note": "Escape Metro and RedFlight AI are the same project. No original response-latency, model-training, or commercial online-service claim is added.",
+    "sample": {
+      "path": "unity/Assets/ResearchSamples/NpcProgressGate.cs",
+      "related": "unity/Assets/ContextGate/Runtime/ExperimentRunner.cs",
+      "label": "An independent progression boundary",
+      "description": "This new example checks reply turn and scene identifiers and keeps the puzzle rule separate from NPC text. It is not the original Escape Metro implementation. Unity compilation and runtime verification remain pending."
+    },
+    "aliases": [
+      "이스케이프 메트로",
+      "RedFlight AI",
+      "RedFlight",
+      "방탈출",
+      "제일브레이킹"
+    ]
+  },
+  {
+    "id": "narci",
+    "group": "xr-worlds",
+    "title": "NARCI / Be NARCI",
+    "year": "2023",
+    "medium": "Paired psychological VR experiences",
+    "role": "Director / technical artist",
+    "tags": [
+      "Hand tracking",
+      "Unity XR",
+      "Role reversal"
+    ],
+    "image": "assets/images/xr2.jpg",
+    "alt": "The enclosed virtual setting of NARCI",
+    "video": "1011881596",
+    "hash": "2770ac3b29",
+    "archive": "detail_pages/xr_2.html",
+    "secondVideo": "1107996077",
+    "idea": "A constrained VR encounter explores narcissistic relationships. A companion work reverses the participant's role and makes control something they perform.",
+    "implementation": "I built the Unity XR encounters and connected tracked-hand interaction to runtime scene and material states. NARCI places the participant within a confined sequence; Be NARCI gives them actions that alter other human-like figures.",
+    "question": "How does an experience change when the participant moves from receiving control to exercising it?",
+    "context": "The pair approaches narcissism through spatial constraint, direct address, and role reversal. NARCI has an intention of reflection and self-restoration. Be NARCI asks the participant to confront the consequences of controlling another figure. These are artistic and experiential aims, rather than evidence of a validated psychological treatment.",
+    "system": [
+      [
+        "Embodied input",
+        "Headset presence and tracked hands"
+      ],
+      [
+        "Unity interaction",
+        "Available gestures and runtime events"
+      ],
+      [
+        "Scene response",
+        "Encounter sequence and visible state changes"
+      ],
+      [
+        "Role / interpretation",
+        "The participant experiences a relation of power"
+      ]
+    ],
+    "technical": [
+      [
+        "Player role is part of the mechanic",
+        "The two works change what the participant can do, not only what the dialogue says. Agency and spatial restriction therefore carry the concept."
+      ],
+      [
+        "Hands and consequences",
+        "A tracked gesture must connect to an inspectable state change. The archive describes touch, pinch, and grab interactions, with hand-driven changes in the companion experience."
+      ],
+      [
+        "A reflective experience with a clear scope",
+        "The work can be framed around healing or self-restoration as an artistic intention. No clinical efficacy, diagnosis, or therapeutic outcome is asserted."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Choose the participant's position",
+        "Define whether the person receives an encounter or acts on another figure."
+      ],
+      [
+        "Translate the relation into space",
+        "Use enclosure, distance, available actions, and consequences as the design material."
+      ],
+      [
+        "Rehearse in the headset",
+        "Judge the relation at body scale, including reach, encounter timing, and the visibility of feedback."
+      ]
+    ],
+    "research": {
+      "question": "How does role reversal in the same theme change perceived agency and responsibility?",
+      "change": "The participant's available actions and position within the encounter.",
+      "keep": "The thematic context, character material, exposure time, and measurement procedure."
+    },
+    "capture": [
+      "Record the actual tracked-hand event and the resulting Unity state. Show input loss and reacquisition if the current implementation supports it.",
+      "Record NARCI and Be NARCI separately to show the different actions available to the participant."
+    ],
+    "note": "The hand-tracked XR implementation and paired experience are documented. Reflection and recovery remain design intentions, not reported treatment results.",
+    "aliases": [
+      "나르시",
+      "나르시시스트"
+    ]
+  },
+  {
+    "id": "graffiti-freedom",
+    "group": "xr-worlds",
+    "title": "Graffiti Freedom",
+    "year": "2019",
+    "medium": "VR painting / public-space experiment",
+    "role": "Artist / Unity developer",
+    "tags": [
+      "Particles",
+      "RenderTexture",
+      "VR painting"
+    ],
+    "image": "assets/images/xr5.jpg",
+    "alt": "The virtual subway painting environment in Graffiti Freedom",
+    "video": "1108000765",
+    "hash": "",
+    "archive": "detail_pages/xr_5.html",
+    "idea": "Move the act of graffiti into a virtual subway. The gesture of marking a shared space is separated from physical residue and real-world site permissions.",
+    "implementation": "I developed the Unity VR spray interaction using particles, surface-hit information, and a dynamic RenderTexture used by the wall material. Short-lived spray feedback and the accumulated painted surface play different roles in the experience.",
+    "question": "What does it mean to leave a mark when the place and its consequences are virtual?",
+    "context": "The work begins with the conflict between expression in public space and the material and legal consequences of making a mark. Moving the action into VR changes those conditions while retaining the bodily impulse to spray, sign, and claim a surface. The virtual wall becomes a place to examine that desire.",
+    "system": [
+      [
+        "VR input",
+        "A spray action in space"
+      ],
+      [
+        "Particle feedback",
+        "Emission and surface contact"
+      ],
+      [
+        "Texture state",
+        "Paint accumulates in a RenderTexture"
+      ],
+      [
+        "Wall material",
+        "The environment retains a visible mark"
+      ]
+    ],
+    "technical": [
+      [
+        "A spray effect and a painted wall",
+        "Particles show the action as it happens. The render target carries the result after the particle disappears. Separating them makes the mark a consequence of input."
+      ],
+      [
+        "Attach the mark to a surface",
+        "The painting path connects surface-hit information to the texture read by the wall material. The exact hit-to-UV implementation still needs its original code or a focused capture."
+      ],
+      [
+        "Virtual space as a design decision",
+        "The premise is not simply a painting tool with a subway background. The virtual setting changes what it means to alter an environment and who appears able to authorize that action."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Retain the gesture",
+        "Choose the parts of spray painting that need a bodily action and immediate feedback."
+      ],
+      [
+        "Decide what persists",
+        "Separate the short spray from the longer-lived surface state."
+      ],
+      [
+        "Stage the public place",
+        "Use a recognizable shared environment so the act of marking it carries the premise."
+      ]
+    ],
+    "research": {
+      "question": "How does changing the persistence of a virtual mark affect a person's sense of agency over a space?",
+      "change": "How long the painted surface state remains visible.",
+      "keep": "Spray input, wall, brush appearance, and exposure time."
+    },
+    "capture": [
+      "Show spray input, particle feedback, surface-hit diagnostics, the RenderTexture, and the wall material together.",
+      "Stop spraying to show the difference between transient feedback and the retained mark. Confirm any save/load feature from the original source before adding it."
+    ],
+    "note": "Graffiti Freedom is the archive title for the virtual-subway graffiti work. No quantified environmental benefit or unverified save/load behavior is claimed.",
+    "aliases": [
+      "그래피티 메트로",
+      "Graffiti Metro",
+      "그래피티"
+    ]
+  }
+]
