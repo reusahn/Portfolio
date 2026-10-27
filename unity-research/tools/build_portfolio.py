@@ -87,14 +87,10 @@ def route_options(active):
 
 
 def home(route="all"):
-    group_order = {"all": list(GROUPS), "xr": ["xr-worlds", "sensing", "graphics", "humans"],
+    group_order = {"all": ["xr-worlds", "sensing", "graphics", "humans"], "xr": ["xr-worlds", "sensing", "graphics", "humans"],
                    "human": ["humans", "xr-worlds", "sensing", "graphics"]}[route]
-    hero = {
-        "all": ("Ideas into<br>real-time experiences.", "I design and develop Unity systems across graphics, sensing, digital humans, and VR."),
-        "xr": ("Worlds to enter.<br>Systems to inspect.", "Unity experiences built around spatial interaction, body tracking, and the choices people make."),
-        "human": ("A synthetic character.<br>A human encounter.", "Unity systems that connect AI dialogue, digital bodies, and real-time interaction."),
-    }[route]
-    controls = ''.join(f'<button type="button" data-filter="{key}" aria-pressed="false"><strong>{e(HOME_GROUPS[key][0])}</strong><span>{e(HOME_GROUPS[key][1])}</span><b aria-hidden="true">↗</b></button>' for key in group_order)
+    description = "Unity-based projects by Jonghoon Ahn: VR, sensing, real-time graphics, and digital humans."
+    controls = ''.join(f'<button type="button" data-filter="{key}" aria-pressed="false"><strong>{e(HOME_GROUPS[key][0])}</strong><b aria-hidden="true">↗</b></button>' for key in group_order)
     count = 0
     groups = []
     for group_number, group in enumerate(group_order, 1):
@@ -104,7 +100,7 @@ def home(route="all"):
         if route == "human":
             priority = {"ai-zoo": 0, "ai-choi": 1, "gang-se-hwang": 2, "escape-metro": 0, "narci": 1, "fineo": 2, "graffiti-freedom": 3}
             projects.sort(key=lambda p: priority.get(p['id'], 10))
-        elif route == "xr":
+        elif route in ("all", "xr"):
             priority = {"fineo": 0, "narci": 1, "escape-metro": 2, "graffiti-freedom": 3, "to-eternity": 0, "silhak-dance": 1, "track-6": 2, "jemulpo": 3, "erick-oh": 0}
             projects.sort(key=lambda p: priority.get(p['id'], 10))
         cards = []
@@ -113,8 +109,8 @@ def home(route="all"):
             cards.append(card(p, count))
         groups.append(f'<section class="catalog-group" data-catalog-group="{group}" id="{group}"><div class="group-heading"><h2>{name}</h2><span class="section-no">{len(projects):02d} works</span></div><div class="project-grid">{"".join(cards)}</div></section>')
     route_note = '' if route == "all" else '<p class="route-context">An editorial reading route based on public research. <a href="research.html">Context & sources ↗</a></p>'
-    page = header("Unity, media art & interaction", hero[1]).replace('<body>', '<body class="portfolio-index">') + f'''<main id="main" class="wrap">
-<section class="portfolio-hero"><div><p class="eyebrow">Unity developer / media artist / researcher</p><h1>{hero[0]}</h1></div><div class="hero-profile"><p class="lead">{hero[1]}</p><div class="credential-line"><span>PhD researcher · UCSB Media Arts & Technology</span><span>MFA · CalArts Art & Technology</span></div></div></section>
+    page = header("Unity-based projects", description).replace('<body>', '<body class="portfolio-index">') + f'''<main id="main" class="wrap">
+<section class="portfolio-title"><h1>Unity-based projects</h1></section>
 <section id="selected-work" aria-label="Portfolio works"><div class="category-buttons" role="group" aria-label="Filter works by practice">{controls}</div>
 <div class="catalog-controls"><div class="catalog-selection"><button class="all-work-filter" type="button" data-filter="all" aria-pressed="true">All work</button><p class="results-count" id="result-count" aria-live="polite">15 works</p></div><div class="catalog-search"><label class="sr-only" for="work-search">Find a work or technique</label><input id="work-search" type="search" placeholder="Find a work or technique" autocomplete="off"><button id="clear-filters" type="button">Reset</button></div></div>
 <div id="project-catalog">{''.join(groups)}</div><div id="no-results" hidden><h3>No works match this combination.</h3><p>Try a project name, a technique such as Kinect, or reset the filters.</p></div></section>

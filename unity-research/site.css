@@ -24,6 +24,19 @@
 @media(prefers-reduced-motion:reduce){.project-photo img{transition:none}}
 
 /* Compact portfolio entry. Detailed case-study typography stays unchanged. */
+.portfolio-index .portfolio-title { padding: 24px 0 20px; }
+.portfolio-index .portfolio-title h1 { font-size: 32px; line-height: 1.2; margin: 0; }
+.portfolio-index .project-grid,
+.portfolio-index .catalog-group[data-catalog-group=humans] .project-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.portfolio-index .catalog-group[data-catalog-group=humans] .project-card:last-child {
+  grid-column: auto;
+  display: flex;
+}
+.portfolio-index .catalog-group[data-catalog-group=humans] .project-card:last-child .project-photo { height: auto; }
+.portfolio-index .catalog-group[data-catalog-group=humans] .project-card:last-child .project-photo img { height: auto; aspect-ratio: 1.7; }
 .portfolio-index .portfolio-hero {
   grid-template-columns: 1.3fr 1fr;
   gap: 48px;
@@ -45,7 +58,7 @@
 .portfolio-index .credential-line { display: grid; gap: 2px; font-size: 11px; }
 .portfolio-index .category-buttons {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0;
   border: 1px solid var(--rule);
 }
@@ -56,13 +69,15 @@
   align-items: flex-start;
   justify-content: center;
   gap: 6px;
-  min-height: 84px;
-  padding: 15px 30px 15px 16px;
+  min-height: 48px;
+  padding: 12px 30px 12px 16px;
   border: 0;
   border-right: 1px solid var(--rule);
   text-align: left;
 }
 .portfolio-index .category-buttons button:last-child { border-right: 0; }
+.portfolio-index .category-buttons button:nth-child(2) { border-right: 0; }
+.portfolio-index .category-buttons button:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
 .portfolio-index .category-buttons strong { font-size: 15px; font-weight: 600; line-height: 1.25; }
 .portfolio-index .category-buttons span { font-size: 11px; line-height: 1.4; color: var(--muted); }
 .portfolio-index .category-buttons b { position: absolute; right: 13px; top: 16px; font-size: 13px; font-weight: 400; }
@@ -104,13 +119,18 @@
   .portfolio-index .index-contact { align-items: flex-start; flex-direction: column; gap: 14px; }
 }
 @media(max-width: 600px) {
+  .portfolio-index .portfolio-title { padding: 20px 0 16px; }
+  .portfolio-index .portfolio-title h1 { font-size: 28px; }
+  .portfolio-index .project-grid,
+  .portfolio-index .catalog-group[data-catalog-group=humans] .project-grid { grid-template-columns: 1fr; gap: 18px; }
+  .portfolio-index .catalog-group[data-catalog-group=humans] .project-card:last-child .project-photo img { aspect-ratio: 1.95; }
   .portfolio-index .portfolio-hero { grid-template-columns: 1fr; padding: 23px 0 22px; gap: 14px; }
   .portfolio-index .portfolio-hero h1 { font-size: 38px; }
   .portfolio-index .hero-profile { padding: 0; }
   .portfolio-index .portfolio-hero .lead { font-size: 15px; margin-bottom: 12px; }
   .portfolio-index .credential-line { font-size: 10px; }
   .portfolio-index .category-buttons { grid-template-columns: 1fr 1fr; }
-  .portfolio-index .category-buttons button { min-height: 80px; padding: 13px 25px 13px 12px; }
+  .portfolio-index .category-buttons button { min-height: 46px; padding: 12px 25px 12px 12px; }
   .portfolio-index .category-buttons button:nth-child(2) { border-right: 0; }
   .portfolio-index .category-buttons button:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
   .portfolio-index .category-buttons strong { font-size: 13px; }
