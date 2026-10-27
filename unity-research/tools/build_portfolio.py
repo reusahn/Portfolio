@@ -34,20 +34,16 @@ def write(path, content):
 
 
 def header(title, description, current="work", image=None):
-    nav = [("work", "index.html#selected-work", "Work"), ("approach", "approach.html", "Approach"),
-           ("systems", "systems.html", "Systems"), ("research", "research.html", "Research"),
-           ("code", "code.html", "Source ↗")]
-    links = "".join(f'<a href="{url}"' + (' aria-current="page"' if key == current else '') +
-                    (' class="nav-code"' if key == "code" else '') + f'>{label}</a>' for key, url, label in nav)
+    navigation = '' if current == "home" else '<nav class="mainnav" aria-label="Main"><a href="index.html">All projects</a></nav>'
     og = f'<meta property="og:image" content="https://jonghoonahn.com/{e(image)}">' if image else ''
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)} | Jonghoon Ahn</title><meta name="description" content="{e(description)}"><meta name="theme-color" content="#182c2b">{og}
 <link rel="icon" href="../assets/images/favicon.png"><link rel="stylesheet" href="site.css"><script src="site.js" defer></script></head><body>
-<a class="skip" href="#main">Skip to content</a><header class="topbar"><div class="wrap topbar-inner"><a class="brand" href="index.html">Jonghoon Ahn<span>Unity / Interaction / Research</span></a><nav class="mainnav" aria-label="Main">{links}</nav></div></header>'''
+<a class="skip" href="#main">Skip to content</a><header class="topbar"><div class="wrap topbar-inner"><a class="brand" href="index.html">Jonghoon Ahn</a>{navigation}</div></header>'''
 
 
 def footer():
-    return '''<footer class="footer"><div class="wrap"><div>Jonghoon Ahn · Unity development, media art & interaction research</div><div><a href="evidence.html">Evidence & status ↗</a><a href="../">Art & film ↗</a><a href="https://github.com/reusahn">GitHub ↗</a><a href="mailto:hoonahncloud@gmail.com">Email ↗</a></div></div></footer></body></html>'''
+    return '''<footer class="footer"><div class="wrap"><div>Jonghoon Ahn</div><div><a href="https://github.com/reusahn">GitHub ↗</a><a href="mailto:hoonahncloud@gmail.com">Email ↗</a></div></div></footer></body></html>'''
 
 
 def tags(p):
@@ -69,28 +65,15 @@ def video(p):
 
 
 def card(p, number):
-    query = ' '.join([p['title'], p['idea'], p['implementation'], p['role']] + p['tags'] + p.get('aliases', []))
     techniques = '<p class="card-tech">' + ' · '.join(e(t) for t in p['tags'][:3]) + '</p>'
-    return f'''<article class="project-card" data-project="{p['id']}" data-group="{p['group']}" data-search="{e(query.lower())}"><a class="project-photo" href="{p['id']}.html" aria-label="Open {e(p['title'])}"><img src="../{p['image']}" alt="{e(p['alt'])}" width="1920" height="1080" loading="lazy"><span class="photo-index">{number:02d}</span></a><div class="project-card-body"><h3><a href="{p['id']}.html">{e(p['title'])}</a></h3><p class="card-idea">{e(p['teaser'])}</p>{techniques}<div class="card-foot"><p class="card-role">{e(p['role'])}</p><a class="card-link" href="{p['id']}.html" aria-label="Read {e(p['title'])} case study"><span aria-hidden="true">↗</span></a></div></div></article>'''
-
-
-def research_feature():
-    return '''<section class="research-strip"><div><p class="eyebrow">A separate research instrument / new source</p><h2>Context Gate</h2><p>When a delayed hint arrives after the world has changed, should it still appear?</p></div><div><p>A small Unity source prototype for comparing delivery policies, controlling trial conditions, and recording response decisions. It extends the questions raised by the existing work.</p><p class="small muted">Source authored. Unity compilation and device execution remain pending.</p><a class="text-link" href="context-gate.html">Inspect the instrument and source ↗</a></div></section>'''
-
-
-def route_options(active):
-    routes = [("index.html", "all", "All work"), ("xr.html", "xr", "Four Eyes reading route"),
-              ("human-ai.html", "human", "HAX reading route")]
-    return '<nav class="reading-routes" aria-label="Reading route">' + ''.join(
-        f'<a href="{path}"' + (' aria-current="page"' if key == active else '') + f'>{label}</a>'
-        for path, key, label in routes) + '</nav>'
+    return f'''<article class="project-card" data-project="{p['id']}" data-group="{p['group']}"><a class="project-photo" href="{p['id']}.html" aria-label="Open {e(p['title'])}"><img src="../{p['image']}" alt="{e(p['alt'])}" width="1920" height="1080" loading="lazy"><span class="photo-index">{number:02d}</span></a><div class="project-card-body"><h3><a href="{p['id']}.html">{e(p['title'])}</a></h3><p class="card-idea">{e(p['teaser'])}</p>{techniques}<div class="card-foot"><p class="card-role">{e(p['role'])}</p><a class="card-link" href="{p['id']}.html" aria-label="Read {e(p['title'])} case study"><span aria-hidden="true">↗</span></a></div></div></article>'''
 
 
 def home(route="all"):
     group_order = {"all": ["xr-worlds", "sensing", "graphics", "humans"], "xr": ["xr-worlds", "sensing", "graphics", "humans"],
                    "human": ["humans", "xr-worlds", "sensing", "graphics"]}[route]
     description = "Unity-based projects by Jonghoon Ahn: VR, sensing, real-time graphics, and digital humans."
-    controls = ''.join(f'<button type="button" data-filter="{key}" aria-pressed="false"><strong>{e(HOME_GROUPS[key][0])}</strong><b aria-hidden="true">↗</b></button>' for key in group_order)
+    controls = ''.join(f'<a href="#{key}">{e(HOME_GROUPS[key][0])}<span aria-hidden="true">↓</span></a>' for key in group_order)
     count = 0
     groups = []
     for group_number, group in enumerate(group_order, 1):
@@ -108,16 +91,11 @@ def home(route="all"):
             count += 1
             cards.append(card(p, count))
         groups.append(f'<section class="catalog-group" data-catalog-group="{group}" id="{group}"><div class="group-heading"><h2>{name}</h2><span class="section-no">{len(projects):02d} works</span></div><div class="project-grid">{"".join(cards)}</div></section>')
-    route_note = '' if route == "all" else '<p class="route-context">An editorial reading route based on public research. <a href="research.html">Context & sources ↗</a></p>'
-    page = header("Unity-based projects", description).replace('<body>', '<body class="portfolio-index">') + f'''<main id="main" class="wrap">
-<section class="portfolio-title"><h1>Unity-based projects</h1><a class="text-link" href="handoff.html">Working with a lab ↗</a></section>
-<nav class="inspect-route" aria-label="Inspect implementations"><span>Inspect implementations</span><a href="to-eternity.html#implementation">Sensor + Timeline ↗</a><a href="erick-oh.html#source">Shader control ↗</a><a href="context-gate.html#run">Trial source + logs ↗</a></nav>
-<section id="selected-work" aria-label="Portfolio works"><div class="category-buttons" role="group" aria-label="Filter works by practice">{controls}</div>
-<div class="catalog-controls"><div class="catalog-selection"><button class="all-work-filter" type="button" data-filter="all" aria-pressed="true">All work</button><p class="results-count" id="result-count" aria-live="polite">15 works</p></div><div class="catalog-search"><label class="sr-only" for="work-search">Find a work or technique</label><input id="work-search" type="search" placeholder="Find a work or technique" autocomplete="off"><button id="clear-filters" type="button">Reset</button></div></div>
-<div id="project-catalog">{''.join(groups)}</div><div id="no-results" hidden><h3>No works match this combination.</h3><p>Try a project name, a technique such as Kinect, or reset the filters.</p></div></section>
-<div class="catalog-route-bar"><span class="mono">Reading routes</span>{route_options(route)}</div>{route_note}
-<section class="index-contact" id="about"><h2>From an idea to a working system.</h2><div><a href="approach.html">My approach ↗</a><a href="code.html">Inspect the source ↗</a><a href="mailto:hoonahncloud@gmail.com">Let’s talk ↗</a></div></section>
-</main><script src="portfolio.js" defer></script>''' + footer()
+    page = header("Unity-based projects", description, current="home").replace('<body>', '<body class="portfolio-index">') + f'''<main id="main" class="wrap">
+<section class="portfolio-title"><h1>Unity-based projects</h1></section>
+<section id="selected-work" aria-label="Portfolio works"><nav class="category-buttons" aria-label="Project categories">{controls}</nav>
+<div id="project-catalog">{''.join(groups)}</div></section>
+</main>''' + footer()
     return page
 
 
@@ -135,7 +113,7 @@ def sample_panel(p):
     else:
         start = text.index('        public bool EnterCode')
         excerpt = text[start:text.index('        public void ResetPuzzle', start)].strip()
-    return f'''<section class="case-section" id="source"><p class="eyebrow">Independent implementation example / new source</p><h2>{e(s['label'])}</h2><p>{e(s['description'])}</p><details class="source-disclosure"><summary>Inspect a source excerpt</summary><pre class="code-panel"><code>{e(excerpt)}</code></pre></details><div class="actions"><a class="text-link" href="{s['path']}" download>{e(Path(s['path']).name)} ↓</a><a class="text-link" href="{s['related']}" download>Related source ↓</a><a class="text-link" href="code.html">Full source index ↗</a><a class="text-link" href="handoff.html#artifacts">Run, verify & scope ↗</a></div></section>'''
+    return f'''<section class="case-section" id="source"><p class="eyebrow">Independent implementation example / new source</p><h2>{e(s['label'])}</h2><p>{e(s['description'])}</p><details class="source-disclosure"><summary>Inspect a source excerpt</summary><pre class="code-panel"><code>{e(excerpt)}</code></pre></details><div class="actions"><a class="text-link" href="{s['path']}" download>{e(Path(s['path']).name)} ↓</a><a class="text-link" href="{s['related']}" download>Related source ↓</a><a class="text-link" href="{REPO}docs/UNITY_SETUP.md">Setup notes ↗</a></div></section>'''
 
 
 def inspection_panel(p):
@@ -229,6 +207,7 @@ def update_legacy_pages():
         # Retain existing functional content while sharing the expanded site's navigation.
         nav = header("", "").split('<header class="topbar">', 1)[1].split('</header>', 1)[0]
         text = re.sub(r'<header class="topbar">.*?</header>', '<header class="topbar">' + nav + '</header>', text, count=1, flags=re.S)
+        text = re.sub(r'<footer class="footer">.*?</footer>', footer().split('</body>', 1)[0], text, count=1, flags=re.S)
         if name == "evidence.html":
             text = text.replace("Erick Oh / Jemulpo / Escape Metro. Scope comes from owner-confirmed experience and project documentation.", "All 15 works. Scope follows the artist’s current technical clarification and project archives.")
             text = text.replace("English case pages, independent code examples, Context Gate C# source, scene generator, eight authored Edit Mode tests, browser concept.", "Fifteen expanded case pages, concept/development notes, technical map, independent code examples, and the separate Context Gate source prototype.")
