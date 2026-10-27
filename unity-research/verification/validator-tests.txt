@@ -1,0 +1,79 @@
+SYNTHETIC EVENT-CONTRACT VALIDATION ONLY
+No Unity runtime exports, C# compilation, device execution, or participant data.
+Command: python unity-research/tools/test_validate_session.py
+Executed UTC: 2026-10-27T20:20:31.635686+00:00
+Python: 3.12.14
+Exit code: 0
+
+SYNTHETIC EVENT-CONTRACT FIXTURES ONLY. No Unity runtime exports or participant data.
+test_aborted_journal_with_unresolved_request (__main__.NegativeContractTests.test_aborted_journal_with_unresolved_request) ... ok
+test_action_after_session_end (__main__.NegativeContractTests.test_action_after_session_end) ... ok
+test_action_after_session_fault (__main__.NegativeContractTests.test_action_after_session_fault) ... ok
+test_action_between_receive_and_decision (__main__.NegativeContractTests.test_action_between_receive_and_decision) ... ok
+test_applicability_label_must_match_board (__main__.NegativeContractTests.test_applicability_label_must_match_board) ... ok
+test_baseline_cannot_record_a_gate_discard (__main__.NegativeContractTests.test_baseline_cannot_record_a_gate_discard) ... ok
+test_browser_concept_is_rejected (__main__.NegativeContractTests.test_browser_concept_is_rejected) ... ok
+test_changed_response_payload (__main__.NegativeContractTests.test_changed_response_payload) ... ok
+test_clock_backward (__main__.NegativeContractTests.test_clock_backward) ... ok
+test_completed_session_with_active_trial (__main__.NegativeContractTests.test_completed_session_with_active_trial) ... ok
+test_csv_mismatch_in_previously_unchecked_epoch (__main__.NegativeContractTests.test_csv_mismatch_in_previously_unchecked_epoch) ... ok
+test_display_without_receive (__main__.NegativeContractTests.test_display_without_receive) ... ok
+test_duplicate_request_resolution (__main__.NegativeContractTests.test_duplicate_request_resolution) ... ok
+test_duplicate_session_start (__main__.NegativeContractTests.test_duplicate_session_start) ... ok
+test_duplicate_trial_end (__main__.NegativeContractTests.test_duplicate_trial_end) ... ok
+test_duplicate_trial_without_reset (__main__.NegativeContractTests.test_duplicate_trial_without_reset) ... ok
+test_fault_requires_recovery_flag (__main__.NegativeContractTests.test_fault_requires_recovery_flag) ... ok
+test_first_event_must_start_session (__main__.NegativeContractTests.test_first_event_must_start_session) ... ok
+test_illegal_move_source (__main__.NegativeContractTests.test_illegal_move_source) ... ok
+test_missing_required_fields (__main__.NegativeContractTests.test_missing_required_fields) ... ok
+test_mixed_sessions (__main__.NegativeContractTests.test_mixed_sessions) ... ok
+test_move_while_paused (__main__.NegativeContractTests.test_move_while_paused) ... ok
+test_nonfinite_clock (__main__.NegativeContractTests.test_nonfinite_clock) ... ok
+test_occupied_destination (__main__.NegativeContractTests.test_occupied_destination) ... ok
+test_overlapping_requests (__main__.NegativeContractTests.test_overlapping_requests) ... ok
+test_overlapping_trial (__main__.NegativeContractTests.test_overlapping_trial) ... ok
+test_pause_without_cancelling_pending_request (__main__.NegativeContractTests.test_pause_without_cancelling_pending_request) ... ok
+test_policy_changes_within_epoch (__main__.NegativeContractTests.test_policy_changes_within_epoch) ... ok
+test_request_between_trials (__main__.NegativeContractTests.test_request_between_trials) ... ok
+test_reset_changes_identity (__main__.NegativeContractTests.test_reset_changes_identity) ... ok
+test_reset_changes_initial_layout (__main__.NegativeContractTests.test_reset_changes_initial_layout) ... ok
+test_response_without_request (__main__.NegativeContractTests.test_response_without_request) ... ok
+test_resume_without_pause (__main__.NegativeContractTests.test_resume_without_pause) ... ok
+test_reused_epoch (__main__.NegativeContractTests.test_reused_epoch) ... ok
+test_revalidate_cannot_display_inapplicable_hint (__main__.NegativeContractTests.test_revalidate_cannot_display_inapplicable_hint) ... ok
+test_seed_changes_within_epoch (__main__.NegativeContractTests.test_seed_changes_within_epoch) ... ok
+test_trial_end_without_cancelling_pending_request (__main__.NegativeContractTests.test_trial_end_without_cancelling_pending_request) ... ok
+test_trial_id_changes_within_epoch (__main__.NegativeContractTests.test_trial_id_changes_within_epoch) ... ok
+test_unexplained_board_mutation (__main__.NegativeContractTests.test_unexplained_board_mutation) ... ok
+test_unknown_epoch_regression_without_trial_start (__main__.NegativeContractTests.test_unknown_epoch_regression_without_trial_start) ... ok
+test_unknown_epoch_with_known_other_trial (__main__.NegativeContractTests.test_unknown_epoch_with_known_other_trial) ... ok
+test_unknown_event (__main__.NegativeContractTests.test_unknown_event) ... ok
+test_unsolved_completed_trial (__main__.NegativeContractTests.test_unsolved_completed_trial) ... ok
+test_visible_hint_requires_clear_after_move (__main__.NegativeContractTests.test_visible_hint_requires_clear_after_move) ... ok
+test_wrong_move_revision (__main__.NegativeContractTests.test_wrong_move_revision) ... ok
+test_abort_between_trials (__main__.PositiveContractTests.test_abort_between_trials) ... ok
+test_abort_running_with_cancelled_pending_request (__main__.PositiveContractTests.test_abort_running_with_cancelled_pending_request) ... ok
+test_abort_while_paused (__main__.PositiveContractTests.test_abort_while_paused) ... ok
+test_baseline_may_show_inapplicable_hint (__main__.PositiveContractTests.test_baseline_may_show_inapplicable_hint) ... ok
+test_cli_json_jsonl_csv_parity (__main__.PositiveContractTests.test_cli_json_jsonl_csv_parity) ... ok
+test_completed_task_requires_three_target_positions (__main__.PositiveContractTests.test_completed_task_requires_three_target_positions) ... ok
+test_fault_terminates_recoverable_journal_with_pending_work (__main__.PositiveContractTests.test_fault_terminates_recoverable_journal_with_pending_work) ... ok
+test_malformed_fault_may_have_mutated_destination (__main__.PositiveContractTests.test_malformed_fault_may_have_mutated_destination) ... ok
+test_natural_request_timeout_with_no_injected_fault (__main__.PositiveContractTests.test_natural_request_timeout_with_no_injected_fault) ... ok
+test_normal_multi_trial_session (__main__.PositiveContractTests.test_normal_multi_trial_session) ... ok
+test_pause_resume_and_abort (__main__.PositiveContractTests.test_pause_resume_and_abort) ... ok
+test_pretrial_fault_can_be_recovered (__main__.PositiveContractTests.test_pretrial_fault_can_be_recovered) ... ok
+test_reset_repeats_identity_and_layout_in_new_epoch (__main__.PositiveContractTests.test_reset_repeats_identity_and_layout_in_new_epoch) ... ok
+test_reset_while_paused (__main__.PositiveContractTests.test_reset_while_paused) ... ok
+test_revalidate_discards_changed_source (__main__.PositiveContractTests.test_revalidate_discards_changed_source) ... ok
+test_revalidate_discards_occupied_destination (__main__.PositiveContractTests.test_revalidate_discards_occupied_destination) ... ok
+test_revalidate_display_and_clear (__main__.PositiveContractTests.test_revalidate_display_and_clear) ... ok
+test_timeout_fault_closes_request (__main__.PositiveContractTests.test_timeout_fault_closes_request) ... ok
+test_truncated_prefix_can_be_recovered (__main__.PositiveContractTests.test_truncated_prefix_can_be_recovered) ... ok
+test_truncation_after_receive_preserves_unresolved_decision (__main__.PositiveContractTests.test_truncation_after_receive_preserves_unresolved_decision) ... ok
+test_unrelated_move_preserves_hint (__main__.PositiveContractTests.test_unrelated_move_preserves_hint) ... ok
+
+----------------------------------------------------------------------
+Ran 66 tests in 0.124s
+
+OK

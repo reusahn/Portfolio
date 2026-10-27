@@ -76,7 +76,8 @@
       "꽃의 알고리즘과 파도의 문법",
       "꽃알파문"
     ],
-    "teaser": "Waves and flowers shaped through particles, shaders, and repetition."
+    "teaser": "Waves and flowers shaped through particles, shaders, and repetition.",
+    "implementation_heading": "Author wave and flower motion with VFX Graph."
   },
   {
     "id": "beads-wall",
@@ -155,7 +156,8 @@
       "비즈월",
       "BeadsWall"
     ],
-    "teaser": "A webcam image becomes a living field of particles."
+    "teaser": "A webcam image becomes a living field of particles.",
+    "implementation_heading": "Map webcam input into a particle field."
   },
   {
     "id": "fall-of-minds",
@@ -234,7 +236,8 @@
       "폴오브마인드",
       "폴 오브 마인드"
     ],
-    "teaser": "Shopping-mall noise drives a changing visual landscape."
+    "teaser": "Shopping-mall noise drives a changing visual landscape.",
+    "implementation_heading": "Turn venue sound into a live visual signal."
   },
   {
     "id": "erick-oh",
@@ -326,7 +329,14 @@
       "구름",
       "메타볼"
     ],
-    "teaser": "Cloud shaders and raymarched droplets for an artist-led game."
+    "teaser": "Cloud shaders and raymarched metaballs, controlled through C#.",
+    "implementation_heading": "Separate object motion from shader deformation.",
+    "engineering": {
+      "decision": "Keep object motion, internal field flow, and authored growth as separate controls. The independent example integrates flow into shader phase and updates per-renderer parameters without moving the object.",
+      "failure": "Reverse flow while holding the transform fixed. Raise displacement near the camera’s frustum edge. Inspect continuity and clipping. No captured result is reported for this check.",
+      "evidence": "Record Game view and Inspector together: flow reversal, maximum displacement, unchanged Transform, and renderer bounds. Keep the actual shader and controller revision with the recording.",
+      "reuse": "The public example explains phase control and conservative bounds. It does not reproduce the production cloud shader or raymarched metaballs. It does not update colliders, shadow geometry, or displaced normals."
+    }
   },
   {
     "id": "to-eternity",
@@ -406,7 +416,14 @@
       "투 이터니티",
       "타임라인"
     ],
-    "teaser": "A visitor’s body carries images of collective memory."
+    "teaser": "Azure Kinect input coordinates live archival imagery and Unity Timeline.",
+    "implementation_heading": "Bring live sensing into an authored Timeline.",
+    "engineering": {
+      "decision": "Keep live sensor input distinct from authored Timeline time. The integration connects participant activity to a media sequence while preserving control over the composition.",
+      "failure": "Leave the tracking area during a sequence and return. Inspect how the original project handles interrupted participation and prepares for the next visitor. Recovery behavior still needs a capture.",
+      "evidence": "Capture the Azure Kinect view, input-to-event boundary, and Timeline playhead in one continuous recording. Show the transition into the memorial image and the actual reset path.",
+      "reuse": "This case demonstrates sensor-to-sequence integration. The recognition rule, sensor setup, and reset behavior must be documented before reuse. A reusable adapter and formal event logger would be additional work."
+    }
   },
   {
     "id": "jemulpo",
@@ -497,7 +514,14 @@
       "스타일트랜스퍼",
       "바라쿠다"
     ],
-    "teaser": "AI style transfer turns visitors’ portraits into another era."
+    "teaser": "AI style transfer turns visitors’ portraits into another era.",
+    "implementation_heading": "Carry a portrait through AI, filtering, and display.",
+    "engineering": {
+      "decision": "Separate portrait transformation from transport. Barracuda, OpenCV, style processing, filters, and composition form the original image pipeline. The independent TCP example concerns complete-frame delivery to Unity’s main thread.",
+      "failure": "For the independent receiver, split a PNG into small chunks, disconnect midway through a frame, and disable/re-enable while connected. Verify incomplete bytes never replace the displayed portrait.",
+      "evidence": "Show an original portrait through the actual transformation layers. Separately pair Python sender output with the independent Unity receiver’s status and displayed texture.",
+      "reuse": "The public receiver is one-sender transport code. It excludes original inference, multi-participant routing, UDP, archival storage, and delivery acknowledgements."
+    }
   },
   {
     "id": "silhak-dance",
@@ -576,7 +600,8 @@
       "실학댄스",
       "실학 댄스"
     ],
-    "teaser": "Body tracking brings a historical character into shared movement."
+    "teaser": "Body tracking brings a historical character into shared movement.",
+    "implementation_heading": "Map a tracked body onto a historical character."
   },
   {
     "id": "track-6",
@@ -655,7 +680,8 @@
       "트랙6",
       "트랙 6"
     ],
-    "teaser": "Dance redraws a geometric world in real time."
+    "teaser": "Dance redraws a geometric world in real time.",
+    "implementation_heading": "Translate a dancer into a geometric environment."
   },
   {
     "id": "gang-se-hwang",
@@ -734,7 +760,8 @@
       "강세황",
       "AI 강세황"
     ],
-    "teaser": "A historical portrait becomes a performing digital human."
+    "teaser": "A historical portrait becomes a performing digital human.",
+    "implementation_heading": "Integrate a digital human for a museum encounter."
   },
   {
     "id": "ai-zoo",
@@ -819,7 +846,8 @@
       "아두이노",
       "서보모터"
     ],
-    "teaser": "Conversation, hand sensing, and servos stage an encounter with AI."
+    "teaser": "Conversation, hand sensing, and servos stage an encounter with AI.",
+    "implementation_heading": "Coordinate conversation, hand input, and physical output."
   },
   {
     "id": "ai-choi",
@@ -905,7 +933,8 @@
       "메이아이최정훈",
       "JANNABI"
     ],
-    "teaser": "A digital likeness listens, speaks, and performs in real time."
+    "teaser": "A digital likeness listens, speaks, and performs in real time.",
+    "implementation_heading": "Connect a spoken turn to a character performance."
   },
   {
     "id": "fineo",
@@ -986,7 +1015,8 @@
       "주기율표",
       "가상세계"
     ],
-    "teaser": "The periodic table becomes a navigable virtual universe."
+    "teaser": "The periodic table becomes a navigable virtual universe.",
+    "implementation_heading": "Translate elemental data into a navigable world."
   },
   {
     "id": "escape-metro",
@@ -1079,7 +1109,14 @@
       "방탈출",
       "제일브레이킹"
     ],
-    "teaser": "Break an AI guard’s rules to find a way out."
+    "teaser": "GPT-based NPC dialogue connected to puzzle clues and progression.",
+    "implementation_heading": "Connect a model response to a game condition.",
+    "engineering": {
+      "decision": "Give dialogue a task consequence. The original work connects GPT conversation to progression. The independent source further separates reply presentation from the rule that authorizes an unlock.",
+      "failure": "In the independent example, return a reply from an earlier turn, reset before a reply arrives, and attempt an unlock without puzzle evidence. These are source-defined checks with Unity execution pending.",
+      "evidence": "Record reply identifiers and three outcomes: an outdated reply is rejected, a valid reply is presented, and progression changes only when its own conditions are met. Show the corresponding source revision.",
+      "reuse": "NpcProgressGate illustrates turn/epoch validation and explicit progression rules. It includes no speech service, model API, original NPC prompts, or complete escape game."
+    }
   },
   {
     "id": "narci",
@@ -1163,7 +1200,8 @@
       "나르시",
       "나르시시스트"
     ],
-    "teaser": "VR role reversal examines control and narcissistic relationships."
+    "teaser": "Tracked hands drive scene and material changes in paired VR encounters.",
+    "implementation_heading": "Make a tracked gesture change the encounter."
   },
   {
     "id": "graffiti-freedom",
@@ -1247,6 +1285,7 @@
       "Graffiti Metro",
       "그래피티"
     ],
-    "teaser": "Paint a virtual subway without marking a physical space."
+    "teaser": "Paint a virtual subway without marking a physical space.",
+    "implementation_heading": "Build a spray gesture that leaves a virtual mark."
   }
 ]

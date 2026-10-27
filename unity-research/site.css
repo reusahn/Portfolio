@@ -24,7 +24,7 @@
 @media(prefers-reduced-motion:reduce){.project-photo img{transition:none}}
 
 /* Compact portfolio entry. Detailed case-study typography stays unchanged. */
-.portfolio-index .portfolio-title { padding: 24px 0 20px; }
+.portfolio-index .portfolio-title { padding: 24px 0 16px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
 .portfolio-index .portfolio-title h1 { font-size: 32px; line-height: 1.2; margin: 0; }
 .portfolio-index .project-grid,
 .portfolio-index .catalog-group[data-catalog-group=humans] .project-grid {
@@ -110,6 +110,27 @@
 .portfolio-index .index-contact { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 26px 0; }
 .portfolio-index .index-contact h2 { font-size: 24px; margin: 0; }
 .portfolio-index .index-contact>div { display: flex; gap: 20px; flex-wrap: wrap; font-size: 12px; }
+.inspect-route { display: flex; gap: 10px 22px; align-items: center; flex-wrap: wrap; padding: 0 0 17px; font-size: 12px; }
+.inspect-route>span { font: 10px var(--mono); color: var(--muted); }
+.inspect-route a { text-decoration: none; color: var(--green); }
+.inspect-route a:hover { text-decoration: underline; }
+.inspection-note { margin: 25px 0 10px; padding: 20px; background: var(--wash); border-left: 3px solid var(--green); }
+.inspection-note h3 { font-size: 23px; margin-bottom: 10px; }
+.inspection-note dl { margin: 0; }
+.inspection-note dl>div { display: grid; grid-template-columns: 130px 1fr; gap: 20px; padding: 13px 0; border-top: 1px solid #c8d1c3; }
+.inspection-note dt { font-size: 12px; font-weight: 600; line-height: 1.5; }
+.inspection-note dd { margin: 0; font-size: 14px; color: var(--muted); }
+.collaboration-cases { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 25px; margin: 10px 0 35px; }
+.collaboration-cases article { padding: 22px 0; border-block: 1px solid var(--rule); }
+.collaboration-cases .eyebrow { font-size: 10px; margin-bottom: 12px; }
+.collaboration-cases h2 { font-size: 25px; }
+.collaboration-cases h2 a { text-decoration: none; }
+.collaboration-cases p:not(.eyebrow) { font-size: 14px; color: var(--muted); }
+.handoff-table th[scope=row] { font: 600 13px/1.5 var(--sans); text-transform: none; letter-spacing: 0; width: 23%; color: var(--ink); }
+.handoff-table td { font-size: 13px; }
+.index-contact { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 25px 0; }
+.index-contact h2 { font-size: 26px; margin: 0; }
+.index-contact>div { display: flex; flex-wrap: wrap; gap: 18px; font-size: 13px; }
 @media(max-width: 900px) {
   .portfolio-index .portfolio-hero { gap: 28px; grid-template-columns: 1.15fr 1fr; }
   .portfolio-index .portfolio-hero h1 { font-size: 42px; }
@@ -119,6 +140,16 @@
   .portfolio-index .index-contact { align-items: flex-start; flex-direction: column; gap: 14px; }
 }
 @media(max-width: 600px) {
+  .portfolio-index .portfolio-title { flex-wrap: wrap; gap: 8px; }
+  .portfolio-index .portfolio-title>.text-link { font-size: 11px; }
+  .inspect-route { gap: 7px 16px; font-size: 11px; }
+  .inspect-route>span { width: 100%; font-size: 9px; }
+  .inspection-note { padding: 17px; }
+  .inspection-note dl>div { grid-template-columns: 1fr; gap: 7px; }
+  .collaboration-cases { grid-template-columns: 1fr; gap: 0; }
+  .collaboration-cases article { border-bottom: 0; }
+  .handoff-table { min-width: 650px; }
+  .index-contact { flex-direction: column; align-items: flex-start; gap: 14px; }
   .portfolio-index .portfolio-title { padding: 20px 0 16px; }
   .portfolio-index .portfolio-title h1 { font-size: 28px; }
   .portfolio-index .project-grid,

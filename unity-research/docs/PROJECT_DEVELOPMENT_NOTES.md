@@ -146,6 +146,15 @@ Hold consistent: Input action, state transition, camera, and presentation timing
 - Record Game view, Transform, and shader control values while reversing the field direction and changing intensity.
 - Show the droplet field and the separate contact or proximity logic. Identify the actual Maya growth states and their Unity controls.
 
+### Engineering inspection
+
+New review notes. Failure cases are proposed checks, not reported production incidents.
+
+**Design decision:** Keep object motion, internal field flow, and authored growth as separate controls. The independent example integrates flow into shader phase and updates per-renderer parameters without moving the object.
+**Failure case to exercise:** Reverse flow while holding the transform fixed. Raise displacement near the camera’s frustum edge. Inspect continuity and clipping. No captured result is reported for this check.
+**Observable evidence:** Record Game view and Inspector together: flow reversal, maximum displacement, unchanged Transform, and renderer bounds. Keep the actual shader and controller revision with the recording.
+**Reuse boundary:** The public example explains phase control and conservative bounds. It does not reproduce the production cloud shader or raymarched metaballs. It does not update colliders, shadow geometry, or displaced normals.
+
 Scope note: The existing collaboration and public technical media are distinct from the independent shader example supplied below. No private production source or performance benchmark is included.
 
 Project archive: https://jonghoonahn.com/projects7/erick-oh-real-time-graphics.html
@@ -183,6 +192,15 @@ Hold consistent: Archival material, visual composition, and presentation duratio
 - Show Azure Kinect input, the relevant Unity event, and the Timeline playhead in one recording.
 - Record the participant-to-memorial transition and reset. Show the actual recognition rule without borrowing thresholds from an unverified older description.
 
+### Engineering inspection
+
+New review notes. Failure cases are proposed checks, not reported production incidents.
+
+**Design decision:** Keep live sensor input distinct from authored Timeline time. The integration connects participant activity to a media sequence while preserving control over the composition.
+**Failure case to exercise:** Leave the tracking area during a sequence and return. Inspect how the original project handles interrupted participation and prepares for the next visitor. Recovery behavior still needs a capture.
+**Observable evidence:** Capture the Azure Kinect view, input-to-event boundary, and Timeline playhead in one continuous recording. Show the transition into the memorial image and the actual reset path.
+**Reuse boundary:** This case demonstrates sensor-to-sequence integration. The recognition rule, sensor setup, and reset behavior must be documented before reuse. A reusable adapter and formal event logger would be additional work.
+
 Scope note: Azure Kinect connection and Timeline integration are confirmed by the artist. No recognition-accuracy percentage or measured emotional effect is claimed.
 
 Project archive: https://jonghoonahn.com/detail_pages/interactive_1.html
@@ -219,6 +237,15 @@ Hold consistent: Portrait input, target composition, and display conditions.
 
 - Show the actual Barracuda model asset and processing stage, its input/output textures, the style or filter stage, and the final composition.
 - Toggle the relevant processing layers for the same portrait. Separately record the capture-to-gallery path and actual participant routing.
+
+### Engineering inspection
+
+New review notes. Failure cases are proposed checks, not reported production incidents.
+
+**Design decision:** Separate portrait transformation from transport. Barracuda, OpenCV, style processing, filters, and composition form the original image pipeline. The independent TCP example concerns complete-frame delivery to Unity’s main thread.
+**Failure case to exercise:** For the independent receiver, split a PNG into small chunks, disconnect midway through a frame, and disable/re-enable while connected. Verify incomplete bytes never replace the displayed portrait.
+**Observable evidence:** Show an original portrait through the actual transformation layers. Separately pair Python sender output with the independent Unity receiver’s status and displayed texture.
+**Reuse boundary:** The public receiver is one-sender transport code. It excludes original inference, multi-participant routing, UDP, archival storage, and delivery acknowledgements.
 
 Scope note: The artist confirms Barracuda, style transformation, filters, and the installation scope. Model architecture and its exact preprocessing contract are not inferred. The TCP sample below illustrates only a secondary process boundary.
 
@@ -478,6 +505,15 @@ Hold consistent: Puzzle goal, protected information, world, and response present
 
 - Record an ordinary question and an attempt that produces a useful clue, with the corresponding puzzle state visible.
 - Show the actual condition that permits progression. Record the response and world change in the same sequence.
+
+### Engineering inspection
+
+New review notes. Failure cases are proposed checks, not reported production incidents.
+
+**Design decision:** Give dialogue a task consequence. The original work connects GPT conversation to progression. The independent source further separates reply presentation from the rule that authorizes an unlock.
+**Failure case to exercise:** In the independent example, return a reply from an earlier turn, reset before a reply arrives, and attempt an unlock without puzzle evidence. These are source-defined checks with Unity execution pending.
+**Observable evidence:** Record reply identifiers and three outcomes: an outdated reply is rejected, a valid reply is presented, and progression changes only when its own conditions are met. Show the corresponding source revision.
+**Reuse boundary:** NpcProgressGate illustrates turn/epoch validation and explicit progression rules. It includes no speech service, model API, original NPC prompts, or complete escape game.
 
 Scope note: Escape Metro and RedFlight AI are the same project. No original response-latency, model-training, or commercial online-service claim is added.
 

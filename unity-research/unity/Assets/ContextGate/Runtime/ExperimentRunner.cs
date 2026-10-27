@@ -20,7 +20,8 @@ namespace Jonghoon.ContextGate
         public int[] Positions => board == null ? null : board.CopyPositions();
         public int Revision => board == null ? 0 : board.Revision;
         public bool WaitingForHint => pending != null;
-        public double SecondsLeft => journal == null ? 0 : Math.Max(0, trialDeadline - journal.Elapsed);
+        public double SecondsLeft => journal == null ? 0 :
+            Math.Max(0, trialDeadline - (State == RunState.Paused ? pausedAt : journal.Elapsed));
 
         sealed class Pending
         {

@@ -1,60 +1,68 @@
-# Validation record / expanded portfolio
+# Validation record / 27 October 2026
 
-26 October 2026. Website, source, and Unity execution are separate validation scopes.
+Website, offline code checks, source inspection and Unity execution are separate scopes. This record supersedes the earlier 26 October counts and reading order.
 
-## Website and content checks
+## Website and content
 
-- 25 HTML pages, including 15 existing-work case studies.
-- All 15 projects appear in each of the three reading routes. No project is removed to change the reading order.
-- 804 local references and 192 page fragments were checked against the generated files and the repository path snapshot. 13 repository-document targets were checked. No missing reference or structural HTML error was found.
-- Every page has one H1. Image alt text, duplicate IDs, and balanced tags were checked.
-- Each project has four system stages, three retrospective development decisions, a proposed comparison, and exact technical capture instructions.
-- The canonical project descriptions are in content/projects.json. The user's latest implementation clarification has priority over older generalized descriptions.
+- 26 HTML pages, including 15 existing-work case studies and the new handoff page.
+- Every reading route retains all 15 unique works. The main / XR route starts with NARCI, then Escape Metro. The HAX route starts with AI ZOO.
+- The site checker found 822 local references, 214 fragments and 17 repository-document references with no missing target, duplicate ID, malformed tag structure, missing image alt, or incorrect H1 count.
+- All 15 implementation headings name a project-specific mechanism. Four priority cases include a concrete design decision, failure check, observable evidence and reuse boundary.
+- The short home title and two-column catalog are retained. Compact links reach To Eternity, Erick Oh and Context Gate.
+- Case development notes are retrospective analyses. Proposed diagnostic actions and research comparisons are not reported historical incidents or study results.
 
-## Browser checks actually performed
+## Browser checks performed
 
 Desktop Chrome preview:
-- The main page displays all 15 cards.
-- Category filtering, search, reset, and the zero-results message work.
-- Kinect v2 search returns Silhak Dance and Track 6.
-- Raymarching search returns the Erick Oh collaboration.
-- The Four Eyes route retains 15 works and starts with Fineo / VR.
-- The HAX route retains 15 works and starts with AI ZOO / digital humans.
-- Fineo's detailed page, concept, credit, and navigation were inspected.
-- The technical systems table was inspected.
-- Fineo and Gang Se-hwang's Vimeo embeds reached actual playback; they were paused after checking.
 
-Responsive CSS:
-- A 390px iframe was used to inspect the narrow layout. This is a CSS layout check, not a physical-device test.
-- The usable document client width and scroll width were both 375px, with no horizontal document overflow.
-- Searching Barracuda in that layout returns Jemulpo.
+- The home entry, implementation shortcuts and handoff page were opened.
+- The handoff page’s three implementation entry points and input / ownership statements were inspected.
+- To Eternity’s implementation anchor and four-part engineering review were inspected. Document width and scroll width were both 1348px.
+- Previous checks of category filtering, search, reset and the zero-results message remain relevant because portfolio.js was unchanged in this revision. The HTML checker verified all routes and targets after rebuilding.
 
-## Code checks actually performed
+Narrow CSS layout:
 
-- The JavaScript task model passed 1,188 assertions across all 120 unique three-object layouts on six slots.
-- The portfolio interaction script passed Node syntax checking.
-- Python syntax checks passed for the sender, event validator, page generator, and website verifier.
-- The page generator and website verifier were actually run in the current environment.
-- The code bundle is built with Python zipfile; its archive integrity is checked before publication.
+- A 390px iframe showed the home entry with all 15 works and the new shortcuts.
+- Its Working with a lab link opened the handoff page with both technical tables.
+- The usable document width and scroll width were both 375px on the home and handoff pages. No horizontal document overflow was observed. Tables retain their own scroll containers.
+- This is a CSS layout check, not a physical mobile-device test or a complete accessibility audit.
 
-## Explicit limits
+Existing media checks retained from 26 October:
 
-- No new C# file or shader was compiled or run in Unity.
-- The scene generator, C# tests, Unity TCP receiver, and Unity event exports have not been runtime-verified.
-- No desktop Unity binary, Quest build, tracked input, hardware timing, or performance comparison was produced.
-- Browser checks do not establish Unity behavior.
-- Video checks cover the two named embeds, not every archived clip.
-- The 390px check is not an accessibility audit or actual mobile-device validation.
-- Proposed research comparisons are not participant results or demonstrated clinical effects.
+- Fineo and Gang Se-hwang Vimeo embeds reached actual playback and were then paused.
+- That check covers the two named embeds. It does not assert playback verification for every archived video.
 
-## Reproduce relevant checks
+## Offline checks actually performed
 
-Within a complete repository checkout:
+- The Python event validator passed 66 synthetic fixture tests: 21 positive and 45 negative cases. The actual test log, source hashes, runtime and scope are retained in verification/.
+- Tests include unknown epochs, illegal moves, pause/reset, abort/fault, duplicate request resolutions, valid incomplete prefixes, CLI inputs and CSV field agreement.
+- The previously executed JavaScript task-model check passed 1,188 assertions across all 120 unique three-object layouts on six slots. The JavaScript model was unchanged in this revision. This does not verify C# parity.
+- The page generator, source packager and HTML/reference checker were executed.
+- The packager checks archive integrity and recomputes every payload SHA-256 against the manifest. The ZIP has 30 entries, with 29 hashed payload files and the manifest itself.
+
+## Source inspection repairs
+
+- EventJournal initialization closes acquired writers when opening files or writing/flushing the CSV header fails. StreamWriter-construction failure also closes its FileStream.
+- ExperimentRunner.SecondsLeft uses pausedAt while paused, correcting the intended operator countdown display.
+- These C# changes were reviewed statically. No engine/compiler or injected Unity storage-failure result is claimed.
+
+## Still pending
+
+- New C# / shader compilation, authored Unity Edit Mode tests, scene generation, desktop build and real exported sessions.
+- Actual reception by the Unity TCP example, Quest input/execution, sensor measurements and hardware timing.
+- Independent clean import and a teammate’s reproduction using the runbook.
+- Original-work Editor/Inspector captures specified in the case pages.
+- No participant study, clinical effect, measured performance improvement, hardware synchronization, professor endorsement or funded vacancy is asserted.
+
+The checker validates represented fields and transitions. It cannot authenticate the origin of a hand-authored JSON file or prove which trial schedule was actually executed.
+
+## Reproduce from a complete repository checkout
 
     python unity-research/tools/build_portfolio.py
     python unity-research/tools/verify_portfolio.py
-    node unity-research/tools/check_browser_model.cjs
+    python unity-research/tools/test_validate_session.py
+    python unity-research/tools/package_source.py
 
-For the partial local checkout used during authoring, verify_portfolio.py additionally uses --known-paths with the repository path snapshot.
+For the partial authoring checkout, verify_portfolio.py uses --known-paths with the repository path snapshot. Source-bundle users should follow README.md, docs/UNITY_SETUP.md and docs/HANDOFF_CHECKLIST.md within that archive.
 
-The existing home and company pages remain outside the mutation scope. Publication success is verified separately through the Pages deployment status.
+Publication is checked separately through the GitHub Pages deployment result. All tracked changes stay inside unity-research/. Existing home and company-specific pages are preserved.

@@ -1,0 +1,183 @@
+{
+  "schemaVersion": "1.0",
+  "sourceRelease": "context-gate-0.1.1",
+  "provenance": "Independent portfolio examples, documentation and one proposed research instrument. No private production source.",
+  "unityStatus": "C# compilation, Unity tests, scene generation, desktop build and device execution pending.",
+  "checks": "verification/offline-checks.json records Python synthetic fixture checks only.",
+  "files": [
+    {
+      "path": "README.md",
+      "origin": "docs/SOURCE_BUNDLE_README.md",
+      "bytes": 1876,
+      "sha256": "d317ac3464cfbd06917d12bb0ccf6b308ed28f8071cc3de8ce66ee471c6acc6c"
+    },
+    {
+      "path": "context-gate-model.js",
+      "origin": "context-gate-model.js",
+      "bytes": 2469,
+      "sha256": "adfefa3cb2c34d7956d039ce98b2fde0e6e1396c18222aa0cb71c5cdf6d0cc10"
+    },
+    {
+      "path": "docs/ARTIFACT_INDEX.md",
+      "origin": "docs/ARTIFACT_INDEX.md",
+      "bytes": 2740,
+      "sha256": "625e56580f7bb7670828091cabcd91c7ceb1cfbe4d900c98534329508d7a482e"
+    },
+    {
+      "path": "docs/CODE_REVIEW_NOTES.md",
+      "origin": "docs/CODE_REVIEW_NOTES.md",
+      "bytes": 1754,
+      "sha256": "bc2ca338dbc7dc6b0733b1a0588c0f03586acfdb44a63b7da80e6ca6594a91a8"
+    },
+    {
+      "path": "docs/HANDOFF_CHECKLIST.md",
+      "origin": "docs/HANDOFF_CHECKLIST.md",
+      "bytes": 4526,
+      "sha256": "64a774a410384258553bccd181993e1799858b7236eb400874725ed0c75d77dc"
+    },
+    {
+      "path": "docs/RESEARCH_PROTOCOL.md",
+      "origin": "docs/RESEARCH_PROTOCOL.md",
+      "bytes": 6516,
+      "sha256": "877ece2a5a9a2968bf41a4627da19bce578d5b4128ea46568e6baab29b27bd4b"
+    },
+    {
+      "path": "docs/SESSION_SCHEMA.md",
+      "origin": "docs/SESSION_SCHEMA.md",
+      "bytes": 9291,
+      "sha256": "1d67d0912724ffd56a4ab3eff964aa6115131c7b42353d7b000f3b063a04b94f"
+    },
+    {
+      "path": "docs/UNITY_SETUP.md",
+      "origin": "docs/UNITY_SETUP.md",
+      "bytes": 7472,
+      "sha256": "7b29612f5153261d828abaeb9a38261cf364dee05e8f42d2105069fe2d39074d"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "origin": "docs/VALIDATION.md",
+      "bytes": 5120,
+      "sha256": "c104a3afa464245061b7ce8f5c1f6ec8873b0746278eb62c5b86de952c4840b5"
+    },
+    {
+      "path": "tools/check_browser_model.cjs",
+      "origin": "tools/check_browser_model.cjs",
+      "bytes": 2117,
+      "sha256": "8e98b285079376de336fc285f358ff5de5688c11fecf138dd39f6d9c10a0ab0c"
+    },
+    {
+      "path": "tools/send_portrait.py",
+      "origin": "tools/send_portrait.py",
+      "bytes": 1807,
+      "sha256": "42d62cc8dc179b5581ce8a9ebfd0ed71fc17a9bcb53c8997186f2e7d393c76a9"
+    },
+    {
+      "path": "tools/test_validate_session.py",
+      "origin": "tools/test_validate_session.py",
+      "bytes": 17334,
+      "sha256": "cf1ed0a0860f68731bf6796688a0a203c4820eab68cb7226c557486542873aa3"
+    },
+    {
+      "path": "tools/validate_session.py",
+      "origin": "tools/validate_session.py",
+      "bytes": 16507,
+      "sha256": "9d37e04d58c016a372d6ab1685431b53360dd82ec83655dac2184e19a7ea8036"
+    },
+    {
+      "path": "unity/Assets/ContextGate/Editor/ContextGateSceneBuilder.cs",
+      "origin": "unity/Assets/ContextGate/Editor/ContextGateSceneBuilder.cs",
+      "bytes": 1467,
+      "sha256": "81d52510d76572448a22d86ec9bdec0f1ea2285c861c7ddd4fc10b926cbc0eb2"
+    },
+    {
+      "path": "unity/Assets/ContextGate/Runtime/BoardState.cs",
+      "origin": "unity/Assets/ContextGate/Runtime/BoardState.cs",
+      "bytes": 4189,
+      "sha256": "868f6017fed4346602fade717b7242db8695b52763434a16aad280c20be5fcab"
+    },
+    {
+      "path": "unity/Assets/ContextGate/Runtime/ContextGateDemo.cs",
+      "origin": "unity/Assets/ContextGate/Runtime/ContextGateDemo.cs",
+      "bytes": 6984,
+      "sha256": "b42e75b3e63d530179389ec559b19b788d9aa602b60992b051607e7872288688"
+    },
+    {
+      "path": "unity/Assets/ContextGate/Runtime/EventJournal.cs",
+      "origin": "unity/Assets/ContextGate/Runtime/EventJournal.cs",
+      "bytes": 5175,
+      "sha256": "f3a5fa233edc59d15ecef7825a01b833adc6e46929544a823c6668f9a154595b"
+    },
+    {
+      "path": "unity/Assets/ContextGate/Runtime/ExperimentRunner.cs",
+      "origin": "unity/Assets/ContextGate/Runtime/ExperimentRunner.cs",
+      "bytes": 9445,
+      "sha256": "c85749d9849c7ca1d8bf33db07d76f255582c22c1ec9b9dd8bdd83d2276f8056"
+    },
+    {
+      "path": "unity/Assets/ContextGate/Runtime/ExperimentSettings.cs",
+      "origin": "unity/Assets/ContextGate/Runtime/ExperimentSettings.cs",
+      "bytes": 2747,
+      "sha256": "9b04daf25cb92a278656dd8ef722c70a3ccb9b3417f8ddc7d007536cf6f46cc3"
+    },
+    {
+      "path": "unity/Assets/ContextGate/Runtime/Jonghoon.ContextGate.asmdef",
+      "origin": "unity/Assets/ContextGate/Runtime/Jonghoon.ContextGate.asmdef",
+      "bytes": 126,
+      "sha256": "39e989340e0c7b18315f8ada622be154a77991548e9cf49312dfdc2ed28e6fea"
+    },
+    {
+      "path": "unity/Assets/ContextGate/Tests/EditMode/BoardStateTests.cs",
+      "origin": "unity/Assets/ContextGate/Tests/EditMode/BoardStateTests.cs",
+      "bytes": 3606,
+      "sha256": "5eeaf54256978222f3a816c2edcb54049ba299b0c3cbd815a12ba41d83a0e38b"
+    },
+    {
+      "path": "unity/Assets/ContextGate/Tests/EditMode/Jonghoon.ContextGate.Tests.asmdef",
+      "origin": "unity/Assets/ContextGate/Tests/EditMode/Jonghoon.ContextGate.Tests.asmdef",
+      "bytes": 219,
+      "sha256": "b7bb0f116c78244daf845bd9345b6978e3ccc9e5b1ab2410f953b0ee097b1b1b"
+    },
+    {
+      "path": "unity/Assets/ResearchSamples/Jonghoon.ResearchSamples.asmdef",
+      "origin": "unity/Assets/ResearchSamples/Jonghoon.ResearchSamples.asmdef",
+      "bytes": 134,
+      "sha256": "88b8b7510195bf3af2ba543ab3c31d5c6b7e09c5045750d0a2d27d955bd9f6de"
+    },
+    {
+      "path": "unity/Assets/ResearchSamples/NpcProgressGate.cs",
+      "origin": "unity/Assets/ResearchSamples/NpcProgressGate.cs",
+      "bytes": 2046,
+      "sha256": "eda8977ccd749ed4a473ad1e4bcceaf996b6ce4099d5717c62c6070690528498"
+    },
+    {
+      "path": "unity/Assets/ResearchSamples/PortraitInbox.cs",
+      "origin": "unity/Assets/ResearchSamples/PortraitInbox.cs",
+      "bytes": 6627,
+      "sha256": "16ac78a06618b6ca7e79f44120b0b82ac04e44e040b5850e1892b75045fd27ab"
+    },
+    {
+      "path": "unity/Assets/ResearchSamples/ResponsiveField.shader",
+      "origin": "unity/Assets/ResearchSamples/ResponsiveField.shader",
+      "bytes": 3036,
+      "sha256": "7abed3f7f1747fbbbd29a6a874a1fe42a10193aba577c6e0dcf4afdcdca4c7e8"
+    },
+    {
+      "path": "unity/Assets/ResearchSamples/ShaderFlowController.cs",
+      "origin": "unity/Assets/ResearchSamples/ShaderFlowController.cs",
+      "bytes": 2450,
+      "sha256": "7a39a5018d9e302b9b62fd4b09bb5d50c9ba46e91f12551a64b397e145014cd1"
+    },
+    {
+      "path": "verification/offline-checks.json",
+      "origin": "verification/offline-checks.json",
+      "bytes": 840,
+      "sha256": "1d0d17b0dbfc765fb9af34d8005a1e5ea84559871f45b765c0e58a16cf89d891"
+    },
+    {
+      "path": "verification/validator-tests.txt",
+      "origin": "verification/validator-tests.txt",
+      "bytes": 7720,
+      "sha256": "c75b5c7bf5b746c3ed4b6898264bb743cb57af098b6da27e660780f53e3819cc"
+    }
+  ]
+}

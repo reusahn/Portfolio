@@ -21,7 +21,7 @@ namespace Jonghoon.ContextGate
     public sealed class SessionReport
     {
         public string schemaVersion = "1.0";
-        public string codeVersion = "context-gate-0.1.0";
+        public string codeVersion = "context-gate-0.1.1";
         public string sessionId, startedUtc, unityVersion, platform, endedReason;
         public SessionConfig config;
         public List<TrialSpec> trials;
@@ -48,16 +48,37 @@ namespace Jonghoon.ContextGate
             Directory.CreateDirectory(DirectoryPath);
             // Metadata exists before the first trial even if the run later stops unexpectedly.
             File.WriteAllText(Path.Combine(DirectoryPath, "metadata.json"), JsonUtility.ToJson(report, true), Encoding.UTF8);
-            jsonl = NewWriter("events.jsonl");
-            try { csv = NewWriter("events.csv"); }
-            catch { jsonl.Dispose(); throw; }
-            csv.WriteLine("sequence,sessionId,trialId,policy,utc,elapsedSeconds,frame,epoch,revision,snapshotRevision,boardSeed,eventName,requestId,token,from,to,applicable,providerFault,reason,positions");
-            csv.Flush();
+            StreamWriter openedJsonl = null, openedCsv = null;
+            try
+            {
+                openedJsonl = NewWriter("events.jsonl");
+                openedCsv = NewWriter("events.csv");
+                openedCsv.WriteLine("sequence,sessionId,trialId,policy,utc,elapsedSeconds,frame,epoch,revision,snapshotRevision,boardSeed,eventName,requestId,token,from,to,applicable,providerFault,reason,positions");
+                openedCsv.Flush();
+                jsonl = openedJsonl;
+                csv = openedCsv;
+            }
+            catch
+            {
+                // A failed constructor has no caller-owned instance to dispose.
+                CloseAfterFailure(openedCsv);
+                CloseAfterFailure(openedJsonl);
+                throw;
+            }
         }
 
-        StreamWriter NewWriter(string name) => new StreamWriter(
-            new FileStream(Path.Combine(DirectoryPath, name), FileMode.CreateNew, FileAccess.Write, FileShare.Read),
-            new UTF8Encoding(false));
+        StreamWriter NewWriter(string name)
+        {
+            var stream = new FileStream(Path.Combine(DirectoryPath, name), FileMode.CreateNew, FileAccess.Write, FileShare.Read);
+            try { return new StreamWriter(stream, new UTF8Encoding(false)); }
+            catch { CloseAfterFailure(stream); throw; }
+        }
+
+        static void CloseAfterFailure(IDisposable resource)
+        {
+            // Preserve the original I/O failure if cleanup also fails.
+            try { resource?.Dispose(); } catch { }
+        }
 
         public void Write(ResearchEvent e)
         {

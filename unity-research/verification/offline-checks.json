@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0",
+  "checkedOn": "2026-10-27",
+  "scope": "Python validator with synthetic schema fixtures; not Unity execution or real Unity exports",
+  "runtime": "3.12.14",
+  "command": "python unity-research/tools/test_validate_session.py",
+  "tests": {
+    "run": 66,
+    "positive": 21,
+    "negative": 45,
+    "passed": 66,
+    "failed": 0
+  },
+  "sourceFiles": {
+    "tools/validate_session.py": "9d37e04d58c016a372d6ab1685431b53360dd82ec83655dac2184e19a7ea8036",
+    "tools/test_validate_session.py": "cf1ed0a0860f68731bf6796688a0a203c4820eab68cb7226c557486542873aa3"
+  },
+  "log": "validator-tests.txt",
+  "notVerified": [
+    "Unity compilation",
+    "Unity Edit Mode execution",
+    "C# event serialization",
+    "desktop build",
+    "Quest execution",
+    "physical stimulus timing",
+    "participant outcomes"
+  ]
+}
