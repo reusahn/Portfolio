@@ -2,10 +2,12 @@
 import html
 import json
 import re
+import textwrap
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = json.loads((ROOT / "content/projects.json").read_text())
+UNITY_DETAILS = json.loads((ROOT / "content/unity-details.json").read_text())
 BY_ID = {p["id"]: p for p in PROJECTS}
 BASE = "https://jonghoonahn.com/unity-research/"
 REPO = "https://github.com/reusahn/Portfolio/blob/gh-pages/unity-research/"
@@ -106,14 +108,39 @@ def sample_panel(p):
     text = (ROOT / s['path']).read_text()
     if p['id'] == 'erick-oh':
         start = text.index('            phase +=')
-        excerpt = text[start:text.index('        void OnDisable', start)].strip().rstrip('}').rstrip()
+        end = text.index('            target.SetPropertyBlock(block);', start) + len('            target.SetPropertyBlock(block);')
+        excerpt = textwrap.dedent(text[start:end]).strip()
     elif p['id'] == 'jemulpo':
         start = text.index('                                    ReadFully(stream, header')
-        excerpt = text[start:text.index('                                    s.status', start)].strip()
+        excerpt = textwrap.dedent(text[start:text.index('                                    s.status', start)]).strip()
     else:
         start = text.index('        public bool EnterCode')
-        excerpt = text[start:text.index('        public void ResetPuzzle', start)].strip()
-    return f'''<section class="case-section" id="source"><p class="eyebrow">Independent implementation example / new source</p><h2>{e(s['label'])}</h2><p>{e(s['description'])}</p><details class="source-disclosure"><summary>Inspect a source excerpt</summary><pre class="code-panel"><code>{e(excerpt)}</code></pre></details><div class="actions"><a class="text-link" href="{s['path']}" download>{e(Path(s['path']).name)} ↓</a><a class="text-link" href="{s['related']}" download>Related source ↓</a><a class="text-link" href="{REPO}docs/UNITY_SETUP.md">Setup notes ↗</a></div></section>'''
+        excerpt = textwrap.dedent(text[start:text.index('        public void ResetPuzzle', start)]).strip()
+    shader = ''
+    if p['id'] == 'erick-oh':
+        shader_text = (ROOT / s['related']).read_text()
+        start = shader_text.index('                float3 p=input.positionOS.xyz;')
+        shader_excerpt = textwrap.dedent(shader_text[start:shader_text.index('                return o;', start)]).strip()
+        shader = f'<h3 class="source-subheading">The matching HLSL displacement</h3><pre class="code-panel"><code>{e(shader_excerpt)}</code></pre><p class="small muted">This sample displaces vertices with noise and retains the original normals for a stylized response. It does not implement the production cloud renderer or raymarched metaballs.</p>'
+    reading_notes = {
+        'erick-oh': [
+            'SetFlow validates and clamps the direction. Update integrates it into a phase instead of resetting time or translating the object.',
+            'MaterialPropertyBlock carries the flow, frequency, and amplitude to this renderer. The controller expands local bounds for the declared displacement range.',
+            'This sample leaves collision geometry and displaced normals unchanged. Inspect those boundaries before reusing it for a task.'
+        ],
+        'jemulpo': [
+            'ReadFully reconstructs a length-prefixed frame from the TCP byte stream. Partial reads are not treated as complete images.',
+            'The bounded queue separates network reception from Unity main-thread texture work. Payload size and PNG dimensions are checked before display.',
+            'This is a one-sender transport example. It contains no Barracuda model, style-transfer pipeline, UDP routing, or four-participant installation reconstruction.'
+        ],
+        'escape-metro': [
+            'AcceptReply checks turn identity, epoch, timeout, text length, and an allowed presentation cue.',
+            'EnterCode authorizes progression from puzzle evidence and the expected code. A model reply does not directly invoke the unlock event.',
+            'ResetPuzzle advances the epoch and clears pending state so a reply from the previous puzzle cannot be accepted.'
+        ]
+    }
+    notes = '<ul class="code-reading">' + ''.join('<li>' + e(item) + '</li>' for item in reading_notes[p['id']]) + '</ul>'
+    return f'''<section class="case-section" id="source"><p class="eyebrow">New independent source example</p><h2>{e(s['label'])}</h2><p>{e(s['description'])}</p><div class="source-boundary">Independent example, not the original project source. Unity compilation and runtime verification remain pending.</div><p class="source-filename">{e(Path(s['path']).name)}</p><pre class="code-panel"><code>{e(excerpt)}</code></pre>{shader}<h3 class="source-subheading">What to inspect in the source</h3>{notes}<div class="actions"><a class="text-link" href="{s['path']}" download>{e(Path(s['path']).name)} ↓</a><a class="text-link" href="{s['related']}" download>Related source ↓</a><a class="text-link" href="{REPO}docs/UNITY_SETUP.md">Setup notes ↗</a></div></section>'''
 
 
 def inspection_panel(p):
@@ -126,9 +153,42 @@ def inspection_panel(p):
     return f'<aside class="inspection-note"><h3>Inspect this boundary.</h3><p class="small muted">A new engineering review. Diagnostic scenarios below are checks to perform, not reported production incidents.</p><dl>{items}</dl></aside>'
 
 
+def detail_figure(item):
+    labels = {'archive': 'Existing project image', 'editor': 'Actual Unity capture', 'reference': 'Illustrative reference'}
+    label = labels[item['kind']]
+    return f'''<figure class="detail-figure {e(item['kind'])}" data-image-slot="{e(item['slot'])}"><div class="detail-image-label">{label}</div><a href="{e(item['src'])}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: {e(item['title'])}"><img src="{e(item['src'])}" alt="{e(item['alt'])}" loading="lazy" decoding="async" width="{item.get('width',1920)}" height="{item.get('height',1080)}"></a><figcaption><strong>{e(item['title'])}</strong>{e(item['caption'])}</figcaption></figure>'''
+
+
+def unity_features(p):
+    detail = UNITY_DETAILS[p['id']]
+    images = detail['images']
+    result = []
+    for i, feature in enumerate(detail['features']):
+        result.append(f'''<section class="unity-feature" aria-labelledby="feature-{i+1}"><div class="unity-feature-title"><p class="feature-index">0{i+1} / {e(feature['tools'])}</p><h3 id="feature-{i+1}">{e(feature['title'])}</h3></div><div class="unity-feature-body"><p>{e(feature['body'])}</p><details class="feature-capture"><summary>Unity view to capture</summary><dl><div><dt>Show</dt><dd>{e(feature['inspect'])}</dd></div><div><dt>Demonstrate</dt><dd>{e(feature['demo'])}</dd></div></dl></details></div></section>''')
+        if i == 0:
+            result.append(detail_figure(images[0]))
+        if i == len(detail['features'])-1:
+            result.extend(detail_figure(item) for item in images[1:])
+    return ''.join(result)
+
+
+def implementation_diagram(p):
+    nodes = []
+    for i, ((title, body), (x, y)) in enumerate(zip(p['system'], [(55,90),(675,90),(675,315),(55,315)])):
+        lines = textwrap.wrap(body, width=39)
+        label = ''.join(f'<tspan x="{x+25}" dy="{0 if j == 0 else 27}">{e(line)}</tspan>' for j, line in enumerate(lines))
+        nodes.append(f'<g><rect x="{x}" y="{y}" width="470" height="145" rx="4" fill="#fdfcf8" stroke="#b9c7bf"/><text x="{x+25}" y="{y+27}" fill="#1a554a" font-size="14" font-family="monospace">0{i+1}</text><text x="{x+25}" y="{y+65}" fill="#182c2b" font-size="25" font-weight="600">{e(title)}</text><text x="{x+25}" y="{y+98}" fill="#596661" font-size="20">{label}</text></g>')
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 535" role="img" aria-labelledby="title description"><title id="title">{e(p['title'])}: implementation map</title><desc id="description">{e(' → '.join(a + ': ' + b for a,b in p['system']))}. Editorial reconstruction, not an Editor capture.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1a554a"/></marker></defs><rect width="1200" height="535" fill="#e9ede6"/><g font-family="Arial,Helvetica,sans-serif"><text x="55" y="47" fill="#1a554a" font-size="16" letter-spacing="2">INPUT → PROCESS → RESPONSE → ENCOUNTER</text>{''.join(nodes)}<g fill="none" stroke="#1a554a" stroke-width="3" marker-end="url(#arrow)"><path d="M 545 163 H 653"/><path d="M 910 251 V 295"/><path d="M 653 388 H 545"/></g><text x="55" y="503" fill="#596661" font-size="15">Implementation map · prepared for this portfolio · not a Unity screenshot</text></g></svg>'''
+    path = 'assets/diagrams/' + p['id'] + '.svg'
+    write(path, svg)
+    mobile = '<ol class="map-steps">' + ''.join(f'<li><span>0{i+1}</span><div><strong>{e(a)}</strong><p>{e(b)}</p></div></li>' for i,(a,b) in enumerate(p['system'])) + '</ol>'
+    return f'<figure class="implementation-map"><img src="{path}" alt="{e(p["title"])} implementation map: {e(" to ".join(a for a,b in p["system"]))}" loading="lazy" width="1200" height="535">{mobile}<figcaption>System structure reconstructed from the documented implementation scope. Not an Editor capture or timing measurement.</figcaption></figure>'
+
+
 def case_page(p):
     group_name = GROUPS[p['group']][0]
-    pipeline = '<ol class="pipeline">' + ''.join(f'<li><span>0{i+1}</span><strong>{e(a)}</strong>{e(b)}</li>' for i, (a, b) in enumerate(p['system'])) + '</ol>'
+    diagram = implementation_diagram(p)
+    built = ''.join(f'<li>{e(item)}</li>' for item in UNITY_DETAILS[p['id']]['built'])
     decisions = ''.join(f'<div class="decision"><span class="num">0{i+1}</span><div><h3>{e(a)}</h3><p>{e(b)}</p></div></div>' for i, (a, b) in enumerate(p['technical']))
     preproduction = ''.join(f'<li><span>0{i+1}</span><div><h3>{e(a)}</h3><p>{e(b)}</p></div></li>' for i, (a, b) in enumerate(p['preproduction']))
     captures = ''.join(f'<li>{e(c)}</li>' for c in p['capture'])
@@ -136,14 +196,16 @@ def case_page(p):
     related = [q for q in PROJECTS if q['group'] == p['group'] and q['id'] != p['id']][:2]
     related_links = ''.join(f'<a href="{q["id"]}.html"><span>{e(q["medium"])}</span><strong>{e(q["title"])}</strong><b aria-hidden="true">↗</b></a>' for q in related)
     credits = f'<p class="small muted"><strong>Collaboration:</strong> {e(p["credits"])}</p>' if p.get('credits') else ''
-    return header(p['title'], p['idea'], image=p['image']) + f'''<main id="main"><div class="wrap page-intro"><p class="breadcrumb"><a href="index.html#selected-work">All works</a> / <a href="index.html#{p['group']}">{group_name}</a></p><div class="case-intro-grid"><div><p class="eyebrow">{e(p['medium'])}{' / ' + p['year'] if p['year'] else ''}</p><h1>{e(p['title'])}</h1><p class="lead">{e(p['idea'])}</p>{tags(p)}</div><dl class="fact-list"><div><dt>My role</dt><dd>{e(p['role'])}</dd></div><div><dt>Practice</dt><dd>{group_name}</dd></div><div><dt>Implementation focus</dt><dd>{e(' · '.join(p['tags']))}</dd></div><div><dt>Project evidence</dt><dd>Existing work / project documentation</dd></div></dl></div></div>
-<div class="wrap case-layout"><nav class="case-toc" aria-label="Case study sections"><p>Concept to implementation</p><a href="#project-video">Project video</a><a href="#concept">The question</a><a href="#implementation">My implementation</a><a href="#development">Development logic</a><a href="#study">Research direction</a><a href="#evidence">Evidence & next capture</a></nav><article class="case-content"><section id="project-video">{video(p)}{second}</section>
-<section class="case-section" id="concept"><p class="eyebrow">The conceptual starting point</p><h2>{e(p['question'])}</h2><p>{e(p['context'])}</p>{credits}</section>
-<section class="case-section" id="implementation"><p class="eyebrow">My implementation</p><h2>{e(p['implementation_heading'])}</h2><p class="implementation-lead">{e(p['implementation'])}</p>{pipeline}<p class="small muted">System overview based on the artist’s implementation scope and archived project documentation.</p>{decisions}{inspection_panel(p)}</section>
-<section class="case-section" id="development"><p class="eyebrow">Pre-production & development logic</p><h2>From intent to interaction.</h2><p class="small muted">A retrospective design note based on the documented work. Newly prepared for this portfolio.</p><ol class="development-steps">{preproduction}</ol></section>
+    source_toc = '<a href="#source">Code example</a>' if p.get('sample') else ''
+    return header(p['title'], p['idea'], image=p['image']).replace('<body>', '<body class="project-detail">') + f'''<main id="main"><div class="wrap page-intro"><p class="breadcrumb"><a href="index.html#selected-work">All works</a> / <a href="index.html#{p['group']}">{group_name}</a></p><div class="case-intro-grid"><div><p class="eyebrow">{e(p['medium'])}{' / ' + p['year'] if p['year'] else ''}</p><h1>{e(p['title'])}</h1><p class="lead">{e(p['idea'])}</p>{tags(p)}<div class="unity-overview"><p>My Unity contribution</p><ul>{built}</ul></div></div><dl class="fact-list"><div><dt>My role</dt><dd>{e(p['role'])}</dd></div><div><dt>Practice</dt><dd>{group_name}</dd></div><div><dt>Implementation focus</dt><dd>{e(' · '.join(p['tags']))}</dd></div><div><dt>Project evidence</dt><dd>Existing work / project documentation</dd></div></dl></div></div>
+<div class="wrap case-layout"><nav class="case-toc" aria-label="Case study sections"><p>Inside the project</p><a href="#project-video">Project video</a><a href="#implementation">Unity features</a><a href="#structure">System & decisions</a>{source_toc}<a href="#concept">Concept & development</a><a href="#evidence">Evidence</a></nav><article class="case-content"><section id="project-video">{video(p)}{second}</section>
+<section class="case-section" id="implementation"><p class="eyebrow">What I built in Unity / existing implementation</p><h2>{e(p['implementation_heading'])}</h2><p class="implementation-lead">{e(p['implementation'])}</p><div class="unity-feature-list">{unity_features(p)}</div></section>
+<section class="case-section" id="structure"><p class="eyebrow">Technical structure & design decisions</p><h2>How the parts connect.</h2>{diagram}{decisions}{inspection_panel(p)}</section>
 {sample_panel(p)}
-<section class="case-section" id="study"><p class="eyebrow">A question for further research / proposed</p><h2>{e(p['research']['question'])}</h2><div class="study-design"><div><span>Vary</span><p>{e(p['research']['change'])}</p></div><div><span>Hold consistent</span><p>{e(p['research']['keep'])}</p></div></div><p class="small muted">This is a proposed study direction motivated by the artwork. No controlled study or measured effect is reported for this comparison.</p></section>
-<section class="case-section" id="evidence"><p class="eyebrow">Evidence & implementation scope</p><h2>What can be inspected.</h2><p>{e(p['note'])}</p><div class="evidence-links"><a href="../{p['archive']}">Original project archive ↗</a><a href="{e(original_video(p))}" target="_blank" rel="noopener noreferrer">Project video ↗</a><a href="evidence.html">Evidence status ↗</a></div><details><summary>Technical captures to add</summary><ol class="compact-list">{captures}</ol></details><p class="small muted" style="margin-top:16px">Original source, a current executable, and measured performance are separate evidence items. Missing captures are not represented by simulated Editor screenshots.</p></section>
+<section class="case-section" id="concept"><p class="eyebrow">The conceptual starting point</p><h2>{e(p['question'])}</h2><p>{e(p['context'])}</p>{credits}</section>
+<section class="case-section" id="development"><p class="eyebrow">Pre-production & development logic</p><h2>From intent to interaction.</h2><p class="small muted">A retrospective design note based on the documented work. Newly prepared for this portfolio.</p><ol class="development-steps">{preproduction}</ol></section>
+<section class="case-section" id="study"><details class="research-extension"><summary>A possible research extension</summary><p class="eyebrow">Proposed comparison</p><h2>{e(p['research']['question'])}</h2><div class="study-design"><div><span>Vary</span><p>{e(p['research']['change'])}</p></div><div><span>Hold consistent</span><p>{e(p['research']['keep'])}</p></div></div><p class="small muted">This is a proposed study direction motivated by the artwork. No controlled study or measured effect is reported for this comparison.</p></details></section>
+<section class="case-section" id="evidence"><p class="eyebrow">Evidence & implementation scope</p><h2>What can be inspected.</h2><p>{e(p['note'])}</p><div class="evidence-links"><a href="../{p['archive']}">Original project archive ↗</a><a href="{e(original_video(p))}" target="_blank" rel="noopener noreferrer">Project video ↗</a></div><details><summary>Technical captures to add</summary><ol class="compact-list">{captures}</ol></details><p class="small muted" style="margin-top:16px">Existing project images, illustrative references, and new source examples are labeled separately. Original source, a current executable, and measured performance remain separate evidence items.</p></section>
 <section class="related-work"><p class="eyebrow">Related work</p>{related_links}</section></article></div></main>''' + footer()
 
 
@@ -233,6 +295,8 @@ def development_notes():
 
 def main():
     assert len(PROJECTS) == 15 and len(BY_ID) == 15
+    assert set(UNITY_DETAILS) == set(BY_ID)
+    assert all(len(d['features']) == 3 and d['images'] for d in UNITY_DETAILS.values())
     for route, name in [("all", "index.html"), ("xr", "xr.html"), ("human", "human-ai.html")]:
         write(name, home(route))
     for p in PROJECTS:
@@ -248,3 +312,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
