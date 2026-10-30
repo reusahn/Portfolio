@@ -6,7 +6,7 @@
 
 - **기존 구현**: 사용자 확인과 공개 작품 자료에 근거한 Unity 기능 설명 및 기존 사진.
 - **이번에 구현**: 상세페이지 구성, 기능별 본문, SVG 시스템 구조도, 이미지 교체 도구.
-- **추가 제작 필요**: 기능별 `Unity view to capture`에 적은 Editor·Game view·센서 동시 촬영.
+- **추가 제작 필요**: 각 상세페이지의 `Documentation → Technical captures to add`에 적은 Editor·Game view·센서 동시 촬영.
 - **검증 필요**: 새 독립 C# 예제의 Unity 컴파일과 실행. 기존 공개 영상도 새 코드 실행 증거로 바꾸어 사용하지 않습니다.
 
 기능 본문은 `content/unity-details.json`, 기존 작품 정보는 `content/projects.json`, 페이지 생성은 `tools/build_portfolio.py`에서 관리합니다.

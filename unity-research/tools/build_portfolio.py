@@ -68,7 +68,7 @@ def video(p):
 
 def card(p, number):
     techniques = '<p class="card-tech">' + ' · '.join(e(t) for t in p['tags'][:3]) + '</p>'
-    return f'''<article class="project-card" data-project="{p['id']}" data-group="{p['group']}"><a class="project-photo" href="{p['id']}.html" aria-label="Open {e(p['title'])}"><img src="../{p['image']}" alt="{e(p['alt'])}" width="1920" height="1080" loading="lazy"><span class="photo-index">{number:02d}</span></a><div class="project-card-body"><h3><a href="{p['id']}.html">{e(p['title'])}</a></h3><p class="card-idea">{e(p['teaser'])}</p>{techniques}<div class="card-foot"><p class="card-role">{e(p['role'])}</p><a class="card-link" href="{p['id']}.html" aria-label="Read {e(p['title'])} case study"><span aria-hidden="true">↗</span></a></div></div></article>'''
+    return f'''<article class="project-card" data-project="{p['id']}" data-group="{p['group']}"><a class="project-photo" href="{p['id']}.html" aria-label="Open {e(p['title'])}"><img src="../{p['image']}" alt="{e(p['alt'])}" width="1920" height="1080" loading="lazy"></a><div class="project-card-body"><h3><a href="{p['id']}.html">{e(p['title'])}</a></h3><p class="card-idea">{e(p['teaser'])}</p>{techniques}<p class="card-role">{e(p['role'])}</p></div></article>'''
 
 
 def home(route="all"):
@@ -92,7 +92,7 @@ def home(route="all"):
         for p in projects:
             count += 1
             cards.append(card(p, count))
-        groups.append(f'<section class="catalog-group" data-catalog-group="{group}" id="{group}"><div class="group-heading"><h2>{name}</h2><span class="section-no">{len(projects):02d} works</span></div><div class="project-grid">{"".join(cards)}</div></section>')
+        groups.append(f'<section class="catalog-group" data-catalog-group="{group}" id="{group}"><div class="group-heading"><h2>{name}</h2></div><div class="project-grid">{"".join(cards)}</div></section>')
     page = header("Unity-based projects", description, current="home").replace('<body>', '<body class="portfolio-index">') + f'''<main id="main" class="wrap">
 <section class="portfolio-title"><h1>Unity-based projects</h1></section>
 <section id="selected-work" aria-label="Portfolio works"><nav class="category-buttons" aria-label="Project categories">{controls}</nav>
@@ -121,7 +121,7 @@ def sample_panel(p):
         shader_text = (ROOT / s['related']).read_text()
         start = shader_text.index('                float3 p=input.positionOS.xyz;')
         shader_excerpt = textwrap.dedent(shader_text[start:shader_text.index('                return o;', start)]).strip()
-        shader = f'<h3 class="source-subheading">The matching HLSL displacement</h3><pre class="code-panel"><code>{e(shader_excerpt)}</code></pre><p class="small muted">This sample displaces vertices with noise and retains the original normals for a stylized response. It does not implement the production cloud renderer or raymarched metaballs.</p>'
+        shader = f'<h3 class="source-subheading">HLSL displacement</h3><pre class="code-panel"><code>{e(shader_excerpt)}</code></pre><p>This stylized example displaces vertices with noise and retains the original normals.</p>'
     reading_notes = {
         'erick-oh': [
             'SetFlow validates and clamps the direction. Update integrates it into a phase instead of resetting time or translating the object.',
@@ -140,7 +140,12 @@ def sample_panel(p):
         ]
     }
     notes = '<ul class="code-reading">' + ''.join('<li>' + e(item) + '</li>' for item in reading_notes[p['id']]) + '</ul>'
-    return f'''<section class="case-section" id="source"><p class="eyebrow">New independent source example</p><h2>{e(s['label'])}</h2><p>{e(s['description'])}</p><div class="source-boundary">Independent example, not the original project source. Unity compilation and runtime verification remain pending.</div><p class="source-filename">{e(Path(s['path']).name)}</p><pre class="code-panel"><code>{e(excerpt)}</code></pre>{shader}<h3 class="source-subheading">What to inspect in the source</h3>{notes}<div class="actions"><a class="text-link" href="{s['path']}" download>{e(Path(s['path']).name)} ↓</a><a class="text-link" href="{s['related']}" download>Related source ↓</a><a class="text-link" href="{REPO}docs/UNITY_SETUP.md">Setup notes ↗</a></div></section>'''
+    description = {
+        'erick-oh': 'C# updates per-renderer flow and deformation parameters. The simplified URP shader uses them for vertex displacement.',
+        'jemulpo': 'A framed PNG receiver separates TCP reading from texture creation on Unity’s main thread.',
+        'escape-metro': 'A reply validator and puzzle gate keep NPC text separate from game-authorized progression.'
+    }[p['id']]
+    return f'''<section class="case-section" id="source"><h2>Code example</h2><p>{e(description)}</p><div class="source-boundary">Independent example, not the original project source. Unity compilation and runtime verification remain pending.</div><p class="source-filename">{e(Path(s['path']).name)}</p><pre class="code-panel"><code>{e(excerpt)}</code></pre>{shader}<h3 class="source-subheading">Implementation notes</h3>{notes}<div class="actions"><a class="text-link" href="{s['path']}" download>{e(Path(s['path']).name)} ↓</a><a class="text-link" href="{s['related']}" download>Related source ↓</a><a class="text-link" href="{REPO}docs/UNITY_SETUP.md">Setup notes ↗</a></div></section>'''
 
 
 def inspection_panel(p):
@@ -150,13 +155,12 @@ def inspection_panel(p):
     items = ''.join(f'<div><dt>{label}</dt><dd>{e(check[key])}</dd></div>' for key, label in [
         ('decision', 'Design decision'), ('failure', 'Failure case to exercise'),
         ('evidence', 'Observable evidence'), ('reuse', 'Reuse boundary')])
-    return f'<aside class="inspection-note"><h3>Inspect this boundary.</h3><p class="small muted">A new engineering review. Diagnostic scenarios below are checks to perform, not reported production incidents.</p><dl>{items}</dl></aside>'
+    return f'<details class="technical-notes"><summary>Verification and reuse notes</summary><p>These are newly prepared checks, not reported production incidents.</p><dl class="inspection-note">{items}</dl></details>'
 
 
 def detail_figure(item):
-    labels = {'archive': 'Existing project image', 'editor': 'Actual Unity capture', 'reference': 'Illustrative reference'}
-    label = labels[item['kind']]
-    return f'''<figure class="detail-figure {e(item['kind'])}" data-image-slot="{e(item['slot'])}"><div class="detail-image-label">{label}</div><a href="{e(item['src'])}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: {e(item['title'])}"><img src="{e(item['src'])}" alt="{e(item['alt'])}" loading="lazy" decoding="async" width="{item.get('width',1920)}" height="{item.get('height',1080)}"></a><figcaption><strong>{e(item['title'])}</strong>{e(item['caption'])}</figcaption></figure>'''
+    label = '<p class="reference-label">Illustrative reference · AI-generated</p>' if item['kind'] == 'reference' else ''
+    return f'''<figure class="detail-figure {e(item['kind'])}" data-image-slot="{e(item['slot'])}">{label}<a href="{e(item['src'])}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: {e(item['title'])}"><img src="{e(item['src'])}" alt="{e(item['alt'])}" loading="lazy" decoding="async" width="{item.get('width',1920)}" height="{item.get('height',1080)}"></a><figcaption>{e(item['caption'])}</figcaption></figure>'''
 
 
 def unity_features(p):
@@ -164,7 +168,7 @@ def unity_features(p):
     images = detail['images']
     result = []
     for i, feature in enumerate(detail['features']):
-        result.append(f'''<section class="unity-feature" aria-labelledby="feature-{i+1}"><div class="unity-feature-title"><p class="feature-index">0{i+1} / {e(feature['tools'])}</p><h3 id="feature-{i+1}">{e(feature['title'])}</h3></div><div class="unity-feature-body"><p>{e(feature['body'])}</p><details class="feature-capture"><summary>Unity view to capture</summary><dl><div><dt>Show</dt><dd>{e(feature['inspect'])}</dd></div><div><dt>Demonstrate</dt><dd>{e(feature['demo'])}</dd></div></dl></details></div></section>''')
+        result.append(f'''<section class="unity-feature" aria-labelledby="feature-{i+1}"><h3 id="feature-{i+1}">{e(feature['title'])}</h3><p>{e(feature['body'])}</p></section>''')
         if i == 0:
             result.append(detail_figure(images[0]))
         if i == len(detail['features'])-1:
@@ -186,28 +190,30 @@ def implementation_diagram(p):
 
 
 def case_page(p):
-    group_name = GROUPS[p['group']][0]
     diagram = implementation_diagram(p)
-    built = ''.join(f'<li>{e(item)}</li>' for item in UNITY_DETAILS[p['id']]['built'])
-    decisions = ''.join(f'<div class="decision"><span class="num">0{i+1}</span><div><h3>{e(a)}</h3><p>{e(b)}</p></div></div>' for i, (a, b) in enumerate(p['technical']))
-    preproduction = ''.join(f'<li><span>0{i+1}</span><div><h3>{e(a)}</h3><p>{e(b)}</p></div></li>' for i, (a, b) in enumerate(p['preproduction']))
+    decisions = ''.join(f'<div class="decision"><h3>{e(a)}</h3><p>{e(b)}</p></div>' for a, b in p['technical'])
+    preproduction = ''.join(f'<li><h3>{e(a)}</h3><p>{e(b)}</p></li>' for a, b in p['preproduction'])
+    capture_items = ''.join(f'<li><strong>{e(f["title"])}</strong><p>{e(f["inspect"])} {e(f["demo"])}</p></li>' for f in UNITY_DETAILS[p['id']]['features'])
     captures = ''.join(f'<li>{e(c)}</li>' for c in p['capture'])
-    second = f'<p class="small"><a href="https://vimeo.com/{p["secondVideo"]}" target="_blank" rel="noopener noreferrer">Be NARCI / companion project video ↗</a></p>' if p.get('secondVideo') else ''
+    second = f'<p class="companion-video"><a href="https://vimeo.com/{p["secondVideo"]}" target="_blank" rel="noopener noreferrer">Be NARCI companion video ↗</a></p>' if p.get('secondVideo') else ''
     related = [q for q in PROJECTS if q['group'] == p['group'] and q['id'] != p['id']][:2]
-    related_links = ''.join(f'<a href="{q["id"]}.html"><span>{e(q["medium"])}</span><strong>{e(q["title"])}</strong><b aria-hidden="true">↗</b></a>' for q in related)
-    credits = f'<p class="small muted"><strong>Collaboration:</strong> {e(p["credits"])}</p>' if p.get('credits') else ''
+    related_links = ''.join(f'<a href="{q["id"]}.html">{e(q["title"])} ↗</a>' for q in related)
+    credits = f'<p><strong>Collaboration:</strong> {e(p["credits"])}</p>' if p.get('credits') else ''
     scope_note = p['note'].replace('supplied below', 'shown on this page')
-    source_toc = '<a href="#source">Code example</a>' if p.get('sample') else ''
-    return header(p['title'], p['idea'], image=p['image']).replace('<body>', '<body class="project-detail">') + f'''<main id="main"><div class="wrap page-intro"><p class="breadcrumb"><a href="index.html#selected-work">All works</a> / <a href="index.html#{p['group']}">{group_name}</a></p><div class="case-intro-grid"><div><p class="eyebrow">{e(p['medium'])}{' / ' + p['year'] if p['year'] else ''}</p><h1>{e(p['title'])}</h1><p class="lead">{e(p['idea'])}</p>{tags(p)}<div class="unity-overview"><p>My Unity contribution</p><ul>{built}</ul></div></div><dl class="fact-list"><div><dt>My role</dt><dd>{e(p['role'])}</dd></div><div><dt>Practice</dt><dd>{group_name}</dd></div><div><dt>Implementation focus</dt><dd>{e(' · '.join(p['tags']))}</dd></div><div><dt>Project evidence</dt><dd>Existing work / project documentation</dd></div></dl></div></div>
-<div class="wrap case-layout"><nav class="case-toc" aria-label="Case study sections"><p>Inside the project</p><a href="#project-video">Project video</a><a href="#implementation">Unity features</a><a href="#structure">System & decisions</a>{source_toc}<a href="#concept">Concept & development</a><a href="#evidence">Evidence</a></nav><article class="case-content"><section id="project-video">{video(p)}{second}</section>
-<section class="case-section" id="implementation"><p class="eyebrow">What I built in Unity / existing implementation</p><h2>{e(p['implementation_heading'])}</h2><p class="implementation-lead">{e(p['implementation'])}</p><div class="unity-feature-list">{unity_features(p)}</div></section>
-<section class="case-section" id="structure"><p class="eyebrow">Technical structure & design decisions</p><h2>How the parts connect.</h2>{diagram}{decisions}{inspection_panel(p)}</section>
+    metadata = ' · '.join(e(x) for x in [p['year'], p['role']] if x)
+    techniques = ' · '.join(e(x) for x in p['tags'])
+    return header(p['title'], p['implementation'], image=p['image']).replace('<body>', '<body class="project-detail">') + f'''<main id="main" class="wrap detail-wrap">
+<header class="project-heading"><h1>{e(p['title'])}</h1><p class="project-meta">{metadata}</p><p class="project-tools">{techniques}</p><p class="project-summary">{e(p['implementation'])}</p></header>
+<article class="case-content"><section id="project-video">{video(p)}{second}</section>
+<section class="case-section" id="implementation"><h2>Unity implementation</h2><div class="unity-feature-list">{unity_features(p)}</div></section>
+<section class="case-section" id="structure"><h2>System & design decisions</h2>{diagram}{decisions}{inspection_panel(p)}</section>
 {sample_panel(p)}
-<section class="case-section" id="concept"><p class="eyebrow">The conceptual starting point</p><h2>{e(p['question'])}</h2><p>{e(p['context'])}</p>{credits}</section>
-<section class="case-section" id="development"><p class="eyebrow">Pre-production & development logic</p><h2>From intent to interaction.</h2><p class="small muted">A retrospective design note based on the documented work. Newly prepared for this portfolio.</p><ol class="development-steps">{preproduction}</ol></section>
-<section class="case-section" id="study"><details class="research-extension"><summary>A possible research extension</summary><p class="eyebrow">Proposed comparison</p><h2>{e(p['research']['question'])}</h2><div class="study-design"><div><span>Vary</span><p>{e(p['research']['change'])}</p></div><div><span>Hold consistent</span><p>{e(p['research']['keep'])}</p></div></div><p class="small muted">This is a proposed study direction motivated by the artwork. No controlled study or measured effect is reported for this comparison.</p></details></section>
-<section class="case-section" id="evidence"><p class="eyebrow">Evidence & implementation scope</p><h2>What can be inspected.</h2><p>{e(scope_note)}</p><div class="evidence-links"><a href="../{p['archive']}">Original project archive ↗</a><a href="{e(original_video(p))}" target="_blank" rel="noopener noreferrer">Project video ↗</a></div><details><summary>Technical captures to add</summary><ol class="compact-list">{captures}</ol></details><p class="small muted" style="margin-top:16px">Existing project images, illustrative references, and new source examples are labeled separately. Original source, a current executable, and measured performance remain separate evidence items.</p></section>
-<section class="related-work"><p class="eyebrow">Related work</p>{related_links}</section></article></div></main>''' + footer()
+<section class="case-section" id="concept"><h2>Concept</h2><p class="case-question">{e(p['question'])}</p><p>{e(p['context'])}</p>{credits}</section>
+<section class="case-section" id="development"><h2>Development</h2><p class="muted">Retrospective planning notes, prepared for this portfolio.</p><ol class="development-steps">{preproduction}</ol></section>
+<section class="case-section" id="study"><details class="research-extension"><summary>Further research</summary><p class="case-question">{e(p['research']['question'])}</p><p><strong>Vary:</strong> {e(p['research']['change'])}</p><p><strong>Hold consistent:</strong> {e(p['research']['keep'])}</p><p class="muted">Proposed comparison. No controlled study or measured effect is reported.</p></details></section>
+<section class="case-section" id="evidence"><h2>Documentation</h2><p>{e(scope_note)}</p><div class="evidence-links"><a href="../{p['archive']}">Project archive ↗</a><a href="{e(original_video(p))}" target="_blank" rel="noopener noreferrer">Project video ↗</a></div><details class="capture-checklist"><summary>Technical captures to add</summary><p>Editor and runtime captures still needed to inspect the implementation:</p><ol>{capture_items}</ol><ul>{captures}</ul></details></section>
+<nav class="related-work" aria-label="Related projects"><h2>Related projects</h2>{related_links}</nav>
+</article></main>''' + footer()
 
 
 def approach_page():
@@ -220,7 +226,7 @@ def approach_page():
         ("Separate reflection from results", "A good question can remain open.", "The artwork makes an encounter possible. A study adds a controlled comparison and an analysis. Keep an artistic intention, an implementation, and a measured finding distinguishable.", "context-gate.html", "Context Gate"),
     ]
     items = ''.join(f'<li><span class="method-number">0{i+1}</span><div><p class="eyebrow">{e(title)}</p><h2>{e(question)}</h2><p>{e(body)}</p><a class="text-link" href="{url}">{label} ↗</a></div></li>' for i, (title, question, body, url, label) in enumerate(stages))
-    return header("From concept to implementation", "A development approach that connects artistic questions, interaction design, and Unity systems.", "approach") + f'''<main id="main" class="wrap"><div class="page-intro"><p class="eyebrow">Pre-production, system design & reflection</p><h1>The concept sets the problem.<br>The implementation makes it testable.</h1><p class="lead approach-lead">A technique matters because of the encounter it makes possible. I read the work through six decisions that connect an artistic premise to an interactive system.</p><p class="small muted">This framework and the project development notes were written for this portfolio. They reconstruct the logic of the documented works and identify useful next artifacts. They do not stand in for original production records.</p></div><ol class="method-list">{items}</ol><section class="split-section"><div><p class="eyebrow">Planning artifacts</p><h2>A brief for each work.</h2><p class="muted">Each project now has an explicit question, input-to-output map, three development decisions, and a proposed research comparison. The downloadable notes make those decisions available for further production.</p></div><div><div class="actions"><a class="button secondary" href="{REPO}docs/PROJECT_DEVELOPMENT_NOTES.md">Project development notes ↗</a><a class="text-link" href="{REPO}docs/EVIDENCE_CAPTURE_KO.md">한국어 촬영 가이드 ↗</a></div></div></section></main>''' + footer()
+    return header("From concept to implementation", "A development approach that connects artistic questions, interaction design, and Unity systems.", "approach") + f'''<main id="main" class="wrap"><div class="page-intro"><p class="eyebrow">Pre-production, system design & reflection</p><h1>Development approach</h1><p class="lead approach-lead">A technique matters because of the encounter it makes possible. I read the work through six decisions that connect an artistic premise to an interactive system.</p><p class="small muted">This framework and the project development notes were written for this portfolio. They reconstruct the logic of the documented works and identify useful next artifacts. They do not stand in for original production records.</p></div><ol class="method-list">{items}</ol><section class="split-section"><div><p class="eyebrow">Planning artifacts</p><h2>A brief for each work.</h2><p class="muted">Each project now has an explicit question, input-to-output map, three development decisions, and a proposed research comparison. The downloadable notes make those decisions available for further production.</p></div><div><div class="actions"><a class="button secondary" href="{REPO}docs/PROJECT_DEVELOPMENT_NOTES.md">Project development notes ↗</a><a class="text-link" href="{REPO}docs/EVIDENCE_CAPTURE_KO.md">한국어 촬영 가이드 ↗</a></div></div></section></main>''' + footer()
 
 
 def handoff_page():
@@ -231,7 +237,7 @@ def handoff_page():
     ]
     cases = ''.join(f'<article><p class="eyebrow">{e(boundary)}</p><h2><a href="{pid}.html#implementation">{e(BY_ID[pid]["title"])}</a></h2><p>{e(scope)}</p><div class="proof-links"><a href="{pid}.html#project-video">Existing video ↗</a><a href="{pid}.html#implementation">Implementation ↗</a></div></article>' for pid, boundary, scope in links)
     return header('Working with a lab', 'Concrete Unity contributions, inspectable evidence, and a bounded first research implementation.') + f'''<main id="main" class="wrap">
-<div class="page-intro"><p class="breadcrumb"><a href="index.html">Unity-based projects</a> / Working with a lab</p><p class="eyebrow">Implementation, collaboration & handoff</p><h1>One Unity interaction,<br>ready to inspect.</h1><p class="lead approach-lead">I build Unity interactions and visual-feedback systems that turn sensed input and task events into controllable scene changes.</p><p class="small muted">Existing project work supports these skills. The proposed research integrations below have their own implementation and validation scope.</p></div>
+<div class="page-intro"><p class="breadcrumb"><a href="index.html">Unity-based projects</a> / Working with a lab</p><p class="eyebrow">Implementation, collaboration & handoff</p><h1>Unity research collaboration</h1><p class="lead approach-lead">I build Unity interactions and visual-feedback systems that turn sensed input and task events into controllable scene changes.</p><p class="small muted">Existing project work supports these skills. The proposed research integrations below have their own implementation and validation scope.</p></div>
 <section class="collaboration-cases" aria-label="Three implementation entry points">{cases}</section>
 <section class="split-section"><div><p class="eyebrow">Two bounded contribution directions / proposed</p><h2>Useful controls.<br>Explicit lifecycle.</h2><p>I can own a Unity-side interaction or rendering subsystem: its input boundary, scene response, useful parameter ranges, and reset behavior. My next contribution would be a small adapter and an inspectable example for one agreed task.</p></div><div><h3>Published research context</h3><p>XARP places device operations in a Unity client. Its discussion identifies gaps around visual effects and fine-grained rendering. SABER makes task events and their timing part of an experimental system.</p><p class="small"><a href="https://arxiv.org/html/2508.04108#S6.SS2">XARP §6.2 ↗</a> · <a href="https://arxiv.org/html/2508.04108#S13.SS2">XARP §13.2 ↗</a> · <a href="https://sites.cs.ucsb.edu/~holl/pubs/Bullock-2026-IEEEVR.pdf">SABER §3 ↗</a></p><p class="small muted">These are my inferred contribution opportunities. No toolkit compatibility, lab request, funded opening, or hardware synchronization is claimed.</p></div></section>
 <section class="split-section"><div><p class="eyebrow">One existing source prototype to continue</p><h2>Context Gate.</h2><p>A delayed placement hint can arrive after the user changes the board. The source compares delivering every well-formed hint with rechecking its object-state preconditions.</p><p><strong>Proposed contribution:</strong> a Unity harness that records whether delayed hints were displayed, discarded, timed out, or cancelled across paired trials.</p><a class="text-link" href="context-gate.html">Inspect the question and source ↗</a></div><div><h3>A small first collaboration</h3><p>Choose one task-state contract and one target platform. First produce a reviewable desktop run of Context Gate. Then decide whether the same lifecycle should be bound to one lab interaction.</p><ul class="compact-list"><li><strong>I would own:</strong> the Unity scene, state transition, response validation, event trail, and runbook.</li><li><strong>We would choose together:</strong> task difficulty, the input adapter, valid-trial rules, and required timing precision.</li><li><strong>Deliverable:</strong> source revision, settings, minimal scene, raw logs, and an uncut input-to-response recording.</li></ul><p class="small muted">This is a proposed technical spike. The supplied C# is source-only until the Unity acceptance checks below pass. No second research prototype is added.</p></div></section>
@@ -260,7 +266,7 @@ def systems_page():
     for p in PROJECTS:
         rows.append(f'<tr><th scope="row"><a href="{p["id"]}.html">{e(p["title"])}</a></th><td>{e(p["system"][0][1])}</td><td>{e(" · ".join(p["tags"]))}</td><td>{e(p["system"][-1][1])}</td></tr>')
     groups = ''.join(f'<a href="index.html#{key}"><span>{idx}</span><strong>{title}</strong><small>{desc}</small></a>' for key, (title, desc, idx) in GROUPS.items())
-    return header("Technical systems map", "The input, implementation focus, and output of all 15 works.", "systems") + f'''<main id="main" class="wrap"><div class="page-intro"><p class="eyebrow">All 15 works / technical map</p><h1>Different inputs.<br>Explicit system boundaries.</h1><p class="muted" style="max-width:760px">The same engine connects very different kinds of work. This index keeps the sensor, generative method, character, and world attached to the project in which it was implemented.</p></div><div class="practice-map">{groups}</div><div class="table-scroll"><table class="evidence-table systems-table"><thead><tr><th scope="col">Project</th><th scope="col">Input / source</th><th scope="col">Implementation focus</th><th scope="col">Output / encounter</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div><section class="split-section"><div><h2>Keep the hardware specific.</h2><p class="muted">To Eternity uses Azure Kinect. Silhak Dance and Track 6 use Kinect v2. Beads Wall uses webcam mapping into VFX Graph. A similar visual result does not make those sensing systems interchangeable.</p></div><div><h2>Keep the engines specific.</h2><p class="muted">Gang Se-hwang is a Unity HDRP digital-human case. Shininho and Jooan's Unreal / MetaHuman work adds production context and is documented separately. Context Gate is a new source prototype with its own pending runtime validation.</p></div></section></main>''' + footer()
+    return header("Technical systems map", "The input, implementation focus, and output of all 15 works.", "systems") + f'''<main id="main" class="wrap"><div class="page-intro"><p class="eyebrow">All 15 works / technical map</p><h1>Unity systems</h1><p class="muted" style="max-width:760px">The same engine connects very different kinds of work. This index keeps the sensor, generative method, character, and world attached to the project in which it was implemented.</p></div><div class="practice-map">{groups}</div><div class="table-scroll"><table class="evidence-table systems-table"><thead><tr><th scope="col">Project</th><th scope="col">Input / source</th><th scope="col">Implementation focus</th><th scope="col">Output / encounter</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div><section class="split-section"><div><h2>Keep the hardware specific.</h2><p class="muted">To Eternity uses Azure Kinect. Silhak Dance and Track 6 use Kinect v2. Beads Wall uses webcam mapping into VFX Graph. A similar visual result does not make those sensing systems interchangeable.</p></div><div><h2>Keep the engines specific.</h2><p class="muted">Gang Se-hwang is a Unity HDRP digital-human case. Shininho and Jooan's Unreal / MetaHuman work adds production context and is documented separately. Context Gate is a new source prototype with its own pending runtime validation.</p></div></section></main>''' + footer()
 
 
 def update_legacy_pages():
@@ -306,7 +312,7 @@ def main():
     write('systems.html', systems_page())
     write('handoff.html', handoff_page())
     write('docs/PROJECT_DEVELOPMENT_NOTES.md', development_notes())
-    write('supporting.html', header('All Unity work', 'The supporting works now have full project case studies.') + '<main id="main" class="wrap"><div class="page-intro"><p class="eyebrow">The expanded portfolio</p><h1>Every work has<br>its own case study.</h1><p>Browse the 15 works by practice or compare their input-to-output systems.</p><div class="actions"><a class="button" href="index.html#selected-work">Explore all works ↗</a><a class="text-link" href="systems.html">Technical map ↗</a></div></div></main>' + footer())
+    write('supporting.html', header('All Unity work', 'The supporting works now have full project case studies.') + '<main id="main" class="wrap"><div class="page-intro"><p class="eyebrow">The expanded portfolio</p><h1>Unity projects</h1><p>Browse the 15 works by practice or compare their input-to-output systems.</p><div class="actions"><a class="button" href="index.html#selected-work">Explore all works ↗</a><a class="text-link" href="systems.html">Technical map ↗</a></div></div></main>' + footer())
     update_legacy_pages()
     print(json.dumps({"projects": len(PROJECTS), "groups": {g: sum(p['group'] == g for p in PROJECTS) for g in GROUPS}, "html_pages": len(list(ROOT.glob('*.html')))}))
 
