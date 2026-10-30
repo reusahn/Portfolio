@@ -40,7 +40,7 @@ def header(title, description, current="work", image=None):
     og = f'<meta property="og:image" content="https://jonghoonahn.com/{e(image)}">' if image else ''
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)} | Jonghoon Ahn</title><meta name="description" content="{e(description)}"><meta name="theme-color" content="#182c2b">{og}
-<link rel="icon" href="../assets/images/favicon.png"><link rel="stylesheet" href="site.css"><script src="site.js" defer></script></head><body>
+<link rel="icon" href="../assets/images/favicon.png"><link rel="stylesheet" href="site.css?v=compact-20261030"><script src="site.js" defer></script></head><body>
 <a class="skip" href="#main">Skip to content</a><header class="topbar"><div class="wrap topbar-inner"><a class="brand" href="index.html">Jonghoon Ahn</a>{navigation}</div></header>'''
 
 
@@ -273,6 +273,7 @@ def update_legacy_pages():
     for name in ["context-gate.html", "code.html", "evidence.html", "research.html"]:
         path = ROOT / name
         text = path.read_text()
+        text = re.sub(r'href="site\.css(?:\?[^\"]*)?"', 'href="site.css?v=compact-20261030"', text)
         # Retain existing functional content while sharing the expanded site's navigation.
         nav = header("", "").split('<header class="topbar">', 1)[1].split('</header>', 1)[0]
         text = re.sub(r'<header class="topbar">.*?</header>', '<header class="topbar">' + nav + '</header>', text, count=1, flags=re.S)
