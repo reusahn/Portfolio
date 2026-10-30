@@ -72,21 +72,30 @@ def card(p, number):
 
 
 def home(route="all"):
-    group_order = {"all": ["xr-worlds", "sensing", "graphics", "humans"], "xr": ["xr-worlds", "sensing", "graphics", "humans"],
+    group_order = {"all": ["graphics", "sensing", "humans", "xr-worlds"], "xr": ["graphics", "sensing", "humans", "xr-worlds"],
                    "human": ["humans", "xr-worlds", "sensing", "graphics"]}[route]
     description = "Unity-based projects by Jonghoon Ahn: VR, sensing, real-time graphics, and digital humans."
     controls = ''.join(f'<a href="#{key}">{e(HOME_GROUPS[key][0])}<span aria-hidden="true">↓</span></a>' for key in group_order)
     count = 0
     groups = []
+    featured_ids = ['erick-oh', 'to-eternity', 'jemulpo', 'gang-se-hwang'] if route in ('all', 'xr') else []
+    if featured_ids:
+        featured_cards = []
+        for project_id in featured_ids:
+            count += 1
+            featured_cards.append(card(BY_ID[project_id], count))
+        groups.append('<section class="catalog-group" aria-label="Selected Unity projects"><div class="project-grid">' + ''.join(featured_cards) + '</div></section>')
     for group_number, group in enumerate(group_order, 1):
         name, desc = HOME_GROUPS[group]
         idx = f'{group_number:02d}'
-        projects = [p for p in PROJECTS if p['group'] == group]
+        projects = [p for p in PROJECTS if p['group'] == group and p['id'] not in featured_ids]
         if route == "human":
             priority = {"ai-zoo": 0, "ai-choi": 1, "gang-se-hwang": 2, "escape-metro": 0, "narci": 1, "fineo": 2, "graffiti-freedom": 3}
             projects.sort(key=lambda p: priority.get(p['id'], 10))
         elif route in ("all", "xr"):
-            priority = {"narci": 0, "escape-metro": 1, "fineo": 2, "graffiti-freedom": 3, "to-eternity": 0, "silhak-dance": 1, "track-6": 2, "jemulpo": 3, "erick-oh": 0}
+            priority = {"flowers-waves": 0, "beads-wall": 1, "fall-of-minds": 2,
+                        "silhak-dance": 0, "track-6": 1, "ai-zoo": 0, "ai-choi": 1,
+                        "escape-metro": 0, "graffiti-freedom": 1, "fineo": 2, "narci": 3}
             projects.sort(key=lambda p: priority.get(p['id'], 10))
         cards = []
         for p in projects:
