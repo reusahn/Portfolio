@@ -63,7 +63,7 @@ def original_video(p):
 
 
 def video(p):
-    return f'''<figure><div class="video-shell"><button class="video-trigger" data-video="{e(video_url(p))}" data-title="{e(p['title'])} / existing project video" aria-label="Play {e(p['title'])} project video"><img src="../{p['image']}" alt="{e(p['alt'])}" width="1920" height="1080"><span class="play-label"><span class="play-symbol" aria-hidden="true">▶</span>Play project video</span></button></div><figcaption>Existing project documentation. <a href="{e(original_video(p))}" target="_blank" rel="noopener noreferrer">Open original video ↗</a></figcaption></figure>'''
+    return f'''<div class="video-shell"><iframe src="{e(video_url(p))}" title="{e(p['title'])} — project video" width="1920" height="1080" loading="eager" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>'''
 
 
 def card(p, number):
@@ -193,13 +193,10 @@ def case_page(p):
     diagram = implementation_diagram(p)
     decisions = ''.join(f'<div class="decision"><h3>{e(a)}</h3><p>{e(b)}</p></div>' for a, b in p['technical'])
     preproduction = ''.join(f'<li><h3>{e(a)}</h3><p>{e(b)}</p></li>' for a, b in p['preproduction'])
-    capture_items = ''.join(f'<li><strong>{e(f["title"])}</strong><p>{e(f["inspect"])} {e(f["demo"])}</p></li>' for f in UNITY_DETAILS[p['id']]['features'])
-    captures = ''.join(f'<li>{e(c)}</li>' for c in p['capture'])
     second = f'<p class="companion-video"><a href="https://vimeo.com/{p["secondVideo"]}" target="_blank" rel="noopener noreferrer">Be NARCI companion video ↗</a></p>' if p.get('secondVideo') else ''
     related = [q for q in PROJECTS if q['group'] == p['group'] and q['id'] != p['id']][:2]
     related_links = ''.join(f'<a href="{q["id"]}.html">{e(q["title"])} ↗</a>' for q in related)
     credits = f'<p><strong>Collaboration:</strong> {e(p["credits"])}</p>' if p.get('credits') else ''
-    scope_note = p['note'].replace('supplied below', 'shown on this page')
     metadata = ' · '.join(e(x) for x in [p['year'], p['role']] if x)
     techniques = ' · '.join(e(x) for x in p['tags'])
     return header(p['title'], p['implementation'], image=p['image']).replace('<body>', '<body class="project-detail">') + f'''<main id="main" class="wrap detail-wrap">
@@ -211,7 +208,6 @@ def case_page(p):
 <section class="case-section" id="concept"><h2>Concept</h2><p class="case-question">{e(p['question'])}</p><p>{e(p['context'])}</p>{credits}</section>
 <section class="case-section" id="development"><h2>Development</h2><p class="muted">Retrospective planning notes, prepared for this portfolio.</p><ol class="development-steps">{preproduction}</ol></section>
 <section class="case-section" id="study"><details class="research-extension"><summary>Further research</summary><p class="case-question">{e(p['research']['question'])}</p><p><strong>Vary:</strong> {e(p['research']['change'])}</p><p><strong>Hold consistent:</strong> {e(p['research']['keep'])}</p><p class="muted">Proposed comparison. No controlled study or measured effect is reported.</p></details></section>
-<section class="case-section" id="evidence"><h2>Documentation</h2><p>{e(scope_note)}</p><div class="evidence-links"><a href="../{p['archive']}">Project archive ↗</a><a href="{e(original_video(p))}" target="_blank" rel="noopener noreferrer">Project video ↗</a></div><details class="capture-checklist"><summary>Technical captures to add</summary><p>Editor and runtime captures still needed to inspect the implementation:</p><ol>{capture_items}</ol><ul>{captures}</ul></details></section>
 <nav class="related-work" aria-label="Related projects"><h2>Related projects</h2>{related_links}</nav>
 </article></main>''' + footer()
 
@@ -279,6 +275,8 @@ def update_legacy_pages():
         text = re.sub(r'<header class="topbar">.*?</header>', '<header class="topbar">' + nav + '</header>', text, count=1, flags=re.S)
         text = re.sub(r'<footer class="footer">.*?</footer>', footer().split('</body>', 1)[0], text, count=1, flags=re.S)
         if name == "evidence.html":
+            for project_id in ['erick-oh', 'jemulpo', 'escape-metro']:
+                text = text.replace(project_id + '.html#evidence', project_id + '.html#implementation')
             text = text.replace("Erick Oh / Jemulpo / Escape Metro. Scope comes from owner-confirmed experience and project documentation.", "All 15 works. Scope follows the artist’s current technical clarification and project archives.")
             text = text.replace("English case pages, independent code examples, Context Gate C# source, scene generator, eight authored Edit Mode tests, browser concept.", "Fifteen expanded case pages, concept/development notes, technical map, independent code examples, and the separate Context Gate source prototype.")
             text = text.replace('href="supporting.html">Supporting Unity work', 'href="systems.html">All 15 systems')
