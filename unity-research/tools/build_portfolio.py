@@ -180,9 +180,11 @@ def unity_features(p):
     result = []
     for i, feature in enumerate(detail['features']):
         result.append(f'''<section class="unity-feature" aria-labelledby="feature-{i+1}"><h3 id="feature-{i+1}">{e(feature['title'])}</h3><p>{e(feature['body'])}</p></section>''')
-        if i == 0:
+        if p['id'] == 'ai-zoo':
+            result.append(detail_figure(images[i]))
+        elif i == 0:
             result.append(detail_figure(images[0]))
-        if i == len(detail['features'])-1:
+        if p['id'] != 'ai-zoo' and i == len(detail['features'])-1:
             result.extend(detail_figure(item) for item in images[1:])
     return ''.join(result)
 

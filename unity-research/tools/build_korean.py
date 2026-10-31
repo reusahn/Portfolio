@@ -57,10 +57,11 @@ def build_ko(root, projects, details, catalog):
         images = details[p['id']]['images']
         for n,(title,body) in enumerate(t['features']):
             features.append(f'<section class="unity-feature"><h3>{e(title)}</h3><p>{e(body)}</p></section>')
-            selected_images = images[:1] if n == 0 else images[1:] if n == 2 else []
+            selected_images = [images[n]] if p['id'] == 'ai-zoo' else images[:1] if n == 0 else images[1:] if n == 2 else []
             for img in selected_images:
-                caption = ('개념 설명용 생성 이미지. 실제 실행 화면은 아닙니다.' if img['kind']=='reference' else '기존 엔진 Editor 화면.' if img['kind']=='editor' else '기존 작품 제작 자료.')
-                features.append(f'<figure class="detail-figure {e(img["kind"])}"><a href="../{e(img["src"])}" target="_blank" rel="noopener noreferrer"><img src="../{e(img["src"])}" alt="{e(t["title"])}: {e(title)}" loading="lazy"></a><figcaption>{caption}</figcaption></figure>')
+                caption = img.get('caption_ko') or ('개념 설명용 생성 이미지. 실제 실행 화면은 아닙니다.' if img['kind']=='reference' else '기존 엔진 Editor 화면.' if img['kind']=='editor' else '기존 작품 제작 자료.')
+                alt = img.get('alt_ko') or f'{t["title"]}: {title}'
+                features.append(f'<figure class="detail-figure {e(img["kind"])}"><a href="../{e(img["src"])}" target="_blank" rel="noopener noreferrer"><img src="../{e(img["src"])}" alt="{e(alt)}" loading="lazy"></a><figcaption>{e(caption)}</figcaption></figure>')
         steps = ''.join(f'<li><span>{n:02d}</span><div><strong>{e(label)}</strong></div></li>' for n,label in enumerate(t['system'],1))
         jooan = ''
         if p['id']=='shininho':

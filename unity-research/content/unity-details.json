@@ -676,6 +676,18 @@
     ],
     "images": [
       {
+        "src": "../assets/images/AI_ZOO_05.jpg",
+        "kind": "archive",
+        "title": "Typed conversation at the installation",
+        "caption": "Existing AI ZOO installation frame: a visitor types on the keyboard while the display shows the phone-like chat interface.",
+        "caption_ko": "관객이 키보드로 입력하고, 화면에 휴대폰형 대화 인터페이스가 나타나는 기존 전시 장면.",
+        "alt": "Visitor typing on the keyboard in front of the AI ZOO phone-like chat display",
+        "alt_ko": "AI ZOO 전시에서 관객이 키보드로 문장을 입력하는 모습",
+        "slot": "aizoo-typed-chat",
+        "width": 1920,
+        "height": 1080
+      },
+      {
         "src": "../assets/images/AI_ZOO_07.jpg",
         "kind": "archive",
         "title": "The hand-input apparatus",
@@ -683,7 +695,9 @@
         "alt": "Actual AI ZOO hand sensor mounted beside the installation display",
         "slot": "aizoo-hand-input",
         "width": 1920,
-        "height": 1080
+        "height": 1080,
+        "caption_ko": "전시 화면 곁의 Leap Motion 손 인식 장치에 관객이 손을 가까이 댄 장면.",
+        "alt_ko": "관객의 손과 전시 화면 옆 Leap Motion 센서"
       },
       {
         "src": "../assets/images/AI_ZOO_03.jpg",
@@ -693,7 +707,9 @@
         "alt": "Actual AI ZOO sphere linkage and physical actuation apparatus",
         "slot": "aizoo-arduino-output",
         "width": 1920,
-        "height": 1080
+        "height": 1080,
+        "caption_ko": "구체에 연결된 실제 장력 구조와 구동 장치의 기존 작품 사진.",
+        "alt_ko": "AI ZOO 투명 구체와 연결된 물리적 구동 구조"
       }
     ]
   },
