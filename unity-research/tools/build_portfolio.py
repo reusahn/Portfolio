@@ -30,10 +30,8 @@ def write(path, content):
     target.write_text(content, encoding="utf-8")
 
 
-def header(title, description, current="work", image=None, lang_url=None):
+def header(title, description, current="work", image=None):
     links = [] if current == 'home' else ['<a href="index.html">All projects</a>']
-    if lang_url:
-        links.append(f'<a lang="ko" href="{e(lang_url)}">한국어</a>')
     navigation = '<nav class="mainnav" aria-label="Main">' + ''.join(links) + '</nav>' if links else ''
     og = f'<meta property="og:image" content="https://jonghoonahn.com/{e(image)}">' if image else ''
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -88,7 +86,7 @@ def home(route="all"):
             cards.append(card(p, count))
         layout = 'project-grid project-grid--humans' if group == 'humans' else 'project-grid'
         groups.append(f'<section class="catalog-group" data-catalog-group="{group}" id="{group}"><div class="group-heading"><h2>{name}</h2></div><div class="{layout}">{"".join(cards)}</div></section>')
-    page = header("Unity & Unreal projects", description, current="home", lang_url="ko/index.html").replace('<body>', '<body class="portfolio-index">') + f'''<main id="main" class="wrap">
+    page = header("Unity & Unreal projects", description, current="home").replace('<body>', '<body class="portfolio-index">') + f'''<main id="main" class="wrap">
 <section class="portfolio-title"><h1>Unity & Unreal projects</h1></section>
 <section id="selected-work" aria-label="Portfolio works"><nav class="category-buttons" aria-label="Project categories">{controls}</nav>
 <div id="project-catalog">{''.join(groups)}</div></section>
@@ -231,7 +229,7 @@ def case_page(p):
     techniques = ' · '.join(e(x) for x in p['tags'])
     engine_heading = 'Unreal implementation' if p.get('engine') == 'Unreal Engine' else 'Unity implementation'
     jooan = '''<section class="case-section" id="jooan"><h2>Jooan · VR extension</h2><p>I brought Shininho's finished character and performance into Jooan's Unreal VR environment. A viewer can look around the scene, so I adjusted camera motion, used dusk lighting to guide attention, and developed hand-attached Niagara ribbon trails for the spatial performance.</p><p>The VR work extends the production MetaHuman; the earlier Unity character was a feasibility prototype. The original project archive documents the camera-comfort revisions, lighting, and Niagara setup.</p><h3>Jooan VR performance</h3>''' + video({'title':'Jooan VR extension','video':'1241678160','hash':'5f6158088f','video_aspect':'4/3','video_embed':True}) + '''<figure class="detail-figure archive"><img src="../media/shininho/11_vr_final.jpg" alt="Shininho performing in the Jooan VR setting" loading="lazy"><figcaption>Existing image of the Jooan VR presentation.</figcaption></figure><figure class="detail-figure archive"><img src="../media/shininho/12_niagara_emitter.jpg" alt="Niagara hand emitter setup for Jooan" loading="lazy"><figcaption>Existing Unreal Niagara emitter documentation for the hand trail.</figcaption></figure></section>''' if p['id'] == 'shininho' else ''
-    return header(p['title'], p['implementation'], image=p['image'], lang_url=f'ko/{p["id"]}.html' if p.get('in_catalog') else None).replace('<body>', '<body class="project-detail">') + f'''<main id="main" class="wrap detail-wrap">
+    return header(p['title'], p['implementation'], image=p['image']).replace('<body>', '<body class="project-detail">') + f'''<main id="main" class="wrap detail-wrap">
 <header class="project-heading"><h1>{e(p['title'])}</h1>{metadata}<p class="project-tools">{techniques}</p><p class="project-summary">{e(p['implementation'])}</p></header>
 <article class="case-content"><section id="project-video">{video(p)}{second}</section>
 <section class="case-section" id="implementation"><h2>{engine_heading}</h2><div class="unity-feature-list">{unity_features(p)}</div></section>
