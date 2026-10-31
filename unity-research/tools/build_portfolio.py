@@ -30,12 +30,15 @@ def write(path, content):
     target.write_text(content, encoding="utf-8")
 
 
-def header(title, description, current="work", image=None):
-    navigation = '' if current == "home" else '<nav class="mainnav" aria-label="Main"><a href="index.html">All projects</a></nav>'
+def header(title, description, current="work", image=None, lang_url=None):
+    links = [] if current == 'home' else ['<a href="index.html">All projects</a>']
+    if lang_url:
+        links.append(f'<a lang="ko" href="{e(lang_url)}">한국어</a>')
+    navigation = '<nav class="mainnav" aria-label="Main">' + ''.join(links) + '</nav>' if links else ''
     og = f'<meta property="og:image" content="https://jonghoonahn.com/{e(image)}">' if image else ''
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)} | Jonghoon Ahn</title><meta name="description" content="{e(description)}"><meta name="theme-color" content="#182c2b">{og}
-<link rel="icon" href="../assets/images/favicon.png"><link rel="stylesheet" href="site.css?v=categories-20261030"><script src="site.js" defer></script></head><body>
+<link rel="icon" href="../assets/images/favicon.png"><link rel="stylesheet" href="site.css?v=bilingual-20261030"><script src="site.js" defer></script></head><body>
 <a class="skip" href="#main">Skip to content</a><header class="topbar"><div class="wrap topbar-inner"><a class="brand" href="index.html">Jonghoon Ahn</a>{navigation}</div></header>'''
 
 
@@ -80,7 +83,7 @@ def home(route="all"):
             cards.append(card(p, count))
         layout = 'project-grid project-grid--humans' if group == 'humans' else 'project-grid'
         groups.append(f'<section class="catalog-group" data-catalog-group="{group}" id="{group}"><div class="group-heading"><h2>{name}</h2></div><div class="{layout}">{"".join(cards)}</div></section>')
-    page = header("Unity & Unreal projects", description, current="home").replace('<body>', '<body class="portfolio-index">') + f'''<main id="main" class="wrap">
+    page = header("Unity & Unreal projects", description, current="home", lang_url="ko/index.html").replace('<body>', '<body class="portfolio-index">') + f'''<main id="main" class="wrap">
 <section class="portfolio-title"><h1>Unity & Unreal projects</h1></section>
 <section id="selected-work" aria-label="Portfolio works"><nav class="category-buttons" aria-label="Project categories">{controls}</nav>
 <div id="project-catalog">{''.join(groups)}</div></section>
@@ -181,22 +184,31 @@ def case_page(p):
     decisions = ''.join(f'<div class="decision"><h3>{e(a)}</h3><p>{e(b)}</p></div>' for a, b in p['technical'])
     preproduction = ''.join(f'<li><h3>{e(a)}</h3><p>{e(b)}</p></li>' for a, b in p['preproduction'])
     second = f'<p class="companion-video"><a href="https://vimeo.com/{p["secondVideo"]}" target="_blank" rel="noopener noreferrer">Be NARCI companion video ↗</a></p>' if p.get('secondVideo') else ''
-    related = [q for q in CATALOG if q['group'] == p['group'] and q['id'] != p['id']][:2]
-    related_links = ''.join(f'<a href="{q["id"]}.html">{e(q["title"])} ↗</a>' for q in related)
+    ordered_ids = [q['id'] for q in CATALOG]
+    previous = CATALOG[ordered_ids.index(p['id']) - 1] if p['id'] in ordered_ids and ordered_ids.index(p['id']) else None
+    next_project = CATALOG[ordered_ids.index(p['id']) + 1] if p['id'] in ordered_ids and ordered_ids.index(p['id']) + 1 < len(CATALOG) else None
+    sequence = '<nav class="project-sequence" aria-label="Project sequence">'
+    sequence += f'<a href="{previous["id"]}.html"><span>← Previous project</span><strong>{e(previous["title"])}</strong></a>' if previous else '<span></span>'
+    sequence += f'<a href="{next_project["id"]}.html"><span>Next project →</span><strong>{e(next_project["title"])}</strong></a>' if next_project else '<span></span>'
+    sequence += '</nav>'
+    if p['id'] not in ordered_ids:
+        sequence = ''
     credits = f'<p><strong>Collaboration:</strong> {e(p["credits"])}</p>' if p.get('credits') else ''
     metadata = f'<p class="project-meta">{e(p["year"])}</p>' if p['year'] else ''
     techniques = ' · '.join(e(x) for x in p['tags'])
     engine_heading = 'Unreal implementation' if p.get('engine') == 'Unreal Engine' else 'Unity implementation'
-    return header(p['title'], p['implementation'], image=p['image']).replace('<body>', '<body class="project-detail">') + f'''<main id="main" class="wrap detail-wrap">
+    jooan = '''<section class="case-section" id="jooan"><h2>Jooan · VR extension</h2><p>I brought Shininho's finished character and performance into Jooan's Unreal VR environment. A viewer can look around the scene, so I adjusted camera motion, used dusk lighting to guide attention, and developed hand-attached Niagara ribbon trails for the spatial performance.</p><p>The VR work extends the production MetaHuman; the earlier Unity character was a feasibility prototype. The original project archive documents the camera-comfort revisions, lighting, and Niagara setup.</p><h3>Jooan VR performance</h3>''' + video({'title':'Jooan VR extension','video':'1219693160'}) + '''<figure class="detail-figure archive"><img src="../media/shininho/11_vr_final.jpg" alt="Shininho performing in the Jooan VR setting" loading="lazy"><figcaption>Existing image of the Jooan VR presentation.</figcaption></figure><figure class="detail-figure archive"><img src="../media/shininho/12_niagara_emitter.jpg" alt="Niagara hand emitter setup for Jooan" loading="lazy"><figcaption>Existing Unreal Niagara emitter documentation for the hand trail.</figcaption></figure></section>''' if p['id'] == 'shininho' else ''
+    return header(p['title'], p['implementation'], image=p['image'], lang_url=f'ko/{p["id"]}.html' if p.get('in_catalog') else None).replace('<body>', '<body class="project-detail">') + f'''<main id="main" class="wrap detail-wrap">
 <header class="project-heading"><h1>{e(p['title'])}</h1>{metadata}<p class="project-tools">{techniques}</p><p class="project-summary">{e(p['implementation'])}</p></header>
 <article class="case-content"><section id="project-video">{video(p)}{second}</section>
 <section class="case-section" id="implementation"><h2>{engine_heading}</h2><div class="unity-feature-list">{unity_features(p)}</div></section>
+{jooan}
 <section class="case-section" id="structure"><h2>System & design decisions</h2>{diagram}{decisions}{inspection_panel(p)}</section>
 {sample_panel(p)}
 <section class="case-section" id="concept"><h2>Concept</h2><p class="case-question">{e(p['question'])}</p><p>{e(p['context'])}</p>{credits}</section>
 <section class="case-section" id="development"><h2>Development</h2><p class="muted">Retrospective planning notes, prepared for this portfolio.</p><ol class="development-steps">{preproduction}</ol></section>
 <section class="case-section" id="study"><details class="research-extension"><summary>Further research</summary><p class="case-question">{e(p['research']['question'])}</p><p><strong>Vary:</strong> {e(p['research']['change'])}</p><p><strong>Hold consistent:</strong> {e(p['research']['keep'])}</p><p class="muted">Proposed comparison. No controlled study or measured effect is reported.</p></details></section>
-<nav class="related-work" aria-label="Related projects"><h2>Related projects</h2>{related_links}</nav>
+{sequence}
 </article></main>''' + footer()
 
 
@@ -257,7 +269,7 @@ def update_legacy_pages():
     for name in ["context-gate.html", "code.html", "evidence.html", "research.html"]:
         path = ROOT / name
         text = path.read_text()
-        text = re.sub(r'href="site\.css(?:\?[^\"]*)?"', 'href="site.css?v=categories-20261030"', text)
+        text = re.sub(r'href="site\.css(?:\?[^\"]*)?"', 'href="site.css?v=bilingual-20261030"', text)
         # Retain existing functional content while sharing the expanded site's navigation.
         nav = header("", "").split('<header class="topbar">', 1)[1].split('</header>', 1)[0]
         text = re.sub(r'<header class="topbar">.*?</header>', '<header class="topbar">' + nav + '</header>', text, count=1, flags=re.S)
@@ -307,6 +319,8 @@ def main():
     write('systems.html', systems_page())
     write('handoff.html', handoff_page())
     write('docs/PROJECT_DEVELOPMENT_NOTES.md', development_notes())
+    from build_korean import build_ko
+    build_ko(ROOT, PROJECTS, UNITY_DETAILS, CATALOG)
     write('supporting.html', header('Project archive', 'Projects grouped by implementation focus.') + '<main id="main" class="wrap"><div class="page-intro"><h1>Project archive</h1><p>Browse projects by category or compare their input-to-output systems.</p><div class="actions"><a class="button" href="index.html#selected-work">Explore projects ↗</a><a class="text-link" href="systems.html">Technical map ↗</a></div></div></main>' + footer())
     update_legacy_pages()
     print(json.dumps({"projects": len(PROJECTS), "catalog_projects": len(CATALOG), "groups": {g: sum(p['group'] == g for p in CATALOG) for g in GROUPS}, "html_pages": len(list(ROOT.glob('*.html')))}))

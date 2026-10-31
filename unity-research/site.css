@@ -54,6 +54,8 @@ details{padding:13px 0}summary{font-size:15px;font-weight:500;cursor:pointer}det
 .capture-checklist{margin-top:18px;max-width:800px}.capture-checklist li{margin:14px 0}.capture-checklist li p{margin:5px 0}
 .evidence-links,.actions,.proof-links{display:flex;align-items:center;flex-wrap:wrap;gap:12px 22px;margin:18px 0;font-size:14px}
 .related-work{border-top:1px solid var(--rule);margin-top:32px;padding-top:24px}.related-work h2{font-size:20px}.related-work a{display:block;margin:8px 0;font-size:15px}
+.project-sequence{display:grid;grid-template-columns:1fr 1fr;gap:20px;border-top:1px solid var(--rule);margin-top:32px;padding-top:20px}.project-sequence a{display:grid;gap:4px;text-decoration:none}.project-sequence a:last-child{text-align:right}.project-sequence span{color:var(--muted);font-size:14px}.project-sequence strong{font-size:17px;line-height:1.35}
+.ko-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;list-style:none;margin:16px 0;padding:0}.ko-steps li{display:flex;gap:12px;padding:13px;background:var(--wash)}.ko-steps span{color:var(--green);font-size:14px}
 .source-boundary,.note{padding:12px 15px;margin:18px 0;border-left:2px solid #9c783b;background:#eee8dc;font-size:14px;line-height:1.6}
 .source-filename{font:14px/1.6 var(--mono);margin:20px 0 8px}.source-subheading{font-size:18px;margin-top:24px}
 .code-panel{margin:12px 0 20px;max-width:100%;padding:20px;background:#172d2b;color:#e4ece1;font:13px/1.75 var(--mono);white-space:pre;overflow:auto}.code-panel code{font:inherit}
@@ -92,6 +94,7 @@ details{padding:13px 0}summary{font-size:15px;font-weight:500;cursor:pointer}det
  h1,.page-intro h1,.project-heading h1{font-size:28px}.portfolio-title{padding:22px 0 16px}.portfolio-title h1{font-size:26px}
  .category-buttons{column-gap:18px;margin-bottom:24px}.category-buttons a{font-size:14px}
  .project-grid,.project-grid--humans{grid-template-columns:1fr;gap:28px}.catalog-group{margin-bottom:32px}.project-card h3{font-size:20px}
+ .ko-steps{grid-template-columns:1fr}
  .project-heading{padding:24px 0 20px}.project-meta,.project-tools{font-size:14px}.project-summary{margin-top:14px}
  .case-section{margin-top:28px;padding-top:22px}.case-section h2{font-size:22px;margin-bottom:18px}.unity-feature{margin-top:21px}.detail-figure{margin:20px 0 26px}
  .play-label{left:12px;bottom:12px;padding:7px 10px}.code-panel{font-size:12px;padding:16px}

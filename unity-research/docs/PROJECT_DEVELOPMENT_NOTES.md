@@ -593,7 +593,7 @@ Scope note: Graffiti Freedom is the archive title for the virtual-subway graffit
 
 Project archive: https://jonghoonahn.com/detail_pages/xr_5.html
 
-## Shininho
+## Shininho / Jooan
 
 **My role:** Technical director / character & animation pipeline
 
@@ -601,7 +601,7 @@ Project archive: https://jonghoonahn.com/detail_pages/xr_5.html
 
 **Premise:** A digital reconstruction needs to preserve the features through which a person is recognized.
 
-**Implementation:** I rebuilt a scanned person through Maya, Wrap, and MetaHuman, then integrated cleaned body and facial performance in Unreal. An initial Unity feasibility build animated successfully but weakened the subject’s likeness; that failure led me back to the high-resolution source.
+**Implementation:** I rebuilt a scanned person through Maya, Wrap, and MetaHuman, then integrated cleaned body and facial performance in Unreal. An initial Unity feasibility build animated successfully but weakened the subject’s likeness; that failure led me back to the high-resolution source. I later adapted the completed character and performance for Jooan VR, with spatial staging and Niagara hand trails.
 
 ### Development decisions
 

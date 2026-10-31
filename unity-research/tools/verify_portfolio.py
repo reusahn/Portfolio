@@ -61,17 +61,19 @@ def main():
     expected_groups = {'sensing': 4, 'xr-worlds': 2, 'graphics': 4, 'humans': 3}
     assert len(catalog_ids) == len(set(catalog_ids)) == 13
     assert {group: sum(p['group'] == group for p in catalog) for group in expected_groups} == expected_groups
-    pages = {p.resolve(): Page(p, p.read_text()) for p in ROOT.glob('*.html')}
+    pages = {p.resolve(): Page(p, p.read_text()) for p in ROOT.rglob('*.html')}
     errors, local_refs, fragments, document_refs = [], 0, 0, 0
     for path, page in pages.items():
         errors += [str(path.name) + ': ' + error for error in page.errors]
         if page.h1 != 1:
             errors.append(path.name + ': expected one H1')
-        if path.name in ('index.html', 'xr.html', 'human-ai.html'):
+        if path.parent == ROOT and path.name in ('index.html', 'xr.html', 'human-ai.html'):
             if page.projects != catalog_ids:
                 errors.append(path.name + ': catalog order differs from the source, or cards are missing / duplicated')
             if page.catalog_groups != list(expected_groups):
                 errors.append(path.name + ': incorrect category order')
+        if path == (ROOT / 'ko/index.html').resolve() and page.projects != catalog_ids:
+            errors.append('Korean catalog: missing or reordered projects')
         for ref in page.refs:
             parsed = urlsplit(ref)
             prefix = 'https://github.com/reusahn/Portfolio/blob/gh-pages/'
@@ -108,6 +110,9 @@ def main():
         engine = 'Unreal' if p.get('engine') == 'Unreal Engine' else 'Unity'
         if case_path.is_file() and f'<h2>{engine} implementation</h2>' not in case_path.read_text():
             errors.append('Incorrect engine heading: ' + p['id'])
+    for p in catalog:
+        if (ROOT / 'ko' / (p['id'] + '.html')).resolve() not in pages:
+            errors.append('Missing Korean case: ' + p['id'])
     result = {'pages': len(pages), 'existing_works': len(projects), 'local_references': local_refs,
               'catalog_works': len(catalog), 'catalog_groups': expected_groups,
               'fragments': fragments, 'repository_document_references': document_refs, 'errors': errors}
