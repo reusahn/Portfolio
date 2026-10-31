@@ -63,7 +63,7 @@ def video(p):
 
 def card(p, number):
     techniques = '<p class="card-tech">' + ' · '.join(e(t) for t in p['tags'][:3]) + '</p>'
-    return f'''<article class="project-card" data-project="{p['id']}" data-group="{p['group']}"><a class="project-photo" href="{p['id']}.html" aria-label="Open {e(p['title'])}"><img src="../{p['image']}" alt="{e(p['alt'])}" width="1920" height="1080" loading="lazy"></a><div class="project-card-body"><h3><a href="{p['id']}.html">{e(p['title'])}</a></h3><p class="card-idea">{e(p['teaser'])}</p>{techniques}<p class="card-role">{e(p['role'])}</p></div></article>'''
+    return f'''<article class="project-card" data-project="{p['id']}" data-group="{p['group']}"><a class="project-photo" href="{p['id']}.html" aria-label="Open {e(p['title'])}"><img src="../{p['image']}" alt="{e(p['alt'])}" width="1920" height="1080" loading="lazy"></a><div class="project-card-body"><h3><a href="{p['id']}.html">{e(p['title'])}</a></h3><p class="card-idea">{e(p['teaser'])}</p>{techniques}</div></article>'''
 
 
 def home(route="all"):
@@ -184,11 +184,11 @@ def case_page(p):
     related = [q for q in CATALOG if q['group'] == p['group'] and q['id'] != p['id']][:2]
     related_links = ''.join(f'<a href="{q["id"]}.html">{e(q["title"])} ↗</a>' for q in related)
     credits = f'<p><strong>Collaboration:</strong> {e(p["credits"])}</p>' if p.get('credits') else ''
-    metadata = ' · '.join(e(x) for x in [p['year'], p['role']] if x)
+    metadata = f'<p class="project-meta">{e(p["year"])}</p>' if p['year'] else ''
     techniques = ' · '.join(e(x) for x in p['tags'])
     engine_heading = 'Unreal implementation' if p.get('engine') == 'Unreal Engine' else 'Unity implementation'
     return header(p['title'], p['implementation'], image=p['image']).replace('<body>', '<body class="project-detail">') + f'''<main id="main" class="wrap detail-wrap">
-<header class="project-heading"><h1>{e(p['title'])}</h1><p class="project-meta">{metadata}</p><p class="project-tools">{techniques}</p><p class="project-summary">{e(p['implementation'])}</p></header>
+<header class="project-heading"><h1>{e(p['title'])}</h1>{metadata}<p class="project-tools">{techniques}</p><p class="project-summary">{e(p['implementation'])}</p></header>
 <article class="case-content"><section id="project-video">{video(p)}{second}</section>
 <section class="case-section" id="implementation"><h2>{engine_heading}</h2><div class="unity-feature-list">{unity_features(p)}</div></section>
 <section class="case-section" id="structure"><h2>System & design decisions</h2>{diagram}{decisions}{inspection_panel(p)}</section>
