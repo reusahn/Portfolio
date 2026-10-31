@@ -12,17 +12,12 @@ BY_ID = {p["id"]: p for p in PROJECTS}
 BASE = "https://jonghoonahn.com/unity-research/"
 REPO = "https://github.com/reusahn/Portfolio/blob/gh-pages/unity-research/"
 GROUPS = {
-    "graphics": ("Real-time graphics & environments", "Forms that respond to an image, a sound, or an interaction.", "01"),
-    "sensing": ("Sensing, bodies & image transformation", "Connect a physical input to an interpretable visual response.", "02"),
-    "humans": ("Digital humans & conversational AI", "Coordinate a character, a response, and the person encountering it.", "03"),
-    "xr-worlds": ("VR worlds & critical interaction", "Use a constructed world to change what an action can mean.", "04"),
+    "sensing": ("Physical & Sensor Systems", "Body tracking, image processing, and physical outputs.", "01"),
+    "xr-worlds": ("VR & Interaction", "Conversational games and spatial painting.", "02"),
+    "graphics": ("Graphics & VFX", "Shaders, particles, and real-time visual response.", "03"),
+    "humans": ("Digital Humans", "Character pipelines, animation, and conversation.", "04"),
 }
-HOME_GROUPS = {
-    "graphics": ("Real-time Graphics", "Shape light, motion, and form."),
-    "sensing": ("Sensing & Vision", "Turn physical presence into a response."),
-    "humans": ("Digital Humans & AI", "Connect a character, a voice, and a person."),
-    "xr-worlds": ("VR & Interaction", "Build worlds around human choices."),
-}
+CATALOG = sorted((p for p in PROJECTS if p.get('in_catalog', True)), key=lambda p: p['catalog_order'])
 
 
 def e(value):
@@ -40,7 +35,7 @@ def header(title, description, current="work", image=None):
     og = f'<meta property="og:image" content="https://jonghoonahn.com/{e(image)}">' if image else ''
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)} | Jonghoon Ahn</title><meta name="description" content="{e(description)}"><meta name="theme-color" content="#182c2b">{og}
-<link rel="icon" href="../assets/images/favicon.png"><link rel="stylesheet" href="site.css?v=compact-20261030"><script src="site.js" defer></script></head><body>
+<link rel="icon" href="../assets/images/favicon.png"><link rel="stylesheet" href="site.css?v=categories-20261030"><script src="site.js" defer></script></head><body>
 <a class="skip" href="#main">Skip to content</a><header class="topbar"><div class="wrap topbar-inner"><a class="brand" href="index.html">Jonghoon Ahn</a>{navigation}</div></header>'''
 
 
@@ -72,38 +67,21 @@ def card(p, number):
 
 
 def home(route="all"):
-    group_order = {"all": ["graphics", "sensing", "humans", "xr-worlds"], "xr": ["graphics", "sensing", "humans", "xr-worlds"],
-                   "human": ["humans", "xr-worlds", "sensing", "graphics"]}[route]
-    description = "Unity-based projects by Jonghoon Ahn: VR, sensing, real-time graphics, and digital humans."
-    controls = ''.join(f'<a href="#{key}">{e(HOME_GROUPS[key][0])}<span aria-hidden="true">↓</span></a>' for key in group_order)
+    # Retain older entry URLs, with one consistent, category-based catalog.
+    description = "Unity and Unreal projects by Jonghoon Ahn: sensor systems, VR interaction, graphics, and digital humans."
+    controls = ''.join(f'<a href="#{key}">{e(info[0])}<span aria-hidden="true">↓</span></a>' for key, info in GROUPS.items())
     count = 0
     groups = []
-    featured_ids = ['erick-oh', 'to-eternity', 'jemulpo', 'gang-se-hwang'] if route in ('all', 'xr') else []
-    if featured_ids:
-        featured_cards = []
-        for project_id in featured_ids:
-            count += 1
-            featured_cards.append(card(BY_ID[project_id], count))
-        groups.append('<section class="catalog-group" aria-label="Selected Unity projects"><div class="project-grid">' + ''.join(featured_cards) + '</div></section>')
-    for group_number, group in enumerate(group_order, 1):
-        name, desc = HOME_GROUPS[group]
-        idx = f'{group_number:02d}'
-        projects = [p for p in PROJECTS if p['group'] == group and p['id'] not in featured_ids]
-        if route == "human":
-            priority = {"ai-zoo": 0, "ai-choi": 1, "gang-se-hwang": 2, "escape-metro": 0, "narci": 1, "fineo": 2, "graffiti-freedom": 3}
-            projects.sort(key=lambda p: priority.get(p['id'], 10))
-        elif route in ("all", "xr"):
-            priority = {"flowers-waves": 0, "beads-wall": 1, "fall-of-minds": 2,
-                        "silhak-dance": 0, "track-6": 1, "ai-zoo": 0, "ai-choi": 1,
-                        "escape-metro": 0, "graffiti-freedom": 1, "fineo": 2, "narci": 3}
-            projects.sort(key=lambda p: priority.get(p['id'], 10))
+    for group, (name, desc, idx) in GROUPS.items():
+        projects = [p for p in CATALOG if p['group'] == group]
         cards = []
         for p in projects:
             count += 1
             cards.append(card(p, count))
-        groups.append(f'<section class="catalog-group" data-catalog-group="{group}" id="{group}"><div class="group-heading"><h2>{name}</h2></div><div class="project-grid">{"".join(cards)}</div></section>')
-    page = header("Unity-based projects", description, current="home").replace('<body>', '<body class="portfolio-index">') + f'''<main id="main" class="wrap">
-<section class="portfolio-title"><h1>Unity-based projects</h1></section>
+        layout = 'project-grid project-grid--humans' if group == 'humans' else 'project-grid'
+        groups.append(f'<section class="catalog-group" data-catalog-group="{group}" id="{group}"><div class="group-heading"><h2>{name}</h2></div><div class="{layout}">{"".join(cards)}</div></section>')
+    page = header("Unity & Unreal projects", description, current="home").replace('<body>', '<body class="portfolio-index">') + f'''<main id="main" class="wrap">
+<section class="portfolio-title"><h1>Unity & Unreal projects</h1></section>
 <section id="selected-work" aria-label="Portfolio works"><nav class="category-buttons" aria-label="Project categories">{controls}</nav>
 <div id="project-catalog">{''.join(groups)}</div></section>
 </main>''' + footer()
@@ -191,7 +169,7 @@ def implementation_diagram(p):
         lines = textwrap.wrap(body, width=39)
         label = ''.join(f'<tspan x="{x+25}" dy="{0 if j == 0 else 27}">{e(line)}</tspan>' for j, line in enumerate(lines))
         nodes.append(f'<g><rect x="{x}" y="{y}" width="470" height="145" rx="4" fill="#fdfcf8" stroke="#b9c7bf"/><text x="{x+25}" y="{y+27}" fill="#1a554a" font-size="14" font-family="monospace">0{i+1}</text><text x="{x+25}" y="{y+65}" fill="#182c2b" font-size="25" font-weight="600">{e(title)}</text><text x="{x+25}" y="{y+98}" fill="#596661" font-size="20">{label}</text></g>')
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 535" role="img" aria-labelledby="title description"><title id="title">{e(p['title'])}: implementation map</title><desc id="description">{e(' → '.join(a + ': ' + b for a,b in p['system']))}. Editorial reconstruction, not an Editor capture.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1a554a"/></marker></defs><rect width="1200" height="535" fill="#e9ede6"/><g font-family="Arial,Helvetica,sans-serif"><text x="55" y="47" fill="#1a554a" font-size="16" letter-spacing="2">INPUT → PROCESS → RESPONSE → ENCOUNTER</text>{''.join(nodes)}<g fill="none" stroke="#1a554a" stroke-width="3" marker-end="url(#arrow)"><path d="M 545 163 H 653"/><path d="M 910 251 V 295"/><path d="M 653 388 H 545"/></g><text x="55" y="503" fill="#596661" font-size="15">Implementation map · prepared for this portfolio · not a Unity screenshot</text></g></svg>'''
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 535" role="img" aria-labelledby="title description"><title id="title">{e(p['title'])}: implementation map</title><desc id="description">{e(' → '.join(a + ': ' + b for a,b in p['system']))}. Editorial reconstruction, not an Editor capture.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1a554a"/></marker></defs><rect width="1200" height="535" fill="#e9ede6"/><g font-family="Arial,Helvetica,sans-serif"><text x="55" y="47" fill="#1a554a" font-size="16" letter-spacing="2">INPUT → PROCESS → RESPONSE → ENCOUNTER</text>{''.join(nodes)}<g fill="none" stroke="#1a554a" stroke-width="3" marker-end="url(#arrow)"><path d="M 545 163 H 653"/><path d="M 910 251 V 295"/><path d="M 653 388 H 545"/></g><text x="55" y="503" fill="#596661" font-size="15">Implementation map · prepared for this portfolio · not an Editor capture</text></g></svg>'''
     path = 'assets/diagrams/' + p['id'] + '.svg'
     write(path, svg)
     mobile = '<ol class="map-steps">' + ''.join(f'<li><span>0{i+1}</span><div><strong>{e(a)}</strong><p>{e(b)}</p></div></li>' for i,(a,b) in enumerate(p['system'])) + '</ol>'
@@ -203,15 +181,16 @@ def case_page(p):
     decisions = ''.join(f'<div class="decision"><h3>{e(a)}</h3><p>{e(b)}</p></div>' for a, b in p['technical'])
     preproduction = ''.join(f'<li><h3>{e(a)}</h3><p>{e(b)}</p></li>' for a, b in p['preproduction'])
     second = f'<p class="companion-video"><a href="https://vimeo.com/{p["secondVideo"]}" target="_blank" rel="noopener noreferrer">Be NARCI companion video ↗</a></p>' if p.get('secondVideo') else ''
-    related = [q for q in PROJECTS if q['group'] == p['group'] and q['id'] != p['id']][:2]
+    related = [q for q in CATALOG if q['group'] == p['group'] and q['id'] != p['id']][:2]
     related_links = ''.join(f'<a href="{q["id"]}.html">{e(q["title"])} ↗</a>' for q in related)
     credits = f'<p><strong>Collaboration:</strong> {e(p["credits"])}</p>' if p.get('credits') else ''
     metadata = ' · '.join(e(x) for x in [p['year'], p['role']] if x)
     techniques = ' · '.join(e(x) for x in p['tags'])
+    engine_heading = 'Unreal implementation' if p.get('engine') == 'Unreal Engine' else 'Unity implementation'
     return header(p['title'], p['implementation'], image=p['image']).replace('<body>', '<body class="project-detail">') + f'''<main id="main" class="wrap detail-wrap">
 <header class="project-heading"><h1>{e(p['title'])}</h1><p class="project-meta">{metadata}</p><p class="project-tools">{techniques}</p><p class="project-summary">{e(p['implementation'])}</p></header>
 <article class="case-content"><section id="project-video">{video(p)}{second}</section>
-<section class="case-section" id="implementation"><h2>Unity implementation</h2><div class="unity-feature-list">{unity_features(p)}</div></section>
+<section class="case-section" id="implementation"><h2>{engine_heading}</h2><div class="unity-feature-list">{unity_features(p)}</div></section>
 <section class="case-section" id="structure"><h2>System & design decisions</h2>{diagram}{decisions}{inspection_panel(p)}</section>
 {sample_panel(p)}
 <section class="case-section" id="concept"><h2>Concept</h2><p class="case-question">{e(p['question'])}</p><p>{e(p['context'])}</p>{credits}</section>
@@ -271,14 +250,14 @@ def systems_page():
     for p in PROJECTS:
         rows.append(f'<tr><th scope="row"><a href="{p["id"]}.html">{e(p["title"])}</a></th><td>{e(p["system"][0][1])}</td><td>{e(" · ".join(p["tags"]))}</td><td>{e(p["system"][-1][1])}</td></tr>')
     groups = ''.join(f'<a href="index.html#{key}"><span>{idx}</span><strong>{title}</strong><small>{desc}</small></a>' for key, (title, desc, idx) in GROUPS.items())
-    return header("Technical systems map", "The input, implementation focus, and output of all 15 works.", "systems") + f'''<main id="main" class="wrap"><div class="page-intro"><p class="eyebrow">All 15 works / technical map</p><h1>Unity systems</h1><p class="muted" style="max-width:760px">The same engine connects very different kinds of work. This index keeps the sensor, generative method, character, and world attached to the project in which it was implemented.</p></div><div class="practice-map">{groups}</div><div class="table-scroll"><table class="evidence-table systems-table"><thead><tr><th scope="col">Project</th><th scope="col">Input / source</th><th scope="col">Implementation focus</th><th scope="col">Output / encounter</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div><section class="split-section"><div><h2>Keep the hardware specific.</h2><p class="muted">To Eternity uses Azure Kinect. Silhak Dance and Track 6 use Kinect v2. Beads Wall uses webcam mapping into VFX Graph. A similar visual result does not make those sensing systems interchangeable.</p></div><div><h2>Keep the engines specific.</h2><p class="muted">Gang Se-hwang is a Unity HDRP digital-human case. Shininho and Jooan's Unreal / MetaHuman work adds production context and is documented separately. Context Gate is a new source prototype with its own pending runtime validation.</p></div></section></main>''' + footer()
+    return header("Technical systems map", "The input, implementation focus, and output of the project archive.", "systems") + f'''<main id="main" class="wrap"><div class="page-intro"><p class="eyebrow">Project archive / technical map</p><h1>Real-time systems</h1><p class="muted" style="max-width:760px">This index keeps the sensor, generative method, character, and world attached to the project in which it was implemented.</p></div><div class="practice-map">{groups}</div><div class="table-scroll"><table class="evidence-table systems-table"><thead><tr><th scope="col">Project</th><th scope="col">Input / source</th><th scope="col">Implementation focus</th><th scope="col">Output / encounter</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div><section class="split-section"><div><h2>Keep the hardware specific.</h2><p class="muted">To Eternity uses Azure Kinect. Silhak Dance and Track 6 use Kinect v2. Beads Wall uses webcam mapping into VFX Graph.</p></div><div><h2>Keep the engines specific.</h2><p class="muted">Gang Se-hwang uses Unity HDRP. Shininho's production MetaHuman uses Unreal; its initial Unity feasibility prototype is described separately. Context Gate is a new source prototype with pending runtime validation.</p></div></section></main>''' + footer()
 
 
 def update_legacy_pages():
     for name in ["context-gate.html", "code.html", "evidence.html", "research.html"]:
         path = ROOT / name
         text = path.read_text()
-        text = re.sub(r'href="site\.css(?:\?[^\"]*)?"', 'href="site.css?v=compact-20261030"', text)
+        text = re.sub(r'href="site\.css(?:\?[^\"]*)?"', 'href="site.css?v=categories-20261030"', text)
         # Retain existing functional content while sharing the expanded site's navigation.
         nav = header("", "").split('<header class="topbar">', 1)[1].split('</header>', 1)[0]
         text = re.sub(r'<header class="topbar">.*?</header>', '<header class="topbar">' + nav + '</header>', text, count=1, flags=re.S)
@@ -286,9 +265,16 @@ def update_legacy_pages():
         if name == "evidence.html":
             for project_id in ['erick-oh', 'jemulpo', 'escape-metro']:
                 text = text.replace(project_id + '.html#evidence', project_id + '.html#implementation')
-            text = text.replace("Erick Oh / Jemulpo / Escape Metro. Scope comes from owner-confirmed experience and project documentation.", "All 15 works. Scope follows the artist’s current technical clarification and project archives.")
-            text = text.replace("English case pages, independent code examples, Context Gate C# source, scene generator, eight authored Edit Mode tests, browser concept.", "Fifteen expanded case pages, concept/development notes, technical map, independent code examples, and the separate Context Gate source prototype.")
-            text = text.replace('href="supporting.html">Supporting Unity work', 'href="systems.html">All 15 systems')
+            scope = 'Project archive. Scope follows the artist’s technical clarification and existing production materials.'
+            prepared = 'Expanded case pages, concept/development notes, technical map, independent code examples, and the separate Context Gate source prototype.'
+            for previous in ["Erick Oh / Jemulpo / Escape Metro. Scope comes from owner-confirmed experience and project documentation.", "All 15 works. Scope follows the artist’s current technical clarification and project archives."]:
+                text = text.replace(previous, scope)
+            for previous in ["English case pages, independent code examples, Context Gate C# source, scene generator, eight authored Edit Mode tests, browser concept.", "Fifteen expanded case pages, concept/development notes, technical map, independent code examples, and the separate Context Gate source prototype."]:
+                text = text.replace(previous, prepared)
+            text = text.replace('href="supporting.html">Supporting Unity work', 'href="systems.html">Project systems')
+            text = text.replace('All 15 systems', 'Project systems')
+            text = text.replace('The exact shot list is in the case pages and capture guide.', 'The shot list is in the repository capture guide.')
+            text = text.replace('Media + claim boundaries + exact capture list', 'Existing media + implementation scope')
         path.write_text(text)
 
 
@@ -309,7 +295,8 @@ def development_notes():
 
 
 def main():
-    assert len(PROJECTS) == 15 and len(BY_ID) == 15
+    assert len(PROJECTS) == len(BY_ID) == 16
+    assert len(CATALOG) == 13 and len({p['catalog_order'] for p in CATALOG}) == 13
     assert set(UNITY_DETAILS) == set(BY_ID)
     assert all(len(d['features']) == 3 and d['images'] for d in UNITY_DETAILS.values())
     for route, name in [("all", "index.html"), ("xr", "xr.html"), ("human", "human-ai.html")]:
@@ -320,9 +307,9 @@ def main():
     write('systems.html', systems_page())
     write('handoff.html', handoff_page())
     write('docs/PROJECT_DEVELOPMENT_NOTES.md', development_notes())
-    write('supporting.html', header('All Unity work', 'The supporting works now have full project case studies.') + '<main id="main" class="wrap"><div class="page-intro"><p class="eyebrow">The expanded portfolio</p><h1>Unity projects</h1><p>Browse the 15 works by practice or compare their input-to-output systems.</p><div class="actions"><a class="button" href="index.html#selected-work">Explore all works ↗</a><a class="text-link" href="systems.html">Technical map ↗</a></div></div></main>' + footer())
+    write('supporting.html', header('Project archive', 'Projects grouped by implementation focus.') + '<main id="main" class="wrap"><div class="page-intro"><h1>Project archive</h1><p>Browse projects by category or compare their input-to-output systems.</p><div class="actions"><a class="button" href="index.html#selected-work">Explore projects ↗</a><a class="text-link" href="systems.html">Technical map ↗</a></div></div></main>' + footer())
     update_legacy_pages()
-    print(json.dumps({"projects": len(PROJECTS), "groups": {g: sum(p['group'] == g for p in PROJECTS) for g in GROUPS}, "html_pages": len(list(ROOT.glob('*.html')))}))
+    print(json.dumps({"projects": len(PROJECTS), "catalog_projects": len(CATALOG), "groups": {g: sum(p['group'] == g for p in CATALOG) for g in GROUPS}, "html_pages": len(list(ROOT.glob('*.html')))}))
 
 
 if __name__ == '__main__':

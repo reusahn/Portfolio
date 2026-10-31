@@ -60,22 +60,22 @@
     "features": [
       {
         "title": "GPT-based NPC dialogue",
-        "tools": "Unity C# · GPT API · VR",
-        "body": "I integrated a GPT-based NPC into the Unity VR game. Players try to obtain a protected password or useful clue through conversation. The language interaction therefore has an explicit gameplay purpose: information from the encounter can help the player satisfy an escape condition.",
+        "tools": "Unity C# · GPT · VR game",
+        "body": "I integrated GPT-based NPC conversation into the Unity VR escape game. Players try to obtain a protected clue or password through dialogue. The exchange has a concrete gameplay objective: information from the NPC helps the player work toward escape.",
         "inspect": "The conversation component, a submitted turn, and the response presented by the NPC.",
         "demo": "Compare an ordinary question with an attempt that produces useful puzzle information."
       },
       {
-        "title": "Puzzle progression",
-        "tools": "Puzzle state · gameplay conditions · world feedback",
-        "body": "I connected the dialogue encounter to puzzle and progression conditions. A reply is one part of a larger game loop that also includes the player's actions and the world's response. The original progression condition still needs a focused source capture. The independent code example below demonstrates a separate, inspectable approach to authorizing progression.",
+        "title": "Dialogue-to-puzzle integration",
+        "tools": "Dialogue result · puzzle state · progression",
+        "body": "I connected the conversation encounter to puzzle and progression conditions. The useful information, the player’s next action, and the resulting world change form one game loop. The independent code example below demonstrates a separately authored progression gate, with its own validation scope.",
         "inspect": "The actual progression condition and the scene object changed when it succeeds.",
         "demo": "Keep the clue, the player's follow-up action, and the resulting world change in one recording."
       },
       {
-        "title": "VR escape-game structure",
-        "tools": "NPC behavior · interaction design · scene flow",
-        "body": "I built the VR experience around the tension between a character's constraints and the player's attempts to work around them. The premise is a fictional escape-game mechanic. Escape Metro and RedFlight AI are two names for this same project, rather than separate AI systems or model-security studies.",
+        "title": "Jailbreaking as a game mechanic",
+        "tools": "NPC constraint · interaction design · VR scene flow",
+        "body": "I built the VR experience around a guard’s constraints and the player’s attempts to work around them. The rule itself becomes material for play. Escape Metro and RedFlight AI are two names for this same project; the work is a fictional escape game rather than a model-security study.",
         "inspect": "The character's authored constraint and the game situation in which it matters.",
         "demo": "Show how one conversation changes the player's next available action in the environment."
       }
@@ -148,28 +148,28 @@
   "graffiti-freedom": {
     "built": [
       "VR spray input",
-      "Particle spray feedback",
-      "Paint accumulated in a RenderTexture"
+      "Particle feedback",
+      "RenderTexture wall painting"
     ],
     "features": [
       {
         "title": "VR spray & particles",
-        "tools": "VR input · Unity particles",
-        "body": "I implemented the Unity VR spray interaction and its particle feedback. The spray makes the action legible while it happens: the participant can see the direction and spread of the mark-making gesture. That short-lived feedback has a different job from the painted surface that remains afterward.",
+        "tools": "VR input · Unity particles · spray feedback",
+        "body": "I implemented the spatial spray interaction and its particle feedback in Unity. Particles make the direction and spread of the action visible as the participant paints. This short-lived spray feedback is separate from the paint retained by the wall.",
         "inspect": "The input binding, particle emission, and the surface-contact information used by the painting path.",
         "demo": "Start and stop the spray while keeping the wall and input visible."
       },
       {
         "title": "RenderTexture painting",
-        "tools": "RenderTexture · surface information · wall material",
-        "body": "I used a dynamic RenderTexture in the wall material so paint could accumulate on the virtual surface. Surface-hit information connects the spray to that texture state. The precise hit-to-texture-coordinate path still needs the original code or a close Editor recording, rather than an invented raycast or collision implementation.",
+        "tools": "Surface-hit information · RenderTexture · wall material",
+        "body": "I connected surface-hit information to a dynamic RenderTexture read by the wall material. Paint accumulates on that texture while the spray particles disappear. The documented implementation establishes this path; the original hit-to-texture-coordinate code is needed to name a specific raycast or collision API.",
         "inspect": "The RenderTexture asset or runtime target and the wall material that reads it.",
         "demo": "Show the render target updating, then stop the particles and show the mark that remains."
       },
       {
-        "title": "Virtual subway environment",
-        "tools": "Unity VR environment · material feedback",
-        "body": "I built the painting interaction within a virtual subway setting. Moving the act into VR changes its relationship to permission and physical residue. The technical result is an environment the participant can visibly alter. Disk persistence, save/load, and environmental benefit are separate claims and are not assumed here.",
+        "title": "A paintable virtual subway",
+        "tools": "Unity VR scene · paintable surfaces · material response",
+        "body": "I built the painting interaction inside a virtual subway. Moving graffiti into VR retains the gesture of altering a shared space while changing its physical residue and site permissions. The environment responds through its painted surface state.",
         "inspect": "The paintable surfaces and their relationship to the participant's reachable space.",
         "demo": "Paint across the actual supported area and show how the surface carries the result."
       }
@@ -196,22 +196,22 @@
     "features": [
       {
         "title": "Azure Kinect input",
-        "tools": "Azure Kinect · body and depth input · C#",
-        "body": "I connected Azure Kinect sensing to the Unity installation. The participant's body supplies live input for the encounter instead of acting only as a subject in a prerecorded video. The meaningful boundary is where sensor data becomes the participation event used by the application.",
+        "tools": "Azure Kinect · body / depth input · C#",
+        "body": "I connected Azure Kinect sensing to Unity. Live body and depth input provide the participant’s presence to the memorial system. The application uses that input within the encounter rather than presenting the visitor as part of a fixed recorded sequence.",
         "inspect": "The actual sensor connection, body input, and the component that recognizes participation.",
         "demo": "Show a person entering the sensing area, performing the action, and producing the corresponding event."
       },
       {
-        "title": "Timeline integration",
-        "tools": "Unity Timeline · runtime events · media sequencing",
-        "body": "I integrated sensor-driven interaction with Timeline-based presentation. Authored media has its own timing, while a participant acts at an unpredictable moment. The implementation brings those two timelines together so an input can lead into the memorial sequence and its screen transitions.",
+        "title": "Unity Timeline",
+        "tools": "Timeline · runtime events · media sequencing",
+        "body": "I integrated sensor-driven events with Timeline-based presentation. Authored media has a fixed temporal structure, while a participant acts at an unpredictable moment. The implementation connects that live input to the sequence and its screen transitions.",
         "inspect": "The Timeline asset, its bound media tracks, and the code or event that changes playback.",
         "demo": "Keep the participant, recognized event, Timeline playhead, and Game view visible during one transition."
       },
       {
-        "title": "Live image composition",
-        "tools": "Live silhouette · archival imagery · Unity composition",
-        "body": "I integrated the live participant image with archival-image composition and the timed presentation. The resulting memorial image connects a present body with historical material. Sensing, the image composition, and the sequence remain separate parts of the technical explanation so each can be inspected.",
+        "title": "Live archival-image composition",
+        "tools": "Live silhouette · image composition · Unity",
+        "body": "I integrated the live participant image with archival imagery and the timed presentation. The resulting composition connects a present body with historical material. Sensor input, image composition, and sequence playback are distinct parts of the system.",
         "inspect": "The live input image, the composition stage, and its final presentation layer.",
         "demo": "Record the source body image and the memorial result together, followed by the actual reset behavior."
       }
@@ -247,23 +247,23 @@
     ],
     "features": [
       {
-        "title": "Kinect v2 input",
-        "tools": "Kinect v2 · Unity body input",
-        "body": "I connected Kinect v2 body tracking to the Unity installation. This is the Kinect v2 work, separate from the Azure Kinect integration in To Eternity. The input represents a visitor's movement that can be connected to a character in the museum presentation.",
+        "title": "Kinect v2 body tracking",
+        "tools": "Kinect v2 · tracked body input · Unity",
+        "body": "I connected Kinect v2 body tracking to the Unity installation. The sensor supplies the visitor’s movement for a live character interaction in the museum. This project uses Kinect v2; To Eternity uses Azure Kinect.",
         "inspect": "The Kinect v2 input component and its tracked-body output.",
         "demo": "Show a visitor moving alongside the tracking view and Unity output."
       },
       {
         "title": "Body-to-character mapping",
-        "tools": "Body mapping · character transform and animation",
-        "body": "I connected the tracked visitor to the digital Kim Yuk character. The technical task is the mapping between the sensor's movement data and the figure's performance. Its purpose is immediate recognizability: a visitor should be able to connect their own action to the character's response.",
+        "tools": "Tracked movement · digital character · animation",
+        "body": "I mapped the tracked visitor’s movement to the digital Kim Yuk character. Sensor movement and the character rig operate in different spaces; their correspondence is the core implementation task. A visitor can move and immediately see the figure respond.",
         "inspect": "The actual body-to-character mapping component, rig, and affected transforms.",
         "demo": "Perform a slow arm movement and a change in body position so the correspondence is easy to follow."
       },
       {
         "title": "Museum presentation",
-        "tools": "Unity scene · historical character · display",
-        "body": "I integrated the interaction into a museum-facing presentation. The digital scholar becomes someone the visitor can move with, rather than a static model. The character's framing and the physical tracking area are part of how the interaction is understood.",
+        "tools": "Unity scene · historical figure · display",
+        "body": "I integrated the animated figure with the visitor-facing scene and museum display. Framing the character alongside the usable tracking area makes the relation between the visitor and digital scholar readable at the scale of the installation.",
         "inspect": "The character in its presentation scene and the visitor's usable tracking area.",
         "demo": "Record the installed view and the implemented behavior when the visitor leaves the area."
       }
@@ -345,29 +345,29 @@
   },
   "jemulpo": {
     "built": [
-      "Barracuda and OpenCV portrait processing",
+      "Barracuda person segmentation and OpenCV processing",
       "Style transformation and visual filters",
       "Portrait composition, archiving, and display"
     ],
     "features": [
       {
-        "title": "Barracuda & OpenCV",
-        "tools": "Unity C# · Barracuda · Python/OpenCV",
-        "body": "I integrated the portrait-processing pipeline across Unity, Barracuda, and Python/OpenCV. A visitor image moves into processing and returns as material for the final portrait. Model inference, input preparation, and the Unity presentation are separate responsibilities. The exact model architecture and preprocessing contract should be shown from the original project assets.",
+        "title": "Barracuda segmentation & OpenCV",
+        "tools": "Unity C# · Barracuda · Python / OpenCV",
+        "body": "I used Barracuda-based person segmentation and Python/OpenCV processing within the portrait pipeline. The separated participant image becomes material for the composed output. This identifies Barracuda’s documented role without assigning every style or filter operation to the same model.",
         "inspect": "The Barracuda model asset, its actual input and output, and the Unity/Python handoff.",
         "demo": "Use one portrait to show the source image and each implemented processing result."
       },
       {
-        "title": "Style transfer & filters",
-        "tools": "Image transformation · filters · Unity composition",
-        "body": "I combined AI-based processing with visual filtering and portrait composition. The historical magazine appearance is produced by a sequence of operations, rather than every visible effect belonging to one model. The processed subject, framing, background, and graphic treatment have to work as one finished image.",
+        "title": "Style transformation & filters",
+        "tools": "Style transfer · visual filters · portrait composition",
+        "body": "I combined style transformation with visual filtering, framing, and background composition in Unity. These stages produce the historical magazine treatment of the final portrait. Model processing, artistic filters, and layout each contribute a different part of the result.",
         "inspect": "The style-processing stage, filter controls, and final composed portrait.",
         "demo": "Toggle the actual available layers for the same image so their separate contributions are visible."
       },
       {
-        "title": "Archiving & networked display",
-        "tools": "TCP/UDP · saved portraits · external display",
-        "body": "I connected the portrait-making system to archival output and an external display, within an installation supporting up to four simultaneous participants. Network communication serves the exhibition workflow. The specific roles of TCP and UDP need the original configuration or source capture. This is not commercial online-game operations experience.",
+        "title": "Four-person exhibition workflow",
+        "tools": "TCP / UDP · archived portraits · external display",
+        "body": "I connected portrait creation, archival output, and an external display through TCP/UDP communication. The installation supports up to four simultaneous participants. The networking serves a multi-participant exhibition workflow; exact transport roles are retained as a source-configuration detail.",
         "inspect": "The actual participant routing, saved output, and sender/receiver components for the public display.",
         "demo": "Follow one completed portrait from its creation station to the gallery display, then show the actual multi-participant setup."
       }
@@ -403,23 +403,23 @@
     ],
     "features": [
       {
-        "title": "Cloud shader control",
+        "title": "Cloud shading & internal flow",
         "tools": "Unity C# · HLSL · shader parameters",
-        "body": "I developed shaders for cloud-like forms and connected runtime control to their visual behavior. Internal flow and deformation are different controls from translating the object itself. The form can change while its Transform remains a separate part of the game logic. The independent C# and HLSL example below isolates that principle.",
+        "body": "I developed cloud-form shaders and connected their flow and deformation parameters to runtime control. Internal visual motion remains separate from the object’s Transform. The independent C# and HLSL example below isolates that control principle with a simplified shader.",
         "inspect": "Transform values beside the actual shader parameters and their C# control path.",
         "demo": "Keep the object position fixed while reversing the internal flow or changing deformation strength."
       },
       {
-        "title": "Raymarched metaballs",
-        "tools": "HLSL · raymarching · implicit forms",
-        "body": "I implemented raymarched metaballs for droplet-like forms that appear to merge continuously. The visible surface is produced from a field rather than simply intersecting rigid sphere meshes. Rendering a fused surface and determining gameplay contact remain separate responsibilities, so a convincing visual merge should not be mistaken for a matching physics collider.",
+        "title": "Raymarched metaball droplets",
+        "tools": "HLSL · raymarching · implicit surface",
+        "body": "I implemented raymarched metaballs for droplet-like forms that merge continuously. A sampled field defines the visible surface. This droplet renderer is a separate technique from the cloud-form shading, and its visual surface has a different responsibility from gameplay contact logic.",
         "inspect": "The production field definition and raymarching pass beside the separate contact or proximity logic.",
         "demo": "Move two field sources together, show the fusion, and identify how interaction is evaluated."
       },
       {
-        "title": "Authored growth targets",
-        "tools": "Authored growth targets · fixed topology · runtime control",
-        "body": "The public technical archive also documents growth states prepared with consistent mesh topology. Corresponding vertices let authored forms belong to one transformation sequence. This gives the artist direct control over the intended silhouettes while C# and material controls connect the visual work to a running Unity scene.",
+        "title": "Authored cloud growth targets",
+        "tools": "Maya · shared topology · authored shape states",
+        "body": "I prepared cloud growth states with consistent mesh topology so the intended silhouettes could be edited directly. The archive shows the corresponding Maya states and wireframes. These assets document authored shape preparation; the exact Unity import and runtime morph controller still need their original capture.",
         "inspect": "The Maya target states, their shared topology, and their actual Unity control.",
         "demo": "Move through the authored states and distinguish that process from procedural shader deformation."
       }
@@ -457,21 +457,21 @@
       {
         "title": "VFX Graph particles",
         "tools": "Unity VFX Graph · particle imagery",
-        "body": "I developed the work's particle imagery in Unity with VFX Graph. Recognizable landscapes break into fields of moving particles and gather into readable forms again. The graph is part of the production method that makes those transitions possible, rather than an effect added after the image was finished.",
+        "body": "I developed the particle imagery with Unity VFX Graph. Landscapes disperse into moving fields and gather into recognizable forms. The graph is the production system for those transformations; its particles should be distinguished from Unity’s separate built-in Particle System component.",
         "inspect": "The actual graph and the particle setup used for one documented scene.",
         "demo": "Show the graph beside the corresponding Game view while changing one existing control."
       },
       {
         "title": "Shader treatment",
-        "tools": "Shaders · material behavior · visual composition",
-        "body": "I developed shader-based treatment alongside the particle system. The technical focus is the relationship between form, motion, and the legibility of the source landscape. The original material and graph captures are needed to identify which operation belongs to the shader and which belongs to particle simulation.",
+        "tools": "Shaders · materials · landscape legibility",
+        "body": "I developed shader-based treatment alongside the VFX Graph work. Form, motion, and the remaining contour of the landscape determine how the source image can be recognized through the transformation. Graph operations and shader operations contribute different parts of the final image.",
         "inspect": "The material and shader controls beside the relevant VFX Graph stages.",
         "demo": "Compare the same scene with one treatment changed while keeping the remaining setup fixed."
       },
       {
-        "title": "Moving-image variations",
-        "tools": "Unity production scene · moving-image series",
-        "body": "I used the system to produce a moving-image series with variations in density, direction, and degree of dispersal. Unity is the production environment. The documented media-wall presentation is a moving-image work, so these implementation notes do not imply that the exhibition wall was controlled live by an audience sensor.",
+        "title": "Moving-image series for a media wall",
+        "tools": "Unity production scene · variations · exhibition sequence",
+        "body": "I used the Unity system to produce moving-image variations for the Art Korea Lab media wall. The series explores changes in density, movement, and dispersal. The documented presentation is an authored moving-image sequence; a specific video-sampling or projection-mapping setup still needs graph evidence.",
         "inspect": "The production scene and the settings associated with two existing variations.",
         "demo": "Connect each Unity configuration to its corresponding documented still or sequence."
       }
@@ -507,23 +507,23 @@
     ],
     "features": [
       {
-        "title": "Webcam input",
-        "tools": "Webcam · Unity image input",
-        "body": "I connected webcam input to the Unity work. The changing camera image supplies the visual system with a live source. The implementation should be read as a camera-to-image mapping, rather than assuming a depth camera, skeleton tracking, or a segmentation algorithm that has not been confirmed.",
+        "title": "Live webcam input",
+        "tools": "Webcam · live image · Unity",
+        "body": "I connected live webcam imagery to the Unity visual system. The camera supplies a changing image of the person and surrounding space. Movement becomes input without requiring a separate handheld controller or an instructed gesture.",
         "inspect": "The actual webcam source and the image passed into the visual stage.",
         "demo": "Move through the camera frame and pause so source updates are easy to identify."
       },
       {
-        "title": "Image-to-particle mapping",
-        "tools": "VFX Graph · image mapping · particles",
-        "body": "I developed the webcam mapping into a bead-like particle field in VFX Graph. The essential connection is between the source image and the visible particle structure. The exact sampling and property bindings still need the original graph capture, rather than a guessed implementation based on the final appearance.",
+        "title": "Webcam-to-VFX Graph mapping",
+        "tools": "Image mapping · VFX Graph · bead-like particles",
+        "body": "I mapped the camera image into a bead-like VFX Graph field. The essential technical connection is the correspondence between the incoming image and the particle output. The original graph is needed to distinguish the exact sampling method and rendered particle primitive.",
         "inspect": "The graph input binding and the stages that affect particle appearance or placement.",
         "demo": "Show source, graph, and final display together while one person moves across the frame."
       },
       {
-        "title": "Particle display",
-        "tools": "Particle appearance · material behavior · display",
-        "body": "The bead treatment changes the image while retaining enough structure for people to recognize their relation to the display. I implemented the real-time visual system around that mapping. The particle image and the physical presentation contribute different parts of the encounter.",
+        "title": "Readable live feedback",
+        "tools": "Particle appearance · materials · display",
+        "body": "I developed the live particle presentation so the image remains connected to the person’s visible movement. The bead treatment fragments the surface while retaining a recognizable relation to the webcam source. Camera placement and display scale complete that feedback loop.",
         "inspect": "Particle and material controls beside the installed output.",
         "demo": "Use a clear movement, a still pose, and a departure to show what the displayed field retains or changes."
       }
@@ -549,23 +549,23 @@
     ],
     "features": [
       {
-        "title": "Live sound input",
+        "title": "Ambient sound input",
         "tools": "Live audio · Unity runtime",
-        "body": "I developed the sound-responsive visualizer around ambient sound in the installation space. The room supplies a changing input, including ordinary activity and abrupt acoustic changes. The current documentation establishes that live relationship, while the specific input device and audio-analysis code still need a production capture.",
+        "body": "I developed a real-time visualizer around ambient sound in a shopping mall. The occupied venue supplies the input, including background activity and sudden sound changes. Visitors contribute to the image through the ordinary acoustic life of the space.",
         "inspect": "The actual audio input and the control values extracted from it.",
         "demo": "Record quieter and busier input without changing the visual configuration."
       },
       {
-        "title": "Audio-to-visual mapping",
-        "tools": "Audio control data · generative visual mapping",
-        "body": "I connected sound-derived control data to the movement and density of the cascading, cloud-like image. The response is a visual translation of the venue, rather than a literal waveform. The precise analysis features and mapping should be taken from the original source, so FFT, frequency bands, or smoothing are not assumed here.",
+        "title": "Audio-to-visual response",
+        "tools": "Sound-derived control · visual mapping",
+        "body": "I connected live sound to the movement and density of a cascading, cloud-like visual form. The generative image makes changes in the surrounding activity visible. The specific signal features and renderer remain source-verification items; a cloud-like appearance alone does not establish a volumetric-fog technique.",
         "inspect": "The actual value-to-visual mapping and the scene parameters it changes.",
         "demo": "Keep the incoming control value and visible response together during a clear sound change."
       },
       {
-        "title": "Installation runtime",
-        "tools": "Unity presentation · installation display",
-        "body": "I integrated the visualizer into the public installation. The image is continuously shaped by the surrounding soundscape, making collective activity part of the displayed form. A future performance claim would need a recorded environment and measurements, separate from this documented audiovisual behavior.",
+        "title": "Public-display integration",
+        "tools": "Unity visualizer · installation display",
+        "body": "I integrated the responding image into the public installation. The technical focus is the complete relation from the venue’s live sound to its displayed visual consequence. The existing video and installation images document that audiovisual presentation.",
         "inspect": "The running visual scene and its real display context.",
         "demo": "Capture the sound environment and screen together so the input-to-response relation is observable."
       }
@@ -601,23 +601,23 @@
     ],
     "features": [
       {
-        "title": "HDRP character setup",
-        "tools": "Unity HDRP · character assets · materials",
-        "body": "I integrated the prepared digital human into Unity HDRP. Model, rig, materials, and performance data have to become a running character scene. The technical contribution is the Unity integration and presentation, alongside the upstream character-production work documented in the original archive.",
+        "title": "Unity HDRP character integration",
+        "tools": "Unity HDRP · character materials · lighting",
+        "body": "I integrated the digital Gang Se-hwang character into a Unity HDRP presentation. The character hierarchy, materials, lighting, and final camera view are assembled in the engine. The existing Unity Scene and Game-view capture documents that integration directly.",
         "inspect": "The character hierarchy, material assignments, lighting, and Game view.",
         "demo": "Show the same character in Scene view and the final camera view."
       },
       {
-        "title": "Animation integration",
-        "tools": "Character animation · facial performance · runtime integration",
-        "body": "I brought body and facial performance into the character's Unity presentation. Animation assets and the logic that selects or presents them are distinct parts of the system. A close capture of the actual animation-control component would make the transition from prepared performance to runtime behavior directly inspectable.",
+        "title": "Animation integration & character playback",
+        "tools": "Character rig · animation assets · Unity runtime",
+        "body": "I integrated the character’s animation assets and playback within the Unity application. The implementation connects the prepared digital human to its performed response, bringing model production and runtime character behavior into the same museum-facing system.",
         "inspect": "The actual animation-control setup, imported clips or performance data, and facial controls.",
         "demo": "Trigger one implemented performance and show the character's body and face during playback."
       },
       {
-        "title": "Museum interaction",
-        "tools": "Visitor-facing controls · scene behavior · deployed display",
-        "body": "I connected the real-time character to the museum presentation and its visitor-facing interaction. Existing Unity and installation images document this movement from an engine scene to an installed system. This is the Unity digital-human case. The Unreal/MetaHuman production in Shininho and Jooan is separate.",
+        "title": "Museum docent interaction",
+        "tools": "Visitor interaction · digital docent · installed display",
+        "body": "I integrated the historical figure into the museum interaction and supported the installed presentation. The character serves as a digital docent in a visitor-facing environment. Existing installation images connect the Unity scene to the system encountered on site.",
         "inspect": "The actual interaction trigger and the scene response used by the museum application.",
         "demo": "Record a visitor-facing action, its Unity response, and the installed screen in one sequence."
       }
@@ -648,28 +648,28 @@
   "ai-zoo": {
     "built": [
       "Real-time LLM and digital-human integration",
-      "Hand-sensing input",
+      "Leap Motion hand input",
       "Arduino servo and lighting output"
     ],
     "features": [
       {
-        "title": "LLM conversation & voice",
-        "tools": "Unity C# · Python · LLM conversation · voice",
-        "body": "I connected the digital human to a real-time LLM conversation and generated voice. A language response becomes an audible and visible event in the installation. Unity and Python connect those subsystems, while the exact response-state and sequencing code should be shown from the implemented project.",
+        "title": "LLM dialogue & digital human",
+        "tools": "Unity C# · Python · LLM · voice",
+        "body": "I connected real-time LLM replies and generated voice to a Unity digital human. Unity and Python coordinate the exchange so a response can be heard and seen as part of the installation. Language input and physical input enter the same encounter through separate paths.",
         "inspect": "The incoming turn, generated reply, voice playback, and character response.",
         "demo": "Record one complete input-to-response turn with the actual control state visible."
       },
       {
-        "title": "Hand-sensing input",
-        "tools": "Hand sensing · Unity input integration",
-        "body": "I integrated hand input alongside language input. A physical gesture is a different signal from a conversational turn, even when both affect the same encounter. Keeping the two paths visible makes the implementation understandable without claiming that the system directly measures a participant's emotion.",
+        "title": "Leap Motion hand input",
+        "tools": "Leap Motion · hand sensing · Unity",
+        "body": "I integrated Leap Motion hand sensing alongside the conversational input. A hand action becomes a control signal for the encounter, while the language path produces a reply. The sensor and its participant-facing placement are documented in the installation images.",
         "inspect": "The actual hand-sensor output and the component that receives it in the installation.",
         "demo": "Perform one controlled hand action and show the resulting system response."
       },
       {
         "title": "Arduino servos & lighting",
-        "tools": "Arduino · servo motors · lighting · Unity/Python",
-        "body": "I connected Arduino servo motors and lighting to the digital system. A response can therefore have physical, vocal, and visual consequences. The sphere mechanism and hand-sensing apparatus are documented in existing images. Exact motor limits, protocol, and interrupted-input behavior need their own source or hardware capture.",
+        "tools": "Arduino · servo motors · lighting",
+        "body": "I connected the digital system to Arduino-controlled servo motors and lighting. The installation combines character, voice, light, and physical movement as outputs. The documented sphere linkage shows the mechanical side of that connection; the exact command protocol and motor limits belong to the hardware source.",
         "inspect": "The Arduino connection, one actual control command, and the connected motor or light.",
         "demo": "Send one implemented command, show the physical output, then record the available reset or stop behavior."
       }
@@ -679,7 +679,7 @@
         "src": "../assets/images/AI_ZOO_07.jpg",
         "kind": "archive",
         "title": "The hand-input apparatus",
-        "caption": "Existing installation image showing the hand sensor and participant interaction. It is not an inference or timing measurement.",
+        "caption": "Existing AI ZOO installation image: the Leap Motion hand-input apparatus beside the participant-facing display.",
         "alt": "Actual AI ZOO hand sensor mounted beside the installation display",
         "slot": "aizoo-hand-input",
         "width": 1920,
@@ -689,7 +689,7 @@
         "src": "../assets/images/AI_ZOO_03.jpg",
         "kind": "archive",
         "title": "The physical actuation mechanism",
-        "caption": "Existing hardware image showing the sphere linkage. A command-to-motor recording remains a separate verification artifact.",
+        "caption": "Existing hardware documentation of the sphere linkage used in the physical apparatus.",
         "alt": "Actual AI ZOO sphere linkage and physical actuation apparatus",
         "slot": "aizoo-arduino-output",
         "width": 1920,
@@ -701,27 +701,27 @@
     "built": [
       "Spoken GPT conversation",
       "Generated voice and facial playback",
-      "A real-time Unity digital human"
+      "Character Creator 4 character integrated in Unity"
     ],
     "features": [
       {
-        "title": "Spoken dialogue",
-        "tools": "Unity · speech transcription · GPT API",
-        "body": "I integrated spoken input, transcription, and GPT-based responses with a Unity digital human. The conversational input is part of the character encounter, rather than a separate text interface. The actual sequencing components should show how a spoken turn moves through the pipeline.",
+        "title": "Character Creator 4 → Unity",
+        "tools": "Character Creator 4 · character pipeline · Unity",
+        "body": "I developed the character through Character Creator 4 Headshot, ZBrush refinement, and Maya rigging and UV work, then integrated it into Unity. The character assets and presentation scene provide the real-time foundation for the conversational system.",
         "inspect": "Microphone input, recognized text, the request, and the returned response.",
         "demo": "Keep one spoken question and its generated reply in an uncut recording."
       },
       {
-        "title": "Voice & facial animation",
-        "tools": "Generated speech · facial blendshapes · Unity playback",
-        "body": "I connected synthesized speech and facial performance to the reply. The archive describes voice generation and blendshape-based facial playback. Text, audio, and animation are separate outputs that must be brought into a coherent presented turn. This does not imply identity equivalence with the real performer.",
+        "title": "Spoken GPT conversation",
+        "tools": "Unity coroutines · GPT · ElevenLabs TTS",
+        "body": "I used a coroutine-based Unity pipeline to sequence spoken input, transcription, GPT replies, ElevenLabs speech synthesis, and playback. These stages turn an incoming question into an audible character response. The generated text and performed audio remain distinct parts of the presented turn.",
         "inspect": "The generated audio, playback state, and actual facial-animation controls.",
         "demo": "Show the response text alongside the audible reply and the character's facial movement."
       },
       {
-        "title": "Unity character runtime",
-        "tools": "Digital-human assets · Unity scene · response sequencing",
-        "body": "I integrated the character and conversation into the Unity presentation. The recognizable figure and its responsive behavior carry different parts of the encounter. The project examines AI-mediated fandom and attachment as an artistic question. It is not presented as the real performer's participation or an official collaboration.",
+        "title": "Facial blendshape playback",
+        "tools": "Generated speech · facial blendshapes · Unity playback",
+        "body": "I connected the generated reply to facial performance and voice playback. The digital figure speaks through the integrated Unity system, making the exchange visible as a character encounter. The work examines AI-mediated fandom and attachment; no official participation by the real performer is implied.",
         "inspect": "The character hierarchy, presentation scene, and components coordinating a conversational turn.",
         "demo": "Show the resting character, an incoming turn, its performed response, and the implemented return to the next interaction."
       }
@@ -746,6 +746,68 @@
         "slot": "choi-facial-playback",
         "width": 6000,
         "height": 3376
+      }
+    ]
+  },
+  "shininho": {
+    "built": [
+      "Scan-to-MetaHuman character rebuild",
+      "Motion cleanup and retargeting",
+      "Unreal performance assembly"
+    ],
+    "features": [
+      {
+        "title": "Scan → Wrap → MetaHuman",
+        "tools": "Maya · Wrap · MetaHuman",
+        "body": "I extracted and prepared geometry from the studio’s combined face-and-body scan, then rebuilt the production character with Wrap and MetaHuman-compatible topology. Scan-derived textures preserved age and surface detail through the topology change. I corrected eye placement and look development in Unreal.",
+        "inspect": "The original scan region, Wrap correspondence, transferred textures, and final MetaHuman.",
+        "demo": "Show the same face angle at source, wrapped, and final Unreal stages."
+      },
+      {
+        "title": "Body & facial performance",
+        "tools": "OptiTrack / Motive · iPhone face · MotionBuilder · Maya",
+        "body": "I worked across OptiTrack body capture, supplemental hand material, and separately recorded iPhone facial performance. MotionBuilder and Maya were used to clean and repair the body motion before retargeting. Different capture streams could then contribute to one assembled performance.",
+        "inspect": "A solved capture clip, one corrected tracking artifact, and the retargeted character.",
+        "demo": "Keep the source and corrected motion aligned so the change can be inspected."
+      },
+      {
+        "title": "Unreal performance assembly",
+        "tools": "Unreal · MetaHuman · Sequencer",
+        "body": "I retargeted the cleaned motion and aligned body and facial takes in Unreal Sequencer. The production output is an animated MetaHuman in Unreal. The initial Unity build established feasibility; its loss of likeness prompted the production rebuild rather than becoming the final character.",
+        "inspect": "Sequencer body and face tracks, their timing alignment, and the final MetaHuman playback.",
+        "demo": "Play one aligned take with Sequencer and the character visible together."
+      }
+    ],
+    "images": [
+      {
+        "src": "../media/shininho/03_scan_proto_metahuman.jpg",
+        "kind": "archive",
+        "title": "Source, feasibility build, production character",
+        "caption": "Existing production comparison: studio capture, early character prototype, and the rebuilt MetaHuman. The Unity feasibility build and Unreal production character are separate stages.",
+        "alt": "Shininho studio capture beside the early character and production MetaHuman",
+        "slot": "shininho-source-rebuild",
+        "width": 2104,
+        "height": 1080
+      },
+      {
+        "src": "../media/shininho/04_wrap_template.jpg",
+        "kind": "archive",
+        "title": "Wrap correspondence",
+        "caption": "Existing Maya / Wrap production documentation of source-to-template correspondence.",
+        "alt": "Shininho geometry aligned to a production character template",
+        "slot": "shininho-wrap",
+        "width": 2104,
+        "height": 1080
+      },
+      {
+        "src": "../media/shininho/07_mocap_capture.jpg",
+        "kind": "archive",
+        "title": "Performance capture",
+        "caption": "Existing performance-capture documentation. Motion cleanup, retargeting, and Unreal assembly follow this capture stage.",
+        "alt": "Shininho project performance-capture documentation",
+        "slot": "shininho-performance",
+        "width": 2104,
+        "height": 1080
       }
     ]
   }

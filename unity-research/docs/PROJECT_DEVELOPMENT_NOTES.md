@@ -35,7 +35,7 @@ Hold consistent: The source sequence, viewing duration, and presentation scale.
 - Show the VFX Graph, exposed properties, and Game view together. Change one parameter through the recognizable-to-dispersed range.
 - Show a shader or graph contribution in isolation, then the combined result. Label any final rendered sequence separately from the live Unity view.
 
-Scope note: VFX Graph and shader implementation are confirmed by the artist. No particle-count, performance, or interaction-effect claim is attached.
+Scope note: VFX Graph and shaders are confirmed. A built-in Particle System component, specific video-texture sampling path, or projection-mapping implementation needs original graph evidence.
 
 Project archive: https://jonghoonahn.com/detail_pages/flower-of-waves.html
 
@@ -72,7 +72,7 @@ Hold consistent: Camera position, live input, display size, and viewing distance
 - Record the webcam source, VFX Graph mapping, and final display at the same time.
 - Move across the camera view and pause. Show which parts of the image update and how the bead field responds.
 
-Scope note: This case uses the artist-confirmed webcam and VFX Graph scope. Azure Kinect and particular segmentation algorithms are not assumed.
+Scope note: Webcam input and VFX Graph mapping are confirmed. The specific image sampling and output primitive need an original graph capture; 3D sphere instancing is not inferred from the bead-like appearance.
 
 Project archive: https://jonghoonahn.com/detail_pages/interactive_10.html
 
@@ -109,7 +109,7 @@ Hold consistent: Recorded sound input, display sequence length, and viewing cond
 - Show the actual live audio input, the values used for control, and the visual output in one recording.
 - Compare quiet and busy input without changing the visual configuration. Retain the actual mapping rather than assuming FFT or a particular feature set.
 
-Scope note: The shopping-mall sound-reactive scope is confirmed by the artist. Older pages disagree on dates, so no single production year or unsupported audio algorithm is asserted here.
+Scope note: Live audio response is confirmed. The exact audio-analysis code and renderer require original source or Editor capture; fog volumes, HDRP Volumetric Fog, FFT bands, and volume raymarching are not established by the current archive.
 
 Project archive: https://jonghoonahn.com/detail_pages/media_3.html
 
@@ -121,7 +121,7 @@ Project archive: https://jonghoonahn.com/detail_pages/media_3.html
 
 **Premise:** An artist's idea of a changing form becomes something a player can act on. Rendering and runtime behavior have to support the same expressive intent.
 
-**Implementation:** I developed cloud-form shaders and a raymarched metaball implementation for droplet-like forms in Unity. C# controls connect interaction and runtime parameters to visual feedback. The archive also documents authored growth states prepared with consistent mesh topology.
+**Implementation:** I developed Unity C# and HLSL systems for cloud-form shading, internal flow, and interactive visual feedback. A separate raymarched metaball implementation produces merging droplet-like forms. The production archive also documents fixed-topology cloud growth targets authored in Maya.
 
 ### Development decisions
 
@@ -213,7 +213,7 @@ Project archive: https://jonghoonahn.com/detail_pages/interactive_1.html
 
 **Premise:** A visitor's portrait enters the visual language of an earlier era. Image transformation becomes a way to inhabit a historical representation.
 
-**Implementation:** I developed the Unity portrait pipeline using Barracuda-based AI processing, Python/OpenCV, style transformation, and visual filters. The system composes a processed portrait and connects it to archival output and an external display. The installation supports up to four simultaneous participants.
+**Implementation:** I developed a Unity portrait installation with Barracuda-based person segmentation, Python/OpenCV image processing, style transformation, and visual filters. TCP/UDP communication connects the portrait workflow to exhibition displays, supporting up to four simultaneous participants.
 
 ### Development decisions
 
@@ -223,7 +223,7 @@ Project archive: https://jonghoonahn.com/detail_pages/interactive_1.html
 
 ### Input to output
 
-Portrait capture: A live visitor image | AI / image processing: Barracuda and OpenCV stages | Style / composition: Transformation, filters, and layout | Gallery output: Saved portrait and networked display
+Portrait capture: A live visitor image | Image processing: Barracuda segmentation and OpenCV | Portrait composition: Style transformation, filters, and layout | Exhibition output: Archived portrait and networked display
 
 ### Proposed study
 
@@ -370,7 +370,7 @@ Project archive: https://jonghoonahn.com/detail_pages/interactive_2.html
 
 **Premise:** A confined artificial figure can make a visitor feel concern, discomfort, or responsibility. The work asks where those feelings actually arise.
 
-**Implementation:** I connected a Unity digital human and real-time LLM conversation with hand sensing, generated voice, Arduino servo motors, and lighting. Unity and Python coordinate the inputs and outputs so a reply can become a physical, vocal, and visual event.
+**Implementation:** I connected Leap Motion hand sensing and real-time LLM dialogue to a Unity digital human, generated voice, Arduino servo motors, and lighting. Unity and Python link these inputs and outputs within one interactive installation.
 
 ### Development decisions
 
@@ -380,7 +380,7 @@ Project archive: https://jonghoonahn.com/detail_pages/interactive_2.html
 
 ### Input to output
 
-Visitor input: Language and hand sensing | Response state: LLM output and system coordination | Embodied output: Digital human, voice, light, servos | Human interpretation: The visitor decides how to respond
+Visitor input: Language and Leap Motion hands | Unity / Python: Input and response coordination | Response outputs: LLM reply, voice, and digital human | Physical apparatus: Arduino servos and lighting
 
 ### Proposed study
 
@@ -407,7 +407,7 @@ Project archive: https://jonghoonahn.com/detail_pages/interactive_4.html
 
 **Premise:** Admiration changes when a mediated likeness appears able to answer. An existing emotional relation becomes the context for a synthetic encounter.
 
-**Implementation:** I integrated a real-time digital human in Unity with spoken input, GPT-based replies, synthesized speech, and facial performance. The project brings the conversation into a visibly performing character rather than presenting a text-only chat interface.
+**Implementation:** I built the digital-human workflow with Character Creator 4 and integrated the character in Unity. Spoken input, GPT-based responses, synthesized speech, and facial blendshape playback bring a conversational turn into the performing figure.
 
 ### Development decisions
 
@@ -491,7 +491,7 @@ Project archive: https://jonghoonahn.com/detail_pages/xr_1.html
 
 ### Input to output
 
-Player speech: A question or persuasive attempt | GPT NPC: A response within the character's constraints | Puzzle state: Information linked to a progression condition | World feedback: Character performance and escape flow
+Player dialogue: A question or persuasive attempt | GPT NPC: A response within the character’s constraints | Puzzle state: Clue or password linked to progression | World feedback: The next step in the escape game
 
 ### Proposed study
 
@@ -592,3 +592,41 @@ Hold consistent: Spray input, wall, brush appearance, and exposure time.
 Scope note: Graffiti Freedom is the archive title for the virtual-subway graffiti work. No quantified environmental benefit or unverified save/load behavior is claimed.
 
 Project archive: https://jonghoonahn.com/detail_pages/xr_5.html
+
+## Shininho
+
+**My role:** Technical director / character & animation pipeline
+
+**Question:** Which details must survive a real-time character pipeline for a representation to remain recognizable as a particular person?
+
+**Premise:** A digital reconstruction needs to preserve the features through which a person is recognized.
+
+**Implementation:** I rebuilt a scanned person through Maya, Wrap, and MetaHuman, then integrated cleaned body and facial performance in Unreal. An initial Unity feasibility build animated successfully but weakened the subject’s likeness; that failure led me back to the high-resolution source.
+
+### Development decisions
+
+1. **Test the complete character.** Use the delivered scan to test rigging, surface transfer, hair, and moving playback before committing to the production path.
+2. **Revise the success criterion.** Compare the working prototype with the source person. When recognizability is lost, return to source data rather than polishing an unsuitable mesh.
+3. **Assemble one controlled performance.** Prepare body and facial takes, correct the motion, and review the synchronized result on the production character.
+
+### Input to output
+
+Studio scan: Combined mesh and scan-derived textures | Maya / Wrap: Mesh preparation and MetaHuman correspondence | Performance pipeline: Body / face cleanup and retargeting | Unreal: MetaHuman performance in Sequencer
+
+### Proposed study
+
+How do scan-derived facial details and performed gesture contribute to recognizing a particular digital person?
+
+Vary: One representation factor at a time: surface detail or performance timing.
+
+Hold consistent: The character identity, camera, lighting, motion content, and presentation duration.
+
+### Evidence to add
+
+- Record the same source region, Wrap correspondence, transferred surface, and final Unreal face. Preserve the source-to-result comparison.
+- Show one cleaned body clip, the facial take, their Sequencer alignment, and the final MetaHuman playback.
+- Keep the early Unity prototype, production Unreal character, and later Jooan VR extension separately labeled.
+
+Scope note: The archive documents the character and animation pipeline. A family-memory conversational model and a controlled recognition study are not completed contributions.
+
+Project archive: https://jonghoonahn.com/projects/shininho-jooan.html

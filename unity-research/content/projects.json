@@ -9,6 +9,7 @@
     "tags": [
       "VFX Graph",
       "Shaders",
+      "Media-wall series",
       "Unity"
     ],
     "image": "assets/images/flower-waves/flower-waves-card.jpg",
@@ -71,13 +72,16 @@
       "Show the VFX Graph, exposed properties, and Game view together. Change one parameter through the recognizable-to-dispersed range.",
       "Show a shader or graph contribution in isolation, then the combined result. Label any final rendered sequence separately from the live Unity view."
     ],
-    "note": "VFX Graph and shader implementation are confirmed by the artist. No particle-count, performance, or interaction-effect claim is attached.",
+    "note": "VFX Graph and shaders are confirmed. A built-in Particle System component, specific video-texture sampling path, or projection-mapping implementation needs original graph evidence.",
     "aliases": [
       "꽃의 알고리즘과 파도의 문법",
       "꽃알파문"
     ],
-    "teaser": "Waves and flowers shaped through particles, shaders, and repetition.",
-    "implementation_heading": "Author wave and flower motion with VFX Graph."
+    "teaser": "VFX Graph particles and shaders dissolve and re-form a landscape.",
+    "implementation_heading": "Author wave and flower motion with VFX Graph.",
+    "engine": "Unity",
+    "in_catalog": true,
+    "catalog_order": 9
   },
   {
     "id": "beads-wall",
@@ -87,8 +91,9 @@
     "medium": "Webcam-driven media installation",
     "role": "Artist / Unity developer",
     "tags": [
+      "Webcam input",
       "VFX Graph",
-      "Webcam mapping",
+      "Image mapping",
       "Unity"
     ],
     "image": "assets/images/interactive10_2.jpg",
@@ -151,13 +156,16 @@
       "Record the webcam source, VFX Graph mapping, and final display at the same time.",
       "Move across the camera view and pause. Show which parts of the image update and how the bead field responds."
     ],
-    "note": "This case uses the artist-confirmed webcam and VFX Graph scope. Azure Kinect and particular segmentation algorithms are not assumed.",
+    "note": "Webcam input and VFX Graph mapping are confirmed. The specific image sampling and output primitive need an original graph capture; 3D sphere instancing is not inferred from the bead-like appearance.",
     "aliases": [
       "비즈월",
       "BeadsWall"
     ],
-    "teaser": "A webcam image becomes a living field of particles.",
-    "implementation_heading": "Map webcam input into a particle field."
+    "teaser": "Live webcam imagery maps into a bead-like VFX Graph particle field.",
+    "implementation_heading": "Map webcam input into a particle field.",
+    "engine": "Unity",
+    "in_catalog": true,
+    "catalog_order": 10
   },
   {
     "id": "fall-of-minds",
@@ -168,7 +176,7 @@
     "role": "Coding director / artist",
     "tags": [
       "Live audio",
-      "Visual mapping",
+      "Reactive visuals",
       "Unity"
     ],
     "image": "assets/images/media3.jpg",
@@ -231,13 +239,16 @@
       "Show the actual live audio input, the values used for control, and the visual output in one recording.",
       "Compare quiet and busy input without changing the visual configuration. Retain the actual mapping rather than assuming FFT or a particular feature set."
     ],
-    "note": "The shopping-mall sound-reactive scope is confirmed by the artist. Older pages disagree on dates, so no single production year or unsupported audio algorithm is asserted here.",
+    "note": "Live audio response is confirmed. The exact audio-analysis code and renderer require original source or Editor capture; fog volumes, HDRP Volumetric Fog, FFT bands, and volume raymarching are not established by the current archive.",
     "aliases": [
       "폴오브마인드",
       "폴 오브 마인드"
     ],
-    "teaser": "Shopping-mall noise drives a changing visual landscape.",
-    "implementation_heading": "Turn venue sound into a live visual signal."
+    "teaser": "Ambient shopping-mall sound drives a cloud-like, cascading visual field.",
+    "implementation_heading": "Turn venue sound into a live visual signal.",
+    "engine": "Unity",
+    "in_catalog": true,
+    "catalog_order": 8
   },
   {
     "id": "erick-oh",
@@ -247,10 +258,10 @@
     "medium": "Collaborative game development",
     "role": "Unity technical artist / developer",
     "tags": [
-      "HLSL",
-      "Raymarching",
-      "Metaballs",
-      "C#"
+      "HLSL cloud shaders",
+      "Raymarched droplets",
+      "C#",
+      "Authored growth targets"
     ],
     "image": "media/game/06_four_growth_states.jpg",
     "alt": "Four authored cloud growth states shown in wireframe",
@@ -258,7 +269,7 @@
     "hash": "",
     "archive": "projects7/erick-oh-real-time-graphics.html",
     "idea": "An artist's idea of a changing form becomes something a player can act on. Rendering and runtime behavior have to support the same expressive intent.",
-    "implementation": "I developed cloud-form shaders and a raymarched metaball implementation for droplet-like forms in Unity. C# controls connect interaction and runtime parameters to visual feedback. The archive also documents authored growth states prepared with consistent mesh topology.",
+    "implementation": "I developed Unity C# and HLSL systems for cloud-form shading, internal flow, and interactive visual feedback. A separate raymarched metaball implementation produces merging droplet-like forms. The production archive also documents fixed-topology cloud growth targets authored in Maya.",
     "question": "How can a continuously changing visual form remain controllable enough for both art direction and interaction?",
     "context": "This collaboration required technical decisions to preserve a particular visual character while making it work as a real-time system. Cloud deformation and droplet fusion are different rendering problems. Treating them separately makes their behavior easier to direct and their limitations easier to inspect.",
     "system": [
@@ -329,14 +340,17 @@
       "구름",
       "메타볼"
     ],
-    "teaser": "Cloud shaders and raymarched metaballs, controlled through C#.",
+    "teaser": "Cloud shaders, authored growth forms, and raymarched metaball droplets.",
     "implementation_heading": "Separate object motion from shader deformation.",
     "engineering": {
       "decision": "Keep object motion, internal field flow, and authored growth as separate controls. The independent example integrates flow into shader phase and updates per-renderer parameters without moving the object.",
       "failure": "Reverse flow while holding the transform fixed. Raise displacement near the camera’s frustum edge. Inspect continuity and clipping. No captured result is reported for this check.",
       "evidence": "Record Game view and Inspector together: flow reversal, maximum displacement, unchanged Transform, and renderer bounds. Keep the actual shader and controller revision with the recording.",
       "reuse": "The public example explains phase control and conservative bounds. It does not reproduce the production cloud shader or raymarched metaballs. It does not update colliders, shadow geometry, or displaced normals."
-    }
+    },
+    "engine": "Unity",
+    "in_catalog": true,
+    "catalog_order": 7
   },
   {
     "id": "to-eternity",
@@ -347,8 +361,9 @@
     "role": "Coding director / Unity developer",
     "tags": [
       "Azure Kinect",
-      "Timeline",
-      "Live compositing"
+      "Unity Timeline",
+      "Live composition",
+      "C#"
     ],
     "image": "assets/images/interactive1_3.jpg",
     "alt": "A participant's form becomes a mosaic of archival photographs",
@@ -416,14 +431,17 @@
       "투 이터니티",
       "타임라인"
     ],
-    "teaser": "Azure Kinect input coordinates live archival imagery and Unity Timeline.",
+    "teaser": "Azure Kinect input meets Timeline sequencing and live archival imagery.",
     "implementation_heading": "Bring live sensing into an authored Timeline.",
     "engineering": {
       "decision": "Keep live sensor input distinct from authored Timeline time. The integration connects participant activity to a media sequence while preserving control over the composition.",
       "failure": "Leave the tracking area during a sequence and return. Inspect how the original project handles interrupted participation and prepares for the next visitor. Recovery behavior still needs a capture.",
       "evidence": "Capture the Azure Kinect view, input-to-event boundary, and Timeline playhead in one continuous recording. Show the transition into the memorial image and the actual reset path.",
       "reuse": "This case demonstrates sensor-to-sequence integration. The recognition rule, sensor setup, and reset behavior must be documented before reuse. A reusable adapter and formal event logger would be additional work."
-    }
+    },
+    "engine": "Unity",
+    "in_catalog": true,
+    "catalog_order": 2
   },
   {
     "id": "jemulpo",
@@ -433,10 +451,11 @@
     "medium": "Interactive portrait installation",
     "role": "Technical director / Unity developer",
     "tags": [
+      "OpenCV",
       "Barracuda",
       "Style transfer",
-      "OpenCV",
-      "Filters"
+      "Unity C#",
+      "TCP / UDP"
     ],
     "image": "assets/images/interactive3_1.jpg",
     "alt": "Transformed visitor portraits displayed across the installation wall",
@@ -444,7 +463,7 @@
     "hash": "e6a92f4ef4",
     "archive": "detail_pages/interactive_3.html",
     "idea": "A visitor's portrait enters the visual language of an earlier era. Image transformation becomes a way to inhabit a historical representation.",
-    "implementation": "I developed the Unity portrait pipeline using Barracuda-based AI processing, Python/OpenCV, style transformation, and visual filters. The system composes a processed portrait and connects it to archival output and an external display. The installation supports up to four simultaneous participants.",
+    "implementation": "I developed a Unity portrait installation with Barracuda-based person segmentation, Python/OpenCV image processing, style transformation, and visual filters. TCP/UDP communication connects the portrait workflow to exhibition displays, supporting up to four simultaneous participants.",
     "question": "What happens when a contemporary face is translated into the graphic conventions of a historical portrait?",
     "context": "The project draws on early modern Incheon and the visual culture of New Women magazines. A visitor is both the subject of the image and a participant in its construction. The changing gallery places individual portraits within a collectively produced historical fiction.",
     "system": [
@@ -453,16 +472,16 @@
         "A live visitor image"
       ],
       [
-        "AI / image processing",
-        "Barracuda and OpenCV stages"
+        "Image processing",
+        "Barracuda segmentation and OpenCV"
       ],
       [
-        "Style / composition",
-        "Transformation, filters, and layout"
+        "Portrait composition",
+        "Style transformation, filters, and layout"
       ],
       [
-        "Gallery output",
-        "Saved portrait and networked display"
+        "Exhibition output",
+        "Archived portrait and networked display"
       ]
     ],
     "technical": [
@@ -514,14 +533,17 @@
       "스타일트랜스퍼",
       "바라쿠다"
     ],
-    "teaser": "AI style transfer turns visitors’ portraits into another era.",
+    "teaser": "Live portraits combine AI processing, visual filters, and gallery output.",
     "implementation_heading": "Carry a portrait through AI, filtering, and display.",
     "engineering": {
       "decision": "Separate portrait transformation from transport. Barracuda, OpenCV, style processing, filters, and composition form the original image pipeline. The independent TCP example concerns complete-frame delivery to Unity’s main thread.",
       "failure": "For the independent receiver, split a PNG into small chunks, disconnect midway through a frame, and disable/re-enable while connected. Verify incomplete bytes never replace the displayed portrait.",
       "evidence": "Show an original portrait through the actual transformation layers. Separately pair Python sender output with the independent Unity receiver’s status and displayed texture.",
       "reuse": "The public receiver is one-sender transport code. It excludes original inference, multi-participant routing, UDP, archival storage, and delivery acknowledgements."
-    }
+    },
+    "engine": "Unity",
+    "in_catalog": true,
+    "catalog_order": 4
   },
   {
     "id": "silhak-dance",
@@ -532,8 +554,8 @@
     "role": "Technical artist / Unity developer",
     "tags": [
       "Kinect v2",
-      "Body mapping",
-      "Character animation"
+      "Body tracking",
+      "Unity character"
     ],
     "image": "assets/images/interactive7.jpg",
     "alt": "A museum visitor moving in front of the Silhak Dance display",
@@ -600,8 +622,11 @@
       "실학댄스",
       "실학 댄스"
     ],
-    "teaser": "Body tracking brings a historical character into shared movement.",
-    "implementation_heading": "Map a tracked body onto a historical character."
+    "teaser": "A visitor’s tracked movement drives the digital Kim Yuk.",
+    "implementation_heading": "Map a tracked body onto a historical character.",
+    "engine": "Unity",
+    "in_catalog": true,
+    "catalog_order": 3
   },
   {
     "id": "track-6",
@@ -681,7 +706,9 @@
       "트랙 6"
     ],
     "teaser": "Dance redraws a geometric world in real time.",
-    "implementation_heading": "Translate a dancer into a geometric environment."
+    "implementation_heading": "Translate a dancer into a geometric environment.",
+    "engine": "Unity",
+    "in_catalog": false
   },
   {
     "id": "gang-se-hwang",
@@ -693,7 +720,8 @@
     "tags": [
       "Unity HDRP",
       "Digital human",
-      "Animation integration"
+      "Animation integration",
+      "Museum interaction"
     ],
     "image": "assets/images/interactive2.jpg",
     "alt": "The historical digital human Gang Se-hwang",
@@ -760,21 +788,26 @@
       "강세황",
       "AI 강세황"
     ],
-    "teaser": "A historical portrait becomes a performing digital human.",
-    "implementation_heading": "Integrate a digital human for a museum encounter."
+    "teaser": "A Unity HDRP historical figure integrated into a museum docent system.",
+    "implementation_heading": "Integrate a digital human for a museum encounter.",
+    "engine": "Unity",
+    "in_catalog": true,
+    "catalog_order": 13
   },
   {
     "id": "ai-zoo",
-    "group": "humans",
+    "group": "sensing",
     "title": "AI ZOO",
     "year": "2024",
     "medium": "Embodied AI installation",
     "role": "Director / technical artist",
     "tags": [
-      "LLM dialogue",
+      "Unity / Python",
+      "Leap Motion",
       "Arduino servos",
-      "Hand sensing",
-      "Digital human"
+      "LLM",
+      "Digital human",
+      "Voice / lighting"
     ],
     "image": "assets/images/interactive4.jpg",
     "alt": "AI ZOO's digital-human display and motor-driven transparent sphere",
@@ -782,25 +815,25 @@
     "hash": "",
     "archive": "detail_pages/interactive_4.html",
     "idea": "A confined artificial figure can make a visitor feel concern, discomfort, or responsibility. The work asks where those feelings actually arise.",
-    "implementation": "I connected a Unity digital human and real-time LLM conversation with hand sensing, generated voice, Arduino servo motors, and lighting. Unity and Python coordinate the inputs and outputs so a reply can become a physical, vocal, and visual event.",
+    "implementation": "I connected Leap Motion hand sensing and real-time LLM dialogue to a Unity digital human, generated voice, Arduino servo motors, and lighting. Unity and Python link these inputs and outputs within one interactive installation.",
     "question": "Why can a person feel responsible for an artificial entity whose feelings cannot be assumed?",
     "context": "AI ZOO places a digital human, a moving transparent form, voice, and visitor input in the same space. The encounter begins before the visitor says anything: confinement and a request for help already establish expectations. Motor motion, speech, and delay then provide signals the person may interpret as affect.",
     "system": [
       [
         "Visitor input",
-        "Language and hand sensing"
+        "Language and Leap Motion hands"
       ],
       [
-        "Response state",
-        "LLM output and system coordination"
+        "Unity / Python",
+        "Input and response coordination"
       ],
       [
-        "Embodied output",
-        "Digital human, voice, light, servos"
+        "Response outputs",
+        "LLM reply, voice, and digital human"
       ],
       [
-        "Human interpretation",
-        "The visitor decides how to respond"
+        "Physical apparatus",
+        "Arduino servos and lighting"
       ]
     ],
     "technical": [
@@ -846,8 +879,11 @@
       "아두이노",
       "서보모터"
     ],
-    "teaser": "Conversation, hand sensing, and servos stage an encounter with AI.",
-    "implementation_heading": "Coordinate conversation, hand input, and physical output."
+    "teaser": "Hand sensing and AI dialogue drive a character and physical apparatus.",
+    "implementation_heading": "Coordinate conversation, hand input, and physical output.",
+    "engine": "Unity",
+    "in_catalog": true,
+    "catalog_order": 1
   },
   {
     "id": "ai-choi",
@@ -857,10 +893,11 @@
     "medium": "Conversational digital-human prototype",
     "role": "Artist / technical director",
     "tags": [
-      "Spoken dialogue",
-      "LLM",
-      "Digital human",
-      "Unity"
+      "Unity",
+      "Character Creator 4",
+      "LLM dialogue",
+      "Speech synthesis",
+      "Facial blendshapes"
     ],
     "image": "assets/images/interactive9.jpg",
     "alt": "The real-time digital representation of Choi Jung-hoon",
@@ -868,7 +905,7 @@
     "hash": "b3cef8f513",
     "archive": "detail_pages/interactive_9.html",
     "idea": "Admiration changes when a mediated likeness appears able to answer. An existing emotional relation becomes the context for a synthetic encounter.",
-    "implementation": "I integrated a real-time digital human in Unity with spoken input, GPT-based replies, synthesized speech, and facial performance. The project brings the conversation into a visibly performing character rather than presenting a text-only chat interface.",
+    "implementation": "I built the digital-human workflow with Character Creator 4 and integrated the character in Unity. Spoken input, GPT-based responses, synthesized speech, and facial blendshape playback bring a conversational turn into the performing figure.",
     "question": "What does it feel like when a representation of a performer I admire appears to speak directly to me?",
     "context": "The project begins from my own fandom of JANNABI vocalist Choi Jung-hoon. Familiarity with a real performer's face and voice changes what an artificial response can mean. The character is a constructed representation, while the admiration and expectations brought to the encounter belong to the person addressing it.",
     "system": [
@@ -933,8 +970,11 @@
       "메이아이최정훈",
       "JANNABI"
     ],
-    "teaser": "A digital likeness listens, speaks, and performs in real time.",
-    "implementation_heading": "Connect a spoken turn to a character performance."
+    "teaser": "A CC4 character speaks generated replies through a Unity dialogue system.",
+    "implementation_heading": "Connect a spoken turn to a character performance.",
+    "engine": "Unity",
+    "in_catalog": true,
+    "catalog_order": 12
   },
   {
     "id": "fineo",
@@ -1016,7 +1056,9 @@
       "가상세계"
     ],
     "teaser": "The periodic table becomes a navigable virtual universe.",
-    "implementation_heading": "Translate elemental data into a navigable world."
+    "implementation_heading": "Translate elemental data into a navigable world.",
+    "engine": "Unity",
+    "in_catalog": false
   },
   {
     "id": "escape-metro",
@@ -1026,9 +1068,9 @@
     "medium": "VR escape game / conversational puzzle",
     "role": "Game developer / technical director",
     "tags": [
-      "LLM jailbreaking",
-      "VR",
-      "NPC dialogue",
+      "Unity VR",
+      "GPT NPC",
+      "Puzzle progression",
       "C#"
     ],
     "image": "assets/images/xr4.jpg",
@@ -1042,20 +1084,20 @@
     "context": "The subway is both a spatial environment and a setting for a language-based constraint. A player does not progress only by finding an object or following a dialogue tree. They experiment with how to address the NPC, turning the tension between instruction and persuasion into a playable situation.",
     "system": [
       [
-        "Player speech",
+        "Player dialogue",
         "A question or persuasive attempt"
       ],
       [
         "GPT NPC",
-        "A response within the character's constraints"
+        "A response within the character’s constraints"
       ],
       [
         "Puzzle state",
-        "Information linked to a progression condition"
+        "Clue or password linked to progression"
       ],
       [
         "World feedback",
-        "Character performance and escape flow"
+        "The next step in the escape game"
       ]
     ],
     "technical": [
@@ -1109,14 +1151,17 @@
       "방탈출",
       "제일브레이킹"
     ],
-    "teaser": "GPT-based NPC dialogue connected to puzzle clues and progression.",
+    "teaser": "An LLM jailbreaking puzzle turns NPC dialogue into an escape mechanic.",
     "implementation_heading": "Connect a model response to a game condition.",
     "engineering": {
       "decision": "Give dialogue a task consequence. The original work connects GPT conversation to progression. The independent source further separates reply presentation from the rule that authorizes an unlock.",
       "failure": "In the independent example, return a reply from an earlier turn, reset before a reply arrives, and attempt an unlock without puzzle evidence. These are source-defined checks with Unity execution pending.",
       "evidence": "Record reply identifiers and three outcomes: an outdated reply is rejected, a valid reply is presented, and progression changes only when its own conditions are met. Show the corresponding source revision.",
       "reuse": "NpcProgressGate illustrates turn/epoch validation and explicit progression rules. It includes no speech service, model API, original NPC prompts, or complete escape game."
-    }
+    },
+    "engine": "Unity",
+    "in_catalog": true,
+    "catalog_order": 5
   },
   {
     "id": "narci",
@@ -1201,7 +1246,9 @@
       "나르시시스트"
     ],
     "teaser": "Tracked hands drive scene and material changes in paired VR encounters.",
-    "implementation_heading": "Make a tracked gesture change the encounter."
+    "implementation_heading": "Make a tracked gesture change the encounter.",
+    "engine": "Unity",
+    "in_catalog": false
   },
   {
     "id": "graffiti-freedom",
@@ -1211,9 +1258,10 @@
     "medium": "VR painting / public-space experiment",
     "role": "Artist / Unity developer",
     "tags": [
+      "VR painting",
       "Particles",
       "RenderTexture",
-      "VR painting"
+      "Unity"
     ],
     "image": "assets/images/xr5.jpg",
     "alt": "The virtual subway painting environment in Graffiti Freedom",
@@ -1285,7 +1333,105 @@
       "Graffiti Metro",
       "그래피티"
     ],
-    "teaser": "Paint a virtual subway without marking a physical space.",
-    "implementation_heading": "Build a spray gesture that leaves a virtual mark."
+    "teaser": "Particle spray leaves an accumulated mark on a virtual subway wall.",
+    "implementation_heading": "Build a spray gesture that leaves a virtual mark.",
+    "engine": "Unity",
+    "in_catalog": true,
+    "catalog_order": 6
+  },
+  {
+    "id": "shininho",
+    "group": "humans",
+    "title": "Shininho",
+    "year": "",
+    "engine": "Unreal Engine",
+    "medium": "Scan-derived digital human / performance pipeline",
+    "role": "Technical director / character & animation pipeline",
+    "tags": [
+      "Unreal Engine",
+      "MetaHuman",
+      "Performance capture",
+      "Maya",
+      "Wrap"
+    ],
+    "image": "media/shininho/hero.jpg",
+    "alt": "Three close views of the scan-derived Shininho digital human",
+    "video": "1218744311",
+    "hash": "",
+    "archive": "projects/shininho-jooan.html",
+    "credits": "Collaboration with media artist Yaloo. Volumetric scanning was performed by an external studio; my contribution begins with processing the delivered scan and building the character and performance pipeline.",
+    "idea": "A digital reconstruction needs to preserve the features through which a person is recognized.",
+    "teaser": "A scan becomes a MetaHuman with a cleaned, retargeted performance.",
+    "implementation": "I rebuilt a scanned person through Maya, Wrap, and MetaHuman, then integrated cleaned body and facial performance in Unreal. An initial Unity feasibility build animated successfully but weakened the subject’s likeness; that failure led me back to the high-resolution source.",
+    "implementation_heading": "Preserve identity through a real-time character pipeline.",
+    "question": "Which details must survive a real-time character pipeline for a representation to remain recognizable as a particular person?",
+    "context": "Shininho is part of Yaloo’s wider exhibition and performance work. The first technical question was whether a combined face-and-body scan could become an animated real-time character. Once that worked, likeness became the more demanding production constraint. The pipeline was revised around the source face, age detail, texture, eyes, and performed gesture. A later Jooan VR extension reused the character in a different spatial presentation.",
+    "system": [
+      [
+        "Studio scan",
+        "Combined mesh and scan-derived textures"
+      ],
+      [
+        "Maya / Wrap",
+        "Mesh preparation and MetaHuman correspondence"
+      ],
+      [
+        "Performance pipeline",
+        "Body / face cleanup and retargeting"
+      ],
+      [
+        "Unreal",
+        "MetaHuman performance in Sequencer"
+      ]
+    ],
+    "technical": [
+      [
+        "A useful prototype failure",
+        "The Unity feasibility build tested rigging, textures, real-time hair, and animation playback. The simplified character moved, but lost too much of the subject’s likeness. I returned to the original high-resolution scan and changed the production pipeline."
+      ],
+      [
+        "Identity through a topology change",
+        "Wrap correspondence transferred the source to MetaHuman-compatible geometry. I carried scan-derived surface information through the rebuild and corrected eye placement in Unreal. The subject’s recognizable face remained the reference for the work."
+      ],
+      [
+        "A performed result from separate capture streams",
+        "Body motion passed through MotionBuilder and Maya cleanup before Unreal retargeting. Separately captured facial performance was aligned with the body in Sequencer. Capture, correction, retargeting, and final assembly each served a distinct task."
+      ],
+      [
+        "Engine scope",
+        "Unity was used for the initial feasibility character. The production MetaHuman and assembled performance use Unreal. The later Jooan VR extension is documented in the original technical archive."
+      ]
+    ],
+    "preproduction": [
+      [
+        "Test the complete character",
+        "Use the delivered scan to test rigging, surface transfer, hair, and moving playback before committing to the production path."
+      ],
+      [
+        "Revise the success criterion",
+        "Compare the working prototype with the source person. When recognizability is lost, return to source data rather than polishing an unsuitable mesh."
+      ],
+      [
+        "Assemble one controlled performance",
+        "Prepare body and facial takes, correct the motion, and review the synchronized result on the production character."
+      ]
+    ],
+    "research": {
+      "question": "How do scan-derived facial details and performed gesture contribute to recognizing a particular digital person?",
+      "change": "One representation factor at a time: surface detail or performance timing.",
+      "keep": "The character identity, camera, lighting, motion content, and presentation duration."
+    },
+    "capture": [
+      "Record the same source region, Wrap correspondence, transferred surface, and final Unreal face. Preserve the source-to-result comparison.",
+      "Show one cleaned body clip, the facial take, their Sequencer alignment, and the final MetaHuman playback.",
+      "Keep the early Unity prototype, production Unreal character, and later Jooan VR extension separately labeled."
+    ],
+    "note": "The archive documents the character and animation pipeline. A family-memory conversational model and a controlled recognition study are not completed contributions.",
+    "aliases": [
+      "신인호",
+      "Digital Human Shininho"
+    ],
+    "in_catalog": true,
+    "catalog_order": 11
   }
 ]
