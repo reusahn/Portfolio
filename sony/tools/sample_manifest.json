@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "project": "Synthetic package demonstration",
+  "package_id": "DEMO_001",
+  "operator": "Synthetic Operator",
+  "destination": {
+    "fps": 30,
+    "units": "cm",
+    "up_axis": "Z"
+  },
+  "takes": [
+    {
+      "take_id": "demo_take_01",
+      "subject_id": "synthetic_subject",
+      "body": {
+        "file": "sample_body.txt",
+        "fps": 30,
+        "frame_range": [
+          0,
+          299
+        ],
+        "sync_frame": 30
+      },
+      "face": {
+        "file": "sample_face.txt",
+        "fps": 30,
+        "frame_range": [
+          0,
+          299
+        ],
+        "sync_frame": 45
+      },
+      "export": {
+        "format": "Alembic",
+        "fps": 30,
+        "frame_range": [
+          0,
+          299
+        ],
+        "units": "cm",
+        "up_axis": "Z",
+        "included_geometry": [
+          "body",
+          "face"
+        ]
+      }
+    }
+  ]
+}

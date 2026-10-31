@@ -1,0 +1,19 @@
+{
+  "project": "Synthetic package demonstration",
+  "package_id": "DEMO_001",
+  "status": "PASS",
+  "scope": "Manifest metadata and source-file presence only; no media-format decoding or animation-quality evaluation.",
+  "counts": {
+    "takes": 1,
+    "errors": 0,
+    "warnings": 0
+  },
+  "issues": [],
+  "alignments": [
+    {
+      "take_id": "demo_take_01",
+      "face_shift_seconds": -0.5,
+      "aligned_overlap_seconds": 9.5
+    }
+  ]
+}
