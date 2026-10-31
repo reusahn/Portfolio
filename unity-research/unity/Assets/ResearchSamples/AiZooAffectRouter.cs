@@ -77,6 +77,7 @@ namespace ResearchSamples
         private MotorCue motor = new MotorCue();
         private bool waitingForChat;
         private bool motorSending;
+        private bool motorOffline;
         private int encounter;
         private int voiceRequest;
 
@@ -87,6 +88,7 @@ namespace ResearchSamples
             StopAllCoroutines();
             waitingForChat = false;
             motorSending = false;
+            motorOffline = false;
         }
 
         public void submitTurn(string typedText)
@@ -291,7 +293,12 @@ namespace ResearchSamples
                 request.SetRequestHeader("Content-Type", "application/json");
                 request.timeout = 2;
                 yield return request.SendWebRequest();
-                if (request.result != UnityWebRequest.Result.Success) onError.Invoke("Motor relay unavailable.");
+                if (request.result != UnityWebRequest.Result.Success)
+                {
+                    if (!motorOffline) onError.Invoke("Motor relay unavailable.");
+                    motorOffline = true;
+                }
+                else motorOffline = false;
             }
             motorSending = false;
         }

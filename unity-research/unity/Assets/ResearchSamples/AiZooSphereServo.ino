@@ -34,7 +34,9 @@ void loop()
         {
             line[length] = '\0';
             int s, p, phase, light;
-            if (sscanf(line, "M,%d,%d,%d,%d", &s, &p, &phase, &light) == 4 &&
+            int consumed = 0;
+            if (sscanf(line, "M,%d,%d,%d,%d%n", &s, &p, &phase, &light, &consumed) == 4 &&
+                line[consumed] == '\0' &&
                 s >= 0 && s <= 100 && p >= 0 && p <= 100 &&
                 phase >= 0 && phase <= 100 && light >= 0 && light <= 100)
             {
