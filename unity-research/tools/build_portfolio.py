@@ -51,6 +51,9 @@ def tags(p):
 
 
 def video_url(p):
+    if p.get('video_embed'):
+        prefix = f'h={p["hash"]}&' if p.get('hash') else ''
+        return f'https://player.vimeo.com/video/{p["video"]}?{prefix}badge=0&autopause=0&player_id=0&app_id=58479'
     suffix = f'&h={p["hash"]}' if p.get('hash') else ''
     return f'https://player.vimeo.com/video/{p["video"]}?title=0&byline=0&portrait=0&dnt=1{suffix}'
 
@@ -61,7 +64,9 @@ def original_video(p):
 
 
 def video(p):
-    return f'''<div class="video-shell"><iframe src="{e(video_url(p))}" title="{e(p['title'])} — project video" width="1920" height="1080" loading="eager" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>'''
+    aspect = f' style="aspect-ratio:{e(p["video_aspect"])}"' if p.get('video_aspect') else ''
+    allow = 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share' if p.get('video_embed') else 'autoplay; fullscreen; picture-in-picture; encrypted-media'
+    return f'''<div class="video-shell"{aspect}><iframe src="{e(video_url(p))}" title="{e(p['title'])} — project video" width="1920" height="1080" loading="eager" allow="{allow}" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>'''
 
 
 def card(p, number):
@@ -135,7 +140,7 @@ def sample_panel(p):
         'jemulpo': 'A framed PNG receiver separates TCP reading from texture creation on Unity’s main thread.',
         'escape-metro': 'A reply validator and puzzle gate keep NPC text separate from game-authorized progression.'
     }[p['id']]
-    return f'''<section class="case-section" id="source"><h2>Code example</h2><p>{e(description)}</p><div class="source-boundary">Independent example, not the original project source. Unity compilation and runtime verification remain pending.</div><p class="source-filename">{e(Path(s['path']).name)}</p><pre class="code-panel"><code>{e(excerpt)}</code></pre>{shader}<h3 class="source-subheading">Implementation notes</h3>{notes}<div class="actions"><a class="text-link" href="{s['path']}" download>{e(Path(s['path']).name)} ↓</a><a class="text-link" href="{s['related']}" download>Related source ↓</a><a class="text-link" href="{REPO}docs/UNITY_SETUP.md">Setup notes ↗</a></div></section>'''
+    return f'''<section class="case-section" id="source"><h2>Code example</h2><p>{e(description)}</p><p class="source-filename">{e(Path(s['path']).name)}</p><pre class="code-panel"><code>{e(excerpt)}</code></pre>{shader}<h3 class="source-subheading">Implementation notes</h3>{notes}<div class="actions"><a class="text-link" href="{s['path']}" download>{e(Path(s['path']).name)} ↓</a><a class="text-link" href="{s['related']}" download>Related source ↓</a><a class="text-link" href="{REPO}docs/UNITY_SETUP.md">Setup notes ↗</a></div></section>'''
 
 
 def inspection_panel(p):
@@ -180,11 +185,16 @@ def unity_features(p):
     result = []
     for i, feature in enumerate(detail['features']):
         result.append(f'''<section class="unity-feature" aria-labelledby="feature-{i+1}"><h3 id="feature-{i+1}">{e(feature['title'])}</h3><p>{e(feature['body'])}</p></section>''')
+        if p['id'] == 'erick-oh' and i == 1:
+            result.append('<figure class="detail-figure video-figure"><div class="video-shell"><iframe src="https://player.vimeo.com/video/1219170568?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" title="Raymarched metaball droplet example" loading="lazy" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div><figcaption>Raymarched droplet and metaball example from the project.</figcaption></figure>')
         if p['id'] == 'ai-zoo':
             result.append(detail_figure(images[i]))
+        elif p['id'] == 'erick-oh':
+            if i == len(detail['features'])-1:
+                result.extend(detail_figure(item) for item in images)
         elif i == 0:
             result.append(detail_figure(images[0]))
-        if p['id'] != 'ai-zoo' and i == len(detail['features'])-1:
+        if p['id'] not in ('ai-zoo', 'erick-oh') and i == len(detail['features'])-1:
             result.extend(detail_figure(item) for item in images[1:])
     return ''.join(result)
 
@@ -220,7 +230,7 @@ def case_page(p):
     metadata = f'<p class="project-meta">{e(p["year"])}</p>' if p['year'] else ''
     techniques = ' · '.join(e(x) for x in p['tags'])
     engine_heading = 'Unreal implementation' if p.get('engine') == 'Unreal Engine' else 'Unity implementation'
-    jooan = '''<section class="case-section" id="jooan"><h2>Jooan · VR extension</h2><p>I brought Shininho's finished character and performance into Jooan's Unreal VR environment. A viewer can look around the scene, so I adjusted camera motion, used dusk lighting to guide attention, and developed hand-attached Niagara ribbon trails for the spatial performance.</p><p>The VR work extends the production MetaHuman; the earlier Unity character was a feasibility prototype. The original project archive documents the camera-comfort revisions, lighting, and Niagara setup.</p><h3>Jooan VR performance</h3>''' + video({'title':'Jooan VR extension','video':'1219693160'}) + '''<figure class="detail-figure archive"><img src="../media/shininho/11_vr_final.jpg" alt="Shininho performing in the Jooan VR setting" loading="lazy"><figcaption>Existing image of the Jooan VR presentation.</figcaption></figure><figure class="detail-figure archive"><img src="../media/shininho/12_niagara_emitter.jpg" alt="Niagara hand emitter setup for Jooan" loading="lazy"><figcaption>Existing Unreal Niagara emitter documentation for the hand trail.</figcaption></figure></section>''' if p['id'] == 'shininho' else ''
+    jooan = '''<section class="case-section" id="jooan"><h2>Jooan · VR extension</h2><p>I brought Shininho's finished character and performance into Jooan's Unreal VR environment. A viewer can look around the scene, so I adjusted camera motion, used dusk lighting to guide attention, and developed hand-attached Niagara ribbon trails for the spatial performance.</p><p>The VR work extends the production MetaHuman; the earlier Unity character was a feasibility prototype. The original project archive documents the camera-comfort revisions, lighting, and Niagara setup.</p><h3>Jooan VR performance</h3>''' + video({'title':'Jooan VR extension','video':'1241678160','hash':'5f6158088f','video_aspect':'4/3','video_embed':True}) + '''<figure class="detail-figure archive"><img src="../media/shininho/11_vr_final.jpg" alt="Shininho performing in the Jooan VR setting" loading="lazy"><figcaption>Existing image of the Jooan VR presentation.</figcaption></figure><figure class="detail-figure archive"><img src="../media/shininho/12_niagara_emitter.jpg" alt="Niagara hand emitter setup for Jooan" loading="lazy"><figcaption>Existing Unreal Niagara emitter documentation for the hand trail.</figcaption></figure></section>''' if p['id'] == 'shininho' else ''
     return header(p['title'], p['implementation'], image=p['image'], lang_url=f'ko/{p["id"]}.html' if p.get('in_catalog') else None).replace('<body>', '<body class="project-detail">') + f'''<main id="main" class="wrap detail-wrap">
 <header class="project-heading"><h1>{e(p['title'])}</h1>{metadata}<p class="project-tools">{techniques}</p><p class="project-summary">{e(p['implementation'])}</p></header>
 <article class="case-content"><section id="project-video">{video(p)}{second}</section>

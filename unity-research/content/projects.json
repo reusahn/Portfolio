@@ -15,7 +15,7 @@
     "image": "assets/images/flower-waves/flower-waves-card.jpg",
     "alt": "Waves and a coastal landscape reconstructed through particles",
     "video": "1226788498",
-    "hash": "",
+    "hash": "b816546885",
     "archive": "detail_pages/flower-of-waves.html",
     "idea": "A landscape persists through change. Waves repeat, particles disperse, and a place returns without ever becoming the same image.",
     "implementation": "I developed the particle imagery in Unity using VFX Graph and shaders. The work moves between recognizable landscapes and dispersed visual fields. The engine-side system becomes a moving-image series for the Art Korea Lab media wall.",
@@ -81,7 +81,9 @@
     "implementation_heading": "Author wave and flower motion with VFX Graph.",
     "engine": "Unity",
     "in_catalog": true,
-    "catalog_order": 9
+    "catalog_order": 9,
+    "video_aspect": "3/1",
+    "video_embed": true
   },
   {
     "id": "beads-wall",
@@ -371,25 +373,25 @@
     "hash": "69a48ffe55",
     "archive": "detail_pages/interactive_1.html",
     "idea": "Remembrance becomes an embodied action. The visitor's live image carries archival photographs of the Gwangju Democratization Movement.",
-    "implementation": "I connected Azure Kinect sensing to Unity and integrated live interaction with Timeline-based media sequencing. Body input, archival-image composition, and timed presentation work together so the memorial responds to the participant rather than playing as a fixed video.",
+    "implementation": "I connected Azure Kinect gesture recognition to automatic portrait capture when a visitor’s flower-holding hand pose reaches an 87% similarity threshold. Unity then builds a live photo mosaic over the captured image, while Timeline coordinates the memorial sequence.",
     "question": "How can a person enter an archive through a gesture rather than only look at it?",
     "context": "The work commemorates the Gwangju Democratization Movement. Its central relation is between a person present now and photographs of people and events in the past. The archive is carried by the visitor's silhouette, making participation an act of attention and remembrance.",
     "system": [
       [
         "Azure Kinect",
-        "Live body and depth input"
+        "Flower-holding gesture and camera image"
       ],
       [
-        "Interaction state",
-        "Recognized participation becomes an event"
+        "Gesture threshold",
+        "At 87% similarity, trigger a portrait capture"
       ],
       [
         "Unity / Timeline",
-        "Media sequence and live composition"
+        "Compose a live mosaic and sequence the scene"
       ],
       [
         "Projection",
-        "A memorial image shaped by presence"
+        "The captured portrait becomes a memorial image"
       ]
     ],
     "technical": [
@@ -431,7 +433,7 @@
       "투 이터니티",
       "타임라인"
     ],
-    "teaser": "Azure Kinect input meets Timeline sequencing and live archival imagery.",
+    "teaser": "An 87% flower-holding gesture match triggers an Azure Kinect portrait and a live mosaic.",
     "implementation_heading": "Bring live sensing into an authored Timeline.",
     "engineering": {
       "decision": "Keep live sensor input distinct from authored Timeline time. The integration connects participant activity to a media sequence while preserving control over the composition.",
@@ -1075,7 +1077,7 @@
     "image": "assets/images/xr4.jpg",
     "alt": "The virtual subway setting in Escape Metro",
     "video": "1107998609",
-    "hash": "",
+    "hash": "f2131a032c",
     "archive": "detail_pages/xr_4.html",
     "idea": "Conversation becomes an escape mechanic. The player tries to persuade an AI guard to reveal information it is meant to withhold.",
     "implementation": "I developed the Unity VR experience and connected GPT-based NPC dialogue to puzzles and progression. The LLM jailbreaking premise gives the player a practical objective: uncover a protected password or clue and use it to move toward escape.",
@@ -1160,7 +1162,9 @@
     },
     "engine": "Unity",
     "in_catalog": true,
-    "catalog_order": 5
+    "catalog_order": 5,
+    "video_aspect": "100/51.87",
+    "video_embed": true
   },
   {
     "id": "narci",

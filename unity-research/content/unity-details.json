@@ -195,25 +195,25 @@
     ],
     "features": [
       {
-        "title": "Azure Kinect input",
-        "tools": "Azure Kinect · body / depth input · C#",
-        "body": "I connected Azure Kinect sensing to Unity. Live body and depth input provide the participant’s presence to the memorial system. The application uses that input within the encounter rather than presenting the visitor as part of a fixed recorded sequence.",
-        "inspect": "The actual sensor connection, body input, and the component that recognizes participation.",
-        "demo": "Show a person entering the sensing area, performing the action, and producing the corresponding event."
+        "title": "Flower-holding gesture and Azure Kinect capture",
+        "tools": "Azure Kinect · hand pose similarity · camera capture · C#",
+        "body": "I used Azure Kinect to recognize the visitor holding a flower. When the hand pose reaches at least 87% similarity to the target gesture, the system automatically captures a camera image. The threshold is the gesture trigger, not a measured recognition-accuracy result.",
+        "inspect": "Show the target gesture, current similarity value, threshold event, and captured frame together.",
+        "demo": "Hold the flower until the similarity crosses 87%, then show the automatic camera capture."
       },
       {
         "title": "Unity Timeline",
         "tools": "Timeline · runtime events · media sequencing",
-        "body": "I integrated sensor-driven events with Timeline-based presentation. Authored media has a fixed temporal structure, while a participant acts at an unpredictable moment. The implementation connects that live input to the sequence and its screen transitions.",
+        "body": "I connected the gesture-triggered capture to the Unity Timeline presentation. The visitor determines when the capture event occurs; Timeline coordinates the subsequent memorial sequence and screen transitions.",
         "inspect": "The Timeline asset, its bound media tracks, and the code or event that changes playback.",
         "demo": "Keep the participant, recognized event, Timeline playhead, and Game view visible during one transition."
       },
       {
-        "title": "Live archival-image composition",
-        "tools": "Live silhouette · image composition · Unity",
-        "body": "I integrated the live participant image with archival imagery and the timed presentation. The resulting composition connects a present body with historical material. Sensor input, image composition, and sequence playback are distinct parts of the system.",
-        "inspect": "The live input image, the composition stage, and its final presentation layer.",
-        "demo": "Record the source body image and the memorial result together, followed by the actual reset behavior."
+        "title": "Live portrait mosaic",
+        "tools": "Captured portrait · live mosaic composition · Unity",
+        "body": "After capture, the visitor’s portrait is transformed into a live mosaic using the project’s photo imagery. The portrait remains visible beneath the evolving mosaic in the projected memorial image.",
+        "inspect": "Show the captured camera frame, source images for the mosaic, and the projected result.",
+        "demo": "Record the threshold crossing, one automatic capture, and the mosaic appearing over that same image."
       }
     ],
     "images": [
@@ -221,7 +221,7 @@
         "src": "../assets/images/e3.png",
         "kind": "archive",
         "title": "Sensor and participation setup",
-        "caption": "Existing production presentation showing the sensing apparatus and participant action. It does not expose the Timeline control code.",
+        "caption": "Existing production presentation of the flower-holding gesture and sensor area. The 87% threshold is specified by the artist; this still does not show a live similarity readout.",
         "alt": "To Eternity documentation showing a Kinect sensor, tracked figure, and flower-offering interaction",
         "slot": "eternity-sensor-timeline",
         "width": 1920,
@@ -231,7 +231,7 @@
         "src": "../assets/images/e5.png",
         "kind": "archive",
         "title": "From participant image to memorial composition",
-        "caption": "Existing before-and-after production documentation of the memorial image and its display.",
+        "caption": "Existing production presentation of visitor portraits and their mosaic transformation.",
         "alt": "To Eternity archival presentation comparing visitor photographs with the composed memorial portraits",
         "slot": "eternity-composition",
         "width": 1947,
@@ -425,16 +425,6 @@
       }
     ],
     "images": [
-      {
-        "src": "assets/reference/shader-reference.png",
-        "kind": "reference",
-        "title": "Cloud deformation / droplet fusion",
-        "caption": "AI-generated illustrative reference for cloud-like deformation and droplet fusion. Not the collaboration’s production render. Actual shader capture pending.",
-        "alt": "Illustrative cloud-like form beside merging droplet-like forms on a dark background",
-        "slot": "erick-cloud-metaball",
-        "width": 1672,
-        "height": 941
-      },
       {
         "src": "../media/game/07_growth_maya_views.jpg",
         "kind": "archive",

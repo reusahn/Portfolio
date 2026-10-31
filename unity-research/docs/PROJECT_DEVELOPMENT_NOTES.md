@@ -167,7 +167,7 @@ Project archive: https://jonghoonahn.com/projects7/erick-oh-real-time-graphics.h
 
 **Premise:** Remembrance becomes an embodied action. The visitor's live image carries archival photographs of the Gwangju Democratization Movement.
 
-**Implementation:** I connected Azure Kinect sensing to Unity and integrated live interaction with Timeline-based media sequencing. Body input, archival-image composition, and timed presentation work together so the memorial responds to the participant rather than playing as a fixed video.
+**Implementation:** I connected Azure Kinect gesture recognition to automatic portrait capture when a visitor’s flower-holding hand pose reaches an 87% similarity threshold. Unity then builds a live photo mosaic over the captured image, while Timeline coordinates the memorial sequence.
 
 ### Development decisions
 
@@ -177,7 +177,7 @@ Project archive: https://jonghoonahn.com/projects7/erick-oh-real-time-graphics.h
 
 ### Input to output
 
-Azure Kinect: Live body and depth input | Interaction state: Recognized participation becomes an event | Unity / Timeline: Media sequence and live composition | Projection: A memorial image shaped by presence
+Azure Kinect: Flower-holding gesture and camera image | Gesture threshold: At 87% similarity, trigger a portrait capture | Unity / Timeline: Compose a live mosaic and sequence the scene | Projection: The captured portrait becomes a memorial image
 
 ### Proposed study
 
