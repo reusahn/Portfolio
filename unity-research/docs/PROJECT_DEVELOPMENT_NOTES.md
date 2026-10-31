@@ -364,38 +364,38 @@ Project archive: https://jonghoonahn.com/detail_pages/interactive_2.html
 
 ## AI ZOO
 
-**My role:** Director / technical artist
+**My role:** 
 
-**Question:** Why can a person feel responsible for an artificial entity whose feelings cannot be assumed?
+**Question:** When a confined digital human appears afraid, where does the audience’s sense of responsibility come from?
 
 **Premise:** A confined artificial figure can make a visitor feel concern, discomfort, or responsibility. The work asks where those feelings actually arise.
 
-**Implementation:** I connected Leap Motion hand sensing and real-time LLM dialogue to a Unity digital human, generated voice, Arduino servo motors, and lighting. Unity and Python link these inputs and outputs within one interactive installation.
+**Implementation:** A phone-like typed conversation and Leap Motion hand input feed a Unity digital human and a physical sphere driven by three Arduino servos. LLM dialogue, generated voice, lighting, and movement shape one encounter.
 
 ### Development decisions
 
-1. **Stage the asymmetry.** Define the visitor's ability to intervene and the artificial figure's apparent inability to leave.
-2. **Choose an output vocabulary.** Assign expressive roles to movement, light, voice, and response timing.
-3. **Connect the bench to the encounter.** Inspect one input through each output channel, then judge how the combined response is read in the installation.
+1. **Stage confinement before interaction.** Use the CCTV-like digital human, repeated plea for help, and autonomous sphere to establish expectation before a typed message.
+2. **Define a translation vocabulary.** Decide how text and hand input change expressive state and how state appears through the character, voice, motors, lighting, and timing.
+3. **Rehearse the complete encounter.** Check a typed turn and one hand action across display, speaker, sphere, and light in the actual physical arrangement.
 
 ### Input to output
 
-Visitor input: Language and Leap Motion hands | Unity / Python: Input and response coordination | Response outputs: LLM reply, voice, and digital human | Physical apparatus: Arduino servos and lighting
+Typed text + hand: Phone-like keyboard and Leap Motion | Affect encoding: LLM reply, state values, accumulation | Unity / Python: Digital human, voice and output coordination | Physical response: Three Arduino servos, sphere and lighting
 
 ### Proposed study
 
-How does adding physical motion change the interpretation of the same AI response?
+Does sphere movement change how visitors interpret an otherwise identical typed AI reply?
 
-Vary: The servo-driven movement accompanying a fixed response.
+Vary: Sphere motion versus a stationary sphere, with the same reply and display.
 
-Hold consistent: Dialogue, digital-human appearance, response timing, and spatial setting.
+Hold consistent: Text prompt, generated reply, character appearance, voice playback, and installation context.
 
 ### Evidence to add
 
 - Record a hand or language input, the response/control state, and servo, light, voice, and digital-human output together.
 - Show the Arduino connection and one controlled motor command. Also show the implemented interrupted-input and reset behavior.
 
-Scope note: The artist confirms the LLM, digital-human, hand-sensing, Arduino servo, and light integration. Emotional responses are artistic and research questions, not reported study results.
+Scope note: Original archive describes ChatGPT API, ElevenLabs voice, Unity character, Leap Motion and Arduino output. The artist clarifies phone-like keyboard input. The independent C# mapping on this page is newly authored, not recovered production code.
 
 Project archive: https://jonghoonahn.com/detail_pages/interactive_4.html
 

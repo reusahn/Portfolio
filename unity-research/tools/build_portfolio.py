@@ -148,6 +148,31 @@ def inspection_panel(p):
     return f'<details class="technical-notes"><summary>Verification and reuse notes</summary><p>These are newly prepared checks, not reported production incidents.</p><dl class="inspection-note">{items}</dl></details>'
 
 
+def ai_zoo_panel(p):
+    if p['id'] != 'ai-zoo':
+        return ''
+    stages = [
+        ('Nonlinear source', 'The plea for help, CCTV-like screen, prewritten messages, and autonomous sphere set expectations before interaction.'),
+        ('Encoding', 'Phone-like typed text, Leap Motion gesture intensity, and repeated actions become expressive state values.'),
+        ('Interface channel', 'Digital human, generated voice, three-servo sphere, light, and delay make a state perceptible.'),
+        ('Human interpretation', 'A viewer might read abrupt motion as anger or pain, and subdued pulsing as fear or loneliness.'),
+        ('Psychological reality', 'Pity, guilt, unease, control, and responsibility are possibilities inside the viewer, not system telemetry.')
+    ]
+    steps = ''.join(f'<li><h3>{e(a)}</h3><p>{e(b)}</p></li>' for a,b in stages)
+    code = '''public static MotionIntent Map(AffectVector a)
+{
+    a.Clamp();
+    float attenuation = 1f - a.despair;
+    return new MotionIntent {
+        speed = Mathf.Clamp01((a.anger * 0.75f + a.fear * 0.25f + a.sadness * 0.15f) * attenuation),
+        power = Mathf.Clamp01((a.anger * 0.8f + a.sadness * 0.3f + a.fear * 0.1f) * attenuation),
+        phaseSpread = Mathf.Clamp01(a.anger * 0.85f)
+    };
+}'''
+    return f'''<section class="case-section" id="affect-model"><h2>How the encounter carries affect</h2><p>AI ZOO artistically extends Shannon’s source–channel–receiver model: expectation precedes a typed turn, and the destination is the viewer’s interpretation. This is a conceptual model of the encounter, not a measured theory of audience psychology.</p><ol class="development-steps">{steps}</ol><p><strong>Feedback:</strong> typed text or hand action → expressive state → voice, sphere, light and character → audience interpretation → another action.</p></section>
+<section class="case-section" id="emotion-motion"><h2>From dialogue to sphere motion</h2><p>The visitor types through a phone-like interface. The project archive identifies ChatGPT API for replies and ElevenLabs for voice. The owner describes a multidimensional anger, sadness, fear, and despair representation, accumulated over interaction and translated to motor behavior and vocal expression. A Leap Motion gesture enters through its own input path. Three Arduino servos animate the transparent sphere. Specific wire messages, motor angles and voice settings require the original source and hardware.</p><p>For example, stronger anger can yield fast, forceful, offset movement; sadness a slower pulse; despair a fade toward stillness. Fear can shape vocal tension and the viewer’s uncertain reading. These are authored mappings, not evidence that the digital human experiences fear.</p><p><code>{{"anger":0.72,"sadness":0.41,"fear":0.19,"despair":0.88}}</code> is an illustrative control vector, not an archived interaction or psychological measurement.</p><h3>Independent C# example</h3><p>This newly written Unity component accepts structured affect from a separate LLM adapter and calibrated hand intensity from a separate Leap Motion adapter. It emits bounded motion, light and voice intent. A hardware adapter must still enforce servo angle limits and a physical stop.</p><div class="source-boundary">Portfolio example, not recovered installation code. Unity compilation and Leap Motion, voice, and Arduino runtime checks remain pending. The coefficients are example choices.</div><pre class="code-panel"><code>{e(code)}</code></pre><div class="actions"><a class="text-link" href="unity/Assets/ResearchSamples/AiZooAffectRouter.cs" download>AiZooAffectRouter.cs ↓</a><a class="text-link" href="unity/Assets/ResearchSamples/AI_ZOO_SAMPLE_README.md">Integration boundaries ↗</a><a class="text-link" href="../detail_pages/interactive_4.html">Original project archive ↗</a></div></section>'''
+
+
 def detail_figure(item):
     label = '<p class="reference-label">Illustrative reference · AI-generated</p>' if item['kind'] == 'reference' else ''
     return f'''<figure class="detail-figure {e(item['kind'])}" data-image-slot="{e(item['slot'])}">{label}<a href="{e(item['src'])}" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: {e(item['title'])}"><img src="{e(item['src'])}" alt="{e(item['alt'])}" loading="lazy" decoding="async" width="{item.get('width',1920)}" height="{item.get('height',1080)}"></a><figcaption>{e(item['caption'])}</figcaption></figure>'''
@@ -202,7 +227,7 @@ def case_page(p):
 <header class="project-heading"><h1>{e(p['title'])}</h1>{metadata}<p class="project-tools">{techniques}</p><p class="project-summary">{e(p['implementation'])}</p></header>
 <article class="case-content"><section id="project-video">{video(p)}{second}</section>
 <section class="case-section" id="implementation"><h2>{engine_heading}</h2><div class="unity-feature-list">{unity_features(p)}</div></section>
-{jooan}
+{jooan}{ai_zoo_panel(p)}
 <section class="case-section" id="structure"><h2>System & design decisions</h2>{diagram}{decisions}{inspection_panel(p)}</section>
 {sample_panel(p)}
 <section class="case-section" id="concept"><h2>Concept</h2><p class="case-question">{e(p['question'])}</p><p>{e(p['context'])}</p>{credits}</section>

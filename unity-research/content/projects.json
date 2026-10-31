@@ -800,14 +800,13 @@
     "title": "AI ZOO",
     "year": "2024",
     "medium": "Embodied AI installation",
-    "role": "Director / technical artist",
+    "role": "",
     "tags": [
       "Unity / Python",
       "Leap Motion",
+      "LLM / voice",
       "Arduino servos",
-      "LLM",
-      "Digital human",
-      "Voice / lighting"
+      "Digital human"
     ],
     "image": "assets/images/interactive4.jpg",
     "alt": "AI ZOO's digital-human display and motor-driven transparent sphere",
@@ -815,71 +814,71 @@
     "hash": "",
     "archive": "detail_pages/interactive_4.html",
     "idea": "A confined artificial figure can make a visitor feel concern, discomfort, or responsibility. The work asks where those feelings actually arise.",
-    "implementation": "I connected Leap Motion hand sensing and real-time LLM dialogue to a Unity digital human, generated voice, Arduino servo motors, and lighting. Unity and Python link these inputs and outputs within one interactive installation.",
-    "question": "Why can a person feel responsible for an artificial entity whose feelings cannot be assumed?",
-    "context": "AI ZOO places a digital human, a moving transparent form, voice, and visitor input in the same space. The encounter begins before the visitor says anything: confinement and a request for help already establish expectations. Motor motion, speech, and delay then provide signals the person may interpret as affect.",
+    "implementation": "A phone-like typed conversation and Leap Motion hand input feed a Unity digital human and a physical sphere driven by three Arduino servos. LLM dialogue, generated voice, lighting, and movement shape one encounter.",
+    "question": "When a confined digital human appears afraid, where does the audience’s sense of responsibility come from?",
+    "context": "Before a visitor types a word, a CCTV-like display, a looping request for help, and an independently moving transparent sphere set an emotional expectation. The visitor writes through a phone-like keyboard and can use a hand near the Leap Motion sensor. The dialogue and gesture are encoded as control values; voice, character, light, delay, and sphere motion make the response perceptible. A visitor may interpret that output as fear, pain, anger, or loneliness. Those are possible readings of the encounter, not measured audience results or a claim that the AI feels.",
     "system": [
       [
-        "Visitor input",
-        "Language and Leap Motion hands"
+        "Typed text + hand",
+        "Phone-like keyboard and Leap Motion"
+      ],
+      [
+        "Affect encoding",
+        "LLM reply, state values, accumulation"
       ],
       [
         "Unity / Python",
-        "Input and response coordination"
+        "Digital human, voice and output coordination"
       ],
       [
-        "Response outputs",
-        "LLM reply, voice, and digital human"
-      ],
-      [
-        "Physical apparatus",
-        "Arduino servos and lighting"
+        "Physical response",
+        "Three Arduino servos, sphere and lighting"
       ]
     ],
     "technical": [
       [
-        "One encounter across several devices",
-        "A model reply, an audio response, an animated face, and a servo command do not naturally share the same execution path. The implementation connects those subsystems into a live installation."
+        "Keep the input paths distinct",
+        "A typed turn and a sensed hand action are different signals. The language-model response and gesture intensity can inform a shared expressive state without turning sensor data into an invented spoken conversation."
       ],
       [
-        "Make internal control perceptible",
-        "Movement, light, voice, and timing give a system state a physical presence. They are control signals and performed behavior, not proof that the machine experiences the emotion attributed to it."
+        "Translate affect into bounded outputs",
+        "Anger, sadness, fear, and despair are control dimensions in the artistic system. Motion speed, power, phase, lighting, and supported voice controls make state legible; the Arduino layer still needs calibrated limits and safe stopping."
       ],
       [
-        "Preserve the sensing boundary",
-        "Hand input is part of the interaction loop. The hand-sensing path remains distinct from the language path even when both contribute to the same response."
+        "Close the interpretive loop",
+        "A person encounters a response, makes an interpretation, and may type or gesture again. That interpretation happens in the visitor; it is not a sensor reading of what the visitor felt."
       ]
     ],
     "preproduction": [
       [
-        "Stage the asymmetry",
-        "Define the visitor's ability to intervene and the artificial figure's apparent inability to leave."
+        "Stage confinement before interaction",
+        "Use the CCTV-like digital human, repeated plea for help, and autonomous sphere to establish expectation before a typed message."
       ],
       [
-        "Choose an output vocabulary",
-        "Assign expressive roles to movement, light, voice, and response timing."
+        "Define a translation vocabulary",
+        "Decide how text and hand input change expressive state and how state appears through the character, voice, motors, lighting, and timing."
       ],
       [
-        "Connect the bench to the encounter",
-        "Inspect one input through each output channel, then judge how the combined response is read in the installation."
+        "Rehearse the complete encounter",
+        "Check a typed turn and one hand action across display, speaker, sphere, and light in the actual physical arrangement."
       ]
     ],
     "research": {
-      "question": "How does adding physical motion change the interpretation of the same AI response?",
-      "change": "The servo-driven movement accompanying a fixed response.",
-      "keep": "Dialogue, digital-human appearance, response timing, and spatial setting."
+      "question": "Does sphere movement change how visitors interpret an otherwise identical typed AI reply?",
+      "change": "Sphere motion versus a stationary sphere, with the same reply and display.",
+      "keep": "Text prompt, generated reply, character appearance, voice playback, and installation context."
     },
     "capture": [
       "Record a hand or language input, the response/control state, and servo, light, voice, and digital-human output together.",
       "Show the Arduino connection and one controlled motor command. Also show the implemented interrupted-input and reset behavior."
     ],
-    "note": "The artist confirms the LLM, digital-human, hand-sensing, Arduino servo, and light integration. Emotional responses are artistic and research questions, not reported study results.",
+    "note": "Original archive describes ChatGPT API, ElevenLabs voice, Unity character, Leap Motion and Arduino output. The artist clarifies phone-like keyboard input. The independent C# mapping on this page is newly authored, not recovered production code.",
     "aliases": [
       "에이아이주",
       "아두이노",
       "서보모터"
     ],
-    "teaser": "Hand sensing and AI dialogue drive a character and physical apparatus.",
+    "teaser": "Typed AI dialogue and hand input become voice, light, and motion.",
     "implementation_heading": "Coordinate conversation, hand input, and physical output.",
     "engine": "Unity",
     "in_catalog": true,

@@ -647,31 +647,31 @@
   },
   "ai-zoo": {
     "built": [
-      "Real-time LLM and digital-human integration",
+      "Phone-like typed LLM dialogue and Unity digital human",
       "Leap Motion hand input",
-      "Arduino servo and lighting output"
+      "Three Arduino servos controlling the sphere; voice and lighting output"
     ],
     "features": [
       {
-        "title": "LLM dialogue & digital human",
-        "tools": "Unity C# · Python · LLM · voice",
-        "body": "I connected real-time LLM replies and generated voice to a Unity digital human. Unity and Python coordinate the exchange so a response can be heard and seen as part of the installation. Language input and physical input enter the same encounter through separate paths.",
-        "inspect": "The incoming turn, generated reply, voice playback, and character response.",
-        "demo": "Record one complete input-to-response turn with the actual control state visible."
+        "title": "Typed dialogue and digital human",
+        "tools": "Unity C# · Python · ChatGPT API · ElevenLabs · Character Creator 4",
+        "body": "Visitors type into a phone-like keyboard interface. The original archive describes ChatGPT API text generation and ElevenLabs voice synthesis; a Character Creator 4 digital human, refined in Maya, appears in Unity with animation and lip sync. The reply becomes a visible and audible event inside the enclosure. The audience conversation enters through typed text.",
+        "inspect": "One typed turn through reply, voice playback and character output.",
+        "demo": "Show the chat interface, the Unity character view, and one complete reply."
       },
       {
-        "title": "Leap Motion hand input",
-        "tools": "Leap Motion · hand sensing · Unity",
-        "body": "I integrated Leap Motion hand sensing alongside the conversational input. A hand action becomes a control signal for the encounter, while the language path produces a reply. The sensor and its participant-facing placement are documented in the installation images.",
-        "inspect": "The actual hand-sensor output and the component that receives it in the installation.",
-        "demo": "Perform one controlled hand action and show the resulting system response."
+        "title": "Hand sensing and affect encoding",
+        "tools": "Leap Motion · gesture intensity · expressive state",
+        "body": "Leap Motion supplies a distinct hand-input path. The project treats text, gestures, and repeated action as signals that can influence an expressive affect state, including fear. That state is an authored control model, not a reading of anyone’s inner experience. Repetition and delay change how the audience can read the response.",
+        "inspect": "Hand gesture, recognized value, and response state.",
+        "demo": "Show a hand action separately from a typed turn."
       },
       {
-        "title": "Arduino servos & lighting",
-        "tools": "Arduino · servo motors · lighting",
-        "body": "I connected the digital system to Arduino-controlled servo motors and lighting. The installation combines character, voice, light, and physical movement as outputs. The documented sphere linkage shows the mechanical side of that connection; the exact command protocol and motor limits belong to the hardware source.",
-        "inspect": "The Arduino connection, one actual control command, and the connected motor or light.",
-        "demo": "Send one implemented command, show the physical output, then record the available reset or stop behavior."
+        "title": "Three-servo sphere, voice and light",
+        "tools": "Arduino · three servo motors · transparent sphere · voice · lighting",
+        "body": "An expressive state is mapped to the movement of a large transparent sphere through three Arduino-controlled servos and is presented with voice and lighting. Faster, more forceful and offset motion can suggest anger; slower pulses can suggest sadness; fading movement can suggest despair. These are interpretive mappings. Original motor ranges, serial messages, and voice parameter values are not published here.",
+        "inspect": "The sphere linkage, Arduino connection, actual movement and light/voice cue.",
+        "demo": "Show one synchronized response and the actual stop/reset behavior."
       }
     ],
     "images": [
@@ -689,7 +689,7 @@
         "src": "../assets/images/AI_ZOO_03.jpg",
         "kind": "archive",
         "title": "The physical actuation mechanism",
-        "caption": "Existing hardware documentation of the sphere linkage used in the physical apparatus.",
+        "caption": "Existing AI ZOO hardware documentation of the sphere linkage; three servo motors are described by the artist.",
         "alt": "Actual AI ZOO sphere linkage and physical actuation apparatus",
         "slot": "aizoo-arduino-output",
         "width": 1920,
