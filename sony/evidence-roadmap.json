@@ -1,0 +1,420 @@
+{
+  "status": "planned-evidence",
+  "note": "Existing case evidence is separate from these additional recordings. Draft captions require verification.",
+  "projects": {
+    "shininho": {
+      "title": "Shininho",
+      "pipeline": [
+        [
+          "External scan",
+          "Studio-supplied face / body mesh"
+        ],
+        [
+          "Likeness rebuild",
+          "Maya preparation → Wrap → MetaHuman"
+        ],
+        [
+          "Performance",
+          "OptiTrack / Motive body + separate iPhone face"
+        ],
+        [
+          "Reconstruct & conform",
+          "MotionBuilder / HumanIK → Sequencer"
+        ],
+        [
+          "Delivery",
+          "Unreal character performance + Jooan VR"
+        ]
+      ],
+      "decisions": [
+        [
+          "Prototype lost likeness",
+          "Rebuild from the high-resolution source instead of accepting a functional but less recognizable character.",
+          "Source / prototype / MetaHuman comparison.",
+          "chapter-01"
+        ],
+        [
+          "Low-floor capture broke down",
+          "Retake visible failures; reconstruct residual damaged ranges with valid neighboring poses.",
+          "Capture-stage documentation and the documented repair method.",
+          "chapter-04"
+        ],
+        [
+          "Body and face were recorded separately",
+          "Keep independent take selection, then align the chosen performances.",
+          "Facial-capture footage and final Unreal performance.",
+          "chapter-03"
+        ]
+      ],
+      "handoff": "A MetaHuman-compatible character, cleaned and retargeted body animation, independently selected facial animation, and assembled Unreal performance. The later VR scene adds immersive staging and hand-driven effects.",
+      "review": "Review source-to-final likeness, eyes in motion, continuity through reconstructed ranges, body / face timing, and the complete scene presentation.",
+      "slots": [
+        {
+          "id": "SH-01",
+          "name": "One take, four views",
+          "kind": "Matched motion comparison",
+          "length": "20–30 seconds",
+          "panels": [
+            "Performer reference",
+            "Raw optical solve",
+            "Corrected animation",
+            "Final MetaHuman"
+          ],
+          "record": "Use the same source take and time range. Add a shared frame counter and annotate one tracking-loss range, the correction, and the final body contact. Keep a raw / corrected curve inset for the edited joint.",
+          "pass": "All four views identify the same take and frame range; correction ranges are marked; the result can be inspected at normal speed and frame by frame.",
+          "copy": "I reconstructed the marked tracking-loss segment using valid neighboring poses, then reviewed the corrected body performance against reference before combining the independently selected facial take in Unreal.",
+          "placement": "Motion reconstruction / chapter 04"
+        },
+        {
+          "id": "SH-02",
+          "name": "Capture decision on stage",
+          "kind": "Operator / performer breakdown",
+          "length": "45–60 seconds",
+          "panels": [
+            "Marker & volume setup",
+            "Performer instruction",
+            "Tracking review",
+            "Retake decision"
+          ],
+          "record": "Show the actual operator, equipment, calibration record if retained, take direction, one visible source failure, and the resulting retake. State when archival footage does not cover a step.",
+          "pass": "Direct capture operation and downstream preparation are attributable; no external volumetric-studio work is presented as my acquisition.",
+          "copy": "The stage review connected performer direction to data usability: I checked the problematic movement, directed a retake, and preserved the selected take for downstream cleanup.",
+          "placement": "Capture operation / chapter 03"
+        }
+      ]
+    },
+    "row": {
+      "title": "Row, Row, Row Your Boat",
+      "pipeline": [
+        [
+          "Define intake",
+          "Identity + reference + singing requirements"
+        ],
+        [
+          "Artist records",
+          "Participant capture by Jung Hye-jeong"
+        ],
+        [
+          "Ten identities",
+          "MetaHuman builds + source fallback"
+        ],
+        [
+          "Ensemble edit",
+          "Look development + canon + head / body alignment"
+        ],
+        [
+          "Delivery",
+          "Two-channel installation + lighting variants"
+        ]
+      ],
+      "decisions": [
+        [
+          "Some identity input was unusable",
+          "Recover with supplemental Polycam source, then review each person individually.",
+          "Identity-pipeline images and ten-face grid.",
+          "chapter-01"
+        ],
+        [
+          "Five overlapping close-up faces",
+          "Retain LOD 0; adjust groom response and disable unnecessary groom simulation.",
+          "Skin / groom comparisons and overlap evidence.",
+          "chapter-02"
+        ],
+        [
+          "Singing sources lacked editorial coverage",
+          "Rebuild silent beats while retaining useful blinking and subtle head motion.",
+          "Sequencer, reconstruction, and final ensemble views.",
+          "chapter-03"
+        ]
+      ],
+      "handoff": "Ten individualized characters organized into two five-character ensembles, canon-timed facial performances, morning / sunset / night lighting variants, and a looping two-channel presentation for square panels.",
+      "review": "Review each identity against its reference, ensemble skin / groom readability, silent-to-singing continuity, stable head motion, and the intended front / side installation framing.",
+      "slots": [
+        {
+          "id": "RW-01",
+          "name": "One editorial beat, source to ensemble",
+          "kind": "Facial editorial comparison",
+          "length": "20–30 seconds",
+          "panels": [
+            "Recorded singing source",
+            "Rebuilt silent beat",
+            "Head / body correction",
+            "Final canon ensemble"
+          ],
+          "record": "Show one participant through an entrance or pause. Identify removed mouth keys, retained blinks, the head-motion representation, and the same moment in the ensemble.",
+          "pass": "The comparison uses a matching time window and clearly separates artist-recorded input from my identity, editorial, and integration work.",
+          "copy": "I rebuilt the missing editorial beat from the singing source, retained useful blinking and head movement, and aligned the body-side head motion before reviewing the character in the canon ensemble.",
+          "placement": "Editorial / head stability / chapters 03–04"
+        },
+        {
+          "id": "RW-02",
+          "name": "Ensemble delivery record",
+          "kind": "Measured presentation breakdown",
+          "length": "One annotated sheet + short playback",
+          "panels": [
+            "Five-face composition",
+            "Groom settings",
+            "Render configuration",
+            "Two-channel output"
+          ],
+          "record": "Record actual engine version, hardware, character / groom settings, output resolution, delivery frame rate, and render time. Define the baseline before making a cost comparison.",
+          "pass": "Every number comes from the actual scene or delivery; appearance and cost are reported separately; front / side and channel framing are visible.",
+          "copy": "I reviewed the five-character overlap in the final framing, then recorded the scene settings and delivered the two-channel loop using the documented output configuration.",
+          "placement": "Installation delivery / chapter 05"
+        }
+      ]
+    },
+    "gang-se-hwang": {
+      "title": "Gang Se-hwang",
+      "pipeline": [
+        [
+          "Portrait reference",
+          "View-dependent likeness evidence"
+        ],
+        [
+          "Custom character",
+          "ZBrush / ZWrap → Maya topology & UVs"
+        ],
+        [
+          "Facial interface",
+          "52-base library → ~256 targets + coefficient import"
+        ],
+        [
+          "Hair & garment",
+          "XGen cards + Marvelous Alembic"
+        ],
+        [
+          "Delivery",
+          "Unity HDRP character + C# museum interaction"
+        ]
+      ],
+      "decisions": [
+        [
+          "Only painted likeness was available",
+          "Anchor the visible likeness to the portrait; interpret unseen anatomy as production geometry.",
+          "Portrait reconstruction and wireframe / UV evidence.",
+          "chapter-01"
+        ],
+        [
+          "Capture coefficients did not map",
+          "Normalize channel-name case in an existing import workflow.",
+          "Custom rig evidence and facial-performance comparison.",
+          "chapter-02"
+        ],
+        [
+          "Different assets needed different playback behavior",
+          "Use card hair for the real-time character and garment caches synchronized in Timeline.",
+          "Hair-card, Hanbok, Unity, and public-kiosk evidence.",
+          "chapter-03"
+        ]
+      ],
+      "handoff": "A custom historical character, capture-driven facial targets, card hair, synchronized Hanbok caches, HDRP look development, and a visitor-facing Unity / C# application.",
+      "review": "Review likeness from the portrait view, expression correspondence, eye / mouth deformation, garment timing, character appearance at kiosk scale, and visitor interaction.",
+      "slots": [
+        {
+          "id": "GS-01",
+          "name": "Trace a coefficient into the custom face",
+          "kind": "Facial-system demonstration",
+          "length": "30–45 seconds",
+          "panels": [
+            "Recorded coefficient",
+            "Normalized channel name",
+            "Base / corrective targets",
+            "Final face in motion"
+          ],
+          "record": "Select a real recorded channel and expression. Show the import mismatch and fix, relevant target weights, and the same expression on the finished face. Identify inherited and authored components.",
+          "pass": "The captured signal reaches the correct channel; the expression is inspectable in motion; expanded targets are not described as 256 independent ARKit channels.",
+          "copy": "I traced the recorded coefficient through the imported workflow, corrected the channel-name mismatch, and reviewed the relevant base and corrective shapes on the custom character.",
+          "placement": "Facial system / chapter 02"
+        },
+        {
+          "id": "GS-02",
+          "name": "One interaction from input to display",
+          "kind": "Public-system breakdown",
+          "length": "20–30 seconds",
+          "panels": [
+            "Visitor input",
+            "C# state / event",
+            "Character & camera",
+            "Kiosk output"
+          ],
+          "record": "Record the actual touch or trigger, the Unity event / state, character timing, camera composite, and deployed screen. Avoid invented uptime or reliability statistics.",
+          "pass": "The complete interaction is visible and its scope is attributable; garment / animation timing and the live camera feed can be reviewed together.",
+          "copy": "The visitor input triggers the character presentation while the live camera feed and UI remain coordinated in the public Unity application.",
+          "placement": "Public deployment / chapter 05"
+        }
+      ]
+    },
+    "when-it-seen": {
+      "title": "When It Seen",
+      "pipeline": [
+        [
+          "Body source",
+          "MOVIN TRACIN"
+        ],
+        [
+          "Facial source",
+          "iPhone / head rig → facial animation"
+        ],
+        [
+          "Performer conform",
+          "Independent timing alignment for three dancers"
+        ],
+        [
+          "Geometry export",
+          "Full body + face Alembic; no clothing"
+        ],
+        [
+          "Receiving team",
+          "Houdini cloth-contact / imprint simulation"
+        ]
+      ],
+      "decisions": [
+        [
+          "Sources came from independent streams",
+          "Align each dancer before baking the combined performance.",
+          "Capture and integrated-performance videos.",
+          "chapter-02"
+        ],
+        [
+          "The receiving department needed a moving surface",
+          "Deliver body and facial deformation as full-character Alembic.",
+          "Integrated character and credited downstream cloth-contact footage.",
+          "chapter-03"
+        ]
+      ],
+      "handoff": "Per-performer, synchronized full-character Alembic geometry carrying both body and facial deformation for the collaborating Houdini department. Clothing simulation belongs to that downstream team.",
+      "review": "Review the selected timing for each dancer, facial inclusion, geometry continuity, source / export range agreement, and the receiving department’s interpretation of the cache.",
+      "slots": [
+        {
+          "id": "WS-01",
+          "name": "Round-trip the receiving surface",
+          "kind": "Cross-DCC verification",
+          "length": "20–30 seconds + export record",
+          "panels": [
+            "Unreal source",
+            "Export specification",
+            "Houdini import",
+            "Same-frame deformation"
+          ],
+          "record": "Use one dancer and matched frames. Record actual range, rate, units, up axis, included meshes, format, and receiving application. Ask the receiving team to identify its import and simulation contribution.",
+          "pass": "Body and face are present at matching frames, timing / scale are documented, and downstream simulation is credited separately.",
+          "copy": "I compared the synchronized character in Unreal with the imported body-and-face cache at matched frames before the receiving team used the surface for cloth-contact simulation.",
+          "placement": "Simulation handoff / chapter 03"
+        }
+      ]
+    },
+    "graphics-rd": {
+      "title": "Erick Oh collaboration",
+      "pipeline": [
+        [
+          "Creative requirement",
+          "Controllable cloud / droplet behavior"
+        ],
+        [
+          "Interaction model",
+          "C# movement, input, grouping"
+        ],
+        [
+          "Rendering model",
+          "HLSL displacement / implicit field"
+        ],
+        [
+          "Authored deformation",
+          "Four matching-topology Maya targets"
+        ],
+        [
+          "Delivery",
+          "Unity URP runtime + editable animation"
+        ]
+      ],
+      "decisions": [
+        [
+          "Interactive droplets needed a coherent liquid appearance",
+          "Separate C# object behavior from the raymarched HLSL field.",
+          "Runtime / Unity footage and the documented division of responsibilities.",
+          "chapter-02"
+        ],
+        [
+          "Growth needed repeatable art direction",
+          "Preserve vertex count and ordering across exactly four Maya targets.",
+          "Four growth states and multi-view wireframes.",
+          "chapter-03"
+        ]
+      ],
+      "handoff": "Controllable Unity URP visual systems, C# behavior / material controls, and four corresponding Maya-authored deformation states driven through Timeline / Animation.",
+      "review": "Review input-to-visual response, grouping behavior versus appearance, target correspondence, and artist control of repeatable growth.",
+      "slots": [
+        {
+          "id": "EO-01",
+          "name": "Expose the behavior and rendering contract",
+          "kind": "Parameter / implementation breakdown",
+          "length": "30–45 seconds",
+          "panels": [
+            "Runtime input",
+            "C# control",
+            "HLSL response",
+            "Final visual"
+          ],
+          "record": "Record one shareable input / parameter change and its corresponding code / material control and output. Use only cleared source; a newly authored reference implementation must be labeled as such.",
+          "pass": "The relationship between input and visual behavior is inspectable; existing project code and new reference code are clearly distinguished.",
+          "copy": "C# maps the runtime control to the material parameters, while HLSL determines the visible cloud or liquid response. The breakdown shows the same change at each layer.",
+          "placement": "Cloud / metaball systems / chapters 01–02"
+        }
+      ]
+    },
+    "age-variation": {
+      "title": "Age-variant digital human",
+      "pipeline": [
+        [
+          "Identity source",
+          "Depth video → MetaHuman Identity"
+        ],
+        [
+          "Common face",
+          "Identity-bearing facial reference"
+        ],
+        [
+          "Child branch",
+          "MetaHuman head + CC4 child body"
+        ],
+        [
+          "Adult branch",
+          "Shared adult geometry + age surfaces"
+        ],
+        [
+          "Delivery",
+          "Material-driven adult transitions"
+        ]
+      ],
+      "decisions": [
+        [
+          "Age changes affected different representations",
+          "Use a separate body adaptation for the child and surface changes on the shared adult geometry.",
+          "Identity-development images and age-state comparison.",
+          "chapter-02"
+        ]
+      ],
+      "handoff": "A shared facial reference across a child-body adaptation and adult age treatments. Adult transitions are material / texture changes, with the child body handled as a separate structural adaptation.",
+      "review": "Review facial recognition across the states, the child head / body junction, adult-geometry consistency, and the transition under a fixed camera and light.",
+      "slots": [
+        {
+          "id": "AV-01",
+          "name": "Separate structure from surface",
+          "kind": "Variant-control breakdown",
+          "length": "20–30 seconds",
+          "panels": [
+            "Common facial reference",
+            "Child body adaptation",
+            "Shared adult wireframe",
+            "Adult material transition"
+          ],
+          "record": "Keep camera and lighting fixed for adult surface transitions. Include a wireframe view and identify the separate child-body branch without implying a single mesh morphs through every age.",
+          "pass": "Shared adult geometry and the separate child-body adaptation are explicit; changes can be inspected without camera or lighting confounds.",
+          "copy": "The adult treatments preserve the same geometry while surface parameters change. The child variant uses a separate body adaptation to address the younger silhouette.",
+          "placement": "Age-state construction / chapter 02"
+        }
+      ]
+    }
+  }
+}
