@@ -37,3 +37,6 @@ Two connected players control orthogonal axes of one reticle. Host = horizontal 
 Existing art/game installations are separate, completed historical projects. This newly authored sample is **LAN desktop networking source** with execution pending. It does **not** claim to provide a complete Quest VR game. To build a Quest version, add OpenXR + XR Interaction Toolkit, replace keyboard axis adapters with controller axes, build for Android/Quest, and record headset profiling and two-device playtest results.
 
 See official Unity references: https://docs.unity3d.com/6000.0/Documentation/Manual/com.unity.netcode.gameobjects.html and https://docs.unity.com/en-us/mps-sdk/tutorials/build-your-first-session
+
+
+See also [`VALIDATION.md`](VALIDATION.md) and [`QUEST_VALIDATION.md`](QUEST_VALIDATION.md) for scoped checks.
