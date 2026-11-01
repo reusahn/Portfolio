@@ -25,18 +25,41 @@
     @media(max-width:850px){.hero{grid-template-columns:1fr;gap:35px}.band-inner{grid-template-columns:1fr;gap:20px}.network-feature{grid-template-columns:1fr;gap:20px}.cta{grid-template-columns:1fr}.top nav{gap:15px}}
     @media(max-width:620px){.wrap{width:calc(100% - 36px)}.top .wrap{min-height:60px}.wordmark{font-size:16px}.top nav a{font-size:12px}.top nav a:nth-child(2){display:none}.hero{padding:42px 0 36px}h1{font-size:45px}.lead{font-size:16px}.section{padding:46px 0}.featured{grid-template-columns:1fr;gap:34px}.section-head{align-items:start;flex-direction:column;gap:9px}.section-head h2{font-size:26px}.section-head .note{text-align:left}.capabilities{grid-template-columns:1fr}.proof{grid-template-columns:1fr}.cta h2{font-size:29px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.photo img{transition:none}}
-  </style>
+  
+/* RELAY / 02 — independent application prototype. */
+.relay-feature{padding-top:34px;padding-bottom:32px}
+.relay-feature-inner{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);background:#10231d;color:#e9f4eb;border-radius:4px;overflow:hidden}
+.relay-copy{padding:35px 37px}
+.relay-copy .eyebrow{color:#7ce4c7}
+.relay-copy h2{font-size:clamp(29px,3.5vw,44px);line-height:1.12;letter-spacing:-.045em;margin:9px 0 13px}
+.relay-copy p{color:#c4d8ce;font-size:14px;line-height:1.72;max-width:585px;margin:0 0 20px}
+.relay-actions{display:flex;gap:10px;flex-wrap:wrap}
+.relay-actions a{display:inline-block;text-decoration:none;padding:10px 15px;border:1px solid #7ce4c7;border-radius:3px;font-size:12px;font-weight:750;color:#7ce4c7}
+.relay-actions a:first-child{background:#7ce4c7;color:#10231d}
+.relay-feature .proofline{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-top:17px;color:#a8c7b7;font-size:11px}
+.relay-feature .proofline b{color:#a8f1d5}
+.relay-art{position:relative;min-height:325px;overflow:hidden;background:linear-gradient(145deg,#133e2e,#071811);border-left:1px solid #315044}
+.relay-art:before{content:"";position:absolute;inset:36px 30px 48px;border:1px solid #547869;background-image:linear-gradient(#658f7b22 1px,transparent 1px),linear-gradient(90deg,#658f7b22 1px,transparent 1px);background-size:35px 35px}
+.relay-art .beamx{position:absolute;left:24%;right:20%;top:49%;height:2px;background:#7ce4c7aa}
+.relay-art .beamy{position:absolute;top:19%;bottom:21%;left:55%;width:2px;background:#7ce4c7aa}
+.relay-art .target{position:absolute;top:35%;left:64%;width:56px;height:56px;border:2px solid #7ce4c7;border-radius:50%;box-shadow:0 0 0 12px #7ce4c722,0 0 0 24px #7ce4c711}
+.relay-art .target:after{content:"";position:absolute;inset:17px;background:#7ce4c7;border-radius:50%}
+.relay-art .crosshair{position:absolute;left:calc(55% - 12px);top:calc(49% - 12px);width:24px;height:24px;border:3px solid white;border-radius:50%}
+.relay-art .decoy{position:absolute;left:31%;bottom:30%;width:32px;height:32px;border:3px solid #ff8496;transform:rotate(12deg)}
+.relay-art .art-caption{position:absolute;left:29px;bottom:16px;color:#a9cebb;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+@media(max-width:770px){.relay-feature-inner{grid-template-columns:1fr}.relay-art{min-height:220px;border-left:0;border-top:1px solid #315044}.relay-copy{padding:27px 25px}}
+</style>
 </head>
 <body>
 <a class="skip" href="#work">Skip to selected work</a>
-<header class="top"><div class="wrap"><a class="wordmark" href="dodge.html">Jonghoon Ahn</a><nav aria-label="Sections"><a href="#work">Selected work</a><a href="#systems">Engineering</a><a href="#evidence">Evidence</a><a href="dodge-resume.html">Resume</a><a class="contact" href="mailto:hoonahncloud@gmail.com">Contact ↗</a></nav></div></header>
+<header class="top"><div class="wrap"><a class="wordmark" href="dodge.html">Jonghoon Ahn</a><nav aria-label="Sections"><a href="#prototype">Playable demo</a><a href="#work">Selected work</a><a href="#systems">Engineering</a><a href="#evidence">Evidence</a><a href="dodge-resume.html">Resume</a><a class="contact" href="mailto:hoonahncloud@gmail.com">Contact ↗</a></nav></div></header>
 <main>
  <section class="wrap hero">
   <div>
    <div class="eyebrow">Unity C# · VR gameplay · Interactive systems</div>
    <h1>Making interaction<br>work in real time.</h1>
-   <p class="lead">I'm Jonghoon Ahn, a Unity gameplay and XR developer who turns creative direction into working interaction. My work spans VR game mechanics, multiplayer installation systems, runtime C# and HLSL, and responsive characters.</p>
-   <div class="intro-link"><a class="pill dark" href="#work">Explore selected projects ↓</a><a class="pill" href="unity-research/code.html">Technical source examples ↗</a></div>
+   <p class="lead">I'm Jonghoon Ahn, a Unity gameplay and XR developer who turns creative direction into working interaction. My work spans VR game mechanics, multiplayer installations, runtime C# and HLSL, and responsive characters. Explore the new two-player game prototype below.</p>
+   <div class="intro-link"><a class="pill dark" href="#prototype">Play multiplayer demo ↓</a><a class="pill" href="unity-research/code.html">Technical source examples ↗</a></div>
   </div>
   <aside class="hero-aside" aria-label="Role fit"><h2>Experience relevant to DLVR</h2>
    <div class="qualification"><strong>GAMEPLAY</strong><span>Unity C# input, interactions, puzzle progression, game-state feedback</span></div>
@@ -46,7 +69,8 @@
    <div class="qualification"><strong>LOCATION</strong><span>California, USA · Authorized to work in the U.S. · No sponsorship needed</span></div>
   </aside>
  </section>
- <section id="work" class="wrap section">
+ <section class="wrap relay-feature" id="prototype" aria-label="Playable gameplay engineering prototype"><div class="relay-feature-inner"><div class="relay-copy"><div class="eyebrow">NEW · PLAYABLE ENGINEERING PROTOTYPE</div><h2>RELAY / 02<br>Two pilots. One shared state.</h2><p>A small two-player coordination game that turns networking concepts into a playable interaction. Pilot A controls horizontal movement; Pilot B controls vertical movement. The host owns the timer, scoring, collisions and round reset. Test both players instantly in two browser tabs, or inspect the separate Unity Netcode source.</p><div class="relay-actions"><a href="dodge-relay.html">Play the browser demo ↗</a><a href="https://github.com/reusahn/Portfolio/tree/gh-pages/dodge-relay-unity">View Unity C# source ↗</a></div><div class="proofline"><span><b>TESTED</b> Local play · two-tab state sync · scoring · disconnect pause</span><span><b>PENDING</b> Unity compilation · LAN build · Quest profiling · Internet P2P</span></div></div><div class="relay-art" aria-label="Stylized diagram of two crosshair beams aligning with a signal, not a game screenshot" role="img"><div class="beamx"></div><div class="beamy"></div><div class="target"></div><div class="crosshair"></div><div class="decoy"></div><div class="art-caption">Stylized game-mechanic diagram</div></div></div></section>
+<section id="work" class="wrap section">
   <div class="section-head"><div><div class="eyebrow">01 / Selected work</div><h2>From player action to system response</h2></div><p class="note">Every project opens a detailed case with implementation notes and existing development evidence.</p></div>
   <div class="featured">
    <article class="work"><a class="photo" href="unity-research/escape-metro.html"><img src="assets/images/xr4.jpg" alt="Escape Metro Unity VR subway scene" loading="eager"></a><div class="work-head"><h3><a href="unity-research/escape-metro.html">Escape Metro</a></h3><span class="num">01 / VR GAMEPLAY</span></div><div class="meta">UNITY · C# · VR · NPC DIALOGUE · PUZZLE STATE</div><p>Developed a VR escape game in which conversations with an AI-driven guard serve as a playable puzzle. Integrated dialogue with clue discovery and progression conditions, giving the player's choices a clear in-world consequence.</p><div class="evidence"><a href="unity-research/escape-metro.html">Gameplay case ↗</a><a href="unity-research/code.html">Progression-gate example ↗</a></div></article>
