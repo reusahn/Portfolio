@@ -23,5 +23,5 @@ int main() {
   assert(Step(State::Idle, std::numeric_limits<float>::quiet_NaN(), false, c) == State::Idle);
   assert(NormalizedSpeed(10000, c) == 1.0f);
   assert(NormalizedSpeed(-5, c) == 0.0f);
-  std::cout << "14 checks passed: transitions, hysteresis, air recovery, invalid input, blend normalization.\n";
+  std::cout << "16 checks passed: transitions, hysteresis, air recovery, invalid input, blend normalization.\n";
 }
