@@ -1,0 +1,26 @@
+{
+  "FileVersion": 3,
+  "Category": "Animation Systems Demo",
+  "Description": "Source-only technical animation reviewer project. Create editor assets using Docs/UE5_SETUP.md.",
+  "Modules": [
+    {
+      "Name": "AnimBridge",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ],
+  "Plugins": [
+    {
+      "Name": "ControlRig",
+      "Enabled": true
+    },
+    {
+      "Name": "IKRig",
+      "Enabled": true
+    },
+    {
+      "Name": "PythonScriptPlugin",
+      "Enabled": true
+    }
+  ]
+}
