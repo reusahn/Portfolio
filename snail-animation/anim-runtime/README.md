@@ -16,7 +16,7 @@ clang++ -std=c++17 -Wall -Wextra -Werror Tests/test_anim_runtime.cpp -o anim_run
 ./anim_runtime_tests
 python3 -m unittest discover -s Tests -p "test_*.py" -v
 ```
-**Results obtained:** 14 C++ checks passed, 5 Python tests passed. This is not an Unreal runtime validation.
+**Results obtained:** 16 C++ checks passed, 5 Python tests passed. This is not an Unreal runtime validation.
 
 ## Evidence rules
 - Never describe `ABP_ReviewCharacter`, Blend Space, Montage, Control Rig, IK Retargeter or Quest profiling as completed unless the actual UE5 Editor data and captures exist.
