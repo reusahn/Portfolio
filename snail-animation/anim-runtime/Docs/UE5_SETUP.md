@@ -20,6 +20,6 @@
 - Handoff README allows another animator to change a clip without private instructions.
 - Real profiler measures and source-level test evidence are attached.
 
-The independent core's 14 test assertions and offline editor-audit's 5 tests have passed. **None of the above UE Editor requirements should be marked completed until verified in UE5.**
+The independent core's 16 test assertions and offline editor-audit's 5 tests have passed. **None of the above UE Editor requirements should be marked completed until verified in UE5.**
 
 Documentation references: Epic UE5 Animation Blueprints, State Machines, Blend Spaces, Animation Montages, Python Editor Scripting.
