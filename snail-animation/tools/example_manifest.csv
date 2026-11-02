@@ -1,0 +1,4 @@
+asset_id,character,skeleton,fps,start_frame,end_frame,root_motion,face_track,status
+demo_char01_idle,DEMO_CHAR01,SK_Mannequin,30,0,90,no,no,review
+demo_char01_walk,DEMO_CHAR01,SK_Mannequin,30,0,120,yes,no,draft
+demo_char02_dialogue,DEMO_CHAR02,SK_MetaHuman,60,0,240,no,yes,review
