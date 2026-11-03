@@ -7,7 +7,7 @@ This folder is the **single source of truth** for five proposed creative AI proj
 - [x] Five concepts and A/B/C review rubric documented
 - [x] Priority selected: **One Scene, Many Truths** first; **The Things We Didn't Say** second
 - [x] Revised first concept: immutable event, changing character perspective and cinematic treatment
-- [x] Local interactive **offline authored prototype** planned in this folder; no claims of generative model integration until it is running
+- [x] Authored browser-interactive storyboard source and its local test suite saved under `one-scene/`; browser execution and Node test run not yet verified
 - [ ] Real model-backed creative edit / structured narrative constraint validation
 - [ ] Actual user study, short filmed source, prompt behavior tests, audience findings
 - [ ] OpenAI application version of resume and portfolio (separate deliverable)
@@ -20,7 +20,7 @@ This folder is the **single source of truth** for five proposed creative AI proj
 4. [One Scene, Many Truths — production specification](ONE_SCENE_SPEC.md)
 5. [The Things We Didn't Say — second project specification](THINGS_UNSAID_SPEC.md)
 6. [Continuity log / next actions](WORK_LOG.md)
-7. [Interactive prototype](one-scene/index.html)
+7. [Interactive prototype](one-scene/index.html) · [Prototype README](one-scene/README.md) · [Browser portfolio hub](index.html)
 
 ## Editorial commitments
 - Distinguish **facts**, **witness inference**, **AI-generated interpretation**, and **director-authored cinematic choices**.
