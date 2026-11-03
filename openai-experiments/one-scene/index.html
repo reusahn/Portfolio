@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#121713">
+<meta name="description" content="One Scene, Many Truths — a playable authored interactive film-editing study by Jonghoon Ahn. The event stays the same. The story changes.">
+<title>One Scene, Many Truths — Interactive Storyboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#experience">Skip to experience</a>
+<header class="topline">
+  <a class="brand" href="../README.md">JONGHOON AHN <span>/ CREATIVE EXPERIMENTS</span></a>
+  <div class="top-right"><span class="tiny-dot" aria-hidden="true"></span> WORKING CUT 01 <a href="../ONE_SCENE_SPEC.md" class="file-link">PROCESS ↗</a></div>
+</header>
+<main>
+  <section class="intro">
+    <div class="eyebrow">AN INTERACTIVE CINEMATIC STUDY <span>·</span> VERSION 0.1</div>
+    <h1>ONE SCENE,<br><em>MANY TRUTHS.</em></h1>
+    <div class="intro-bottom">
+      <p class="thesis">The event stays the same.<br>The story changes.</p>
+      <p class="explain">A person leaves a letter on a café table. Three witnesses see the same moment and tell themselves different stories. Choose whose perspective directs the edit — then reveal what actually happened.</p>
+    </div>
+    <div class="disclosure"><strong>AUTHOR-CRAFTED INTERACTIVE STORYBOARD</strong><span>This early prototype uses pre-written narrative data and abstract vector visuals. It is <b>not</b> AI-generated footage or a live model demo. Model-driven edits and original filmed footage are planned, not completed.</span></div>
+  </section>
+  <section class="workspace" id="experience" aria-label="Interactive film editing workspace">
+    <div class="workspace-title">
+      <div><span class="eyebrow">01 / THE VIEWPOINT</span><h2>Choose who owns the story.</h2></div>
+      <div class="workflow-tip">The observable facts are locked. Interpretation is not.</div>
+    </div>
+    <div class="perspectives" role="group" aria-label="Select a witness">
+      <button class="pov selected" type="button" data-pov="friend" aria-pressed="true"><span class="ordinal">A /</span><strong>The Friend</strong><small>The one who stayed</small></button>
+      <button class="pov" type="button" data-pov="worker" aria-pressed="false"><span class="ordinal">B /</span><strong>The Worker</strong><small>From behind the counter</small></button>
+      <button class="pov" type="button" data-pov="leaver" aria-pressed="false"><span class="ordinal">C /</span><strong>The Leaver</strong><small>The one who walked away</small></button>
+    </div>
+    <div class="film-layout">
+      <div class="film-column">
+        <div class="editor-bar"><span>SCENE 01 <span class="dim">/ CAFÉ, LATE AFTERNOON</span></span><span id="cutLabel">CUT A · THE FRIEND</span></div>
+        <div id="frame" class="scene-shell" data-shot="chair" data-palette="rose" tabindex="0" aria-label="Cinematic illustration. Use Left and Right arrow keys to move between shots.">
+          <div class="film-grain" aria-hidden="true"></div>
+          <svg class="cafe-drawing" viewBox="0 0 960 540" role="img" aria-label="Abstract storyboard of a cafe table, a closed letter, two chairs, a clock, and a doorway">
+            <defs>
+              <linearGradient id="room" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#2c302c"/><stop offset="1" stop-color="#111917"/></linearGradient>
+              <linearGradient id="glass" x1="0" x2="1"><stop stop-color="#adac96" stop-opacity=".37"/><stop offset="1" stop-color="#74878a" stop-opacity=".11"/></linearGradient>
+              <pattern id="floor" width="70" height="70" patternUnits="userSpaceOnUse"><path d="M0 69 H70" stroke="#b5a893" stroke-opacity=".13"/></pattern>
+            </defs>
+            <g class="room-stage">
+              <rect width="960" height="540" fill="url(#room)"/>
+              <rect x="0" y="360" width="960" height="180" fill="#1b1e1b"/>
+              <rect x="0" y="360" width="960" height="180" fill="url(#floor)"/>
+              <path d="M0 360H960" stroke="#aaa48b" stroke-opacity=".23"/>
+              <g class="window-area"><rect x="70" y="80" width="304" height="254" fill="#3d4845" stroke="#9b9c84" stroke-opacity=".45" stroke-width="12"/><rect x="83" y="93" width="278" height="228" fill="url(#glass)"/><path d="M222 87V326M83 204H368" stroke="#aab5a8" stroke-opacity=".38" stroke-width="9"/><path d="M111 256L170 214 226 236 306 169 354 185" stroke="#c4b69b" stroke-opacity=".27" fill="none" stroke-width="3"/></g>
+              <g class="door-area"><rect x="774" y="63" width="152" height="328" fill="#1a2423" stroke="#777c73" stroke-width="9" stroke-opacity=".65"/><path d="M850 64V389" stroke="#c0b9a2" stroke-opacity=".4" stroke-width="3"/><circle cx="900" cy="257" r="6" fill="#c9bba5"/><path d="M770 390H937" stroke="#b6afa1" stroke-opacity=".4"/></g>
+              <g class="clock-area"><circle cx="665" cy="109" r="40" fill="#19201f" stroke="#b6ad92" stroke-width="5" stroke-opacity=".8"/><path d="M665 77V109L687 125" fill="none" stroke="#e4d6b8" stroke-width="3.5" stroke-linecap="round"/></g>
+              <g class="chair-area"><path d="M315 346L304 498M402 344L416 501" stroke="#91887a" stroke-width="12" stroke-linecap="round"/><path d="M285 338Q353 308 423 339L410 359H297Z" fill="#505049"/><rect x="288" y="237" width="120" height="102" rx="12" fill="#343e3a" stroke="#8d8b7a" stroke-width="4"/></g>
+              <g class="table-area"><path d="M481 362V516" stroke="#776c5d" stroke-width="13"/><ellipse cx="479" cy="357" rx="176" ry="41" fill="#796b58"/><ellipse cx="479" cy="344" rx="176" ry="41" fill="#b9a78b" stroke="#ded0ad" stroke-width="2"/><path d="M340 346Q480 311 625 349" stroke="#f9e7c9" stroke-opacity=".22" fill="none"/></g>
+              <g class="envelope-area"><path d="M447 323L526 320L540 347L458 354Z" fill="#e0d4bc" stroke="#f8e8cf" stroke-width="2"/><path d="M447 323L488 343L526 320" stroke="#968f83" fill="none" stroke-width="2"/></g>
+              <g class="person-area"><ellipse cx="697" cy="262" rx="26" ry="32" fill="#b4ab9a"/><path d="M669 291Q700 280 728 302L749 381H640L655 321Z" fill="#3b4542"/><path d="M660 319L561 333" stroke="#afa697" stroke-width="13" stroke-linecap="round"/><path d="M688 376L671 496M718 376L745 493" stroke="#515954" stroke-width="19" stroke-linecap="round"/></g>
+              <g class="hand-area"><ellipse cx="553" cy="331" rx="18" ry="9" fill="#d6bda6" transform="rotate(-12 553 331)"/></g>
+            </g>
+          </svg>
+          <div class="film-vignette" aria-hidden="true"></div>
+          <div class="frame-top"><span class="film-mode">STORYBOARD / NO GENERATED VIDEO</span><span id="frameCount">01 / 04</span></div>
+          <div class="frame-bottom"><span id="frameTitle">THE EMPTY CHAIR</span><span id="frameDetail">An empty chair stays in the frame.</span></div>
+          <div class="film-subtitle" id="filmSubtitle">The space between us was suddenly enormous.</div>
+        </div>
+        <div class="playback">
+          <div class="steps"><button type="button" id="prevShot" aria-label="Previous shot">← <span>PREV</span></button><button type="button" id="nextShot"><span>NEXT SHOT</span> →</button></div>
+          <div class="progress-row"><span id="shotPosition">1 / 4</span><div class="progress-track" aria-hidden="true"><div id="progressBar"></div></div><span>DIRECTED CUT</span></div>
+        </div>
+        <div class="filmstrip" id="filmstrip" aria-label="Edit timeline"></div>
+      </div>
+      <aside class="notes">
+        <div class="notes-label">DIRECTOR'S DESK <span>↗</span></div>
+        <div class="pov-summary">
+          <span class="small-label">A CHARACTER'S BELIEF</span>
+          <blockquote id="quote">“They could have stayed.”</blockquote>
+          <p id="povSubtitle">Interprets the departure as distance.</p>
+        </div>
+        <div class="notes-divider"></div>
+        <label class="field-label" for="focusSelect">RE-CUT: DIRECT THE FIRST SHOT</label>
+        <select id="focusSelect">
+          <option value="auto">Use the witness's edit</option>
+          <option value="hand">The hand</option>
+          <option value="door">The doorway</option>
+          <option value="chair">The empty chair</option>
+          <option value="clock">The clock</option>
+          <option value="envelope">The envelope</option>
+          <option value="window">The window</option>
+        </select>
+        <p class="hint">Change what the viewer notices first without inventing an event.</p>
+        <div class="notes-divider"></div>
+        <div class="note-card"><div class="small-label">EDITING INTENTION</div><p id="directorNote">Hold the absence.</p></div>
+        <div class="note-card"><div class="small-label">WHAT THIS PERSON ASSUMES</div><p id="assumption">The person left because they wanted distance from me.</p></div>
+        <div class="note-card"><div class="small-label">WHAT THEY CANNOT KNOW</div><p id="uncertainty">The friend does not know the reason for leaving.</p></div>
+        <button class="secondary-button" type="button" id="compareButton" aria-expanded="false" aria-controls="comparison">COMPARE ALL THREE CUTS ↗</button>
+      </aside>
+    </div>
+  </section>
+  <section class="evidence-section" id="evidence">
+    <div class="eyebrow">02 / THE CONSTANT</div>
+    <div class="evidence-header"><h2>Six things happened.<br><em>None of them explain why.</em></h2><p>Below is the locked event ledger. The audience hears different interpretations, but the observable sequence is never rewritten.</p></div>
+    <ol id="facts" class="fact-grid"></ol>
+    <div class="difference"><span class="glyph" aria-hidden="true">≠</span><div><strong>Observation is not intention.</strong><p>The story asks where a photograph ends and a belief begins. The film editor determines what we see, and that can feel like knowing more than we do.</p></div></div>
+  </section>
+  <section class="compare-section" id="comparison" hidden>
+    <div class="eyebrow">03 / THE COMPARISON</div>
+    <h2>One set of facts.<br>Three very different certainties.</h2>
+    <div id="compareGrid" class="compare-grid"></div>
+    <p class="compare-question">Which assumption did you make before you had evidence?</p>
+  </section>
+  <section class="closing">
+    <div class="closing-mark">THE END OF THE CUT IS NOT THE END OF THE STORY.</div>
+    <div class="closing-flex"><p>This is a small creative experiment in narrative perspective, authorship and the fragility of inference. The first cut is intentionally hand-authored. The next iteration will investigate constrained model-generated edit proposals while keeping the event ledger immutable.</p><a href="../ONE_SCENE_SPEC.md">READ THE PRODUCTION NOTES ↗</a></div>
+  </section>
+</main>
+<footer><span>JONGHOON AHN © 2026 · INDEPENDENT PORTFOLIO EXPERIMENT</span><span>NO LIVE MODEL · NO AI-GENERATED FOOTAGE · NO USER DATA STORED</span></footer>
+<script type="module" src="app.mjs"></script>
+</body></html>
