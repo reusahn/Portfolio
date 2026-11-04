@@ -63,3 +63,8 @@ Novelty: perspective editing exists in interactive cinema; innovation must be ex
 AI necessity: a static three-way switch is insufficient — make real model-driven editing choices in P2.
 Ethics: never present fictional assumptions as AI-verified memory or factual intent.
 Privacy: no visitor confession collection in this project; use fictional scripted content.
+
+## 2026-11-04 — Bounded edit-plan contract (source added, integration pending)
+A new `one-scene/edit-contract.mjs` validates proposed edit directions **without trusting model-generated facts or freeform scripts**. Accepted fields are exactly `perspective`, `shot_order` (four unique known shots), `caption_id` (from the chosen witness's approved authored captions), and `pace` (approved enum). The requested witness is independently checked. Rejected proposals return errors and do not reach the renderer. Successful plans contain the canonical fact ledger from `story.mjs`, never from the proposal.
+
+**Scope warning:** this is a source-level validation boundary, **not a connected AI feature**. It cannot establish semantic truth for arbitrary generated language, so the model is not permitted to return arbitrary language in this phase. No API keys or visitor content are involved. `node tests.mjs` includes new positive and adversarial cases; execution has not yet been verified in this run.
