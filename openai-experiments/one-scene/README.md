@@ -22,9 +22,9 @@ An `import` statement loads `story.mjs`, so loading the HTML through file:// can
 ```bash
 node tests.mjs
 ```
-The script asserts canonical facts are unchanged, alternate POVs work, shot IDs are valid, edits do not fabricate events, and invalid inputs fail. **Do not mark as passed without running the command.**
+The script asserts canonical facts are unchanged, alternate POVs work, shot IDs are valid, edits do not fabricate events, and invalid inputs fail. It also covers strict proposed edit plans (unexpected keys, witness mismatch, invalid/duplicate shots, unapproved captions, and immutable accepted plans). **Do not mark as passed without running the command.**
 
-## Future production evidence
+## Model proposal safety boundary (source only)\n\n`edit-contract.mjs` exports `validateEditProposal`, `acceptEditProposal`, `EDIT_PLAN_SCHEMA`, and `CAPTION_IDS`. A future server can request structured edit choices, but no model is connected today. This file is **not imported by the browser UI** yet. Arbitrary generated prose and facts are rejected by design.\n\n## Future production evidence
 - Capture browser execution / mobile view
 - Verify focus order and reduced-motion behavior
 - Record user reactions with informed permission
