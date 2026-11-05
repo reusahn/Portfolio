@@ -1,8 +1,9 @@
 import {FACTS,SHOTS,PERSPECTIVES,makeCut} from "./story.mjs";
+import {acceptEditProposal} from "./edit-contract.mjs";
 
 const $=selector=>document.querySelector(selector);
 const $$=selector=>Array.from(document.querySelectorAll(selector));
-const state={pov:"friend",focus:"auto",index:0,compare:false};
+const state={pov:"friend",focus:"auto",index:0,compare:false,preview:null};
 const labels={friend:"A",worker:"B",leaver:"C"};
 
 function el(tag,className,text){
@@ -47,7 +48,10 @@ function renderComparison(){
 
 function render(){
   const pov=PERSPECTIVES[state.pov];
-  const cut=makeCut(state.pov,state.focus);
+  const authored=makeCut(state.pov,state.focus);
+  const cut=state.preview&&state.preview.perspective===state.pov
+    ? {...authored,shotOrder:[...state.preview.shotOrder],caption:state.preview.caption}
+    : authored;
   state.index=Math.max(0,Math.min(state.index,cut.shotOrder.length-1));
   const shotId=cut.shotOrder[state.index];
   const shot=SHOTS[shotId];
@@ -61,7 +65,9 @@ function render(){
   $("#frame").dataset.palette=pov.palette;
   $("#frame").dataset.shot=shotId;
   $("#frame").setAttribute("aria-label","Storyboard shot "+(state.index+1)+": "+shot.label+". Press Left and Right arrow keys to navigate.");
-  $("#cutLabel").textContent="CUT "+labels[state.pov]+" · "+pov.name.toUpperCase();
+  $("#cutLabel").textContent="CUT "+labels[state.pov]+" · "+pov.name.toUpperCase()+(state.preview?" / DEMO EDIT":"");
+  const previewStatus=$("#previewStatus");
+  if(previewStatus)previewStatus.textContent=state.preview?"Approved demonstration edit active · "+state.preview.pace+" pace. Not AI-generated.":"Original director-authored cut active.";
   $("#frameTitle").textContent=shot.label.toUpperCase();
   $("#frameDetail").textContent=shot.detail;
   $("#frameCount").textContent=String(state.index+1).padStart(2,"0")+" / "+String(cut.shotOrder.length).padStart(2,"0");
@@ -74,6 +80,8 @@ function render(){
   $("#assumption").textContent=pov.inference;
   $("#uncertainty").textContent=pov.uncertainty;
   $("#focusSelect").value=state.focus;
+  const previewButton=$("#previewButton");
+  if(previewButton){previewButton.textContent=state.preview?"RESTORE ORIGINAL CUT":"PREVIEW VALIDATED EDIT";previewButton.setAttribute("aria-pressed",String(!!state.preview));}
   $("#prevShot").disabled=state.index<=0;
   $("#nextShot").disabled=state.index>=cut.shotOrder.length-1;
 
@@ -95,7 +103,7 @@ function render(){
 }
 
 function navigate(delta){
-  const len=makeCut(state.pov,state.focus).shotOrder.length;
+  const len=state.preview?state.preview.shotOrder.length:makeCut(state.pov,state.focus).shotOrder.length;
   const next=Math.min(len-1,Math.max(0,state.index+delta));
   if(next!==state.index){state.index=next;render()}
 }
@@ -111,12 +119,14 @@ function init(){
   $$(".pov").forEach(button=>button.addEventListener("click",()=>{
     state.pov=button.dataset.pov;
     state.focus="auto";
+    state.preview=null;
     state.index=0;
     render();
   }));
 
   $("#focusSelect").addEventListener("change",e=>{
     state.focus=e.target.value;
+    state.preview=null;
     state.index=0;
     render();
   });
@@ -131,6 +141,32 @@ function init(){
     state.compare=!state.compare;
     renderComparison();
     if(state.compare)$("#comparison").scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+  });
+  // An intentionally authored fixture demonstrates the exact validator path a future
+  // model response must pass. No API request is made and no output is attributed to AI.
+  const previewButton=el("button","secondary-button");
+  previewButton.type="button";
+  previewButton.id="previewButton";
+  previewButton.setAttribute("aria-pressed","false");
+  const previewStatus=el("p","hint","Original director-authored cut active.");
+  previewStatus.id="previewStatus";
+  const demoNote=el("p","hint","This is a pre-written test proposal, not an AI response. The validator rejects invented facts and unapproved captions.");
+  const anchor=$("#compareButton");
+  anchor.parentNode.insertBefore(previewButton,anchor);
+  anchor.parentNode.insertBefore(previewStatus,anchor);
+  anchor.parentNode.insertBefore(demoNote,anchor);
+  previewButton.addEventListener("click",()=>{
+    if(state.preview){state.preview=null;state.index=0;render();return}
+    const original=PERSPECTIVES[state.pov];
+    const captionIds={friend:"silence",worker:"clock",leaver:"pause"};
+    const source=[...original.shots].reverse();
+    const proposal={perspective:state.pov,shot_order:source,caption_id:captionIds[state.pov],pace:"measured"};
+    const result=acceptEditProposal(proposal,state.pov);
+    if(!result.ok){previewStatus.textContent="Proposal rejected: "+result.errors.join("; ");return}
+    state.preview=result.edit;
+    state.focus="auto";
+    state.index=0;
+    render();
   });
   render();
   renderComparison();
