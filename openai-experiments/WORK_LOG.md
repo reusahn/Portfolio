@@ -31,6 +31,17 @@
 - **C / Hypothetical AI arts reviewer:** juxtaposing edits can expose cinematic bias; the rigid caption vocabulary remains an expressive constraint to reconsider after real testing.
 - **Next:** execute `node tests.mjs` and browser smoke test (all three perspectives, preview on/off, keyboard arrows, mobile), fix any failures; only then build a secure model-backed proposal endpoint with no client-side API key.
 
+## 2026-11-06 | Before/after editorial provenance panel
+- Read the repository README, ROADMAP, WORK_LOG, One Scene and Things Unsaid specs, and existing story, validator, UI and tests.
+- Implemented an audience-visible **WHAT CHANGED IN THIS CUT** audit panel in `one-scene/app.mjs`, displayed only when a validated **pre-written** demonstration edit is active. It compares original versus demonstration shot order and caption and states that all six canonical event facts remain unchanged. Panel is cleared when preview is restored, or when witness/focus changes reset preview.
+- Added responsive styling to `one-scene/style.css`. All comparison text is assigned via `textContent` (through the existing `el` helper), not interpolated into HTML.
+- Code commits: `6a52c115e12789a17fded7f81ea3c0e08d5c01b9` (UI); `b78405a01eb6146b5db86ea72a3d93e1e4a9b63d` (CSS).
+- **Verification actually performed:** fetched all three source files from GitHub after commits; checked no missing static DOM selectors (dynamic IDs explicitly accounted for), presence of panel creation, mount, render call, CSS hidden rule, text-safe content assignment, explicit non-AI disclosure and preview-reset path. **Not performed:** Node test execution, browser visual/interaction testing, mobile device test or live model test. Local `git clone` failed because `github.com` DNS could not resolve in the container. The existing 28 assertions in `tests.mjs` are not reported as passing.
+- **A / Hypothetical hiring reviewer:** stronger ability to show a specific creative choice and its effect, but real footage and an application-ready walkthrough are still absent.
+- **B / Hypothetical creative lead:** provenance is now visible to visitors; model novelty is still unproven because both cuts are pre-written and deterministic.
+- **C / Hypothetical AI arts reviewer:** displaying the mechanics of framing helps critique the authority of an edit; the comparison still needs temporal performance and richer audiovisual consequences.
+- **Next:** run `node tests.mjs` in a working checkout, perform desktop/mobile browser QA, and record actual results; then prototype secure server-side model proposal generation with strict schema and an explicit authored fallback. Do not expose API keys in GitHub Pages.
+
 ## Next actions
 1. Verify `one-scene/index.html` in an actual desktop/mobile browser and run `node tests.mjs`; fix issues and log executed results.
 2. Add narrative data/test and record the executed test results.
