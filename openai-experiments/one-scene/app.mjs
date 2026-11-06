@@ -46,12 +46,35 @@ function renderComparison(){
   button.textContent=state.compare?"HIDE THE COMPARISON ↑":"COMPARE ALL THREE CUTS ↗";
 }
 
+/** A readable before/after audit: only editorial choices change, never the event ledger. */
+function renderEditAudit(authored,active){
+  const panel=$("#editAudit");
+  if(!panel)return;
+  const isPreview=!!state.preview;
+  panel.hidden=!isPreview;
+  if(!isPreview){panel.replaceChildren();return}
+  panel.replaceChildren();
+  const title=el("strong","audit-title","WHAT CHANGED IN THIS CUT");
+  const description=el("p","hint","The shot order and authored caption changed. The six observable facts did not.");
+  const columns=el("div","audit-grid");
+  for(const [heading,cut] of [["ORIGINAL",authored],["VALIDATED DEMO",active]]){
+    const block=el("div","audit-column");
+    block.append(el("span","small-label",heading));
+    block.append(el("p","audit-order",cut.shotOrder.map(id=>SHOTS[id].label).join(" → ")));
+    block.append(el("p","audit-caption", "“"+cut.caption+"”"));
+    columns.append(block);
+  }
+  const lock=el("p","audit-lock","6 / 6 CANONICAL FACTS UNCHANGED");
+  panel.append(title,description,columns,lock);
+}
+
 function render(){
   const pov=PERSPECTIVES[state.pov];
   const authored=makeCut(state.pov,state.focus);
   const cut=state.preview&&state.preview.perspective===state.pov
     ? {...authored,shotOrder:[...state.preview.shotOrder],caption:state.preview.caption}
     : authored;
+  renderEditAudit(authored,cut);
   state.index=Math.max(0,Math.min(state.index,cut.shotOrder.length-1));
   const shotId=cut.shotOrder[state.index];
   const shot=SHOTS[shotId];
@@ -151,10 +174,15 @@ function init(){
   const previewStatus=el("p","hint","Original director-authored cut active.");
   previewStatus.id="previewStatus";
   const demoNote=el("p","hint","This is a pre-written test proposal, not an AI response. The validator rejects invented facts and unapproved captions.");
+  const editAudit=el("section","edit-audit");
+  editAudit.id="editAudit";
+  editAudit.hidden=true;
+  editAudit.setAttribute("aria-label","Original versus validated edit comparison");
   const anchor=$("#compareButton");
   anchor.parentNode.insertBefore(previewButton,anchor);
   anchor.parentNode.insertBefore(previewStatus,anchor);
   anchor.parentNode.insertBefore(demoNote,anchor);
+  anchor.parentNode.insertBefore(editAudit,anchor);
   previewButton.addEventListener("click",()=>{
     if(state.preview){state.preview=null;state.index=0;render();return}
     const original=PERSPECTIVES[state.pov];
