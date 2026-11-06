@@ -19,3 +19,14 @@ footer{padding:22px clamp(24px,6vw,88px);border-top:1px solid var(--line);displa
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.scene-shell .cafe-drawing,.progress-track #progressBar,.pov{transition:none}}
 
 .visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Edit provenance: make the artistic difference legible without claiming model output. */
+.edit-audit{border:1px solid #b7c9b9;background:#e8ede3;padding:15px;margin:14px 0 19px;color:#263e2d}
+.edit-audit[hidden]{display:none}
+.audit-title{display:block;font-size:11px;letter-spacing:.1em}
+.audit-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}
+.audit-column{padding:11px;background:#f7f8f0;min-width:0}
+.audit-order{font-size:12px;line-height:1.6;margin-top:7px;overflow-wrap:anywhere}
+.audit-caption{font-family:Georgia,serif;font-size:14px;font-style:italic;margin-top:9px;color:#415848}
+.audit-lock{font-size:10px;letter-spacing:.08em;font-weight:800;color:#286147;margin-top:12px}
+@media(max-width:440px){.audit-grid{grid-template-columns:1fr}}
