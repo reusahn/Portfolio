@@ -42,6 +42,17 @@
 - **C / Hypothetical AI arts reviewer:** displaying the mechanics of framing helps critique the authority of an edit; the comparison still needs temporal performance and richer audiovisual consequences.
 - **Next:** run `node tests.mjs` in a working checkout, perform desktop/mobile browser QA, and record actual results; then prototype secure server-side model proposal generation with strict schema and an explicit authored fallback. Do not expose API keys in GitHub Pages.
 
+## 2026-11-07 | Automated test workflow and executed narrative contract checks
+- Read README, ROADMAP, WORK_LOG, both relevant specifications, and One Scene story, validator, tests, UI and styles.
+- Added `.github/workflows/creative-experiments-tests.yml`, a **repository-wide GitHub Actions configuration** scoped to changes in `openai-experiments/one-scene/**` (and manual dispatch). It runs Node 22 module syntax checks and `node tests.mjs`. Existing portfolio pages were not changed.
+- Workflow commit: `8186cd8dbba0fbefff56ce6a54667e2bb65d8782`.
+- **Executed verification:** retrieved the current `story.mjs`, `edit-contract.mjs` and `tests.mjs` from the `gh-pages` branch, removed ES-module import/export declarations, and evaluated the combined source in a sandboxed JavaScript runtime with equivalent `equal`, `deepEqual`, `throws`, and `ok` assertion functions. **All 28 contract assertions passed** in that isolated runtime. This establishes narrative logic for the retrieved source under that harness; it does **not** establish Node ESM execution, GitHub Actions success, browser behavior or visual QA.
+- **Blocker:** local `git clone` again failed because `github.com` DNS could not resolve. Attempting to query GitHub Actions run status through the connector was rejected as an unsupported endpoint. The workflow is committed, but its actual GitHub-hosted execution status is **unverified**.
+- **A / Hypothetical hiring reviewer:** repeatable source checks improve engineering credibility, but the public-facing case still lacks original film footage and a concise demonstration.
+- **B / Hypothetical Creative Experiments lead:** automated invariant tests reduce regression risk; frontier-model necessity and live inference are still not established.
+- **C / Hypothetical AI arts reviewer:** provenance and constrained edits are rigorous; the next meaningful advance should change the temporal/audiovisual experience, not merely add more validation.
+- **Next:** check the workflow run on GitHub's Actions page; run desktop/mobile browser smoke tests; investigate a server-side structured model proposal endpoint with a strictly authored fallback, never client-side secrets.
+
 ## Next actions
 1. Verify `one-scene/index.html` in an actual desktop/mobile browser and run `node tests.mjs`; fix issues and log executed results.
 2. Add narrative data/test and record the executed test results.
