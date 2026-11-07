@@ -1,0 +1,33 @@
+name: Creative Experiments narrative checks
+
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - 'openai-experiments/one-scene/**'
+      - '.github/workflows/creative-experiments-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  narrative-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out gh-pages
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify module syntax
+        run: |
+          node --check openai-experiments/one-scene/story.mjs
+          node --check openai-experiments/one-scene/edit-contract.mjs
+          node --check openai-experiments/one-scene/app.mjs
+          node --check openai-experiments/one-scene/tests.mjs
+      - name: Run narrative invariants and adversarial checks
+        working-directory: openai-experiments/one-scene
+        run: node tests.mjs
