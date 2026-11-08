@@ -1,9 +1,28 @@
 import {FACTS,SHOTS,PERSPECTIVES,makeCut} from "./story.mjs";
 import {acceptEditProposal} from "./edit-contract.mjs";
+import {shotDuration,nextShotIndex} from "./playback.mjs";
 
 const $=selector=>document.querySelector(selector);
 const $$=selector=>Array.from(document.querySelectorAll(selector));
-const state={pov:"friend",focus:"auto",index:0,compare:false,preview:null};
+const state={pov:"friend",focus:"auto",index:0,compare:false,preview:null,playing:false};
+let playbackTimer=null;
+function stopPlayback(){
+  if(playbackTimer!==null){clearTimeout(playbackTimer);playbackTimer=null}
+  state.playing=false;
+}
+function schedulePlayback(){
+  if(!state.playing)return;
+  const cut=state.preview?state.preview.shotOrder:makeCut(state.pov,state.focus).shotOrder;
+  const pace=state.preview?.pace||PERSPECTIVES[state.pov].tempo;
+  playbackTimer=setTimeout(()=>{
+    playbackTimer=null;
+    if(!state.playing)return;
+    const next=nextShotIndex(state.index,cut.length);
+    if(next===null){stopPlayback();render();return}
+    state.index=next;render();schedulePlayback();
+  },shotDuration(pace));
+}
+
 const labels={friend:"A",worker:"B",leaver:"C"};
 
 function el(tag,className,text){
@@ -105,6 +124,8 @@ function render(){
   $("#focusSelect").value=state.focus;
   const previewButton=$("#previewButton");
   if(previewButton){previewButton.textContent=state.preview?"RESTORE ORIGINAL CUT":"PREVIEW VALIDATED EDIT";previewButton.setAttribute("aria-pressed",String(!!state.preview));}
+  const playButton=$("#playCut");
+  if(playButton){playButton.textContent=state.playing?"PAUSE CUT":"PLAY CUT";playButton.setAttribute("aria-pressed",String(state.playing));}
   $("#prevShot").disabled=state.index<=0;
   $("#nextShot").disabled=state.index>=cut.shotOrder.length-1;
 
@@ -117,7 +138,7 @@ function render(){
     b.setAttribute("aria-pressed",String(index===state.index));
     b.append(el("span","",String(index+1).padStart(2,"0")+" / SHOT"));
     b.append(el("strong","",SHOTS[id].label));
-    b.addEventListener("click",()=>{state.index=index;render()});
+    b.addEventListener("click",()=>{stopPlayback();state.index=index;render()});
     strip.append(b);
   });
 
@@ -140,6 +161,7 @@ function init(){
   document.body.append(announcer);
 
   $$(".pov").forEach(button=>button.addEventListener("click",()=>{
+    stopPlayback();
     state.pov=button.dataset.pov;
     state.focus="auto";
     state.preview=null;
@@ -148,17 +170,28 @@ function init(){
   }));
 
   $("#focusSelect").addEventListener("change",e=>{
+    stopPlayback();
     state.focus=e.target.value;
     state.preview=null;
     state.index=0;
     render();
   });
 
-  $("#prevShot").addEventListener("click",()=>navigate(-1));
-  $("#nextShot").addEventListener("click",()=>navigate(1));
+  const playButton=el("button","play-cut-button","PLAY CUT");
+  playButton.type="button";playButton.id="playCut";playButton.setAttribute("aria-pressed","false");
+  playButton.setAttribute("aria-label","Play or pause the authored storyboard cut");
+  $("#nextShot").parentNode.append(playButton);
+  playButton.addEventListener("click",()=>{
+    if(state.playing){stopPlayback();render();return}
+    const total=state.preview?state.preview.shotOrder.length:makeCut(state.pov,state.focus).shotOrder.length;
+    if(state.index===total-1)state.index=0;
+    state.playing=true;render();schedulePlayback();
+  });
+  $("#prevShot").addEventListener("click",()=>{stopPlayback();navigate(-1)});
+  $("#nextShot").addEventListener("click",()=>{stopPlayback();navigate(1)});
   $("#frame").addEventListener("keydown",e=>{
-    if(e.key==="ArrowLeft"){e.preventDefault();navigate(-1)}
-    if(e.key==="ArrowRight"){e.preventDefault();navigate(1)}
+    if(e.key==="ArrowLeft"){e.preventDefault();stopPlayback();navigate(-1)}
+    if(e.key==="ArrowRight"){e.preventDefault();stopPlayback();navigate(1)}
   });
   $("#compareButton").addEventListener("click",()=>{
     state.compare=!state.compare;
@@ -184,6 +217,7 @@ function init(){
   anchor.parentNode.insertBefore(demoNote,anchor);
   anchor.parentNode.insertBefore(editAudit,anchor);
   previewButton.addEventListener("click",()=>{
+    stopPlayback();
     if(state.preview){state.preview=null;state.index=0;render();return}
     const original=PERSPECTIVES[state.pov];
     const captionIds={friend:"silence",worker:"clock",leaver:"pause"};
