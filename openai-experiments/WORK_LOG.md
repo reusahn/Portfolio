@@ -53,6 +53,18 @@
 - **C / Hypothetical AI arts reviewer:** provenance and constrained edits are rigorous; the next meaningful advance should change the temporal/audiovisual experience, not merely add more validation.
 - **Next:** check the workflow run on GitHub's Actions page; run desktop/mobile browser smoke tests; investigate a server-side structured model proposal endpoint with a strictly authored fallback, never client-side secrets.
 
+## 2026-11-08 | Opt-in timed cut playback (bounded audiovisual-timing slice)
+- Read README, ROADMAP, WORK_LOG, One Scene and Things Unsaid specs, story, edit validator, tests and current UI before making changes.
+- Added `one-scene/playback.mjs` with three deterministic per-shot pacing values: linger 3200 ms, measured 2200 ms, brisk 1250 ms; strict rejection of unknown pace and invalid shot positions.
+- Wired a **PLAY CUT / PAUSE CUT** control into `one-scene/app.mjs`. Original cuts use the authored witness tempo; validated pre-written demonstration cuts use their approved `pace`. Playback stops on manual shot navigation, witness/focus changes, or demo preview toggling; at the end it holds on the final shot. Added responsive button styling.
+- Extended `one-scene/tests.mjs` with 5 assertions (33 total) for pacing order, finite durations, terminal shot behavior and invalid inputs. Updated the prototype README.
+- **Executed verification:** fetched the committed `story.mjs`, `edit-contract.mjs`, `playback.mjs`, `tests.mjs` and `app.mjs` from GitHub; stripped ES module imports/exports and executed the resulting contract assertions in an isolated V8 JavaScript runtime with strict-equivalent assertion helpers: **33/33 passed**. Parsed the transformed app source successfully. **This is not a Node ESM execution, browser interaction test, accessibility audit, actual playback timing measurement or GitHub Actions result.** Local `git ls-remote` failed because `github.com` DNS could not resolve.
+- **Commits:** playback helper `2d452aece4f5b1b330d70031d2b196d3960da396`; UI `ed40a5a8ac6d5ec3b0102c83397b307cbf4bd27a`; tests `de5af52f8ca2547b5fe607c62f77a1a25fe3c7db`; CSS `d4b5f9c310c2360c24048a3d6b5d45d755242e5e`; documentation `8e0dad5c40cc3d30dc94a8c3187bd1436adf9268`.
+- **A / Hypothetical hiring reviewer:** actual temporal editing makes the experience easier to demonstrate; still lacks filmed footage and visual QA.
+- **B / Hypothetical Creative Experiments lead:** the formerly decorative `pace` parameter now changes behavior, giving future model proposals a measurable consequence; still no live model calls.
+- **C / Hypothetical AI arts reviewer:** silence and pacing begin to distinguish viewpoints, but static vector frames without sound or human performance remain artistically limited.
+- **Next:** run `node tests.mjs` and desktop/mobile browser QA in a network-enabled checkout; verify PLAY/PAUSE, resets and reduced-motion accessibility; then evaluate licensed original footage and secure server-side model integration. Second project remains at specification stage.
+
 ## Next actions
 1. Verify `one-scene/index.html` in an actual desktop/mobile browser and run `node tests.mjs`; fix issues and log executed results.
 2. Add narrative data/test and record the executed test results.
