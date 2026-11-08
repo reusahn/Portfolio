@@ -35,4 +35,12 @@ ok("model must supply every field",()=>{const {pace,...partial}=proposal;assert.
 ok("schema explicitly forbids additional properties",()=>assert.equal(EDIT_PLAN_SCHEMA.additionalProperties,false));
 ok("caption IDs are witness-specific",()=>{assert.ok(CAPTION_IDS.friend.includes("absence"));assert.equal(validateEditProposal({...proposal,caption_id:"routine"},"friend").valid,false)});
 
-console.log(count,"narrative contract checks passed");
+
+import {PACE_MS,shotDuration,nextShotIndex} from "./playback.mjs";
+ok("all authored pace values resolve to finite durations",()=>Object.keys(PACE_MS).forEach(p=>assert.ok(Number.isFinite(shotDuration(p))&&shotDuration(p)>0)));
+ok("pacing order matches the cinematic labels",()=>assert.ok(shotDuration("linger")>shotDuration("measured")&&shotDuration("measured")>shotDuration("brisk")));
+ok("unrecognized playback pace is rejected",()=>assert.throws(()=>shotDuration("instant")));
+ok("shot advancement stays within a finite cut",()=>{assert.equal(nextShotIndex(0,4),1);assert.equal(nextShotIndex(3,4),null)});
+ok("invalid shot positions are rejected",()=>{assert.throws(()=>nextShotIndex(-1,4));assert.throws(()=>nextShotIndex(4,4));assert.throws(()=>nextShotIndex(0,0))});
+
+console.log(count,"narrative and playback contract checks passed");
