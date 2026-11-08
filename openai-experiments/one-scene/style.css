@@ -30,3 +30,8 @@ footer{padding:22px clamp(24px,6vw,88px);border-top:1px solid var(--line);displa
 .audit-caption{font-family:Georgia,serif;font-size:14px;font-style:italic;margin-top:9px;color:#415848}
 .audit-lock{font-size:10px;letter-spacing:.08em;font-weight:800;color:#286147;margin-top:12px}
 @media(max-width:440px){.audit-grid{grid-template-columns:1fr}}
+
+/* Playback is opt-in and intentionally uses no automatic page-load animation. */
+.steps .play-cut-button{background:#244a35;color:#fff;border-right:0;letter-spacing:.04em}
+.steps .play-cut-button:hover{background:#386448}
+@media(max-width:730px){.steps .play-cut-button{padding:0 9px;font-size:10px}}
