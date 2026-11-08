@@ -10,6 +10,7 @@ python3 -m http.server 8000
 An `import` statement loads `story.mjs`, so loading the HTML through file:// can be blocked by browser module security.
 
 ## Features (implemented in source)
+- Opt-in **PLAY CUT / PAUSE CUT** timed shot playback. Pace is now functional: linger 3200 ms, measured 2200 ms, brisk 1250 ms per shot; witness pacing applies to original cuts, accepted edit pace applies to demonstration cuts. Manual navigation or perspective/focus change stops playback. The final shot remains visible after playback ends.
 - A, B, C points of view with different framing, written captions and scene orders
 - Shot-by-shot navigation and filmstrip; arrow-key support while the frame has focus
 - Re-cut: promote a different shot to the opening frame
