@@ -35,3 +35,9 @@ footer{padding:22px clamp(24px,6vw,88px);border-top:1px solid var(--line);displa
 .steps .play-cut-button{background:#244a35;color:#fff;border-right:0;letter-spacing:.04em}
 .steps .play-cut-button:hover{background:#386448}
 @media(max-width:730px){.steps .play-cut-button{padding:0 9px;font-size:10px}}
+
+/* Shot-level epistemic disclosure, visually separate from the film frame. */
+.shot-evidence{margin:0;padding:12px 16px;background:#e6e9df;color:#4b6252;border:1px solid #cad1c4;border-top:0;font-size:12px;line-height:1.5}
+.shot-evidence strong{letter-spacing:.08em;font-size:10px;color:#24563e}
+.shot-evidence[data-kind="context"]{background:#f0e7d8;color:#665640;border-color:#d9c9af}
+.shot-evidence[data-kind="context"] strong{color:#855e32}
