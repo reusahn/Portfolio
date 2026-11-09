@@ -34,3 +34,6 @@ The script asserts canonical facts are unchanged, alternate POVs work, shot IDs 
 
 ## Editorial and safety
 This is a fiction about the uncertainty of human intent. A character's statement is a belief, not a verified event. No real visitor's private memory is submitted or stored. No OpenAI or other provider affiliation is implied.
+
+## November 9, 2026 — Shot-level evidence provenance
+The interface now labels every selected shot as **OBSERVED EVENT** or **EDITORIAL CONTEXT**, with a human-authored explanation. Clock and window inserts are deliberately **not** evidence of lateness or motivation. See `evidence.mjs`; 5 new contract assertions bring the suite to 38. All 38 were executed against GitHub-retrieved source in an isolated V8 harness, **not** as Node ESM or browser QA.
