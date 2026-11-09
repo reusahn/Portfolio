@@ -1,3 +1,4 @@
+import {shotProvenance} from "./evidence.mjs";
 import {FACTS,SHOTS,PERSPECTIVES,makeCut} from "./story.mjs";
 import {acceptEditProposal} from "./edit-contract.mjs";
 import {shotDuration,nextShotIndex} from "./playback.mjs";
@@ -112,6 +113,14 @@ function render(){
   if(previewStatus)previewStatus.textContent=state.preview?"Approved demonstration edit active · "+state.preview.pace+" pace. Not AI-generated.":"Original director-authored cut active.";
   $("#frameTitle").textContent=shot.label.toUpperCase();
   $("#frameDetail").textContent=shot.detail;
+  const provenance=shotProvenance(shotId);
+  const provenanceLabel=$("#shotEvidence");
+  if(provenanceLabel){
+    provenanceLabel.replaceChildren();
+    provenanceLabel.append(el("strong","",provenance.kind==="observed"?"OBSERVED EVENT / ":"EDITORIAL CONTEXT / "));
+    provenanceLabel.append(document.createTextNode(provenance.note));
+    provenanceLabel.dataset.kind=provenance.kind;
+  }
   $("#frameCount").textContent=String(state.index+1).padStart(2,"0")+" / "+String(cut.shotOrder.length).padStart(2,"0");
   $("#filmSubtitle").textContent=cut.caption;
   $("#shotPosition").textContent=(state.index+1)+" / "+cut.shotOrder.length;
@@ -122,6 +131,7 @@ function render(){
   $("#assumption").textContent=pov.inference;
   $("#uncertainty").textContent=pov.uncertainty;
   $("#focusSelect").value=state.focus;
+  // A provenance note follows the current shot, including autoplay and manual re-edits.
   const previewButton=$("#previewButton");
   if(previewButton){previewButton.textContent=state.preview?"RESTORE ORIGINAL CUT":"PREVIEW VALIDATED EDIT";previewButton.setAttribute("aria-pressed",String(!!state.preview));}
   const playButton=$("#playCut");
@@ -154,6 +164,10 @@ function navigate(delta){
 
 function init(){
   drawFactLedger();
+  const shotEvidence=el("p","shot-evidence");
+  shotEvidence.id="shotEvidence";
+  shotEvidence.setAttribute("aria-label","Current shot evidence classification");
+  $("#frame").insertAdjacentElement("afterend",shotEvidence);
   const announcer=el("div","visually-hidden");
   announcer.id="screenAnnounce";
   announcer.setAttribute("role","status");
