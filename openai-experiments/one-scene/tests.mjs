@@ -44,3 +44,12 @@ ok("shot advancement stays within a finite cut",()=>{assert.equal(nextShotIndex(
 ok("invalid shot positions are rejected",()=>{assert.throws(()=>nextShotIndex(-1,4));assert.throws(()=>nextShotIndex(4,4));assert.throws(()=>nextShotIndex(0,0))});
 
 console.log(count,"narrative and playback contract checks passed");
+
+import {SHOT_PROVENANCE,shotProvenance,validateProvenance} from "./evidence.mjs";
+ok("every shot has provenance",()=>assert.equal(validateProvenance().valid,true));
+ok("all contextual inserts have no canonical fact claims",()=>Object.values(SHOT_PROVENANCE).filter(x=>x.kind==="context").forEach(x=>assert.deepEqual(x.factIds,[])));
+ok("the clock is not evidence of lateness",()=>{assert.equal(shotProvenance("clock").kind,"context");assert.match(shotProvenance("clock").note,/not|no evidence/i)});
+ok("the sealed envelope links only to existing events",()=>shotProvenance("envelope").factIds.forEach(n=>assert.ok(FACTS[n])));
+ok("unknown provenance shot is rejected",()=>assert.throws(()=>shotProvenance("dragon")));
+
+console.log(count,"narrative contract checks passed");
