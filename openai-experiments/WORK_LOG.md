@@ -73,3 +73,15 @@
 
 ## For the next assistant or collaborator
 Read README → ROADMAP → WORK_LOG → relevant spec before editing. Do not invent achievements. Use A/B/C criteria and record exact commits for changes. Preserve the user's existing portfolio and application materials.
+
+## 2026-11-09 | Shot provenance and editorial evidence disclosure
+- Read README, ROADMAP, WORK_LOG, One Scene and Things Unsaid specifications, story, validator, playback, tests and UI.
+- Added `one-scene/evidence.mjs` mapping six existing shots to **observed canonical facts** or **context-only inserts**. In particular, clock and window shots do not prove lateness or motivation.
+- Updated `one-scene/app.mjs` to display the current shot's provenance directly below the storyboard frame; works through the existing render path for manual navigation, witness changes and timed playback. Added distinct styling in `style.css`.
+- Added five contract assertions in `one-scene/tests.mjs`, total **38**.
+- **Verification actually executed:** fetched all current source modules from GitHub and executed 38/38 contract assertions in an isolated V8 harness after stripping ES module syntax and replacing Node's assertion library with strict-equivalent helpers. This **does not** establish Node ESM execution, browser runtime/visual QA, real playback timing or GitHub Actions success. Container Node v22.16.0 is installed, but outbound GitHub DNS resolution failed, so a real checkout-based Node run was unavailable.
+- **Commits:** provenance `8828fc4d86ca8fcaee47a687f6e29a5b837b1066`; UI `6b7f255dc0635ba7686b83302d3bbd38d68bd9fd`; CSS `7cddf9cb999c31650e17326708f9eb5994d4283b`; tests `97505dc3ff7af6317eebec13ab2a867f9eefd0fa`.
+- **A / hypothetical hiring reviewer:** visitors can now see a concrete editorial decision rather than only reading a conceptual statement; still needs filmed proof and browser-tested demo.
+- **B / hypothetical creative lead:** this provenance layer creates a useful constraint and evaluation surface for future model-proposed edits; no actual AI integration yet.
+- **C / hypothetical AI arts reviewer:** exposing the difference between evidence and an evocative insert strengthens the work's critical thesis; static imagery and limited cinematic vocabulary remain weaknesses.
+- **Next:** run actual Node ESM and desktop/mobile browser smoke tests, verify the provenance label and playback under all three perspectives, then integrate original film/audio and server-side model proposals. The Things We Didn't Say remains at specification stage.
