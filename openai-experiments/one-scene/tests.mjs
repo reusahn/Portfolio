@@ -53,3 +53,17 @@ ok("the sealed envelope links only to existing events",()=>shotProvenance("envel
 ok("unknown provenance shot is rejected",()=>assert.throws(()=>shotProvenance("dragon")));
 
 console.log(count,"narrative contract checks passed");
+
+
+import {auditVisibleEvidence} from "./coverage.mjs";
+ok("not every locked fact is visible in a cut",()=>assert.deepEqual(auditVisibleEvidence(["chair","door","envelope","hand"],SHOT_PROVENANCE,6).notShown,[0,3]));
+ok("context inserts never create observed facts",()=>assert.deepEqual(auditVisibleEvidence(["clock","window"],SHOT_PROVENANCE,6).shown,[]));
+ok("shot reordering does not fabricate evidence",()=>assert.deepEqual(auditVisibleEvidence(["hand","door"],SHOT_PROVENANCE,6).shown,auditVisibleEvidence(["door","hand"],SHOT_PROVENANCE,6).shown));
+ok("contextual shots are separately reported",()=>assert.deepEqual(auditVisibleEvidence(["clock","door","window"],SHOT_PROVENANCE,6).contextual,["clock","window"]));
+ok("repeated shot does not inflate evidence coverage",()=>assert.deepEqual(auditVisibleEvidence(["hand","hand"],SHOT_PROVENANCE,6).shown,[2]));
+ok("unknown evidence shot is rejected",()=>assert.throws(()=>auditVisibleEvidence(["invented"],SHOT_PROVENANCE,6)));
+ok("out of range fact reference is rejected",()=>assert.throws(()=>auditVisibleEvidence(["bad"],{bad:{kind:"observed",factIds:[6]}},6)));
+ok("context cannot claim an event",()=>assert.throws(()=>auditVisibleEvidence(["bad"],{bad:{kind:"context",factIds:[2]}},6)));
+ok("invalid evidence input is rejected",()=>assert.throws(()=>auditVisibleEvidence("hand",SHOT_PROVENANCE,6)));
+ok("coverage result arrays are immutable",()=>assert.ok(Object.isFrozen(auditVisibleEvidence(["hand"],SHOT_PROVENANCE,6).shown)));
+console.log(count,"total narrative, playback, provenance and evidence coverage checks registered");
