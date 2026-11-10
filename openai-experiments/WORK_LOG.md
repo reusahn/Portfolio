@@ -85,3 +85,16 @@ Read README → ROADMAP → WORK_LOG → relevant spec before editing. Do not in
 - **B / hypothetical creative lead:** this provenance layer creates a useful constraint and evaluation surface for future model-proposed edits; no actual AI integration yet.
 - **C / hypothetical AI arts reviewer:** exposing the difference between evidence and an evocative insert strengthens the work's critical thesis; static imagery and limited cinematic vocabulary remain weaknesses.
 - **Next:** run actual Node ESM and desktop/mobile browser smoke tests, verify the provenance label and playback under all three perspectives, then integrate original film/audio and server-side model proposals. The Things We Didn't Say remains at specification stage.
+
+
+## 2026-11-10 | Evidence visibility audit — a locked ledger is not a visible film
+- Read the current README, ROADMAP, WORK_LOG, One Scene and Things Unsaid specs, and the existing storyboard, validator, playback, evidence and test modules.
+- **Creative correction:** Previously the edit audit said "6/6 canonical facts unchanged" without distinguishing the facts stored in the event ledger from the subset actually *shown* by an edit. This could mislead visitors into treating a selective montage as complete evidence.
+- Added `one-scene/coverage.mjs` with a pure deterministic `auditVisibleEvidence(shotOrder, provenance, factCount)` function: reports shown fact IDs, omitted fact IDs and contextual insert shots; rejects invalid IDs, out-of-range references and contextual inserts falsely asserting canonical facts.
+- Updated `one-scene/app.mjs`: each cut now reports how many of the six canonical facts are visible; the original/validated edit comparison reports facts omitted by each montage. The six canonical facts remain immutable. This is authored provenance metadata, not computer vision or AI inference.
+- Added 10 adversarial cases to `one-scene/tests.mjs`; prior 38 assertions remain. **Executed 10/10 coverage assertions with Node v22.16.0 in a local isolated fixture** using the same authored provenance mapping and new coverage module; all passed. **Did not execute the full 48-assertion integrated suite**, GitHub Actions, or browser QA. Container could not resolve raw.githubusercontent.com for downloading full repository sources. The GitHub copy was fetched back after writes to check the code was stored.
+- Commits: coverage module `a80016ac2c4df280903e04314ec20419c4d00a6e`; interactive UI `14c256c016935950e20c33b0ad35425c5adb4206`; tests `e53403ac63f227863c1b6fb0a54df0e9db99c968`.
+- **A / hypothetical hiring reviewer:** a concrete, explainable user-facing insight, but needs verified browser interaction and filmed media.
+- **B / hypothetical Creative Experiments lead:** formal separation between ledger truth and edit visibility makes future model output more auditable; no live model necessity demonstrated.
+- **C / hypothetical AI arts reviewer:** stronger critique of cinematic selective evidence, particularly omission as an artistic act; the experience remains schematic and visually limited.
+- **Next:** run `node tests.mjs` on a full checkout and inspect the live site in a browser; confirm evidence visibility labels and responsive layout. Then consider a bounded server-side model experiment with no client API keys, and obtain original filmed footage with rights.
