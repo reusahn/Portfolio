@@ -20,7 +20,8 @@ This folder is the **single source of truth** for five proposed creative AI proj
 4. [One Scene, Many Truths — production specification](ONE_SCENE_SPEC.md)
 5. [The Things We Didn't Say — second project specification](THINGS_UNSAID_SPEC.md)
 6. [Continuity log / next actions](WORK_LOG.md)
-7. [Interactive prototype](one-scene/index.html) · [Prototype README](one-scene/README.md) · [Browser portfolio hub](index.html)
+7. [A/B/C simulated daily discussions](DAILY_DISCUSSIONS/README.md) · [November 10, 2026 discussion](DAILY_DISCUSSIONS/2026-11-10.md)
+8. [Interactive prototype](one-scene/index.html) · [Prototype README](one-scene/README.md) · [Browser portfolio hub](index.html)
 
 ## Editorial commitments
 - Distinguish **facts**, **witness inference**, **AI-generated interpretation**, and **director-authored cinematic choices**.
@@ -34,3 +35,6 @@ This folder is the **single source of truth** for five proposed creative AI proj
 
 ## Maintenance
 Whenever meaningful progress occurs, update **WORK_LOG.md**, the relevant specification, current evidence status, and A/B/C review. The review scores are **fictional editorial tools**, not predictions of actual OpenAI evaluation. The user retains final decisions about direction and applications.
+
+## Daily reviewer conversation archive
+The recurring development task now saves each real **simulated A/B/C reviewer exchange** into `DAILY_DISCUSSIONS/YYYY-MM-DD.md` and updates `WORK_LOG.md`. These are fictional editorial roles and summaries of work, not a reproduction of the user's private ChatGPT chats. Every record distinguishes tested features from untested claims.
