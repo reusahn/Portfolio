@@ -1,4 +1,5 @@
-import {shotProvenance} from "./evidence.mjs";
+import {shotProvenance,SHOT_PROVENANCE} from "./evidence.mjs";
+import {auditVisibleEvidence} from "./coverage.mjs";
 import {FACTS,SHOTS,PERSPECTIVES,makeCut} from "./story.mjs";
 import {acceptEditProposal} from "./edit-contract.mjs";
 import {shotDuration,nextShotIndex} from "./playback.mjs";
@@ -75,16 +76,19 @@ function renderEditAudit(authored,active){
   if(!isPreview){panel.replaceChildren();return}
   panel.replaceChildren();
   const title=el("strong","audit-title","WHAT CHANGED IN THIS CUT");
-  const description=el("p","hint","The shot order and authored caption changed. The six observable facts did not.");
+  const description=el("p","hint","The six canonical facts remain locked. However, an edit can hide facts from the viewer: what the film shows is not the complete event.");
   const columns=el("div","audit-grid");
   for(const [heading,cut] of [["ORIGINAL",authored],["VALIDATED DEMO",active]]){
     const block=el("div","audit-column");
     block.append(el("span","small-label",heading));
     block.append(el("p","audit-order",cut.shotOrder.map(id=>SHOTS[id].label).join(" → ")));
     block.append(el("p","audit-caption", "“"+cut.caption+"”"));
+    const coverage=auditVisibleEvidence(cut.shotOrder,SHOT_PROVENANCE,FACTS.length);
+    block.append(el("p","audit-caption","VISIBLE EVIDENCE: "+coverage.shown.length+" / "+FACTS.length+" facts; "+coverage.contextual.length+" contextual inserts."));
+    if(coverage.notShown.length)block.append(el("p","audit-caption","NOT SHOWN: "+coverage.notShown.map(i=>"Fact "+String(i+1).padStart(2,"0")).join(", ")));
     columns.append(block);
   }
-  const lock=el("p","audit-lock","6 / 6 CANONICAL FACTS UNCHANGED");
+  const lock=el("p","audit-lock","6 / 6 CANONICAL FACTS UNCHANGED IN THE LEDGER · NOT ALL FACTS ARE VISIBLE IN THE CUT");
   panel.append(title,description,columns,lock);
 }
 
@@ -95,6 +99,10 @@ function render(){
     ? {...authored,shotOrder:[...state.preview.shotOrder],caption:state.preview.caption}
     : authored;
   renderEditAudit(authored,cut);
+  const visibleEvidence=auditVisibleEvidence(cut.shotOrder,SHOT_PROVENANCE,FACTS.length);
+  const coverageLabel=$("#evidenceCoverage");
+  if(coverageLabel)coverageLabel.textContent="THIS CUT SHOWS "+visibleEvidence.shown.length+" OF "+FACTS.length+
+    " OBSERVABLE FACTS. "+visibleEvidence.notShown.length+" FACTS ARE NOT SHOWN. THE FULL EVENT LEDGER REMAINS LOCKED.";
   state.index=Math.max(0,Math.min(state.index,cut.shotOrder.length-1));
   const shotId=cut.shotOrder[state.index];
   const shot=SHOTS[shotId];
@@ -168,6 +176,10 @@ function init(){
   shotEvidence.id="shotEvidence";
   shotEvidence.setAttribute("aria-label","Current shot evidence classification");
   $("#frame").insertAdjacentElement("afterend",shotEvidence);
+  const coverageLabel=el("p","shot-evidence");
+  coverageLabel.id="evidenceCoverage";
+  coverageLabel.setAttribute("aria-label","Evidence visible in this edit");
+  shotEvidence.insertAdjacentElement("afterend",coverageLabel);
   const announcer=el("div","visually-hidden");
   announcer.id="screenAnnounce";
   announcer.setAttribute("role","status");
