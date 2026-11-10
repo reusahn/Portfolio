@@ -98,3 +98,10 @@ Read README → ROADMAP → WORK_LOG → relevant spec before editing. Do not in
 - **B / hypothetical Creative Experiments lead:** formal separation between ledger truth and edit visibility makes future model output more auditable; no live model necessity demonstrated.
 - **C / hypothetical AI arts reviewer:** stronger critique of cinematic selective evidence, particularly omission as an artistic act; the experience remains schematic and visually limited.
 - **Next:** run `node tests.mjs` on a full checkout and inspect the live site in a browser; confirm evidence visibility labels and responsive layout. Then consider a bounded server-side model experiment with no client API keys, and obtain original filmed footage with rights.
+
+## 2026-11-10 | Daily A/B/C discussion archive enabled
+- The user requested that daily development conversations be stored in GitHub.
+- Added [DAILY_DISCUSSIONS/README.md](DAILY_DISCUSSIONS/README.md) with recording standards and privacy boundaries.
+- Added [2026-11-10 reviewer discussion](DAILY_DISCUSSIONS/2026-11-10.md) as a **retrospective work summary plus newly authored fictional editorial discussion**, explicitly not a previous verbatim conversation transcript.
+- Updated the existing daily Creative Experiments automation to write a dated A/B/C review dialogue and cross-reference it in WORK_LOG.md each run. Its ongoing status is enabled. Scheduled runs are bounded attempts rather than continuous five-hour work guarantees.
+- Existing Nov 10 source claims remain unchanged: isolated 10/10 coverage checks passed; full integrated suite/browser execution remain unverified.
