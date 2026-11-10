@@ -1,0 +1,530 @@
+{
+  "days": [
+    "2026-08-29",
+    "2026-08-30",
+    "2026-08-31",
+    "2026-09-01",
+    "2026-09-02",
+    "2026-09-03",
+    "2026-09-04",
+    "2026-09-05",
+    "2026-09-06",
+    "2026-09-07",
+    "2026-09-08",
+    "2026-09-09",
+    "2026-09-10"
+  ],
+  "records": [
+    {
+      "minute": 1296,
+      "duration": 916,
+      "distance": 0,
+      "kind": "visit",
+      "day": 0
+    },
+    {
+      "minute": 772,
+      "duration": 157,
+      "distance": 136,
+      "kind": "vehicle",
+      "day": 1
+    },
+    {
+      "minute": 928,
+      "duration": 8,
+      "distance": 1268,
+      "kind": "vehicle",
+      "day": 1
+    },
+    {
+      "minute": 937,
+      "duration": 1235,
+      "distance": 0,
+      "kind": "visit",
+      "day": 1
+    },
+    {
+      "minute": 732,
+      "duration": 10,
+      "distance": 4267,
+      "kind": "vehicle",
+      "day": 2
+    },
+    {
+      "minute": 742,
+      "duration": 30,
+      "distance": 0,
+      "kind": "visit",
+      "day": 2
+    },
+    {
+      "minute": 771,
+      "duration": 6,
+      "distance": 4183,
+      "kind": "vehicle",
+      "day": 2
+    },
+    {
+      "minute": 778,
+      "duration": 35,
+      "distance": 0,
+      "kind": "visit",
+      "day": 2
+    },
+    {
+      "minute": 813,
+      "duration": 20,
+      "distance": 10094,
+      "kind": "vehicle",
+      "day": 2
+    },
+    {
+      "minute": 833,
+      "duration": 85,
+      "distance": 0,
+      "kind": "visit",
+      "day": 2
+    },
+    {
+      "minute": 918,
+      "duration": 6,
+      "distance": 1498,
+      "kind": "vehicle",
+      "day": 2
+    },
+    {
+      "minute": 925,
+      "duration": 125,
+      "distance": 0,
+      "kind": "visit",
+      "day": 2
+    },
+    {
+      "minute": 1050,
+      "duration": 1,
+      "distance": 242,
+      "kind": "vehicle",
+      "day": 2
+    },
+    {
+      "minute": 1051,
+      "duration": 278,
+      "distance": 0,
+      "kind": "visit",
+      "day": 2
+    },
+    {
+      "minute": 1329,
+      "duration": 114,
+      "distance": 0,
+      "kind": "visit",
+      "day": 2
+    },
+    {
+      "minute": 3,
+      "duration": 619,
+      "distance": 770,
+      "kind": "vehicle",
+      "day": 3
+    },
+    {
+      "minute": 622,
+      "duration": 72,
+      "distance": 0,
+      "kind": "visit",
+      "day": 3
+    },
+    {
+      "minute": 694,
+      "duration": 89,
+      "distance": 11968,
+      "kind": "vehicle",
+      "day": 3
+    },
+    {
+      "minute": 783,
+      "duration": 13,
+      "distance": 0,
+      "kind": "visit",
+      "day": 3
+    },
+    {
+      "minute": 783,
+      "duration": 13,
+      "distance": 0,
+      "kind": "visit",
+      "day": 3
+    },
+    {
+      "minute": 796,
+      "duration": 128,
+      "distance": 732,
+      "kind": "vehicle",
+      "day": 3
+    },
+    {
+      "minute": 924,
+      "duration": 39,
+      "distance": 0,
+      "kind": "visit",
+      "day": 3
+    },
+    {
+      "minute": 926,
+      "duration": 38,
+      "distance": 0,
+      "kind": "visit",
+      "day": 3
+    },
+    {
+      "minute": 963,
+      "duration": 13,
+      "distance": 289,
+      "kind": "vehicle",
+      "day": 3
+    },
+    {
+      "minute": 977,
+      "duration": 1124,
+      "distance": 0,
+      "kind": "visit",
+      "day": 3
+    },
+    {
+      "minute": 523,
+      "duration": 94,
+      "distance": 0,
+      "kind": "visit",
+      "day": 4
+    },
+    {
+      "minute": 660,
+      "duration": 4,
+      "distance": 2260,
+      "kind": "vehicle",
+      "day": 4
+    },
+    {
+      "minute": 664,
+      "duration": 29,
+      "distance": 0,
+      "kind": "visit",
+      "day": 4
+    },
+    {
+      "minute": 693,
+      "duration": 3,
+      "distance": 2379,
+      "kind": "vehicle",
+      "day": 4
+    },
+    {
+      "minute": 697,
+      "duration": 86,
+      "distance": 0,
+      "kind": "visit",
+      "day": 4
+    },
+    {
+      "minute": 697,
+      "duration": 84,
+      "distance": 0,
+      "kind": "visit",
+      "day": 4
+    },
+    {
+      "minute": 783,
+      "duration": 14,
+      "distance": 972,
+      "kind": "walking",
+      "day": 4
+    },
+    {
+      "minute": 796,
+      "duration": 200,
+      "distance": 0,
+      "kind": "visit",
+      "day": 4
+    },
+    {
+      "minute": 996,
+      "duration": 14,
+      "distance": 949,
+      "kind": "walking",
+      "day": 4
+    },
+    {
+      "minute": 1010,
+      "duration": 1088,
+      "distance": 894,
+      "kind": "walking",
+      "day": 4
+    },
+    {
+      "minute": 659,
+      "duration": 233,
+      "distance": 0,
+      "kind": "visit",
+      "day": 5
+    },
+    {
+      "minute": 660,
+      "duration": 50,
+      "distance": 0,
+      "kind": "visit",
+      "day": 5
+    },
+    {
+      "minute": 892,
+      "duration": 233,
+      "distance": 1946,
+      "kind": "walking",
+      "day": 5
+    },
+    {
+      "minute": 1125,
+      "duration": 992,
+      "distance": 0,
+      "kind": "visit",
+      "day": 5
+    },
+    {
+      "minute": 619,
+      "duration": 58,
+      "distance": 0,
+      "kind": "visit",
+      "day": 6
+    },
+    {
+      "minute": 677,
+      "duration": 11,
+      "distance": 2661,
+      "kind": "vehicle",
+      "day": 6
+    },
+    {
+      "minute": 687,
+      "duration": 24,
+      "distance": 0,
+      "kind": "visit",
+      "day": 6
+    },
+    {
+      "minute": 687,
+      "duration": 18,
+      "distance": 0,
+      "kind": "visit",
+      "day": 6
+    },
+    {
+      "minute": 712,
+      "duration": 6,
+      "distance": 2750,
+      "kind": "vehicle",
+      "day": 6
+    },
+    {
+      "minute": 718,
+      "duration": 1361,
+      "distance": 0,
+      "kind": "visit",
+      "day": 6
+    },
+    {
+      "minute": 1189,
+      "duration": 889,
+      "distance": 0,
+      "kind": "visit",
+      "day": 6
+    },
+    {
+      "minute": 638,
+      "duration": 100,
+      "distance": 8232,
+      "kind": "vehicle",
+      "day": 7
+    },
+    {
+      "minute": 738,
+      "duration": 242,
+      "distance": 0,
+      "kind": "visit",
+      "day": 7
+    },
+    {
+      "minute": 980,
+      "duration": 1,
+      "distance": 603,
+      "kind": "vehicle",
+      "day": 7
+    },
+    {
+      "minute": 981,
+      "duration": 172,
+      "distance": 0,
+      "kind": "visit",
+      "day": 7
+    },
+    {
+      "minute": 1153,
+      "duration": 89,
+      "distance": 23189,
+      "kind": "vehicle",
+      "day": 7
+    },
+    {
+      "minute": 1242,
+      "duration": 1,
+      "distance": 0,
+      "kind": "visit",
+      "day": 7
+    },
+    {
+      "minute": 1243,
+      "duration": 1305,
+      "distance": 638,
+      "kind": "walking",
+      "day": 7
+    },
+    {
+      "minute": 1108,
+      "duration": 1025,
+      "distance": 0,
+      "kind": "visit",
+      "day": 8
+    },
+    {
+      "minute": 1233,
+      "duration": 900,
+      "distance": 0,
+      "kind": "visit",
+      "day": 8
+    },
+    {
+      "minute": 693,
+      "duration": 50,
+      "distance": 1171,
+      "kind": "walking",
+      "day": 9
+    },
+    {
+      "minute": 743,
+      "duration": 140,
+      "distance": 0,
+      "kind": "visit",
+      "day": 9
+    },
+    {
+      "minute": 857,
+      "duration": 26,
+      "distance": 0,
+      "kind": "visit",
+      "day": 9
+    },
+    {
+      "minute": 883,
+      "duration": 16,
+      "distance": 13201,
+      "kind": "vehicle",
+      "day": 9
+    },
+    {
+      "minute": 899,
+      "duration": 69,
+      "distance": 0,
+      "kind": "visit",
+      "day": 9
+    },
+    {
+      "minute": 969,
+      "duration": 67,
+      "distance": 0,
+      "kind": "visit",
+      "day": 9
+    },
+    {
+      "minute": 1036,
+      "duration": 11,
+      "distance": 644,
+      "kind": "walking",
+      "day": 9
+    },
+    {
+      "minute": 1046,
+      "duration": 14,
+      "distance": 16127,
+      "kind": "vehicle",
+      "day": 9
+    },
+    {
+      "minute": 1061,
+      "duration": 1303,
+      "distance": 0,
+      "kind": "visit",
+      "day": 9
+    },
+    {
+      "minute": 924,
+      "duration": 142,
+      "distance": 0,
+      "kind": "visit",
+      "day": 10
+    },
+    {
+      "minute": 1066,
+      "duration": 0,
+      "distance": 26,
+      "kind": "vehicle",
+      "day": 10
+    },
+    {
+      "minute": 1066,
+      "duration": 997,
+      "distance": 343,
+      "kind": "vehicle",
+      "day": 10
+    },
+    {
+      "minute": 624,
+      "duration": 268,
+      "distance": 0,
+      "kind": "visit",
+      "day": 11
+    },
+    {
+      "minute": 891,
+      "duration": 1268,
+      "distance": 0,
+      "kind": "visit",
+      "day": 11
+    },
+    {
+      "minute": 719,
+      "duration": 2,
+      "distance": 144,
+      "kind": "walking",
+      "day": 12
+    },
+    {
+      "minute": 721,
+      "duration": 390,
+      "distance": 0,
+      "kind": "visit",
+      "day": 12
+    },
+    {
+      "minute": 721,
+      "duration": 305,
+      "distance": 0,
+      "kind": "visit",
+      "day": 12
+    },
+    {
+      "minute": 1112,
+      "duration": 165,
+      "distance": 3733,
+      "kind": "vehicle",
+      "day": 12
+    }
+  ]
+}

@@ -1,0 +1,1376 @@
+{
+  "sourceSize": [
+    1536,
+    1024
+  ],
+  "center": [
+    768,
+    520
+  ],
+  "rotationUnit": "radians",
+  "backToFront": [
+    "farThigh",
+    "farFoot",
+    "farShin",
+    "rearUpperArm",
+    "rearForearm",
+    "torso",
+    "head",
+    "upperArm",
+    "forearm",
+    "hand",
+    "thigh",
+    "foot",
+    "shin"
+  ],
+  "joints": {
+    "farThigh": {
+      "parent": null,
+      "pivot": [
+        312,
+        608
+      ],
+      "openRotation": 0.22
+    },
+    "farShin": {
+      "parent": "farThigh",
+      "pivot": [
+        899,
+        858
+      ],
+      "openRotation": -0.44
+    },
+    "farFoot": {
+      "parent": "farShin",
+      "pivot": [
+        318,
+        916
+      ],
+      "openRotation": 0.12
+    },
+    "rearUpperArm": {
+      "parent": null,
+      "pivot": [
+        906,
+        232
+      ],
+      "openRotation": -0.14
+    },
+    "rearForearm": {
+      "parent": "rearUpperArm",
+      "pivot": [
+        1104,
+        609
+      ],
+      "openRotation": 0.13
+    },
+    "torso": {
+      "parent": null,
+      "pivot": [
+        499,
+        464
+      ],
+      "openRotation": -0.027
+    },
+    "head": {
+      "parent": "torso",
+      "pivot": [
+        1071,
+        326
+      ],
+      "openRotation": -0.2
+    },
+    "upperArm": {
+      "parent": "torso",
+      "pivot": [
+        926,
+        234
+      ],
+      "openRotation": 0.21
+    },
+    "forearm": {
+      "parent": "upperArm",
+      "pivot": [
+        758,
+        442
+      ],
+      "openRotation": -0.46
+    },
+    "hand": {
+      "parent": "forearm",
+      "pivot": [
+        1030,
+        493
+      ],
+      "openRotation": 0.055
+    },
+    "thigh": {
+      "parent": null,
+      "pivot": [
+        289,
+        561
+      ],
+      "openRotation": 0.12
+    },
+    "shin": {
+      "parent": "thigh",
+      "pivot": [
+        845,
+        645
+      ],
+      "openRotation": -0.56
+    },
+    "foot": {
+      "parent": "shin",
+      "pivot": [
+        345,
+        786
+      ],
+      "openRotation": 0.14
+    }
+  },
+  "layers": [
+    {
+      "path": "underpaint/farThigh_spring.png",
+      "id": "farThigh",
+      "kind": "underpaint",
+      "season": "spring",
+      "sourceOrigin": [
+        255,
+        554
+      ],
+      "pivot": [
+        57,
+        54
+      ],
+      "sourcePivot": [
+        312,
+        608
+      ],
+      "parent": null,
+      "size": [
+        692,
+        364
+      ]
+    },
+    {
+      "path": "parts/farFoot_spring.png",
+      "id": "farFoot",
+      "kind": "parts",
+      "season": "spring",
+      "sourceOrigin": [
+        98,
+        831
+      ],
+      "pivot": [
+        220,
+        85
+      ],
+      "sourcePivot": [
+        318,
+        916
+      ],
+      "parent": "farShin",
+      "size": [
+        282,
+        191
+      ]
+    },
+    {
+      "path": "parts/farShin_spring.png",
+      "id": "farShin",
+      "kind": "parts",
+      "season": "spring",
+      "sourceOrigin": [
+        319,
+        770
+      ],
+      "pivot": [
+        580,
+        88
+      ],
+      "sourcePivot": [
+        899,
+        858
+      ],
+      "parent": "farThigh",
+      "size": [
+        681,
+        245
+      ]
+    },
+    {
+      "path": "underpaint/rearUpperArm_spring.png",
+      "id": "rearUpperArm",
+      "kind": "underpaint",
+      "season": "spring",
+      "sourceOrigin": [
+        817,
+        202
+      ],
+      "pivot": [
+        89,
+        30
+      ],
+      "sourcePivot": [
+        906,
+        232
+      ],
+      "parent": null,
+      "size": [
+        341,
+        478
+      ]
+    },
+    {
+      "path": "underpaint/rearUpperArm_summer.png",
+      "id": "rearUpperArm",
+      "kind": "underpaint",
+      "season": "summer",
+      "sourceOrigin": [
+        817,
+        202
+      ],
+      "pivot": [
+        89,
+        30
+      ],
+      "sourcePivot": [
+        906,
+        232
+      ],
+      "parent": null,
+      "size": [
+        341,
+        478
+      ]
+    },
+    {
+      "path": "underpaint/rearUpperArm_autumn.png",
+      "id": "rearUpperArm",
+      "kind": "underpaint",
+      "season": "autumn",
+      "sourceOrigin": [
+        817,
+        202
+      ],
+      "pivot": [
+        89,
+        30
+      ],
+      "sourcePivot": [
+        906,
+        232
+      ],
+      "parent": null,
+      "size": [
+        341,
+        478
+      ]
+    },
+    {
+      "path": "underpaint/rearUpperArm_winter.png",
+      "id": "rearUpperArm",
+      "kind": "underpaint",
+      "season": "winter",
+      "sourceOrigin": [
+        817,
+        202
+      ],
+      "pivot": [
+        89,
+        30
+      ],
+      "sourcePivot": [
+        906,
+        232
+      ],
+      "parent": null,
+      "size": [
+        341,
+        478
+      ]
+    },
+    {
+      "path": "parts/rearForearm_spring.png",
+      "id": "rearForearm",
+      "kind": "parts",
+      "season": "spring",
+      "sourceOrigin": [
+        867,
+        534
+      ],
+      "pivot": [
+        237,
+        75
+      ],
+      "sourcePivot": [
+        1104,
+        609
+      ],
+      "parent": "rearUpperArm",
+      "size": [
+        352,
+        276
+      ]
+    },
+    {
+      "path": "parts/rearForearm_summer.png",
+      "id": "rearForearm",
+      "kind": "parts",
+      "season": "summer",
+      "sourceOrigin": [
+        867,
+        534
+      ],
+      "pivot": [
+        237,
+        75
+      ],
+      "sourcePivot": [
+        1104,
+        609
+      ],
+      "parent": "rearUpperArm",
+      "size": [
+        352,
+        276
+      ]
+    },
+    {
+      "path": "parts/rearForearm_autumn.png",
+      "id": "rearForearm",
+      "kind": "parts",
+      "season": "autumn",
+      "sourceOrigin": [
+        867,
+        534
+      ],
+      "pivot": [
+        237,
+        75
+      ],
+      "sourcePivot": [
+        1104,
+        609
+      ],
+      "parent": "rearUpperArm",
+      "size": [
+        352,
+        276
+      ]
+    },
+    {
+      "path": "parts/rearForearm_winter.png",
+      "id": "rearForearm",
+      "kind": "parts",
+      "season": "winter",
+      "sourceOrigin": [
+        867,
+        534
+      ],
+      "pivot": [
+        237,
+        75
+      ],
+      "sourcePivot": [
+        1104,
+        609
+      ],
+      "parent": "rearUpperArm",
+      "size": [
+        352,
+        276
+      ]
+    },
+    {
+      "path": "parts/torso_spring.png",
+      "id": "torso",
+      "kind": "parts",
+      "season": "spring",
+      "sourceOrigin": [
+        93,
+        50
+      ],
+      "pivot": [
+        406,
+        414
+      ],
+      "sourcePivot": [
+        499,
+        464
+      ],
+      "parent": null,
+      "size": [
+        1012,
+        692
+      ]
+    },
+    {
+      "path": "parts/torso_summer.png",
+      "id": "torso",
+      "kind": "parts",
+      "season": "summer",
+      "sourceOrigin": [
+        93,
+        50
+      ],
+      "pivot": [
+        406,
+        414
+      ],
+      "sourcePivot": [
+        499,
+        464
+      ],
+      "parent": null,
+      "size": [
+        1012,
+        692
+      ]
+    },
+    {
+      "path": "parts/torso_autumn.png",
+      "id": "torso",
+      "kind": "parts",
+      "season": "autumn",
+      "sourceOrigin": [
+        93,
+        50
+      ],
+      "pivot": [
+        406,
+        414
+      ],
+      "sourcePivot": [
+        499,
+        464
+      ],
+      "parent": null,
+      "size": [
+        1012,
+        692
+      ]
+    },
+    {
+      "path": "parts/torso_winter.png",
+      "id": "torso",
+      "kind": "parts",
+      "season": "winter",
+      "sourceOrigin": [
+        93,
+        50
+      ],
+      "pivot": [
+        406,
+        414
+      ],
+      "sourcePivot": [
+        499,
+        464
+      ],
+      "parent": null,
+      "size": [
+        1012,
+        692
+      ]
+    },
+    {
+      "path": "underpaint/torso_spring.png",
+      "id": "torso",
+      "kind": "underpaint",
+      "season": "spring",
+      "sourceOrigin": [
+        203,
+        200
+      ],
+      "pivot": [
+        296,
+        264
+      ],
+      "sourcePivot": [
+        499,
+        464
+      ],
+      "parent": null,
+      "size": [
+        832,
+        537
+      ]
+    },
+    {
+      "path": "underpaint/torso_summer.png",
+      "id": "torso",
+      "kind": "underpaint",
+      "season": "summer",
+      "sourceOrigin": [
+        203,
+        200
+      ],
+      "pivot": [
+        296,
+        264
+      ],
+      "sourcePivot": [
+        499,
+        464
+      ],
+      "parent": null,
+      "size": [
+        832,
+        537
+      ]
+    },
+    {
+      "path": "underpaint/torso_autumn.png",
+      "id": "torso",
+      "kind": "underpaint",
+      "season": "autumn",
+      "sourceOrigin": [
+        203,
+        200
+      ],
+      "pivot": [
+        296,
+        264
+      ],
+      "sourcePivot": [
+        499,
+        464
+      ],
+      "parent": null,
+      "size": [
+        832,
+        537
+      ]
+    },
+    {
+      "path": "underpaint/torso_winter.png",
+      "id": "torso",
+      "kind": "underpaint",
+      "season": "winter",
+      "sourceOrigin": [
+        203,
+        200
+      ],
+      "pivot": [
+        296,
+        264
+      ],
+      "sourcePivot": [
+        499,
+        464
+      ],
+      "parent": null,
+      "size": [
+        832,
+        537
+      ]
+    },
+    {
+      "path": "parts/head_spring.png",
+      "id": "head",
+      "kind": "parts",
+      "season": "spring",
+      "sourceOrigin": [
+        1019,
+        22
+      ],
+      "pivot": [
+        52,
+        304
+      ],
+      "sourcePivot": [
+        1071,
+        326
+      ],
+      "parent": "torso",
+      "size": [
+        510,
+        448
+      ]
+    },
+    {
+      "path": "underpaint/head_spring.png",
+      "id": "head",
+      "kind": "underpaint",
+      "season": "spring",
+      "sourceOrigin": [
+        997,
+        226
+      ],
+      "pivot": [
+        74,
+        100
+      ],
+      "sourcePivot": [
+        1071,
+        326
+      ],
+      "parent": "torso",
+      "size": [
+        189,
+        224
+      ]
+    },
+    {
+      "path": "parts/upperArm_spring.png",
+      "id": "upperArm",
+      "kind": "parts",
+      "season": "spring",
+      "sourceOrigin": [
+        607,
+        129
+      ],
+      "pivot": [
+        319,
+        105
+      ],
+      "sourcePivot": [
+        926,
+        234
+      ],
+      "parent": "torso",
+      "size": [
+        474,
+        344
+      ]
+    },
+    {
+      "path": "parts/upperArm_summer.png",
+      "id": "upperArm",
+      "kind": "parts",
+      "season": "summer",
+      "sourceOrigin": [
+        607,
+        129
+      ],
+      "pivot": [
+        319,
+        105
+      ],
+      "sourcePivot": [
+        926,
+        234
+      ],
+      "parent": "torso",
+      "size": [
+        474,
+        344
+      ]
+    },
+    {
+      "path": "parts/upperArm_autumn.png",
+      "id": "upperArm",
+      "kind": "parts",
+      "season": "autumn",
+      "sourceOrigin": [
+        607,
+        129
+      ],
+      "pivot": [
+        319,
+        105
+      ],
+      "sourcePivot": [
+        926,
+        234
+      ],
+      "parent": "torso",
+      "size": [
+        474,
+        344
+      ]
+    },
+    {
+      "path": "parts/upperArm_winter.png",
+      "id": "upperArm",
+      "kind": "parts",
+      "season": "winter",
+      "sourceOrigin": [
+        607,
+        129
+      ],
+      "pivot": [
+        319,
+        105
+      ],
+      "sourcePivot": [
+        926,
+        234
+      ],
+      "parent": "torso",
+      "size": [
+        474,
+        344
+      ]
+    },
+    {
+      "path": "underpaint/upperArm_spring.png",
+      "id": "upperArm",
+      "kind": "underpaint",
+      "season": "spring",
+      "sourceOrigin": [
+        637,
+        150
+      ],
+      "pivot": [
+        289,
+        84
+      ],
+      "sourcePivot": [
+        926,
+        234
+      ],
+      "parent": "torso",
+      "size": [
+        393,
+        361
+      ]
+    },
+    {
+      "path": "underpaint/upperArm_summer.png",
+      "id": "upperArm",
+      "kind": "underpaint",
+      "season": "summer",
+      "sourceOrigin": [
+        637,
+        150
+      ],
+      "pivot": [
+        289,
+        84
+      ],
+      "sourcePivot": [
+        926,
+        234
+      ],
+      "parent": "torso",
+      "size": [
+        393,
+        361
+      ]
+    },
+    {
+      "path": "underpaint/upperArm_autumn.png",
+      "id": "upperArm",
+      "kind": "underpaint",
+      "season": "autumn",
+      "sourceOrigin": [
+        637,
+        150
+      ],
+      "pivot": [
+        289,
+        84
+      ],
+      "sourcePivot": [
+        926,
+        234
+      ],
+      "parent": "torso",
+      "size": [
+        393,
+        361
+      ]
+    },
+    {
+      "path": "underpaint/upperArm_winter.png",
+      "id": "upperArm",
+      "kind": "underpaint",
+      "season": "winter",
+      "sourceOrigin": [
+        637,
+        150
+      ],
+      "pivot": [
+        289,
+        84
+      ],
+      "sourcePivot": [
+        926,
+        234
+      ],
+      "parent": "torso",
+      "size": [
+        393,
+        361
+      ]
+    },
+    {
+      "path": "parts/forearm_spring.png",
+      "id": "forearm",
+      "kind": "parts",
+      "season": "spring",
+      "sourceOrigin": [
+        706,
+        375
+      ],
+      "pivot": [
+        52,
+        67
+      ],
+      "sourcePivot": [
+        758,
+        442
+      ],
+      "parent": "upperArm",
+      "size": [
+        356,
+        256
+      ]
+    },
+    {
+      "path": "parts/forearm_summer.png",
+      "id": "forearm",
+      "kind": "parts",
+      "season": "summer",
+      "sourceOrigin": [
+        706,
+        375
+      ],
+      "pivot": [
+        52,
+        67
+      ],
+      "sourcePivot": [
+        758,
+        442
+      ],
+      "parent": "upperArm",
+      "size": [
+        356,
+        256
+      ]
+    },
+    {
+      "path": "parts/forearm_autumn.png",
+      "id": "forearm",
+      "kind": "parts",
+      "season": "autumn",
+      "sourceOrigin": [
+        706,
+        375
+      ],
+      "pivot": [
+        52,
+        67
+      ],
+      "sourcePivot": [
+        758,
+        442
+      ],
+      "parent": "upperArm",
+      "size": [
+        356,
+        256
+      ]
+    },
+    {
+      "path": "parts/forearm_winter.png",
+      "id": "forearm",
+      "kind": "parts",
+      "season": "winter",
+      "sourceOrigin": [
+        706,
+        375
+      ],
+      "pivot": [
+        52,
+        67
+      ],
+      "sourcePivot": [
+        758,
+        442
+      ],
+      "parent": "upperArm",
+      "size": [
+        356,
+        256
+      ]
+    },
+    {
+      "path": "underpaint/forearm_spring.png",
+      "id": "forearm",
+      "kind": "underpaint",
+      "season": "spring",
+      "sourceOrigin": [
+        680,
+        377
+      ],
+      "pivot": [
+        78,
+        65
+      ],
+      "sourcePivot": [
+        758,
+        442
+      ],
+      "parent": "upperArm",
+      "size": [
+        407,
+        251
+      ]
+    },
+    {
+      "path": "underpaint/forearm_summer.png",
+      "id": "forearm",
+      "kind": "underpaint",
+      "season": "summer",
+      "sourceOrigin": [
+        680,
+        377
+      ],
+      "pivot": [
+        78,
+        65
+      ],
+      "sourcePivot": [
+        758,
+        442
+      ],
+      "parent": "upperArm",
+      "size": [
+        407,
+        251
+      ]
+    },
+    {
+      "path": "underpaint/forearm_autumn.png",
+      "id": "forearm",
+      "kind": "underpaint",
+      "season": "autumn",
+      "sourceOrigin": [
+        680,
+        377
+      ],
+      "pivot": [
+        78,
+        65
+      ],
+      "sourcePivot": [
+        758,
+        442
+      ],
+      "parent": "upperArm",
+      "size": [
+        407,
+        251
+      ]
+    },
+    {
+      "path": "underpaint/forearm_winter.png",
+      "id": "forearm",
+      "kind": "underpaint",
+      "season": "winter",
+      "sourceOrigin": [
+        680,
+        377
+      ],
+      "pivot": [
+        78,
+        65
+      ],
+      "sourcePivot": [
+        758,
+        442
+      ],
+      "parent": "upperArm",
+      "size": [
+        407,
+        251
+      ]
+    },
+    {
+      "path": "parts/hand_spring.png",
+      "id": "hand",
+      "kind": "parts",
+      "season": "spring",
+      "sourceOrigin": [
+        1000,
+        425
+      ],
+      "pivot": [
+        30,
+        68
+      ],
+      "sourcePivot": [
+        1030,
+        493
+      ],
+      "parent": "forearm",
+      "size": [
+        334,
+        209
+      ]
+    },
+    {
+      "path": "parts/hand_summer.png",
+      "id": "hand",
+      "kind": "parts",
+      "season": "summer",
+      "sourceOrigin": [
+        1000,
+        425
+      ],
+      "pivot": [
+        30,
+        68
+      ],
+      "sourcePivot": [
+        1030,
+        493
+      ],
+      "parent": "forearm",
+      "size": [
+        334,
+        209
+      ]
+    },
+    {
+      "path": "parts/hand_autumn.png",
+      "id": "hand",
+      "kind": "parts",
+      "season": "autumn",
+      "sourceOrigin": [
+        1000,
+        425
+      ],
+      "pivot": [
+        30,
+        68
+      ],
+      "sourcePivot": [
+        1030,
+        493
+      ],
+      "parent": "forearm",
+      "size": [
+        334,
+        209
+      ]
+    },
+    {
+      "path": "parts/hand_winter.png",
+      "id": "hand",
+      "kind": "parts",
+      "season": "winter",
+      "sourceOrigin": [
+        1000,
+        425
+      ],
+      "pivot": [
+        30,
+        68
+      ],
+      "sourcePivot": [
+        1030,
+        493
+      ],
+      "parent": "forearm",
+      "size": [
+        334,
+        209
+      ]
+    },
+    {
+      "path": "underpaint/hand_spring.png",
+      "id": "hand",
+      "kind": "underpaint",
+      "season": "spring",
+      "sourceOrigin": [
+        973,
+        429
+      ],
+      "pivot": [
+        57,
+        64
+      ],
+      "sourcePivot": [
+        1030,
+        493
+      ],
+      "parent": "forearm",
+      "size": [
+        148,
+        139
+      ]
+    },
+    {
+      "path": "parts/thigh_spring.png",
+      "id": "thigh",
+      "kind": "parts",
+      "season": "spring",
+      "sourceOrigin": [
+        178,
+        369
+      ],
+      "pivot": [
+        111,
+        192
+      ],
+      "sourcePivot": [
+        289,
+        561
+      ],
+      "parent": null,
+      "size": [
+        747,
+        390
+      ]
+    },
+    {
+      "path": "parts/thigh_summer.png",
+      "id": "thigh",
+      "kind": "parts",
+      "season": "summer",
+      "sourceOrigin": [
+        178,
+        369
+      ],
+      "pivot": [
+        111,
+        192
+      ],
+      "sourcePivot": [
+        289,
+        561
+      ],
+      "parent": null,
+      "size": [
+        747,
+        390
+      ]
+    },
+    {
+      "path": "parts/thigh_autumn.png",
+      "id": "thigh",
+      "kind": "parts",
+      "season": "autumn",
+      "sourceOrigin": [
+        178,
+        369
+      ],
+      "pivot": [
+        111,
+        192
+      ],
+      "sourcePivot": [
+        289,
+        561
+      ],
+      "parent": null,
+      "size": [
+        747,
+        390
+      ]
+    },
+    {
+      "path": "parts/thigh_winter.png",
+      "id": "thigh",
+      "kind": "parts",
+      "season": "winter",
+      "sourceOrigin": [
+        178,
+        369
+      ],
+      "pivot": [
+        111,
+        192
+      ],
+      "sourcePivot": [
+        289,
+        561
+      ],
+      "parent": null,
+      "size": [
+        747,
+        390
+      ]
+    },
+    {
+      "path": "underpaint/thigh_spring.png",
+      "id": "thigh",
+      "kind": "underpaint",
+      "season": "spring",
+      "sourceOrigin": [
+        195,
+        392
+      ],
+      "pivot": [
+        94,
+        169
+      ],
+      "sourcePivot": [
+        289,
+        561
+      ],
+      "parent": null,
+      "size": [
+        733,
+        371
+      ]
+    },
+    {
+      "path": "parts/foot_spring.png",
+      "id": "foot",
+      "kind": "parts",
+      "season": "spring",
+      "sourceOrigin": [
+        17,
+        705
+      ],
+      "pivot": [
+        328,
+        81
+      ],
+      "sourcePivot": [
+        345,
+        786
+      ],
+      "parent": "shin",
+      "size": [
+        375,
+        269
+      ]
+    },
+    {
+      "path": "underpaint/foot_spring.png",
+      "id": "foot",
+      "kind": "underpaint",
+      "season": "spring",
+      "sourceOrigin": [
+        284,
+        740
+      ],
+      "pivot": [
+        61,
+        46
+      ],
+      "sourcePivot": [
+        345,
+        786
+      ],
+      "parent": "shin",
+      "size": [
+        117,
+        112
+      ]
+    },
+    {
+      "path": "parts/shin_spring.png",
+      "id": "shin",
+      "kind": "parts",
+      "season": "spring",
+      "sourceOrigin": [
+        301,
+        554
+      ],
+      "pivot": [
+        544,
+        91
+      ],
+      "sourcePivot": [
+        845,
+        645
+      ],
+      "parent": "thigh",
+      "size": [
+        624,
+        374
+      ]
+    },
+    {
+      "path": "underpaint/shin_spring.png",
+      "id": "shin",
+      "kind": "underpaint",
+      "season": "spring",
+      "sourceOrigin": [
+        310,
+        538
+      ],
+      "pivot": [
+        535,
+        107
+      ],
+      "sourcePivot": [
+        845,
+        645
+      ],
+      "parent": "thigh",
+      "size": [
+        628,
+        372
+      ]
+    },
+    {
+      "path": "eyes/head_closed.png",
+      "id": "head",
+      "kind": "eyes",
+      "season": "closed",
+      "sourceOrigin": [
+        1199,
+        223
+      ],
+      "pivot": [
+        -128,
+        103
+      ],
+      "sourcePivot": [
+        1071,
+        326
+      ],
+      "parent": "torso",
+      "size": [
+        203,
+        152
+      ]
+    },
+    {
+      "path": "eyes/head_drowsy.png",
+      "id": "head",
+      "kind": "eyes",
+      "season": "drowsy",
+      "sourceOrigin": [
+        1199,
+        223
+      ],
+      "pivot": [
+        -128,
+        103
+      ],
+      "sourcePivot": [
+        1071,
+        326
+      ],
+      "parent": "torso",
+      "size": [
+        203,
+        152
+      ]
+    },
+    {
+      "path": "eyes/head_stare.png",
+      "id": "head",
+      "kind": "eyes",
+      "season": "stare",
+      "sourceOrigin": [
+        1199,
+        223
+      ],
+      "pivot": [
+        -128,
+        103
+      ],
+      "sourcePivot": [
+        1071,
+        326
+      ],
+      "parent": "torso",
+      "size": [
+        203,
+        152
+      ]
+    }
+  ]
+}
