@@ -105,3 +105,11 @@ Read README → ROADMAP → WORK_LOG → relevant spec before editing. Do not in
 - Added [2026-11-10 reviewer discussion](DAILY_DISCUSSIONS/2026-11-10.md) as a **retrospective work summary plus newly authored fictional editorial discussion**, explicitly not a previous verbatim conversation transcript.
 - Updated the existing daily Creative Experiments automation to write a dated A/B/C review dialogue and cross-reference it in WORK_LOG.md each run. Its ongoing status is enabled. Scheduled runs are bounded attempts rather than continuous five-hour work guarantees.
 - Existing Nov 10 source claims remain unchanged: isolated 10/10 coverage checks passed; full integrated suite/browser execution remain unverified.
+
+## 2026-11-11 | Before/after evidence delta made explicit
+- Read README, ROADMAP, WORK_LOG, REVIEW_RUBRIC, DAILY_DISCUSSIONS policy, both specs and the current One Scene code/tests.
+- Added pure `compareVisibleEvidence` to `one-scene/coverage.mjs`, integrated newly shown/hidden facts (or unchanged evidence) in `one-scene/app.mjs`, and added five regression assertions to `one-scene/tests.mjs` (53 assertions registered in total).
+- **Executed:** Node v22.16.0 ran **5/5** delta checks and syntax checks against a **manually reconstructed local fixture** matching the new pure function and authored provenance mapping. **Not executed:** full committed Node ESM suite, browser QA, GitHub Actions or model integration. Local GitHub clone could not resolve github.com.
+- Code commits: coverage `5e11cb7abe5c3e90851faa185d0cdbc94cd7f9d8`; UI `d203fbb8fe0f379dc3e7b9bc8ea91645a43b4917`; tests `611cea2e4f4386e39f282a12483a30367fd3f4d2`.
+- Full A/B/C fictional discussion, disagreements and decision: [2026-11-11](DAILY_DISCUSSIONS/2026-11-11.md). Discussion archive commit `2100e92c66ad413fdeabe87be5163d40732d917c`.
+- **Next:** run all 53 assertions from actual repository checkout; browser-test three perspectives and preview UI, including accessibility. No real AI model or footage connected. Second project remains planned.
