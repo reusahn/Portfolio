@@ -24,3 +24,18 @@ export function auditVisibleEvidence(shotOrder, provenance, factCount) {
   return Object.freeze({shown:Object.freeze(shown),notShown:Object.freeze(notShown),
     contextual:Object.freeze(contextual),factCount});
 }
+
+/** Compare what two cuts reveal without treating a reordering as new evidence. */
+export function compareVisibleEvidence(beforeShots, afterShots, provenance, factCount) {
+  const before=auditVisibleEvidence(beforeShots,provenance,factCount);
+  const after=auditVisibleEvidence(afterShots,provenance,factCount);
+  const prior=new Set(before.shown);
+  const current=new Set(after.shown);
+  return Object.freeze({
+    newlyShown:Object.freeze(after.shown.filter(id=>!prior.has(id))),
+    newlyHidden:Object.freeze(before.shown.filter(id=>!current.has(id))),
+    unchangedShown:Object.freeze(before.shown.filter(id=>current.has(id))),
+    before,
+    after
+  });
+}
