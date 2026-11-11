@@ -71,3 +71,6 @@ A new `one-scene/edit-contract.mjs` validates proposed edit directions **without
 
 ## Editorial provenance rule (implemented in source, November 9)
 Every shot now has a provenance classification: **observed** with references to canonical fact indices, or **context** with no factual claim. A visible label explains why clock/window inserts cannot establish a character's motives. This does not infer new events, and all descriptions remain human-authored. Source: `one-scene/evidence.mjs`. Browser QA remains pending.
+
+## 2026-11-11 — Evidence-delta design decision
+The authored storyboard now distinguishes (1) the locked six-fact ledger, (2) the facts visible in each cut, and (3) **newly shown / newly hidden** facts when comparing an original with a validated authored demonstration edit. Reordering the same evidence is not counted as new evidence; context inserts never count as observed facts. The labels are director-authored provenance metadata, **not AI video analysis**. The comparison is implemented in source, but real browser usability and audience interpretation remain unverified.
