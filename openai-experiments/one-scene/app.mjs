@@ -1,5 +1,5 @@
 import {shotProvenance,SHOT_PROVENANCE} from "./evidence.mjs";
-import {auditVisibleEvidence} from "./coverage.mjs";
+import {auditVisibleEvidence,compareVisibleEvidence} from "./coverage.mjs";
 import {FACTS,SHOTS,PERSPECTIVES,makeCut} from "./story.mjs";
 import {acceptEditProposal} from "./edit-contract.mjs";
 import {shotDuration,nextShotIndex} from "./playback.mjs";
@@ -88,6 +88,14 @@ function renderEditAudit(authored,active){
     if(coverage.notShown.length)block.append(el("p","audit-caption","NOT SHOWN: "+coverage.notShown.map(i=>"Fact "+String(i+1).padStart(2,"0")).join(", ")));
     columns.append(block);
   }
+  const delta=compareVisibleEvidence(authored.shotOrder,active.shotOrder,SHOT_PROVENANCE,FACTS.length);
+  const deltaText=delta.newlyShown.length||delta.newlyHidden.length
+    ? "NEWLY VISIBLE: "+(delta.newlyShown.map(i=>"Fact "+String(i+1).padStart(2,"0")).join(", ")||"none")+
+      " · NEWLY HIDDEN: "+(delta.newlyHidden.map(i=>"Fact "+String(i+1).padStart(2,"0")).join(", ")||"none")
+    : "SAME OBSERVABLE FACTS IN BOTH CUTS · ONLY ORDER, CONTEXT OR CAPTION MAY DIFFER";
+  const deltaLabel=el("p","audit-caption",deltaText);
+  deltaLabel.setAttribute("aria-label","Change in visible evidence between the original and demonstration edit");
+  panel.append(deltaLabel);
   const lock=el("p","audit-lock","6 / 6 CANONICAL FACTS UNCHANGED IN THE LEDGER · NOT ALL FACTS ARE VISIBLE IN THE CUT");
   panel.append(title,description,columns,lock);
 }
