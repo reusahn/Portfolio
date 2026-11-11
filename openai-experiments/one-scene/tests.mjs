@@ -67,3 +67,11 @@ ok("context cannot claim an event",()=>assert.throws(()=>auditVisibleEvidence(["
 ok("invalid evidence input is rejected",()=>assert.throws(()=>auditVisibleEvidence("hand",SHOT_PROVENANCE,6)));
 ok("coverage result arrays are immutable",()=>assert.ok(Object.isFrozen(auditVisibleEvidence(["hand"],SHOT_PROVENANCE,6).shown)));
 console.log(count,"total narrative, playback, provenance and evidence coverage checks registered");
+
+import {compareVisibleEvidence} from "./coverage.mjs";
+ok("delta reports facts gained and lost",()=>{const d=compareVisibleEvidence(["hand","door"],["door","envelope"],SHOT_PROVENANCE,6);assert.deepEqual(d.newlyShown,[1,5]);assert.deepEqual(d.newlyHidden,[2]);});
+ok("reordering preserves visibility set",()=>{const d=compareVisibleEvidence(["door","hand"],["hand","door"],SHOT_PROVENANCE,6);assert.deepEqual(d.newlyShown,[]);assert.deepEqual(d.newlyHidden,[]);});
+ok("context shots do not create new observed evidence",()=>{const d=compareVisibleEvidence(["clock"],["window"],SHOT_PROVENANCE,6);assert.deepEqual(d.newlyShown,[]);assert.deepEqual(d.newlyHidden,[]);});
+ok("delta result arrays are immutable",()=>{const d=compareVisibleEvidence(["hand"],["door"],SHOT_PROVENANCE,6);assert.ok(Object.isFrozen(d.newlyShown)&&Object.isFrozen(d.newlyHidden)&&Object.isFrozen(d.unchangedShown));});
+ok("invalid input in either cut fails closed",()=>assert.throws(()=>compareVisibleEvidence(["hand"],["fake"],SHOT_PROVENANCE,6)));
+console.log(count,"total narrative and evidence-delta checks registered");
