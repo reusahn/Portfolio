@@ -37,3 +37,6 @@ This is a fiction about the uncertainty of human intent. A character's statement
 
 ## November 9, 2026 — Shot-level evidence provenance
 The interface now labels every selected shot as **OBSERVED EVENT** or **EDITORIAL CONTEXT**, with a human-authored explanation. Clock and window inserts are deliberately **not** evidence of lateness or motivation. See `evidence.mjs`; 5 new contract assertions bring the suite to 38. All 38 were executed against GitHub-retrieved source in an isolated V8 harness, **not** as Node ESM or browser QA.
+
+## November 11, 2026 — Before/after evidence delta
+The validated edit audit reports **NEWLY VISIBLE** and **NEWLY HIDDEN** fact IDs. If an edit merely reorders the same observed facts, it explicitly says the visible evidence set is unchanged. The pure comparison function is in `coverage.mjs`; five regression checks were added to `tests.mjs` (53 registered total). A reconstructed local Node fixture passed 5/5 checks, **not** the complete repository suite or browser QA. See [the daily fictional review](../DAILY_DISCUSSIONS/2026-11-11.md).
