@@ -40,3 +40,6 @@ The interface now labels every selected shot as **OBSERVED EVENT** or **EDITORIA
 
 ## November 11, 2026 — Before/after evidence delta
 The validated edit audit reports **NEWLY VISIBLE** and **NEWLY HIDDEN** fact IDs. If an edit merely reorders the same observed facts, it explicitly says the visible evidence set is unchanged. The pure comparison function is in `coverage.mjs`; five regression checks were added to `tests.mjs` (53 registered total). A reconstructed local Node fixture passed 5/5 checks, **not** the complete repository suite or browser QA. See [the daily fictional review](../DAILY_DISCUSSIONS/2026-11-11.md).
+
+## November 12, 2026 — Timed playback screen-reader announcements
+Manual shot navigation and perspective changes still update the polite live region, but timed playback no longer repeatedly rewrites it every 1.25–3.2 seconds. This is a narrow source-level accessibility improvement, **not verified with a screen reader or real browser**. Three new pure-function assertions are registered (56 total). A locally reconstructed Node v22.16.0 fixture passed 3/3 new assertions; full integrated suite not run. See [daily discussion](../DAILY_DISCUSSIONS/2026-11-12.md).
