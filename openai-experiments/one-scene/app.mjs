@@ -2,7 +2,7 @@ import {shotProvenance,SHOT_PROVENANCE} from "./evidence.mjs";
 import {auditVisibleEvidence,compareVisibleEvidence} from "./coverage.mjs";
 import {FACTS,SHOTS,PERSPECTIVES,makeCut} from "./story.mjs";
 import {acceptEditProposal} from "./edit-contract.mjs";
-import {shotDuration,nextShotIndex} from "./playback.mjs";
+import {shotDuration,nextShotIndex,shotAnnouncement} from "./playback.mjs";
 
 const $=selector=>document.querySelector(selector);
 const $$=selector=>Array.from(document.querySelectorAll(selector));
@@ -169,7 +169,10 @@ function render(){
   });
 
   const announce=$("#screenAnnounce");
-  if(announce)announce.textContent=pov.name+", shot "+(state.index+1)+": "+shot.label;
+  if(announce){
+    const message=shotAnnouncement(state.playing,pov.name,state.index,shot.label);
+    if(message!==null)announce.textContent=message;
+  }
 }
 
 function navigate(delta){
