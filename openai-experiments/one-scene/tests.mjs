@@ -36,7 +36,7 @@ ok("schema explicitly forbids additional properties",()=>assert.equal(EDIT_PLAN_
 ok("caption IDs are witness-specific",()=>{assert.ok(CAPTION_IDS.friend.includes("absence"));assert.equal(validateEditProposal({...proposal,caption_id:"routine"},"friend").valid,false)});
 
 
-import {PACE_MS,shotDuration,nextShotIndex} from "./playback.mjs";
+import {PACE_MS,shotDuration,nextShotIndex,shotAnnouncement} from "./playback.mjs";
 ok("all authored pace values resolve to finite durations",()=>Object.keys(PACE_MS).forEach(p=>assert.ok(Number.isFinite(shotDuration(p))&&shotDuration(p)>0)));
 ok("pacing order matches the cinematic labels",()=>assert.ok(shotDuration("linger")>shotDuration("measured")&&shotDuration("measured")>shotDuration("brisk")));
 ok("unrecognized playback pace is rejected",()=>assert.throws(()=>shotDuration("instant")));
@@ -75,3 +75,9 @@ ok("context shots do not create new observed evidence",()=>{const d=compareVisib
 ok("delta result arrays are immutable",()=>{const d=compareVisibleEvidence(["hand"],["door"],SHOT_PROVENANCE,6);assert.ok(Object.isFrozen(d.newlyShown)&&Object.isFrozen(d.newlyHidden)&&Object.isFrozen(d.unchangedShown));});
 ok("invalid input in either cut fails closed",()=>assert.throws(()=>compareVisibleEvidence(["hand"],["fake"],SHOT_PROVENANCE,6)));
 console.log(count,"total narrative and evidence-delta checks registered");
+
+// Accessibility: timed playback must not repeatedly interrupt assistive technology.
+ok("manual navigation produces an accessible shot announcement",()=>assert.equal(shotAnnouncement(false,"Friend",1,"Door"),"Friend, shot 2: Door"));
+ok("timed playback suppresses repeated live-region announcements",()=>assert.equal(shotAnnouncement(true,"Friend",1,"Door"),null));
+ok("invalid announcement inputs fail closed",()=>{assert.throws(()=>shotAnnouncement(false,"",0,"Door"));assert.throws(()=>shotAnnouncement(false,"Friend",-1,"Door"));});
+console.log(count,"total contract and screen-reader announcement checks registered");
