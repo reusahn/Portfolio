@@ -113,3 +113,11 @@ Read README → ROADMAP → WORK_LOG → relevant spec before editing. Do not in
 - Code commits: coverage `5e11cb7abe5c3e90851faa185d0cdbc94cd7f9d8`; UI `d203fbb8fe0f379dc3e7b9bc8ea91645a43b4917`; tests `611cea2e4f4386e39f282a12483a30367fd3f4d2`.
 - Full A/B/C fictional discussion, disagreements and decision: [2026-11-11](DAILY_DISCUSSIONS/2026-11-11.md). Discussion archive commit `2100e92c66ad413fdeabe87be5163d40732d917c`.
 - **Next:** run all 53 assertions from actual repository checkout; browser-test three perspectives and preview UI, including accessibility. No real AI model or footage connected. Second project remains planned.
+
+## 2026-11-12 | Quiet timed playback — accessibility hardening
+- Read README, ROADMAP, WORK_LOG, REVIEW_RUBRIC, daily archive policy, Nov 11 dialogue, both project specifications and One Scene source.
+- Fixed a source-level screen-reader issue: timed storyboard playback no longer updates the polite live announcement on each shot, while manual navigation still announces the selected shot. The visible shot and evidence metadata continue updating.
+- Code commits: playback policy [a9fcc88386f27b7f7c79abfae866c41de81fb71a](https://github.com/reusahn/Portfolio/commit/a9fcc88386f27b7f7c79abfae866c41de81fb71a); app wiring [3b775db09c970fce8c3e5c193024f0b897bd31a2](https://github.com/reusahn/Portfolio/commit/3b775db09c970fce8c3e5c193024f0b897bd31a2); three new test assertions [fe635e4b6cdb97de9e77fb322c02909d3833c09a](https://github.com/reusahn/Portfolio/commit/fe635e4b6cdb97de9e77fb322c02909d3833c09a).
+- **Actually executed:** Node v22.16.0 syntax check and 3/3 new assertions in a manually reconstructed local fixture. **Not executed:** full repository test suite (now 56 registered), actual browser, screen-reader/mobile QA, GitHub Actions, AI integration, filmed media or user study. No score assigned.
+- A/B/C one-round fictional debate, decision and outstanding accessibility disagreement: [Nov 12 daily discussion](DAILY_DISCUSSIONS/2026-11-12.md).
+- **Next:** run the full 56-assertion Node suite on an actual checkout; then screen-reader/browser smoke tests of autoplay, manual controls, POV and evidence delta. Only afterward move toward a secure model-backed comparison against authored baseline. Project two remains deferred.
