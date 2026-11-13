@@ -121,3 +121,11 @@ Read README → ROADMAP → WORK_LOG → relevant spec before editing. Do not in
 - **Actually executed:** Node v22.16.0 syntax check and 3/3 new assertions in a manually reconstructed local fixture. **Not executed:** full repository test suite (now 56 registered), actual browser, screen-reader/mobile QA, GitHub Actions, AI integration, filmed media or user study. No score assigned.
 - A/B/C one-round fictional debate, decision and outstanding accessibility disagreement: [Nov 12 daily discussion](DAILY_DISCUSSIONS/2026-11-12.md).
 - **Next:** run the full 56-assertion Node suite on an actual checkout; then screen-reader/browser smoke tests of autoplay, manual controls, POV and evidence delta. Only afterward move toward a secure model-backed comparison against authored baseline. Project two remains deferred.
+
+## 2026-11-13 | Evidence audit reading order (bounded source fix)
+- Inspected README, ROADMAP, REVIEW_RUBRIC, discussion policy, Nov 12 discussion, both project specifications, and current One Scene source/tests.
+- In `one-scene/app.mjs`, moved the evidence delta to follow the comparison heading, explanation and two cut columns; derived the ledger label from `FACTS.length` instead of hard-coding six. Code commit: [`01ba5428419a112da02fd13cae327ad1a6c86e27`](https://github.com/reusahn/Portfolio/commit/01ba5428419a112da02fd13cae327ad1a6c86e27).
+- **Verified:** re-fetched committed source and checked the new DOM append order, dynamic count and absence of old hard-coded label (three static source checks true). **Not verified:** browser semantics, screen-reader behavior, full Node suite or GitHub Actions. Attempted git clone failed with `Could not resolve host: github.com`.
+- Fictional A/B/C one-round critique, disagreement, revised decision and next step: [November 13 discussion](DAILY_DISCUSSIONS/2026-11-13.md), discussion commit [`9c4425cc7372c92c56ddeaffc91387424581cd6c`](https://github.com/reusahn/Portfolio/commit/9c4425cc7372c92c56ddeaffc91387424581cd6c).
+- The Things We Didn't Say remains specification-only. No model calls, footage or user research were performed.
+- **Next:** execute the full 56-case Node ESM suite in a working checkout; test browser/assistive-tech reading order; then compare a secure constrained model edit against the authored fallback.
