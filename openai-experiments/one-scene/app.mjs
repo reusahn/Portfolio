@@ -95,9 +95,8 @@ function renderEditAudit(authored,active){
     : "SAME OBSERVABLE FACTS IN BOTH CUTS · ONLY ORDER, CONTEXT OR CAPTION MAY DIFFER";
   const deltaLabel=el("p","audit-caption",deltaText);
   deltaLabel.setAttribute("aria-label","Change in visible evidence between the original and demonstration edit");
-  panel.append(deltaLabel);
-  const lock=el("p","audit-lock","6 / 6 CANONICAL FACTS UNCHANGED IN THE LEDGER · NOT ALL FACTS ARE VISIBLE IN THE CUT");
-  panel.append(title,description,columns,lock);
+  const lock=el("p","audit-lock",FACTS.length+" / "+FACTS.length+" CANONICAL FACTS UNCHANGED IN THE LEDGER · NOT ALL FACTS ARE VISIBLE IN THE CUT");
+  panel.append(title,description,columns,deltaLabel,lock);
 }
 
 function render(){
