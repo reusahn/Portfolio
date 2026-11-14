@@ -177,7 +177,9 @@ function render(){
 function navigate(delta){
   const len=state.preview?state.preview.shotOrder.length:makeCut(state.pov,state.focus).shotOrder.length;
   const next=Math.min(len-1,Math.max(0,state.index+delta));
-  if(next!==state.index){state.index=next;render()}
+  // Always repaint: a boundary-key press can stop playback without changing shots.
+  state.index=next;
+  render();
 }
 
 function init(){
