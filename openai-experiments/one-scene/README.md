@@ -25,7 +25,11 @@ node tests.mjs
 ```
 The script asserts canonical facts are unchanged, alternate POVs work, shot IDs are valid, edits do not fabricate events, and invalid inputs fail. It also covers strict proposed edit plans (unexpected keys, witness mismatch, invalid/duplicate shots, unapproved captions, and immutable accepted plans). **Do not mark as passed without running the command.**
 
-## Model proposal safety boundary (source only)\n\n`edit-contract.mjs` exports `validateEditProposal`, `acceptEditProposal`, `EDIT_PLAN_SCHEMA`, and `CAPTION_IDS`. A future server can request structured edit choices, but no model is connected today. This file is **not imported by the browser UI** yet. Arbitrary generated prose and facts are rejected by design.\n\n## Future production evidence
+## Model proposal safety boundary (authored preview, no live model)
+
+`edit-contract.mjs` exports `validateEditProposal`, `acceptEditProposal`, `EDIT_PLAN_SCHEMA`, and `CAPTION_IDS`. `app.mjs` **does import this contract** to validate a fixed, director-authored demonstration edit. This is not a live model call. The accepted proposal has exactly four fields: `perspective`, `shot_order`, `caption_id`, `pace`. Unexpected keys and arbitrary generated prose or facts are rejected. The proposed server-side model mode remains future work; see [the aligned specification](../ONE_SCENE_SPEC.md).
+
+## Future production evidence
 - Capture browser execution / mobile view
 - Verify focus order and reduced-motion behavior
 - Record user reactions with informed permission
@@ -43,3 +47,7 @@ The validated edit audit reports **NEWLY VISIBLE** and **NEWLY HIDDEN** fact IDs
 
 ## November 12, 2026 — Timed playback screen-reader announcements
 Manual shot navigation and perspective changes still update the polite live region, but timed playback no longer repeatedly rewrites it every 1.25–3.2 seconds. This is a narrow source-level accessibility improvement, **not verified with a screen reader or real browser**. Three new pure-function assertions are registered (56 total). A locally reconstructed Node v22.16.0 fixture passed 3/3 new assertions; full integrated suite not run. See [daily discussion](../DAILY_DISCUSSIONS/2026-11-12.md).
+
+## November 15, 2026 — Reproducible QA gate (not yet passed)
+
+From a checked-out `gh-pages` branch, run `cd openai-experiments/one-scene && node tests.mjs` and record the actual Node version, exit code, and assertion count. Then use a real browser on the deployed URL to check: (1) play, then Previous on first shot and Next on last shot; button should show `PLAY CUT` and `aria-pressed=false` after stopping, (2) timed playback ends without restarting, (3) perspective and focus changes stop playback, (4) authored preview and restore preserve the canonical ledger, (5) keyboard arrow navigation, narrow mobile layout, reduced motion, and screen-reader live announcements. **None of these browser checks is marked passed here.** A local clone attempt on 2026-11-15 failed at DNS resolution of `github.com`; the complete Node suite could not be run. See [daily fictional critique](../DAILY_DISCUSSIONS/2026-11-15.md).
