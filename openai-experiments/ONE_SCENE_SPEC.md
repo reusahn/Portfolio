@@ -29,19 +29,16 @@ Audience re-edits a fixed café encounter through three characters' limited, emo
 7. End with a short question for the visitor: 'What did you assume before you had evidence?'
 
 ## Model integration (P2, not present in initial offline cut)
-Use a server endpoint to send a **public fictional event JSON** and selected perspective. Model returns only constrained edit directions and inferences:
+A future **server-side** endpoint may request a constrained edit proposal for the public fictional event and a selected witness. The **current implemented** `edit-contract.mjs` accepts exactly four keys, for example:
 ```json
 {
   "perspective": "friend",
-  "shot_order": ["door", "chair", "envelope", "hand"],
-  "emphasis": "absence",
-  "caption": "They could have stayed.",
-  "voiceover": "I thought the silence was an answer.",
-  "inference": "The person left to avoid me.",
-  "uncertainty": "Intent cannot be directly observed."
+  "shot_order": ["chair", "door", "envelope", "hand"],
+  "caption_id": "absence",
+  "pace": "linger"
 }
 ```
-Validate enum, known shot IDs, caption length, safety, no new factual events, and disclose generated content. A human-edit fallback remains active for offline access.
+The witness must match the separately requested perspective. `shot_order` must contain four distinct known shot IDs; `caption_id` must belong to the witness-specific authored vocabulary; `pace` must be an approved enum. Extra fields, including `facts`, `emphasis`, freeform `caption`, `voiceover`, `inference`, or `uncertainty`, are rejected. Canonical facts are attached from the authored ledger only **after** validation. This strict vocabulary limits expressiveness intentionally and cannot establish semantic truth for arbitrary generated text. A deterministic authored fallback remains available. **No live model endpoint or browser model integration exists.**
 
 ## Technical design (P1)
 - Static GitHub Pages site, no build step: HTML/CSS/JS + structured scene data.
