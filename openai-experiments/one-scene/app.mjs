@@ -163,7 +163,11 @@ function render(){
     b.setAttribute("aria-pressed",String(index===state.index));
     b.append(el("span","",String(index+1).padStart(2,"0")+" / SHOT"));
     b.append(el("strong","",SHOTS[id].label));
-    b.addEventListener("click",()=>{stopPlayback();state.index=index;render()});
+    b.addEventListener("click",()=>{
+      stopPlayback();state.index=index;render();
+      // render() replaces filmstrip buttons; return keyboard focus to the new active button.
+      strip.children[index]?.focus();
+    });
     strip.append(b);
   });
 
