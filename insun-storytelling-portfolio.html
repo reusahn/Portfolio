@@ -3,21 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Filmmaking portfolio by Jonghoon Ahn featuring the short film Urban Diary and preliminary footage stills from the Jeju documentary INSUN.">
+  <meta name="description" content="Filmmaking portfolio by Jonghoon Ahn featuring the short film Urban Diary and a work-in-progress video and fieldwork stills from the Jeju documentary INSUN.">
   <title>Jonghoon Ahn | Storytelling Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <style>
-    :root { color-scheme: dark; --paper: #f4e8d8; --muted: #c4b6a6; --line: #514335; --accent: #efad84; --ground: #181512; --panel: #211b17; }
+    :root { color-scheme: light; --ink: #161616; --muted: #505050; --line: #d8d8d8; --ground: #fff; --panel: #f5f5f5; }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--ground); color: var(--paper); font: 1rem/1.65 "DM Sans", system-ui, sans-serif; }
+    body { margin: 0; background: var(--ground); color: var(--ink); font: 1rem/1.6 system-ui, sans-serif; }
     a { color: inherit; text-underline-offset: .24em; }
-    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
-    a:hover { color: var(--accent); }
+    a:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
+    a:hover { text-decoration: underline; }
     img, iframe { display: block; width: 100%; }
     img { height: auto; }
-    h1, h2 { margin: 0; font: 400 1em/.94 "Instrument Serif", Georgia, serif; }
+    h1, h2 { margin: 0; font: 600 1em/1.06 system-ui, sans-serif; letter-spacing: -.045em; }
     p { margin: 0; }
     .wrap { width: min(90%, 1180px); margin-inline: auto; }
     .bar, footer { display: flex; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; align-items: center; }
@@ -25,9 +22,9 @@
     nav { display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; }
     .bar a { font-size: .9rem; text-decoration: none; }
     .bar .name { font-weight: 700; }
-    .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 2rem; align-items: end; padding: 5rem 0 2.7rem; }
-    .kicker { margin-bottom: .7rem; color: var(--accent); font-size: .76rem; letter-spacing: .13em; text-transform: uppercase; font-weight: 700; }
-    h1 { font-size: clamp(4rem, 10vw, 9rem); }
+    .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 2rem; align-items: end; padding: 3.5rem 0 2.1rem; }
+    .kicker { margin-bottom: .7rem; color: var(--ink); font-size: .76rem; letter-spacing: .13em; text-transform: uppercase; font-weight: 700; }
+    h1 { font-size: clamp(2.5rem, 7vw, 5.25rem); }
     .lead { max-width: 39ch; color: var(--muted); padding-bottom: .3rem; font-size: clamp(1rem, 2vw, 1.22rem); }
     .honors { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); padding: 0; margin: 0 0 3.2rem; border-block: 1px solid var(--line); }
     .honors li { padding: 1rem 1.2rem; }
@@ -36,19 +33,23 @@
     .honors span, .meta, figcaption, .watch-note, footer { color: var(--muted); font-size: .9rem; }
     .film { padding: 2.6rem 0 3.2rem; border-top: 1px solid var(--line); }
     .film-head { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 1rem 2rem; margin-bottom: 1.4rem; }
-    h2 { font-size: clamp(3rem, 8vw, 6.5rem); }
+    h2 { font-size: clamp(2.15rem, 5vw, 3.75rem); }
     .meta { margin-top: .6rem; }
     .description { max-width: 52ch; }
     .stills { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
     .stills img { aspect-ratio: 16 / 10; object-fit: cover; background: var(--panel); }
     figure { margin: 0; }
     figcaption { margin-top: .5rem; }
-    .screen { aspect-ratio: 16 / 9; max-width: 960px; margin-inline: auto; background: #100e0c url("assets/images/film2.jpg") center / cover; }
+    .video { width: min(100%, 880px); margin-inline: auto; }
+    .video--sketch { width: min(100%, 680px); margin: 1.75rem auto 0; }
+    .video h3 { margin: 0 0 .55rem; font-size: 1rem; }
+    .screen { aspect-ratio: 16 / 9; background: var(--panel); border: 1px solid var(--line); }
+    .video--sketch .screen { aspect-ratio: 4 / 3; }
     iframe { height: 100%; border: 0; }
-    .watch-note { margin: .65rem auto 0; max-width: 960px; }
-    .watch-note code { color: var(--paper); }
+    .watch-note { margin-top: .55rem; }
+    .watch-note code { color: var(--ink); }
     .credits { border-top: 1px solid var(--line); padding: 2rem 0 3rem; }
-    .credits h2 { font-size: clamp(2.3rem, 5vw, 4rem); margin-bottom: 1rem; }
+    .credits h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); margin-bottom: 1rem; }
     .credits dl { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; margin: 0; }
     dt { font-weight: 700; }
     dd { margin: 0; color: var(--muted); }
@@ -103,6 +104,13 @@
         </div>
         <figcaption>Two images from preliminary fieldwork at Go Insun’s salon.</figcaption>
       </figure>
+      <div class="video video--sketch">
+        <h3>Work-in-progress video</h3>
+        <div class="screen">
+          <iframe src="https://player.vimeo.com/video/1247434188?autopause=0&amp;player_id=0&amp;app_id=58479" title="INSUN work-in-progress video" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen></iframe>
+        </div>
+        <p class="watch-note">Viewing password <code>insun</code> · <a href="https://vimeo.com/1247434188?share=copy&amp;fl=sv&amp;fe=ci">Open on Vimeo</a></p>
+      </div>
     </section>
 
     <section class="film" id="urban-diary" aria-labelledby="urban-title">
@@ -114,10 +122,12 @@
         </div>
         <p class="description">When her father returns to work, high school student Min-hae finds herself alone in the family apartment. The film follows the small shifts in her daily routine as a familiar space begins to feel different.</p>
       </div>
-      <div class="screen">
-        <iframe src="https://player.vimeo.com/video/1105078838?title=0&amp;byline=0&amp;portrait=0" title="Urban Diary full short film on Vimeo" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
+      <div class="video">
+        <div class="screen">
+          <iframe src="https://player.vimeo.com/video/1105078838?h=03676d988d&amp;autopause=0&amp;player_id=0&amp;app_id=58479" title="Urban Diary full short film on Vimeo" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen></iframe>
+        </div>
+        <p class="watch-note">Viewing password <code>urbandiary</code> · <a href="https://vimeo.com/1105078838/03676d988d">Open on Vimeo</a></p>
       </div>
-      <p class="watch-note">Viewing password <code>urbandiary</code> · <a href="https://vimeo.com/1105078838">Open on Vimeo</a></p>
     </section>
 
     <section class="credits" id="credits" aria-labelledby="credits-title">
