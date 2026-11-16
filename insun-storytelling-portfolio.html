@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Filmmaking portfolio by Jonghoon Ahn featuring the short film Urban Diary and preliminary footage stills from the Jeju documentary INSUN.">
+  <title>Jonghoon Ahn | Storytelling Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; --paper: #f4e8d8; --muted: #c4b6a6; --line: #514335; --accent: #efad84; --ground: #181512; --panel: #211b17; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--ground); color: var(--paper); font: 1rem/1.65 "DM Sans", system-ui, sans-serif; }
+    a { color: inherit; text-underline-offset: .24em; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+    a:hover { color: var(--accent); }
+    img, iframe { display: block; width: 100%; }
+    img { height: auto; }
+    h1, h2 { margin: 0; font: 400 1em/.94 "Instrument Serif", Georgia, serif; }
+    p { margin: 0; }
+    .wrap { width: min(90%, 1180px); margin-inline: auto; }
+    .bar, footer { display: flex; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; align-items: center; }
+    .bar { padding: 1.15rem 0; border-bottom: 1px solid var(--line); }
+    nav { display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; }
+    .bar a { font-size: .9rem; text-decoration: none; }
+    .bar .name { font-weight: 700; }
+    .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 2rem; align-items: end; padding: 5rem 0 2.7rem; }
+    .kicker { margin-bottom: .7rem; color: var(--accent); font-size: .76rem; letter-spacing: .13em; text-transform: uppercase; font-weight: 700; }
+    h1 { font-size: clamp(4rem, 10vw, 9rem); }
+    .lead { max-width: 39ch; color: var(--muted); padding-bottom: .3rem; font-size: clamp(1rem, 2vw, 1.22rem); }
+    .honors { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); padding: 0; margin: 0 0 3.2rem; border-block: 1px solid var(--line); }
+    .honors li { padding: 1rem 1.2rem; }
+    .honors li + li { border-left: 1px solid var(--line); }
+    .honors strong, .honors span { display: block; }
+    .honors span, .meta, figcaption, .watch-note, footer { color: var(--muted); font-size: .9rem; }
+    .film { padding: 2.6rem 0 3.2rem; border-top: 1px solid var(--line); }
+    .film-head { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 1rem 2rem; margin-bottom: 1.4rem; }
+    h2 { font-size: clamp(3rem, 8vw, 6.5rem); }
+    .meta { margin-top: .6rem; }
+    .description { max-width: 52ch; }
+    .stills { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+    .stills img { aspect-ratio: 16 / 10; object-fit: cover; background: var(--panel); }
+    figure { margin: 0; }
+    figcaption { margin-top: .5rem; }
+    .screen { aspect-ratio: 16 / 9; max-width: 960px; margin-inline: auto; background: #100e0c url("assets/images/film2.jpg") center / cover; }
+    iframe { height: 100%; border: 0; }
+    .watch-note { margin: .65rem auto 0; max-width: 960px; }
+    .watch-note code { color: var(--paper); }
+    .credits { border-top: 1px solid var(--line); padding: 2rem 0 3rem; }
+    .credits h2 { font-size: clamp(2.3rem, 5vw, 4rem); margin-bottom: 1rem; }
+    .credits dl { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; margin: 0; }
+    dt { font-weight: 700; }
+    dd { margin: 0; color: var(--muted); }
+    footer { padding: 1.15rem 0 2rem; border-top: 1px solid var(--line); }
+    @media (max-width: 650px) {
+      .hero, .film-head, .credits dl { grid-template-columns: 1fr; }
+      .hero { padding-top: 3rem; }
+      .honors { grid-template-columns: 1fr; margin-bottom: 2.3rem; }
+      .honors li { padding-inline: 0; }
+      .honors li + li { border-left: 0; border-top: 1px solid var(--line); }
+      .stills { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap bar">
+    <a class="name" href="#top">Jonghoon Ahn</a>
+    <nav aria-label="Portfolio sections">
+      <a href="#insun">INSUN</a>
+      <a href="#urban-diary">Urban Diary</a>
+      <a href="#credits">Credits</a>
+    </nav>
+  </header>
+  <main class="wrap" id="top">
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <p class="kicker">Storytelling portfolio</p>
+        <h1 id="page-title">Jonghoon Ahn</h1>
+      </div>
+      <p class="lead">Filmmaker working in documentary and short film. I use long takes and spare dialogue to explore how memory and social pressures shape everyday life.</p>
+    </section>
+
+    <ul class="honors" aria-label="Selected career recognition">
+      <li><strong>Academy Nicholl Fellowships</strong><span>Official Entrant · 2025</span></li>
+      <li><strong>CJ &amp; TIFF K-Story Fund</strong><span>Shortlist · 2025</span></li>
+      <li><strong>Sundance Ignite × Adobe Fellowship</strong><span>Finalist · 2024</span></li>
+    </ul>
+
+    <section class="film" id="insun" aria-labelledby="insun-title">
+      <div class="film-head">
+        <div>
+          <p class="kicker">Documentary · Work in progress</p>
+          <h2 id="insun-title">INSUN</h2>
+          <p class="meta">Jeju Island, South Korea · Director and project lead: Jonghoon Ahn</p>
+        </div>
+        <p class="description">Go Insun runs a hair salon near Sanbangsan on Jeju Island. The film begins with the rhythms of her work and conversations in the salon, then follows her recollections to places she knows. Observational footage and historical research bring those memories into contact with the present-day landscape.</p>
+      </div>
+      <figure>
+        <div class="stills">
+          <img src="assets/latent/insun-1.jpg" alt="Preliminary fieldwork image from Go Insun’s hair salon in Jeju" decoding="async">
+          <img src="assets/latent/insun-2.jpg" alt="A second view from preliminary fieldwork at Go Insun’s hair salon" loading="lazy" decoding="async">
+        </div>
+        <figcaption>Two images from preliminary fieldwork at Go Insun’s salon.</figcaption>
+      </figure>
+    </section>
+
+    <section class="film" id="urban-diary" aria-labelledby="urban-title">
+      <div class="film-head">
+        <div>
+          <p class="kicker">Narrative short · Completed film</p>
+          <h2 id="urban-title">Urban Diary</h2>
+          <p class="meta">2019 · 18 minutes · Co-directed by Jonghoon Ahn and Ko san</p>
+        </div>
+        <p class="description">When her father returns to work, high school student Min-hae finds herself alone in the family apartment. The film follows the small shifts in her daily routine as a familiar space begins to feel different.</p>
+      </div>
+      <div class="screen">
+        <iframe src="https://player.vimeo.com/video/1105078838?title=0&amp;byline=0&amp;portrait=0" title="Urban Diary full short film on Vimeo" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <p class="watch-note">Viewing password <code>urbandiary</code> · <a href="https://vimeo.com/1105078838">Open on Vimeo</a></p>
+    </section>
+
+    <section class="credits" id="credits" aria-labelledby="credits-title">
+      <h2 id="credits-title">Selected production credits</h2>
+      <dl>
+        <div>
+          <dt>K-Art Young Creator Support · 2026</dt>
+          <dd>Selected creator, Seoul Foundation for Arts and Culture</dd>
+        </div>
+        <div>
+          <dt>Art Korea Lab Media Wall · 2026</dt>
+          <dd>Exhibiting artist and organizer, <em>Algorithm of Flowers and Grammar of Waves</em></dd>
+        </div>
+      </dl>
+    </section>
+  </main>
+  <footer class="wrap">
+    <span>Jonghoon Ahn · Filmmaker</span>
+    <a href="/">Main portfolio</a>
+  </footer>
+</body>
+</html>
