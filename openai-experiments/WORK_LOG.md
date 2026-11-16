@@ -147,3 +147,13 @@ Read README → ROADMAP → WORK_LOG → relevant spec before editing. Do not in
 - **The Things We Didn't Say:** specification reviewed, still planned; no code changed. A future authored pause/camera-distance interaction remains the next scoped idea after One Scene's QA gate.
 - **Fictional A/B/C discussion:** [2026-11-15, cycle 1](DAILY_DISCUSSIONS/2026-11-15.md). Discussion commit [`37e9930dda929da0a6362a43ecfc0c05e9cbc503`](https://github.com/reusahn/Portfolio/commit/37e9930dda929da0a6362a43ecfc0c05e9cbc503).
 - **Next:** run the integrated 56-check Node ESM suite in a working checkout, then browser smoke-test boundary stop, `PLAY CUT` label, `aria-pressed`, keyboard controls, and authored preview/restore. Preserve unrelated portfolio pages.
+
+
+## 2026-11-16 | Filmstrip keyboard-focus continuity
+- Read project overview, roadmap, review rubric, discussion policy, both project specs, prior daily discussion, current One Scene UI/playback/tests and log.
+- In `one-scene/app.mjs`, selecting a filmstrip button now focuses its replacement after `render()` recreates the filmstrip DOM. This addresses a source-level keyboard focus loss risk. Code commit: [`97ebf37788b62ff5caf638062ae68d83f4922ae4`](https://github.com/reusahn/Portfolio/commit/97ebf37788b62ff5caf638062ae68d83f4922ae4).
+- **Verified:** GitHub write and read-back; static source check confirmed render replacement, shot selection and new focus call. **Not verified:** browser focus behavior, Node ESM suite, accessibility device tests, model calls, film, or users.
+- **Blocker:** Node v22.16.0 available locally, but `git ls-remote` failed with `Could not resolve host: github.com`; no full checkout or tests were run.
+- [Dated fictional A/B/C critique and evidence](DAILY_DISCUSSIONS/2026-11-16.md), discussion commit [`e89242f996d65390389795723b84e2d49d7e4532`](https://github.com/reusahn/Portfolio/commit/e89242f996d65390389795723b84e2d49d7e4532). A prioritized visitor keyboard clarity; B challenged runtime evidence and AI necessity; C emphasized navigational agency and authored evidence ethics. No score.
+- **The Things We Didn't Say:** specification reviewed; no code change this cycle.
+- **Next:** run `node openai-experiments/one-scene/tests.mjs` from a checkout, then manually verify filmstrip keyboard focus after re-render in a real browser; retain explicit non-AI authored demo disclosure.
