@@ -165,8 +165,19 @@ function render(){
     b.append(el("strong","",SHOTS[id].label));
     b.addEventListener("click",()=>{
       stopPlayback();state.index=index;render();
-      // render() replaces filmstrip buttons; return keyboard focus to the new active button.
+      // render() replaces filmstrip buttons; return focus to the newly active button.
       strip.children[index]?.focus();
+    });
+    b.addEventListener("keydown",event=>{
+      const last=cut.shotOrder.length-1;
+      const target=event.key==="ArrowRight"?Math.min(index+1,last)
+        :event.key==="ArrowLeft"?Math.max(index-1,0)
+        :event.key==="Home"?0:event.key==="End"?last:null;
+      if(target===null)return;
+      event.preventDefault();
+      stopPlayback();state.index=target;render();
+      // The old button has been replaced; preserve keyboard focus on the selected shot.
+      strip.children[target]?.focus();
     });
     strip.append(b);
   });
