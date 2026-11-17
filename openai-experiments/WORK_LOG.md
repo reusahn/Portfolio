@@ -157,3 +157,11 @@ Read README → ROADMAP → WORK_LOG → relevant spec before editing. Do not in
 - [Dated fictional A/B/C critique and evidence](DAILY_DISCUSSIONS/2026-11-16.md), discussion commit [`e89242f996d65390389795723b84e2d49d7e4532`](https://github.com/reusahn/Portfolio/commit/e89242f996d65390389795723b84e2d49d7e4532). A prioritized visitor keyboard clarity; B challenged runtime evidence and AI necessity; C emphasized navigational agency and authored evidence ethics. No score.
 - **The Things We Didn't Say:** specification reviewed; no code change this cycle.
 - **Next:** run `node openai-experiments/one-scene/tests.mjs` from a checkout, then manually verify filmstrip keyboard focus after re-render in a real browser; retain explicit non-AI authored demo disclosure.
+
+## 2026-11-17 | Filmstrip arrow/Home/End keyboard navigation
+- Read README, ROADMAP, WORK_LOG, REVIEW_RUBRIC, discussion archive guide, One Scene and Things Unsaid specs, November 16 review, and One Scene source/tests.
+- Added filmstrip button key handling for Left/Right arrows and Home/End; stops playback, re-renders and focuses replacement shot button. Existing click and Enter/Space remain intact. Code commit: [`44333f777a1a4c075e147c6a69ae4c268afad08f`](https://github.com/reusahn/Portfolio/commit/44333f777a1a4c075e147c6a69ae4c268afad08f).
+- **Evidence:** authorized GitHub source update succeeded; no browser or Node execution occurred. An attempt to retrieve GitHub Actions runs via the connector was rejected as an unsupported endpoint. Do not claim the 56 registered Node assertions passed.
+- **Fictional A/B/C review:** [November 17 discussion](DAILY_DISCUSSIONS/2026-11-17.md) (discussion commit [`c633df157a9069a2b3b937e4a840a8195f9a0235`](https://github.com/reusahn/Portfolio/commit/c633df157a9069a2b3b937e4a840a8195f9a0235)). A prioritizes accessible portfolio navigation; B demands runtime proof and AI necessity; C emphasizes agency and authored evidence limits. No score.
+- **Second project:** reviewed `THINGS_UNSAID_SPEC.md`, no implementation change. Next safe prototype: authored fictional pause/distance interaction, no user disclosures.
+- **Blockers / next:** run full `node tests.mjs` on a checkout, then browser keyboard, focus, boundary and playback-stop QA. No model, filmed media or user study was tested.
