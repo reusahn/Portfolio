@@ -165,3 +165,13 @@ Read README → ROADMAP → WORK_LOG → relevant spec before editing. Do not in
 - **Fictional A/B/C review:** [November 17 discussion](DAILY_DISCUSSIONS/2026-11-17.md) (discussion commit [`c633df157a9069a2b3b937e4a840a8195f9a0235`](https://github.com/reusahn/Portfolio/commit/c633df157a9069a2b3b937e4a840a8195f9a0235)). A prioritizes accessible portfolio navigation; B demands runtime proof and AI necessity; C emphasizes agency and authored evidence limits. No score.
 - **Second project:** reviewed `THINGS_UNSAID_SPEC.md`, no implementation change. Next safe prototype: authored fictional pause/distance interaction, no user disclosures.
 - **Blockers / next:** run full `node tests.mjs` on a checkout, then browser keyboard, focus, boundary and playback-stop QA. No model, filmed media or user study was tested.
+
+
+## 2026-11-18 | Filmstrip keyboard contract extracted; regression checks registered
+- Read project README, roadmap, rubric, daily archive instructions, both specs, recent daily discussions, and One Scene source/tests.
+- Extracted pure `filmstripKeyTarget` navigation behavior into `one-scene/playback.mjs`, wired `app.mjs` to use it, and added five `tests.mjs` assertions for arrows, Home/End, clamped boundaries, ignored keys and invalid indices.
+- Source commits: [`30d31eeba77d3763ced55e5d297c421ca72619d4`](https://github.com/reusahn/Portfolio/commit/30d31eeba77d3763ced55e5d297c421ca72619d4), [`47f8585c57ab131432435b715ca4c12df6ff560f`](https://github.com/reusahn/Portfolio/commit/47f8585c57ab131432435b715ca4c12df6ff560f), [`0502307b30f09a0b643297b966821751d07e63e3`](https://github.com/reusahn/Portfolio/commit/0502307b30f09a0b643297b966821751d07e63e3).
+- **Verification:** GitHub writes succeeded. Container Node v22.16.0 exists, but `git ls-remote` failed because `github.com` could not resolve. **No complete Node suite, browser, mobile, screen-reader, AI model, filmed footage or user-study tests were run.** Five new assertions are *registered*, not passed; 61 total expected from source, unverified at runtime.
+- **Fictional A/B/C critique and decision:** [November 18 discussion](DAILY_DISCUSSIONS/2026-11-18.md), discussion commit [`9d123c8cb984b82a0ca6a287e6870a4facf1b37b`](https://github.com/reusahn/Portfolio/commit/9d123c8cb984b82a0ca6a287e6870a4facf1b37b). A prioritizes portfolio reliability, B requires runnable tests and AI necessity, C emphasizes agency and authored evidence. No numeric score.
+- **Project two:** `THINGS_UNSAID_SPEC.md` reviewed; no code change.
+- **Next:** run `node tests.mjs` on a real checkout and browser keyboard/focus/playback QA, document actual results; then plan model-vs-authored baseline without client credentials.
