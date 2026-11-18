@@ -2,7 +2,7 @@ import {shotProvenance,SHOT_PROVENANCE} from "./evidence.mjs";
 import {auditVisibleEvidence,compareVisibleEvidence} from "./coverage.mjs";
 import {FACTS,SHOTS,PERSPECTIVES,makeCut} from "./story.mjs";
 import {acceptEditProposal} from "./edit-contract.mjs";
-import {shotDuration,nextShotIndex,shotAnnouncement} from "./playback.mjs";
+import {shotDuration,nextShotIndex,shotAnnouncement,filmstripKeyTarget} from "./playback.mjs";
 
 const $=selector=>document.querySelector(selector);
 const $$=selector=>Array.from(document.querySelectorAll(selector));
@@ -169,10 +169,7 @@ function render(){
       strip.children[index]?.focus();
     });
     b.addEventListener("keydown",event=>{
-      const last=cut.shotOrder.length-1;
-      const target=event.key==="ArrowRight"?Math.min(index+1,last)
-        :event.key==="ArrowLeft"?Math.max(index-1,0)
-        :event.key==="Home"?0:event.key==="End"?last:null;
+      const target=filmstripKeyTarget(event.key,index,cut.shotOrder.length);
       if(target===null)return;
       event.preventDefault();
       stopPlayback();state.index=target;render();
