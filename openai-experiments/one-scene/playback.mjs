@@ -16,3 +16,16 @@ export function shotAnnouncement(playing, witnessName, index, shotLabel){
     throw new Error("Invalid shot announcement");
   return playing?null:witnessName+", shot "+(index+1)+": "+shotLabel;
 }
+
+/** Pure keyboard navigation rule for a filmstrip; null means the key is not handled. */
+export function filmstripKeyTarget(key,index,total){
+  if(!Number.isInteger(index)||!Number.isInteger(total)||total<1||index<0||index>=total)
+    throw new Error("Invalid filmstrip position");
+  switch(key){
+    case "ArrowRight":return Math.min(index+1,total-1);
+    case "ArrowLeft":return Math.max(index-1,0);
+    case "Home":return 0;
+    case "End":return total-1;
+    default:return null;
+  }
+}
