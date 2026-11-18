@@ -36,7 +36,7 @@ ok("schema explicitly forbids additional properties",()=>assert.equal(EDIT_PLAN_
 ok("caption IDs are witness-specific",()=>{assert.ok(CAPTION_IDS.friend.includes("absence"));assert.equal(validateEditProposal({...proposal,caption_id:"routine"},"friend").valid,false)});
 
 
-import {PACE_MS,shotDuration,nextShotIndex,shotAnnouncement} from "./playback.mjs";
+import {PACE_MS,shotDuration,nextShotIndex,shotAnnouncement,filmstripKeyTarget} from "./playback.mjs";
 ok("all authored pace values resolve to finite durations",()=>Object.keys(PACE_MS).forEach(p=>assert.ok(Number.isFinite(shotDuration(p))&&shotDuration(p)>0)));
 ok("pacing order matches the cinematic labels",()=>assert.ok(shotDuration("linger")>shotDuration("measured")&&shotDuration("measured")>shotDuration("brisk")));
 ok("unrecognized playback pace is rejected",()=>assert.throws(()=>shotDuration("instant")));
@@ -81,3 +81,29 @@ ok("manual navigation produces an accessible shot announcement",()=>assert.equal
 ok("timed playback suppresses repeated live-region announcements",()=>assert.equal(shotAnnouncement(true,"Friend",1,"Door"),null));
 ok("invalid announcement inputs fail closed",()=>{assert.throws(()=>shotAnnouncement(false,"",0,"Door"));assert.throws(()=>shotAnnouncement(false,"Friend",-1,"Door"));});
 console.log(count,"total contract and screen-reader announcement checks registered");
+
+
+// Pure keyboard-navigation regression checks. DOM focus still requires browser QA.
+ok("filmstrip arrows navigate one shot",()=>{
+  assert.equal(filmstripKeyTarget("ArrowRight",1,4),2);
+  assert.equal(filmstripKeyTarget("ArrowLeft",2,4),1);
+});
+ok("filmstrip Home and End select boundaries",()=>{
+  assert.equal(filmstripKeyTarget("Home",2,4),0);
+  assert.equal(filmstripKeyTarget("End",1,4),3);
+});
+ok("filmstrip arrows clamp at boundaries",()=>{
+  assert.equal(filmstripKeyTarget("ArrowLeft",0,4),0);
+  assert.equal(filmstripKeyTarget("ArrowRight",3,4),3);
+});
+ok("filmstrip ignores activation and unrelated keys",()=>{
+  assert.equal(filmstripKeyTarget("Enter",1,4),null);
+  assert.equal(filmstripKeyTarget(" ",1,4),null);
+  assert.equal(filmstripKeyTarget("Escape",1,4),null);
+});
+ok("filmstrip rejects invalid indices and lengths",()=>{
+  assert.throws(()=>filmstripKeyTarget("Home",-1,4));
+  assert.throws(()=>filmstripKeyTarget("End",4,4));
+  assert.throws(()=>filmstripKeyTarget("ArrowRight",0,0));
+});
+console.log(count,"total checks registered (execution must be verified separately)");
