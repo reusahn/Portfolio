@@ -182,3 +182,13 @@ Read README → ROADMAP → WORK_LOG → relevant spec before editing. Do not in
 - **Evidence:** GitHub writes succeeded and Node v22.16.0 was observed. `git ls-remote` failed DNS resolution of `github.com`; **no checkout, actual full test execution, syntax gate execution, browser QA, live model, filmed footage, or user study**. The previously estimated 61 assertions are not 61 passes.
 - **A/B/C decision:** reproducibility gate now; actual test execution and browser accessibility next; only then constrained model-versus-authored comparison. No evidence-based numeric score. The Things We Didn't Say remains a planned original fictional-performance prototype.
 - **Next:** on network-enabled checkout run `cd openai-experiments/one-scene && node qa.mjs`, record exit code and output, then manual browser keyboard/playback checks. No unrelated portfolio pages modified.
+
+
+## 2026-11-20 | Count actual assertion reports in One Scene QA gate
+- Read core portfolio planning/rubric, both specs, recent daily records and QA/test sources from `gh-pages`.
+- Changed `one-scene/qa.mjs`: count top-level `ok(` registrations and actual `PASS ` lines from the Node test process; report observed/expected and fail closed on zero/mismatch or process failure. This is test-result accounting, not new browser behavior or AI integration. Registration count assumes the existing test source format.
+- Updated `one-scene/README.md` with the behavior and limitations.
+- **Verified:** GitHub connector writes returned commit IDs. **Not verified:** actual full-checkout Node QA, browser, screen reader, mobile, live model, footage, or user studies. Local `git clone` failed due to `Could not resolve host: github.com`. No passing count claimed.
+- Commits: [QA code `337fa9b28f8dd2497186e7a6aec9c37237a1d9f2`](https://github.com/reusahn/Portfolio/commit/337fa9b28f8dd2497186e7a6aec9c37237a1d9f2); [QA documentation `edf7d4bf3f0b71b8793d7073d4f8b41af8035f01`](https://github.com/reusahn/Portfolio/commit/edf7d4bf3f0b71b8793d7073d4f8b41af8035f01); [fictional review `ef35d216e2a3e09664d8a957475f1fea39bfbf97`](https://github.com/reusahn/Portfolio/commit/ef35d216e2a3e09664d8a957475f1fea39bfbf97).
+- [November 20 fictional A/B/C critique and next steps](DAILY_DISCUSSIONS/2026-11-20.md). No numeric score assigned. Project two remains specification-only.
+- **Next:** execute `node qa.mjs` on the actual checkout, capture exit status and assertion count; perform browser accessibility/playback QA; only then advance the AI-versus-authored-edit hypothesis.
