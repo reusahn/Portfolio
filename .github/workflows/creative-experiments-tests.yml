@@ -22,12 +22,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify module syntax
-        run: |
-          node --check openai-experiments/one-scene/story.mjs
-          node --check openai-experiments/one-scene/edit-contract.mjs
-          node --check openai-experiments/one-scene/app.mjs
-          node --check openai-experiments/one-scene/tests.mjs
-      - name: Run narrative invariants and adversarial checks
+      - name: Run complete One Scene source QA gate
         working-directory: openai-experiments/one-scene
-        run: node tests.mjs
+        run: node qa.mjs
