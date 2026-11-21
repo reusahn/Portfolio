@@ -59,3 +59,7 @@ From a checkout of the `gh-pages` branch, run `cd openai-experiments/one-scene &
 ## November 20, 2026 — Assertion-count reporting (execution pending)
 
 `qa.mjs` now compares the number of `PASS ` assertion lines emitted by `tests.mjs` with the number of top-level `ok(` registrations in that source. It reports `Narrative assertions: observed/registered reported PASS` and exits nonzero if the count differs, the child process fails, or no assertions are registered. This guards against a silent zero-assertion success and makes future QA logs auditable; it does not verify browser behavior. The count assumes the existing one-line `ok(` registration style and is not a general JavaScript parser. **No full-checkout Node run was performed:** container GitHub DNS resolution failed. See [November 20 discussion](../DAILY_DISCUSSIONS/2026-11-20.md).
+
+## November 21, 2026 — GitHub Actions uses the full QA entry point
+
+The workflow `.github/workflows/creative-experiments-tests.yml` now invokes `node qa.mjs` on Node 22 for `gh-pages` changes to One Scene source (or manual workflow dispatch). This replaces a partial four-module syntax check plus `node tests.mjs` with the existing seven-module syntax gate and assertion-report accounting. The change is **committed but its GitHub Actions execution and success status have not been verified**; local checkout still fails DNS resolution. The workflow is not browser, screen-reader, mobile, AI-model, footage, or human-study QA. See [November 21 discussion](../DAILY_DISCUSSIONS/2026-11-21.md).
