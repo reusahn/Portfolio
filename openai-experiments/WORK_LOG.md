@@ -192,3 +192,11 @@ Read README → ROADMAP → WORK_LOG → relevant spec before editing. Do not in
 - Commits: [QA code `337fa9b28f8dd2497186e7a6aec9c37237a1d9f2`](https://github.com/reusahn/Portfolio/commit/337fa9b28f8dd2497186e7a6aec9c37237a1d9f2); [QA documentation `edf7d4bf3f0b71b8793d7073d4f8b41af8035f01`](https://github.com/reusahn/Portfolio/commit/edf7d4bf3f0b71b8793d7073d4f8b41af8035f01); [fictional review `ef35d216e2a3e09664d8a957475f1fea39bfbf97`](https://github.com/reusahn/Portfolio/commit/ef35d216e2a3e09664d8a957475f1fea39bfbf97).
 - [November 20 fictional A/B/C critique and next steps](DAILY_DISCUSSIONS/2026-11-20.md). No numeric score assigned. Project two remains specification-only.
 - **Next:** execute `node qa.mjs` on the actual checkout, capture exit status and assertion count; perform browser accessibility/playback QA; only then advance the AI-versus-authored-edit hypothesis.
+
+## 2026-11-21 | GitHub Actions full One Scene QA entry point (execution unverified)
+- Reviewed README, ROADMAP, rubric, discussion guide, both project specifications, recent discussion, One Scene QA/tests/playback sources and workflow.
+- Replaced partial workflow syntax checks and direct tests with `node qa.mjs` under Node 22, intended to check seven modules and count narrative assertions. [Workflow commit `0c6ab315baf9bbc43df3881a2d05a98647700701`](https://github.com/reusahn/Portfolio/commit/0c6ab315baf9bbc43df3881a2d05a98647700701).
+- Updated prototype documentation. [README commit `2bc2f584887a0e6b6165bf8a954554f8332c320f`](https://github.com/reusahn/Portfolio/commit/2bc2f584887a0e6b6165bf8a954554f8332c320f).
+- **Verified:** GitHub writes returned commit IDs. **Not verified:** CI run, Node tests, browser/mobile/screen-reader QA, model, footage or user study. Local `git ls-remote` failed due to DNS; GitHub Actions runs endpoint rejected by connector. No passing count or score.
+- [November 21 fictional A/B/C discussion](DAILY_DISCUSSIONS/2026-11-21.md), [discussion commit `563515a6b0f466fa9e22d27b7db6626dae0103d6`](https://github.com/reusahn/Portfolio/commit/563515a6b0f466fa9e22d27b7db6626dae0103d6).
+- The Things We Didn't Say specification reviewed; no implementation. **Next:** obtain actual `node qa.mjs` exit code/assertion count, browser keyboard/playback QA, then model-versus-authored comparison.
