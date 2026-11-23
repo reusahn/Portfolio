@@ -206,3 +206,12 @@ Read README → ROADMAP → WORK_LOG → relevant spec before editing. Do not in
 - Updated `one-scene/README.md` with linked, scoped CI evidence: [commit `8735ec06ae908e9669b1ee6795d704fbfb748754`](https://github.com/reusahn/Portfolio/commit/8735ec06ae908e9669b1ee6795d704fbfb748754). The exact assertion stdout/count was **not** retrieved. Browser, screen-reader, mobile, model, footage and user-study results remain unverified.
 - Fictional A/B/C dialogue and explicit disagreements: [November 22 discussion](DAILY_DISCUSSIONS/2026-11-22.md), committed as [`01a84c4c79d437074a70823e21d5fd3786167cf6`](https://github.com/reusahn/Portfolio/commit/01a84c4c79d437074a70823e21d5fd3786167cf6). No numeric portfolio score.
 - Reviewed `THINGS_UNSAID_SPEC.md`; project two unchanged. Next: retrieve QA stdout if possible and manually test browser keyboard focus, playback boundaries, mobile and reduced motion. No unrelated pages changed.
+
+## 2026-11-23 | Reduced-motion timed-playback safeguard
+- Read the project overview, roadmap, rubric, daily discussion conventions, November 22 discussion, both priority specs, and One Scene playback/UI/QA source.
+- Added a `prefers-reduced-motion: reduce` check before timed playback begins. When enabled, playback stays stopped and the UI explains manual shot navigation. Source commit [`5480fac277333bbd539a5c669a05dd37bd1f56ea`](https://github.com/reusahn/Portfolio/commit/5480fac277333bbd539a5c669a05dd37bd1f56ea).
+- Documented the behavior and limitations in `one-scene/README.md`, commit [`0325f04484ed5587779d867e55d6e1294ab5d0fd`](https://github.com/reusahn/Portfolio/commit/0325f04484ed5587779d867e55d6e1294ab5d0fd).
+- [Today's explicit fictional A/B/C critique and next decision](DAILY_DISCUSSIONS/2026-11-23.md), commit [`065253c6a9e2f14f03becb63fb81b3008c2e6da2`](https://github.com/reusahn/Portfolio/commit/065253c6a9e2f14f03becb63fb81b3008c2e6da2).
+- **Verified:** GitHub connector returned commit IDs for the source and documentation changes. **Not verified:** current Node/CI pass, actual reduced-motion browser behavior, keyboard focus, mobile, screen reader, or AI integration. The prior CI success applies only to its earlier commit.
+- Project two `THINGS_UNSAID_SPEC.md` reviewed; no implementation change. No unrelated pages or job applications changed.
+- **Next:** run current-commit QA and manually test reduced-motion on/off plus filmstrip focus, playback boundaries and mobile before claiming accessible behavior; then evaluate secure model-versus-authored edit comparison.
