@@ -233,6 +233,13 @@ function init(){
   $("#nextShot").parentNode.append(playButton);
   playButton.addEventListener("click",()=>{
     if(state.playing){stopPlayback();render();return}
+    // Respect OS reduced-motion preference: do not start automatic timed cuts.
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+      stopPlayback();render();
+      const status=$("#previewStatus");
+      if(status)status.textContent="Reduced motion is enabled. Use the shot buttons or arrow keys to advance manually.";
+      return;
+    }
     const total=state.preview?state.preview.shotOrder.length:makeCut(state.pov,state.focus).shotOrder.length;
     if(state.index===total-1)state.index=0;
     state.playing=true;render();schedulePlayback();
