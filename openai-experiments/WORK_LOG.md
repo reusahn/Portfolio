@@ -215,3 +215,8 @@ Read README → ROADMAP → WORK_LOG → relevant spec before editing. Do not in
 - **Verified:** GitHub connector returned commit IDs for the source and documentation changes. **Not verified:** current Node/CI pass, actual reduced-motion browser behavior, keyboard focus, mobile, screen reader, or AI integration. The prior CI success applies only to its earlier commit.
 - Project two `THINGS_UNSAID_SPEC.md` reviewed; no implementation change. No unrelated pages or job applications changed.
 - **Next:** run current-commit QA and manually test reduced-motion on/off plus filmstrip focus, playback boundaries and mobile before claiming accessible behavior; then evaluate secure model-versus-authored edit comparison.
+
+## 2026-11-24 | Exact CI evidence recovered
+- November 23 [CI run 45177665284](https://github.com/reusahn/Portfolio/actions/runs/45177665284), head 0325f04484ed5587779d867e55d6e1294ab5d0fd: job logs verified seven syntax checks and 61/61 narrative assertions reported PASS. No browser or model tests.
+- Evidence documentation: [prototype README](https://github.com/reusahn/Portfolio/commit/66f939b4a7586a236049a028a839b76f919d7230), [overview](https://github.com/reusahn/Portfolio/commit/de3467e6981f88704a8130f170b31a6dc9ad4df2).
+- [Fictional A/B/C discussion](DAILY_DISCUSSIONS/2026-11-24.md), [commit 0cf8312f059887b698f5d4dc9100a06fa32c01af](https://github.com/reusahn/Portfolio/commit/0cf8312f059887b698f5d4dc9100a06fa32c01af). No score. Project two spec reviewed, unchanged. Next: actual browser QA, then secure model comparison. No unrelated pages or applications changed.
