@@ -1,5 +1,5 @@
 # One Scene, Many Truths — Playable Storyboard v0.1
-**Status:** Source files saved. Browser runtime tests have not been executed in this session. The underlying narrative contract has a Node test suite; results are pending external execution.
+**Status:** Authored storyboard source; November 23 CI verified 61/61 narrative assertions and seven syntax checks. Browser runtime and live model remain unverified.
 
 ## Play
 [Open the interactive storyboard](https://jonghoonahn.com/openai-experiments/one-scene/) or run any static HTTP server within this folder:
@@ -71,3 +71,7 @@ The GitHub Actions **Creative Experiments narrative checks** run [44902583400](h
 ## November 23, 2026 — Reduced-motion playback safeguard
 
 The PLAY CUT handler now checks `prefers-reduced-motion: reduce` before scheduling any timed shot transitions. When that preference is active, the handler leaves playback stopped and displays a manual-navigation explanation in the existing status area. This is an opt-in autoplay guard; arrow keys and shot buttons remain available. Source commit [`5480fac277333bbd539a5c669a05dd37bd1f56ea`](https://github.com/reusahn/Portfolio/commit/5480fac277333bbd539a5c669a05dd37bd1f56ea). **Verified:** GitHub write succeeded; source-level branch readback is planned separately. **Not verified:** browser behavior under OS reduced-motion settings, mobile, screen reader or current CI. Manual browser QA is still required. See [November 23 fictional review](../DAILY_DISCUSSIONS/2026-11-23.md).
+
+## November 24, 2026 — Current source QA evidence recovered
+
+[CI run 45177665284](https://github.com/reusahn/Portfolio/actions/runs/45177665284) at commit [`0325f04484ed5587779d867e55d6e1294ab5d0fd`](https://github.com/reusahn/Portfolio/commit/0325f04484ed5587779d867e55d6e1294ab5d0fd) completed successfully on November 23. [Job 137703001710](https://github.com/reusahn/Portfolio/actions/runs/45177665284/job/137703001710) logs explicitly report seven PASS syntax checks, `Narrative assertions: 61/61 reported PASS`, and `PASS Node narrative test process (all registered assertions reported PASS)`. This includes syntax checking the reduced-motion source, not executing its browser behavior. Browser, screen-reader, mobile, model, footage and human-study QA were explicitly not run by the script. See [November 24 review](../DAILY_DISCUSSIONS/2026-11-24.md).
