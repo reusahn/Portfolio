@@ -26,3 +26,6 @@ The model can propose alternate delivery strategies, pause placement, interpreta
 - Avoid automatically responding as a lost or deceased person; do not suggest AI generated performance is a person's authentic thought.
 - Use privacy-first defaults; no collection of vulnerable confessions necessary.
 - Distinguish original cinematic direction, AI proposals and audience modifications.
+
+## 2026-11-25 — First bounded performance comparison
+For the first implementation use only the authored fictional line above. Compare identical words at 0.5 s versus 2 s of silence between sentences, with camera distance fixed. Show the selected pause duration and label both performances as authored. Do not collect visitor text or infer emotion. Acceptance: both modes preserve the exact caption, replay resets timing, and manual advance remains available. This is a planned experiment, not implemented or tested; defer until One Scene browser evidence is obtained.
