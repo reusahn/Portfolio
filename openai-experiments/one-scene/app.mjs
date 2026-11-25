@@ -83,6 +83,8 @@ function renderEditAudit(authored,active){
     block.append(el("span","small-label",heading));
     block.append(el("p","audit-order",cut.shotOrder.map(id=>SHOTS[id].label).join(" → ")));
     block.append(el("p","audit-caption", "“"+cut.caption+"”"));
+    const pace=heading==="ORIGINAL"?PERSPECTIVES[state.pov].tempo:state.preview.pace;
+    block.append(el("p","audit-caption","PACE: "+pace.toUpperCase()+" · "+(shotDuration(pace)/1000)+" s per shot"));
     const coverage=auditVisibleEvidence(cut.shotOrder,SHOT_PROVENANCE,FACTS.length);
     block.append(el("p","audit-caption","VISIBLE EVIDENCE: "+coverage.shown.length+" / "+FACTS.length+" facts; "+coverage.contextual.length+" contextual inserts."));
     if(coverage.notShown.length)block.append(el("p","audit-caption","NOT SHOWN: "+coverage.notShown.map(i=>"Fact "+String(i+1).padStart(2,"0")).join(", ")));
