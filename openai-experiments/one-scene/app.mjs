@@ -6,7 +6,7 @@ import {shotDuration,nextShotIndex,shotAnnouncement,filmstripKeyTarget} from "./
 
 const $=selector=>document.querySelector(selector);
 const $$=selector=>Array.from(document.querySelectorAll(selector));
-const state={pov:"friend",focus:"auto",index:0,compare:false,preview:null,playing:false};
+const state={demoPace:"measured",pov:"friend",focus:"auto",index:0,compare:false,preview:null,playing:false};
 let playbackTimer=null;
 function stopPlayback(){
   if(playbackTimer!==null){clearTimeout(playbackTimer);playbackTimer=null}
@@ -271,6 +271,19 @@ function init(){
   editAudit.hidden=true;
   editAudit.setAttribute("aria-label","Original versus validated edit comparison");
   const anchor=$("#compareButton");
+  const paceLabel=el("label","hint","Demonstration edit pace (manual, not AI): ");
+  const paceSelect=el("select");
+  for(const pace of ["linger","measured","brisk"]){
+    const option=el("option","",pace);
+    option.value=pace;paceSelect.append(option);
+  }
+  paceSelect.value=state.demoPace;
+  paceLabel.append(paceSelect);
+  paceSelect.addEventListener("change",()=>{
+    stopPlayback();state.demoPace=paceSelect.value;
+    state.preview=null;state.index=0;render();
+  });
+  anchor.parentNode.insertBefore(paceLabel,anchor);
   anchor.parentNode.insertBefore(previewButton,anchor);
   anchor.parentNode.insertBefore(previewStatus,anchor);
   anchor.parentNode.insertBefore(demoNote,anchor);
@@ -281,7 +294,7 @@ function init(){
     const original=PERSPECTIVES[state.pov];
     const captionIds={friend:"silence",worker:"clock",leaver:"pause"};
     const source=[...original.shots].reverse();
-    const proposal={perspective:state.pov,shot_order:source,caption_id:captionIds[state.pov],pace:"measured"};
+    const proposal={perspective:state.pov,shot_order:source,caption_id:captionIds[state.pov],pace:state.demoPace};
     const result=acceptEditProposal(proposal,state.pov);
     if(!result.ok){previewStatus.textContent="Proposal rejected: "+result.errors.join("; ");return}
     state.preview=result.edit;
